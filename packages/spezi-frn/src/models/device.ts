@@ -12,7 +12,7 @@ export enum DevicePlatform {
   Web = 'Web',
 }
 
-export const deviceConverter = new SchemaConverter({
+export const deviceConverter = new SchemaConverter<Device, any>({
   schema: z
     .object({
       notificationToken: z.string(),
@@ -24,14 +24,14 @@ export const deviceConverter = new SchemaConverter({
       timeZone: optionalish(z.string()),
     })
     .transform((values) => new Device(values)),
-  encode: (object) => ({
+  encode: (object: Device) => ({
     notificationToken: object.notificationToken,
     platform: object.platform,
-    osVersion: object.osVersion ?? null,
-    appVersion: object.appVersion ?? null,
-    appBuild: object.appBuild ?? null,
-    language: object.language ?? null,
-    timeZone: object.timeZone ?? null,
+    osVersion: object.osVersion ?? undefined,
+    appVersion: object.appVersion ?? undefined,
+    appBuild: object.appBuild ?? undefined,
+    language: object.language ?? undefined,
+    timeZone: object.timeZone ?? undefined,
   }),
 });
 

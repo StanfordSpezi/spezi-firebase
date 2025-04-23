@@ -5,12 +5,12 @@
 import { z } from 'zod';
 import { SchemaConverter } from '../utils/schemaConverter.js';
 
-export const localizedTextConverter = new SchemaConverter({
+export const localizedTextConverter = new SchemaConverter<LocalizedText, any>({
   schema: z
     .string()
     .or(z.record(z.string()))
     .transform((content) => LocalizedText.raw(content)),
-  encode: (object) => object.content,
+  encode: (object: LocalizedText) => LocalizedText.raw(object.content),
 });
 
 /**

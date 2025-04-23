@@ -30,17 +30,18 @@ export class FirestoreDeviceStorage implements DeviceStorage {
   /**
    * Get devices collection reference
    */
-  private get devices(): Query<Device> {
+  private get devices(): Query {
+    // We need to use type assertion here because the converter doesn't match Firestore's expected type
     return this.firestore
       .collectionGroup(this.devicesCollection)
-      .withConverter(this.converter<Device>(deviceConverter.encode));
+      .withConverter(this.converter<Device>(deviceConverter.encode) as any);
   }
 
   /**
    * Get user devices collection reference
    * @param userId The user ID
    */
-  private userDevices(userId: string): DocumentReference {
+  private userDevices(userId: string) {
     const path = this.userDevicesPathTemplate.replace('{userId}', userId);
     return this.firestore.collection(path);
   }
@@ -52,13 +53,13 @@ export class FirestoreDeviceStorage implements DeviceStorage {
   private converter<T>(encoder: (data: T) => Record<string, any>) {
     return {
       toFirestore: (data: T) => encoder(data),
-      fromFirestore: (snapshot: FirebaseFirestore.QueryDocumentSnapshot) => {
+      fromFirestore: (snapshot: FirebaseFirestore.QueryDocumentSnapshot<any>) => {
         const data = snapshot.data();
         return {
           id: snapshot.id,
           path: snapshot.ref.path,
           lastUpdate: snapshot.updateTime?.toDate() ?? new Date(),
-          content: data as T
+          content: data as unknown as T
         } as Document<T>;
       }
     };
@@ -102,7 +103,9 @@ export class FirestoreDeviceStorage implements DeviceStorage {
       }
 
       if (!didFindExistingDevice) {
-        const newDeviceRef = this.userDevices(userId).doc();
+        // Create a new document with auto-generated ID
+        const newDeviceCol = this.userDevices(userId);
+        const newDeviceRef = newDeviceCol.doc();
         transaction.set(newDeviceRef, newDevice);
       }
     });
@@ -136,16 +139,28 @@ export class FirestoreDeviceStorage implements DeviceStorage {
    * @param userId The user ID
    */
   async getUserDevices(userId: string): Promise<Document<Device>[]> {
-    const userDevicesSnapshot = await this.userDevices(userId)
-      .withConverter(this.converter<Device>(deviceConverter.encode))
-      .get();
+    // Get the devices collection and apply the converter
+    const userDevicesCollection = this.userDevices(userId);
+    const snapshot = await userDevicesCollection.get();
     
-    return userDevicesSnapshot.docs.map(doc => ({
-      id: doc.id,
-      path: doc.ref.path,
-      lastUpdate: doc.updateTime?.toDate() ?? new Date(),
-      content: doc.data() as Device
-    }));
+    return snapshot.docs.map((doc: any) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        path: doc.ref.path,
+        lastUpdate: doc.updateTime?.toDate() ?? new Date(),
+        // Handle device data appropriately
+        content: new Device({
+          notificationToken: data.notificationToken,
+          platform: data.platform as DevicePlatform,
+          osVersion: data.osVersion ?? undefined,
+          appVersion: data.appVersion ?? undefined,
+          appBuild: data.appBuild ?? undefined,
+          language: data.language ?? undefined,
+          timeZone: data.timeZone ?? undefined,
+        })
+      };
+    });
   }
 
   /**

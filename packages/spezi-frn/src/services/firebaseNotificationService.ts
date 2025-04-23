@@ -114,9 +114,9 @@ export class FirebaseNotificationService implements NotificationService {
           };
           
           // Add custom data to the apns payload if present
-          if (notification.data) {
+          if (notification.data && tokenMessage.apns && tokenMessage.apns.payload) {
             tokenMessage.apns.payload = {
-              ...tokenMessage.apns.payload,
+              aps: tokenMessage.apns.payload.aps,
               ...notification.data,
             };
           }

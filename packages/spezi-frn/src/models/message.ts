@@ -16,7 +16,7 @@ export enum MessageType {
   System = 'System',
 }
 
-export const messageConverter = new SchemaConverter({
+export const messageConverter = new SchemaConverter<Message, any>({
   schema: z
     .object({
       creationDate: dateConverter.schema,
@@ -30,19 +30,28 @@ export const messageConverter = new SchemaConverter({
       reference: optionalish(z.string()),
       data: optionalish(z.record(z.string())),
     })
-    .transform((content) => new Message(content)),
-  encode: (object) => ({
-    creationDate: dateConverter.encode(object.creationDate),
-    dueDate: object.dueDate ? dateConverter.encode(object.dueDate) : null,
-    completionDate: object.completionDate ? dateConverter.encode(object.completionDate) : null,
-    type: object.type,
-    title: localizedTextConverter.encode(object.title),
-    description: object.description ? localizedTextConverter.encode(object.description) : null,
-    action: object.action ?? null,
-    isDismissible: object.isDismissible,
-    reference: object.reference ?? null,
-    data: object.data ?? null,
-  }),
+    .transform((content) => {
+      // Ensure title is properly typed as LocalizedText
+      return new Message({
+        ...content,
+        title: content.title as unknown as LocalizedText
+      });
+    }),
+  encode: (object: Message) => {
+    // Create an intermediate object to avoid TypeScript errors with date conversion
+    return {
+      creationDate: dateConverter.encode(object.creationDate),
+      dueDate: object.dueDate ? dateConverter.encode(object.dueDate) : undefined,
+      completionDate: object.completionDate ? dateConverter.encode(object.completionDate) : undefined,
+      type: object.type,
+      title: localizedTextConverter.encode(object.title),
+      description: object.description ? localizedTextConverter.encode(object.description) : undefined,
+      action: object.action ?? null,
+      isDismissible: object.isDismissible,
+      reference: object.reference ?? null,
+      data: object.data ?? null,
+    };
+  },
 });
 
 export class Message {
