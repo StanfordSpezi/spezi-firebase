@@ -1,15 +1,16 @@
 {
-  "name": "nextjstemplate",
+  "name": "spezi-firebase-remote-notifications",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "Stanford Biodesign Digital Health Next.js Template",
+  "description": "Stanford Biodesign Digital Health Spezi FRN Package",
   "keywords": [
     "Stanford",
+    "Firebase",
     "Biodesign"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/StanfordBDHG/NextJSTemplate"
+    "url": "https://github.com/StanfordSpezi/spezi-firebase-remote-notifications"
   },
   "private": true,
   "scripts": {
