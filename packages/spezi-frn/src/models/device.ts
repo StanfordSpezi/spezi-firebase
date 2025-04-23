@@ -17,11 +17,11 @@ export const deviceConverter = new SchemaConverter<Device, any>({
     .object({
       notificationToken: z.string(),
       platform: z.nativeEnum(DevicePlatform),
-      osVersion: optionalish(z.string()),
-      appVersion: optionalish(z.string()),
-      appBuild: optionalish(z.string()),
-      language: optionalish(z.string()),
-      timeZone: optionalish(z.string()),
+      osVersion: z.string().optional(),
+      appVersion: z.string().optional(),
+      appBuild: z.string().optional(),
+      language: z.string().optional(),
+      timeZone: z.string().optional(),
     })
     .transform((values) => new Device(values)),
   encode: (object: Device) => ({

@@ -10,7 +10,8 @@
     "lint:fix": "eslint src --fix",
     "build": "tsc --noEmitOnError false || true",
     "clean": "if [ -f tsconfig.tsbuildinfo ]; then rm tsconfig.tsbuildinfo; fi && if [ -d lib ]; then rm -r lib; fi",
-    "test": "env TZ=UTC mocha",
+    "test": "env TZ=UTC mocha --require ts-node/register --reporter spec \"test/**/*.test.ts\"",
+    "test:watch": "env TZ=UTC mocha --watch --require ts-node/register \"test/**/*.test.ts\"",
     "test:ci": "npm run test",
     "prepublishOnly": "npm run clean && npm run build"
   },
