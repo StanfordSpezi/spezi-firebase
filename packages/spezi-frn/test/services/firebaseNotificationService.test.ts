@@ -1,8 +1,7 @@
 import { expect } from 'chai'
-import { createSandbox, type SinonSandbox, SinonStub } from 'sinon'
+import { createSandbox, type SinonSandbox } from 'sinon'
 import { Device, DevicePlatform } from '../../src/models/device.js'
-import { LocalizedText } from '../../src/models/localizedText.js'
-import { Message, MessageType } from '../../src/models/message.js'
+import { Message } from '../../src/models/message.js'
 import { FirebaseNotificationService } from '../../src/services/firebaseNotificationService.js'
 import { type Document } from '../../src/storage/deviceStorage.js'
 
