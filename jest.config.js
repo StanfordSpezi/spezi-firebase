@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+// This source file is part of the Stanford Biodesign Digital Health Next.js Template open-source project
 //
-// SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
 //
 // SPDX-License-Identifier: MIT
 //
@@ -21,5 +21,8 @@ module.exports = {
     ],
   },
   // Exclude the package tests which use Mocha, not Jest
-  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/packages/'],
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/packages/'
+  ],
 }
