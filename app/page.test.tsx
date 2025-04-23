@@ -11,11 +11,11 @@ import '@testing-library/jest-dom'
 import Home from './page'
 
 describe('Home Component', () => {
-  it('renders the Stanford Biodesign Digital Health Next.js Template heading', () => {
+  it('renders the Spezi Firebase Remote Notifications heading', () => {
     render(<Home />)
 
     const headingElement = screen.getByText(
-      /Welcome to the Stanford Biodesign Digital Health Next.js Template/i,
+      /Welcome to the Spezi Firebase Remote Notifications/i,
     )
 
     expect(headingElement).toBeInTheDocument()
