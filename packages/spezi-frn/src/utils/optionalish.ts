@@ -12,8 +12,8 @@ import { type z } from 'zod'
  * working with Zod's transform API and schema validation.
  */
 export function optionalish<T extends z.ZodTypeAny>(schema: T) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return schema.nullable().transform<z.infer<T> | undefined>((val) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return val === null ? undefined : (val as z.infer<T>)
   })
 }
@@ -29,13 +29,11 @@ export function optionalishDefault<T extends z.ZodTypeAny>(
   schema: T,
   defaultValue: z.infer<T>,
 ) {
-  return (
-    schema
-      .nullable()
-      .default(null)
+  return schema
+    .nullable()
+    .default(null)
+    .transform<z.infer<T>>((val) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      .transform<z.infer<T>>((val) => {
-        return val === null ? defaultValue : (val as z.infer<T>)
-      })
-  )
+      return val === null ? defaultValue : (val as z.infer<T>)
+    })
 }
