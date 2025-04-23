@@ -7,7 +7,7 @@
 //
 
 import Image from 'next/image'
-import { generateGreeting } from '@stanfordbdhg/example-package'
+import { generateGreeting } from '@stanfordbdhg/spezi-frn'
 
 export default function Home() {
   const greeting = generateGreeting()
