@@ -3,11 +3,11 @@
  */
 
 // Re-export utilities for convenience
-import * as chai from 'chai';
-import * as sinon from 'sinon';
+import * as chai from 'chai'
+import * as sinon from 'sinon'
 
-export { chai, sinon };
-export const { expect } = chai;
+export { chai, sinon }
+export const { expect } = chai
 
 // Add custom test utilities here
 
@@ -16,7 +16,7 @@ export const { expect } = chai;
  * @param ms Milliseconds to wait
  */
 export function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 /**
@@ -26,7 +26,11 @@ export function sleep(ms: number): Promise<void> {
  * @param data Document data
  * @returns Mock document reference
  */
-export function createMockDocRef(id: string, path: string, data: Record<string, any> = {}) {
+export function createMockDocRef(
+  id: string,
+  path: string,
+  data: Record<string, any> = {},
+) {
   return {
     id,
     path,
@@ -35,8 +39,8 @@ export function createMockDocRef(id: string, path: string, data: Record<string, 
       id,
       data: () => data,
       exists: true,
-      ref: { path }
+      ref: { path },
     }),
-    delete: sinon.stub().resolves()
-  };
+    delete: sinon.stub().resolves(),
+  }
 }

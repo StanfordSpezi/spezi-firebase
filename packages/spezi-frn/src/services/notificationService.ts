@@ -2,9 +2,9 @@
  * Interface for notification service
  */
 
-import { Device } from '../models/device.js';
-import { Message } from '../models/message.js';
-import { Document } from '../storage/deviceStorage.js';
+import { type Device } from '../models/device.js'
+import { type Message } from '../models/message.js'
+import { type Document } from '../storage/deviceStorage.js'
 
 export interface NotificationService {
   /**
@@ -12,7 +12,7 @@ export interface NotificationService {
    * @param userId The user ID
    * @param device The device to register
    */
-  registerDevice(userId: string, device: Device): Promise<void>;
+  registerDevice(userId: string, device: Device): Promise<void>
 
   /**
    * Unregister a device from notifications
@@ -23,8 +23,8 @@ export interface NotificationService {
   unregisterDevice(
     userId: string,
     notificationToken: string,
-    platform: string
-  ): Promise<void>;
+    platform: string,
+  ): Promise<void>
 
   /**
    * Send a notification to a user
@@ -35,14 +35,14 @@ export interface NotificationService {
   sendNotification(
     userId: string,
     notification: {
-      title: Record<string, string>;
-      body: Record<string, string>;
-      data?: Record<string, string>;
+      title: Record<string, string>
+      body: Record<string, string>
+      data?: Record<string, string>
     },
     options?: {
-      language?: string;
-    }
-  ): Promise<void>;
+      language?: string
+    },
+  ): Promise<void>
 
   /**
    * Send a notification based on a message
@@ -54,7 +54,7 @@ export interface NotificationService {
     userId: string,
     message: Document<Message>,
     options?: {
-      language?: string;
-    }
-  ): Promise<void>;
+      language?: string
+    },
+  ): Promise<void>
 }
