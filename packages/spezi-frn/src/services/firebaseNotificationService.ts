@@ -5,7 +5,7 @@
 import { type Messaging, type TokenMessage } from 'firebase-admin/messaging'
 import { type NotificationService } from './notificationService.js'
 import { DevicePlatform, type Device } from '../models/device.js'
-import { type Message, messageConverter } from '../models/message.js'
+import { type Message } from '../models/message.js'
 import { type DeviceStorage, type Document } from '../storage/deviceStorage.js'
 
 export class FirebaseNotificationService implements NotificationService {
@@ -72,11 +72,11 @@ export class FirebaseNotificationService implements NotificationService {
 
       // Get localized strings
       const title =
-        notification.title[preferredLanguage] ||
-        notification.title.en ||
+        notification.title[preferredLanguage] ??
+        notification.title.en ??
         'Message'
       const body =
-        notification.body[preferredLanguage] || notification.body.en || ''
+        notification.body[preferredLanguage] ?? notification.body.en ?? ''
 
       // Create token message for this device
       if (device.content.notificationToken) {
@@ -86,7 +86,7 @@ export class FirebaseNotificationService implements NotificationService {
             title,
             body,
           },
-          data: notification.data || {},
+          data: notification.data ?? {},
         }
 
         // Add platform-specific configurations
@@ -96,7 +96,7 @@ export class FirebaseNotificationService implements NotificationService {
               title,
               body,
             },
-            data: notification.data || {},
+            data: notification.data ?? {},
           }
         } else if (device.content.platform === DevicePlatform.iOS) {
           tokenMessage.apns = {
@@ -111,10 +111,7 @@ export class FirebaseNotificationService implements NotificationService {
           }
 
           // Add custom data to the apns payload if present
-          if (
-            notification.data &&
-            tokenMessage.apns.payload
-          ) {
+          if (notification.data && tokenMessage.apns.payload) {
             tokenMessage.apns.payload = {
               aps: tokenMessage.apns.payload.aps,
               ...notification.data,

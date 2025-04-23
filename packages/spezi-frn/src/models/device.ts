@@ -3,7 +3,6 @@
  */
 
 import { z } from 'zod'
-import { optionalish } from '../utils/optionalish.js'
 import { SchemaConverter } from '../utils/schemaConverter.js'
 
 export enum DevicePlatform {
