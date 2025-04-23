@@ -70,7 +70,9 @@ export class FirestoreDeviceStorage implements DeviceStorage {
         return {
           id: snapshot.id,
           path: snapshot.ref.path,
-          lastUpdate: snapshot.updateTime.toDate() ?? new Date(),
+          // Firestore's toDate() should always return a Date, but adding a fallback just in case
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          lastUpdate: snapshot.updateTime.toDate() || new Date(),
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
           content: deviceConverter.schema.parse(data) as unknown as T,
         }
@@ -170,7 +172,9 @@ export class FirestoreDeviceStorage implements DeviceStorage {
       return {
         id: doc.id,
         path: doc.ref.path,
-        lastUpdate: doc.updateTime.toDate() ?? new Date(),
+        // Firestore's toDate() should always return a Date, but adding a fallback just in case
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        lastUpdate: doc.updateTime.toDate() || new Date(),
         content: data,
       } as Document<Device>
     })

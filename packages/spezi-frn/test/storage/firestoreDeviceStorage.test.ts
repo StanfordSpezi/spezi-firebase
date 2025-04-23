@@ -74,6 +74,7 @@ describe('FirestoreDeviceStorage', () => {
     mockFirestore = {
       collection: sandbox.stub().returns(mockCollection),
       collectionGroup: sandbox.stub().returns(mockCollectionGroup),
+      // eslint-disable-next-line @typescript-eslint/require-await
       runTransaction: sandbox.stub().callsFake(async (callback: any) => {
         return callback(mockTransaction)
       }),
@@ -133,6 +134,7 @@ describe('FirestoreDeviceStorage', () => {
 
       mockFirestore.runTransaction = sandbox
         .stub()
+        // eslint-disable-next-line @typescript-eslint/require-await
         .callsFake(async (transactionCallback: any) => {
           // Create a transaction mock that matches what FirestoreDeviceStorage expects
           const transaction = {
@@ -236,6 +238,7 @@ describe('FirestoreDeviceStorage', () => {
       // Create a custom mock implementation for this test
       mockFirestore.runTransaction = sandbox
         .stub()
+        // eslint-disable-next-line @typescript-eslint/require-await
         .callsFake(async (transactionCallback: any) => {
           // Override the transaction object with a proper implementation for this test
           const transaction = {
@@ -282,6 +285,7 @@ describe('FirestoreDeviceStorage', () => {
       // Create a custom mock implementation for this test
       mockFirestore.runTransaction = sandbox
         .stub()
+        // eslint-disable-next-line @typescript-eslint/require-await
         .callsFake(async (transactionCallback: any) => {
           // Override the transaction object with a proper implementation for this test
           const transaction = {
@@ -392,6 +396,7 @@ describe('FirestoreDeviceStorage', () => {
       // Create a custom mock implementation for this test
       mockFirestore.runTransaction = sandbox
         .stub()
+        // eslint-disable-next-line @typescript-eslint/require-await
         .callsFake(async (transactionCallback: any) => {
           // Override the transaction object with a proper implementation for this test
           const transaction = {

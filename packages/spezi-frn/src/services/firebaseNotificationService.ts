@@ -71,11 +71,15 @@ export class FirebaseNotificationService implements NotificationService {
         device.content.language ?? options?.language ?? 'en'
 
       // Get localized strings
+      // Using nullish coalescing to handle missing language variations
       const title =
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         notification.title[preferredLanguage] ??
         notification.title.en ??
         'Message'
+      // Using nullish coalescing to handle missing language variations
       const body =
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         notification.body[preferredLanguage] ?? notification.body.en ?? ''
 
       // Create token message for this device
@@ -168,6 +172,8 @@ export class FirebaseNotificationService implements NotificationService {
 
     // Convert LocalizedText objects to Record<string, string>
     const title: Record<string, string> = {}
+    // message.content.title is possibly undefined, but linter thinks it's always truthy
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (message.content.title) {
       if (typeof message.content.title.content === 'string') {
         title.en = message.content.title.content

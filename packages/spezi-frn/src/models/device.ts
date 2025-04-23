@@ -27,10 +27,15 @@ export const deviceConverter = new SchemaConverter<Device, any>({
   encode: (object: Device) => ({
     notificationToken: object.notificationToken,
     platform: object.platform,
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     osVersion: object.osVersion ?? undefined,
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     appVersion: object.appVersion ?? undefined,
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     appBuild: object.appBuild ?? undefined,
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     language: object.language ?? undefined,
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     timeZone: object.timeZone ?? undefined,
   }),
 })
