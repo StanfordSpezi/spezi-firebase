@@ -21,8 +21,5 @@ module.exports = {
     ],
   },
   // Exclude the package tests which use Mocha, not Jest
-  testPathIgnorePatterns: [
-    '<rootDir>/node_modules/',
-    '<rootDir>/packages/'
-  ],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/packages/'],
 }
