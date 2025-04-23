@@ -8,11 +8,7 @@ import {
   type Transaction,
 } from 'firebase-admin/firestore'
 import { type DeviceStorage, type Document } from './deviceStorage.js'
-import {
-  Device,
-  type DevicePlatform,
-  deviceConverter,
-} from '../models/device.js'
+import { type Device, deviceConverter } from '../models/device.js'
 
 /**
  * This class provides Firestore storage for device tokens
@@ -40,10 +36,13 @@ export class FirestoreDeviceStorage implements DeviceStorage {
    * Get devices collection reference
    */
   private get devices(): Query {
-    // We need to use type assertion here because the converter doesn't match Firestore's expected type
-    return this.firestore
-      .collectionGroup(this.devicesCollection)
-      .withConverter(this.converter<Device>(deviceConverter.encode) as any)
+    // Need to use type assertion due to FirebaseFirestore's complex types
+    return (
+      this.firestore
+        .collectionGroup(this.devicesCollection)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+        .withConverter(this.converter<Device>(deviceConverter.encode) as any)
+    )
   }
 
   /**
@@ -59,19 +58,22 @@ export class FirestoreDeviceStorage implements DeviceStorage {
    * Create a Firestore converter for a specific type
    * @param encoder Function to encode the type to Firestore
    */
-  private converter<T>(encoder: (data: T) => Record<string, any>) {
+  private converter<T>(encoder: (data: T) => Record<string, unknown>) {
     return {
-      toFirestore: (data: T) => encoder(data),
+      toFirestore: (data: T): Record<string, unknown> => encoder(data),
       fromFirestore: (
-        snapshot: FirebaseFirestore.QueryDocumentSnapshot<any>,
-      ) => {
+        snapshot: FirebaseFirestore.QueryDocumentSnapshot<
+          Record<string, unknown>
+        >,
+      ): Document<T> => {
         const data = snapshot.data()
         return {
           id: snapshot.id,
           path: snapshot.ref.path,
           lastUpdate: snapshot.updateTime.toDate() ?? new Date(),
-          content: data as unknown as T,
-        } as Document<T>
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+          content: deviceConverter.schema.parse(data) as unknown as T,
+        }
       },
     }
   }
@@ -81,7 +83,7 @@ export class FirestoreDeviceStorage implements DeviceStorage {
    * @param callback Transaction callback
    */
   private async runTransaction<T>(
-    callback: (deviceQuery: Query<any>, transaction: Transaction) => Promise<T>,
+    callback: (deviceQuery: Query, transaction: Transaction) => Promise<T>,
   ): Promise<T> {
     return this.firestore.runTransaction(async (transaction) => {
       return callback(this.devices, transaction)
@@ -143,7 +145,8 @@ export class FirestoreDeviceStorage implements DeviceStorage {
       )
 
       for (const device of devices.docs) {
-        if (device.data().platform !== platform) continue
+        // Compare as strings to avoid type issues
+        if (String(device.data().platform) !== platform) continue
         transaction.delete(device.ref)
       }
     })
@@ -156,25 +159,20 @@ export class FirestoreDeviceStorage implements DeviceStorage {
   async getUserDevices(userId: string): Promise<Array<Document<Device>>> {
     // Get the devices collection and apply the converter
     const userDevicesCollection = this.userDevices(userId)
-    const snapshot = await userDevicesCollection.get()
+    const devicesRef = userDevicesCollection.withConverter(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+      this.converter<Device>(deviceConverter.encode) as any,
+    )
+    const snapshot = await devicesRef.get()
 
-    return snapshot.docs.map((doc: any) => {
+    return snapshot.docs.map((doc) => {
       const data = doc.data()
       return {
         id: doc.id,
         path: doc.ref.path,
-        lastUpdate: doc.updateTime?.toDate() ?? new Date(),
-        // Handle device data appropriately
-        content: new Device({
-          notificationToken: data.notificationToken,
-          platform: data.platform as DevicePlatform,
-          osVersion: data.osVersion ?? undefined,
-          appVersion: data.appVersion ?? undefined,
-          appBuild: data.appBuild ?? undefined,
-          language: data.language ?? undefined,
-          timeZone: data.timeZone ?? undefined,
-        }),
-      }
+        lastUpdate: doc.updateTime.toDate() ?? new Date(),
+        content: data,
+      } as Document<Device>
     })
   }
 

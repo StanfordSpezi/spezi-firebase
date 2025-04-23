@@ -5,6 +5,7 @@
 import { z } from 'zod'
 import { SchemaConverter } from '../utils/schemaConverter.js'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const localizedTextConverter = new SchemaConverter<LocalizedText, any>({
   schema: z
     .string()
@@ -20,9 +21,19 @@ export const localizedTextConverter = new SchemaConverter<LocalizedText, any>({
 export type LocalizedTextParams<S extends string, Acc extends unknown[] = []> =
   S extends `${string}@${infer N}${infer Rest}` ?
     N extends `${number}` ?
-      LocalizedTextParams<Rest, [...Acc, string | LocalizedText]>
+      LocalizedTextParams<Rest, [...Acc, string | number | LocalizedText]>
     : LocalizedTextParams<Rest, Acc>
   : Acc
+
+// Type guard to check if value is LocalizedText
+function isLocalizedText(value: unknown): value is LocalizedText {
+  if (typeof value !== 'object' || value === null) {
+    return false
+  }
+
+  const obj = value as Record<string, unknown>
+  return 'localize' in obj && typeof obj.localize === 'function'
+}
 
 export class LocalizedText {
   // Properties
@@ -53,19 +64,17 @@ export class LocalizedText {
 
     for (const language of Object.keys(input)) {
       copy[language] = params.reduce(
-        (previousValue, currentValue, index) =>
-          previousValue.replace(
-            `@${index}`,
-            (
-              typeof currentValue === 'object' &&
-                currentValue !== null &&
-                'localize' in currentValue &&
-                typeof (currentValue as { localize: unknown }).localize ===
-                  'function'
-            ) ?
-              String((currentValue as LocalizedText).localize(language))
-            : String(currentValue),
-          ),
+        (previousValue, currentValue, index) => {
+          let replacement = String(currentValue)
+
+          // Check if the value is a LocalizedText and call localize
+          if (isLocalizedText(currentValue)) {
+            const localizedText = currentValue as LocalizedText
+            replacement = String(localizedText.localize(language))
+          }
+
+          return previousValue.replace(`@${index}`, replacement)
+        },
         String(input[language] || ''),
       )
     }

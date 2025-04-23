@@ -11,6 +11,7 @@ export enum DevicePlatform {
   Web = 'Web',
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const deviceConverter = new SchemaConverter<Device, any>({
   schema: z
     .object({
