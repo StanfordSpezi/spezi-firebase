@@ -1,32 +1,35 @@
 {
-  "name": "nextjstemplate",
+  "name": "spezi-firebase-remote-notifications",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "Stanford Biodesign Digital Health Next.js Template",
+  "description": "Stanford Biodesign Digital Health Spezi FRN Package",
   "keywords": [
     "Stanford",
+    "Firebase",
     "Biodesign"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/StanfordBDHG/NextJSTemplate"
+    "url": "git+https://github.com/StanfordSpezi/spezi-firebase-remote-notifications.git"
   },
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"npm --prefix packages/example-package run watch\"",
-    "prebuild": "npm --prefix packages/example-package run build",
+    "dev": "concurrently \"next dev\" \"npm --prefix packages/spezi-frn run watch\"",
+    "prebuild": "npm --prefix packages/spezi-frn run build",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix & prettier --write .",
     "lint:ci": "npm run prebuild && eslint --output-file eslint_report.json --format json .",
-    "pretest": "npm --prefix packages/example-package run build",
-    "test": "jest",
+    "pretest": "npm --prefix packages/spezi-frn run build",
+    "test": "npm --prefix packages/spezi-frn run test",
+    "test:app": "jest",
+    "test:all": "npm run test && npm run test:app",
     "docs": "typedoc",
     "docs:ci": "typedoc --out ./out/docs --githubPages true"
   },
   "dependencies": {
-    "@stanfordbdhg/example-package": "file:./packages/example-package",
+    "@stanfordbdhg/spezi-frn": "file:./packages/spezi-frn",
     "next": "^14",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "react": "^18",
@@ -56,6 +59,7 @@
     "prettier": "^3",
     "tailwindcss": "^3",
     "ts-jest": "^29",
+    "ts-node": "^10.9.2",
     "typedoc": "^0.25",
     "typescript": "^5"
   }

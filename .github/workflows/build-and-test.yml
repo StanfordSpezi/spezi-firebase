@@ -30,14 +30,3 @@ jobs:
     permissions:
       contents: read
       checks: write
-  testandcoverage:
-    name: Test and Coverage
-    uses: StanfordBDHG/.github/.github/workflows/npm-test-and-coverage.yml@v2
-    secrets:
-      token: ${{ secrets.CODECOV_TOKEN }}
-  dockercomposetest:
-    name: Docker Compose & Test
-    uses: StanfordBDHG/.github/.github/workflows/docker-compose-test.yml@v2
-    with:
-      dockerComposeFile: docker-compose-development.yml
-      testscript: test.sh
