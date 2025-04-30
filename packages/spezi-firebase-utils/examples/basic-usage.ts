@@ -1,21 +1,13 @@
-import { initializeApp, cert } from 'firebase-admin/app'
-import { getFirestore } from 'firebase-admin/firestore'
 import { z } from 'zod'
 import {
   SchemaConverter,
-  DatabaseConverter,
   LocalizedText,
-  FirestoreService,
   average,
   chunks,
   capitalize,
   advanceDateByDays,
   optionalish
 } from 'spezi-firebase-utils'
-
-// Initialize Firebase
-const app = initializeApp()
-const firestore = getFirestore(app)
 
 // 1. Define schemas with SchemaConverter
 const userSchema = z.object({
@@ -42,31 +34,6 @@ const userConverter = new SchemaConverter({
     preferences: user.preferences
   })
 })
-
-// 3. Create a Firestore converter
-const firestoreUserConverter = new DatabaseConverter(userConverter)
-
-// 4. Use with Firestore
-const usersRef = firestore.collection('users').withConverter(firestoreUserConverter)
-
-// 5. Create a Firestore service
-const firestoreService = new FirestoreService(firestore)
-
-// Example: Create a user
-async function createUser(userData: Omit<User, 'createdAt'>) {
-  const user: User = {
-    ...userData,
-    createdAt: new Date()
-  }
-  
-  await usersRef.add(user)
-}
-
-// Example: Get a user
-async function getUser(userId: string) {
-  const userDoc = await firestoreService.getDocument(usersRef.doc(userId))
-  return userDoc?.content
-}
 
 // Example: Using LocalizedText
 const greeting = new LocalizedText({

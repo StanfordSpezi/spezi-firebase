@@ -11,11 +11,17 @@ export class Lazy<T> {
   }
 
   get value(): T {
-    if (this._value === undefined) {
-      this._value = this._factory?.()
+    if (this._value === undefined && this._factory) {
+      this._value = this._factory()
       this._factory = undefined
     }
-    return this._value!
+    // At this point _value should be defined, but we'll handle the case if it's not
+    if (this._value === undefined) {
+      throw new Error(
+        'Lazy value is undefined and factory function is not available',
+      )
+    }
+    return this._value
   }
 
   set value(value: T) {

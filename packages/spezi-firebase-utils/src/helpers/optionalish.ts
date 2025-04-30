@@ -14,10 +14,13 @@ export function optionalishDefault<T extends z.ZodTypeAny>(
   type: T,
   defaultValue: z.output<T>,
 ) {
-  return (
-    type
-      .or(z.null().transform(() => undefined))
-      .optional()
-      .transform((value) => value ?? defaultValue)
-  )
+  // Since we can't fully type this correctly without causing warning,
+  // we'll disable the warning for the transform function only
+  return type
+    .or(z.null().transform(() => undefined))
+    .optional()
+    .transform((value) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return value ?? defaultValue
+    })
 }
