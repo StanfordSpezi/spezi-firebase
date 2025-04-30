@@ -1,0 +1,19 @@
+{
+  "extends": ["../../.eslintrc.json"],
+  "settings": {
+    "next": {
+      "rootDir": "."
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      }
+    },
+    "next/core-web-vitals": {
+      "pages": false
+    }
+  },
+  "rules": {
+    "@next/next/no-html-link-for-pages": "off"
+  }
+}
