@@ -1,6 +1,6 @@
 # Getting Started with spezi-firebase-utils
 
-This guide will help you get started with using the spezi-firebase-utils package in your Firebase project.
+This guide will help you get started with using the spezi-firebase-utils package in your project.
 
 ## Installation
 
@@ -12,10 +12,11 @@ npm install spezi-firebase-utils
 
 ### Schema Converters with Zod
 
+The package provides utilities for schema validation and type safety using Zod, which can be used with any database or state management system.
+
 ```typescript
-import { SchemaConverter, DatabaseConverter } from 'spezi-firebase-utils';
+import { SchemaConverter } from 'spezi-firebase-utils';
 import { z } from 'zod';
-import { getFirestore } from 'firebase-admin/firestore';
 
 // Define a schema using Zod
 const userSchema = z.object({
@@ -34,27 +35,15 @@ const userConverter = new SchemaConverter({
   }),
 });
 
-// Create a Firestore converter
-const firestoreUserConverter = new DatabaseConverter(userConverter);
+// This converter can be used with any database or state management system
+// to validate and transform data
 
-// Use with Firestore
-const db = getFirestore();
-const usersRef = db.collection('users').withConverter(firestoreUserConverter);
+// Type safety with Zod
+type User = z.infer<typeof userSchema>;
 
-// Now you can use usersRef with type safety
-async function createUser(name: string, email: string, age?: number) {
-  await usersRef.add({ name, email, age });
-}
-
-async function getUser(id: string) {
-  const doc = await usersRef.doc(id).get();
-  if (doc.exists) {
-    // doc.data() is fully typed!
-    const user = doc.data();
-    console.log(`User: ${user.name}, Email: ${user.email}`);
-    return user;
-  }
-  return null;
+function processUser(userData: unknown): User {
+  // Validate and parse the input data
+  return userSchema.parse(userData);
 }
 ```
 
@@ -117,9 +106,9 @@ const validUserIds = compactMap(userIds, id => id); // ['user1', 'user2', 'user3
 
 Check out the full documentation and examples directory for more advanced usage scenarios including:
 
-- Firebase service wrappers for transactions and batched writes
 - Optional value handling with Zod
 - Lazy initialization patterns
+- Type-safe data transformations
 
 ## License
 
