@@ -10,9 +10,8 @@ npm install spezi-firebase-utils
 
 ## Features
 
-- **Schema Converters**: Type-safe Firestore data conversion with Zod
+- **Schema Converters**: Type-safe data conversion with Zod
 - **Localization**: Easily handle multi-language text with fallbacks
-- **Database Utilities**: Typed Firestore operations
 - **Array Helpers**: Functions for working with arrays (average, median, percentile, etc.)
 - **Date Utilities**: Simple date manipulation functions
 - **Lazy Loading**: Generic lazy initialization pattern
@@ -39,18 +38,6 @@ const userConverter = new SchemaConverter({
     age: user.age,
   }),
 });
-```
-
-### Database Converter
-
-```typescript
-import { DatabaseConverter } from 'spezi-firebase-utils';
-import { userConverter } from './schemas';
-
-const db = getFirestore();
-const usersRef = db.collection('users').withConverter(
-  new DatabaseConverter(userConverter)
-);
 ```
 
 ### Localized Text
