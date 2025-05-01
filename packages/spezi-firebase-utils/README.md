@@ -1,3 +1,13 @@
+<!--
+
+This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+
+SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see CONTRIBUTORS.md)
+
+SPDX-License-Identifier: MIT
+
+-->
+
 # Spezi Firebase Utils
 
 A collection of utility functions for Firebase projects, extracted from the Stanford ENGAGE-HF project.
