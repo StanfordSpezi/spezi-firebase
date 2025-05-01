@@ -1,3 +1,11 @@
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 /**
  * A utility class that implements the lazy initialization pattern.
  * The factory function is only called when the value is first accessed.
