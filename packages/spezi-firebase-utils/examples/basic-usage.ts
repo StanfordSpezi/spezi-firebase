@@ -14,18 +14,21 @@ import {
   chunks,
   capitalize,
   advanceDateByDays,
-  optionalish
+  optionalish,
+  optionalishDefault
 } from 'spezi-firebase-utils'
 
 // 1. Define schemas with SchemaConverter
 const userSchema = z.object({
   name: z.string(),
-  age: z.number().optional(),
+  // Simple optional field
+  age: optionalish(z.number()),
   email: z.string().email(),
   createdAt: z.date(),
   preferences: z.object({
-    theme: z.enum(['light', 'dark', 'system']).default('system'),
-    notifications: z.boolean().default(true)
+    // Optional with default value
+    theme: optionalishDefault(z.enum(['light', 'dark', 'system']), 'system'),
+    notifications: optionalishDefault(z.boolean(), true)
   }).optional()
 })
 
@@ -49,6 +52,17 @@ const greeting = new LocalizedText({
   'es': '¡Bienvenido a nuestra aplicación!',
   'de': 'Willkommen in unserer App!'
 })
+
+// Example: Using optionalish and optionalishDefault for handling null values
+function processUserData(data: unknown) {
+  // This will handle both undefined and null values for age
+  // age: null → undefined
+  const user = userSchema.parse(data)
+  
+  // preferences.theme will default to 'system' if undefined or null
+  // preferences.notifications will default to true if undefined or null
+  return user
+}
 
 function greetUser(language: string) {
   return greeting.localize(language)
