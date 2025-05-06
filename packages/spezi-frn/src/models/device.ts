@@ -13,18 +13,26 @@
 import { z } from 'zod'
 import { SchemaConverter } from '../utils/schemaConverter.js'
 
-export enum DevicePlatform {
-  Android = 'Android',
-  iOS = 'iOS',
-  Web = 'Web',
-}
+/**
+ * Standard platform identifiers for common device platforms.
+ * These are provided for convenience but any string value can be used
+ * when creating a device.
+ */
+export const DevicePlatform = {
+  Android: 'Android',
+  iOS: 'iOS',
+  Web: 'Web',
+  macOS: 'macOS',
+  Windows: 'Windows',
+  Linux: 'Linux',
+} as const
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const deviceConverter = new SchemaConverter<Device, any>({
   schema: z
     .object({
       notificationToken: z.string(),
-      platform: z.nativeEnum(DevicePlatform),
+      platform: z.string(),
       osVersion: z.string().optional(),
       appVersion: z.string().optional(),
       appBuild: z.string().optional(),
@@ -51,7 +59,7 @@ export const deviceConverter = new SchemaConverter<Device, any>({
 export class Device {
   // Properties
   readonly notificationToken: string
-  readonly platform: DevicePlatform
+  readonly platform: string
   readonly osVersion?: string
   readonly appVersion?: string
   readonly appBuild?: string
@@ -61,7 +69,7 @@ export class Device {
   // Constructor
   constructor(input: {
     notificationToken: string
-    platform: DevicePlatform
+    platform: string
     osVersion?: string
     appVersion?: string
     appBuild?: string

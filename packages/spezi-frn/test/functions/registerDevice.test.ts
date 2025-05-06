@@ -80,22 +80,21 @@ describe('registerDevice Function', () => {
     expect(deviceArg.appVersion).to.be.undefined
   })
 
-  it('should throw an error for invalid platform', async () => {
-    const input = {
+  it('should accept any string as platform', async () => {
+    const input: RegisterDeviceInput = {
       notificationToken: 'token123',
-      platform: 'InvalidPlatform', // Not a valid platform
+      platform: 'CustomPlatform', // Can be any string now
     }
 
     const userId = 'user123'
+    await registerDeviceHandler(userId, input)
 
-    try {
-      await registerDeviceHandler(userId, input as any)
-      // Should not reach here
-      expect.fail('Should have thrown an error')
-    } catch (error) {
-      expect(error).to.exist
-      expect(mockNotificationService.registerDevice.called).to.be.false
-    }
+    expect(mockNotificationService.registerDevice.calledOnce).to.be.true
+    
+    // Check the device created
+    const deviceArg = mockNotificationService.registerDevice.firstCall.args[1]
+    expect(deviceArg).to.be.an.instanceOf(Device)
+    expect(deviceArg.platform).to.equal('CustomPlatform')
   })
 
   it('should throw an error for missing required fields', async () => {
