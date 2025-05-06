@@ -91,20 +91,18 @@ describe('unregisterDevice Function', () => {
     }
   })
 
-  it('should throw an error for invalid platform', async () => {
+  it('should accept any string as platform', async () => {
     const userId = 'user123'
-    const input = {
+    const input: UnregisterDeviceInput = {
       notificationToken: 'token123',
-      platform: 'InvalidPlatform',
+      platform: 'CustomPlatform', // Can be any string now
     }
 
-    try {
-      await unregisterDeviceHandler(userId, input as any)
-      // Should not reach here
-      expect.fail('Should have thrown an error')
-    } catch (error) {
-      expect(error).to.exist
-      expect(mockNotificationService.unregisterDevice.called).to.be.false
-    }
+    await unregisterDeviceHandler(userId, input)
+
+    expect(mockNotificationService.unregisterDevice.calledOnce).to.be.true
+    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).to.equal(
+      'CustomPlatform'
+    )
   })
 })
