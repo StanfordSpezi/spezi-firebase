@@ -26,22 +26,22 @@ export function chunks<T>(array: T[], size: number): T[][] {
 }
 
 /**
- * Filter out undefined values from an array.
+ * Filter out undefined and null values from an array.
  */
-export function compact<T>(array: Array<T | undefined>): T[] {
-  return array.flatMap((value) => (value !== undefined ? [value] : []))
+export function compact<T>(array: Array<T | undefined | null>): T[] {
+  return array.flatMap((value) => (value !== undefined && value !== null ? [value] : []))
 }
 
 /**
- * Map an array to a new array, filtering out undefined results.
+ * Map an array to a new array, filtering out undefined and null results.
  */
 export function compactMap<T, V>(
   array: T[],
-  map: (arg0: T) => V | undefined,
+  map: (arg0: T) => V | undefined | null,
 ): V[] {
   return array.flatMap((value) => {
     const mappedValue = map(value)
-    return mappedValue !== undefined ? [mappedValue] : []
+    return mappedValue !== undefined && mappedValue !== null ? [mappedValue] : []
   })
 }
 
