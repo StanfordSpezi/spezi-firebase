@@ -52,8 +52,13 @@ describe('Array Helpers', () => {
       expect(compact([1, 2, 3])).to.deep.equal([1, 2, 3])
     })
 
-    it('should preserve null values', () => {
-      expect(compact([1, null, undefined, 2])).to.deep.equal([1, null, 2])
+    it('should filter out null values', () => {
+      expect(compact([1, null, 2, null, 3])).to.deep.equal([1, 2, 3])
+      expect(compact([null, null])).to.deep.equal([])
+    })
+
+    it('should filter out both null and undefined values', () => {
+      expect(compact([1, null, undefined, 2, null, undefined, 3])).to.deep.equal([1, 2, 3])
     })
   })
 
@@ -63,12 +68,27 @@ describe('Array Helpers', () => {
       expect(compactMap([1, 2, 3, 4, 5], mapFn)).to.deep.equal([4, 8])
     })
 
+    it('should map and filter null results', () => {
+      const mapFn = (num: number) => (num % 2 === 0 ? num * 2 : null)
+      expect(compactMap([1, 2, 3, 4, 5], mapFn)).to.deep.equal([4, 8])
+    })
+
+    it('should filter both null and undefined input values', () => {
+      expect(compactMap([1, null, 2, undefined, 3], (n) => n)).to.deep.equal([1, 2, 3])
+    })
+
+    it('should handle example from documentation', () => {
+      const userIds = ['user1', 'user2', null, 'user3', undefined]
+      expect(compactMap(userIds, id => id)).to.deep.equal(['user1', 'user2', 'user3'])
+    })
+
     it('should handle empty arrays', () => {
       expect(compactMap([], (n) => n)).to.deep.equal([])
     })
 
-    it('should handle all items mapping to undefined', () => {
+    it('should handle all items mapping to undefined or null', () => {
       expect(compactMap([1, 3, 5], (n) => (n % 2 === 0 ? n : undefined))).to.deep.equal([])
+      expect(compactMap([1, 3, 5], (n) => (n % 2 === 0 ? n : null))).to.deep.equal([])
     })
   })
 
