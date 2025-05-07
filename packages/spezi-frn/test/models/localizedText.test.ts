@@ -10,13 +10,13 @@ import { expect } from 'chai'
 import {
   LocalizedText,
   localizedTextConverter,
-} from '../../src/models/localizedText.js'
+} from 'spezi-firebase-utils'
 
 describe('LocalizedText Model', () => {
-  describe('Raw Creation', () => {
+  describe('Construction', () => {
     it('should create a LocalizedText instance from a string', () => {
       const text = 'Hello World'
-      const localizedText = LocalizedText.raw(text)
+      const localizedText = new LocalizedText(text)
 
       expect(localizedText).to.be.an.instanceOf(LocalizedText)
       expect(localizedText.content).to.equal(text)
@@ -28,7 +28,7 @@ describe('LocalizedText Model', () => {
         de: 'Hallo',
         fr: 'Bonjour',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
       expect(localizedText).to.be.an.instanceOf(LocalizedText)
       expect(localizedText.content).to.deep.equal(record)
@@ -38,7 +38,7 @@ describe('LocalizedText Model', () => {
   describe('Localize Method', () => {
     it('should return the same text for a string content', () => {
       const text = 'Hello World'
-      const localizedText = LocalizedText.raw(text)
+      const localizedText = new LocalizedText(text)
 
       expect(localizedText.localize('en')).to.equal(text)
       expect(localizedText.localize('de')).to.equal(text)
@@ -50,7 +50,7 @@ describe('LocalizedText Model', () => {
         de: 'Hallo',
         fr: 'Bonjour',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
       expect(localizedText.localize('en')).to.equal(record.en)
       expect(localizedText.localize('de')).to.equal(record.de)
@@ -63,7 +63,7 @@ describe('LocalizedText Model', () => {
         de: 'Hallo',
         fr: 'Bonjour',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
       expect(localizedText.localize('en-US')).to.equal(record.en)
       expect(localizedText.localize('de-DE')).to.equal(record.de)
@@ -75,7 +75,7 @@ describe('LocalizedText Model', () => {
         en: 'Hello',
         fr: 'Bonjour',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
       expect(localizedText.localize('de')).to.equal(record.en)
     })
@@ -85,7 +85,7 @@ describe('LocalizedText Model', () => {
         fr: 'Bonjour',
         de: 'Hallo',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
       expect(localizedText.localize('es')).to.equal(record.fr)
     })
@@ -97,12 +97,11 @@ describe('LocalizedText Model', () => {
         en: 'Hello',
         de: 'Hallo',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
       const encoded = localizedTextConverter.encode(localizedText)
 
-      expect(encoded).to.be.an.instanceOf(LocalizedText)
-      expect(encoded.content).to.deep.equal(record)
+      expect(encoded).to.deep.equal(record)
     })
   })
 })

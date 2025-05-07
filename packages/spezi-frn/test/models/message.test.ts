@@ -7,7 +7,7 @@
 //
 
 import { expect } from 'chai'
-import { LocalizedText } from '../../src/models/localizedText.js'
+import { LocalizedText } from 'spezi-firebase-utils'
 import {
   Message,
   MessageType,
@@ -20,7 +20,7 @@ describe('Message Model', () => {
   const validMessageData = {
     creationDate: now,
     type: MessageType.Information,
-    title: LocalizedText.raw({
+    title: new LocalizedText({
       en: 'Test Title',
       de: 'Testtitel',
     }),
@@ -49,7 +49,7 @@ describe('Message Model', () => {
       const messageData = {
         ...validMessageData,
         dueDate,
-        description: LocalizedText.raw({
+        description: new LocalizedText({
           en: 'Test Description',
           de: 'Testbeschreibung',
         }),
@@ -153,7 +153,7 @@ describe('Message Model', () => {
       const messageData = {
         ...validMessageData,
         dueDate,
-        description: LocalizedText.raw('Test Description'),
+        description: new LocalizedText('Test Description'),
         action: 'test-action',
       }
 
@@ -163,7 +163,7 @@ describe('Message Model', () => {
       expect(encoded).to.be.an('object')
       expect(encoded.dueDate).to.have.property('seconds')
       expect(encoded.dueDate).to.have.property('nanoseconds')
-      expect(encoded.description).to.be.an.instanceOf(LocalizedText)
+      expect(encoded.description).to.equal('Test Description')
       expect(encoded.action).to.equal(messageData.action)
     })
   })

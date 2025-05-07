@@ -11,8 +11,8 @@
     "build": "tsc --noEmitOnError false || true",
     "watch": "tsc --watch",
     "clean": "if [ -f tsconfig.tsbuildinfo ]; then rm tsconfig.tsbuildinfo; fi && if [ -d lib ]; then rm -r lib; fi",
-    "test": "env TZ=UTC mocha --require ts-node/register --reporter spec \"test/**/*.test.ts\"",
-    "test:watch": "env TZ=UTC mocha --watch --require ts-node/register \"test/**/*.test.ts\"",
+    "test": "env TZ=UTC mocha --require ts-node/register --project test-tsconfig.json --reporter spec \"test/**/*.test.ts\"",
+    "test:watch": "env TZ=UTC mocha --watch --require ts-node/register --project test-tsconfig.json \"test/**/*.test.ts\"",
     "test:ci": "npm run test",
     "prepublishOnly": "npm run clean && npm run build"
   },
@@ -28,6 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "firebase-admin": "^12.0",
+    "spezi-firebase-utils": "file:../spezi-firebase-utils",
     "zod": "^3.23.8"
   },
   "devDependencies": {
