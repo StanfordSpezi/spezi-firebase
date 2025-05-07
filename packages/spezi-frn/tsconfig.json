@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2020",
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
     "declaration": true,
@@ -10,7 +10,11 @@
     "rootDir": "src",
     "skipLibCheck": true,
     "isolatedModules": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "spezi-firebase-utils": ["../spezi-firebase-utils"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "lib", "test"]
