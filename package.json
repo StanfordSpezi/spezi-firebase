@@ -21,10 +21,9 @@
     "lint:fix": "eslint . --fix & prettier --write .",
     "lint:ci": "npm run prebuild && eslint --output-file eslint_report.json --format json .",
     "pretest": "npm --prefix packages/spezi-frn run build",
-    "test": "npm --prefix packages/spezi-frn run test",
+    "test": "npm run test:utils && npm run test:remote-notifications",
+    "test:remote-notifications": "npm --prefix packages/spezi-frn run test",
     "test:utils": "npm --prefix packages/spezi-firebase-utils run test",
-    "test:app": "jest",
-    "test:all": "npm run test && npm run test:utils && npm run test:app",
     "docs": "typedoc",
     "docs:ci": "typedoc --out ./out/docs --githubPages true"
   },
