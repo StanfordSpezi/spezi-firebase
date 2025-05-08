@@ -1,5 +1,5 @@
 {
-  "name": "spezi-firebase-utils",
+  "name": "@stanfordbdhg/spezi-firebase-utils",
   "version": "0.1.0",
   "description": "Utility functions for Firebase projects",
   "type": "module",
@@ -19,7 +19,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/StanfordBDHG/spezi-firebase-utils.git"
+    "url": "https://github.com/StanfordSpezi/spezi-firebase.git",
+    "directory": "packages/spezi-firebase-utils"
   },
   "keywords": [
     "firebase",

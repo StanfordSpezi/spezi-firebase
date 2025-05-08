@@ -1,6 +1,6 @@
 <!--
 
-This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+This source file is part of the Stanford Biodesign Digital Health Spezi Firebae open-source project
 
 SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see CONTRIBUTORS.md)
 
@@ -8,14 +8,19 @@ SPDX-License-Identifier: MIT
 
 -->
 
-# Spezi Firebase Remote Notifications
+# Spezi Firebase
 
-[![Build and Test](https://github.com/StanfordBDHG/NextJSTemplate/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/StanfordBDHG/NextJSTemplate/actions/workflows/build-and-test.yml)
-[![Deployment](https://github.com/StanfordBDHG/NextJSTemplate/actions/workflows/main.yml/badge.svg)](https://github.com/StanfordBDHG/NextJSTemplate/actions/workflows/main.yml)
-[![codecov](https://codecov.io/gh/StanfordBDHG/NextJSTemplate/graph/badge.svg?token=dfQW5eZ2up)](https://codecov.io/gh/StanfordBDHG/NextJSTemplate)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10052055.svg)](https://doi.org/10.5281/zenodo.10052055)
+[![Build and Test](https://github.com/StanfordSpezi/spezi-firebase/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/StanfordSpezi/spezi-firebase/actions/workflows/build-and-test.yml)
+[![codecov](https://codecov.io/gh/StanfordSpezi/spezi-firebase/graph/badge.svg)](https://codecov.io/gh/StanfordSpezi/spezi-firebase)
 
-A standalone package for handling Firebase Cloud Messaging (FCM) remote notifications in Spezi applications.
+A collection of Firebase utilities and further components to kickstart the development for firebase-related functions in the Stanford Spezi Ecosystem.
+
+## Repository Structure
+
+This repository contains currently two main packages:
+
+- **spezi-firebase-remote-notifications** (`packages/spezi-frn`): The main package for FCM notifications
+- **spezi-firebase-utils** (`packages/spezi-firebase-utils`): Utility functions for Firebase projects
 
 ## Features
 
@@ -29,7 +34,7 @@ A standalone package for handling Firebase Cloud Messaging (FCM) remote notifica
 ## Installation
 
 ```bash
-npm install spezi-firebase-remote-notifications
+npm install @stanfordbdhg/spezi-firebase-remote-notifications
 ```
 
 ## Quick Start
@@ -45,7 +50,7 @@ import {
   DevicePlatform,
   Device,
   LocalizedText,
-} from 'spezi-firebase-remote-notifications'
+} from '@stanfordbdhg/spezi-firebase-remote-notifications'
 
 // Initialize Firebase
 const app = initializeApp()
@@ -121,7 +126,7 @@ import {
   createUnregisterDeviceHandler,
   registerDeviceInputSchema,
   unregisterDeviceInputSchema,
-} from 'spezi-firebase-remote-notifications'
+} from '@stanfordbdhg/spezi-firebase-remote-notifications'
 
 // Create function handlers
 const registerDeviceHandler = createRegisterDeviceHandler(notificationService)
@@ -156,12 +161,12 @@ export const unregisterDevice = onCall(
 
 ## License
 
-This project is licensed under the MIT License. See [Licenses](https://github.com/StanfordBDHG/NextJSTemplate/tree/main/LICENSES) for more information.
+This project is licensed under the MIT License. See [Licenses](https://github.com/StanfordSpezi/spezi-firebase/tree/main/LICENSES) for more information.
 
 ## Contributors
 
 This project is developed as part of the Stanford Byers Center for Biodesign at Stanford University.
-See [CONTRIBUTORS.md](https://github.com/StanfordBDHG/NextJSTemplate/tree/main/CONTRIBUTORS.md) for a full list of all Next.js Template contributors.
+See [CONTRIBUTORS.md](https://github.com/StanfordSpezi/spezi-firebase/tree/main/CONTRIBUTORS.md) for a full list of all Spezi Firebase contributors.
 
 ![Stanford Byers Center for Biodesign Logo](https://raw.githubusercontent.com/StanfordBDHG/.github/main/assets/biodesign-footer-light.png#gh-light-mode-only)
 ![Stanford Byers Center for Biodesign Logo](https://raw.githubusercontent.com/StanfordBDHG/.github/main/assets/biodesign-footer-dark.png#gh-dark-mode-only)

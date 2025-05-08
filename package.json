@@ -10,7 +10,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/StanfordSpezi/spezi-firebase-remote-notifications.git"
+    "url": "git+https://github.com/StanfordSpezi/spezi-firebase.git"
   },
   "private": true,
   "scripts": {
@@ -28,7 +28,7 @@
     "docs:ci": "typedoc --out ./out/docs --githubPages true"
   },
   "dependencies": {
-    "@stanfordbdhg/spezi-frn": "file:./packages/spezi-frn"
+    "@stanfordbdhg/spezi-firebase-remote-notifications": "file:./packages/spezi-frn"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6",
