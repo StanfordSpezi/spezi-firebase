@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { expect } from 'chai'
+
 import { createSandbox, type SinonSandbox } from 'sinon'
 import {
   createUnregisterDeviceHandler,
@@ -38,7 +38,7 @@ describe('unregisterDevice Function', () => {
     sandbox.restore()
   })
 
-  it('should validate and unregister a valid device request', async () => {
+  test('should validate and unregister a valid device request', async () => {
     const userId = 'user123'
     const input: UnregisterDeviceInput = {
       notificationToken: 'token123',
@@ -47,7 +47,7 @@ describe('unregisterDevice Function', () => {
 
     await unregisterDeviceHandler(userId, input)
 
-    expect(mockNotificationService.unregisterDevice.calledOnce).to.be.true
+    expect(mockNotificationService.unregisterDevice.calledOnce).toBe(true)
     expect(mockNotificationService.unregisterDevice.firstCall.args[0]).to.equal(
       userId,
     )
@@ -59,7 +59,7 @@ describe('unregisterDevice Function', () => {
     )
   })
 
-  it('should throw an error for missing notificationToken', async () => {
+  test('should throw an error for missing notificationToken', async () => {
     const userId = 'user123'
     const input = {
       platform: DevicePlatform.iOS,
@@ -71,11 +71,11 @@ describe('unregisterDevice Function', () => {
       expect.fail('Should have thrown an error')
     } catch (error) {
       expect(error).to.exist
-      expect(mockNotificationService.unregisterDevice.called).to.be.false
+      expect(mockNotificationService.unregisterDevice.called).toBe(false)
     }
   })
 
-  it('should throw an error for missing platform', async () => {
+  test('should throw an error for missing platform', async () => {
     const userId = 'user123'
     const input = {
       notificationToken: 'token123',
@@ -87,11 +87,11 @@ describe('unregisterDevice Function', () => {
       expect.fail('Should have thrown an error')
     } catch (error) {
       expect(error).to.exist
-      expect(mockNotificationService.unregisterDevice.called).to.be.false
+      expect(mockNotificationService.unregisterDevice.called).toBe(false)
     }
   })
 
-  it('should accept any string as platform', async () => {
+  test('should accept any string as platform', async () => {
     const userId = 'user123'
     const input: UnregisterDeviceInput = {
       notificationToken: 'token123',
@@ -100,7 +100,7 @@ describe('unregisterDevice Function', () => {
 
     await unregisterDeviceHandler(userId, input)
 
-    expect(mockNotificationService.unregisterDevice.calledOnce).to.be.true
+    expect(mockNotificationService.unregisterDevice.calledOnce).toBe(true)
     expect(mockNotificationService.unregisterDevice.firstCall.args[2]).to.equal(
       'CustomPlatform'
     )

@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { expect } from 'chai'
+
 import { createSandbox, type SinonSandbox } from 'sinon'
 import { Device, DevicePlatform } from '../../src/models/device.js'
 import { FirestoreDeviceStorage } from '../../src/storage/firestoreDeviceStorage.js'
@@ -97,7 +97,7 @@ describe('FirestoreDeviceStorage', () => {
   })
 
   describe('constructor', () => {
-    it('should initialize with default options', () => {
+    test('should initialize with default options', () => {
       new FirestoreDeviceStorage(mockFirestore)
 
       // We can't test private properties directly, so test the behavior instead
@@ -105,7 +105,7 @@ describe('FirestoreDeviceStorage', () => {
         .false
     })
 
-    it('should initialize with custom options', () => {
+    test('should initialize with custom options', () => {
       const options = {
         devicesCollection: 'custom_devices',
         userDevicesPathTemplate: 'custom_users/{userId}/custom_devices',
@@ -124,7 +124,7 @@ describe('FirestoreDeviceStorage', () => {
   })
 
   describe('storeDevice', () => {
-    it('should store a new device if no existing device is found', async () => {
+    test('should store a new device if no existing device is found', async () => {
       // Setup empty query response for 'no existing device'
       mockQuerySnapshot.docs = []
 
@@ -163,14 +163,14 @@ describe('FirestoreDeviceStorage', () => {
       await storage.storeDevice(userId, device)
 
       // Verify transaction was run
-      expect(mockFirestore.runTransaction.calledOnce).to.be.true
+      expect(mockFirestore.runTransaction.calledOnce).toBe(true)
 
       // Verify collection was requested with the correct path
       expect(mockFirestore.collection.calledWith('users/user123/devices')).to.be
         .true
     })
 
-    it('should update existing device and delete others with same token', async () => {
+    test('should update existing device and delete others with same token', async () => {
       // Setup query response with multiple devices
       const mockDeviceRef1 = {
         id: 'device1',
@@ -214,15 +214,15 @@ describe('FirestoreDeviceStorage', () => {
       await storage.storeDevice(userId, device)
 
       // Check that we set the user's device
-      expect(mockTransaction.set.calledOnce).to.be.true
+      expect(mockTransaction.set.calledOnce).toBe(true)
 
       // Check that we deleted other devices with same token
-      expect(mockTransaction.delete.calledOnce).to.be.true
+      expect(mockTransaction.delete.calledOnce).toBe(true)
     })
   })
 
   describe('removeDevice', () => {
-    it('should remove devices matching token and platform', async () => {
+    test('should remove devices matching token and platform', async () => {
       const userId = 'user123'
       const token = 'token123'
       const platform = 'iOS'
@@ -263,10 +263,10 @@ describe('FirestoreDeviceStorage', () => {
       await storage.removeDevice(userId, token, platform)
 
       // Validate transaction was run
-      expect(mockFirestore.runTransaction.calledOnce).to.be.true
+      expect(mockFirestore.runTransaction.calledOnce).toBe(true)
     })
 
-    it('should not remove devices with different platform', async () => {
+    test('should not remove devices with different platform', async () => {
       // Setup device with different platform
       const deviceRef = {
         id: 'device1',
@@ -310,13 +310,13 @@ describe('FirestoreDeviceStorage', () => {
       await storage.removeDevice(userId, token, platform)
 
       // Verify transaction was run but delete wasn't called
-      expect(mockFirestore.runTransaction.calledOnce).to.be.true
-      expect(deleteStub.called).to.be.false
+      expect(mockFirestore.runTransaction.calledOnce).toBe(true)
+      expect(deleteStub.called).toBe(false)
     })
   })
 
   describe('getUserDevices', () => {
-    it('should return user devices properly formatted', async () => {
+    test('should return user devices properly formatted', async () => {
       const userId = 'user123'
 
       // Create a mock document snapshot
@@ -358,9 +358,9 @@ describe('FirestoreDeviceStorage', () => {
         .true
 
       // Check returned devices
-      expect(devices).to.be.an('array')
-      expect(devices.length).to.equal(1)
-      expect(devices[0].id).to.equal('device1')
+      expect(Array.isArray(devices)).toBe(true)
+      expect(devices.length).toBe(1)
+      expect(devices[0].id).toBe('device1')
 
       // Instead of checking instanceof, check the properties directly
       expect(devices[0].content).to.have.property(
@@ -371,15 +371,15 @@ describe('FirestoreDeviceStorage', () => {
         'platform',
         DevicePlatform.iOS,
       )
-      expect(devices[0].content).to.have.property('osVersion', '15.0')
-      expect(devices[0].content).to.have.property('appVersion', '1.0.0')
-      expect(devices[0].content.notificationToken).to.equal('token123')
-      expect(devices[0].content.platform).to.equal(DevicePlatform.iOS)
+      expect(devices[0].content).toHaveProperty("osVersion", '15.0')
+      expect(devices[0].content).toHaveProperty("appVersion", '1.0.0')
+      expect(devices[0].content.notificationToken).toBe('token123')
+      expect(devices[0].content.platform).toBe(DevicePlatform.iOS)
     })
   })
 
   describe('removeInvalidToken', () => {
-    it('should remove all devices with the invalid token', async () => {
+    test('should remove all devices with the invalid token', async () => {
       const token = 'invalid-token'
 
       // Create a device reference with the invalid token
@@ -421,7 +421,7 @@ describe('FirestoreDeviceStorage', () => {
       await storage.removeInvalidToken(token)
 
       // Verify transaction was run
-      expect(mockFirestore.runTransaction.calledOnce).to.be.true
+      expect(mockFirestore.runTransaction.calledOnce).toBe(true)
     })
   })
 })

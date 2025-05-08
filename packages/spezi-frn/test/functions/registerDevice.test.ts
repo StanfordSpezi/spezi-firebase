@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { expect } from 'chai'
+
 import { createSandbox, type SinonSandbox } from 'sinon'
 import {
   createRegisterDeviceHandler,
@@ -36,7 +36,7 @@ describe('registerDevice Function', () => {
     sandbox.restore()
   })
 
-  it('should validate and register a valid device request', async () => {
+  test('should validate and register a valid device request', async () => {
     const input: RegisterDeviceInput = {
       notificationToken: 'token123',
       platform: DevicePlatform.iOS,
@@ -50,17 +50,17 @@ describe('registerDevice Function', () => {
     const userId = 'user123'
     await registerDeviceHandler(userId, input)
 
-    expect(mockNotificationService.registerDevice.calledOnce).to.be.true
+    expect(mockNotificationService.registerDevice.calledOnce).toBe(true)
 
     // Check the device created
     const deviceArg = mockNotificationService.registerDevice.firstCall.args[1]
-    expect(deviceArg).to.be.an.instanceOf(Device)
-    expect(deviceArg.notificationToken).to.equal(input.notificationToken)
-    expect(deviceArg.platform).to.equal(DevicePlatform.iOS)
-    expect(deviceArg.osVersion).to.equal(input.osVersion)
+    expect(deviceArg).toBeInstanceOf(Device)
+    expect(deviceArg.notificationToken).toBe(input.notificationToken)
+    expect(deviceArg.platform).toBe(DevicePlatform.iOS)
+    expect(deviceArg.osVersion).toBe(input.osVersion)
   })
 
-  it('should register a device with only required fields', async () => {
+  test('should register a device with only required fields', async () => {
     const input: RegisterDeviceInput = {
       notificationToken: 'token123',
       platform: DevicePlatform.Android,
@@ -69,18 +69,18 @@ describe('registerDevice Function', () => {
     const userId = 'user123'
     await registerDeviceHandler(userId, input)
 
-    expect(mockNotificationService.registerDevice.calledOnce).to.be.true
+    expect(mockNotificationService.registerDevice.calledOnce).toBe(true)
 
     // Check the device created
     const deviceArg = mockNotificationService.registerDevice.firstCall.args[1]
-    expect(deviceArg).to.be.an.instanceOf(Device)
-    expect(deviceArg.notificationToken).to.equal(input.notificationToken)
-    expect(deviceArg.platform).to.equal(DevicePlatform.Android)
-    expect(deviceArg.osVersion).to.be.undefined
-    expect(deviceArg.appVersion).to.be.undefined
+    expect(deviceArg).toBeInstanceOf(Device)
+    expect(deviceArg.notificationToken).toBe(input.notificationToken)
+    expect(deviceArg.platform).toBe(DevicePlatform.Android)
+    expect(deviceArg.osVersion).toBeUndefined()
+    expect(deviceArg.appVersion).toBeUndefined()
   })
 
-  it('should accept any string as platform', async () => {
+  test('should accept any string as platform', async () => {
     const input: RegisterDeviceInput = {
       notificationToken: 'token123',
       platform: 'CustomPlatform', // Can be any string now
@@ -89,15 +89,15 @@ describe('registerDevice Function', () => {
     const userId = 'user123'
     await registerDeviceHandler(userId, input)
 
-    expect(mockNotificationService.registerDevice.calledOnce).to.be.true
+    expect(mockNotificationService.registerDevice.calledOnce).toBe(true)
     
     // Check the device created
     const deviceArg = mockNotificationService.registerDevice.firstCall.args[1]
-    expect(deviceArg).to.be.an.instanceOf(Device)
-    expect(deviceArg.platform).to.equal('CustomPlatform')
+    expect(deviceArg).toBeInstanceOf(Device)
+    expect(deviceArg.platform).toBe('CustomPlatform')
   })
 
-  it('should throw an error for missing required fields', async () => {
+  test('should throw an error for missing required fields', async () => {
     // Missing notification token
     const input = {
       platform: DevicePlatform.iOS,
@@ -111,7 +111,7 @@ describe('registerDevice Function', () => {
       expect.fail('Should have thrown an error')
     } catch (error) {
       expect(error).to.exist
-      expect(mockNotificationService.registerDevice.called).to.be.false
+      expect(mockNotificationService.registerDevice.called).toBe(false)
     }
   })
 })
