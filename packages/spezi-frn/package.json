@@ -1,5 +1,5 @@
 {
-  "name": "spezi-firebase-remote-notifications",
+  "name": "@stanfordbdhg/spezi-firebase-remote-notifications",
   "version": "0.1.0",
   "description": "Firebase Cloud Messaging (FCM) remote notifications package for Spezi",
   "type": "module",
@@ -27,9 +27,14 @@
   ],
   "author": "Stanford University",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StanfordSpezi/spezi-firebase.git",
+    "directory": "packages/spezi-frn"
+  },
   "dependencies": {
     "firebase-admin": "^12.0",
-    "spezi-firebase-utils": "file:../spezi-firebase-utils",
+    "@stanfordbdhg/spezi-firebase-utils": "file:../spezi-firebase-utils",
     "zod": "^3.23.8"
   },
   "devDependencies": {
