@@ -101,8 +101,7 @@ describe('FirestoreDeviceStorage', () => {
       new FirestoreDeviceStorage(mockFirestore)
 
       // We can't test private properties directly, so test the behavior instead
-      expect(mockFirestore.collection.calledWith('users/test/devices')).to.be
-        .false
+      expect(mockFirestore.collection.calledWith('users/test/devices')).toBe(false)
     })
 
     test('should initialize with custom options', () => {
@@ -118,8 +117,8 @@ describe('FirestoreDeviceStorage', () => {
       storage.getUserDevices('test')
 
       expect(
-        mockFirestore.collection.calledWith('custom_users/test/custom_devices'),
-      ).to.be.true
+        mockFirestore.collection.calledWith('custom_users/test/custom_devices')
+      ).toBe(true)
     })
   })
 
@@ -166,8 +165,7 @@ describe('FirestoreDeviceStorage', () => {
       expect(mockFirestore.runTransaction.calledOnce).toBe(true)
 
       // Verify collection was requested with the correct path
-      expect(mockFirestore.collection.calledWith('users/user123/devices')).to.be
-        .true
+      expect(mockFirestore.collection.calledWith('users/user123/devices')).toBe(true)
     })
 
     test('should update existing device and delete others with same token', async () => {
@@ -354,8 +352,7 @@ describe('FirestoreDeviceStorage', () => {
       const devices = await storage.getUserDevices(userId)
 
       // Check that we queried the correct collection
-      expect(mockFirestore.collection.calledWith('users/user123/devices')).to.be
-        .true
+      expect(mockFirestore.collection.calledWith('users/user123/devices')).toBe(true)
 
       // Check returned devices
       expect(Array.isArray(devices)).toBe(true)
@@ -363,14 +360,8 @@ describe('FirestoreDeviceStorage', () => {
       expect(devices[0].id).toBe('device1')
 
       // Instead of checking instanceof, check the properties directly
-      expect(devices[0].content).to.have.property(
-        'notificationToken',
-        'token123',
-      )
-      expect(devices[0].content).to.have.property(
-        'platform',
-        DevicePlatform.iOS,
-      )
+      expect(devices[0].content).toHaveProperty('notificationToken', 'token123')
+      expect(devices[0].content).toHaveProperty('platform', DevicePlatform.iOS)
       expect(devices[0].content).toHaveProperty("osVersion", '15.0')
       expect(devices[0].content).toHaveProperty("appVersion", '1.0.0')
       expect(devices[0].content.notificationToken).toBe('token123')

@@ -64,7 +64,7 @@ describe('Lazy Utility', () => {
 
     const lazy = new Lazy(factory)
 
-    expect(lazy.value).to.deep.equal({
+    expect(lazy.value).toEqual({
       name: 'test',
       value: 42,
       nested: { prop: true },
