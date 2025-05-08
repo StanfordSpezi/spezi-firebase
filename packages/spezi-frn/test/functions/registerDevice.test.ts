@@ -108,9 +108,10 @@ describe('registerDevice Function', () => {
     try {
       await registerDeviceHandler(userId, input as any)
       // Should not reach here
-      expect.fail('Should have thrown an error')
+      // If we get here, the test should fail
+      expect(false).toBe(true)
     } catch (error) {
-      expect(error).to.exist
+      expect(error).toBeDefined()
       expect(mockNotificationService.registerDevice.called).toBe(false)
     }
   })

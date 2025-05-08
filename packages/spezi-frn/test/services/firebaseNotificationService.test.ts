@@ -72,9 +72,7 @@ describe('FirebaseNotificationService', () => {
       expect(mockDeviceStorage.removeDevice.calledOnce).toBe(true)
       expect(mockDeviceStorage.removeDevice.firstCall.args[0]).toBe(userId)
       expect(mockDeviceStorage.removeDevice.firstCall.args[1]).toBe(token)
-      expect(mockDeviceStorage.removeDevice.firstCall.args[2]).to.equal(
-        platform,
-      )
+      expect(mockDeviceStorage.removeDevice.firstCall.args[2]).toBe(platform)
     })
   })
 
@@ -135,7 +133,7 @@ describe('FirebaseNotificationService', () => {
       const iosMessage = tokenMessages.find((m: any) => m.token === 'ios-token')
       expect(iosMessage.notification.title).toBe('Test Title')
       expect(iosMessage.notification.body).toBe('Test Body')
-      expect(iosMessage.apns).to.exist
+      expect(iosMessage.apns).toBeDefined()
 
       // Check Android token message
       const androidMessage = tokenMessages.find(
@@ -143,7 +141,7 @@ describe('FirebaseNotificationService', () => {
       )
       expect(androidMessage.notification.title).toBe('Testtitel')
       expect(androidMessage.notification.body).toBe('Testtext')
-      expect(androidMessage.android).to.exist
+      expect(androidMessage.android).toBeDefined()
     })
 
     test('should handle failed notifications and remove invalid tokens', async () => {
@@ -163,9 +161,7 @@ describe('FirebaseNotificationService', () => {
       })
 
       expect(mockDeviceStorage.removeInvalidToken.calledOnce).toBe(true)
-      expect(mockDeviceStorage.removeInvalidToken.firstCall.args[0]).to.equal(
-        'android-token',
-      )
+      expect(mockDeviceStorage.removeInvalidToken.firstCall.args[0]).toBe('android-token')
     })
   })
 
@@ -219,24 +215,24 @@ describe('FirebaseNotificationService', () => {
 
       // Check notification content
       const notification = args[1]
-      expect(notification.title).to.deep.include({
+      expect(notification.title).toEqual(expect.objectContaining({
         en: 'Info Title',
         de: 'Info Titel',
-      })
+      }))
 
-      expect(notification.body).to.deep.include({
+      expect(notification.body).toEqual(expect.objectContaining({
         en: 'Info Description',
         de: 'Info Beschreibung',
-      })
+      }))
 
       // Check data content
-      expect(notification.data).to.include({
+      expect(notification.data).toEqual(expect.objectContaining({
         messageId: 'msg1',
         messageType: 'Information',
         isDismissible: 'true',
         reference: 'ref123',
         customKey: 'customValue',
-      })
+      }))
     })
   })
 })

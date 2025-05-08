@@ -48,15 +48,9 @@ describe('unregisterDevice Function', () => {
     await unregisterDeviceHandler(userId, input)
 
     expect(mockNotificationService.unregisterDevice.calledOnce).toBe(true)
-    expect(mockNotificationService.unregisterDevice.firstCall.args[0]).to.equal(
-      userId,
-    )
-    expect(mockNotificationService.unregisterDevice.firstCall.args[1]).to.equal(
-      input.notificationToken,
-    )
-    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).to.equal(
-      input.platform,
-    )
+    expect(mockNotificationService.unregisterDevice.firstCall.args[0]).toBe(userId)
+    expect(mockNotificationService.unregisterDevice.firstCall.args[1]).toBe(input.notificationToken)
+    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).toBe(input.platform)
   })
 
   test('should throw an error for missing notificationToken', async () => {
@@ -68,9 +62,10 @@ describe('unregisterDevice Function', () => {
     try {
       await unregisterDeviceHandler(userId, input as any)
       // Should not reach here
-      expect.fail('Should have thrown an error')
+      // If we get here, the test should fail
+      expect(false).toBe(true)
     } catch (error) {
-      expect(error).to.exist
+      expect(error).toBeDefined()
       expect(mockNotificationService.unregisterDevice.called).toBe(false)
     }
   })
@@ -84,9 +79,10 @@ describe('unregisterDevice Function', () => {
     try {
       await unregisterDeviceHandler(userId, input as any)
       // Should not reach here
-      expect.fail('Should have thrown an error')
+      // If we get here, the test should fail
+      expect(false).toBe(true)
     } catch (error) {
-      expect(error).to.exist
+      expect(error).toBeDefined()
       expect(mockNotificationService.unregisterDevice.called).toBe(false)
     }
   })
@@ -101,8 +97,6 @@ describe('unregisterDevice Function', () => {
     await unregisterDeviceHandler(userId, input)
 
     expect(mockNotificationService.unregisterDevice.calledOnce).toBe(true)
-    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).to.equal(
-      'CustomPlatform'
-    )
+    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).toBe('CustomPlatform')
   })
 })

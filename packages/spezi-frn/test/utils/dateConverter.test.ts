@@ -37,7 +37,7 @@ describe('DateConverter', () => {
       const date = new Date()
       const parsed = dateConverter.schema.parse(date)
 
-      expect(parsed).to.be.instanceof(Date)
+      expect(parsed).toBeInstanceOf(Date)
       expect(parsed.getTime()).toBe(date.getTime())
     })
 
@@ -46,7 +46,7 @@ describe('DateConverter', () => {
       const expected = new Date(dateStr)
       const parsed = dateConverter.schema.parse(dateStr)
 
-      expect(parsed).to.be.instanceof(Date)
+      expect(parsed).toBeInstanceOf(Date)
       expect(parsed.toISOString()).toBe(expected.toISOString())
     })
 
@@ -59,7 +59,7 @@ describe('DateConverter', () => {
 
       const parsed = dateConverter.schema.parse(timestamp)
 
-      expect(parsed).to.be.instanceof(Date)
+      expect(parsed).toBeInstanceOf(Date)
       expect(Math.floor(parsed.getTime() / 1000)).toBe(timestamp.seconds)
     })
   })
