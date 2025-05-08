@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { expect } from 'chai'
 import {
   Device,
   DevicePlatform,
@@ -25,58 +24,52 @@ describe('Device Model', () => {
   }
 
   describe('Constructor', () => {
-    it('should create a Device instance with required properties', () => {
+    test('should create a Device instance with required properties', () => {
       const device = new Device({
         notificationToken: validDeviceData.notificationToken,
         platform: validDeviceData.platform,
       })
 
-      expect(device).to.be.an.instanceOf(Device)
-      expect(device.notificationToken).to.equal(
-        validDeviceData.notificationToken,
-      )
-      expect(device.platform).to.equal(validDeviceData.platform)
-      expect(device.osVersion).to.be.undefined
-      expect(device.appVersion).to.be.undefined
-      expect(device.appBuild).to.be.undefined
-      expect(device.language).to.be.undefined
-      expect(device.timeZone).to.be.undefined
+      expect(device).toBeInstanceOf(Device)
+      expect(device.notificationToken).toBe(validDeviceData.notificationToken)
+      expect(device.platform).toBe(validDeviceData.platform)
+      expect(device.osVersion).toBeUndefined()
+      expect(device.appVersion).toBeUndefined()
+      expect(device.appBuild).toBeUndefined()
+      expect(device.language).toBeUndefined()
+      expect(device.timeZone).toBeUndefined()
     })
 
-    it('should create a Device instance with all properties', () => {
+    test('should create a Device instance with all properties', () => {
       const device = new Device(validDeviceData)
 
-      expect(device).to.be.an.instanceOf(Device)
-      expect(device.notificationToken).to.equal(
-        validDeviceData.notificationToken,
-      )
-      expect(device.platform).to.equal(validDeviceData.platform)
-      expect(device.osVersion).to.equal(validDeviceData.osVersion)
-      expect(device.appVersion).to.equal(validDeviceData.appVersion)
-      expect(device.appBuild).to.equal(validDeviceData.appBuild)
-      expect(device.language).to.equal(validDeviceData.language)
-      expect(device.timeZone).to.equal(validDeviceData.timeZone)
+      expect(device).toBeInstanceOf(Device)
+      expect(device.notificationToken).toBe(validDeviceData.notificationToken)
+      expect(device.platform).toBe(validDeviceData.platform)
+      expect(device.osVersion).toBe(validDeviceData.osVersion)
+      expect(device.appVersion).toBe(validDeviceData.appVersion)
+      expect(device.appBuild).toBe(validDeviceData.appBuild)
+      expect(device.language).toBe(validDeviceData.language)
+      expect(device.timeZone).toBe(validDeviceData.timeZone)
     })
   })
 
   describe('Device Converter', () => {
-    it('should encode a Device instance properly', () => {
+    test('should encode a Device instance properly', () => {
       const device = new Device(validDeviceData)
       const encoded = deviceConverter.encode(device)
 
-      expect(encoded).to.be.an('object')
-      expect(encoded.notificationToken).to.equal(
-        validDeviceData.notificationToken,
-      )
-      expect(encoded.platform).to.equal(validDeviceData.platform)
-      expect(encoded.osVersion).to.equal(validDeviceData.osVersion)
-      expect(encoded.appVersion).to.equal(validDeviceData.appVersion)
-      expect(encoded.appBuild).to.equal(validDeviceData.appBuild)
-      expect(encoded.language).to.equal(validDeviceData.language)
-      expect(encoded.timeZone).to.equal(validDeviceData.timeZone)
+      expect(encoded).toBeObject()
+      expect(encoded.notificationToken).toBe(validDeviceData.notificationToken)
+      expect(encoded.platform).toBe(validDeviceData.platform)
+      expect(encoded.osVersion).toBe(validDeviceData.osVersion)
+      expect(encoded.appVersion).toBe(validDeviceData.appVersion)
+      expect(encoded.appBuild).toBe(validDeviceData.appBuild)
+      expect(encoded.language).toBe(validDeviceData.language)
+      expect(encoded.timeZone).toBe(validDeviceData.timeZone)
     })
 
-    it('should handle undefined optional properties correctly', () => {
+    test('should handle undefined optional properties correctly', () => {
       const device = new Device({
         notificationToken: validDeviceData.notificationToken,
         platform: validDeviceData.platform,
@@ -84,16 +77,14 @@ describe('Device Model', () => {
 
       const encoded = deviceConverter.encode(device)
 
-      expect(encoded).to.be.an('object')
-      expect(encoded.notificationToken).to.equal(
-        validDeviceData.notificationToken,
-      )
-      expect(encoded.platform).to.equal(validDeviceData.platform)
-      expect(encoded.osVersion).to.be.undefined
-      expect(encoded.appVersion).to.be.undefined
-      expect(encoded.appBuild).to.be.undefined
-      expect(encoded.language).to.be.undefined
-      expect(encoded.timeZone).to.be.undefined
+      expect(encoded).toBeObject()
+      expect(encoded.notificationToken).toBe(validDeviceData.notificationToken)
+      expect(encoded.platform).toBe(validDeviceData.platform)
+      expect(encoded.osVersion).toBeUndefined()
+      expect(encoded.appVersion).toBeUndefined()
+      expect(encoded.appBuild).toBeUndefined()
+      expect(encoded.language).toBeUndefined()
+      expect(encoded.timeZone).toBeUndefined()
     })
   })
 })

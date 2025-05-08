@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { expect } from 'chai'
+
 import { createSandbox, type SinonSandbox } from 'sinon'
 import { Device, DevicePlatform } from '../../src/models/device.js'
 import { Message } from '../../src/models/message.js'
@@ -46,7 +46,7 @@ describe('FirebaseNotificationService', () => {
   })
 
   describe('registerDevice', () => {
-    it('should call deviceStorage.storeDevice with correct parameters', async () => {
+    test('should call deviceStorage.storeDevice with correct parameters', async () => {
       const userId = 'user123'
       const device = new Device({
         notificationToken: 'token123',
@@ -55,23 +55,23 @@ describe('FirebaseNotificationService', () => {
 
       await service.registerDevice(userId, device)
 
-      expect(mockDeviceStorage.storeDevice.calledOnce).to.be.true
-      expect(mockDeviceStorage.storeDevice.firstCall.args[0]).to.equal(userId)
-      expect(mockDeviceStorage.storeDevice.firstCall.args[1]).to.equal(device)
+      expect(mockDeviceStorage.storeDevice.calledOnce).toBe(true)
+      expect(mockDeviceStorage.storeDevice.firstCall.args[0]).toBe(userId)
+      expect(mockDeviceStorage.storeDevice.firstCall.args[1]).toBe(device)
     })
   })
 
   describe('unregisterDevice', () => {
-    it('should call deviceStorage.removeDevice with correct parameters', async () => {
+    test('should call deviceStorage.removeDevice with correct parameters', async () => {
       const userId = 'user123'
       const token = 'token123'
       const platform = 'iOS'
 
       await service.unregisterDevice(userId, token, platform)
 
-      expect(mockDeviceStorage.removeDevice.calledOnce).to.be.true
-      expect(mockDeviceStorage.removeDevice.firstCall.args[0]).to.equal(userId)
-      expect(mockDeviceStorage.removeDevice.firstCall.args[1]).to.equal(token)
+      expect(mockDeviceStorage.removeDevice.calledOnce).toBe(true)
+      expect(mockDeviceStorage.removeDevice.firstCall.args[0]).toBe(userId)
+      expect(mockDeviceStorage.removeDevice.firstCall.args[1]).toBe(token)
       expect(mockDeviceStorage.removeDevice.firstCall.args[2]).to.equal(
         platform,
       )
@@ -108,7 +108,7 @@ describe('FirebaseNotificationService', () => {
       mockDeviceStorage.getUserDevices.resolves(devices)
     })
 
-    it('should not send notifications if no devices are found', async () => {
+    test('should not send notifications if no devices are found', async () => {
       mockDeviceStorage.getUserDevices.resolves([])
 
       await service.sendNotification('user123', {
@@ -116,37 +116,37 @@ describe('FirebaseNotificationService', () => {
         body: { en: 'Test Body' },
       })
 
-      expect(mockMessaging.sendEach.called).to.be.false
+      expect(mockMessaging.sendEach.called).toBe(false)
     })
 
-    it('should create token messages for each device', async () => {
+    test('should create token messages for each device', async () => {
       await service.sendNotification('user123', {
         title: { en: 'Test Title', de: 'Testtitel' },
         body: { en: 'Test Body', de: 'Testtext' },
       })
 
-      expect(mockMessaging.sendEach.calledOnce).to.be.true
+      expect(mockMessaging.sendEach.calledOnce).toBe(true)
 
       const tokenMessages = mockMessaging.sendEach.firstCall.args[0]
-      expect(tokenMessages).to.be.an('array')
-      expect(tokenMessages.length).to.equal(2)
+      expect(Array.isArray(tokenMessages)).toBe(true)
+      expect(tokenMessages.length).toBe(2)
 
       // Check iOS token message
       const iosMessage = tokenMessages.find((m: any) => m.token === 'ios-token')
-      expect(iosMessage.notification.title).to.equal('Test Title')
-      expect(iosMessage.notification.body).to.equal('Test Body')
+      expect(iosMessage.notification.title).toBe('Test Title')
+      expect(iosMessage.notification.body).toBe('Test Body')
       expect(iosMessage.apns).to.exist
 
       // Check Android token message
       const androidMessage = tokenMessages.find(
         (m: any) => m.token === 'android-token',
       )
-      expect(androidMessage.notification.title).to.equal('Testtitel')
-      expect(androidMessage.notification.body).to.equal('Testtext')
+      expect(androidMessage.notification.title).toBe('Testtitel')
+      expect(androidMessage.notification.body).toBe('Testtext')
       expect(androidMessage.android).to.exist
     })
 
-    it('should handle failed notifications and remove invalid tokens', async () => {
+    test('should handle failed notifications and remove invalid tokens', async () => {
       mockMessaging.sendEach.resolves({
         responses: [
           { success: true },
@@ -162,7 +162,7 @@ describe('FirebaseNotificationService', () => {
         body: { en: 'Test Body' },
       })
 
-      expect(mockDeviceStorage.removeInvalidToken.calledOnce).to.be.true
+      expect(mockDeviceStorage.removeInvalidToken.calledOnce).toBe(true)
       expect(mockDeviceStorage.removeInvalidToken.firstCall.args[0]).to.equal(
         'android-token',
       )
@@ -170,7 +170,7 @@ describe('FirebaseNotificationService', () => {
   })
 
   describe('sendMessageNotification', () => {
-    it('should convert Message to notification format and call sendNotification', async () => {
+    test('should convert Message to notification format and call sendNotification', async () => {
       const userId = 'user123'
       const message: Document<Message> = {
         id: 'msg1',
@@ -212,10 +212,10 @@ describe('FirebaseNotificationService', () => {
 
       await service.sendMessageNotification(userId, message)
 
-      expect(sendNotificationSpy.calledOnce).to.be.true
+      expect(sendNotificationSpy.calledOnce).toBe(true)
 
       const args = sendNotificationSpy.firstCall.args
-      expect(args[0]).to.equal(userId)
+      expect(args[0]).toBe(userId)
 
       // Check notification content
       const notification = args[1]
