@@ -6,15 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { createSandbox, type SinonSandbox } from 'sinon'
 import {
   createUnregisterDeviceHandler,
   type UnregisterDeviceInput,
 } from '../../src/functions/unregisterDevice.js'
 import { DevicePlatform } from '../../src/models/device.js'
+import { createStub } from '../utils/mockUtils.js'
 
 describe('unregisterDevice Function', () => {
-  let sandbox: SinonSandbox
   let mockNotificationService: any
   let unregisterDeviceHandler: (
     userId: string,
@@ -22,10 +21,8 @@ describe('unregisterDevice Function', () => {
   ) => Promise<undefined>
 
   beforeEach(() => {
-    sandbox = createSandbox()
-
     mockNotificationService = {
-      unregisterDevice: sandbox.stub().resolves(),
+      unregisterDevice: createStub(undefined).mockResolvedValue(),
     }
 
     unregisterDeviceHandler = createUnregisterDeviceHandler(
@@ -34,7 +31,7 @@ describe('unregisterDevice Function', () => {
   })
 
   afterEach(() => {
-    sandbox.restore()
+    jest.restoreAllMocks()
   })
 
   test('should validate and unregister a valid device request', async () => {
@@ -46,14 +43,14 @@ describe('unregisterDevice Function', () => {
 
     await unregisterDeviceHandler(userId, input)
 
-    expect(mockNotificationService.unregisterDevice.calledOnce).toBe(true)
-    expect(mockNotificationService.unregisterDevice.firstCall.args[0]).toBe(
+    expect(mockNotificationService.unregisterDevice).toHaveBeenCalledTimes(1)
+    expect(mockNotificationService.unregisterDevice.mock.calls[0][0]).toBe(
       userId,
     )
-    expect(mockNotificationService.unregisterDevice.firstCall.args[1]).toBe(
+    expect(mockNotificationService.unregisterDevice.mock.calls[0][1]).toBe(
       input.notificationToken,
     )
-    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).toBe(
+    expect(mockNotificationService.unregisterDevice.mock.calls[0][2]).toBe(
       input.platform,
     )
   })
@@ -71,7 +68,7 @@ describe('unregisterDevice Function', () => {
       expect(false).toBe(true)
     } catch (error) {
       expect(error).toBeDefined()
-      expect(mockNotificationService.unregisterDevice.called).toBe(false)
+      expect(mockNotificationService.unregisterDevice).not.toHaveBeenCalled()
     }
   })
 
@@ -88,7 +85,7 @@ describe('unregisterDevice Function', () => {
       expect(false).toBe(true)
     } catch (error) {
       expect(error).toBeDefined()
-      expect(mockNotificationService.unregisterDevice.called).toBe(false)
+      expect(mockNotificationService.unregisterDevice).not.toHaveBeenCalled()
     }
   })
 
@@ -101,8 +98,8 @@ describe('unregisterDevice Function', () => {
 
     await unregisterDeviceHandler(userId, input)
 
-    expect(mockNotificationService.unregisterDevice.calledOnce).toBe(true)
-    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).toBe(
+    expect(mockNotificationService.unregisterDevice).toHaveBeenCalledTimes(1)
+    expect(mockNotificationService.unregisterDevice.mock.calls[0][2]).toBe(
       'CustomPlatform',
     )
   })

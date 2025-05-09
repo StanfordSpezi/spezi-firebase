@@ -6,30 +6,28 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { expect } from 'chai'
-import { createSandbox } from 'sinon'
+// Using Jest assertions
 import { Lazy } from '../../src/helpers/lazy.js'
 
 describe('Lazy Utility', () => {
-  const sandbox = createSandbox()
-
-  afterEach(() => {
-    sandbox.restore()
-  })
-
   it('should initialize value only when accessed', () => {
-    const factorySpy = sandbox.spy(() => 'test value')
-    const lazy = new Lazy(factorySpy)
+    let factoryCalled = 0
+    const factory = () => {
+      factoryCalled++
+      return 'test value'
+    }
+
+    const lazy = new Lazy(factory)
 
     // Factory should not be called yet
-    expect(factorySpy.called).to.be.false
+    expect(factoryCalled).toBe(0)
 
     // Access the value
     const value = lazy.value
 
     // Factory should be called exactly once
-    expect(factorySpy.calledOnce).to.be.true
-    expect(value).to.equal('test value')
+    expect(factoryCalled).toBe(1)
+    expect(value).toBe('test value')
   })
 
   it('should cache the result after first access', () => {
@@ -42,17 +40,17 @@ describe('Lazy Utility', () => {
     const lazy = new Lazy(factory)
 
     // First access
-    expect(lazy.value).to.equal('value 1')
-    expect(counter).to.equal(1)
+    expect(lazy.value).toBe('value 1')
+    expect(counter).toBe(1)
 
     // Second access should use cached value
-    expect(lazy.value).to.equal('value 1')
-    expect(counter).to.equal(1)
+    expect(lazy.value).toBe('value 1')
+    expect(counter).toBe(1)
 
     // Multiple accesses should still use cached value
-    expect(lazy.value).to.equal('value 1')
-    expect(lazy.value).to.equal('value 1')
-    expect(counter).to.equal(1)
+    expect(lazy.value).toBe('value 1')
+    expect(lazy.value).toBe('value 1')
+    expect(counter).toBe(1)
   })
 
   it('should work with complex object types', () => {
@@ -64,7 +62,7 @@ describe('Lazy Utility', () => {
 
     const lazy = new Lazy(factory)
 
-    expect(lazy.value).to.deep.equal({
+    expect(lazy.value).toEqual({
       name: 'test',
       value: 42,
       nested: { prop: true },
@@ -72,15 +70,20 @@ describe('Lazy Utility', () => {
   })
 
   it('should set value directly when using setter', () => {
-    const factorySpy = sandbox.spy(() => 'factory value')
-    const lazy = new Lazy(factorySpy)
+    let factoryCalled = 0
+    const factory = () => {
+      factoryCalled++
+      return 'factory value'
+    }
+
+    const lazy = new Lazy(factory)
 
     // Set the value directly
     lazy.value = 'direct value'
 
     // Get the value - factory should not be called
-    expect(lazy.value).to.equal('direct value')
-    expect(factorySpy.called).to.be.false
+    expect(lazy.value).toBe('direct value')
+    expect(factoryCalled).toBe(0)
   })
 
   it('should throw when factory is not available and value is undefined', () => {
@@ -92,7 +95,7 @@ describe('Lazy Utility', () => {
     // @ts-expect-error - accessing private property for testing
     lazy._factory = undefined
 
-    expect(() => lazy.value).to.throw(
+    expect(() => lazy.value).toThrow(
       'Lazy value is undefined and factory function is not available',
     )
   })

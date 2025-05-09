@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { expect } from 'chai'
+// Using Jest assertions
 import {
   LocalizedText,
   localizedTextConverter,
@@ -16,8 +16,8 @@ describe('LocalizedText', () => {
   describe('constructor', () => {
     it('should create an instance with a string', () => {
       const text = new LocalizedText('hello')
-      expect(text).to.be.instanceOf(LocalizedText)
-      expect(text.content).to.equal('hello')
+      expect(text).toBeInstanceOf(LocalizedText)
+      expect(text.content).toBe('hello')
     })
 
     it('should create an instance with a record of translations', () => {
@@ -27,16 +27,16 @@ describe('LocalizedText', () => {
         fr: 'bonjour',
       }
       const text = new LocalizedText(translations)
-      expect(text).to.be.instanceOf(LocalizedText)
-      expect(text.content).to.deep.equal(translations)
+      expect(text).toBeInstanceOf(LocalizedText)
+      expect(text.content).toEqual(translations)
     })
   })
 
   describe('localize', () => {
     it('should return the string content if content is a string', () => {
       const text = new LocalizedText('hello')
-      expect(text.localize('fr')).to.equal('hello')
-      expect(text.localize('en')).to.equal('hello')
+      expect(text.localize('fr')).toBe('hello')
+      expect(text.localize('en')).toBe('hello')
     })
 
     it('should return the exact language match if available', () => {
@@ -45,8 +45,8 @@ describe('LocalizedText', () => {
         es: 'hola',
         fr: 'bonjour',
       })
-      expect(text.localize('es')).to.equal('hola')
-      expect(text.localize('fr')).to.equal('bonjour')
+      expect(text.localize('es')).toBe('hola')
+      expect(text.localize('fr')).toBe('bonjour')
     })
 
     it('should use language fallbacks if specified', () => {
@@ -54,8 +54,8 @@ describe('LocalizedText', () => {
         en: 'hello',
         es: 'hola',
       })
-      expect(text.localize('fr', 'es')).to.equal('hola')
-      expect(text.localize('de', 'fr', 'en')).to.equal('hello')
+      expect(text.localize('fr', 'es')).toBe('hola')
+      expect(text.localize('de', 'fr', 'en')).toBe('hello')
     })
 
     it('should match language prefixes', () => {
@@ -63,8 +63,8 @@ describe('LocalizedText', () => {
         en: 'hello',
         es: 'hola',
       })
-      expect(text.localize('en-US')).to.equal('hello')
-      expect(text.localize('es-ES')).to.equal('hola')
+      expect(text.localize('en-US')).toBe('hello')
+      expect(text.localize('es-ES')).toBe('hola')
     })
 
     it('should fallback to en-US if available', () => {
@@ -72,7 +72,7 @@ describe('LocalizedText', () => {
         'en-US': 'hello',
         es: 'hola',
       })
-      expect(text.localize('fr')).to.equal('hello')
+      expect(text.localize('fr')).toBe('hello')
     })
 
     it('should fallback to en if available', () => {
@@ -80,7 +80,7 @@ describe('LocalizedText', () => {
         en: 'hello',
         es: 'hola',
       })
-      expect(text.localize('fr')).to.equal('hello')
+      expect(text.localize('fr')).toBe('hello')
     })
 
     it('should return the first translation if no matches', () => {
@@ -88,20 +88,20 @@ describe('LocalizedText', () => {
         es: 'hola',
         fr: 'bonjour',
       })
-      expect(text.localize('de')).to.equal('hola')
+      expect(text.localize('de')).toBe('hola')
     })
 
     it('should return empty string if no translations available', () => {
       const text = new LocalizedText({})
-      expect(text.localize('en')).to.equal('')
+      expect(text.localize('en')).toBe('')
     })
   })
 
   describe('localizedTextConverter', () => {
     it('should convert string to LocalizedText', () => {
       const result = localizedTextConverter.schema.parse('hello')
-      expect(result).to.be.instanceOf(LocalizedText)
-      expect(result.content).to.equal('hello')
+      expect(result).toBeInstanceOf(LocalizedText)
+      expect(result.content).toBe('hello')
     })
 
     it('should convert object to LocalizedText', () => {
@@ -110,8 +110,8 @@ describe('LocalizedText', () => {
         es: 'hola',
       }
       const result = localizedTextConverter.schema.parse(translations)
-      expect(result).to.be.instanceOf(LocalizedText)
-      expect(result.content).to.deep.equal(translations)
+      expect(result).toBeInstanceOf(LocalizedText)
+      expect(result.content).toEqual(translations)
     })
 
     it('should encode LocalizedText to original content', () => {
@@ -121,7 +121,7 @@ describe('LocalizedText', () => {
       }
       const text = new LocalizedText(translations)
       const encoded = localizedTextConverter.encode(text)
-      expect(encoded).to.deep.equal(translations)
+      expect(encoded).toEqual(translations)
     })
 
     it('should handle roundtrip conversion', () => {
@@ -131,7 +131,7 @@ describe('LocalizedText', () => {
       }
       const parsed = localizedTextConverter.schema.parse(translations)
       const encoded = localizedTextConverter.encode(parsed)
-      expect(encoded).to.deep.equal(translations)
+      expect(encoded).toEqual(translations)
     })
 
     // TODO: Add more tests for granular localization keys

@@ -6,46 +6,46 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { expect } from 'chai'
+// Using Jest assertions
 import { capitalize } from '../../src/helpers/string.js'
 
 describe('String Utilities', () => {
   describe('capitalize', () => {
     it('should capitalize the first letter of each word', () => {
-      expect(capitalize('hello world')).to.equal('Hello World')
-      expect(capitalize('john doe')).to.equal('John Doe')
+      expect(capitalize('hello world')).toBe('Hello World')
+      expect(capitalize('john doe')).toBe('John Doe')
     })
 
     it('should handle already capitalized words', () => {
-      expect(capitalize('Hello World')).to.equal('Hello World')
-      expect(capitalize('HELLO WORLD')).to.equal('HELLO WORLD')
+      expect(capitalize('Hello World')).toBe('Hello World')
+      expect(capitalize('HELLO WORLD')).toBe('HELLO WORLD')
     })
 
     it('should handle mixed case words', () => {
-      expect(capitalize('hello World')).to.equal('Hello World')
-      expect(capitalize('HELLO world')).to.equal('HELLO World')
+      expect(capitalize('hello World')).toBe('Hello World')
+      expect(capitalize('HELLO world')).toBe('HELLO World')
     })
 
     it('should handle single word', () => {
-      expect(capitalize('test')).to.equal('Test')
-      expect(capitalize('TEST')).to.equal('TEST')
+      expect(capitalize('test')).toBe('Test')
+      expect(capitalize('TEST')).toBe('TEST')
     })
 
     it('should handle empty string', () => {
-      expect(capitalize('')).to.equal('')
+      expect(capitalize('')).toBe('')
     })
 
     it('should handle string with numbers and special characters', () => {
-      expect(capitalize('hello 123 world!')).to.equal('Hello 123 World!')
-      expect(capitalize('test-case')).to.equal('Test-case')
+      expect(capitalize('hello 123 world!')).toBe('Hello 123 World!')
+      expect(capitalize('test-case')).toBe('Test-case')
     })
 
     it('should handle multiple spaces', () => {
-      expect(capitalize('hello  world')).to.equal('Hello  World')
+      expect(capitalize('hello  world')).toBe('Hello  World')
     })
 
     it('should handle leading and trailing spaces', () => {
-      expect(capitalize(' hello world ')).to.equal(' Hello World ')
+      expect(capitalize(' hello world ')).toBe(' Hello World ')
     })
   })
 })

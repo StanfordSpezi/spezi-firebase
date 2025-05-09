@@ -6,15 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { createSandbox, type SinonSandbox } from 'sinon'
 import {
   createRegisterDeviceHandler,
   type RegisterDeviceInput,
 } from '../../src/functions/registerDevice.js'
 import { Device, DevicePlatform } from '../../src/models/device.js'
+import { createStub } from '../utils/mockUtils.js'
 
 describe('registerDevice Function', () => {
-  let sandbox: SinonSandbox
   let mockNotificationService: any
   let registerDeviceHandler: (
     userId: string,
@@ -22,17 +21,15 @@ describe('registerDevice Function', () => {
   ) => Promise<undefined>
 
   beforeEach(() => {
-    sandbox = createSandbox()
-
     mockNotificationService = {
-      registerDevice: sandbox.stub().resolves(),
+      registerDevice: createStub(undefined).mockResolvedValue(),
     }
 
     registerDeviceHandler = createRegisterDeviceHandler(mockNotificationService)
   })
 
   afterEach(() => {
-    sandbox.restore()
+    jest.restoreAllMocks()
   })
 
   test('should validate and register a valid device request', async () => {
@@ -49,10 +46,10 @@ describe('registerDevice Function', () => {
     const userId = 'user123'
     await registerDeviceHandler(userId, input)
 
-    expect(mockNotificationService.registerDevice.calledOnce).toBe(true)
+    expect(mockNotificationService.registerDevice).toHaveBeenCalledTimes(1)
 
     // Check the device created
-    const deviceArg = mockNotificationService.registerDevice.firstCall.args[1]
+    const deviceArg = mockNotificationService.registerDevice.mock.calls[0][1]
     expect(deviceArg).toBeInstanceOf(Device)
     expect(deviceArg.notificationToken).toBe(input.notificationToken)
     expect(deviceArg.platform).toBe(DevicePlatform.iOS)
@@ -68,10 +65,10 @@ describe('registerDevice Function', () => {
     const userId = 'user123'
     await registerDeviceHandler(userId, input)
 
-    expect(mockNotificationService.registerDevice.calledOnce).toBe(true)
+    expect(mockNotificationService.registerDevice).toHaveBeenCalledTimes(1)
 
     // Check the device created
-    const deviceArg = mockNotificationService.registerDevice.firstCall.args[1]
+    const deviceArg = mockNotificationService.registerDevice.mock.calls[0][1]
     expect(deviceArg).toBeInstanceOf(Device)
     expect(deviceArg.notificationToken).toBe(input.notificationToken)
     expect(deviceArg.platform).toBe(DevicePlatform.Android)
@@ -88,10 +85,10 @@ describe('registerDevice Function', () => {
     const userId = 'user123'
     await registerDeviceHandler(userId, input)
 
-    expect(mockNotificationService.registerDevice.calledOnce).toBe(true)
+    expect(mockNotificationService.registerDevice).toHaveBeenCalledTimes(1)
 
     // Check the device created
-    const deviceArg = mockNotificationService.registerDevice.firstCall.args[1]
+    const deviceArg = mockNotificationService.registerDevice.mock.calls[0][1]
     expect(deviceArg).toBeInstanceOf(Device)
     expect(deviceArg.platform).toBe('CustomPlatform')
   })
@@ -111,7 +108,7 @@ describe('registerDevice Function', () => {
       expect(false).toBe(true)
     } catch (error) {
       expect(error).toBeDefined()
-      expect(mockNotificationService.registerDevice.called).toBe(false)
+      expect(mockNotificationService.registerDevice).not.toHaveBeenCalled()
     }
   })
 })

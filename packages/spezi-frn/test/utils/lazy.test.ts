@@ -6,28 +6,25 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { createSandbox } from 'sinon'
 import { Lazy } from '../../src/utils/lazy.js'
 
 describe('Lazy Utility', () => {
-  const sandbox = createSandbox()
-
-  afterEach(() => {
-    sandbox.restore()
-  })
-
   test('should initialize value only when accessed', () => {
-    const factorySpy = sandbox.spy(() => 'test value')
-    const lazy = new Lazy(factorySpy)
+    let factoryCalled = 0
+    const factory = () => {
+      factoryCalled++
+      return 'test value'
+    }
+    const lazy = new Lazy(factory)
 
     // Factory should not be called yet
-    expect(factorySpy.called).toBe(false)
+    expect(factoryCalled).toBe(0)
 
     // Access the value
     const value = lazy.value
 
     // Factory should be called exactly once
-    expect(factorySpy.calledOnce).toBe(true)
+    expect(factoryCalled).toBe(1)
     expect(value).toBe('test value')
   })
 
@@ -71,17 +68,17 @@ describe('Lazy Utility', () => {
   })
 
   test('should handle factory functions that return undefined', () => {
-    const factory = () => undefined
+    let factoryCalled = 0
+    const factory = () => {
+      factoryCalled++
+      return undefined
+    }
     const lazy = new Lazy<undefined>(factory)
 
-    // Factory should be called when accessing value
-    const factorySpy = sandbox.spy(lazy, 'value', ['get'])
-
-    // Access the value multiple times
-    expect(lazy.value).toBeUndefined()
+    // Access the value
     expect(lazy.value).toBeUndefined()
 
-    // Even though value is undefined, getter should only evaluate once
-    expect(factorySpy.get.calledTwice).toBe(true)
+    // Factory should only be called once
+    expect(factoryCalled).toBe(1)
   })
 })

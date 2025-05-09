@@ -37,7 +37,6 @@
     "@testing-library/jest-dom": "^6",
     "@testing-library/react": "^15",
     "@total-typescript/ts-reset": "^0.5.1",
-    "@types/chai": "^5.2.2",
     "@types/jest": "^29",
     "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^7",
