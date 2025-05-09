@@ -59,7 +59,9 @@ describe('Device Model', () => {
       const device = new Device(validDeviceData)
       const encoded = deviceConverter.encode(device)
 
-      expect(encoded).toBeObject()
+      expect(encoded).not.toBeNull()
+      expect(typeof encoded).toBe('object')
+      expect(Array.isArray(encoded)).toBe(false)
       expect(encoded.notificationToken).toBe(validDeviceData.notificationToken)
       expect(encoded.platform).toBe(validDeviceData.platform)
       expect(encoded.osVersion).toBe(validDeviceData.osVersion)
@@ -77,7 +79,9 @@ describe('Device Model', () => {
 
       const encoded = deviceConverter.encode(device)
 
-      expect(encoded).toBeObject()
+      expect(encoded).not.toBeNull()
+      expect(typeof encoded).toBe('object')
+      expect(Array.isArray(encoded)).toBe(false)
       expect(encoded.notificationToken).toBe(validDeviceData.notificationToken)
       expect(encoded.platform).toBe(validDeviceData.platform)
       expect(encoded.osVersion).toBeUndefined()

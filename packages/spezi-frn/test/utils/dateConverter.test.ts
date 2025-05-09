@@ -14,7 +14,9 @@ describe('DateConverter', () => {
       const date = new Date('2024-04-23T12:00:00Z')
       const encoded = dateConverter.encode(date)
 
-      expect(encoded).toBeObject()
+      expect(encoded).not.toBeNull()
+      expect(typeof encoded).toBe('object')
+      expect(Array.isArray(encoded)).toBe(false)
       expect(encoded).toHaveProperty('seconds')
       expect(encoded).toHaveProperty('nanoseconds')
 

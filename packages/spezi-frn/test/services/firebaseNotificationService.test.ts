@@ -30,10 +30,10 @@ describe('FirebaseNotificationService', () => {
 
     // Create mock device storage
     mockDeviceStorage = {
-      storeDevice: createStub(undefined).mockResolvedValue(),
-      removeDevice: createStub(undefined).mockResolvedValue(),
-      getUserDevices: createStub([]).mockResolvedValue(),
-      removeInvalidToken: createStub(undefined).mockResolvedValue(),
+      storeDevice: createStub(undefined).resolves(),
+      removeDevice: createStub(undefined).resolves(),
+      getUserDevices: createStub([]).resolves(),
+      removeInvalidToken: createStub(undefined).resolves(),
     }
 
     // Create service instance

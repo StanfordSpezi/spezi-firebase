@@ -2,7 +2,7 @@
  * Creates a mock function that tracks its calls, see https://stackoverflow.com/questions/59010129/mocking-a-function-inside-a-function-and-getting-calls-count-in-jest
  * @returns A mock function with call tracking
  */
-export function createMockFunction<_T = void, R = any>(): {
+export function createMockFunction<R, _T = void>(): {
   fn: jest.Mock<R, any[]>
   called: boolean
   calledOnce: boolean
@@ -12,7 +12,7 @@ export function createMockFunction<_T = void, R = any>(): {
   getCall: (n: number) => { args: any[] } | undefined
   firstCall: { args: any[] } | undefined
 } {
-  const mock = jest.fn() as jest.Mock<R, any[]>
+  const mock = jest.fn() as jest.Mock<R>
   const calls: any[][] = []
 
   mock.mockImplementation((...args: any[]) => {
@@ -55,30 +55,38 @@ export function createMockFunction<_T = void, R = any>(): {
  * @param returnValue The value to return when the stub is called
  * @returns A stub function that returns the specified value
  */
-export function createStub<T>(returnValue: T): jest.Mock<T, any[]> & {
+export function createStub<T>(returnValue: T): jest.Mock<T> & {
   resolves: (value?: any) => jest.Mock
   rejects: (error?: any) => jest.Mock
   callCount: number
   calledOnce: boolean
   called: boolean
   reset: () => void
+  mockResolvedValue: (value?: any) => jest.Mock
 } {
   const stub = jest.fn().mockReturnValue(returnValue)
   let callCount = 0
 
-  const enhancedStub = stub as jest.Mock<T, any[]> & {
+  const enhancedStub = stub as jest.Mock<T> & {
     resolves: (value?: any) => jest.Mock
     rejects: (error?: any) => jest.Mock
     callCount: number
     calledOnce: boolean
     called: boolean
     reset: () => void
+    mockResolvedValue: (value?: any) => jest.Mock
   }
 
   // Add sinon-like API
   enhancedStub.resolves = (value: any = undefined) => {
-    stub.mockResolvedValue(value)
+    stub.mockResolvedValue(value === undefined ? returnValue : value)
     return enhancedStub
+  }
+
+  // Override mockResolvedValue to support empty cals
+  const originalMockResolvedValue = stub.mockResolvedValue.bind(stub)
+  stub.mockResolvedValue = function (value?: any) {
+    return originalMockResolvedValue(value === undefined ? undefined : value)
   }
 
   enhancedStub.rejects = (error: any = new Error('Rejected')) => {

@@ -140,7 +140,9 @@ describe('Message Model', () => {
       const message = new Message(validMessageData)
       const encoded = messageConverter.encode(message)
 
-      expect(encoded).toBeObject()
+      expect(encoded).not.toBeNull()
+      expect(typeof encoded).toBe('object')
+      expect(Array.isArray(encoded)).toBe(false)
       expect(encoded.type).toBe(validMessageData.type)
       expect(encoded.isDismissible).toBe(validMessageData.isDismissible)
       expect(encoded.creationDate).toHaveProperty('seconds')
@@ -159,7 +161,9 @@ describe('Message Model', () => {
       const message = new Message(messageData)
       const encoded = messageConverter.encode(message)
 
-      expect(encoded).toBeObject()
+      expect(encoded).not.toBeNull()
+      expect(typeof encoded).toBe('object')
+      expect(Array.isArray(encoded)).toBe(false)
       expect(encoded.dueDate).toHaveProperty('seconds')
       expect(encoded.dueDate).toHaveProperty('nanoseconds')
       expect(encoded.description).toBe('Test Description')

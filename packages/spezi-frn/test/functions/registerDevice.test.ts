@@ -22,7 +22,7 @@ describe('registerDevice Function', () => {
 
   beforeEach(() => {
     mockNotificationService = {
-      registerDevice: createStub(undefined).mockResolvedValue(),
+      registerDevice: createStub(undefined).resolves(),
     }
 
     registerDeviceHandler = createRegisterDeviceHandler(mockNotificationService)

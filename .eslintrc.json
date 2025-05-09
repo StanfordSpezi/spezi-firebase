@@ -19,8 +19,7 @@
     "**/lib/**",
     "**/jest.config.js",
     "**/jest.setup.js",
-    "**/examples/**",
-    "babel.config.js"
+    "**/examples/**"
   ],
   "rules": {
     "@typescript-eslint/no-unnecessary-condition": "warn",

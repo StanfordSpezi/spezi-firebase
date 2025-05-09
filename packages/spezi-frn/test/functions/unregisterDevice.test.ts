@@ -22,7 +22,7 @@ describe('unregisterDevice Function', () => {
 
   beforeEach(() => {
     mockNotificationService = {
-      unregisterDevice: createStub(undefined).mockResolvedValue(),
+      unregisterDevice: createStub(undefined).resolves(),
     }
 
     unregisterDeviceHandler = createUnregisterDeviceHandler(
