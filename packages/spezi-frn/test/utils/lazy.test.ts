@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-
 import { createSandbox } from 'sinon'
 import { Lazy } from '../../src/utils/lazy.js'
 

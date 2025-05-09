@@ -8,7 +8,10 @@
 
 import { expect } from 'chai'
 import { z } from 'zod'
-import { optionalish, optionalishDefault } from '../../src/helpers/optionalish.js'
+import {
+  optionalish,
+  optionalishDefault,
+} from '../../src/helpers/optionalish.js'
 
 describe('Optionalish Utilities', () => {
   describe('optionalish', () => {
@@ -36,9 +39,9 @@ describe('Optionalish Utilities', () => {
       // Zod's behavior might vary in how it represents these properties internally
       // so we check the specific property rather than full equality
       expect(emptyResult.name).to.be.undefined
-      
+
       expect(objSchema.parse({ name: 'test' })).to.deep.equal({ name: 'test' })
-      
+
       const nullResult = objSchema.parse({ name: null })
       expect(nullResult.name).to.be.undefined
     })
@@ -72,17 +75,23 @@ describe('Optionalish Utilities', () => {
       })
 
       expect(objSchema.parse({})).to.deep.equal({ count: 0, name: 'unnamed' })
-      expect(objSchema.parse({ count: null })).to.deep.equal({ count: 0, name: 'unnamed' })
-      expect(objSchema.parse({ count: 42, name: null })).to.deep.equal({ count: 42, name: 'unnamed' })
+      expect(objSchema.parse({ count: null })).to.deep.equal({
+        count: 0,
+        name: 'unnamed',
+      })
+      expect(objSchema.parse({ count: 42, name: null })).to.deep.equal({
+        count: 42,
+        name: 'unnamed',
+      })
     })
 
     it('should work with complex default values', () => {
       const arraySchema = optionalishDefault(z.array(z.number()), [1, 2, 3])
       expect(arraySchema.parse(null)).to.deep.equal([1, 2, 3])
-      
+
       const objSchema = optionalishDefault(
         z.object({ a: z.number(), b: z.string() }),
-        { a: 1, b: 'default' }
+        { a: 1, b: 'default' },
       )
       expect(objSchema.parse(null)).to.deep.equal({ a: 1, b: 'default' })
     })

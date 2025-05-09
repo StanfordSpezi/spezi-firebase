@@ -14,7 +14,10 @@
 // Models
 export * from './models/device.js'
 export * from './models/message.js'
-export { LocalizedText, localizedTextConverter } from 'spezi-firebase-utils'
+export {
+  LocalizedText,
+  localizedTextConverter,
+} from '@stanfordbdhg/spezi-firebase-utils'
 
 // Storage
 export * from './storage/deviceStorage.js'

@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-
 import { dateConverter } from '../../src/utils/dateConverter.js'
 
 describe('DateConverter', () => {
@@ -16,8 +15,8 @@ describe('DateConverter', () => {
       const encoded = dateConverter.encode(date)
 
       expect(encoded).toBeObject()
-      expect(encoded).toHaveProperty("seconds")
-      expect(encoded).toHaveProperty("nanoseconds")
+      expect(encoded).toHaveProperty('seconds')
+      expect(encoded).toHaveProperty('nanoseconds')
 
       // 2024-04-23T12:00:00Z in seconds since epoch
       expect(encoded.seconds).toBe(Math.floor(date.getTime() / 1000))

@@ -6,11 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-
 import {
   LocalizedText,
   localizedTextConverter,
-} from 'spezi-firebase-utils'
+} from '@stanfordbdhg/spezi-firebase-utils'
 
 describe('LocalizedText Model', () => {
   describe('Construction', () => {

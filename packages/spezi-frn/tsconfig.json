@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "strict": true,
     "declaration": true,
@@ -13,7 +13,7 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "paths": {
-      "spezi-firebase-utils": ["../spezi-firebase-utils"]
+      "@stanfordbdhg/spezi-firebase-utils": ["../spezi-firebase-utils/src"]
     }
   },
   "include": ["src/**/*.ts"],

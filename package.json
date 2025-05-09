@@ -31,13 +31,18 @@
     "@stanfordbdhg/spezi-firebase-remote-notifications": "file:./packages/spezi-frn"
   },
   "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-typescript": "^7.27.1",
     "@testing-library/jest-dom": "^6",
     "@testing-library/react": "^15",
     "@total-typescript/ts-reset": "^0.5.1",
+    "@types/chai": "^5.2.2",
     "@types/jest": "^29",
     "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
+    "babel-jest": "^29.7.0",
     "concurrently": "^8",
     "eslint": "^8",
     "eslint-config-prettier": "^9",

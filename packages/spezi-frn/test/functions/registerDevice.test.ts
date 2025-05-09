@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-
 import { createSandbox, type SinonSandbox } from 'sinon'
 import {
   createRegisterDeviceHandler,
@@ -90,7 +89,7 @@ describe('registerDevice Function', () => {
     await registerDeviceHandler(userId, input)
 
     expect(mockNotificationService.registerDevice.calledOnce).toBe(true)
-    
+
     // Check the device created
     const deviceArg = mockNotificationService.registerDevice.firstCall.args[1]
     expect(deviceArg).toBeInstanceOf(Device)

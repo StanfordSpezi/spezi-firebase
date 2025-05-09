@@ -35,7 +35,10 @@ describe('Array Helpers', () => {
   describe('chunks', () => {
     it('should split arrays into chunks of the specified size', () => {
       expect(chunks([1, 2, 3, 4, 5], 2)).to.deep.equal([[1, 2], [3, 4], [5]])
-      expect(chunks([1, 2, 3, 4], 2)).to.deep.equal([[1, 2], [3, 4]])
+      expect(chunks([1, 2, 3, 4], 2)).to.deep.equal([
+        [1, 2],
+        [3, 4],
+      ])
       expect(chunks([1, 2, 3], 1)).to.deep.equal([[1], [2], [3]])
       expect(chunks([1, 2, 3, 4, 5], 10)).to.deep.equal([[1, 2, 3, 4, 5]])
     })
@@ -58,7 +61,9 @@ describe('Array Helpers', () => {
     })
 
     it('should filter out both null and undefined values', () => {
-      expect(compact([1, null, undefined, 2, null, undefined, 3])).to.deep.equal([1, 2, 3])
+      expect(
+        compact([1, null, undefined, 2, null, undefined, 3]),
+      ).to.deep.equal([1, 2, 3])
     })
   })
 
@@ -74,12 +79,18 @@ describe('Array Helpers', () => {
     })
 
     it('should filter both null and undefined input values', () => {
-      expect(compactMap([1, null, 2, undefined, 3], (n) => n)).to.deep.equal([1, 2, 3])
+      expect(compactMap([1, null, 2, undefined, 3], (n) => n)).to.deep.equal([
+        1, 2, 3,
+      ])
     })
 
     it('should handle example from documentation', () => {
       const userIds = ['user1', 'user2', null, 'user3', undefined]
-      expect(compactMap(userIds, id => id)).to.deep.equal(['user1', 'user2', 'user3'])
+      expect(compactMap(userIds, (id) => id)).to.deep.equal([
+        'user1',
+        'user2',
+        'user3',
+      ])
     })
 
     it('should handle empty arrays', () => {
@@ -87,8 +98,12 @@ describe('Array Helpers', () => {
     })
 
     it('should handle all items mapping to undefined or null', () => {
-      expect(compactMap([1, 3, 5], (n) => (n % 2 === 0 ? n : undefined))).to.deep.equal([])
-      expect(compactMap([1, 3, 5], (n) => (n % 2 === 0 ? n : null))).to.deep.equal([])
+      expect(
+        compactMap([1, 3, 5], (n) => (n % 2 === 0 ? n : undefined)),
+      ).to.deep.equal([])
+      expect(
+        compactMap([1, 3, 5], (n) => (n % 2 === 0 ? n : null)),
+      ).to.deep.equal([])
     })
   })
 
@@ -130,7 +145,9 @@ describe('Array Helpers', () => {
     it('should handle percentiles that fall between values', () => {
       const result = percentile([10, 20, 30, 40], 0.33)
       expect(result).to.not.be.undefined
-      expect(result as number).to.be.closeTo(19.9, 0.1)
+      if (result !== undefined) {
+        expect(result).to.be.closeTo(19.9, 0.1)
+      }
     })
   })
 

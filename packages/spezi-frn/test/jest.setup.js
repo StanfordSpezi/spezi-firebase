@@ -9,7 +9,10 @@
 // Custom Jest matchers for improved readability
 expect.extend({
   toBeObject(received) {
-    const pass = received !== null && typeof received === 'object' && !Array.isArray(received)
+    const pass =
+      received !== null &&
+      typeof received === 'object' &&
+      !Array.isArray(received)
     if (pass) {
       return {
         message: () => `expected ${received} not to be an object`,
@@ -22,13 +25,4 @@ expect.extend({
       }
     }
   },
-  fail(received, message) {
-    return {
-      message: () => message || 'Test failed',
-      pass: false,
-    }
-  }
 });
-
-// For simplicity, let's recommend fully converting tests rather than trying 
-// to create compatibility layers between Chai and Jest

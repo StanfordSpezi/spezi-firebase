@@ -87,11 +87,13 @@ describe('Lazy Utility', () => {
     // Create a lazy with a factory that returns undefined
     // @ts-expect-error - factory intentionally returns undefined for testing
     const lazy = new Lazy<string>(() => undefined)
-    
+
     // We need to modify the lazy instance to simulate the error condition
     // @ts-expect-error - accessing private property for testing
     lazy._factory = undefined
-    
-    expect(() => lazy.value).to.throw('Lazy value is undefined and factory function is not available')
+
+    expect(() => lazy.value).to.throw(
+      'Lazy value is undefined and factory function is not available',
+    )
   })
 })
