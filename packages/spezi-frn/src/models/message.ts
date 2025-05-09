@@ -1,9 +1,20 @@
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 /**
  * Message model for notification content
  */
 
+import {
+  LocalizedText,
+  localizedTextConverter,
+} from '@stanfordbdhg/spezi-firebase-utils'
 import { z } from 'zod'
-import { LocalizedText, localizedTextConverter } from './localizedText.js'
 import { dateConverter } from '../utils/dateConverter.js'
 import { optionalish } from '../utils/optionalish.js'
 import { SchemaConverter } from '../utils/schemaConverter.js'
@@ -37,8 +48,8 @@ export const messageConverter = new SchemaConverter<Message, any>({
       // Create a properly typed instance with correct transformation
       return new Message({
         ...content,
-        title: content.title as LocalizedText,
-        description: content.description as LocalizedText | undefined,
+        title: content.title,
+        description: content.description,
       })
     }),
   encode: (object: Message) => {
@@ -119,13 +130,13 @@ export class Message {
       creationDate: input.creationDate ?? new Date(),
       title:
         typeof input.title === 'string' ?
-          LocalizedText.raw(input.title)
-        : LocalizedText.raw(input.title),
+          new LocalizedText(input.title)
+        : new LocalizedText(input.title),
       description:
         input.description ?
           typeof input.description === 'string' ?
-            LocalizedText.raw(input.description)
-          : LocalizedText.raw(input.description)
+            new LocalizedText(input.description)
+          : new LocalizedText(input.description)
         : undefined,
       action: input.action,
       type: MessageType.Information,
@@ -148,13 +159,13 @@ export class Message {
       creationDate: input.creationDate ?? new Date(),
       title:
         typeof input.title === 'string' ?
-          LocalizedText.raw(input.title)
-        : LocalizedText.raw(input.title),
+          new LocalizedText(input.title)
+        : new LocalizedText(input.title),
       description:
         input.description ?
           typeof input.description === 'string' ?
-            LocalizedText.raw(input.description)
-          : LocalizedText.raw(input.description)
+            new LocalizedText(input.description)
+          : new LocalizedText(input.description)
         : undefined,
       action: input.action,
       type: MessageType.Alert,
@@ -179,13 +190,13 @@ export class Message {
       dueDate: input.dueDate,
       title:
         typeof input.title === 'string' ?
-          LocalizedText.raw(input.title)
-        : LocalizedText.raw(input.title),
+          new LocalizedText(input.title)
+        : new LocalizedText(input.title),
       description:
         input.description ?
           typeof input.description === 'string' ?
-            LocalizedText.raw(input.description)
-          : LocalizedText.raw(input.description)
+            new LocalizedText(input.description)
+          : new LocalizedText(input.description)
         : undefined,
       action: input.action,
       type: MessageType.Reminder,
@@ -208,13 +219,13 @@ export class Message {
       creationDate: input.creationDate ?? new Date(),
       title:
         typeof input.title === 'string' ?
-          LocalizedText.raw(input.title)
-        : LocalizedText.raw(input.title),
+          new LocalizedText(input.title)
+        : new LocalizedText(input.title),
       description:
         input.description ?
           typeof input.description === 'string' ?
-            LocalizedText.raw(input.description)
-          : LocalizedText.raw(input.description)
+            new LocalizedText(input.description)
+          : new LocalizedText(input.description)
         : undefined,
       action: input.action,
       type: MessageType.Action,

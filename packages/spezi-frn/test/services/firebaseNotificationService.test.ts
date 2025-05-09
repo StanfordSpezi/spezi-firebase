@@ -1,32 +1,39 @@
-import { expect } from 'chai'
-import { createSandbox, type SinonSandbox } from 'sinon'
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 import { Device, DevicePlatform } from '../../src/models/device.js'
 import { Message } from '../../src/models/message.js'
 import { FirebaseNotificationService } from '../../src/services/firebaseNotificationService.js'
 import { type Document } from '../../src/storage/deviceStorage.js'
+import { createStub } from '../utils/mockUtils.js'
 
 describe('FirebaseNotificationService', () => {
-  let sandbox: SinonSandbox
   let mockMessaging: any
   let mockDeviceStorage: any
   let service: FirebaseNotificationService
+  // This variable is defined here but only assigned in one test
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  let sendNotificationSpy: jest.SpyInstance
 
   beforeEach(() => {
-    sandbox = createSandbox()
-
     // Create mock messaging
     mockMessaging = {
-      sendEach: sandbox.stub().resolves({
+      sendEach: jest.fn().mockResolvedValue({
         responses: [{ success: true }],
       }),
     }
 
     // Create mock device storage
     mockDeviceStorage = {
-      storeDevice: sandbox.stub().resolves(),
-      removeDevice: sandbox.stub().resolves(),
-      getUserDevices: sandbox.stub().resolves([]),
-      removeInvalidToken: sandbox.stub().resolves(),
+      storeDevice: createStub(undefined).resolves(),
+      removeDevice: createStub(undefined).resolves(),
+      getUserDevices: createStub([]).resolves(),
+      removeInvalidToken: createStub(undefined).resolves(),
     }
 
     // Create service instance
@@ -34,11 +41,16 @@ describe('FirebaseNotificationService', () => {
   })
 
   afterEach(() => {
-    sandbox.restore()
+    jest.restoreAllMocks()
+    // Only restore the spy if it was created
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (sendNotificationSpy) {
+      sendNotificationSpy.mockRestore()
+    }
   })
 
   describe('registerDevice', () => {
-    it('should call deviceStorage.storeDevice with correct parameters', async () => {
+    test('should call deviceStorage.storeDevice with correct parameters', async () => {
       const userId = 'user123'
       const device = new Device({
         notificationToken: 'token123',
@@ -47,26 +59,24 @@ describe('FirebaseNotificationService', () => {
 
       await service.registerDevice(userId, device)
 
-      expect(mockDeviceStorage.storeDevice.calledOnce).to.be.true
-      expect(mockDeviceStorage.storeDevice.firstCall.args[0]).to.equal(userId)
-      expect(mockDeviceStorage.storeDevice.firstCall.args[1]).to.equal(device)
+      expect(mockDeviceStorage.storeDevice).toHaveBeenCalledTimes(1)
+      expect(mockDeviceStorage.storeDevice.mock.calls[0][0]).toBe(userId)
+      expect(mockDeviceStorage.storeDevice.mock.calls[0][1]).toBe(device)
     })
   })
 
   describe('unregisterDevice', () => {
-    it('should call deviceStorage.removeDevice with correct parameters', async () => {
+    test('should call deviceStorage.removeDevice with correct parameters', async () => {
       const userId = 'user123'
       const token = 'token123'
       const platform = 'iOS'
 
       await service.unregisterDevice(userId, token, platform)
 
-      expect(mockDeviceStorage.removeDevice.calledOnce).to.be.true
-      expect(mockDeviceStorage.removeDevice.firstCall.args[0]).to.equal(userId)
-      expect(mockDeviceStorage.removeDevice.firstCall.args[1]).to.equal(token)
-      expect(mockDeviceStorage.removeDevice.firstCall.args[2]).to.equal(
-        platform,
-      )
+      expect(mockDeviceStorage.removeDevice).toHaveBeenCalledTimes(1)
+      expect(mockDeviceStorage.removeDevice.mock.calls[0][0]).toBe(userId)
+      expect(mockDeviceStorage.removeDevice.mock.calls[0][1]).toBe(token)
+      expect(mockDeviceStorage.removeDevice.mock.calls[0][2]).toBe(platform)
     })
   })
 
@@ -97,49 +107,49 @@ describe('FirebaseNotificationService', () => {
         },
       ]
 
-      mockDeviceStorage.getUserDevices.resolves(devices)
+      mockDeviceStorage.getUserDevices.mockResolvedValue(devices)
     })
 
-    it('should not send notifications if no devices are found', async () => {
-      mockDeviceStorage.getUserDevices.resolves([])
+    test('should not send notifications if no devices are found', async () => {
+      mockDeviceStorage.getUserDevices.mockResolvedValue([])
 
       await service.sendNotification('user123', {
         title: { en: 'Test Title' },
         body: { en: 'Test Body' },
       })
 
-      expect(mockMessaging.sendEach.called).to.be.false
+      expect(mockMessaging.sendEach).not.toHaveBeenCalled()
     })
 
-    it('should create token messages for each device', async () => {
+    test('should create token messages for each device', async () => {
       await service.sendNotification('user123', {
         title: { en: 'Test Title', de: 'Testtitel' },
         body: { en: 'Test Body', de: 'Testtext' },
       })
 
-      expect(mockMessaging.sendEach.calledOnce).to.be.true
+      expect(mockMessaging.sendEach).toHaveBeenCalledTimes(1)
 
-      const tokenMessages = mockMessaging.sendEach.firstCall.args[0]
-      expect(tokenMessages).to.be.an('array')
-      expect(tokenMessages.length).to.equal(2)
+      const tokenMessages = mockMessaging.sendEach.mock.calls[0][0]
+      expect(Array.isArray(tokenMessages)).toBe(true)
+      expect(tokenMessages.length).toBe(2)
 
       // Check iOS token message
       const iosMessage = tokenMessages.find((m: any) => m.token === 'ios-token')
-      expect(iosMessage.notification.title).to.equal('Test Title')
-      expect(iosMessage.notification.body).to.equal('Test Body')
-      expect(iosMessage.apns).to.exist
+      expect(iosMessage.notification.title).toBe('Test Title')
+      expect(iosMessage.notification.body).toBe('Test Body')
+      expect(iosMessage.apns).toBeDefined()
 
       // Check Android token message
       const androidMessage = tokenMessages.find(
         (m: any) => m.token === 'android-token',
       )
-      expect(androidMessage.notification.title).to.equal('Testtitel')
-      expect(androidMessage.notification.body).to.equal('Testtext')
-      expect(androidMessage.android).to.exist
+      expect(androidMessage.notification.title).toBe('Testtitel')
+      expect(androidMessage.notification.body).toBe('Testtext')
+      expect(androidMessage.android).toBeDefined()
     })
 
-    it('should handle failed notifications and remove invalid tokens', async () => {
-      mockMessaging.sendEach.resolves({
+    test('should handle failed notifications and remove invalid tokens', async () => {
+      mockMessaging.sendEach.mockResolvedValue({
         responses: [
           { success: true },
           {
@@ -154,15 +164,15 @@ describe('FirebaseNotificationService', () => {
         body: { en: 'Test Body' },
       })
 
-      expect(mockDeviceStorage.removeInvalidToken.calledOnce).to.be.true
-      expect(mockDeviceStorage.removeInvalidToken.firstCall.args[0]).to.equal(
+      expect(mockDeviceStorage.removeInvalidToken).toHaveBeenCalledTimes(1)
+      expect(mockDeviceStorage.removeInvalidToken.mock.calls[0][0]).toBe(
         'android-token',
       )
     })
   })
 
   describe('sendMessageNotification', () => {
-    it('should convert Message to notification format and call sendNotification', async () => {
+    test('should convert Message to notification format and call sendNotification', async () => {
       const userId = 'user123'
       const message: Document<Message> = {
         id: 'msg1',
@@ -186,7 +196,7 @@ describe('FirebaseNotificationService', () => {
       }
 
       // Setup user devices to be returned
-      mockDeviceStorage.getUserDevices.resolves([
+      mockDeviceStorage.getUserDevices.mockResolvedValue([
         {
           id: 'device1',
           path: 'users/user123/devices/device1',
@@ -200,35 +210,41 @@ describe('FirebaseNotificationService', () => {
       ])
 
       // Spy on sendNotification but allow it to run through to ensure correct behavior
-      const sendNotificationSpy = sandbox.spy(service, 'sendNotification')
+      sendNotificationSpy = jest.spyOn(service, 'sendNotification')
 
       await service.sendMessageNotification(userId, message)
 
-      expect(sendNotificationSpy.calledOnce).to.be.true
+      expect(sendNotificationSpy).toHaveBeenCalledTimes(1)
 
-      const args = sendNotificationSpy.firstCall.args
-      expect(args[0]).to.equal(userId)
+      const args = sendNotificationSpy.mock.calls[0]
+      expect(args[0]).toBe(userId)
 
       // Check notification content
       const notification = args[1]
-      expect(notification.title).to.deep.include({
-        en: 'Info Title',
-        de: 'Info Titel',
-      })
+      expect(notification.title).toEqual(
+        expect.objectContaining({
+          en: 'Info Title',
+          de: 'Info Titel',
+        }),
+      )
 
-      expect(notification.body).to.deep.include({
-        en: 'Info Description',
-        de: 'Info Beschreibung',
-      })
+      expect(notification.body).toEqual(
+        expect.objectContaining({
+          en: 'Info Description',
+          de: 'Info Beschreibung',
+        }),
+      )
 
       // Check data content
-      expect(notification.data).to.include({
-        messageId: 'msg1',
-        messageType: 'Information',
-        isDismissible: 'true',
-        reference: 'ref123',
-        customKey: 'customValue',
-      })
+      expect(notification.data).toEqual(
+        expect.objectContaining({
+          messageId: 'msg1',
+          messageType: 'Information',
+          isDismissible: 'true',
+          reference: 'ref123',
+          customKey: 'customValue',
+        }),
+      )
     })
   })
 })

@@ -1,13 +1,14 @@
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 /**
- * Test helpers and utilities
+ * Test helpers and utilities using Jest
  */
-
-// Re-export utilities for convenience
-import * as chai from 'chai'
-import * as sinon from 'sinon'
-
-export { chai, sinon }
-export const { expect } = chai
 
 // Add custom test utilities here
 
@@ -34,13 +35,13 @@ export function createMockDocRef(
   return {
     id,
     path,
-    set: sinon.stub().resolves(),
-    get: sinon.stub().resolves({
+    set: jest.fn().mockResolvedValue(undefined),
+    get: jest.fn().mockResolvedValue({
       id,
       data: () => data,
       exists: true,
       ref: { path },
     }),
-    delete: sinon.stub().resolves(),
+    delete: jest.fn().mockResolvedValue(undefined),
   }
 }

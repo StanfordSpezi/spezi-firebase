@@ -1,8 +1,15 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noEmit": true,
-    "types": ["mocha", "chai", "node"]
+    "types": ["jest", "node"],
+    "paths": {
+      "@stanfordbdhg/spezi-firebase-utils": ["../spezi-firebase-utils/src"]
+    },
+    "rootDir": "../"
   },
-  "include": ["./**/*.ts", "../src/**/*.ts"]
+  "include": ["./**/*.ts", "../src/**/*.ts"],
+  "exclude": []
 }

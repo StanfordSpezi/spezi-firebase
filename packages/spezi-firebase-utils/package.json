@@ -1,0 +1,60 @@
+{
+  "name": "@stanfordbdhg/spezi-firebase-utils",
+  "version": "0.1.0",
+  "description": "Utility functions for Firebase projects",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "lint:strict": "eslint src --max-warnings=0",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "Stanford Byers Center for Biodesign",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StanfordSpezi/spezi-firebase.git",
+    "directory": "packages/spezi-firebase-utils"
+  },
+  "keywords": [
+    "firebase",
+    "firestore",
+    "utilities",
+    "helpers",
+    "zod",
+    "typescript"
+  ],
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "jest": "^29.6.2",
+    "prettier": "^3.0.0",
+    "rimraf": "^5.0.1",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
+  }
+}

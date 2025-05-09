@@ -1,4 +1,11 @@
-import { expect } from 'chai'
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 import { z } from 'zod'
 import { SchemaConverter } from '../../src/utils/schemaConverter.js'
 
@@ -9,20 +16,20 @@ describe('SchemaConverter', () => {
   }
 
   describe('constructor', () => {
-    it('should create a SchemaConverter instance', () => {
+    test('should create a SchemaConverter instance', () => {
       const converter = new SchemaConverter<TestClass, any>({
         schema: z.string().transform((val) => new TestClass(val)),
         encode: (obj: TestClass) => obj.value,
       })
 
-      expect(converter).to.be.an.instanceOf(SchemaConverter)
-      expect(converter).to.have.property('schema')
-      expect(converter).to.have.property('encode')
+      expect(converter).toBeInstanceOf(SchemaConverter)
+      expect(converter).toHaveProperty('schema')
+      expect(converter).toHaveProperty('encode')
     })
   })
 
   describe('schema and encode', () => {
-    it('should handle simple schema transformations', () => {
+    test('should handle simple schema transformations', () => {
       const converter = new SchemaConverter<TestClass, any>({
         schema: z.string().transform((val) => new TestClass(val)),
         encode: (obj: TestClass) => obj.value,
@@ -30,15 +37,15 @@ describe('SchemaConverter', () => {
 
       // Test schema parsing
       const result = converter.schema.parse('test value')
-      expect(result).to.be.an.instanceOf(TestClass)
-      expect(result.value).to.equal('test value')
+      expect(result).toBeInstanceOf(TestClass)
+      expect(result.value).toBe('test value')
 
       // Test encoding
       const encoded = converter.encode(new TestClass('test value'))
-      expect(encoded).to.equal('test value')
+      expect(encoded).toBe('test value')
     })
 
-    it('should handle complex objects', () => {
+    test('should handle complex objects', () => {
       interface ComplexData {
         id: string
         count: number
@@ -83,7 +90,7 @@ describe('SchemaConverter', () => {
       )
       const encoded = converter.encode(instance)
 
-      expect(encoded).to.deep.equal(testData)
+      expect(encoded).toEqual(testData)
     })
   })
 })
