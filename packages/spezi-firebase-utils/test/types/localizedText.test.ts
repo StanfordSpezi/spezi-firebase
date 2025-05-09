@@ -7,7 +7,10 @@
 //
 
 import { expect } from 'chai'
-import { LocalizedText, localizedTextConverter } from '../../src/types/localizedText.js'
+import {
+  LocalizedText,
+  localizedTextConverter,
+} from '../../src/types/localizedText.js'
 
 describe('LocalizedText', () => {
   describe('constructor', () => {
@@ -19,9 +22,9 @@ describe('LocalizedText', () => {
 
     it('should create an instance with a record of translations', () => {
       const translations = {
-        'en': 'hello',
-        'es': 'hola',
-        'fr': 'bonjour',
+        en: 'hello',
+        es: 'hola',
+        fr: 'bonjour',
       }
       const text = new LocalizedText(translations)
       expect(text).to.be.instanceOf(LocalizedText)
@@ -38,9 +41,9 @@ describe('LocalizedText', () => {
 
     it('should return the exact language match if available', () => {
       const text = new LocalizedText({
-        'en': 'hello',
-        'es': 'hola',
-        'fr': 'bonjour',
+        en: 'hello',
+        es: 'hola',
+        fr: 'bonjour',
       })
       expect(text.localize('es')).to.equal('hola')
       expect(text.localize('fr')).to.equal('bonjour')
@@ -48,8 +51,8 @@ describe('LocalizedText', () => {
 
     it('should use language fallbacks if specified', () => {
       const text = new LocalizedText({
-        'en': 'hello',
-        'es': 'hola',
+        en: 'hello',
+        es: 'hola',
       })
       expect(text.localize('fr', 'es')).to.equal('hola')
       expect(text.localize('de', 'fr', 'en')).to.equal('hello')
@@ -57,8 +60,8 @@ describe('LocalizedText', () => {
 
     it('should match language prefixes', () => {
       const text = new LocalizedText({
-        'en': 'hello',
-        'es': 'hola',
+        en: 'hello',
+        es: 'hola',
       })
       expect(text.localize('en-US')).to.equal('hello')
       expect(text.localize('es-ES')).to.equal('hola')
@@ -67,23 +70,23 @@ describe('LocalizedText', () => {
     it('should fallback to en-US if available', () => {
       const text = new LocalizedText({
         'en-US': 'hello',
-        'es': 'hola',
+        es: 'hola',
       })
       expect(text.localize('fr')).to.equal('hello')
     })
 
     it('should fallback to en if available', () => {
       const text = new LocalizedText({
-        'en': 'hello',
-        'es': 'hola',
+        en: 'hello',
+        es: 'hola',
       })
       expect(text.localize('fr')).to.equal('hello')
     })
 
     it('should return the first translation if no matches', () => {
       const text = new LocalizedText({
-        'es': 'hola',
-        'fr': 'bonjour',
+        es: 'hola',
+        fr: 'bonjour',
       })
       expect(text.localize('de')).to.equal('hola')
     })
@@ -103,8 +106,8 @@ describe('LocalizedText', () => {
 
     it('should convert object to LocalizedText', () => {
       const translations = {
-        'en': 'hello',
-        'es': 'hola',
+        en: 'hello',
+        es: 'hola',
       }
       const result = localizedTextConverter.schema.parse(translations)
       expect(result).to.be.instanceOf(LocalizedText)
@@ -113,8 +116,8 @@ describe('LocalizedText', () => {
 
     it('should encode LocalizedText to original content', () => {
       const translations = {
-        'en': 'hello',
-        'es': 'hola',
+        en: 'hello',
+        es: 'hola',
       }
       const text = new LocalizedText(translations)
       const encoded = localizedTextConverter.encode(text)
@@ -123,14 +126,14 @@ describe('LocalizedText', () => {
 
     it('should handle roundtrip conversion', () => {
       const translations = {
-        'en': 'hello',
-        'es': 'hola',
+        en: 'hello',
+        es: 'hola',
       }
       const parsed = localizedTextConverter.schema.parse(translations)
       const encoded = localizedTextConverter.encode(parsed)
       expect(encoded).to.deep.equal(translations)
     })
-    
+
     // TODO: Add more tests for granular localization keys
     // - Test region-specific language codes (e.g., en-US, en-GB, pt-BR, zh-CN)
     // - Test handling of non-standard codes and case sensitivity

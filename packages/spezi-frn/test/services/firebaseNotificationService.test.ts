@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-
 import { createSandbox, type SinonSandbox } from 'sinon'
 import { Device, DevicePlatform } from '../../src/models/device.js'
 import { Message } from '../../src/models/message.js'
@@ -161,7 +160,9 @@ describe('FirebaseNotificationService', () => {
       })
 
       expect(mockDeviceStorage.removeInvalidToken.calledOnce).toBe(true)
-      expect(mockDeviceStorage.removeInvalidToken.firstCall.args[0]).toBe('android-token')
+      expect(mockDeviceStorage.removeInvalidToken.firstCall.args[0]).toBe(
+        'android-token',
+      )
     })
   })
 
@@ -215,24 +216,30 @@ describe('FirebaseNotificationService', () => {
 
       // Check notification content
       const notification = args[1]
-      expect(notification.title).toEqual(expect.objectContaining({
-        en: 'Info Title',
-        de: 'Info Titel',
-      }))
+      expect(notification.title).toEqual(
+        expect.objectContaining({
+          en: 'Info Title',
+          de: 'Info Titel',
+        }),
+      )
 
-      expect(notification.body).toEqual(expect.objectContaining({
-        en: 'Info Description',
-        de: 'Info Beschreibung',
-      }))
+      expect(notification.body).toEqual(
+        expect.objectContaining({
+          en: 'Info Description',
+          de: 'Info Beschreibung',
+        }),
+      )
 
       // Check data content
-      expect(notification.data).toEqual(expect.objectContaining({
-        messageId: 'msg1',
-        messageType: 'Information',
-        isDismissible: 'true',
-        reference: 'ref123',
-        customKey: 'customValue',
-      }))
+      expect(notification.data).toEqual(
+        expect.objectContaining({
+          messageId: 'msg1',
+          messageType: 'Information',
+          isDismissible: 'true',
+          reference: 'ref123',
+          customKey: 'customValue',
+        }),
+      )
     })
   })
 })

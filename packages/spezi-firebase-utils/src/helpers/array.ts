@@ -29,7 +29,9 @@ export function chunks<T>(array: T[], size: number): T[][] {
  * Filter out undefined and null values from an array.
  */
 export function compact<T>(array: Array<T | undefined | null>): T[] {
-  return array.flatMap((value) => (value !== undefined && value !== null ? [value] : []))
+  return array.flatMap((value) =>
+    value !== undefined && value !== null ? [value] : [],
+  )
 }
 
 /**
@@ -41,7 +43,9 @@ export function compactMap<T, V>(
 ): V[] {
   return array.flatMap((value) => {
     const mappedValue = map(value)
-    return mappedValue !== undefined && mappedValue !== null ? [mappedValue] : []
+    return mappedValue !== undefined && mappedValue !== null ?
+        [mappedValue]
+      : []
   })
 }
 

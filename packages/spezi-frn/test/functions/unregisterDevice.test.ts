@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-
 import { createSandbox, type SinonSandbox } from 'sinon'
 import {
   createUnregisterDeviceHandler,
@@ -48,9 +47,15 @@ describe('unregisterDevice Function', () => {
     await unregisterDeviceHandler(userId, input)
 
     expect(mockNotificationService.unregisterDevice.calledOnce).toBe(true)
-    expect(mockNotificationService.unregisterDevice.firstCall.args[0]).toBe(userId)
-    expect(mockNotificationService.unregisterDevice.firstCall.args[1]).toBe(input.notificationToken)
-    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).toBe(input.platform)
+    expect(mockNotificationService.unregisterDevice.firstCall.args[0]).toBe(
+      userId,
+    )
+    expect(mockNotificationService.unregisterDevice.firstCall.args[1]).toBe(
+      input.notificationToken,
+    )
+    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).toBe(
+      input.platform,
+    )
   })
 
   test('should throw an error for missing notificationToken', async () => {
@@ -97,6 +102,8 @@ describe('unregisterDevice Function', () => {
     await unregisterDeviceHandler(userId, input)
 
     expect(mockNotificationService.unregisterDevice.calledOnce).toBe(true)
-    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).toBe('CustomPlatform')
+    expect(mockNotificationService.unregisterDevice.firstCall.args[2]).toBe(
+      'CustomPlatform',
+    )
   })
 })

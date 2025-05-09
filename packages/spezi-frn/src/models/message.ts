@@ -10,7 +10,10 @@
  * Message model for notification content
  */
 
-import { LocalizedText, localizedTextConverter } from 'spezi-firebase-utils'
+import {
+  LocalizedText,
+  localizedTextConverter,
+} from '@stanfordbdhg/spezi-firebase-utils'
 import { z } from 'zod'
 import { dateConverter } from '../utils/dateConverter.js'
 import { optionalish } from '../utils/optionalish.js'

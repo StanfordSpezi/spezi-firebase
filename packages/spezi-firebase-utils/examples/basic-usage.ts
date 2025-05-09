@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
 import {
   SchemaConverter,
   LocalizedText,
@@ -15,8 +14,9 @@ import {
   capitalize,
   advanceDateByDays,
   optionalish,
-  optionalishDefault
+  optionalishDefault,
 } from 'spezi-firebase-utils'
+import { z } from 'zod'
 
 // 1. Define schemas with SchemaConverter
 const userSchema = z.object({
@@ -25,11 +25,13 @@ const userSchema = z.object({
   age: optionalish(z.number()),
   email: z.string().email(),
   createdAt: z.date(),
-  preferences: z.object({
-    // Optional with default value
-    theme: optionalishDefault(z.enum(['light', 'dark', 'system']), 'system'),
-    notifications: optionalishDefault(z.boolean(), true)
-  }).optional()
+  preferences: z
+    .object({
+      // Optional with default value
+      theme: optionalishDefault(z.enum(['light', 'dark', 'system']), 'system'),
+      notifications: optionalishDefault(z.boolean(), true),
+    })
+    .optional(),
 })
 
 type User = z.infer<typeof userSchema>
@@ -42,15 +44,15 @@ const userConverter = new SchemaConverter({
     age: user.age,
     email: user.email,
     createdAt: user.createdAt.toISOString(),
-    preferences: user.preferences
-  })
+    preferences: user.preferences,
+  }),
 })
 
 // Example: Using LocalizedText
 const greeting = new LocalizedText({
-  'en': 'Welcome to our app!',
-  'es': '¡Bienvenido a nuestra aplicación!',
-  'de': 'Willkommen in unserer App!'
+  en: 'Welcome to our app!',
+  es: '¡Bienvenido a nuestra aplicación!',
+  de: 'Willkommen in unserer App!',
 })
 
 // Example: Using optionalish and optionalishDefault for handling null values
@@ -58,7 +60,7 @@ function processUserData(data: unknown) {
   // This will handle both undefined and null values for age
   // age: null → undefined
   const user = userSchema.parse(data)
-  
+
   // preferences.theme will default to 'system' if undefined or null
   // preferences.notifications will default to true if undefined or null
   return user
@@ -72,7 +74,7 @@ function greetUser(language: string) {
 function calculateStatistics(values: number[]) {
   return {
     average: average(values),
-    batches: chunks(values, 5)
+    batches: chunks(values, 5),
   }
 }
 

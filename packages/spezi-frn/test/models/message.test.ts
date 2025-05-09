@@ -6,8 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-
-import { LocalizedText } from 'spezi-firebase-utils'
+import { LocalizedText } from '@stanfordbdhg/spezi-firebase-utils'
 import {
   Message,
   MessageType,
@@ -144,8 +143,8 @@ describe('Message Model', () => {
       expect(encoded).toBeObject()
       expect(encoded.type).toBe(validMessageData.type)
       expect(encoded.isDismissible).toBe(validMessageData.isDismissible)
-      expect(encoded.creationDate).toHaveProperty("seconds")
-      expect(encoded.creationDate).toHaveProperty("nanoseconds")
+      expect(encoded.creationDate).toHaveProperty('seconds')
+      expect(encoded.creationDate).toHaveProperty('nanoseconds')
     })
 
     test('should handle optional properties during encoding', () => {
@@ -161,8 +160,8 @@ describe('Message Model', () => {
       const encoded = messageConverter.encode(message)
 
       expect(encoded).toBeObject()
-      expect(encoded.dueDate).toHaveProperty("seconds")
-      expect(encoded.dueDate).toHaveProperty("nanoseconds")
+      expect(encoded.dueDate).toHaveProperty('seconds')
+      expect(encoded.dueDate).toHaveProperty('nanoseconds')
       expect(encoded.description).toBe('Test Description')
       expect(encoded.action).toBe(messageData.action)
     })

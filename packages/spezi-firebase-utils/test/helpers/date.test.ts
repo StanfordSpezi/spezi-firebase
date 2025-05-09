@@ -71,17 +71,23 @@ describe('Date Helpers', () => {
   describe('advanceDateByDays', () => {
     it('should advance date by positive days', () => {
       const result = advanceDateByDays(baseDate, 2)
-      expect(result.getTime()).to.equal(baseDate.getTime() + 2 * 24 * 60 * 60 * 1000)
+      expect(result.getTime()).to.equal(
+        baseDate.getTime() + 2 * 24 * 60 * 60 * 1000,
+      )
     })
 
     it('should go back in time with negative days', () => {
       const result = advanceDateByDays(baseDate, -3)
-      expect(result.getTime()).to.equal(baseDate.getTime() - 3 * 24 * 60 * 60 * 1000)
+      expect(result.getTime()).to.equal(
+        baseDate.getTime() - 3 * 24 * 60 * 60 * 1000,
+      )
     })
 
     it('should handle fractional days', () => {
       const result = advanceDateByDays(baseDate, 1.5)
-      expect(result.getTime()).to.equal(baseDate.getTime() + 1.5 * 24 * 60 * 60 * 1000)
+      expect(result.getTime()).to.equal(
+        baseDate.getTime() + 1.5 * 24 * 60 * 60 * 1000,
+      )
     })
   })
 })

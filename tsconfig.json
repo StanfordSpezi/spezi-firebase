@@ -1,30 +1,24 @@
 {
   "compilerOptions": {
     "composite": true,
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es2020",
+    "lib": ["es2020"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
+    "noEmit": false,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"],
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "**/lib/**"],
   "typedocOptions": {
     "entryPoints": ["packages/*"],
-    "name": "Stanford Biodesign Digital Health Next.js Template",
+    "name": "Stanford Biodesign Digital Health Spezi Firebase",
     "entryPointStrategy": "packages",
     "includeVersion": false
   }

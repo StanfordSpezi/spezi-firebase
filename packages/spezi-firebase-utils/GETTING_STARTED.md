@@ -25,15 +25,15 @@ npm install spezi-firebase-utils
 The package provides utilities for schema validation and type safety using Zod, which can be used with any database or state management system.
 
 ```typescript
-import { SchemaConverter } from 'spezi-firebase-utils';
-import { z } from 'zod';
+import { SchemaConverter } from 'spezi-firebase-utils'
+import { z } from 'zod'
 
 // Define a schema using Zod
 const userSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   age: z.number().optional(),
-});
+})
 
 // Create a schema converter
 const userConverter = new SchemaConverter({
@@ -43,73 +43,73 @@ const userConverter = new SchemaConverter({
     email: user.email,
     age: user.age,
   }),
-});
+})
 
 // This converter can be used with any database or state management system
 // to validate and transform data
 
 // Type safety with Zod
-type User = z.infer<typeof userSchema>;
+type User = z.infer<typeof userSchema>
 
 function processUser(userData: unknown): User {
   // Validate and parse the input data
-  return userSchema.parse(userData);
+  return userSchema.parse(userData)
 }
 ```
 
 ### Localized Text
 
 ```typescript
-import { LocalizedText } from 'spezi-firebase-utils';
+import { LocalizedText } from 'spezi-firebase-utils'
 
 // Create a localized text
 const errorMessage = new LocalizedText({
-  'en': 'An error occurred',
-  'es': 'Se produjo un error',
-  'fr': 'Une erreur est survenue',
-});
+  en: 'An error occurred',
+  es: 'Se produjo un error',
+  fr: 'Une erreur est survenue',
+})
 
 // Get localized version based on user's language
 function displayError(userLanguage: string) {
-  alert(errorMessage.localize(userLanguage));
+  alert(errorMessage.localize(userLanguage))
 }
 
 // With fallback
-const result = errorMessage.localize('de', 'en'); // Will use 'en' as fallback
+const result = errorMessage.localize('de', 'en') // Will use 'en' as fallback
 ```
 
 ### Working with Dates
 
 ```typescript
-import { advanceDateByDays, advanceDateByHours } from 'spezi-firebase-utils';
+import { advanceDateByDays, advanceDateByHours } from 'spezi-firebase-utils'
 
 // Calculate expiration date
-const now = new Date();
-const expirationDate = advanceDateByDays(now, 30); // 30 days from now
+const now = new Date()
+const expirationDate = advanceDateByDays(now, 30) // 30 days from now
 
 // Calculate meeting end time
-const meetingStartTime = new Date('2023-10-15T14:00:00Z');
-const meetingEndTime = advanceDateByHours(meetingStartTime, 1); // 1 hour later
+const meetingStartTime = new Date('2023-10-15T14:00:00Z')
+const meetingEndTime = advanceDateByHours(meetingStartTime, 1) // 1 hour later
 ```
 
 ### Array Utilities
 
 ```typescript
-import { average, median, chunks, compactMap } from 'spezi-firebase-utils';
+import { average, median, chunks, compactMap } from 'spezi-firebase-utils'
 
 // Calculate average
-const scores = [85, 90, 78, 92, 88];
-const avgScore = average(scores); // 86.6
+const scores = [85, 90, 78, 92, 88]
+const avgScore = average(scores) // 86.6
 
 // Calculate median
-const medianScore = median(scores); // 88
+const medianScore = median(scores) // 88
 
 // Split into batches
-const batches = chunks(scores, 2); // [[85, 90], [78, 92], [88]]
+const batches = chunks(scores, 2) // [[85, 90], [78, 92], [88]]
 
 // Transform and filter in one step
-const userIds = ['user1', 'user2', null, 'user3', undefined];
-const validUserIds = compactMap(userIds, id => id); // ['user1', 'user2', 'user3']
+const userIds = ['user1', 'user2', null, 'user3', undefined]
+const validUserIds = compactMap(userIds, (id) => id) // ['user1', 'user2', 'user3']
 ```
 
 ## Advanced Usage

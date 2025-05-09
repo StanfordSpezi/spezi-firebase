@@ -14,7 +14,7 @@ describe('DateConverter', () => {
     it('should transform a valid ISO string to a Date object', () => {
       const isoString = '2023-05-15T10:30:45.000Z'
       const result = dateConverter.schema.parse(isoString)
-      
+
       expect(result).to.be.instanceOf(Date)
       expect(result.toISOString()).to.equal(isoString)
     })
@@ -22,7 +22,7 @@ describe('DateConverter', () => {
     it('should handle date strings in other formats', () => {
       const dateStr = 'May 15, 2023 10:30:45'
       const result = dateConverter.schema.parse(dateStr)
-      
+
       expect(result).to.be.instanceOf(Date)
       expect(result.getFullYear()).to.equal(2023)
       expect(result.getMonth()).to.equal(4) // May is month 4 (0-based)
@@ -38,7 +38,7 @@ describe('DateConverter', () => {
     it('should encode Date objects to ISO strings', () => {
       const date = new Date('2023-05-15T10:30:45.000Z')
       const result = dateConverter.encode(date)
-      
+
       expect(result).to.be.a('string')
       expect(result).to.equal('2023-05-15T10:30:45.000Z')
     })
@@ -47,7 +47,7 @@ describe('DateConverter', () => {
       // Create a specific date in local timezone
       const date = new Date(2023, 4, 15, 10, 30, 45) // May 15, 2023 10:30:45 local time
       const result = dateConverter.encode(date)
-      
+
       expect(result).to.equal(date.toISOString())
       expect(new Date(result).getTime()).to.equal(date.getTime())
     })
@@ -58,7 +58,7 @@ describe('DateConverter', () => {
       const originalIso = '2023-05-15T10:30:45.000Z'
       const date = dateConverter.schema.parse(originalIso)
       const encodedAgain = dateConverter.encode(date)
-      
+
       expect(encodedAgain).to.equal(originalIso)
     })
 
@@ -66,7 +66,7 @@ describe('DateConverter', () => {
       const original = new Date('2023-05-15T10:30:45.000Z')
       const encoded = dateConverter.encode(original)
       const decodedAgain = dateConverter.schema.parse(encoded)
-      
+
       expect(decodedAgain.getTime()).to.equal(original.getTime())
     })
   })

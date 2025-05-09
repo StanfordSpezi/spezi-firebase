@@ -5,13 +5,19 @@
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
   "scripts": {
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "build": "tsc --noEmitOnError false || true",
     "watch": "tsc --watch",
     "clean": "if [ -f tsconfig.tsbuildinfo ]; then rm tsconfig.tsbuildinfo; fi && if [ -d lib ]; then rm -r lib; fi",
-    "test": "env TZ=UTC NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "env TZ=UTC jest --config=jest.config.cjs",
     "test:watch": "env TZ=UTC NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "test:ci": "npm run test",
     "test:coverage": "env TZ=UTC NODE_OPTIONS=--experimental-vm-modules jest --coverage",

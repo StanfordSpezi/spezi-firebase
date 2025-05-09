@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-
 import { z } from 'zod'
 import { SchemaConverter } from '../../src/utils/schemaConverter.js'
 
@@ -24,8 +23,8 @@ describe('SchemaConverter', () => {
       })
 
       expect(converter).toBeInstanceOf(SchemaConverter)
-      expect(converter).toHaveProperty("schema")
-      expect(converter).toHaveProperty("encode")
+      expect(converter).toHaveProperty('schema')
+      expect(converter).toHaveProperty('encode')
     })
   })
 
