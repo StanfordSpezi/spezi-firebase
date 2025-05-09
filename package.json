@@ -1,8 +1,8 @@
 {
-  "name": "spezi-firebase-remote-notifications",
+  "name": "spezi-firebase",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "Stanford Biodesign Digital Health Spezi FRN Package",
+  "description": "Stanford Biodesign Digital Health Spezi Firebase Packages",
   "keywords": [
     "Stanford",
     "Firebase",
