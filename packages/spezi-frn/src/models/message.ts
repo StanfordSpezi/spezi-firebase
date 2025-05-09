@@ -10,8 +10,8 @@
  * Message model for notification content
  */
 
-import { z } from 'zod'
 import { LocalizedText, localizedTextConverter } from 'spezi-firebase-utils'
+import { z } from 'zod'
 import { dateConverter } from '../utils/dateConverter.js'
 import { optionalish } from '../utils/optionalish.js'
 import { SchemaConverter } from '../utils/schemaConverter.js'
@@ -45,8 +45,8 @@ export const messageConverter = new SchemaConverter<Message, any>({
       // Create a properly typed instance with correct transformation
       return new Message({
         ...content,
-        title: content.title as LocalizedText,
-        description: content.description as LocalizedText | undefined,
+        title: content.title,
+        description: content.description,
       })
     }),
   encode: (object: Message) => {
