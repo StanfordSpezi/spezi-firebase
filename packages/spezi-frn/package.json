@@ -1,19 +1,26 @@
 {
-  "name": "spezi-firebase-remote-notifications",
+  "name": "@stanfordbdhg/spezi-firebase-remote-notifications",
   "version": "0.1.0",
   "description": "Firebase Cloud Messaging (FCM) remote notifications package for Spezi",
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
   "scripts": {
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "build": "tsc --noEmitOnError false || true",
     "watch": "tsc --watch",
     "clean": "if [ -f tsconfig.tsbuildinfo ]; then rm tsconfig.tsbuildinfo; fi && if [ -d lib ]; then rm -r lib; fi",
-    "test": "env TZ=UTC mocha --require ts-node/register --reporter spec \"test/**/*.test.ts\"",
-    "test:watch": "env TZ=UTC mocha --watch --require ts-node/register \"test/**/*.test.ts\"",
+    "test": "env TZ=UTC jest --config=jest.config.cjs",
+    "test:watch": "env TZ=UTC NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "test:ci": "npm run test",
+    "test:coverage": "env TZ=UTC NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "prepublishOnly": "npm run clean && npm run build"
   },
   "keywords": [
@@ -26,26 +33,28 @@
   ],
   "author": "Stanford University",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StanfordSpezi/spezi-firebase.git",
+    "directory": "packages/spezi-frn"
+  },
   "dependencies": {
     "firebase-admin": "^12.0",
+    "@stanfordbdhg/spezi-firebase-utils": "file:../spezi-firebase-utils",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.16",
-    "@types/mocha": "^10.0.7",
+    "@types/jest": "^29.5.3",
     "@types/node": "^20",
-    "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
-    "chai": "^5.1.1",
     "eslint": "^8.57",
     "eslint-config-google": "^0.14",
     "eslint-config-prettier": "^9",
     "eslint-plugin-import": "^2",
     "eslint-plugin-prettier": "^5",
-    "mocha": "^10.6.0",
-    "sinon": "^18.0.0",
-    "ts-node": "^10.9.2",
+    "jest": "^29.6.2",
+    "ts-jest": "^29.1.1",
     "typescript": "^5"
   },
   "peerDependencies": {

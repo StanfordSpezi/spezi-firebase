@@ -1,10 +1,17 @@
-import { expect } from 'chai'
-import { createSandbox, type SinonSandbox } from 'sinon'
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 import { Device, DevicePlatform } from '../../src/models/device.js'
 import { FirestoreDeviceStorage } from '../../src/storage/firestoreDeviceStorage.js'
+// The createStub import was removed since it's not used
+// import { createStub } from '../utils/mockUtils.js'
 
 describe('FirestoreDeviceStorage', () => {
-  let sandbox: SinonSandbox
   let mockFirestore: any
   let mockCollection: any
   let mockCollectionGroup: any
@@ -15,14 +22,12 @@ describe('FirestoreDeviceStorage', () => {
   let storage: FirestoreDeviceStorage
 
   beforeEach(() => {
-    sandbox = createSandbox()
-
     // Setup document references
     mockDocRef = {
       id: 'device1',
       path: 'users/user123/devices/device1',
-      set: sandbox.stub(),
-      delete: sandbox.stub(),
+      set: jest.fn(),
+      delete: jest.fn(),
     }
 
     // Setup query snapshot
@@ -45,37 +50,37 @@ describe('FirestoreDeviceStorage', () => {
 
     // Setup query
     mockQuery = {
-      where: sandbox.stub().returnsThis(),
-      get: sandbox.stub().resolves(mockQuerySnapshot),
+      where: jest.fn().mockReturnThis(),
+      get: jest.fn().mockResolvedValue(mockQuerySnapshot),
     }
 
     // Setup collection
     mockCollection = {
-      doc: sandbox.stub().returns(mockDocRef),
+      doc: jest.fn().mockReturnValue(mockDocRef),
       path: 'users/user123/devices',
-      get: sandbox.stub().resolves(mockQuerySnapshot),
-      withConverter: sandbox.stub().returnsThis(),
+      get: jest.fn().mockResolvedValue(mockQuerySnapshot),
+      withConverter: jest.fn().mockReturnThis(),
     }
 
     // Setup collection group
     mockCollectionGroup = {
-      where: sandbox.stub().returns(mockQuery),
-      withConverter: sandbox.stub().returnsThis(),
+      where: jest.fn().mockReturnValue(mockQuery),
+      withConverter: jest.fn().mockReturnThis(),
     }
 
     // Setup transaction
     mockTransaction = {
-      get: sandbox.stub().resolves(mockQuerySnapshot),
-      set: sandbox.stub(),
-      delete: sandbox.stub(),
+      get: jest.fn().mockResolvedValue(mockQuerySnapshot),
+      set: jest.fn(),
+      delete: jest.fn(),
     }
 
     // Setup Firestore
     mockFirestore = {
-      collection: sandbox.stub().returns(mockCollection),
-      collectionGroup: sandbox.stub().returns(mockCollectionGroup),
+      collection: jest.fn().mockReturnValue(mockCollection),
+      collectionGroup: jest.fn().mockReturnValue(mockCollectionGroup),
       // eslint-disable-next-line @typescript-eslint/require-await
-      runTransaction: sandbox.stub().callsFake(async (callback: any) => {
+      runTransaction: jest.fn().mockImplementation(async (callback: any) => {
         return callback(mockTransaction)
       }),
     }
@@ -85,19 +90,20 @@ describe('FirestoreDeviceStorage', () => {
   })
 
   afterEach(() => {
-    sandbox.restore()
+    jest.clearAllMocks()
   })
 
   describe('constructor', () => {
-    it('should initialize with default options', () => {
+    test('should initialize with default options', () => {
       new FirestoreDeviceStorage(mockFirestore)
 
       // We can't test private properties directly, so test the behavior instead
-      expect(mockFirestore.collection.calledWith('users/test/devices')).to.be
-        .false
+      expect(mockFirestore.collection).not.toHaveBeenCalledWith(
+        'users/test/devices',
+      )
     })
 
-    it('should initialize with custom options', () => {
+    test('should initialize with custom options', () => {
       const options = {
         devicesCollection: 'custom_devices',
         userDevicesPathTemplate: 'custom_users/{userId}/custom_devices',
@@ -109,14 +115,14 @@ describe('FirestoreDeviceStorage', () => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       storage.getUserDevices('test')
 
-      expect(
-        mockFirestore.collection.calledWith('custom_users/test/custom_devices'),
-      ).to.be.true
+      expect(mockFirestore.collection).toHaveBeenCalledWith(
+        'custom_users/test/custom_devices',
+      )
     })
   })
 
   describe('storeDevice', () => {
-    it('should store a new device if no existing device is found', async () => {
+    test('should store a new device if no existing device is found', async () => {
       // Setup empty query response for 'no existing device'
       mockQuerySnapshot.docs = []
 
@@ -127,22 +133,22 @@ describe('FirestoreDeviceStorage', () => {
       })
 
       // Create mock for the collection path
-      mockFirestore.collection = sandbox.stub().returns(mockCollection)
+      mockFirestore.collection = jest.fn().mockReturnValue(mockCollection)
 
       // Create a custom mock implementation for runTransaction
-      const setStub = sandbox.stub().returns(undefined)
+      const setStub = jest.fn().mockReturnValue(undefined)
 
-      mockFirestore.runTransaction = sandbox
-        .stub()
+      mockFirestore.runTransaction = jest
+        .fn()
         // eslint-disable-next-line @typescript-eslint/require-await
-        .callsFake(async (transactionCallback: any) => {
+        .mockImplementation(async (transactionCallback: any) => {
           // Create a transaction mock that matches what FirestoreDeviceStorage expects
           const transaction = {
-            get: sandbox.stub().resolves({
+            get: jest.fn().mockResolvedValue({
               docs: [], // Empty array means no existing devices found
             }),
             set: setStub,
-            delete: sandbox.stub().returns(undefined),
+            delete: jest.fn().mockReturnValue(undefined),
           }
 
           // Call the callback
@@ -155,27 +161,28 @@ describe('FirestoreDeviceStorage', () => {
       await storage.storeDevice(userId, device)
 
       // Verify transaction was run
-      expect(mockFirestore.runTransaction.calledOnce).to.be.true
+      expect(mockFirestore.runTransaction).toHaveBeenCalledTimes(1)
 
       // Verify collection was requested with the correct path
-      expect(mockFirestore.collection.calledWith('users/user123/devices')).to.be
-        .true
+      expect(mockFirestore.collection).toHaveBeenCalledWith(
+        'users/user123/devices',
+      )
     })
 
-    it('should update existing device and delete others with same token', async () => {
+    test('should update existing device and delete others with same token', async () => {
       // Setup query response with multiple devices
       const mockDeviceRef1 = {
         id: 'device1',
         path: 'users/user123/devices/device1',
-        set: sandbox.stub(),
-        delete: sandbox.stub(),
+        set: jest.fn(),
+        delete: jest.fn(),
       }
 
       const mockDeviceRef2 = {
         id: 'device2',
         path: 'users/otheruser/devices/device2',
-        set: sandbox.stub(),
-        delete: sandbox.stub(),
+        set: jest.fn(),
+        delete: jest.fn(),
       }
 
       mockQuerySnapshot.docs = [
@@ -206,15 +213,15 @@ describe('FirestoreDeviceStorage', () => {
       await storage.storeDevice(userId, device)
 
       // Check that we set the user's device
-      expect(mockTransaction.set.calledOnce).to.be.true
+      expect(mockTransaction.set).toHaveBeenCalledTimes(1)
 
       // Check that we deleted other devices with same token
-      expect(mockTransaction.delete.calledOnce).to.be.true
+      expect(mockTransaction.delete).toHaveBeenCalledTimes(1)
     })
   })
 
   describe('removeDevice', () => {
-    it('should remove devices matching token and platform', async () => {
+    test('should remove devices matching token and platform', async () => {
       const userId = 'user123'
       const token = 'token123'
       const platform = 'iOS'
@@ -223,7 +230,7 @@ describe('FirestoreDeviceStorage', () => {
       const deviceRef = {
         id: 'device1',
         path: 'users/user123/devices/device1',
-        delete: sandbox.stub(),
+        delete: jest.fn(),
       }
 
       const deviceDoc = {
@@ -236,16 +243,16 @@ describe('FirestoreDeviceStorage', () => {
       }
 
       // Create a custom mock implementation for this test
-      mockFirestore.runTransaction = sandbox
-        .stub()
+      mockFirestore.runTransaction = jest
+        .fn()
         // eslint-disable-next-line @typescript-eslint/require-await
-        .callsFake(async (transactionCallback: any) => {
+        .mockImplementation(async (transactionCallback: any) => {
           // Override the transaction object with a proper implementation for this test
           const transaction = {
-            get: sandbox.stub().resolves({
+            get: jest.fn().mockResolvedValue({
               docs: [deviceDoc],
             }),
-            delete: sandbox.stub().returns(undefined),
+            delete: jest.fn().mockReturnValue(undefined),
           }
 
           // Call the callback with mocked parameters
@@ -255,15 +262,15 @@ describe('FirestoreDeviceStorage', () => {
       await storage.removeDevice(userId, token, platform)
 
       // Validate transaction was run
-      expect(mockFirestore.runTransaction.calledOnce).to.be.true
+      expect(mockFirestore.runTransaction).toHaveBeenCalledTimes(1)
     })
 
-    it('should not remove devices with different platform', async () => {
+    test('should not remove devices with different platform', async () => {
       // Setup device with different platform
       const deviceRef = {
         id: 'device1',
         path: 'users/user123/devices/device1',
-        delete: sandbox.stub(),
+        delete: jest.fn(),
       }
 
       const deviceDoc = {
@@ -280,16 +287,16 @@ describe('FirestoreDeviceStorage', () => {
       const platform = 'iOS' // Different from device platform
 
       // Create a delete stub to verify it's not called
-      const deleteStub = sandbox.stub()
+      const deleteStub = jest.fn()
 
       // Create a custom mock implementation for this test
-      mockFirestore.runTransaction = sandbox
-        .stub()
+      mockFirestore.runTransaction = jest
+        .fn()
         // eslint-disable-next-line @typescript-eslint/require-await
-        .callsFake(async (transactionCallback: any) => {
+        .mockImplementation(async (transactionCallback: any) => {
           // Override the transaction object with a proper implementation for this test
           const transaction = {
-            get: sandbox.stub().resolves({
+            get: jest.fn().mockResolvedValue({
               docs: [deviceDoc],
             }),
             delete: deleteStub,
@@ -302,13 +309,13 @@ describe('FirestoreDeviceStorage', () => {
       await storage.removeDevice(userId, token, platform)
 
       // Verify transaction was run but delete wasn't called
-      expect(mockFirestore.runTransaction.calledOnce).to.be.true
-      expect(deleteStub.called).to.be.false
+      expect(mockFirestore.runTransaction).toHaveBeenCalledTimes(1)
+      expect(deleteStub).not.toHaveBeenCalled()
     })
   })
 
   describe('getUserDevices', () => {
-    it('should return user devices properly formatted', async () => {
+    test('should return user devices properly formatted', async () => {
       const userId = 'user123'
 
       // Create a mock document snapshot
@@ -333,52 +340,47 @@ describe('FirestoreDeviceStorage', () => {
       }
 
       // Setup the mock
-      const getStub = sandbox.stub()
-      getStub.resolves(querySnapshot)
+      const getStub = jest.fn()
+      getStub.mockResolvedValue(querySnapshot)
 
-      const withConverterStub = sandbox.stub()
-      withConverterStub.returns({ get: getStub })
+      const withConverterStub = jest.fn()
+      withConverterStub.mockReturnValue({ get: getStub })
 
-      mockFirestore.collection.returns({
+      mockFirestore.collection.mockReturnValue({
         withConverter: withConverterStub,
       })
 
       const devices = await storage.getUserDevices(userId)
 
       // Check that we queried the correct collection
-      expect(mockFirestore.collection.calledWith('users/user123/devices')).to.be
-        .true
+      expect(mockFirestore.collection).toHaveBeenCalledWith(
+        'users/user123/devices',
+      )
 
       // Check returned devices
-      expect(devices).to.be.an('array')
-      expect(devices.length).to.equal(1)
-      expect(devices[0].id).to.equal('device1')
+      expect(Array.isArray(devices)).toBe(true)
+      expect(devices.length).toBe(1)
+      expect(devices[0].id).toBe('device1')
 
       // Instead of checking instanceof, check the properties directly
-      expect(devices[0].content).to.have.property(
-        'notificationToken',
-        'token123',
-      )
-      expect(devices[0].content).to.have.property(
-        'platform',
-        DevicePlatform.iOS,
-      )
-      expect(devices[0].content).to.have.property('osVersion', '15.0')
-      expect(devices[0].content).to.have.property('appVersion', '1.0.0')
-      expect(devices[0].content.notificationToken).to.equal('token123')
-      expect(devices[0].content.platform).to.equal(DevicePlatform.iOS)
+      expect(devices[0].content).toHaveProperty('notificationToken', 'token123')
+      expect(devices[0].content).toHaveProperty('platform', DevicePlatform.iOS)
+      expect(devices[0].content).toHaveProperty('osVersion', '15.0')
+      expect(devices[0].content).toHaveProperty('appVersion', '1.0.0')
+      expect(devices[0].content.notificationToken).toBe('token123')
+      expect(devices[0].content.platform).toBe(DevicePlatform.iOS)
     })
   })
 
   describe('removeInvalidToken', () => {
-    it('should remove all devices with the invalid token', async () => {
+    test('should remove all devices with the invalid token', async () => {
       const token = 'invalid-token'
 
       // Create a device reference with the invalid token
       const deviceRef = {
         id: 'device1',
         path: 'users/user123/devices/device1',
-        delete: sandbox.stub(),
+        delete: jest.fn(),
       }
 
       const deviceDoc = {
@@ -391,16 +393,16 @@ describe('FirestoreDeviceStorage', () => {
       }
 
       // Create a delete stub to verify it's called
-      const deleteStub = sandbox.stub()
+      const deleteStub = jest.fn()
 
       // Create a custom mock implementation for this test
-      mockFirestore.runTransaction = sandbox
-        .stub()
+      mockFirestore.runTransaction = jest
+        .fn()
         // eslint-disable-next-line @typescript-eslint/require-await
-        .callsFake(async (transactionCallback: any) => {
+        .mockImplementation(async (transactionCallback: any) => {
           // Override the transaction object with a proper implementation for this test
           const transaction = {
-            get: sandbox.stub().resolves({
+            get: jest.fn().mockResolvedValue({
               docs: [deviceDoc],
             }),
             delete: deleteStub,
@@ -413,7 +415,7 @@ describe('FirestoreDeviceStorage', () => {
       await storage.removeInvalidToken(token)
 
       // Verify transaction was run
-      expect(mockFirestore.runTransaction.calledOnce).to.be.true
+      expect(mockFirestore.runTransaction).toHaveBeenCalledTimes(1)
     })
   })
 })

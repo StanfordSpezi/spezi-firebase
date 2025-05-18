@@ -1,100 +1,106 @@
-import { expect } from 'chai'
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 import {
   LocalizedText,
   localizedTextConverter,
-} from '../../src/models/localizedText.js'
+} from '@stanfordbdhg/spezi-firebase-utils'
 
 describe('LocalizedText Model', () => {
-  describe('Raw Creation', () => {
-    it('should create a LocalizedText instance from a string', () => {
+  describe('Construction', () => {
+    test('should create a LocalizedText instance from a string', () => {
       const text = 'Hello World'
-      const localizedText = LocalizedText.raw(text)
+      const localizedText = new LocalizedText(text)
 
-      expect(localizedText).to.be.an.instanceOf(LocalizedText)
-      expect(localizedText.content).to.equal(text)
+      expect(localizedText).toBeInstanceOf(LocalizedText)
+      expect(localizedText.content).toBe(text)
     })
 
-    it('should create a LocalizedText instance from a record', () => {
+    test('should create a LocalizedText instance from a record', () => {
       const record = {
         en: 'Hello',
         de: 'Hallo',
         fr: 'Bonjour',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
-      expect(localizedText).to.be.an.instanceOf(LocalizedText)
-      expect(localizedText.content).to.deep.equal(record)
+      expect(localizedText).toBeInstanceOf(LocalizedText)
+      expect(localizedText.content).toEqual(record)
     })
   })
 
   describe('Localize Method', () => {
-    it('should return the same text for a string content', () => {
+    test('should return the same text for a string content', () => {
       const text = 'Hello World'
-      const localizedText = LocalizedText.raw(text)
+      const localizedText = new LocalizedText(text)
 
-      expect(localizedText.localize('en')).to.equal(text)
-      expect(localizedText.localize('de')).to.equal(text)
+      expect(localizedText.localize('en')).toBe(text)
+      expect(localizedText.localize('de')).toBe(text)
     })
 
-    it('should return the correct language for a record content', () => {
+    test('should return the correct language for a record content', () => {
       const record = {
         en: 'Hello',
         de: 'Hallo',
         fr: 'Bonjour',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
-      expect(localizedText.localize('en')).to.equal(record.en)
-      expect(localizedText.localize('de')).to.equal(record.de)
-      expect(localizedText.localize('fr')).to.equal(record.fr)
+      expect(localizedText.localize('en')).toBe(record.en)
+      expect(localizedText.localize('de')).toBe(record.de)
+      expect(localizedText.localize('fr')).toBe(record.fr)
     })
 
-    it('should fallback to language prefix if exact match not found', () => {
+    test('should fallback to language prefix if exact match not found', () => {
       const record = {
         en: 'Hello',
         de: 'Hallo',
         fr: 'Bonjour',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
-      expect(localizedText.localize('en-US')).to.equal(record.en)
-      expect(localizedText.localize('de-DE')).to.equal(record.de)
-      expect(localizedText.localize('fr-FR')).to.equal(record.fr)
+      expect(localizedText.localize('en-US')).toBe(record.en)
+      expect(localizedText.localize('de-DE')).toBe(record.de)
+      expect(localizedText.localize('fr-FR')).toBe(record.fr)
     })
 
-    it('should fallback to en-US if language not found', () => {
+    test('should fallback to en-US if language not found', () => {
       const record = {
         en: 'Hello',
         fr: 'Bonjour',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
-      expect(localizedText.localize('de')).to.equal(record.en)
+      expect(localizedText.localize('de')).toBe(record.en)
     })
 
-    it('should fallback to first value if en-US not found', () => {
+    test('should fallback to first value if en-US not found', () => {
       const record = {
         fr: 'Bonjour',
         de: 'Hallo',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
-      expect(localizedText.localize('es')).to.equal(record.fr)
+      expect(localizedText.localize('es')).toBe(record.fr)
     })
   })
 
   describe('Converter', () => {
-    it('should encode a LocalizedText properly', () => {
+    test('should encode a LocalizedText properly', () => {
       const record = {
         en: 'Hello',
         de: 'Hallo',
       }
-      const localizedText = LocalizedText.raw(record)
+      const localizedText = new LocalizedText(record)
 
       const encoded = localizedTextConverter.encode(localizedText)
 
-      expect(encoded).to.be.an.instanceOf(LocalizedText)
-      expect(encoded.content).to.deep.equal(record)
+      expect(encoded).toEqual(record)
     })
   })
 })

@@ -1,13 +1,19 @@
-import { expect } from 'chai'
-import { createSandbox, type SinonSandbox } from 'sinon'
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 import {
   createRegisterDeviceHandler,
   type RegisterDeviceInput,
 } from '../../src/functions/registerDevice.js'
 import { Device, DevicePlatform } from '../../src/models/device.js'
+import { createStub } from '../utils/mockUtils.js'
 
 describe('registerDevice Function', () => {
-  let sandbox: SinonSandbox
   let mockNotificationService: any
   let registerDeviceHandler: (
     userId: string,
@@ -15,20 +21,18 @@ describe('registerDevice Function', () => {
   ) => Promise<undefined>
 
   beforeEach(() => {
-    sandbox = createSandbox()
-
     mockNotificationService = {
-      registerDevice: sandbox.stub().resolves(),
+      registerDevice: createStub(undefined).resolves(),
     }
 
     registerDeviceHandler = createRegisterDeviceHandler(mockNotificationService)
   })
 
   afterEach(() => {
-    sandbox.restore()
+    jest.restoreAllMocks()
   })
 
-  it('should validate and register a valid device request', async () => {
+  test('should validate and register a valid device request', async () => {
     const input: RegisterDeviceInput = {
       notificationToken: 'token123',
       platform: DevicePlatform.iOS,
@@ -42,17 +46,17 @@ describe('registerDevice Function', () => {
     const userId = 'user123'
     await registerDeviceHandler(userId, input)
 
-    expect(mockNotificationService.registerDevice.calledOnce).to.be.true
+    expect(mockNotificationService.registerDevice).toHaveBeenCalledTimes(1)
 
     // Check the device created
-    const deviceArg = mockNotificationService.registerDevice.firstCall.args[1]
-    expect(deviceArg).to.be.an.instanceOf(Device)
-    expect(deviceArg.notificationToken).to.equal(input.notificationToken)
-    expect(deviceArg.platform).to.equal(DevicePlatform.iOS)
-    expect(deviceArg.osVersion).to.equal(input.osVersion)
+    const deviceArg = mockNotificationService.registerDevice.mock.calls[0][1]
+    expect(deviceArg).toBeInstanceOf(Device)
+    expect(deviceArg.notificationToken).toBe(input.notificationToken)
+    expect(deviceArg.platform).toBe(DevicePlatform.iOS)
+    expect(deviceArg.osVersion).toBe(input.osVersion)
   })
 
-  it('should register a device with only required fields', async () => {
+  test('should register a device with only required fields', async () => {
     const input: RegisterDeviceInput = {
       notificationToken: 'token123',
       platform: DevicePlatform.Android,
@@ -61,36 +65,35 @@ describe('registerDevice Function', () => {
     const userId = 'user123'
     await registerDeviceHandler(userId, input)
 
-    expect(mockNotificationService.registerDevice.calledOnce).to.be.true
+    expect(mockNotificationService.registerDevice).toHaveBeenCalledTimes(1)
 
     // Check the device created
-    const deviceArg = mockNotificationService.registerDevice.firstCall.args[1]
-    expect(deviceArg).to.be.an.instanceOf(Device)
-    expect(deviceArg.notificationToken).to.equal(input.notificationToken)
-    expect(deviceArg.platform).to.equal(DevicePlatform.Android)
-    expect(deviceArg.osVersion).to.be.undefined
-    expect(deviceArg.appVersion).to.be.undefined
+    const deviceArg = mockNotificationService.registerDevice.mock.calls[0][1]
+    expect(deviceArg).toBeInstanceOf(Device)
+    expect(deviceArg.notificationToken).toBe(input.notificationToken)
+    expect(deviceArg.platform).toBe(DevicePlatform.Android)
+    expect(deviceArg.osVersion).toBeUndefined()
+    expect(deviceArg.appVersion).toBeUndefined()
   })
 
-  it('should throw an error for invalid platform', async () => {
-    const input = {
+  test('should accept any string as platform', async () => {
+    const input: RegisterDeviceInput = {
       notificationToken: 'token123',
-      platform: 'InvalidPlatform', // Not a valid platform
+      platform: 'CustomPlatform', // Can be any string now
     }
 
     const userId = 'user123'
+    await registerDeviceHandler(userId, input)
 
-    try {
-      await registerDeviceHandler(userId, input as any)
-      // Should not reach here
-      expect.fail('Should have thrown an error')
-    } catch (error) {
-      expect(error).to.exist
-      expect(mockNotificationService.registerDevice.called).to.be.false
-    }
+    expect(mockNotificationService.registerDevice).toHaveBeenCalledTimes(1)
+
+    // Check the device created
+    const deviceArg = mockNotificationService.registerDevice.mock.calls[0][1]
+    expect(deviceArg).toBeInstanceOf(Device)
+    expect(deviceArg.platform).toBe('CustomPlatform')
   })
 
-  it('should throw an error for missing required fields', async () => {
+  test('should throw an error for missing required fields', async () => {
     // Missing notification token
     const input = {
       platform: DevicePlatform.iOS,
@@ -101,10 +104,11 @@ describe('registerDevice Function', () => {
     try {
       await registerDeviceHandler(userId, input as any)
       // Should not reach here
-      expect.fail('Should have thrown an error')
+      // If we get here, the test should fail
+      expect(false).toBe(true)
     } catch (error) {
-      expect(error).to.exist
-      expect(mockNotificationService.registerDevice.called).to.be.false
+      expect(error).toBeDefined()
+      expect(mockNotificationService.registerDevice).not.toHaveBeenCalled()
     }
   })
 })

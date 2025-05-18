@@ -1,9 +1,20 @@
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 /**
  * Message model for notification content
  */
 
+import {
+  LocalizedText,
+  localizedTextConverter,
+} from '@stanfordbdhg/spezi-firebase-utils'
 import { z } from 'zod'
-import { LocalizedText, localizedTextConverter } from './localizedText.js'
 import { dateConverter } from '../utils/dateConverter.js'
 import { optionalish } from '../utils/optionalish.js'
 import { SchemaConverter } from '../utils/schemaConverter.js'
@@ -16,18 +27,17 @@ export enum MessageType {
   System = 'System',
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const messageConverter = new SchemaConverter<Message, any>({
+export const messageConverter = new SchemaConverter<Message, z.ZodType>({
   schema: z
     .object({
       creationDate: dateConverter.schema,
       dueDate: optionalish(dateConverter.schema),
       completionDate: optionalish(dateConverter.schema),
       type: z.nativeEnum(MessageType),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      title: z.lazy(() => localizedTextConverter.schema),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      description: optionalish(z.lazy(() => localizedTextConverter.schema)),
+      title: z.lazy(() => localizedTextConverter.schema as z.ZodType),
+      description: optionalish(
+        z.lazy(() => localizedTextConverter.schema as z.ZodType),
+      ),
       action: optionalish(z.string()),
       isDismissible: z.boolean(),
       reference: optionalish(z.string()),
@@ -52,9 +62,7 @@ export const messageConverter = new SchemaConverter<Message, any>({
           dateConverter.encode(object.completionDate)
         : undefined,
       type: object.type,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       title: localizedTextConverter.encode(object.title),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       description:
         object.description ?
           localizedTextConverter.encode(object.description)
@@ -119,13 +127,13 @@ export class Message {
       creationDate: input.creationDate ?? new Date(),
       title:
         typeof input.title === 'string' ?
-          LocalizedText.raw(input.title)
-        : LocalizedText.raw(input.title),
+          new LocalizedText(input.title)
+        : new LocalizedText(input.title),
       description:
         input.description ?
           typeof input.description === 'string' ?
-            LocalizedText.raw(input.description)
-          : LocalizedText.raw(input.description)
+            new LocalizedText(input.description)
+          : new LocalizedText(input.description)
         : undefined,
       action: input.action,
       type: MessageType.Information,
@@ -148,13 +156,13 @@ export class Message {
       creationDate: input.creationDate ?? new Date(),
       title:
         typeof input.title === 'string' ?
-          LocalizedText.raw(input.title)
-        : LocalizedText.raw(input.title),
+          new LocalizedText(input.title)
+        : new LocalizedText(input.title),
       description:
         input.description ?
           typeof input.description === 'string' ?
-            LocalizedText.raw(input.description)
-          : LocalizedText.raw(input.description)
+            new LocalizedText(input.description)
+          : new LocalizedText(input.description)
         : undefined,
       action: input.action,
       type: MessageType.Alert,
@@ -179,13 +187,13 @@ export class Message {
       dueDate: input.dueDate,
       title:
         typeof input.title === 'string' ?
-          LocalizedText.raw(input.title)
-        : LocalizedText.raw(input.title),
+          new LocalizedText(input.title)
+        : new LocalizedText(input.title),
       description:
         input.description ?
           typeof input.description === 'string' ?
-            LocalizedText.raw(input.description)
-          : LocalizedText.raw(input.description)
+            new LocalizedText(input.description)
+          : new LocalizedText(input.description)
         : undefined,
       action: input.action,
       type: MessageType.Reminder,
@@ -208,13 +216,13 @@ export class Message {
       creationDate: input.creationDate ?? new Date(),
       title:
         typeof input.title === 'string' ?
-          LocalizedText.raw(input.title)
-        : LocalizedText.raw(input.title),
+          new LocalizedText(input.title)
+        : new LocalizedText(input.title),
       description:
         input.description ?
           typeof input.description === 'string' ?
-            LocalizedText.raw(input.description)
-          : LocalizedText.raw(input.description)
+            new LocalizedText(input.description)
+          : new LocalizedText(input.description)
         : undefined,
       action: input.action,
       type: MessageType.Action,
