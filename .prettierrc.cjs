@@ -7,7 +7,6 @@
 //
 
 const config = {
-  plugins: [],
   semi: false,
   singleQuote: true,
   experimentalTernaries: true,
