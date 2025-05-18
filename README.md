@@ -19,7 +19,7 @@ A collection of Firebase utilities and further components to kickstart the devel
 
 This repository contains currently two main packages:
 
-- **spezi-firebase-remote-notifications** (`packages/spezi-frn`): The main package for FCM notifications
+- **spezi-firebase-remote-notifications** (`packages/spezi-firebase-remote-notifications`): The main package for FCM notifications
 - **spezi-firebase-utils** (`packages/spezi-firebase-utils`): Utility functions for Firebase projects
 
 ## Features
