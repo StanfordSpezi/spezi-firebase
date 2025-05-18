@@ -17,6 +17,3 @@ export * from './helpers/string.js'
 
 // Types
 export * from './types/localizedText.js'
-
-// Services
-// Firebase-admin services removed
