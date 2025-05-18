@@ -27,18 +27,17 @@ export enum MessageType {
   System = 'System',
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const messageConverter = new SchemaConverter<Message, any>({
+export const messageConverter = new SchemaConverter<Message, z.ZodType>({
   schema: z
     .object({
       creationDate: dateConverter.schema,
       dueDate: optionalish(dateConverter.schema),
       completionDate: optionalish(dateConverter.schema),
       type: z.nativeEnum(MessageType),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      title: z.lazy(() => localizedTextConverter.schema),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      description: optionalish(z.lazy(() => localizedTextConverter.schema)),
+      title: z.lazy(() => localizedTextConverter.schema as z.ZodType),
+      description: optionalish(
+        z.lazy(() => localizedTextConverter.schema as z.ZodType),
+      ),
       action: optionalish(z.string()),
       isDismissible: z.boolean(),
       reference: optionalish(z.string()),
@@ -48,8 +47,8 @@ export const messageConverter = new SchemaConverter<Message, any>({
       // Create a properly typed instance with correct transformation
       return new Message({
         ...content,
-        title: content.title,
-        description: content.description,
+        title: content.title as LocalizedText,
+        description: content.description as LocalizedText | undefined,
       })
     }),
   encode: (object: Message) => {
@@ -63,9 +62,7 @@ export const messageConverter = new SchemaConverter<Message, any>({
           dateConverter.encode(object.completionDate)
         : undefined,
       type: object.type,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       title: localizedTextConverter.encode(object.title),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       description:
         object.description ?
           localizedTextConverter.encode(object.description)
