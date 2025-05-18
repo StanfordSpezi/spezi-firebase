@@ -1,3 +1,11 @@
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 /**
  * Creates a mock function that tracks its calls, see https://stackoverflow.com/questions/59010129/mocking-a-function-inside-a-function-and-getting-calls-count-in-jest
  * @returns A mock function with call tracking
