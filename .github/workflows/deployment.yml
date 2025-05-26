@@ -11,6 +11,9 @@ name: Deployment
 on:
   release:
     types: [published]
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 concurrency:
