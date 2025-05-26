@@ -19,7 +19,7 @@ A collection of Firebase utilities and further components to kickstart the devel
 
 This repository contains currently two main packages:
 
-- **spezi-firebase-remote-notifications** (`packages/spezi-firebase-remote-notifications`): The main package for FCM notifications
+- **spezi-firebase-cloud-messaging** (`packages/spezi-firebase-cloud-messaging`): The main package for FCM notifications
 - **spezi-firebase-utils** (`packages/spezi-firebase-utils`): Utility functions for Firebase projects
 
 ## Features
@@ -34,7 +34,7 @@ This repository contains currently two main packages:
 ## Installation
 
 ```bash
-npm install @stanfordbdhg/spezi-firebase-remote-notifications
+npm install @stanfordbdhg/spezi-firebase-cloud-messaging
 ```
 
 ## Quick Start
@@ -50,7 +50,7 @@ import {
   DevicePlatform,
   Device,
   LocalizedText,
-} from '@stanfordbdhg/spezi-firebase-remote-notifications'
+} from '@stanfordbdhg/spezi-firebase-cloud-messaging'
 
 // Initialize Firebase
 const app = initializeApp()
@@ -126,7 +126,7 @@ import {
   createUnregisterDeviceHandler,
   registerDeviceInputSchema,
   unregisterDeviceInputSchema,
-} from '@stanfordbdhg/spezi-firebase-remote-notifications'
+} from '@stanfordbdhg/spezi-firebase-cloud-messaging'
 
 // Create function handlers
 const registerDeviceHandler = createRegisterDeviceHandler(notificationService)
