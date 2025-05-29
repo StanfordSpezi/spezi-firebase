@@ -10,9 +10,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/StanfordSpezi/spezi-firebase.git"
+    "url": "git+https://github.com/StanfordSpezi/spezi-firebase"
   },
-  "private": true,
   "scripts": {
     "dev": "npm --prefix packages/spezi-firebase-cloud-messaging run watch",
     "prebuild": "concurrently \"npm --prefix packages/spezi-firebase-utils run build\" \"npm --prefix packages/spezi-firebase-cloud-messaging run build\"",
