@@ -17,10 +17,10 @@ A collection of Firebase utilities and further components to kickstart the devel
 
 ## Repository Structure
 
-This repository contains currently two main packages:
+This repository is organized as an npm workspace containing two main packages:
 
-- **spezi-firebase-cloud-messaging** (`packages/spezi-firebase-cloud-messaging`): The main package for FCM notifications
-- **spezi-firebase-utils** (`packages/spezi-firebase-utils`): Utility functions for Firebase projects
+- **spezi-firebase-utils** (`packages/spezi-firebase-utils`): Base utility functions for Firebase projects
+- **spezi-firebase-cloud-messaging** (`packages/spezi-firebase-cloud-messaging`): Firebase Cloud Messaging (FCM) remote notifications package that builds on the utilities
 
 ## Features
 
@@ -33,9 +33,51 @@ This repository contains currently two main packages:
 
 ## Installation
 
+### For End Users
+
+Install the packages you need:
+
 ```bash
+# Base utilities
+npm install @stanfordspezi/spezi-firebase-utils
+
+# FCM notifications (includes utilities as dependency)
 npm install @stanfordspezi/spezi-firebase-cloud-messaging
 ```
+
+### For Development
+
+This project uses npm workspaces for managing multiple packages. To set up the development environment:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/StanfordSpezi/spezi-firebase.git
+   cd spezi-firebase
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+   This will install dependencies for all workspace packages.
+
+3. **Build all packages**:
+   ```bash
+   npm run build
+   ```
+
+4. **Run tests**:
+   ```bash
+   npm test
+   ```
+
+### Workspace Commands
+
+- Build all packages: `npm run build --workspaces`
+- Build specific package: `npm run build -w spezi-firebase-utils` or `npm run build -w spezi-firebase-cloud-messaging`
+- Test all packages: `npm run test --workspaces`
+- Test specific package: `npm run test -w spezi-firebase-utils` or `npm run test -w spezi-firebase-cloud-messaging`
+- Start development mode: `npm run dev`
 
 ## Quick Start
 
