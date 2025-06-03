@@ -9,7 +9,7 @@
 import {
   LocalizedText,
   localizedTextConverter,
-} from '@stanfordbdhg/spezi-firebase-utils'
+} from '@stanfordspezi/spezi-firebase-utils'
 
 describe('LocalizedText Model', () => {
   describe('Construction', () => {

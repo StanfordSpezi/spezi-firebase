@@ -30,7 +30,7 @@
     "docs:ci": "typedoc --out ./out/docs --githubPages true"
   },
   "dependencies": {
-    "@stanfordbdhg/spezi-firebase-cloud-messaging": "file:./packages/spezi-firebase-cloud-messaging"
+    "@stanfordspezi/spezi-firebase-cloud-messaging": "file:./packages/spezi-firebase-cloud-messaging"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6",

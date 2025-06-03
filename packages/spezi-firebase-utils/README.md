@@ -18,7 +18,7 @@ A collection of utility functions for Firebase projects, extracted from the Stan
 ## Installation
 
 ```bash
-npm install @stanfordbdhg/spezi-firebase-utils
+npm install @stanfordspezi/spezi-firebase-utils
 ```
 
 ## Features
@@ -34,7 +34,7 @@ npm install @stanfordbdhg/spezi-firebase-utils
 ### Schema Converter
 
 ```typescript
-import { SchemaConverter } from '@stanfordbdhg/spezi-firebase-utils'
+import { SchemaConverter } from '@stanfordspezi/spezi-firebase-utils'
 import { z } from 'zod'
 
 const userSchema = z.object({
@@ -56,7 +56,7 @@ const userConverter = new SchemaConverter({
 ### Localized Text
 
 ```typescript
-import { LocalizedText } from '@stanfordbdhg/spezi-firebase-utils'
+import { LocalizedText } from '@stanfordspezi/spezi-firebase-utils'
 
 const greeting = new LocalizedText({
   en: 'Hello',

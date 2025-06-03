@@ -34,7 +34,7 @@ This repository contains currently two main packages:
 ## Installation
 
 ```bash
-npm install @stanfordbdhg/spezi-firebase-cloud-messaging
+npm install @stanfordspezi/spezi-firebase-cloud-messaging
 ```
 
 ## Quick Start
@@ -50,7 +50,7 @@ import {
   DevicePlatform,
   Device,
   LocalizedText,
-} from '@stanfordbdhg/spezi-firebase-cloud-messaging'
+} from '@stanfordspezi/spezi-firebase-cloud-messaging'
 
 // Initialize Firebase
 const app = initializeApp()
@@ -126,7 +126,7 @@ import {
   createUnregisterDeviceHandler,
   registerDeviceInputSchema,
   unregisterDeviceInputSchema,
-} from '@stanfordbdhg/spezi-firebase-cloud-messaging'
+} from '@stanfordspezi/spezi-firebase-cloud-messaging'
 
 // Create function handlers
 const registerDeviceHandler = createRegisterDeviceHandler(notificationService)

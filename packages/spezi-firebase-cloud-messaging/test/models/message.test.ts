@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { LocalizedText } from '@stanfordbdhg/spezi-firebase-utils'
+import { LocalizedText } from '@stanfordspezi/spezi-firebase-utils'
 import {
   Message,
   MessageType,

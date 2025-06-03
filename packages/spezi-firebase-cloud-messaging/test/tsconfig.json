@@ -6,7 +6,7 @@
     "noEmit": true,
     "types": ["jest", "node"],
     "paths": {
-      "@stanfordbdhg/spezi-firebase-utils": ["../spezi-firebase-utils/src"]
+      "@stanfordspezi/spezi-firebase-utils": ["../spezi-firebase-utils/src"]
     },
     "rootDir": "../"
   },
