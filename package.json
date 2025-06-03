@@ -12,25 +12,28 @@
     "type": "git",
     "url": "git+https://github.com/StanfordSpezi/spezi-firebase"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "npm --prefix packages/spezi-firebase-cloud-messaging run watch",
-    "prebuild": "concurrently \"npm --prefix packages/spezi-firebase-utils run build\" \"npm --prefix packages/spezi-firebase-cloud-messaging run build\"",
-    "build": "concurrently \"npm --prefix packages/spezi-firebase-utils run build\" \"npm --prefix packages/spezi-firebase-cloud-messaging run build\"",
-    "build:utils": "npm --prefix packages/spezi-firebase-utils run build",
-    "build:frn": "npm --prefix packages/spezi-firebase-cloud-messaging run build",
+    "dev": "npm run watch -w spezi-firebase-cloud-messaging",
+    "prebuild": "npm run build --workspaces",
+    "build": "npm run build --workspaces",
+    "build:utils": "npm run build -w spezi-firebase-utils",
+    "build:frn": "npm run build -w spezi-firebase-cloud-messaging",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix & prettier --write .",
     "lint:ci": "npm run prebuild && eslint --output-file eslint_report.json --format json .",
     "lint:strict": "npm run prebuild && eslint . --max-warnings=0",
     "pretest": "npm run build",
-    "test": "npm run test:utils && npm run test:remote-notifications",
-    "test:remote-notifications": "npm --prefix packages/spezi-firebase-cloud-messaging run test",
-    "test:utils": "npm --prefix packages/spezi-firebase-utils run test",
+    "test": "npm run test --workspaces",
+    "test:remote-notifications": "npm run test -w spezi-firebase-cloud-messaging",
+    "test:utils": "npm run test -w spezi-firebase-utils",
     "docs": "typedoc",
     "docs:ci": "typedoc --out ./out/docs --githubPages true"
   },
   "dependencies": {
-    "@stanfordspezi/spezi-firebase-cloud-messaging": "file:./packages/spezi-firebase-cloud-messaging"
+    "@stanfordspezi/spezi-firebase-cloud-messaging": "*"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6",
