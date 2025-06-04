@@ -38,14 +38,14 @@ This repository is organized as an npm workspace containing two main packages:
 Install the main package:
 
 ```bash
-npm install @stanfordspezi/spezi-firebase
+npm install @stanfordspezi/spezi-firebase-cloud-messaging
 ```
 
 This includes all Firebase utilities and cloud messaging functionality.
 
 ### For Development
 
-This project uses npm workspaces for managing multiple packages. To set up the development environment:
+This project uses [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) for managing multiple packages. To set up the development environment:
 
 1. **Clone the repository**:
    ```bash
@@ -69,13 +69,17 @@ This project uses npm workspaces for managing multiple packages. To set up the d
    npm test
    ```
 
-### Workspace Commands
+#### Workspace Commands
 
-- Build all packages: `npm run build --workspaces`
-- Build specific package: `npm run build -w @stanfordspezi/spezi-firebase-utils` or `npm run build -w @stanfordspezi/spezi-firebase-cloud-messaging`
-- Test all packages: `npm run test --workspaces`
-- Test specific package: `npm run test -w @stanfordspezi/spezi-firebase-utils` or `npm run test -w @stanfordspezi/spezi-firebase-cloud-messaging`
-- Start development mode: `npm run dev`
+For more advanced development, you can use npm workspace commands:
+
+- **Build all packages**: `npm run build --workspaces`
+- **Build specific package**: `npm run build -w @stanfordspezi/spezi-firebase-utils`
+- **Test all packages**: `npm run test --workspaces`  
+- **Test specific package**: `npm run test -w @stanfordspezi/spezi-firebase-cloud-messaging`
+- **Start development mode**: `npm run dev`
+
+Learn more about npm workspaces in the [official documentation](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
 
 ## Quick Start
 
