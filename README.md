@@ -35,13 +35,15 @@ This repository is organized as an npm workspace containing two main packages:
 
 ### For End Users
 
-Install the main package:
+Install the packages you need:
 
 ```bash
+# For Firebase Cloud Messaging functionality
 npm install @stanfordspezi/spezi-firebase-cloud-messaging
-```
 
-This includes all Firebase utilities and cloud messaging functionality.
+# For Firebase utilities only
+npm install @stanfordspezi/spezi-firebase-utils
+```
 
 ### For Development
 
@@ -94,7 +96,7 @@ import {
   DevicePlatform,
   Device,
   LocalizedText,
-} from '@stanfordspezi/spezi-firebase'
+} from '@stanfordspezi/spezi-firebase-cloud-messaging'
 
 // Initialize Firebase
 const app = initializeApp()
@@ -170,7 +172,7 @@ import {
   createUnregisterDeviceHandler,
   registerDeviceInputSchema,
   unregisterDeviceInputSchema,
-} from '@stanfordspezi/spezi-firebase'
+} from '@stanfordspezi/spezi-firebase-cloud-messaging'
 
 // Create function handlers
 const registerDeviceHandler = createRegisterDeviceHandler(notificationService)
