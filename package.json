@@ -1,6 +1,6 @@
 {
-  "name": "spezi-firebase",
-  "version": "0.1.0",
+  "name": "@stanfordspezi/spezi-firebase",
+  "version": "0.1.2",
   "license": "MIT",
   "description": "Stanford Biodesign Digital Health Spezi Firebase Packages",
   "keywords": [
@@ -10,47 +10,37 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/StanfordSpezi/spezi-firebase.git"
+    "url": "git+https://github.com/StanfordSpezi/spezi-firebase"
   },
-  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "npm --prefix packages/spezi-firebase-cloud-messaging run watch",
-    "prebuild": "concurrently \"npm --prefix packages/spezi-firebase-utils run build\" \"npm --prefix packages/spezi-firebase-cloud-messaging run build\"",
-    "build": "concurrently \"npm --prefix packages/spezi-firebase-utils run build\" \"npm --prefix packages/spezi-firebase-cloud-messaging run build\"",
-    "build:utils": "npm --prefix packages/spezi-firebase-utils run build",
-    "build:frn": "npm --prefix packages/spezi-firebase-cloud-messaging run build",
+    "dev": "npm run watch -w @stanfordspezi/spezi-firebase-cloud-messaging",
+    "prebuild": "npm run build --workspaces",
+    "build": "npm run build --workspaces",
+    "build:utils": "npm run build -w @stanfordspezi/spezi-firebase-utils",
+    "build:cloud-messaging": "npm run build -w @stanfordspezi/spezi-firebase-cloud-messaging",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix & prettier --write .",
     "lint:ci": "npm run prebuild && eslint --output-file eslint_report.json --format json .",
     "lint:strict": "npm run prebuild && eslint . --max-warnings=0",
     "pretest": "npm run build",
-    "test": "npm run test:utils && npm run test:remote-notifications",
-    "test:remote-notifications": "npm --prefix packages/spezi-firebase-cloud-messaging run test",
-    "test:utils": "npm --prefix packages/spezi-firebase-utils run test",
+    "test": "npm run test --workspaces",
+    "test:utils": "npm run test -w @stanfordspezi/spezi-firebase-utils",
+    "test:cloud-messaging": "npm run test -w @stanfordspezi/spezi-firebase-cloud-messaging",
     "docs": "typedoc",
     "docs:ci": "typedoc --out ./out/docs --githubPages true"
   },
-  "dependencies": {
-    "@stanfordbdhg/spezi-firebase-cloud-messaging": "file:./packages/spezi-firebase-cloud-messaging"
-  },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6",
-    "@testing-library/react": "^15",
     "@total-typescript/ts-reset": "^0.5.1",
-    "@types/jest": "^29",
-    "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
-    "concurrently": "^8",
     "eslint": "^8",
     "eslint-config-prettier": "^9",
     "eslint-plugin-import": "^2",
     "eslint-plugin-prettier": "^5",
-    "jest": "^29",
-    "jest-environment-jsdom": "^29",
     "prettier": "^3",
-    "ts-jest": "^29",
-    "ts-node": "^10.9.2",
     "typedoc": "^0.25",
     "typescript": "^5"
   }

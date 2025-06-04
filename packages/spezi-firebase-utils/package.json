@@ -1,5 +1,5 @@
 {
-  "name": "@stanfordbdhg/spezi-firebase-utils",
+  "name": "@stanfordspezi/spezi-firebase-utils",
   "version": "0.1.0",
   "description": "Utility functions for Firebase projects",
   "type": "module",

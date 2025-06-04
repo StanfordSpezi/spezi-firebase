@@ -11,12 +11,12 @@ module.exports = {
     ],
   },
   moduleNameMapper: {
-    '^@stanfordbdhg/spezi-firebase-utils$':
+    '^@stanfordspezi/spezi-firebase-utils$':
       '<rootDir>/../spezi-firebase-utils/src',
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
   extensionsToTreatAsEsm: ['.ts'],
-  transformIgnorePatterns: ['/node_modules/(?!(@stanfordbdhg)/)'],
+  transformIgnorePatterns: ['/node_modules/(?!(@stanfordspezi)/)'],
   collectCoverage: false,
   testMatch: ['**/test/**/*.test.ts'],
   setupFilesAfterEnv: ['<rootDir>/test/jest.setup.js'],
