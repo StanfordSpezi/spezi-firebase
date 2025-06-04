@@ -30,7 +30,7 @@ jobs:
   publishpackage:
     name: Publish Package
     needs: build-and-test
-    uses: StanfordBDHG/.github/.github/workflows/npm-publish-package.yml@main
+    uses: StanfordBDHG/.github/.github/workflows/npm-publish-package.yml@v2
     permissions:
       contents: read
       id-token: write
