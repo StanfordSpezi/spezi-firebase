@@ -35,15 +35,13 @@ This repository is organized as an npm workspace containing two main packages:
 
 ### For End Users
 
-Install the packages you need:
+Install the main package:
 
 ```bash
-# Base utilities
-npm install @stanfordspezi/spezi-firebase-utils
-
-# FCM notifications (includes utilities as dependency)
-npm install @stanfordspezi/spezi-firebase-cloud-messaging
+npm install @stanfordspezi/spezi-firebase
 ```
+
+This includes all Firebase utilities and cloud messaging functionality.
 
 ### For Development
 
@@ -74,9 +72,9 @@ This project uses npm workspaces for managing multiple packages. To set up the d
 ### Workspace Commands
 
 - Build all packages: `npm run build --workspaces`
-- Build specific package: `npm run build -w spezi-firebase-utils` or `npm run build -w spezi-firebase-cloud-messaging`
+- Build specific package: `npm run build -w @stanfordspezi/spezi-firebase-utils` or `npm run build -w @stanfordspezi/spezi-firebase-cloud-messaging`
 - Test all packages: `npm run test --workspaces`
-- Test specific package: `npm run test -w spezi-firebase-utils` or `npm run test -w spezi-firebase-cloud-messaging`
+- Test specific package: `npm run test -w @stanfordspezi/spezi-firebase-utils` or `npm run test -w @stanfordspezi/spezi-firebase-cloud-messaging`
 - Start development mode: `npm run dev`
 
 ## Quick Start
@@ -92,7 +90,7 @@ import {
   DevicePlatform,
   Device,
   LocalizedText,
-} from '@stanfordspezi/spezi-firebase-cloud-messaging'
+} from '@stanfordspezi/spezi-firebase'
 
 // Initialize Firebase
 const app = initializeApp()
@@ -168,7 +166,7 @@ import {
   createUnregisterDeviceHandler,
   registerDeviceInputSchema,
   unregisterDeviceInputSchema,
-} from '@stanfordspezi/spezi-firebase-cloud-messaging'
+} from '@stanfordspezi/spezi-firebase'
 
 // Create function handlers
 const registerDeviceHandler = createRegisterDeviceHandler(notificationService)
