@@ -39,4 +39,4 @@ jobs:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     with:
       packageVersion: ${{ github.event.release.tag_name }}
-      workspace: true
+      workspaces: true
