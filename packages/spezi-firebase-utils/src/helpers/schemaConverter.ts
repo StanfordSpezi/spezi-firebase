@@ -31,9 +31,10 @@ export class SchemaConverter<Schema extends z.ZodTypeAny, Encoded> {
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export type InferEncoded<Input> =
-  Input extends SchemaConverter<any, any> ? ReturnType<Input['encode']>
+export type InferEncoded<Input, Depth extends readonly unknown[] = []> =
+  Depth['length'] extends 10 ? never
+  : Input extends SchemaConverter<any, any> ? ReturnType<Input['encode']>
   : Input extends Lazy<SchemaConverter<any, any>> ?
-    ReturnType<Input['value']['encode']>
+    InferEncoded<Input['value'], [...Depth, unknown]>
   : never
 /* eslint-enable @typescript-eslint/no-explicit-any */
