@@ -8,6 +8,7 @@
 
 import { z } from 'zod'
 import { domainResourceSchema } from '../elements/domainResource.js'
+import { codeSchema } from '../dataTypes/primitiveTypes.js'
 
 export enum ObservationStatus {
   registered = 'registered',
@@ -22,5 +23,5 @@ export enum ObservationStatus {
 
 export const observationSchema = domainResourceSchema.extend({
   resourceType: z.enum(['Observation']),
-  status: z.nativeEnum(ObservationStatus),
+  status: codeSchema,
 })
