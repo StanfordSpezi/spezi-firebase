@@ -7,9 +7,10 @@
 //
 
 import { z } from 'zod'
-import { codeSchema } from '../dataTypes/primitiveTypes.js'
+import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
+import { Schema } from '@stanfordspezi/spezi-firebase-utils'
 
-export const narrativeSchema = z.object({
+export const narrativeSchema = Schema.composed({
   status: codeSchema,
-  div: z.string(), // TODO: technically this is xhtml
+  div: Schema.simple(z.string()), // TODO: technically this is xhtml
 })

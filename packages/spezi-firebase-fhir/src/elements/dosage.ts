@@ -6,27 +6,27 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { backBoneElementSchema } from './backboneElement.js'
+import { Schema } from '@stanfordspezi/spezi-firebase-utils'
+import { backBoneElementSchema } from './backBoneElement.js'
 import { z } from 'zod'
-import { codeableConceptSchema } from './codeableConcept.js'
-import { quantitySchema } from './quantity.js'
-import { ratioSchema } from './ratio.js'
-import { timingSchema } from './timing.js'
+import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
+import { quantitySchema } from '../dataTypes/quantity.js'
+import { ratioSchema } from '../dataTypes/ratio.js'
+import { timingSchema } from '../dataTypes/timing.js'
 
 export const dosageSchema = backBoneElementSchema.extend({
-  sequence: optionalish(z.number().int()),
-  text: optionalish(z.string()),
-  additionalInstruction: optionalish(codeableConceptSchema.array()),
-  patientInstruction: optionalish(z.string()),
-  timing: optionalish(timingSchema),
-  asNeededBoolean: optionalish(z.boolean()),
-  asNeededCodeableConcept: optionalish(codeableConceptSchema),
-  site: optionalish(codeableConceptSchema),
-  route: optionalish(codeableConceptSchema),
-  method: optionalish(codeableConceptSchema),
+  sequence: Schema.simple(z.number().int()).optionalish(),
+  text: Schema.simple(z.string()).optionalish(),
+  additionalInstruction: codeableConceptSchema.array().optionalish(),
+  patientInstruction: Schema.simple(z.string()).optionalish(),
+  timing: timingSchema.optionalish(),
+  asNeededBoolean: Schema.simple(z.boolean()).optionalish(),
+  asNeededCodeableConcept: codeableConceptSchema.optionalish(),
+  site: codeableConceptSchema.optionalish(),
+  route: codeableConceptSchema.optionalish(),
+  method: codeableConceptSchema.optionalish(),
   // TODO: doseAndRate
-  maxDosePerPeriod: optionalish(ratioSchema),
-  maxDosePerAdministration: optionalish(quantitySchema),
-  maxDosePerLifetime: optionalish(quantitySchema),
+  maxDosePerPeriod: ratioSchema.optionalish(),
+  maxDosePerAdministration: quantitySchema.optionalish(),
+  maxDosePerLifetime: quantitySchema.optionalish(),
 })

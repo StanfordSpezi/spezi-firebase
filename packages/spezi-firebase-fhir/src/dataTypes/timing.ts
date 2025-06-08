@@ -6,35 +6,37 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { backBoneElementSchema } from './backboneElement.js'
+import { optionalish, Schema } from '@stanfordspezi/spezi-firebase-utils'
+import { backBoneElementSchema } from '../elements/backBoneElement.js'
 import {
   codeSchema,
-  dateTimeSchema,
   positiveIntSchema,
   timeSchema,
-} from '../dataTypes/primitiveTypes.js'
-import { elementSchema } from './element.js'
+} from '../primitiveTypes/primitiveTypes.js'
+import { elementSchema } from '../elements/element.js'
 import { periodSchema } from './period.js'
 import { z } from 'zod'
 import { codeableConceptSchema } from './codeableConcept.js'
+import { rangeSchema } from './range.js'
+import { quantitySchema } from './quantity.js'
+import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 
 export const timingSchema = backBoneElementSchema.extend({
   event: optionalish(dateTimeSchema.array()),
   repeat: optionalish(
     elementSchema.extend({
-      // TODO: boundsDuration: optionalish(durationSchema),
-      // TODO: boundsRange: optionalish(rangeSchema),
+      boundsDuration: optionalish(quantitySchema),
+      boundsRange: optionalish(rangeSchema),
       boundsPeriod: optionalish(periodSchema),
       count: optionalish(positiveIntSchema),
       countMax: optionalish(positiveIntSchema),
-      duration: optionalish(z.number()),
-      durationMax: optionalish(z.number()),
+      duration: optionalish(Schema.simple(z.number())),
+      durationMax: optionalish(Schema.simple(z.number())),
       durationUnit: optionalish(codeSchema),
       frequency: optionalish(positiveIntSchema),
       frequencyMax: optionalish(positiveIntSchema),
-      period: optionalish(z.number()),
-      periodMax: optionalish(z.number()),
+      period: optionalish(Schema.simple(z.number())),
+      periodMax: optionalish(Schema.simple(z.number())),
       periodUnit: optionalish(codeSchema),
       dayOfWeek: optionalish(codeSchema.array()),
       timeOfDay: optionalish(timeSchema.array()),

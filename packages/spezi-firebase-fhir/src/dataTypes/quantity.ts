@@ -6,15 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from './element.js'
+import { optionalish, Schema } from '@stanfordspezi/spezi-firebase-utils'
+import { elementSchema } from '../elements/element.js'
 import { z } from 'zod'
-import { codeSchema, uriSchema } from '../dataTypes/primitiveTypes.js'
+import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
 
 export const quantitySchema = elementSchema.extend({
-  value: optionalish(z.number()),
+  value: optionalish(Schema.simple(z.number())),
   comparator: optionalish(codeSchema),
-  unit: optionalish(z.string()),
+  unit: optionalish(Schema.simple(z.string())),
   system: optionalish(uriSchema),
   code: optionalish(codeSchema),
 })

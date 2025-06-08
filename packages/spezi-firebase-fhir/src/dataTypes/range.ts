@@ -7,10 +7,10 @@
 //
 
 import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from './element.js'
-import { dateTimeSchema } from '../dataTypes/primitiveTypes.js'
+import { elementSchema } from '../elements/element.js'
+import { quantitySchema } from './quantity.js'
 
-export const periodSchema = elementSchema.extend({
-  start: optionalish(dateTimeSchema),
-  end: optionalish(dateTimeSchema),
+export const rangeSchema = elementSchema.extend({
+  low: optionalish(quantitySchema),
+  high: optionalish(quantitySchema),
 })

@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { elementSchema } from './element.js'
 import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
+import { elementSchema } from './element.js'
 import { extensionSchema } from './extension.js'
 
 export const backBoneElementSchema = elementSchema.extend({
-  modifierExtension: optionalish(extensionSchema.array()),
+  // modifierExtension: optionalish(extensionSchema.array()),
 })

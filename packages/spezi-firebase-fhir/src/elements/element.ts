@@ -6,11 +6,16 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
+import { Input, Output, Schema } from '@stanfordspezi/spezi-firebase-utils'
 import { z } from 'zod'
 import { extensionSchema } from './extension.js'
 
-export const elementSchema = z.object({
-  id: optionalish(z.string()),
-  extension: optionalish(extensionSchema.array()),
+export const elementSchema = Schema.composed({
+  id: Schema.simple(z.string()).optionalish(),
+  get extension() {
+    return extensionSchema.array().optionalish()
+  },
 })
+
+export type ElementDto = Input<typeof elementSchema>
+export type Element = Output<typeof elementSchema>

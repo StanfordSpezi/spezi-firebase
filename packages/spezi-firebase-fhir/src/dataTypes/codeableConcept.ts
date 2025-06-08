@@ -6,12 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
+import { Schema } from '@stanfordspezi/spezi-firebase-utils'
 import { z } from 'zod'
 import { codingSchema } from './coding.js'
-import { elementSchema } from './element.js'
+import { elementSchema } from '../elements/element.js'
 
 export const codeableConceptSchema = elementSchema.extend({
-  coding: optionalish(codingSchema.array()),
-  text: optionalish(z.string()),
+  coding: codingSchema.array().optionalish(),
+  text: Schema.simple(z.string()).optionalish(),
 })
