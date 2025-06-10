@@ -7,7 +7,7 @@
 //
 
 import { Schema } from '@stanfordspezi/spezi-firebase-utils'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 export const dateTimeSchema = Schema.separate(
   z

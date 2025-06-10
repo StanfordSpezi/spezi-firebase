@@ -13,7 +13,7 @@ import {
   positiveIntSchema,
 } from '../primitiveTypes/primitiveTypes.js'
 import { periodSchema } from './period.js'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 export const contactPointSchema = elementSchema.extend({
   system: optionalish(codeSchema),

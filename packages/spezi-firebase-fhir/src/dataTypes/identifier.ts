@@ -12,7 +12,7 @@ import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
 import { codeableConceptSchema } from './codeableConcept.js'
 import { referenceSchema } from './reference.js'
 import { periodSchema } from './period.js'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 export const identifierSchema = elementSchema.extend({
   use: optionalish(codeSchema),

@@ -7,13 +7,13 @@
 //
 
 import { Input, Output, Schema } from '@stanfordspezi/spezi-firebase-utils'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 import { extensionSchema } from './extension.js'
 
 export const elementSchema = Schema.composed({
   id: Schema.simple(z.string()).optionalish(),
   get extension() {
-    return extensionSchema.array().optionalish()
+    return extensionSchema.array()
   },
 })
 

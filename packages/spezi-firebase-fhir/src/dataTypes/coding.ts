@@ -7,7 +7,7 @@
 //
 
 import { Schema } from '@stanfordspezi/spezi-firebase-utils'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
 import { elementSchema } from '../elements/element.js'
 

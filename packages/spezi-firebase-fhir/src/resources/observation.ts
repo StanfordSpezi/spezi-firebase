@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from 'zod/v4'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import { codeSchema, timeSchema } from '../primitiveTypes/primitiveTypes.js'
 import { identifierSchema } from '../dataTypes/identifier.js'

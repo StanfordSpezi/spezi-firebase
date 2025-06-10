@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodString, ZodType, ZodTypeDef } from 'zod'
+import { z, ZodType } from 'zod/v4'
 import {
   base64BinarySchema,
   codeSchema,
@@ -160,8 +160,8 @@ export interface ExtensionOutput {
 }
 
 export const extensionSchema: Schema<
-  ZodType<ExtensionOutput, ZodTypeDef, ExtensionInput>,
-  ZodType<ExtensionInput, ZodTypeDef, ExtensionOutput>
+  ZodType<ExtensionOutput, ExtensionInput>,
+  ZodType<ExtensionInput, ExtensionOutput>
 > = Schema.composed({
   url: urlSchema,
   get valueBase64Binary() {

@@ -14,7 +14,7 @@ import {
   unsignedIntSchema,
   urlSchema,
 } from '../primitiveTypes/primitiveTypes.js'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 
 export const attachmentSchema = elementSchema.extend({

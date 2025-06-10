@@ -8,7 +8,7 @@
 
 import { Schema } from '@stanfordspezi/spezi-firebase-utils'
 import { backBoneElementSchema } from './backBoneElement.js'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
 import { quantitySchema } from '../dataTypes/quantity.js'
 import { ratioSchema } from '../dataTypes/ratio.js'

@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from 'zod/v4'
 import { elementSchema } from '../elements/element.js'
 import { quantitySchema } from './quantity.js'
 import { optionalish, Schema } from '@stanfordspezi/spezi-firebase-utils'

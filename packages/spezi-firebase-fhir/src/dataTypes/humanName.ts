@@ -9,7 +9,7 @@
 import { optionalish, Schema } from '@stanfordspezi/spezi-firebase-utils'
 import { elementSchema } from '../elements/element.js'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 import { periodSchema } from './period.js'
 
 export const humanNameSchema = elementSchema.extend({

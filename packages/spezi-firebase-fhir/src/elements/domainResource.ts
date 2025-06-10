@@ -14,6 +14,6 @@ import { extensionSchema } from './extension.js'
 export const domainResourceSchema = resourceSchema.extend({
   text: optionalish(narrativeSchema),
   // contained: optionalish(resourceSchema.array()),
-  extension: optionalish(extensionSchema.array()),
-  modifierExtension: optionalish(extensionSchema.array()),
+  // extension: optionalish(extensionSchema.array()),
+  // modifierExtension: optionalish(extensionSchema.array()),
 })

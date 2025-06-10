@@ -15,7 +15,7 @@ import {
   uriSchema,
 } from '../primitiveTypes/primitiveTypes.js'
 import { identifierSchema } from '../dataTypes/identifier.js'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 import { contactDetailSchema } from '../metaDataTypes/contactDetail.js'
 import { usageContextSchema } from '../metaDataTypes/usageContext.js'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'

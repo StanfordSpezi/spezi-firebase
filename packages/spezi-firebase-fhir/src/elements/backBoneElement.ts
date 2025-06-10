@@ -11,5 +11,7 @@ import { elementSchema } from './element.js'
 import { extensionSchema } from './extension.js'
 
 export const backBoneElementSchema = elementSchema.extend({
-  // modifierExtension: optionalish(extensionSchema.array()),
+  // get modifierExtension() {
+  //   return optionalish(extensionSchema.array())
+  // },
 })

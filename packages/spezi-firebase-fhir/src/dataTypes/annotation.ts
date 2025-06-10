@@ -9,7 +9,7 @@
 import { Schema } from '@stanfordspezi/spezi-firebase-utils'
 import { elementSchema } from '../elements/element.js'
 import { referenceSchema } from './reference.js'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 import { markdownSchema } from '../primitiveTypes/primitiveTypes.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 

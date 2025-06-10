@@ -6,16 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import {
-  UnknownKeysParam,
-  z,
-  ZodObject,
-  ZodRawShape,
-  ZodType,
-  ZodTypeAny,
-  ZodTypeDef,
-} from 'zod'
+import { core, z, ZodObject, ZodRawShape, ZodType } from 'zod/v4'
 import { Lazy } from './lazy.js'
+import { util } from 'zod/v4/core'
 
 export function optionalish<Forward extends ZodType, Backward extends ZodType>(
   schema: Schema<Forward, Backward>,
@@ -57,54 +50,61 @@ export class Schema<Forward extends ZodType, Backward extends ZodType> {
 
   // Factory Functions
 
-  static simple<Value, Type extends ZodType<Value, ZodTypeDef, Value>>(
-    schema: Type,
-  ): Schema<Type, Type> {
+  static simple<Type extends ZodType>(schema: Type): Schema<Type, Type> {
     return new Schema(new Lazy(() => schema), new Lazy(() => schema))
   }
 
   static separate<
     Input,
     Output,
-    Forward extends ZodType<Output, ZodTypeDef, Input>,
-    Backward extends ZodType<Input, ZodTypeDef, Output>,
+    Forward extends ZodType<Output, Input>,
+    Backward extends ZodType<Input, Output>,
   >(forward: Forward, backward: Backward): Schema<Forward, Backward> {
     return new Schema(new Lazy(() => forward), new Lazy(() => backward))
   }
 
-  static composed<T extends Record<string, Schema<any, any>>>(value: T) {
+  static composed<T extends Record<string, Schema<any, any>>>(
+    augmentation: T,
+    params?: string | core.$ZodObjectParams,
+  ) {
     return new Schema(
-      new Lazy(() =>
-        z.object(
-          Object.fromEntries(
-            Object.entries(value).map(([key, schema]) => [
-              key,
-              schema.forward.value,
-            ]),
-          ) as { [K in keyof T]: T[K]['forward']['value'] },
-        ),
-      ),
-      new Lazy(() =>
-        z.object(
-          Object.fromEntries(
-            Object.entries(value).map(([key, schema]) => [
-              key,
-              schema.backward.value,
-            ]),
-          ) as { [K in keyof T]: T[K]['backward']['value'] },
-        ),
-      ),
+      new Lazy(() => {
+        const shape = forwardAugmentation(augmentation)
+        return new ZodObject({
+          type: 'object',
+          get shape(): any {
+            util.assignProp(this, 'shape', {
+              ...shape,
+            })
+            return this.shape
+          },
+          ...util.normalizeParams(params),
+        })
+      }),
+      new Lazy(() => {
+        const shape = backwardAugmentation(augmentation)
+        return new ZodObject({
+          type: 'object',
+          get shape(): any {
+            util.assignProp(this, 'shape', {
+              ...shape,
+            })
+            return this.shape
+          },
+          ...util.normalizeParams(params),
+        })
+      }),
     )
   }
 
   // Methods
 
   parse(input: unknown): Output<this> {
-    return this.forward.value.safeParse(input)
+    return this.forward.value.parse(input)
   }
 
   encode(output: Output<this>): Input<this> {
-    return this.backward.value.parse(output)
+    return this.backward.value.parse(output) as Input<this>
   }
 
   // Methods - Operators
@@ -118,18 +118,14 @@ export class Schema<Forward extends ZodType, Backward extends ZodType> {
 
   extend<
     A extends Record<string, Schema<any, any>>,
-    ForwardT extends ZodRawShape,
-    ForwardUnknownKeys extends UnknownKeysParam,
-    ForwardCatchall extends ZodTypeAny,
-    BackwardT extends ZodRawShape,
-    BackwardUnknownKeys extends UnknownKeysParam,
-    BackwardCatchall extends ZodTypeAny,
-    Output,
-    Input,
+    ForwardShape extends ZodRawShape,
+    ForwardConfig extends z.core.$ZodObjectConfig,
+    BackwardShape extends ZodRawShape,
+    BackwardConfig extends z.core.$ZodObjectConfig,
   >(
     this: Schema<
-      ZodObject<ForwardT, ForwardUnknownKeys, ForwardCatchall, Output, Input>,
-      ZodObject<BackwardT, BackwardUnknownKeys, BackwardCatchall, Input, Output>
+      ZodObject<ForwardShape, ForwardConfig>,
+      ZodObject<BackwardShape, BackwardConfig>
     >,
     augmentation: A,
   ) {
@@ -137,17 +133,13 @@ export class Schema<Forward extends ZodType, Backward extends ZodType> {
       new Lazy(() =>
         z.object({
           ...this.forward.value.shape,
-          ...Object.fromEntries(
-            Object.entries(augmentation).map(([k, v]) => [k, v.forward.value]),
-          ),
+          ...forwardAugmentation(augmentation),
         }),
       ),
       new Lazy(() =>
         z.object({
           ...this.backward.value.shape,
-          ...Object.fromEntries(
-            Object.entries(augmentation).map(([k, v]) => [k, v.backward.value]),
-          ),
+          ...backwardAugmentation(augmentation),
         }),
       ),
     )
@@ -180,4 +172,64 @@ export class Schema<Forward extends ZodType, Backward extends ZodType> {
       this.backward,
     )
   }
+
+  // Helpers
+}
+
+function forwardAugmentation<A extends Record<string, Schema<any, any>>>(
+  value: A,
+): { [K in keyof A]: Forward<A[K]> } {
+  const result: any = {}
+  const descriptors = Object.getOwnPropertyDescriptors(value)
+
+  for (const [key, descriptor] of Object.entries(descriptors)) {
+    if (typeof descriptor.get === 'function') {
+      Object.defineProperty(result, key, {
+        get() {
+          const schema = descriptor.get!.call(value)
+          return z.lazy(() => schema.forward.value)
+        },
+        enumerable: descriptor.enumerable,
+        configurable: descriptor.configurable,
+      })
+    } else {
+      Object.defineProperty(result, key, {
+        value: descriptor.value.forward.value,
+        writable: descriptor.writable,
+        enumerable: descriptor.enumerable,
+        configurable: descriptor.configurable,
+      })
+    }
+  }
+
+  return result as { [K in keyof A]: Forward<A[K]> }
+}
+
+function backwardAugmentation<A extends Record<string, Schema<any, any>>>(
+  value: A,
+): { [K in keyof A]: Backward<A[K]> } {
+  const result: any = {}
+  const descriptors = Object.getOwnPropertyDescriptors(value)
+
+  for (const [key, descriptor] of Object.entries(descriptors)) {
+    if (typeof descriptor.get === 'function') {
+      Object.defineProperty(result, key, {
+        get() {
+          const schema = descriptor.get!.call(value)
+          return z.lazy(() => schema.backward.value)
+        },
+        enumerable: descriptor.enumerable,
+        configurable: descriptor.configurable,
+      })
+    } else {
+      Object.defineProperty(result, key, {
+        value: descriptor.value.backward.value,
+        writable: descriptor.writable,
+        enumerable: descriptor.enumerable,
+        configurable: descriptor.configurable,
+      })
+    }
+  }
+
+  return result as { [K in keyof A]: Backward<A[K]> }
 }

@@ -10,7 +10,7 @@ import { Schema } from '@stanfordspezi/spezi-firebase-utils'
 import { elementSchema } from '../elements/element.js'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
 import { periodSchema } from './period.js'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 export const addressSchema = elementSchema.extend({
   use: codeSchema.optionalish(),

@@ -15,7 +15,7 @@ import {
 } from '../primitiveTypes/primitiveTypes.js'
 import { elementSchema } from '../elements/element.js'
 import { periodSchema } from './period.js'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 import { codeableConceptSchema } from './codeableConcept.js'
 import { rangeSchema } from './range.js'
 import { quantitySchema } from './quantity.js'
