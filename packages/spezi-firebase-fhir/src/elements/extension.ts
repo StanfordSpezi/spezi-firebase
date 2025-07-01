@@ -6,286 +6,139 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
+import { z } from 'zod/v4'
+import { urlSchema } from '../primitiveTypes/primitiveTypes.js'
+import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import {
-  base64BinarySchema,
-  codeSchema,
-  idSchema,
-  markdownSchema,
-  oidSchema,
-  positiveIntSchema,
-  timeSchema,
-  unsignedIntSchema,
-  uriSchema,
-  urlSchema,
-} from '../primitiveTypes/primitiveTypes.js'
-import {
-  Input,
-  optionalish,
-  Output,
-  Schema,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { addressSchema } from '../dataTypes/address.js'
-import { quantitySchema } from '../dataTypes/quantity.js'
-import { dosageSchema } from './dosage.js'
-import { usageContextSchema } from '../metaDataTypes/usageContext.js'
-import { contributorSchema } from '../metaDataTypes/contributor.js'
-import { contactDetailSchema } from '../metaDataTypes/contactDetail.js'
-import { timingSchema } from '../dataTypes/timing.js'
-import { signatureSchema } from '../dataTypes/signature.js'
-import { sampledDataSchema } from '../dataTypes/sampledData.js'
-import { referenceSchema } from '../dataTypes/reference.js'
-import { ratioRangeSchema } from '../dataTypes/ratioRange.js'
-import { ratioSchema } from '../dataTypes/ratio.js'
-import { rangeSchema } from '../dataTypes/range.js'
-import { periodSchema } from '../dataTypes/period.js'
-import { moneySchema } from '../dataTypes/money.js'
-import { identifierSchema } from '../dataTypes/identifier.js'
-import { humanNameSchema } from '../dataTypes/humanName.js'
-import { contactPointSchema } from '../dataTypes/contactPoint.js'
-import { codingSchema } from '../dataTypes/coding.js'
-import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
-import { attachmentSchema } from '../dataTypes/attachment.js'
-import { annotationSchema } from '../dataTypes/annotation.js'
-import { dateSchema } from '../primitiveTypes/date.js'
-import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
-import { instantSchema } from '../primitiveTypes/instant.js'
+  addressBackwardSchema,
+  addressForwardSchema,
+} from '../dataTypes/address.js'
 
-export interface ExtensionInput {
-  url: string
-  valueBase64Binary?: Input<typeof base64BinarySchema> | null
-  valueBoolean?: boolean | null
-  valueCanonical?: string | null
-  valueCode?: Input<typeof codeSchema> | null
-  valueDate?: Input<typeof dateSchema> | null
-  valueDateTime?: Input<typeof dateTimeSchema> | null
-  valueDecimal?: number | null
-  valueId?: Input<typeof idSchema> | null
-  valueInstant?: Input<typeof instantSchema> | null
-  valueInteger?: number | null
-  valueMarkdown?: Input<typeof markdownSchema> | null
-  valueOid?: Input<typeof oidSchema> | null
-  valuePositiveInt?: Input<typeof positiveIntSchema> | null
-  valueString?: string | null
-  valueTime?: Input<typeof timeSchema> | null
-  valueUnsignedInt?: Input<typeof unsignedIntSchema> | null
-  valueAddress?: Input<typeof addressSchema> | null
-  valueAge?: Input<typeof quantitySchema> | null
-  valueUri?: Input<typeof uriSchema> | null
-  valueUrl?: Input<typeof urlSchema> | null
-  valueAnnotation?: Input<typeof annotationSchema> | null
-  valueAttachment?: Input<typeof attachmentSchema> | null
-  valueCodeableConcept?: Input<typeof codeableConceptSchema> | null
-  // valueCodeableReference?: Input<typeof codeableReferenceSchema> | null,
-  valueCoding?: Input<typeof codingSchema> | null
-  valueContactPoint?: Input<typeof contactPointSchema> | null
-  // valueCount?: Input<typeof countSchema | null,
-  // valueDistance?: Input<typeof distanceSchema | null,
-  // valueDuration?: Input<typeof durationSchema | null,
-  valueHumanName?: Input<typeof humanNameSchema> | null
-  valueIdentifier?: Input<typeof identifierSchema> | null
-  valueMoney?: Input<typeof moneySchema> | null
-  valuePeriod?: Input<typeof periodSchema> | null
-  valueQuantity?: Input<typeof quantitySchema> | null
-  valueRange?: Input<typeof rangeSchema> | null
-  valueRatio?: Input<typeof ratioSchema> | null
-  valueRatioRange?: Input<typeof ratioRangeSchema> | null
-  valueReference?: Input<typeof referenceSchema> | null
-  valueSampledData?: Input<typeof sampledDataSchema> | null
-  valueSignature?: Input<typeof signatureSchema> | null
-  valueTiming?: Input<typeof timingSchema> | null
-  valueContactDetail?: Input<typeof contactDetailSchema> | null
-  valueContributor?: Input<typeof contributorSchema> | null
-  // valueDataRequirement?: Input<typeof dataRequirementSchema> | null,
-  // valueExpression?: Input<typeof expressionSchema> | null,
-  // valueParameterDefinition?: Input<typeof parameterDefinitionSchema> | null,
-  // valueRelatedArtifact?: Input<typeof relatedArtifactSchema> | null,
-  // valueTriggerDefinition?: Input<typeof triggerDefinitionSchema> | null,
-  valueUsageContext?: Input<typeof usageContextSchema> | null
-  valueDosage?: Input<typeof dosageSchema> | null
-}
-
-export interface ExtensionOutput {
-  url: string
-  valueBase64Binary?: Output<typeof base64BinarySchema>
-  valueBoolean?: boolean
-  valueCanonical?: string
-  valueCode?: Output<typeof codeSchema>
-  valueDate?: Output<typeof dateSchema>
-  valueDateTime?: Output<typeof dateTimeSchema>
-  valueDecimal?: number
-  valueId?: Output<typeof idSchema>
-  valueInstant?: Output<typeof instantSchema>
-  valueInteger?: number
-  valueMarkdown?: Output<typeof markdownSchema>
-  valueOid?: Output<typeof oidSchema>
-  valuePositiveInt?: Output<typeof positiveIntSchema>
-  valueString?: string
-  valueTime?: Output<typeof timeSchema>
-  valueUnsignedInt?: Output<typeof unsignedIntSchema>
-  valueAddress?: Output<typeof addressSchema>
-  valueAge?: Output<typeof quantitySchema>
-  valueUri?: Output<typeof uriSchema>
-  valueUrl?: Output<typeof urlSchema>
-  valueAnnotation?: Output<typeof annotationSchema>
-  valueAttachment?: Output<typeof attachmentSchema>
-  valueCodeableConcept?: Output<typeof codeableConceptSchema>
-  // valueCodeableReference?: Output<typeof codeableReferenceSchema>
-  valueCoding?: Output<typeof codingSchema>
-  valueContactPoint?: Output<typeof contactPointSchema>
-  // valueCount?: Output<typeof countSchema
-  // valueDistance?: Output<typeof distanceSchema
-  // valueDuration?: Output<typeof durationSchema
-  valueHumanName?: Output<typeof humanNameSchema>
-  valueIdentifier?: Output<typeof identifierSchema>
-  valueMoney?: Output<typeof moneySchema>
-  valuePeriod?: Output<typeof periodSchema>
-  valueQuantity?: Output<typeof quantitySchema>
-  valueRange?: Output<typeof rangeSchema>
-  valueRatio?: Output<typeof ratioSchema>
-  valueRatioRange?: Output<typeof ratioRangeSchema>
-  valueReference?: Output<typeof referenceSchema>
-  valueSampledData?: Output<typeof sampledDataSchema>
-  valueSignature?: Output<typeof signatureSchema>
-  valueTiming?: Output<typeof timingSchema>
-  valueContactDetail?: Output<typeof contactDetailSchema>
-  valueContributor?: Output<typeof contributorSchema>
-  // valueDataRequirement?: Output<typeof dataRequirementSchema>
-  // valueExpression?: Output<typeof expressionSchema>
-  // valueParameterDefinition?: Output<typeof parameterDefinitionSchema>
-  // valueRelatedArtifact?: Output<typeof relatedArtifactSchema>
-  // valueTriggerDefinition?: Output<typeof triggerDefinitionSchema>
-  valueUsageContext?: Output<typeof usageContextSchema>
-  valueDosage?: Output<typeof dosageSchema>
-}
-
-export const extensionSchema: Schema<
-  ZodType<ExtensionOutput, ExtensionInput>,
-  ZodType<ExtensionInput, ExtensionOutput>
-> = Schema.composed({
-  url: urlSchema,
+export const extensionForwardSchema = z.object({
+  url: urlSchema.forward,
+  /*
   get valueBase64Binary() {
-    return base64BinarySchema.optionalish()
+    return optionalish(base64BinarySchema).forward
   },
   get valueBoolean() {
-    return optionalish(Schema.simple(z.boolean()))
+    return optionalish(Schema.simple(z.boolean())).forward
   },
   get valueCanonical() {
-    return optionalish(Schema.simple(z.string()))
+    return optionalish(Schema.simple(z.string())).forward
   },
   get valueCode() {
-    return optionalish(codeSchema)
+    return optionalish(codeSchema).forward
   },
   get valueDate() {
-    return optionalish(dateSchema)
+    return optionalish(dateSchema).forward
   },
   get valueDateTime() {
-    return optionalish(dateTimeSchema)
+    return optionalish(dateTimeSchema).forward
   },
   get valueDecimal() {
-    return optionalish(Schema.simple(z.number()))
+    return optionalish(Schema.simple(z.number())).forward
   },
   get valueId() {
-    return optionalish(idSchema)
+    return optionalish(idSchema).forward
   },
-
   get valueInstant() {
-    return optionalish(instantSchema)
+    return optionalish(instantSchema).forward
   },
   get valueInteger() {
-    return optionalish(Schema.simple(z.number().int()))
+    return optionalish(Schema.simple(z.number().int())).forward
   },
   get valueMarkdown() {
-    return optionalish(markdownSchema)
+    return optionalish(markdownSchema).forward
   },
   get valueOid() {
-    return optionalish(oidSchema)
+    return optionalish(oidSchema).forward
   },
   get valuePositiveInt() {
-    return optionalish(positiveIntSchema)
+    return optionalish(positiveIntSchema).forward
   },
   get valueString() {
-    return optionalish(Schema.simple(z.string()))
+    return optionalish(Schema.simple(z.string())).forward
   },
   get valueTime() {
-    return optionalish(timeSchema)
+    return optionalish(timeSchema).forward
   },
   get valueUnsignedInt() {
-    return optionalish(unsignedIntSchema)
+    return optionalish(unsignedIntSchema).forward
   },
+  */
   get valueAddress() {
-    return optionalish(addressSchema)
+    return addressForwardSchema.optional()
   },
+  /*
   get valueAge() {
-    return optionalish(quantitySchema)
+    return optionalish(quantitySchema).forward
   },
-
   get valueUri() {
-    return optionalish(uriSchema)
+    return optionalish(uriSchema).forward
   },
   get valueUrl() {
-    return optionalish(urlSchema)
+    return optionalish(urlSchema).forward
   },
   get valueAnnotation() {
-    return optionalish(annotationSchema)
+    return optionalish(annotationSchema).forward
   },
   get valueAttachment() {
-    return optionalish(attachmentSchema)
+    return optionalish(attachmentSchema).forward
   },
   get valueCodeableConcept() {
-    return optionalish(codeableConceptSchema)
+    return optionalish(codeableConceptSchema).forward
   },
   // valueCodeableReference: optionalish(codeableReferenceSchema),
   get valueCoding() {
-    return optionalish(codingSchema)
+    return optionalish(codingSchema).forward
   },
   get valueContactPoint() {
-    return optionalish(contactPointSchema)
+    return optionalish(contactPointSchema).forward
   },
   // valueCount: optionalish(countSchema),
   // valueDistance: optionalish(distanceSchema),
   // valueDuration: optionalish(durationSchema),
   get valueHumanName() {
-    return optionalish(humanNameSchema)
+    return optionalish(humanNameSchema).forward
   },
   get valueIdentifier() {
-    return optionalish(identifierSchema)
+    return optionalish(identifierSchema).forward
   },
   get valueMoney() {
-    return optionalish(moneySchema)
+    return optionalish(moneySchema).forward
   },
   get valuePeriod() {
-    return optionalish(periodSchema)
+    return optionalish(periodSchema).forward
   },
   get valueQuantity() {
-    return optionalish(quantitySchema)
+    return optionalish(quantitySchema).forward
   },
   get valueRange() {
-    return optionalish(rangeSchema)
+    return optionalish(rangeSchema).forward
   },
   get valueRatio() {
-    return optionalish(ratioSchema)
+    return optionalish(ratioSchema).forward
   },
   get valueRatioRange() {
-    return optionalish(ratioRangeSchema)
+    return optionalish(ratioRangeSchema).forward
   },
   get valueReference() {
-    return optionalish(referenceSchema)
+    return optionalish(referenceSchema).forward
   },
   get valueSampledData() {
-    return optionalish(sampledDataSchema)
+    return optionalish(sampledDataSchema).forward
   },
   get valueSignature() {
-    return optionalish(signatureSchema)
+    return optionalish(signatureSchema).forward
   },
   get valueTiming() {
-    return optionalish(timingSchema)
+    return optionalish(timingSchema).forward
   },
   get valueContactDetail() {
-    return optionalish(contactDetailSchema)
+    return optionalish(contactDetailSchema).forward
   },
   get valueContributor() {
-    return optionalish(contributorSchema)
+    return optionalish(contributorSchema).forward
   },
   // valueDataRequirement: optionalish(dataRequirementSchema),
   // valueExpression: optionalish(expressionSchema),
@@ -293,9 +146,150 @@ export const extensionSchema: Schema<
   // valueRelatedArtifact: optionalish(relatedArtifactSchema),
   // valueTriggerDefinition: optionalish(triggerDefinitionSchema),
   get valueUsageContext() {
-    return optionalish(usageContextSchema)
+    return optionalish(usageContextSchema).forward
   },
   get valueDosage() {
-    return optionalish(dosageSchema)
+    return optionalish(dosageSchema).forward
   },
+  */
+})
+
+export const extensionBackwardSchema = z.object({
+  url: urlSchema.backward,
+  /*
+  get valueBase64Binary() {
+    return base64BinarySchema.optionalish().backward
+  },
+  get valueBoolean() {
+    return optionalish(Schema.simple(z.boolean())).backward
+  },
+  get valueCanonical() {
+    return optionalish(Schema.simple(z.string())).backward
+  },
+  get valueCode() {
+    return optionalish(codeSchema).backward
+  },
+  get valueDate() {
+    return optionalish(dateSchema).backward
+  },
+  get valueDateTime() {
+    return optionalish(dateTimeSchema).backward
+  },
+  get valueDecimal() {
+    return optionalish(Schema.simple(z.number())).backward
+  },
+  get valueId() {
+    return optionalish(idSchema).backward
+  },
+  get valueInstant() {
+    return optionalish(instantSchema).backward
+  },
+  get valueInteger() {
+    return optionalish(Schema.simple(z.number().int())).backward
+  },
+  get valueMarkdown() {
+    return optionalish(markdownSchema).backward
+  },
+  get valueOid() {
+    return optionalish(oidSchema).backward
+  },
+  get valuePositiveInt() {
+    return optionalish(positiveIntSchema).backward
+  },
+  get valueString() {
+    return optionalish(Schema.simple(z.string())).backward
+  },
+  get valueTime() {
+    return optionalish(timeSchema).backward
+  },
+  get valueUnsignedInt() {
+    return optionalish(unsignedIntSchema).backward
+  },
+  */
+  get valueAddress() {
+    return addressBackwardSchema.optional()
+  },
+  /*
+  get valueAge() {
+    return optionalish(quantitySchema).backward
+  },
+  get valueUri() {
+    return optionalish(uriSchema).backward
+  },
+  get valueUrl() {
+    return optionalish(urlSchema).backward
+  },
+  get valueAnnotation() {
+    return optionalish(annotationSchema).backward
+  },
+  get valueAttachment() {
+    return optionalish(attachmentSchema).backward
+  },
+  get valueCodeableConcept() {
+    return optionalish(codeableConceptSchema).backward
+  },
+  // valueCodeableReference: optionalish(codeableReferenceSchema),
+  get valueCoding() {
+    return optionalish(codingSchema).backward
+  },
+  get valueContactPoint() {
+    return optionalish(contactPointSchema).backward
+  },
+  // valueCount: optionalish(countSchema),
+  // valueDistance: optionalish(distanceSchema),
+  // valueDuration: optionalish(durationSchema),
+  get valueHumanName() {
+    return optionalish(humanNameSchema).backward
+  },
+  get valueIdentifier() {
+    return optionalish(identifierSchema).backward
+  },
+  get valueMoney() {
+    return optionalish(moneySchema).backward
+  },
+  get valuePeriod() {
+    return optionalish(periodBackwardSchema)
+  },
+  get valueQuantity() {
+    return optionalish(quantitySchema).backward
+  },
+  get valueRange() {
+    return optionalish(rangeSchema).backward
+  },
+  get valueRatio() {
+    return optionalish(ratioSchema).backward
+  },
+  get valueRatioRange() {
+    return optionalish(ratioRangeSchema).backward
+  },
+  get valueReference() {
+    return optionalish(referenceSchema).backward
+  },
+  get valueSampledData() {
+    return optionalish(sampledDataSchema).backward
+  },
+  get valueSignature() {
+    return optionalish(signatureSchema).backward
+  },
+  get valueTiming() {
+    return optionalish(timingSchema).backward
+  },
+  get valueContactDetail() {
+    return optionalish(contactDetailSchema).backward
+  },
+  get valueContributor() {
+    return optionalish(contributorSchema).backward
+  },
+  // valueDataRequirement: optionalish(dataRequirementSchema),
+  // valueExpression: optionalish(expressionSchema),
+  // valueParameterDefinition: optionalish(parameterDefinitionSchema),
+  // valueRelatedArtifact: optionalish(relatedArtifactSchema),
+  // valueTriggerDefinition: optionalish(triggerDefinitionSchema),
+  get valueUsageContext() {
+    return optionalish(usageContextSchema).backward
+  },
+  get valueDosage() {
+    return optionalish(dosageSchema).backward
+  },
+  */
 })

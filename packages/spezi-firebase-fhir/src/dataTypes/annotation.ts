@@ -6,16 +6,29 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { Schema } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from '../elements/element.js'
-import { referenceSchema } from './reference.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import { z } from 'zod/v4'
 import { markdownSchema } from '../primitiveTypes/primitiveTypes.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
+import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
+import { referenceBackwardSchema, referenceForwardSchema } from './reference.js'
 
-export const annotationSchema = elementSchema.extend({
-  authorReference: referenceSchema.optionalish(),
-  authorString: Schema.simple(z.string()).optionalish(),
-  time: dateTimeSchema.optionalish(),
-  text: markdownSchema,
+export type AnnotationDto = z.input<typeof annotationForwardSchema>
+export type Annotation = z.output<typeof annotationForwardSchema>
+
+export const annotationForwardSchema = elementForwardSchema.extend({
+  authorReference: optionalish(referenceForwardSchema),
+  authorString: optionalish(z.string()),
+  time: optionalish(dateTimeSchema.forward),
+  text: markdownSchema.forward,
+})
+
+export const annotationBackwardSchema = elementBackwardSchema.extend({
+  authorReference: optionalish(referenceBackwardSchema),
+  authorString: optionalish(z.string()),
+  time: optionalish(dateTimeSchema.forward),
+  text: markdownSchema.forward,
 })

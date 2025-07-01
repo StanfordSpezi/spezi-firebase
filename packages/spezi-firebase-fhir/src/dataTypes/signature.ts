@@ -6,22 +6,40 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from '../elements/element.js'
+import {
+  BidirectionalSchema,
+  optionalish,
+} from '@stanfordspezi/spezi-firebase-utils'
+import { elementForwardSchema } from '../elements/element.js'
 import { codingSchema } from './coding.js'
 import {
   base64BinarySchema,
   codeSchema,
 } from '../primitiveTypes/primitiveTypes.js'
-import { referenceSchema } from './reference.js'
+import { referenceForwardSchema } from './reference.js'
 import { instantSchema } from '../primitiveTypes/instant.js'
 
-export const signatureSchema = elementSchema.extend({
+export const signatureForwardSchema = elementForwardSchema.extend({
   type: codingSchema.array(), // TODO: .min(1)
   when: instantSchema,
-  who: referenceSchema,
-  onBehalfOf: optionalish(referenceSchema),
-  targetFormat: optionalish(codeSchema),
-  sigFormat: optionalish(codeSchema),
-  data: optionalish(base64BinarySchema),
+  who: referenceForwardSchema,
+  onBehalfOf: optionalish(referenceForwardSchema),
+  targetFormat: optionalish(codeSchema.forward),
+  sigFormat: optionalish(codeSchema.forward),
+  data: optionalish(base64BinarySchema.forward),
 })
+
+export const signatureBackwardSchema = elementForwardSchema.extend({
+  type: codingSchema.array(), // TODO: .min(1)
+  when: instantSchema,
+  who: referenceForwardSchema,
+  onBehalfOf: optionalish(referenceForwardSchema),
+  targetFormat: optionalish(codeSchema.forward),
+  sigFormat: optionalish(codeSchema.forward),
+  data: optionalish(base64BinarySchema.forward),
+})
+
+export const signatureSchema = BidirectionalSchema.separate(
+  signatureForwardSchema,
+  signatureBackwardSchema,
+)

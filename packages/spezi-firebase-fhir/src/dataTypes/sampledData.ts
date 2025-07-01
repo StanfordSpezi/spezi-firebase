@@ -7,17 +7,17 @@
 //
 
 import { z } from 'zod/v4'
-import { elementSchema } from '../elements/element.js'
+import { elementForwardSchema, elementSchema } from '../elements/element.js'
 import { quantitySchema } from './quantity.js'
-import { optionalish, Schema } from '@stanfordspezi/spezi-firebase-utils'
+import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { positiveIntSchema } from '../primitiveTypes/primitiveTypes.js'
 
-export const sampledDataSchema = elementSchema.extend({
+export const sampledDataSchema = elementForwardSchema.extend({
   origin: quantitySchema,
-  period: Schema.simple(z.number()),
-  factor: optionalish(Schema.simple(z.number())),
-  lowerLimit: optionalish(Schema.simple(z.number())),
-  upperLimit: optionalish(Schema.simple(z.number())),
+  period: z.number(),
+  factor: optionalish(z.number()),
+  lowerLimit: optionalish(z.number()),
+  upperLimit: optionalish(z.number()),
   dimensions: positiveIntSchema,
-  data: optionalish(Schema.simple(z.string())),
+  data: optionalish(z.string()),
 })

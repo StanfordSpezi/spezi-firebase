@@ -8,9 +8,8 @@
 
 import { z } from 'zod/v4'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
-import { Schema } from '@stanfordspezi/spezi-firebase-utils'
 
-export const narrativeSchema = Schema.composed({
+export const narrativeSchema = z.object({
   status: codeSchema,
-  div: Schema.simple(z.string()), // TODO: technically this is xhtml
+  div: z.string(), // TODO: technically this is xhtml
 })

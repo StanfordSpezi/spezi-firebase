@@ -6,21 +6,37 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { Schema } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from '../elements/element.js'
-import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
+import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { periodSchema } from './period.js'
 import { z } from 'zod/v4'
+import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 
-export const addressSchema = elementSchema.extend({
-  use: codeSchema.optionalish(),
-  type: codeSchema.optionalish(),
-  text: Schema.simple(z.string()).optionalish(),
-  line: Schema.simple(z.string().array()).optionalish(),
-  city: Schema.simple(z.string()).optionalish(),
-  district: Schema.simple(z.string()).optionalish(),
-  state: Schema.simple(z.string()).optionalish(),
-  postalCode: Schema.simple(z.string()).optionalish(),
-  country: Schema.simple(z.string()).optionalish(),
-  period: periodSchema.optionalish(),
+export const addressForwardSchema = elementForwardSchema.extend({
+  use: optionalish(codeSchema.forward),
+  type: optionalish(codeSchema.forward),
+  text: optionalish(z.string()),
+  line: optionalish(z.string().array()),
+  city: optionalish(z.string()),
+  district: optionalish(z.string()),
+  state: optionalish(z.string()),
+  postalCode: optionalish(z.string()),
+  country: optionalish(z.string()),
+  period: optionalish(periodSchema.forward),
+})
+
+export const addressBackwardSchema = elementBackwardSchema.extend({
+  use: optionalish(codeSchema.backward),
+  type: optionalish(codeSchema.backward),
+  text: optionalish(z.string()),
+  line: optionalish(z.string().array()),
+  city: optionalish(z.string()),
+  district: optionalish(z.string()),
+  state: optionalish(z.string()),
+  postalCode: optionalish(z.string()),
+  country: optionalish(z.string()),
+  period: optionalish(periodSchema.backward),
 })

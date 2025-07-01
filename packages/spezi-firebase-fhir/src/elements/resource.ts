@@ -6,14 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish, Schema } from '@stanfordspezi/spezi-firebase-utils'
+import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { z } from 'zod/v4'
 import { metaSchema } from './meta.js'
 import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
 
-export const resourceSchema = Schema.composed({
-  id: optionalish(Schema.simple(z.string())),
+export const resourceSchema = z.object({
+  id: optionalish(z.string()),
   meta: optionalish(metaSchema),
-  implicitRules: optionalish(uriSchema),
-  language: optionalish(codeSchema),
+  implicitRules: optionalish(uriSchema.forward),
+  language: optionalish(codeSchema.forward),
 })

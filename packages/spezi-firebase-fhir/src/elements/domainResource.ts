@@ -9,7 +9,6 @@
 import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { resourceSchema } from './resource.js'
 import { narrativeSchema } from '../dataTypes/narrative.js'
-import { extensionSchema } from './extension.js'
 
 export const domainResourceSchema = resourceSchema.extend({
   text: optionalish(narrativeSchema),

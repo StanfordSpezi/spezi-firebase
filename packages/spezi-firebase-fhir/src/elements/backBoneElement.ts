@@ -6,12 +6,26 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from './element.js'
-import { extensionSchema } from './extension.js'
+import {
+  BidirectionalSchema,
+  optionalish,
+} from '@stanfordspezi/spezi-firebase-utils'
+import { elementBackwardSchema, elementForwardSchema } from './element.js'
+import { extensionBackwardSchema, extensionForwardSchema } from './extension.js'
 
-export const backBoneElementSchema = elementSchema.extend({
-  // get modifierExtension() {
-  //   return optionalish(extensionSchema.array())
-  // },
+export const backBoneElementForwardSchema = elementForwardSchema.extend({
+  get modifierExtension() {
+    return extensionForwardSchema.array().optional()
+  },
 })
+
+export const backBoneelementBackwardSchema = elementBackwardSchema.extend({
+  get modifierExtension() {
+    return extensionBackwardSchema.array().optional()
+  },
+})
+
+export const backBoneElementSchema = BidirectionalSchema.separate(
+  backBoneElementForwardSchema,
+  backBoneelementBackwardSchema,
+)

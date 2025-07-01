@@ -6,15 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { Schema } from '@stanfordspezi/spezi-firebase-utils'
+import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { z } from 'zod/v4'
 import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
-import { elementSchema } from '../elements/element.js'
+import { elementForwardSchema } from '../elements/element.js'
 
-export const codingSchema = elementSchema.extend({
-  system: uriSchema.optionalish(),
-  version: Schema.simple(z.string()).optionalish(),
-  code: codeSchema.optionalish(),
-  display: Schema.simple(z.string()).optionalish(),
-  userSelected: Schema.simple(z.boolean()).optionalish(),
+export const codingSchema = elementForwardSchema.extend({
+  system: optionalish(uriSchema.forward),
+  version: optionalish(z.string()),
+  code: optionalish(codeSchema.forward),
+  display: optionalish(z.string()),
+  userSelected: optionalish(z.boolean()),
 })

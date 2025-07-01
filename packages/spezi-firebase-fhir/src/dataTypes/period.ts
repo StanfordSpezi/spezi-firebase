@@ -6,11 +6,24 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from '../elements/element.js'
+import {
+  BidirectionalSchema,
+  optionalish,
+} from '@stanfordspezi/spezi-firebase-utils'
+import { elementForwardSchema } from '../elements/element.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 
-export const periodSchema = elementSchema.extend({
-  start: optionalish(dateTimeSchema),
-  end: optionalish(dateTimeSchema),
+export const periodForwardSchema = elementForwardSchema.extend({
+  start: optionalish(dateTimeSchema.forward),
+  end: optionalish(dateTimeSchema.forward),
 })
+
+export const periodBackwardSchema = elementForwardSchema.extend({
+  start: optionalish(dateTimeSchema.backward),
+  end: optionalish(dateTimeSchema.backward),
+})
+
+export const periodSchema = BidirectionalSchema.separate(
+  periodForwardSchema,
+  periodBackwardSchema,
+)

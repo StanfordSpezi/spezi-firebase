@@ -6,14 +6,40 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish, Schema } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from '../elements/element.js'
+import {
+  BidirectionalSchema,
+  optionalish,
+} from '@stanfordspezi/spezi-firebase-utils'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import { z } from 'zod/v4'
 import { uriSchema } from '../primitiveTypes/primitiveTypes.js'
+import {
+  identifierBackwardSchema,
+  identifierForwardSchema,
+} from './identifier.js'
 
-export const referenceSchema = elementSchema.extend({
-  reference: optionalish(Schema.simple(z.string())),
-  type: optionalish(uriSchema),
-  // TODO: identifier: optionalish(identifierSchema),
-  display: optionalish(Schema.simple(z.string())),
+export const referenceForwardSchema = elementForwardSchema.extend({
+  reference: optionalish(z.string()),
+  type: optionalish(uriSchema.forward),
+  get identifier() {
+    return optionalish(identifierForwardSchema)
+  },
+  display: optionalish(z.string()),
 })
+
+export const referenceBackwardSchema = elementBackwardSchema.extend({
+  reference: optionalish(z.string()),
+  type: optionalish(uriSchema.backward),
+  get identifier() {
+    return optionalish(identifierBackwardSchema)
+  },
+  display: optionalish(z.string()),
+})
+
+export const referenceSchema = BidirectionalSchema.separate(
+  referenceForwardSchema,
+  referenceBackwardSchema,
+)

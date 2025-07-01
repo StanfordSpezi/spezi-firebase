@@ -8,16 +8,16 @@
 
 import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { codingSchema } from '../dataTypes/coding.js'
-import { elementSchema } from '../elements/element.js'
+import { elementForwardSchema } from '../elements/element.js'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
 import { quantitySchema } from '../dataTypes/quantity.js'
 import { rangeSchema } from '../dataTypes/range.js'
-import { referenceSchema } from '../dataTypes/reference.js'
+import { referenceForwardSchema } from '../dataTypes/reference.js'
 
-export const usageContextSchema = elementSchema.extend({
+export const usageContextSchema = elementForwardSchema.extend({
   code: codingSchema,
   valueCodeableConcept: optionalish(codeableConceptSchema),
   valueQuantity: optionalish(quantitySchema),
   valueRange: optionalish(rangeSchema),
-  valueReference: optionalish(referenceSchema),
+  valueReference: optionalish(referenceForwardSchema),
 })

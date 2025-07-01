@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { Schema } from '@stanfordspezi/spezi-firebase-utils'
+import { BidirectionalSchema } from '@stanfordspezi/spezi-firebase-utils'
 import { z } from 'zod/v4'
 
-export const instantSchema = Schema.separate(
+export const instantSchema = BidirectionalSchema.separate(
   z
     .string()
     .regex(

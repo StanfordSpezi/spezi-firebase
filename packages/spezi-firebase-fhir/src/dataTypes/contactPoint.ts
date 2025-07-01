@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish, Schema } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from '../elements/element.js'
+import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
+import { elementForwardSchema } from '../elements/element.js'
 import {
   codeSchema,
   positiveIntSchema,
@@ -15,10 +15,10 @@ import {
 import { periodSchema } from './period.js'
 import { z } from 'zod/v4'
 
-export const contactPointSchema = elementSchema.extend({
-  system: optionalish(codeSchema),
-  value: optionalish(Schema.simple(z.string())),
-  use: optionalish(codeSchema),
-  rank: optionalish(positiveIntSchema),
-  period: optionalish(periodSchema),
+export const contactPointSchema = elementForwardSchema.extend({
+  system: optionalish(codeSchema.forward),
+  value: optionalish(z.string()),
+  use: optionalish(codeSchema.forward),
+  rank: optionalish(positiveIntSchema.forward),
+  period: optionalish(periodSchema.forward),
 })

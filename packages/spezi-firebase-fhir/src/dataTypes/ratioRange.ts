@@ -8,9 +8,9 @@
 
 import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { quantitySchema } from './quantity.js'
-import { elementSchema } from '../elements/element.js'
+import { elementForwardSchema } from '../elements/element.js'
 
-export const ratioRangeSchema = elementSchema.extend({
+export const ratioRangeSchema = elementForwardSchema.extend({
   lowNumerator: optionalish(quantitySchema),
   highNumerator: optionalish(quantitySchema),
   denominator: optionalish(quantitySchema),

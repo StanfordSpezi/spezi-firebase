@@ -6,8 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { Schema } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from '../elements/element.js'
+import {
+  BidirectionalSchema,
+  optionalish,
+} from '@stanfordspezi/spezi-firebase-utils'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import {
   base64BinarySchema,
   codeSchema,
@@ -17,13 +23,29 @@ import {
 import { z } from 'zod/v4'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 
-export const attachmentSchema = elementSchema.extend({
-  contentType: codeSchema.optionalish(),
-  language: codeSchema.optionalish(),
-  data: base64BinarySchema.optionalish(),
-  url: urlSchema.optionalish(),
-  size: unsignedIntSchema.optionalish(),
-  hash: base64BinarySchema.optionalish(),
-  title: Schema.simple(z.string()).optionalish(),
-  creation: dateTimeSchema.optionalish(),
+export const attachmentForwardSchema = elementForwardSchema.extend({
+  contentType: optionalish(codeSchema.forward),
+  language: optionalish(codeSchema.forward),
+  data: optionalish(base64BinarySchema.forward),
+  url: optionalish(urlSchema.forward),
+  size: optionalish(unsignedIntSchema.forward),
+  hash: optionalish(base64BinarySchema.forward),
+  title: optionalish(z.string()),
+  creation: optionalish(dateTimeSchema.forward),
 })
+
+export const attachmentBackwardSchema = elementBackwardSchema.extend({
+  ontentType: optionalish(codeSchema.backward),
+  language: optionalish(codeSchema.backward),
+  data: optionalish(base64BinarySchema.backward),
+  url: optionalish(urlSchema.backward),
+  size: optionalish(unsignedIntSchema.backward),
+  hash: optionalish(base64BinarySchema.backward),
+  title: optionalish(z.string()),
+  creation: optionalish(dateTimeSchema.backward),
+})
+
+export const attachmentSchema = BidirectionalSchema.separate(
+  attachmentForwardSchema,
+  attachmentBackwardSchema,
+)

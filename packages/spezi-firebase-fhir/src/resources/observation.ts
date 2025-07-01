@@ -9,9 +9,9 @@
 import { z } from 'zod/v4'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import { codeSchema, timeSchema } from '../primitiveTypes/primitiveTypes.js'
-import { identifierSchema } from '../dataTypes/identifier.js'
-import { optionalish, Schema } from '@stanfordspezi/spezi-firebase-utils'
-import { referenceSchema } from '../dataTypes/reference.js'
+import { identifierForwardSchema } from '../dataTypes/identifier.js'
+import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
+import { referenceForwardSchema } from '../dataTypes/reference.js'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
 import { periodSchema } from '../dataTypes/period.js'
 import { timingSchema } from '../dataTypes/timing.js'
@@ -19,8 +19,7 @@ import { quantitySchema } from '../dataTypes/quantity.js'
 import { rangeSchema } from '../dataTypes/range.js'
 import { ratioSchema } from '../dataTypes/ratio.js'
 import { sampledDataSchema } from '../dataTypes/sampledData.js'
-import { annotationSchema } from '../dataTypes/annotation.js'
-import { backBoneElementSchema } from '../elements/backBoneElement.js'
+import { backBoneElementForwardSchema } from '../elements/backBoneElement.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 import { instantSchema } from '../primitiveTypes/instant.js'
 
@@ -35,70 +34,70 @@ export enum ObservationStatus {
   unknown = 'unknown',
 }
 
-const observationReferenceRangeSchema = backBoneElementSchema.extend({
+const observationReferenceRangeSchema = backBoneElementForwardSchema.extend({
   low: optionalish(quantitySchema),
   high: optionalish(quantitySchema),
   type: optionalish(codeableConceptSchema),
   appliesTo: optionalish(codeableConceptSchema.array()),
   age: optionalish(rangeSchema),
-  text: optionalish(Schema.simple(z.string())),
+  text: optionalish(z.string()),
 })
 
-export const observationComponentSchema = backBoneElementSchema.extend({
+export const observationComponentSchema = backBoneElementForwardSchema.extend({
   code: codeableConceptSchema,
   valueQuantity: optionalish(quantitySchema),
   valueCodeableConcept: optionalish(codeableConceptSchema),
-  valueString: optionalish(Schema.simple(z.string())),
-  valueBoolean: optionalish(Schema.simple(z.boolean())),
-  valueInteger: optionalish(Schema.simple(z.number().int())),
+  valueString: optionalish(z.string()),
+  valueBoolean: optionalish(z.boolean()),
+  valueInteger: optionalish(z.number().int()),
   valueRange: optionalish(rangeSchema),
   valueRatio: optionalish(ratioSchema),
   valueSampledData: optionalish(sampledDataSchema),
-  valueTime: optionalish(timeSchema),
-  valueDateTime: optionalish(dateTimeSchema),
-  valuePeriod: optionalish(periodSchema),
+  valueTime: optionalish(timeSchema.forward),
+  valueDateTime: optionalish(dateTimeSchema.forward),
+  valuePeriod: optionalish(periodSchema.forward),
   dataAbsentReason: optionalish(codeableConceptSchema),
   interpretation: optionalish(codeableConceptSchema.array()),
   referenceRange: optionalish(observationReferenceRangeSchema.array()),
 })
 
 export const observationSchema = domainResourceSchema.extend({
-  resourceType: Schema.simple(z.enum(['Observation'])),
-  status: codeSchema, // TODO: Decide whether every "Required" code should be an enum or if we should only validate the string against the codeSchema
-  identifier: optionalish(identifierSchema.array()),
-  basedOn: optionalish(referenceSchema.array()),
-  partOf: optionalish(referenceSchema.array()),
+  resourceType: z.enum(['Observation']),
+  status: codeSchema.forward, // TODO: Decide whether every "Required" code should be an enum or if we should only validate the string against the codeSchema
+  identifier: optionalish(identifierForwardSchema.array()),
+  basedOn: optionalish(referenceForwardSchema.array()),
+  partOf: optionalish(referenceForwardSchema.array()),
   category: optionalish(codeableConceptSchema.array()),
   code: codeableConceptSchema,
-  subject: optionalish(referenceSchema),
-  focus: optionalish(referenceSchema.array()),
-  encounter: optionalish(referenceSchema),
-  effectiveDateTime: optionalish(dateTimeSchema),
-  effectivePeriod: optionalish(periodSchema),
-  effectiveTiming: optionalish(timingSchema),
-  effectiveInstant: optionalish(instantSchema),
-  issued: optionalish(instantSchema),
-  performer: optionalish(referenceSchema.array()),
+  subject: optionalish(referenceForwardSchema),
+  focus: optionalish(referenceForwardSchema.array()),
+  encounter: optionalish(referenceForwardSchema),
+  effectiveDateTime: optionalish(dateTimeSchema.forward),
+  effectivePeriod: optionalish(periodSchema.forward),
+  effectiveTiming: optionalish(timingSchema.forward),
+  effectiveInstant: optionalish(instantSchema.forward),
+  issued: optionalish(instantSchema.forward),
+  performer: optionalish(referenceForwardSchema.array()),
   valueQuantity: optionalish(quantitySchema),
   valueCodeableConcept: optionalish(codeableConceptSchema),
-  valueString: optionalish(Schema.simple(z.string())),
-  valueBoolean: optionalish(Schema.simple(z.boolean())),
-  valueInteger: optionalish(Schema.simple(z.number().int())),
+  valueString: optionalish(z.string()),
+  valueBoolean: optionalish(z.boolean()),
+  valueInteger: optionalish(z.number().int()),
   valueRange: optionalish(rangeSchema),
   valueRatio: optionalish(ratioSchema),
   valueSampledData: optionalish(sampledDataSchema),
-  valueTime: optionalish(timeSchema),
-  valueDateTime: optionalish(dateTimeSchema),
-  valuePeriod: optionalish(periodSchema),
+  valueTime: optionalish(timeSchema.forward),
+  valueDateTime: optionalish(dateTimeSchema.forward),
+  valuePeriod: optionalish(periodSchema.forward),
   dataAbsentReason: optionalish(codeableConceptSchema),
   interpretation: optionalish(codeableConceptSchema.array()),
-  note: optionalish(annotationSchema.array()),
+  note: optionalish(referenceForwardSchema.array()),
   bodySite: optionalish(codeableConceptSchema),
   method: optionalish(codeableConceptSchema),
-  specimen: optionalish(referenceSchema),
-  device: optionalish(referenceSchema),
+  specimen: optionalish(referenceForwardSchema),
+  device: optionalish(referenceForwardSchema),
   referenceRange: optionalish(observationReferenceRangeSchema.array()),
-  hasMember: optionalish(referenceSchema.array()),
-  derivedFrom: optionalish(referenceSchema.array()),
+  hasMember: optionalish(referenceForwardSchema.array()),
+  derivedFrom: optionalish(referenceForwardSchema.array()),
   component: optionalish(observationComponentSchema.array()),
 })

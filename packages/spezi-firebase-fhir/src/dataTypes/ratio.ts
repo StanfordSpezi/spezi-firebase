@@ -7,10 +7,10 @@
 //
 
 import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from '../elements/element.js'
+import { elementForwardSchema } from '../elements/element.js'
 import { quantitySchema } from './quantity.js'
 
-export const ratioSchema = elementSchema.extend({
+export const ratioSchema = elementForwardSchema.extend({
   numerator: optionalish(quantitySchema),
   denominator: optionalish(quantitySchema),
 })

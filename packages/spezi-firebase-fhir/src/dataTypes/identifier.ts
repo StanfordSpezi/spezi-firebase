@@ -6,19 +6,43 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish, Schema } from '@stanfordspezi/spezi-firebase-utils'
-import { elementSchema } from '../elements/element.js'
+import {
+  BidirectionalSchema,
+  optionalish,
+} from '@stanfordspezi/spezi-firebase-utils'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
 import { codeableConceptSchema } from './codeableConcept.js'
-import { referenceSchema } from './reference.js'
+import { referenceBackwardSchema, referenceForwardSchema } from './reference.js'
 import { periodSchema } from './period.js'
 import { z } from 'zod/v4'
 
-export const identifierSchema = elementSchema.extend({
-  use: optionalish(codeSchema),
+export const identifierForwardSchema = elementForwardSchema.extend({
+  use: optionalish(codeSchema.forward),
   type: optionalish(codeableConceptSchema),
-  system: optionalish(uriSchema),
-  value: optionalish(Schema.simple(z.string())),
-  period: optionalish(periodSchema),
-  assigner: optionalish(referenceSchema),
+  system: optionalish(uriSchema.forward),
+  value: optionalish(z.string()),
+  period: optionalish(periodSchema.forward),
+  get assigner() {
+    return optionalish(referenceForwardSchema)
+  },
 })
+
+export const identifierBackwardSchema = elementBackwardSchema.extend({
+  use: optionalish(codeSchema.backward),
+  type: optionalish(codeableConceptSchema),
+  system: optionalish(uriSchema.backward),
+  value: optionalish(z.string()),
+  period: optionalish(periodSchema.backward),
+  get assigner() {
+    return optionalish(referenceBackwardSchema)
+  },
+})
+
+export const identifierSchema = BidirectionalSchema.separate(
+  identifierForwardSchema,
+  identifierBackwardSchema,
+)
