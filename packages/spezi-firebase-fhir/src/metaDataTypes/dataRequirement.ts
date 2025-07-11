@@ -7,73 +7,166 @@
 //
 
 import { z } from 'zod/v4'
-import { elementForwardSchema, elementBackwardSchema } from '../elements/element.js'
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { codeSchema, positiveIntSchema } from '../primitiveTypes/primitiveTypes.js'
-import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
-import { referenceForwardSchema, referenceBackwardSchema } from '../dataTypes/reference.js'
-import { codingSchema } from '../dataTypes/coding.js'
-import { periodForwardSchema, periodBackwardSchema } from '../dataTypes/period.js'
+import {
+  elementForwardSchema,
+  elementBackwardSchema,
+} from '../elements/element.js'
+import {
+  codeSchema,
+  positiveIntSchema,
+} from '../primitiveTypes/primitiveTypes.js'
+import {
+  referenceForwardSchema,
+  referenceBackwardSchema,
+} from '../dataTypes/reference.js'
+import {
+  periodForwardSchema,
+  periodBackwardSchema,
+} from '../dataTypes/period.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
+import {
+  codingBackwardSchema,
+  codingForwardSchema,
+} from '../dataTypes/coding.js'
+import {
+  codeableConceptBackwardSchema,
+  codeableConceptForwardSchema,
+} from '../dataTypes/codeableConcept.js'
 
 const codeFilterForwardSchema = z.object({
-  path: optionalish(z.string()),
-  searchParam: optionalish(z.string()),
-  valueSet: optionalish(z.string()),
-  code: optionalish(codingSchema.array()),
+  get path() {
+    return z.string().optional()
+  },
+  get searchParam() {
+    return z.string().optional()
+  },
+  get valueSet() {
+    return z.string().optional()
+  },
+  get code() {
+    return codingForwardSchema.array().optional()
+  },
 })
 
 const codeFilterBackwardSchema = z.object({
-  path: optionalish(z.string()),
-  searchParam: optionalish(z.string()),
-  valueSet: optionalish(z.string()),
-  code: optionalish(codingSchema.array()),
+  get path() {
+    return z.string().optional()
+  },
+  get searchParam() {
+    return z.string().optional()
+  },
+  get valueSet() {
+    return z.string().optional()
+  },
+  get code() {
+    return codingBackwardSchema.array().optional()
+  },
 })
 
 const dateFilterForwardSchema = z.object({
-  path: optionalish(z.string()),
-  searchParam: optionalish(z.string()),
-  valueDateTime: optionalish(dateTimeSchema.forward),
-  valuePeriod: optionalish(periodForwardSchema),
+  get path() {
+    return z.string().optional()
+  },
+  get searchParam() {
+    return z.string().optional()
+  },
+  get valueDateTime() {
+    return dateTimeSchema.forward.optional()
+  },
+  get valuePeriod() {
+    return periodForwardSchema.optional()
+  },
 })
 
 const dateFilterBackwardSchema = z.object({
-  path: optionalish(z.string()),
-  searchParam: optionalish(z.string()),
-  valueDateTime: optionalish(dateTimeSchema.backward),
-  valuePeriod: optionalish(periodBackwardSchema),
+  get path() {
+    return z.string().optional()
+  },
+  get searchParam() {
+    return z.string().optional()
+  },
+  get valueDateTime() {
+    return dateTimeSchema.backward.optional()
+  },
+  get valuePeriod() {
+    return periodBackwardSchema.optional()
+  },
 })
 
 const sortForwardSchema = z.object({
-  path: z.string(),
-  direction: codeSchema.forward,
+  get path() {
+    return z.string()
+  },
+  get direction() {
+    return codeSchema.forward
+  },
 })
 
 const sortBackwardSchema = z.object({
-  path: z.string(),
-  direction: codeSchema.backward,
+  get path() {
+    return z.string()
+  },
+  get direction() {
+    return codeSchema.backward
+  },
 })
 
 export const dataRequirementForwardSchema = elementForwardSchema.extend({
-  type: codeSchema.forward,
-  profile: optionalish(z.string().array()),
-  subjectCodeableConcept: optionalish(codeableConceptSchema),
-  subjectReference: optionalish(referenceForwardSchema),
-  mustSupport: optionalish(z.string().array()),
-  codeFilter: optionalish(codeFilterForwardSchema.array()),
-  dateFilter: optionalish(dateFilterForwardSchema.array()),
-  limit: optionalish(positiveIntSchema.forward),
-  sort: optionalish(sortForwardSchema.array()),
+  get type() {
+    return codeSchema.forward
+  },
+  get profile() {
+    return z.string().array().optional()
+  },
+  get subjectCodeableConcept() {
+    return codeableConceptForwardSchema.optional()
+  },
+  get subjectReference() {
+    return referenceForwardSchema.optional()
+  },
+  get mustSupport() {
+    return z.string().array().optional()
+  },
+  get codeFilter() {
+    return codeFilterForwardSchema.array().optional()
+  },
+  get dateFilter() {
+    return dateFilterForwardSchema.array().optional()
+  },
+  get limit() {
+    return positiveIntSchema.forward.optional()
+  },
+  get sort() {
+    return sortForwardSchema.array().optional()
+  },
 })
 
 export const dataRequirementBackwardSchema = elementBackwardSchema.extend({
-  type: codeSchema.backward,
-  profile: optionalish(z.string().array()),
-  subjectCodeableConcept: optionalish(codeableConceptSchema),
-  subjectReference: optionalish(referenceBackwardSchema),
-  mustSupport: optionalish(z.string().array()),
-  codeFilter: optionalish(codeFilterBackwardSchema.array()),
-  dateFilter: optionalish(dateFilterBackwardSchema.array()),
-  limit: optionalish(positiveIntSchema.backward),
-  sort: optionalish(sortBackwardSchema.array()),
+  get type() {
+    return codeSchema.backward
+  },
+  get profile() {
+    return z.string().array().optional()
+  },
+  get subjectCodeableConcept() {
+    return codeableConceptBackwardSchema.optional()
+  },
+  get subjectReference() {
+    return referenceBackwardSchema.optional()
+  },
+  get mustSupport() {
+    return z.string().array().optional()
+  },
+  get codeFilter() {
+    return codeFilterBackwardSchema.array().optional()
+  },
+  get dateFilter() {
+    return dateFilterBackwardSchema.array().optional()
+  },
+  get limit() {
+    return positiveIntSchema.backward.optional()
+  },
+  get sort() {
+    return sortBackwardSchema.array().optional()
+  },
 })

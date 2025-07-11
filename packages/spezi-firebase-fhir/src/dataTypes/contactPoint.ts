@@ -6,19 +6,49 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementForwardSchema } from '../elements/element.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import {
   codeSchema,
   positiveIntSchema,
 } from '../primitiveTypes/primitiveTypes.js'
-import { periodSchema } from './period.js'
 import { z } from 'zod/v4'
+import { periodBackwardSchema, periodForwardSchema } from './period.js'
 
-export const contactPointSchema = elementForwardSchema.extend({
-  system: optionalish(codeSchema.forward),
-  value: optionalish(z.string()),
-  use: optionalish(codeSchema.forward),
-  rank: optionalish(positiveIntSchema.forward),
-  period: optionalish(periodSchema.forward),
+export const contactPointForwardSchema = elementForwardSchema.extend({
+  get system() {
+    return codeSchema.forward.optional()
+  },
+  get value() {
+    return z.string().optional()
+  },
+  get use() {
+    return codeSchema.forward.optional()
+  },
+  get rank() {
+    return positiveIntSchema.forward.optional()
+  },
+  get period() {
+    return periodForwardSchema.optional()
+  },
+})
+
+export const contactPointBackwardSchema = elementBackwardSchema.extend({
+  get system() {
+    return codeSchema.backward.optional()
+  },
+  get value() {
+    return z.string().optional()
+  },
+  get use() {
+    return codeSchema.backward.optional()
+  },
+  get rank() {
+    return positiveIntSchema.backward.optional()
+  },
+  get period() {
+    return periodBackwardSchema.optional()
+  },
 })

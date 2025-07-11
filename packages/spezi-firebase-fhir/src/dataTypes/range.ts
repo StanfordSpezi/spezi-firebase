@@ -6,11 +6,26 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementForwardSchema } from '../elements/element.js'
-import { quantitySchema } from './quantity.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
+import { quantityBackwardSchema, quantityForwardSchema } from './quantity.js'
 
-export const rangeSchema = elementForwardSchema.extend({
-  low: optionalish(quantitySchema),
-  high: optionalish(quantitySchema),
+export const rangeForwardSchema = elementForwardSchema.extend({
+  get low() {
+    return quantityForwardSchema.optional()
+  },
+  get high() {
+    return quantityForwardSchema.optional()
+  },
+})
+
+export const rangeBackwardSchema = elementBackwardSchema.extend({
+  get low() {
+    return quantityBackwardSchema.optional()
+  },
+  get high() {
+    return quantityBackwardSchema.optional()
+  },
 })

@@ -6,12 +6,27 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementForwardSchema } from '../elements/element.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
 import { z } from 'zod/v4'
 
-export const moneySchema = elementForwardSchema.extend({
-  value: optionalish(z.number()),
-  currency: optionalish(codeSchema.forward),
+export const moneyForwardSchema = elementForwardSchema.extend({
+  get value() {
+    return z.number().optional()
+  },
+  get currency() {
+    return codeSchema.forward.optional()
+  },
+})
+
+export const moneyBackwardSchema = elementBackwardSchema.extend({
+  get value() {
+    return z.number().optional()
+  },
+  get currency() {
+    return codeSchema.backward.optional()
+  },
 })

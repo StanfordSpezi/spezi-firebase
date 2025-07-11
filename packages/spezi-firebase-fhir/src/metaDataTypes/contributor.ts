@@ -6,14 +6,37 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
-import { elementForwardSchema } from '../elements/element.js'
-import { contactDetailSchema } from './contactDetail.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
+import {
+  contactDetailBackwardSchema,
+  contactDetailForwardSchema,
+} from './contactDetail.js'
 import { z } from 'zod/v4'
 
-export const contributorSchema = elementForwardSchema.extend({
-  type: codeSchema,
-  name: z.string(),
-  contact: optionalish(contactDetailSchema.array()),
+export const contributorForwardSchema = elementForwardSchema.extend({
+  get type() {
+    return codeSchema.forward
+  },
+  get name() {
+    return z.string()
+  },
+  get contact() {
+    return contactDetailForwardSchema.array().optional()
+  },
+})
+
+export const contributorBackwardSchema = elementBackwardSchema.extend({
+  get type() {
+    return codeSchema.backward
+  },
+  get name() {
+    return z.string()
+  },
+  get contact() {
+    return contactDetailBackwardSchema.array().optional()
+  },
 })

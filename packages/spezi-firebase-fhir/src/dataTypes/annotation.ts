@@ -13,22 +13,37 @@ import {
 import { z } from 'zod/v4'
 import { markdownSchema } from '../primitiveTypes/primitiveTypes.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { referenceBackwardSchema, referenceForwardSchema } from './reference.js'
 
 export type AnnotationDto = z.input<typeof annotationForwardSchema>
 export type Annotation = z.output<typeof annotationForwardSchema>
 
 export const annotationForwardSchema = elementForwardSchema.extend({
-  authorReference: optionalish(referenceForwardSchema),
-  authorString: optionalish(z.string()),
-  time: optionalish(dateTimeSchema.forward),
-  text: markdownSchema.forward,
+  get authorReference() {
+    return referenceForwardSchema.optional()
+  },
+  get authorString() {
+    return z.string().optional()
+  },
+  get time() {
+    return dateTimeSchema.forward.optional()
+  },
+  get text() {
+    return markdownSchema.forward.optional()
+  },
 })
 
 export const annotationBackwardSchema = elementBackwardSchema.extend({
-  authorReference: optionalish(referenceBackwardSchema),
-  authorString: optionalish(z.string()),
-  time: optionalish(dateTimeSchema.forward),
-  text: markdownSchema.forward,
+  get authorReference() {
+    return referenceBackwardSchema.optional()
+  },
+  get authorString() {
+    return z.string().optional()
+  },
+  get time() {
+    return dateTimeSchema.backward.optional()
+  },
+  get text() {
+    return markdownSchema.backward.optional()
+  },
 })

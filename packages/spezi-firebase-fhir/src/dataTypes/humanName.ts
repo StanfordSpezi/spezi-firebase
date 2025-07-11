@@ -6,18 +6,58 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementForwardSchema } from '../elements/element.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
 import { z } from 'zod/v4'
-import { periodSchema } from './period.js'
+import { periodBackwardSchema, periodForwardSchema } from './period.js'
 
-export const humanNameSchema = elementForwardSchema.extend({
-  use: optionalish(codeSchema.forward),
-  text: optionalish(z.string()),
-  family: optionalish(z.string()),
-  given: optionalish(z.string().array()),
-  prefix: optionalish(z.string().array()),
-  suffix: optionalish(z.string().array()),
-  period: optionalish(periodSchema.forward),
+export const humanNameForwardSchema = elementForwardSchema.extend({
+  get use() {
+    return codeSchema.forward.optional()
+  },
+  get text() {
+    return z.string().optional()
+  },
+  get family() {
+    return z.string().optional()
+  },
+  get given() {
+    return z.string().array().optional()
+  },
+  get prefix() {
+    return z.string().array().optional()
+  },
+  get suffix() {
+    return z.string().array().optional()
+  },
+  get period() {
+    return periodForwardSchema.optional()
+  },
+})
+
+export const humanNameBackwardSchema = elementBackwardSchema.extend({
+  get use() {
+    return codeSchema.backward.optional()
+  },
+  get text() {
+    return z.string().optional()
+  },
+  get family() {
+    return z.string().optional()
+  },
+  get given() {
+    return z.string().array().optional()
+  },
+  get prefix() {
+    return z.string().array().optional()
+  },
+  get suffix() {
+    return z.string().array().optional()
+  },
+  get period() {
+    return periodBackwardSchema.optional()
+  },
 })

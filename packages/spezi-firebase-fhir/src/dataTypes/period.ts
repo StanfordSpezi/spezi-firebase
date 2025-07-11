@@ -7,23 +7,25 @@
 //
 
 import {
-  BidirectionalSchema,
-  optionalish,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { elementForwardSchema } from '../elements/element.js'
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 
 export const periodForwardSchema = elementForwardSchema.extend({
-  start: optionalish(dateTimeSchema.forward),
-  end: optionalish(dateTimeSchema.forward),
+  get start() {
+    return dateTimeSchema.forward.optional()
+  },
+  get end() {
+    return dateTimeSchema.forward.optional()
+  },
 })
 
-export const periodBackwardSchema = elementForwardSchema.extend({
-  start: optionalish(dateTimeSchema.backward),
-  end: optionalish(dateTimeSchema.backward),
+export const periodBackwardSchema = elementBackwardSchema.extend({
+  get start() {
+    return dateTimeSchema.backward.optional()
+  },
+  get end() {
+    return dateTimeSchema.backward.optional()
+  },
 })
-
-export const periodSchema = BidirectionalSchema.separate(
-  periodForwardSchema,
-  periodBackwardSchema,
-)

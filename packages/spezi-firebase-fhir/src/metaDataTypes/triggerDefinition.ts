@@ -7,39 +7,96 @@
 //
 
 import { z } from 'zod/v4'
-import { elementForwardSchema, elementBackwardSchema } from '../elements/element.js'
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
-import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
-import { referenceForwardSchema, referenceBackwardSchema } from '../dataTypes/reference.js'
-import { timingForwardSchema, timingBackwardSchema } from '../dataTypes/timing.js'
+import {
+  elementForwardSchema,
+  elementBackwardSchema,
+} from '../elements/element.js'
+import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
+import {
+  referenceForwardSchema,
+  referenceBackwardSchema,
+} from '../dataTypes/reference.js'
+import {
+  timingForwardSchema,
+  timingBackwardSchema,
+} from '../dataTypes/timing.js'
 import { dateSchema } from '../primitiveTypes/date.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
-import { dataRequirementForwardSchema, dataRequirementBackwardSchema } from './dataRequirement.js'
-import { expressionForwardSchema, expressionBackwardSchema } from './expression.js'
+import {
+  dataRequirementForwardSchema,
+  dataRequirementBackwardSchema,
+} from './dataRequirement.js'
+import {
+  expressionForwardSchema,
+  expressionBackwardSchema,
+} from './expression.js'
+import {
+  codeableConceptBackwardSchema,
+  codeableConceptForwardSchema,
+} from '../dataTypes/codeableConcept.js'
 
 export const triggerDefinitionForwardSchema = elementForwardSchema.extend({
-  type: codeSchema.forward,
-  name: optionalish(z.string()),
-  code: optionalish(codeableConceptSchema),
-  subscriptionTopic: optionalish(z.string()),
-  timingTiming: optionalish(timingForwardSchema),
-  timingReference: optionalish(referenceForwardSchema),
-  timingDate: optionalish(dateSchema.forward),
-  timingDateTime: optionalish(dateTimeSchema.forward),
-  data: optionalish(dataRequirementForwardSchema.array()),
-  condition: optionalish(expressionForwardSchema),
+  get type() {
+    return codeSchema.forward
+  },
+  get name() {
+    return z.string().optional()
+  },
+  get code() {
+    return codeableConceptForwardSchema.optional()
+  },
+  get subscriptionTopic() {
+    return z.string().optional()
+  },
+  get timingTiming() {
+    return timingForwardSchema.optional()
+  },
+  get timingReference() {
+    return referenceForwardSchema.optional()
+  },
+  get timingDate() {
+    return dateSchema.forward.optional()
+  },
+  get timingDateTime() {
+    return dateTimeSchema.forward.optional()
+  },
+  get data() {
+    return dataRequirementForwardSchema.array().optional()
+  },
+  get condition() {
+    return expressionForwardSchema.optional()
+  },
 })
 
 export const triggerDefinitionBackwardSchema = elementBackwardSchema.extend({
-  type: codeSchema.backward,
-  name: optionalish(z.string()),
-  code: optionalish(codeableConceptSchema),
-  subscriptionTopic: optionalish(z.string()),
-  timingTiming: optionalish(timingBackwardSchema),
-  timingReference: optionalish(referenceBackwardSchema),
-  timingDate: optionalish(dateSchema.backward),
-  timingDateTime: optionalish(dateTimeSchema.backward),
-  data: optionalish(dataRequirementBackwardSchema.array()),
-  condition: optionalish(expressionBackwardSchema),
+  get type() {
+    return codeSchema.backward
+  },
+  get name() {
+    return z.string().optional()
+  },
+  get code() {
+    return codeableConceptBackwardSchema.optional()
+  },
+  get subscriptionTopic() {
+    return z.string().optional()
+  },
+  get timingTiming() {
+    return timingBackwardSchema.optional()
+  },
+  get timingReference() {
+    return referenceBackwardSchema.optional()
+  },
+  get timingDate() {
+    return dateSchema.backward.optional()
+  },
+  get timingDateTime() {
+    return dateTimeSchema.backward.optional()
+  },
+  get data() {
+    return dataRequirementBackwardSchema.array().optional()
+  },
+  get condition() {
+    return expressionBackwardSchema.optional()
+  },
 })

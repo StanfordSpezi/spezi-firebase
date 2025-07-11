@@ -6,27 +6,107 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { backBoneElementForwardSchema } from './backBoneElement.js'
+import {
+  backBoneElementBackwardSchema,
+  backBoneElementForwardSchema,
+} from './backBoneElement.js'
 import { z } from 'zod/v4'
-import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
-import { quantitySchema } from '../dataTypes/quantity.js'
-import { ratioSchema } from '../dataTypes/ratio.js'
-import { timingSchema } from '../dataTypes/timing.js'
+import {
+  timingBackwardSchema,
+  timingForwardSchema,
+} from '../dataTypes/timing.js'
+import {
+  codeableConceptBackwardSchema,
+  codeableConceptForwardSchema,
+} from '../dataTypes/codeableConcept.js'
+import { ratioBackwardSchema, ratioForwardSchema } from '../dataTypes/ratio.js'
+import {
+  quantityBackwardSchema,
+  quantityForwardSchema,
+} from '../dataTypes/quantity.js'
 
-export const dosageSchema = backBoneElementForwardSchema.extend({
-  sequence: optionalish(z.number().int()),
-  text: optionalish(z.string()),
-  additionalInstruction: optionalish(codeableConceptSchema.array()),
-  patientInstruction: optionalish(z.string()),
-  timing: optionalish(timingSchema.forward),
-  asNeededBoolean: optionalish(z.boolean()),
-  asNeededCodeableConcept: optionalish(codeableConceptSchema),
-  site: optionalish(codeableConceptSchema),
-  route: optionalish(codeableConceptSchema),
-  method: optionalish(codeableConceptSchema),
+export const dosageForwardSchema = backBoneElementForwardSchema.extend({
+  get sequence() {
+    return z.number().int().optional()
+  },
+  get text() {
+    return z.string().optional()
+  },
+  get additionalInstruction() {
+    return codeableConceptForwardSchema.array().optional()
+  },
+  get patientInstruction() {
+    return z.string().optional()
+  },
+  get timing() {
+    return timingForwardSchema.optional()
+  },
+  get asNeededBoolean() {
+    return z.boolean().optional()
+  },
+  get asNeededCodeableConcept() {
+    return codeableConceptForwardSchema.optional()
+  },
+  get site() {
+    return codeableConceptForwardSchema.optional()
+  },
+  get route() {
+    return codeableConceptForwardSchema.optional()
+  },
+  get method() {
+    return codeableConceptForwardSchema.optional()
+  },
   // TODO: doseAndRate
-  maxDosePerPeriod: optionalish(ratioSchema),
-  maxDosePerAdministration: optionalish(quantitySchema),
-  maxDosePerLifetime: optionalish(quantitySchema),
+  get maxDosePerPeriod() {
+    return ratioForwardSchema.optional()
+  },
+  get maxDosePerAdministration() {
+    return quantityForwardSchema.optional()
+  },
+  get maxDosePerLifetime() {
+    return quantityForwardSchema.optional()
+  },
+})
+
+export const dosageBackwardSchema = backBoneElementBackwardSchema.extend({
+  get sequence() {
+    return z.number().int().optional()
+  },
+  get text() {
+    return z.string().optional()
+  },
+  get additionalInstruction() {
+    return codeableConceptBackwardSchema.array().optional()
+  },
+  get patientInstruction() {
+    return z.string().optional()
+  },
+  get timing() {
+    return timingBackwardSchema.optional()
+  },
+  get asNeededBoolean() {
+    return z.boolean().optional()
+  },
+  get asNeededCodeableConcept() {
+    return codeableConceptBackwardSchema.optional()
+  },
+  get site() {
+    return codeableConceptBackwardSchema.optional()
+  },
+  get route() {
+    return codeableConceptBackwardSchema.optional()
+  },
+  get method() {
+    return codeableConceptBackwardSchema.optional()
+  },
+  // TODO: doseAndRate
+  get maxDosePerPeriod() {
+    return ratioBackwardSchema.optional()
+  },
+  get maxDosePerAdministration() {
+    return quantityBackwardSchema.optional()
+  },
+  get maxDosePerLifetime() {
+    return quantityBackwardSchema.optional()
+  },
 })

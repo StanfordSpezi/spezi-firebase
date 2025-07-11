@@ -7,22 +7,48 @@
 //
 
 import { z } from 'zod/v4'
-import { elementForwardSchema, elementBackwardSchema } from '../elements/element.js'
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { codeSchema, idSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
+import {
+  elementForwardSchema,
+  elementBackwardSchema,
+} from '../elements/element.js'
+import {
+  codeSchema,
+  idSchema,
+  uriSchema,
+} from '../primitiveTypes/primitiveTypes.js'
 
 export const expressionForwardSchema = elementForwardSchema.extend({
-  description: optionalish(z.string()),
-  name: optionalish(idSchema.forward),
-  language: codeSchema.forward,
-  expression: optionalish(z.string()),
-  reference: optionalish(uriSchema.forward),
+  get description() {
+    return z.string().optional()
+  },
+  get name() {
+    return idSchema.forward.optional()
+  },
+  get language() {
+    return codeSchema.forward
+  },
+  get expression() {
+    return z.string().optional()
+  },
+  get reference() {
+    return uriSchema.forward.optional()
+  },
 })
 
 export const expressionBackwardSchema = elementBackwardSchema.extend({
-  description: optionalish(z.string()),
-  name: optionalish(idSchema.backward),
-  language: codeSchema.backward,
-  expression: optionalish(z.string()),
-  reference: optionalish(uriSchema.backward),
+  get description() {
+    return z.string().optional()
+  },
+  get name() {
+    return idSchema.backward.optional()
+  },
+  get language() {
+    return codeSchema.backward
+  },
+  get expression() {
+    return z.string().optional()
+  },
+  get reference() {
+    return uriSchema.backward.optional()
+  },
 })

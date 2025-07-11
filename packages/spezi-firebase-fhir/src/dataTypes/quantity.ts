@@ -6,15 +6,45 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { elementForwardSchema } from '../elements/element.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import { z } from 'zod/v4'
 import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
 
-export const quantitySchema = elementForwardSchema.extend({
-  value: optionalish(z.number()),
-  comparator: optionalish(codeSchema.forward),
-  unit: optionalish(z.string()),
-  system: optionalish(uriSchema.forward),
-  code: optionalish(codeSchema.forward),
+export const quantityForwardSchema = elementForwardSchema.extend({
+  get value() {
+    return z.number().optional()
+  },
+  get comparator() {
+    return codeSchema.forward.optional()
+  },
+  get unit() {
+    return z.string().optional()
+  },
+  get system() {
+    return uriSchema.forward.optional()
+  },
+  get code() {
+    return codeSchema.forward.optional()
+  },
+})
+
+export const quantityBackwardSchema = elementBackwardSchema.extend({
+  get value() {
+    return z.number().optional()
+  },
+  get comparator() {
+    return codeSchema.backward.optional()
+  },
+  get unit() {
+    return z.string().optional()
+  },
+  get system() {
+    return uriSchema.backward.optional()
+  },
+  get code() {
+    return codeSchema.backward.optional()
+  },
 })

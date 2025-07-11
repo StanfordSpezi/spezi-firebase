@@ -7,10 +7,6 @@
 //
 
 import {
-  BidirectionalSchema,
-  optionalish,
-} from '@stanfordspezi/spezi-firebase-utils'
-import {
   elementBackwardSchema,
   elementForwardSchema,
 } from '../elements/element.js'
@@ -22,24 +18,31 @@ import {
 } from './identifier.js'
 
 export const referenceForwardSchema = elementForwardSchema.extend({
-  reference: optionalish(z.string()),
-  type: optionalish(uriSchema.forward),
-  get identifier() {
-    return optionalish(identifierForwardSchema)
+  get reference() {
+    return z.string().optional()
   },
-  display: optionalish(z.string()),
+  get type() {
+    return uriSchema.forward.optional()
+  },
+  get identifier() {
+    return identifierForwardSchema.optional()
+  },
+  get display() {
+    return z.string().optional()
+  },
 })
 
 export const referenceBackwardSchema = elementBackwardSchema.extend({
-  reference: optionalish(z.string()),
-  type: optionalish(uriSchema.backward),
-  get identifier() {
-    return optionalish(identifierBackwardSchema)
+  get reference() {
+    return z.string().optional()
   },
-  display: optionalish(z.string()),
+  get type() {
+    return uriSchema.forward.optional()
+  },
+  get identifier() {
+    return identifierBackwardSchema.optional()
+  },
+  get display() {
+    return z.string().optional()
+  },
 })
-
-export const referenceSchema = BidirectionalSchema.separate(
-  referenceForwardSchema,
-  referenceBackwardSchema,
-)

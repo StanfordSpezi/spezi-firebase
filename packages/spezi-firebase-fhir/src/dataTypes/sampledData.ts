@@ -7,17 +7,57 @@
 //
 
 import { z } from 'zod/v4'
-import { elementForwardSchema, elementSchema } from '../elements/element.js'
-import { quantitySchema } from './quantity.js'
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import { positiveIntSchema } from '../primitiveTypes/primitiveTypes.js'
+import { quantityBackwardSchema, quantityForwardSchema } from './quantity.js'
 
-export const sampledDataSchema = elementForwardSchema.extend({
-  origin: quantitySchema,
-  period: z.number(),
-  factor: optionalish(z.number()),
-  lowerLimit: optionalish(z.number()),
-  upperLimit: optionalish(z.number()),
-  dimensions: positiveIntSchema,
-  data: optionalish(z.string()),
+export const sampledDataForwardSchema = elementForwardSchema.extend({
+  get origin() {
+    return quantityForwardSchema.optional()
+  },
+  get period() {
+    return z.number().positive()
+  },
+  get factor() {
+    return z.number().optional()
+  },
+  get lowerLimit() {
+    return z.number().optional()
+  },
+  get upperLimit() {
+    return z.number().optional()
+  },
+  get dimensions() {
+    return positiveIntSchema.forward.optional()
+  },
+  get data() {
+    return z.string().optional()
+  },
+})
+
+export const sampledDataBackwardSchema = elementBackwardSchema.extend({
+  get origin() {
+    return quantityBackwardSchema.optional()
+  },
+  get period() {
+    return z.number().positive()
+  },
+  get factor() {
+    return z.number().optional()
+  },
+  get lowerLimit() {
+    return z.number().optional()
+  },
+  get upperLimit() {
+    return z.number().optional()
+  },
+  get dimensions() {
+    return positiveIntSchema.backward.optional()
+  },
+  get data() {
+    return z.string().optional()
+  },
 })

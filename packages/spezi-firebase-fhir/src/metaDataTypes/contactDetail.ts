@@ -7,11 +7,29 @@
 //
 
 import { z } from 'zod/v4'
-import { elementForwardSchema } from '../elements/element.js'
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { contactPointSchema } from '../dataTypes/contactPoint.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
+import {
+  contactPointBackwardSchema,
+  contactPointForwardSchema,
+} from '../dataTypes/contactPoint.js'
 
-export const contactDetailSchema = elementForwardSchema.extend({
-  name: optionalish(z.string()),
-  telecom: optionalish(contactPointSchema.array()),
+export const contactDetailForwardSchema = elementForwardSchema.extend({
+  get name() {
+    return z.string().optional()
+  },
+  get telecom() {
+    return contactPointForwardSchema.array().optional()
+  },
+})
+
+export const contactDetailBackwardSchema = elementBackwardSchema.extend({
+  get name() {
+    return z.string().optional()
+  },
+  get telecom() {
+    return contactPointBackwardSchema.array().optional()
+  },
 })

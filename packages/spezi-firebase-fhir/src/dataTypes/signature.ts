@@ -7,39 +7,61 @@
 //
 
 import {
-  BidirectionalSchema,
-  optionalish,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { elementForwardSchema } from '../elements/element.js'
-import { codingSchema } from './coding.js'
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 import {
   base64BinarySchema,
   codeSchema,
 } from '../primitiveTypes/primitiveTypes.js'
-import { referenceForwardSchema } from './reference.js'
+import { referenceBackwardSchema, referenceForwardSchema } from './reference.js'
 import { instantSchema } from '../primitiveTypes/instant.js'
+import { codingBackwardSchema, codingForwardSchema } from './coding.js'
 
 export const signatureForwardSchema = elementForwardSchema.extend({
-  type: codingSchema.array(), // TODO: .min(1)
-  when: instantSchema,
-  who: referenceForwardSchema,
-  onBehalfOf: optionalish(referenceForwardSchema),
-  targetFormat: optionalish(codeSchema.forward),
-  sigFormat: optionalish(codeSchema.forward),
-  data: optionalish(base64BinarySchema.forward),
+  get type() {
+    return codingForwardSchema.array().optional() // TODO: .min(1)
+  },
+  get when() {
+    return instantSchema.forward.optional()
+  },
+  get who() {
+    return referenceForwardSchema.optional()
+  },
+  get onBehalfOf() {
+    return referenceForwardSchema.optional()
+  },
+  get targetFormat() {
+    return codeSchema.forward.optional()
+  },
+  get sigFormat() {
+    return codeSchema.forward.optional()
+  },
+  get data() {
+    return base64BinarySchema.forward.optional()
+  },
 })
 
-export const signatureBackwardSchema = elementForwardSchema.extend({
-  type: codingSchema.array(), // TODO: .min(1)
-  when: instantSchema,
-  who: referenceForwardSchema,
-  onBehalfOf: optionalish(referenceForwardSchema),
-  targetFormat: optionalish(codeSchema.forward),
-  sigFormat: optionalish(codeSchema.forward),
-  data: optionalish(base64BinarySchema.forward),
+export const signatureBackwardSchema = elementBackwardSchema.extend({
+  get type() {
+    return codingBackwardSchema.array().optional() // TODO: .min(1)
+  },
+  get when() {
+    return instantSchema.backward.optional()
+  },
+  get who() {
+    return referenceBackwardSchema.optional()
+  },
+  get onBehalfOf() {
+    return referenceBackwardSchema.optional()
+  },
+  get targetFormat() {
+    return codeSchema.backward.optional()
+  },
+  get sigFormat() {
+    return codeSchema.backward.optional()
+  },
+  get data() {
+    return base64BinarySchema.backward.optional()
+  },
 })
-
-export const signatureSchema = BidirectionalSchema.separate(
-  signatureForwardSchema,
-  signatureBackwardSchema,
-)

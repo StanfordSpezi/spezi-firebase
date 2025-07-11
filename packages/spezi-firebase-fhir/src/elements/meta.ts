@@ -6,17 +6,53 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { z } from 'zod/v4'
 import { uriSchema } from '../primitiveTypes/primitiveTypes.js'
-import { codingSchema } from '../dataTypes/coding.js'
 import { instantSchema } from '../primitiveTypes/instant.js'
+import {
+  codingBackwardSchema,
+  codingForwardSchema,
+} from '../dataTypes/coding.js'
+import { elementBackwardSchema, elementForwardSchema } from './element.js'
 
-export const metaSchema = z.object({
-  versionId: optionalish(z.string()),
-  lastUpdated: optionalish(instantSchema.forward),
-  source: optionalish(uriSchema.forward),
-  profile: optionalish(uriSchema.forward.array()),
-  security: optionalish(codingSchema.array()),
-  tag: optionalish(codingSchema.array()),
+export const metaForwardSchema = elementForwardSchema.extend({
+  get versionId() {
+    return z.string().optional()
+  },
+  get lastUpdated() {
+    return instantSchema.forward.optional()
+  },
+  get source() {
+    return uriSchema.forward.optional()
+  },
+  get profile() {
+    return uriSchema.forward.array().optional()
+  },
+  get security() {
+    return codingForwardSchema.array().optional()
+  },
+  get tag() {
+    return codingForwardSchema.array().optional()
+  },
+})
+
+export const metaBackwardSchema = elementBackwardSchema.extend({
+  get versionId() {
+    return z.string().optional()
+  },
+  get lastUpdated() {
+    return instantSchema.backward.optional()
+  },
+  get source() {
+    return uriSchema.backward.optional()
+  },
+  get profile() {
+    return uriSchema.backward.array().optional()
+  },
+  get security() {
+    return codingBackwardSchema.array().optional()
+  },
+  get tag() {
+    return codingBackwardSchema.array().optional()
+  },
 })

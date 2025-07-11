@@ -7,42 +7,56 @@
 //
 
 import {
-  BidirectionalSchema,
-  optionalish,
-} from '@stanfordspezi/spezi-firebase-utils'
-import {
   elementBackwardSchema,
   elementForwardSchema,
 } from '../elements/element.js'
 import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
-import { codeableConceptSchema } from './codeableConcept.js'
 import { referenceBackwardSchema, referenceForwardSchema } from './reference.js'
-import { periodSchema } from './period.js'
 import { z } from 'zod/v4'
+import { periodBackwardSchema, periodForwardSchema } from './period.js'
+import {
+  codeableConceptBackwardSchema,
+  codeableConceptForwardSchema,
+} from './codeableConcept.js'
 
 export const identifierForwardSchema = elementForwardSchema.extend({
-  use: optionalish(codeSchema.forward),
-  type: optionalish(codeableConceptSchema),
-  system: optionalish(uriSchema.forward),
-  value: optionalish(z.string()),
-  period: optionalish(periodSchema.forward),
+  get use() {
+    return codeSchema.forward.optional()
+  },
+  get type() {
+    return codeableConceptForwardSchema.optional()
+  },
+  get system() {
+    return uriSchema.forward.optional()
+  },
+  get value() {
+    return z.string().optional()
+  },
+  get period() {
+    return periodForwardSchema.optional()
+  },
   get assigner() {
-    return optionalish(referenceForwardSchema)
+    return referenceForwardSchema.optional()
   },
 })
 
 export const identifierBackwardSchema = elementBackwardSchema.extend({
-  use: optionalish(codeSchema.backward),
-  type: optionalish(codeableConceptSchema),
-  system: optionalish(uriSchema.backward),
-  value: optionalish(z.string()),
-  period: optionalish(periodSchema.backward),
+  get use() {
+    return codeSchema.backward.optional()
+  },
+  get type() {
+    return codeableConceptBackwardSchema.optional()
+  },
+  get system() {
+    return uriSchema.backward.optional()
+  },
+  get value() {
+    return z.string().optional()
+  },
+  get period() {
+    return periodBackwardSchema.optional()
+  },
   get assigner() {
-    return optionalish(referenceBackwardSchema)
+    return referenceBackwardSchema.optional()
   },
 })
-
-export const identifierSchema = BidirectionalSchema.separate(
-  identifierForwardSchema,
-  identifierBackwardSchema,
-)

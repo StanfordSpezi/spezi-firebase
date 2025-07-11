@@ -8,8 +8,25 @@
 
 import { z } from 'zod/v4'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
 
-export const narrativeSchema = z.object({
-  status: codeSchema,
-  div: z.string(), // TODO: technically this is xhtml
+export const narrativeForwardSchema = elementForwardSchema.extend({
+  get status() {
+    return codeSchema.forward
+  },
+  get div() {
+    return z.string() // TODO: technically this is xhtml
+  },
+})
+
+export const narrativeBackwardSchema = elementBackwardSchema.extend({
+  get status() {
+    return codeSchema.backward
+  },
+  get div() {
+    return z.string() // TODO: technically this is xhtml
+  },
 })

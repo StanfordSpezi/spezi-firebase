@@ -6,12 +6,30 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
 import { z } from 'zod/v4'
-import { codingSchema } from './coding.js'
-import { elementForwardSchema, elementSchema } from '../elements/element.js'
+import {
+  elementBackwardSchema,
+  elementForwardSchema,
+} from '../elements/element.js'
+import { codingForwardSchema, codingBackwardSchema } from './coding.js'
 
-export const codeableConceptSchema = elementForwardSchema.extend({
-  coding: optionalish(codingSchema.array()),
-  text: optionalish(z.string()),
+export type CodeableConceptDto = z.input<typeof codeableConceptForwardSchema>
+export type CodeableConcept = z.output<typeof codeableConceptForwardSchema>
+
+export const codeableConceptForwardSchema = elementForwardSchema.extend({
+  get coding() {
+    return codingForwardSchema.array().optional()
+  },
+  get text() {
+    return z.string().optional()
+  },
+})
+
+export const codeableConceptBackwardSchema = elementBackwardSchema.extend({
+  get coding() {
+    return codingBackwardSchema.array().optional()
+  },
+  get text() {
+    return z.string().optional()
+  },
 })

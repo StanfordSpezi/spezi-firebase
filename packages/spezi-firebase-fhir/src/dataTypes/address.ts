@@ -6,8 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { periodSchema } from './period.js'
+import { periodBackwardSchema, periodForwardSchema } from './period.js'
 import { z } from 'zod/v4'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
 import {
@@ -15,28 +14,71 @@ import {
   elementForwardSchema,
 } from '../elements/element.js'
 
+export type AddressDto = z.input<typeof addressForwardSchema>
+export type Address = z.output<typeof addressForwardSchema>
+
 export const addressForwardSchema = elementForwardSchema.extend({
-  use: optionalish(codeSchema.forward),
-  type: optionalish(codeSchema.forward),
-  text: optionalish(z.string()),
-  line: optionalish(z.string().array()),
-  city: optionalish(z.string()),
-  district: optionalish(z.string()),
-  state: optionalish(z.string()),
-  postalCode: optionalish(z.string()),
-  country: optionalish(z.string()),
-  period: optionalish(periodSchema.forward),
+  get use() {
+    return codeSchema.forward.optional()
+  },
+  get type() {
+    return codeSchema.forward.optional()
+  },
+  get text() {
+    return z.string().optional()
+  },
+  get line() {
+    return z.string().array().optional()
+  },
+  get city() {
+    return z.string().optional()
+  },
+  get district() {
+    return z.string().optional()
+  },
+  get state() {
+    return z.string().optional()
+  },
+  get postalCode() {
+    return z.string().optional()
+  },
+  get country() {
+    return z.string().optional()
+  },
+  get period() {
+    return periodForwardSchema.optional()
+  },
 })
 
 export const addressBackwardSchema = elementBackwardSchema.extend({
-  use: optionalish(codeSchema.backward),
-  type: optionalish(codeSchema.backward),
-  text: optionalish(z.string()),
-  line: optionalish(z.string().array()),
-  city: optionalish(z.string()),
-  district: optionalish(z.string()),
-  state: optionalish(z.string()),
-  postalCode: optionalish(z.string()),
-  country: optionalish(z.string()),
-  period: optionalish(periodSchema.backward),
+  get use() {
+    return codeSchema.backward.optional()
+  },
+  get type() {
+    return codeSchema.backward.optional()
+  },
+  get text() {
+    return z.string().optional()
+  },
+  get line() {
+    return z.string().array().optional()
+  },
+  get city() {
+    return z.string().optional()
+  },
+  get district() {
+    return z.string().optional()
+  },
+  get state() {
+    return z.string().optional()
+  },
+  get postalCode() {
+    return z.string().optional()
+  },
+  get country() {
+    return z.string().optional()
+  },
+  get period() {
+    return periodBackwardSchema.optional()
+  },
 })

@@ -15,6 +15,7 @@ export * from './helpers/optionalish.js'
 export * from './helpers/schema.js'
 export * from './helpers/schemaConverter.js'
 export * from './helpers/string.js'
+export * from './helpers/types.js'
 
 // Types
 export * from './types/localizedText.js'

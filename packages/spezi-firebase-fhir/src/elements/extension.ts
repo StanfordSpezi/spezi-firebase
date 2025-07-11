@@ -7,138 +7,220 @@
 //
 
 import { z } from 'zod/v4'
-import { urlSchema } from '../primitiveTypes/primitiveTypes.js'
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
+import {
+  base64BinarySchema,
+  codeSchema,
+  idSchema,
+  markdownSchema,
+  oidSchema,
+  positiveIntSchema,
+  timeSchema,
+  unsignedIntSchema,
+  uriSchema,
+  urlSchema,
+} from '../primitiveTypes/primitiveTypes.js'
 import {
   addressBackwardSchema,
   addressForwardSchema,
 } from '../dataTypes/address.js'
+import { dateSchema } from '../primitiveTypes/date.js'
+import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
+import { instantSchema } from '../primitiveTypes/instant.js'
+import {
+  quantityBackwardSchema,
+  quantityForwardSchema,
+} from '../dataTypes/quantity.js'
+import {
+  annotationBackwardSchema,
+  annotationForwardSchema,
+} from '../dataTypes/annotation.js'
+import {
+  attachmentBackwardSchema,
+  attachmentForwardSchema,
+} from '../dataTypes/attachment.js'
+import {
+  codeableConceptBackwardSchema,
+  codeableConceptForwardSchema,
+} from '../dataTypes/codeableConcept.js'
+import {
+  codingBackwardSchema,
+  codingForwardSchema,
+} from '../dataTypes/coding.js'
+import {
+  contactPointBackwardSchema,
+  contactPointForwardSchema,
+} from '../dataTypes/contactPoint.js'
+import {
+  humanNameBackwardSchema,
+  humanNameForwardSchema,
+} from '../dataTypes/humanName.js'
+import {
+  identifierBackwardSchema,
+  identifierForwardSchema,
+} from '../dataTypes/identifier.js'
+import { moneyBackwardSchema, moneyForwardSchema } from '../dataTypes/money.js'
+import {
+  periodBackwardSchema,
+  periodForwardSchema,
+} from '../dataTypes/period.js'
+import { rangeBackwardSchema, rangeForwardSchema } from '../dataTypes/range.js'
+import { ratioBackwardSchema, ratioForwardSchema } from '../dataTypes/ratio.js'
+import {
+  ratioRangeBackwardSchema,
+  ratioRangeForwardSchema,
+} from '../dataTypes/ratioRange.js'
+import {
+  referenceBackwardSchema,
+  referenceForwardSchema,
+} from '../dataTypes/reference.js'
+import {
+  sampledDataBackwardSchema,
+  sampledDataForwardSchema,
+} from '../dataTypes/sampledData.js'
+import {
+  timingBackwardSchema,
+  timingForwardSchema,
+} from '../dataTypes/timing.js'
+import {
+  signatureBackwardSchema,
+  signatureForwardSchema,
+} from '../dataTypes/signature.js'
+import {
+  contactDetailBackwardSchema,
+  contactDetailForwardSchema,
+} from '../metaDataTypes/contactDetail.js'
+import {
+  contributorBackwardSchema,
+  contributorForwardSchema,
+} from '../metaDataTypes/contributor.js'
+import { dosageBackwardSchema, dosageForwardSchema } from './dosage.js'
+import {
+  usageContextBackwardSchema,
+  usageContextForwardSchema,
+} from '../metaDataTypes/usageContext.js'
 
 export const extensionForwardSchema = z.object({
   url: urlSchema.forward,
-  /*
   get valueBase64Binary() {
-    return optionalish(base64BinarySchema).forward
+    return base64BinarySchema.forward.optional()
   },
   get valueBoolean() {
-    return optionalish(Schema.simple(z.boolean())).forward
+    return z.boolean().optional()
   },
   get valueCanonical() {
-    return optionalish(Schema.simple(z.string())).forward
+    return z.string().optional()
   },
   get valueCode() {
-    return optionalish(codeSchema).forward
+    return codeSchema.forward.optional()
   },
   get valueDate() {
-    return optionalish(dateSchema).forward
+    return dateSchema.forward.optional()
   },
   get valueDateTime() {
-    return optionalish(dateTimeSchema).forward
+    return dateTimeSchema.forward.optional()
   },
   get valueDecimal() {
-    return optionalish(Schema.simple(z.number())).forward
+    return z.number().optional()
   },
   get valueId() {
-    return optionalish(idSchema).forward
+    return idSchema.forward.optional()
   },
   get valueInstant() {
-    return optionalish(instantSchema).forward
+    return instantSchema.forward.optional()
   },
   get valueInteger() {
-    return optionalish(Schema.simple(z.number().int())).forward
+    return z.number().int().optional()
   },
   get valueMarkdown() {
-    return optionalish(markdownSchema).forward
+    return markdownSchema.forward.optional()
   },
   get valueOid() {
-    return optionalish(oidSchema).forward
+    return oidSchema.forward.optional()
   },
   get valuePositiveInt() {
-    return optionalish(positiveIntSchema).forward
+    return positiveIntSchema.forward.optional()
   },
   get valueString() {
-    return optionalish(Schema.simple(z.string())).forward
+    return z.string().optional()
   },
   get valueTime() {
-    return optionalish(timeSchema).forward
+    return timeSchema.forward.optional()
   },
   get valueUnsignedInt() {
-    return optionalish(unsignedIntSchema).forward
+    return unsignedIntSchema.forward.optional()
   },
-  */
   get valueAddress() {
     return addressForwardSchema.optional()
   },
-  /*
   get valueAge() {
-    return optionalish(quantitySchema).forward
+    return quantityForwardSchema.optional()
   },
   get valueUri() {
-    return optionalish(uriSchema).forward
+    return uriSchema.forward.optional()
   },
   get valueUrl() {
-    return optionalish(urlSchema).forward
+    return urlSchema.forward.optional()
   },
   get valueAnnotation() {
-    return optionalish(annotationSchema).forward
+    return annotationForwardSchema.optional()
   },
   get valueAttachment() {
-    return optionalish(attachmentSchema).forward
+    return attachmentForwardSchema.optional()
   },
   get valueCodeableConcept() {
-    return optionalish(codeableConceptSchema).forward
+    return codeableConceptForwardSchema.optional()
   },
   // valueCodeableReference: optionalish(codeableReferenceSchema),
   get valueCoding() {
-    return optionalish(codingSchema).forward
+    return codingForwardSchema.optional()
   },
   get valueContactPoint() {
-    return optionalish(contactPointSchema).forward
+    return contactPointForwardSchema.optional()
   },
   // valueCount: optionalish(countSchema),
   // valueDistance: optionalish(distanceSchema),
   // valueDuration: optionalish(durationSchema),
   get valueHumanName() {
-    return optionalish(humanNameSchema).forward
+    return humanNameForwardSchema.optional()
   },
   get valueIdentifier() {
-    return optionalish(identifierSchema).forward
+    return identifierForwardSchema.optional()
   },
   get valueMoney() {
-    return optionalish(moneySchema).forward
+    return moneyForwardSchema.optional()
   },
   get valuePeriod() {
-    return optionalish(periodSchema).forward
+    return periodForwardSchema.optional()
   },
   get valueQuantity() {
-    return optionalish(quantitySchema).forward
+    return quantityForwardSchema.optional()
   },
   get valueRange() {
-    return optionalish(rangeSchema).forward
+    return rangeForwardSchema.optional()
   },
   get valueRatio() {
-    return optionalish(ratioSchema).forward
+    return ratioForwardSchema.optional()
   },
   get valueRatioRange() {
-    return optionalish(ratioRangeSchema).forward
+    return ratioRangeForwardSchema.optional()
   },
   get valueReference() {
-    return optionalish(referenceSchema).forward
+    return referenceForwardSchema.optional()
   },
   get valueSampledData() {
-    return optionalish(sampledDataSchema).forward
+    return sampledDataForwardSchema.optional()
   },
   get valueSignature() {
-    return optionalish(signatureSchema).forward
+    return signatureForwardSchema.optional()
   },
   get valueTiming() {
-    return optionalish(timingSchema).forward
+    return timingForwardSchema.optional()
   },
   get valueContactDetail() {
-    return optionalish(contactDetailSchema).forward
+    return contactDetailForwardSchema.optional()
   },
   get valueContributor() {
-    return optionalish(contributorSchema).forward
+    return contributorForwardSchema.optional()
   },
   // valueDataRequirement: optionalish(dataRequirementSchema),
   // valueExpression: optionalish(expressionSchema),
@@ -146,139 +228,135 @@ export const extensionForwardSchema = z.object({
   // valueRelatedArtifact: optionalish(relatedArtifactSchema),
   // valueTriggerDefinition: optionalish(triggerDefinitionSchema),
   get valueUsageContext() {
-    return optionalish(usageContextSchema).forward
+    return usageContextForwardSchema.optional()
   },
   get valueDosage() {
-    return optionalish(dosageSchema).forward
+    return dosageForwardSchema.optional()
   },
-  */
 })
 
 export const extensionBackwardSchema = z.object({
   url: urlSchema.backward,
-  /*
   get valueBase64Binary() {
-    return base64BinarySchema.optionalish().backward
+    return base64BinarySchema.backward.optional()
   },
   get valueBoolean() {
-    return optionalish(Schema.simple(z.boolean())).backward
+    return z.boolean().optional()
   },
   get valueCanonical() {
-    return optionalish(Schema.simple(z.string())).backward
+    return z.string().optional()
   },
   get valueCode() {
-    return optionalish(codeSchema).backward
+    return codeSchema.backward.optional()
   },
   get valueDate() {
-    return optionalish(dateSchema).backward
+    return dateSchema.backward.optional()
   },
   get valueDateTime() {
-    return optionalish(dateTimeSchema).backward
+    return dateTimeSchema.backward.optional()
   },
   get valueDecimal() {
-    return optionalish(Schema.simple(z.number())).backward
+    return z.number().optional()
   },
   get valueId() {
-    return optionalish(idSchema).backward
+    return idSchema.backward.optional()
   },
   get valueInstant() {
-    return optionalish(instantSchema).backward
+    return instantSchema.backward.optional()
   },
   get valueInteger() {
-    return optionalish(Schema.simple(z.number().int())).backward
+    return z.number().int().optional()
   },
   get valueMarkdown() {
-    return optionalish(markdownSchema).backward
+    return markdownSchema.backward.optional()
   },
   get valueOid() {
-    return optionalish(oidSchema).backward
+    return oidSchema.backward.optional()
   },
   get valuePositiveInt() {
-    return optionalish(positiveIntSchema).backward
+    return positiveIntSchema.backward.optional()
   },
   get valueString() {
-    return optionalish(Schema.simple(z.string())).backward
+    return z.string().optional()
   },
   get valueTime() {
-    return optionalish(timeSchema).backward
+    return timeSchema.backward.optional()
   },
   get valueUnsignedInt() {
-    return optionalish(unsignedIntSchema).backward
+    return unsignedIntSchema.backward.optional()
   },
-  */
   get valueAddress() {
     return addressBackwardSchema.optional()
   },
-  /*
   get valueAge() {
-    return optionalish(quantitySchema).backward
+    return quantityBackwardSchema.optional()
   },
   get valueUri() {
-    return optionalish(uriSchema).backward
+    return uriSchema.backward.optional()
   },
   get valueUrl() {
-    return optionalish(urlSchema).backward
+    return urlSchema.backward.optional()
   },
   get valueAnnotation() {
-    return optionalish(annotationSchema).backward
+    return annotationBackwardSchema.optional()
   },
   get valueAttachment() {
-    return optionalish(attachmentSchema).backward
+    return attachmentBackwardSchema.optional()
   },
   get valueCodeableConcept() {
-    return optionalish(codeableConceptSchema).backward
+    return codeableConceptBackwardSchema.optional()
   },
   // valueCodeableReference: optionalish(codeableReferenceSchema),
   get valueCoding() {
-    return optionalish(codingSchema).backward
+    return codingBackwardSchema.optional()
   },
   get valueContactPoint() {
-    return optionalish(contactPointSchema).backward
+    return contactPointBackwardSchema.optional()
   },
   // valueCount: optionalish(countSchema),
   // valueDistance: optionalish(distanceSchema),
   // valueDuration: optionalish(durationSchema),
   get valueHumanName() {
-    return optionalish(humanNameSchema).backward
+    return humanNameBackwardSchema.optional()
   },
   get valueIdentifier() {
-    return optionalish(identifierSchema).backward
+    return identifierBackwardSchema.optional()
   },
   get valueMoney() {
-    return optionalish(moneySchema).backward
+    return moneyBackwardSchema.optional()
   },
   get valuePeriod() {
-    return optionalish(periodBackwardSchema)
+    return periodBackwardSchema.optional()
   },
   get valueQuantity() {
-    return optionalish(quantitySchema).backward
+    return quantityBackwardSchema.optional()
   },
   get valueRange() {
-    return optionalish(rangeSchema).backward
+    return rangeBackwardSchema.optional()
   },
   get valueRatio() {
-    return optionalish(ratioSchema).backward
+    return ratioBackwardSchema.optional()
   },
   get valueRatioRange() {
-    return optionalish(ratioRangeSchema).backward
+    return ratioRangeBackwardSchema.optional()
   },
   get valueReference() {
-    return optionalish(referenceSchema).backward
+    return referenceBackwardSchema.optional()
   },
   get valueSampledData() {
-    return optionalish(sampledDataSchema).backward
+    return sampledDataBackwardSchema.optional()
   },
   get valueSignature() {
-    return optionalish(signatureSchema).backward
+    return signatureBackwardSchema.optional()
   },
   get valueTiming() {
-    return optionalish(timingSchema).backward
+    return timingBackwardSchema.optional()
   },
   get valueContactDetail() {
-    return optionalish(contactDetailSchema).backward
+    return contactDetailBackwardSchema.optional()
   },
   get valueContributor() {
-    return optionalish(contributorSchema).backward
+    return contributorBackwardSchema.optional()
   },
   // valueDataRequirement: optionalish(dataRequirementSchema),
   // valueExpression: optionalish(expressionSchema),
@@ -286,10 +364,9 @@ export const extensionBackwardSchema = z.object({
   // valueRelatedArtifact: optionalish(relatedArtifactSchema),
   // valueTriggerDefinition: optionalish(triggerDefinitionSchema),
   get valueUsageContext() {
-    return optionalish(usageContextSchema).backward
+    return usageContextBackwardSchema.optional()
   },
   get valueDosage() {
-    return optionalish(dosageSchema).backward
+    return dosageBackwardSchema.optional()
   },
-  */
 })

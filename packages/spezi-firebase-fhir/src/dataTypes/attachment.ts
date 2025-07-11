@@ -7,10 +7,6 @@
 //
 
 import {
-  BidirectionalSchema,
-  optionalish,
-} from '@stanfordspezi/spezi-firebase-utils'
-import {
   elementBackwardSchema,
   elementForwardSchema,
 } from '../elements/element.js'
@@ -23,29 +19,59 @@ import {
 import { z } from 'zod/v4'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 
+export type AttachmentDto = z.input<typeof attachmentForwardSchema>
+export type Attachment = z.output<typeof attachmentForwardSchema>
+
 export const attachmentForwardSchema = elementForwardSchema.extend({
-  contentType: optionalish(codeSchema.forward),
-  language: optionalish(codeSchema.forward),
-  data: optionalish(base64BinarySchema.forward),
-  url: optionalish(urlSchema.forward),
-  size: optionalish(unsignedIntSchema.forward),
-  hash: optionalish(base64BinarySchema.forward),
-  title: optionalish(z.string()),
-  creation: optionalish(dateTimeSchema.forward),
+  get contentType() {
+    return codeSchema.forward.optional()
+  },
+  get language() {
+    return codeSchema.forward.optional()
+  },
+  get data() {
+    return base64BinarySchema.forward.optional()
+  },
+  get url() {
+    return urlSchema.forward.optional()
+  },
+  get size() {
+    return unsignedIntSchema.forward.optional()
+  },
+  get hash() {
+    return base64BinarySchema.forward.optional()
+  },
+  get title() {
+    return z.string().optional()
+  },
+  get creation() {
+    return dateTimeSchema.forward.optional()
+  },
 })
 
 export const attachmentBackwardSchema = elementBackwardSchema.extend({
-  ontentType: optionalish(codeSchema.backward),
-  language: optionalish(codeSchema.backward),
-  data: optionalish(base64BinarySchema.backward),
-  url: optionalish(urlSchema.backward),
-  size: optionalish(unsignedIntSchema.backward),
-  hash: optionalish(base64BinarySchema.backward),
-  title: optionalish(z.string()),
-  creation: optionalish(dateTimeSchema.backward),
+  get contentType() {
+    return codeSchema.backward.optional()
+  },
+  get language() {
+    return codeSchema.backward.optional()
+  },
+  get data() {
+    return base64BinarySchema.backward.optional()
+  },
+  get url() {
+    return urlSchema.backward.optional()
+  },
+  get size() {
+    return unsignedIntSchema.backward.optional()
+  },
+  get hash() {
+    return base64BinarySchema.backward.optional()
+  },
+  get title() {
+    return z.string().optional()
+  },
+  get creation() {
+    return dateTimeSchema.backward.optional()
+  },
 })
-
-export const attachmentSchema = BidirectionalSchema.separate(
-  attachmentForwardSchema,
-  attachmentBackwardSchema,
-)

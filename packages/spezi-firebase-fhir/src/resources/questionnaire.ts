@@ -6,8 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { optionalish } from '@stanfordspezi/spezi-firebase-utils'
-import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   codeSchema,
   markdownSchema,
@@ -16,16 +14,16 @@ import {
 } from '../primitiveTypes/primitiveTypes.js'
 import { identifierForwardSchema } from '../dataTypes/identifier.js'
 import { z } from 'zod/v4'
-import { contactDetailSchema } from '../metaDataTypes/contactDetail.js'
-import { usageContextSchema } from '../metaDataTypes/usageContext.js'
-import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
-import { periodSchema } from '../dataTypes/period.js'
-import { codingSchema } from '../dataTypes/coding.js'
 import { backBoneElementForwardSchema } from '../elements/backBoneElement.js'
-import { quantitySchema } from '../dataTypes/quantity.js'
 import { dateSchema } from '../primitiveTypes/date.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 import { referenceForwardSchema } from '../dataTypes/reference.js'
+import { codingForwardSchema } from '../dataTypes/coding.js'
+import { quantityForwardSchema } from '../dataTypes/quantity.js'
+import { domainResourceForwardSchema } from '../elements/domainResource.js'
+import { contactDetailForwardSchema } from '../metaDataTypes/contactDetail.js'
+import { usageContextForwardSchema } from '../metaDataTypes/usageContext.js'
+import { periodForwardSchema } from '../dataTypes/period.js'
 
 export enum PublicationStatus {
   draft = 'draft',
@@ -35,30 +33,47 @@ export enum PublicationStatus {
   unknown = 'unknown',
 }
 
-export const questionnaireEnableWhenSchema =
+export const questionnaireEnableWhenForwardSchema =
   backBoneElementForwardSchema.extend({
-    question: z.string(),
-    operator: codeSchema.forward,
-    get answerBoolean() {
-      return optionalish(z.boolean())
+    get question() {
+      return z.string()
     },
-    answerDecimal: optionalish(z.number()),
-    answerInteger: optionalish(z.number().int()),
-    answerDate: optionalish(dateSchema.forward),
-    answerDateTime: optionalish(dateTimeSchema.forward),
-    answerTime: optionalish(timeSchema.forward),
-    answerString: optionalish(z.string()),
+    get operator() {
+      return codeSchema.forward
+    },
+    get answerBoolean() {
+      return z.boolean().optional()
+    },
+    get answerDecimal() {
+      return z.number().optional()
+    },
+    get answerInteger() {
+      return z.number().int().optional()
+    },
+    get answerDate() {
+      return dateSchema.forward.optional()
+    },
+    get answerDateTime() {
+      return dateTimeSchema.forward.optional()
+    },
+    get answerTime() {
+      return timeSchema.forward.optional()
+    },
+    get answerString() {
+      return z.string().optional()
+    },
     get answerCoding() {
-      return optionalish(codingSchema)
+      return codingForwardSchema.optional()
     },
     get answerQuantity() {
-      return optionalish(quantitySchema)
+      return quantityForwardSchema.optional()
     },
     get answerReference() {
-      return optionalish(referenceForwardSchema)
+      return referenceForwardSchema.optional()
     },
   })
 
+/*
 export const questionnaireItemForwardSchema =
   backBoneElementForwardSchema.extend({
     linkId: z.string(),
@@ -76,33 +91,73 @@ export const questionnaireItemForwardSchema =
     //   return questionnaireItemForwardSchema.array().optional()
     // },
   })
+    */
 
-export const questionaireSchema = domainResourceSchema.extend({
-  url: optionalish(uriSchema.forward),
-  identifier: optionalish(identifierForwardSchema.array()),
-  version: optionalish(z.string()),
-  name: optionalish(z.string()),
-  title: optionalish(z.string()),
-  derivedFrom: optionalish(z.string().array()),
-  status: z.enum(PublicationStatus),
-  experimental: optionalish(z.boolean()),
-  subjectType: optionalish(codeSchema.forward.array()),
-  date: optionalish(dateTimeSchema.forward),
-  publisher: optionalish(z.string()),
+export const questionaireSchema = domainResourceForwardSchema.extend({
+  get resourceType() {
+    return z.literal('Questionnaire')
+  },
+  get url() {
+    return uriSchema.forward.optional()
+  },
+  get identifier() {
+    return identifierForwardSchema.array().optional()
+  },
+  get version() {
+    return z.string().optional()
+  },
+  get name() {
+    return z.string().optional()
+  },
+  get title() {
+    return z.string().optional()
+  },
+  get derivedFrom() {
+    return z.string().array().optional()
+  },
+  get status() {
+    return z.nativeEnum(PublicationStatus)
+  },
+  get experimental() {
+    return z.boolean().optional()
+  },
+  get subjectType() {
+    return codeSchema.forward.array().optional()
+  },
+  get date() {
+    return dateTimeSchema.forward.optional()
+  },
+  get publisher() {
+    return z.string().optional()
+  },
   get contact() {
-    return optionalish(contactDetailSchema.array())
+    return contactDetailForwardSchema.array().optional()
   },
-  description: optionalish(markdownSchema.forward),
-  useContext: optionalish(usageContextSchema.array()),
+  get description() {
+    return markdownSchema.forward.optional()
+  },
+  get useContext() {
+    return usageContextForwardSchema.optional()
+  },
   get jurisdiction() {
-    return optionalish(codeableConceptSchema.array())
+    return codeSchema.forward.array().optional()
   },
-  purpose: optionalish(markdownSchema.forward),
-  copyright: optionalish(markdownSchema.forward),
-  approvalDate: optionalish(dateTimeSchema.forward),
-  lastReviewDate: optionalish(dateTimeSchema.forward),
+  get purpose() {
+    return markdownSchema.forward.optional()
+  },
+  get copyright() {
+    return markdownSchema.forward.optional()
+  },
+  get approvalDate() {
+    return dateTimeSchema.forward.optional()
+  },
+  get lastReviewDate() {
+    return dateTimeSchema.forward.optional()
+  },
   get effectivePeriod() {
-    return optionalish(periodSchema.forward)
+    return periodForwardSchema.optional()
   },
-  code: optionalish(codingSchema),
+  get code() {
+    return codingForwardSchema.optional()
+  },
 })
