@@ -6,107 +6,44 @@
 // SPDX-License-Identifier: MIT
 //
 
-import {
-  backBoneElementBackwardSchema,
-  backBoneElementForwardSchema,
-} from './backBoneElement.js'
+import { backboneElementSchema } from './backBoneElement.js'
 import { z } from 'zod/v4'
+import { timingSchema } from './dataTypes/timing.js'
+import { codeableConceptSchema } from './dataTypes/codeableConcept.js'
+import { ratioSchema } from './dataTypes/ratio.js'
+import { quantitySchema } from './dataTypes/quantity.js'
+import { Dosage } from 'fhir/r4b.js'
 import {
-  timingBackwardSchema,
-  timingForwardSchema,
-} from '../dataTypes/timing.js'
-import {
-  codeableConceptBackwardSchema,
-  codeableConceptForwardSchema,
-} from '../dataTypes/codeableConcept.js'
-import { ratioBackwardSchema, ratioForwardSchema } from '../dataTypes/ratio.js'
-import {
-  quantityBackwardSchema,
-  quantityForwardSchema,
-} from '../dataTypes/quantity.js'
+  AssertOutput,
+  AssertOutputFull,
+} from '@stanfordspezi/spezi-firebase-utils'
 
-export const dosageForwardSchema = backBoneElementForwardSchema.extend({
-  get sequence() {
-    return z.number().int().optional()
-  },
-  get text() {
-    return z.string().optional()
-  },
-  get additionalInstruction() {
-    return codeableConceptForwardSchema.array().optional()
-  },
-  get patientInstruction() {
-    return z.string().optional()
-  },
-  get timing() {
-    return timingForwardSchema.optional()
-  },
-  get asNeededBoolean() {
-    return z.boolean().optional()
-  },
-  get asNeededCodeableConcept() {
-    return codeableConceptForwardSchema.optional()
-  },
-  get site() {
-    return codeableConceptForwardSchema.optional()
-  },
-  get route() {
-    return codeableConceptForwardSchema.optional()
-  },
-  get method() {
-    return codeableConceptForwardSchema.optional()
-  },
-  // TODO: doseAndRate
-  get maxDosePerPeriod() {
-    return ratioForwardSchema.optional()
-  },
-  get maxDosePerAdministration() {
-    return quantityForwardSchema.optional()
-  },
-  get maxDosePerLifetime() {
-    return quantityForwardSchema.optional()
-  },
+export const dosageSchema = backboneElementSchema.extend({
+  sequence: z.number().int().optional(),
+  text: z.string().optional(),
+  additionalInstruction: codeableConceptSchema.array().optional(),
+  patientInstruction: z.string().optional(),
+  timing: timingSchema.optional(),
+  asNeededBoolean: z.boolean().optional(),
+  asNeededCodeableConcept: codeableConceptSchema.optional(),
+  site: codeableConceptSchema.optional(),
+  route: codeableConceptSchema.optional(),
+  method: codeableConceptSchema.optional(),
+  doseAndRate: z
+    .object({
+      type: codeableConceptSchema.optional(),
+      doseQuantity: quantitySchema.optional(),
+      rateRatio: ratioSchema.optional(),
+      rateRange: z
+        .object({
+          low: quantitySchema.optional(),
+          high: quantitySchema.optional(),
+        })
+        .optional(),
+    })
+    .array()
+    .optional(),
 })
 
-export const dosageBackwardSchema = backBoneElementBackwardSchema.extend({
-  get sequence() {
-    return z.number().int().optional()
-  },
-  get text() {
-    return z.string().optional()
-  },
-  get additionalInstruction() {
-    return codeableConceptBackwardSchema.array().optional()
-  },
-  get patientInstruction() {
-    return z.string().optional()
-  },
-  get timing() {
-    return timingBackwardSchema.optional()
-  },
-  get asNeededBoolean() {
-    return z.boolean().optional()
-  },
-  get asNeededCodeableConcept() {
-    return codeableConceptBackwardSchema.optional()
-  },
-  get site() {
-    return codeableConceptBackwardSchema.optional()
-  },
-  get route() {
-    return codeableConceptBackwardSchema.optional()
-  },
-  get method() {
-    return codeableConceptBackwardSchema.optional()
-  },
-  // TODO: doseAndRate
-  get maxDosePerPeriod() {
-    return ratioBackwardSchema.optional()
-  },
-  get maxDosePerAdministration() {
-    return quantityBackwardSchema.optional()
-  },
-  get maxDosePerLifetime() {
-    return quantityBackwardSchema.optional()
-  },
-})
+type _Assert = AssertOutput<typeof dosageSchema, Dosage>
+type _AssertFull = AssertOutputFull<typeof dosageSchema, Dosage>

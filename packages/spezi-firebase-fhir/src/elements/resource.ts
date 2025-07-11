@@ -7,35 +7,17 @@
 //
 
 import { z } from 'zod/v4'
-import { metaForwardSchema, metaBackwardSchema } from './meta.js'
-import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
+import { metaSchema } from './meta.js'
+import { codeSchema, uriSchema } from './primitiveTypes/primitiveTypes.js'
+import { AssertOutput } from '@stanfordspezi/spezi-firebase-utils'
+import { Resource } from 'fhir/r4b.js'
 
-export const resourceForwardSchema = z.object({
-  get id() {
-    return z.string().optional()
-  },
-  get meta() {
-    return metaForwardSchema.optional()
-  },
-  get implicitRules() {
-    return uriSchema.forward.optional()
-  },
-  get language() {
-    return codeSchema.forward.optional()
-  },
+export const resourceSchema = z.object({
+  resourceType: z.string(),
+  id: z.string().optional(),
+  meta: metaSchema.optional(),
+  implicitRules: uriSchema.optional(),
+  language: codeSchema.optional(),
 })
 
-export const resourceBackwardSchema = z.object({
-  get id() {
-    return z.string().optional()
-  },
-  get meta() {
-    return metaBackwardSchema.optional()
-  },
-  get implicitRules() {
-    return uriSchema.backward.optional()
-  },
-  get language() {
-    return codeSchema.backward.optional()
-  },
-})
+type _Assert = AssertOutput<typeof resourceSchema, Resource>

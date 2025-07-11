@@ -8,6 +8,22 @@
 
 import { z, ZodType } from 'zod/v4'
 
+type Full<T> = {
+  [P in keyof T]-?: T[P]
+}
+
+export type AssertOutput<T extends ZodType, Output> =
+  z.infer<T> extends Output ?
+    Output extends z.infer<T> ?
+      true
+    : never
+  : never
+
+export type AssertOutputFull<T extends ZodType, Output> = AssertOutput<
+  Full<T>,
+  Full<Output>
+>
+
 export type Forward<S> =
   S extends BidirectionalSchema<infer Forward, any> ? Forward : never
 export type Backward<S> =

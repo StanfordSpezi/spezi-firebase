@@ -7,52 +7,24 @@
 //
 
 import { z } from 'zod/v4'
-import { uriSchema } from '../primitiveTypes/primitiveTypes.js'
-import { instantSchema } from '../primitiveTypes/instant.js'
+import { uriSchema } from './primitiveTypes/primitiveTypes.js'
+import { instantSchema } from './primitiveTypes/instant.js'
+import { codingSchema } from './dataTypes/coding.js'
+import { elementSchema } from './element.js'
+import { Meta } from 'fhir/r4b.js'
 import {
-  codingBackwardSchema,
-  codingForwardSchema,
-} from '../dataTypes/coding.js'
-import { elementBackwardSchema, elementForwardSchema } from './element.js'
+  AssertOutput,
+  AssertOutputFull,
+} from '@stanfordspezi/spezi-firebase-utils'
 
-export const metaForwardSchema = elementForwardSchema.extend({
-  get versionId() {
-    return z.string().optional()
-  },
-  get lastUpdated() {
-    return instantSchema.forward.optional()
-  },
-  get source() {
-    return uriSchema.forward.optional()
-  },
-  get profile() {
-    return uriSchema.forward.array().optional()
-  },
-  get security() {
-    return codingForwardSchema.array().optional()
-  },
-  get tag() {
-    return codingForwardSchema.array().optional()
-  },
+export const metaSchema = elementSchema.extend({
+  versionId: z.string().optional(),
+  lastUpdated: instantSchema.optional(),
+  source: uriSchema.optional(),
+  profile: uriSchema.array().optional(),
+  security: codingSchema.array().optional(),
+  tag: codingSchema.array().optional(),
 })
 
-export const metaBackwardSchema = elementBackwardSchema.extend({
-  get versionId() {
-    return z.string().optional()
-  },
-  get lastUpdated() {
-    return instantSchema.backward.optional()
-  },
-  get source() {
-    return uriSchema.backward.optional()
-  },
-  get profile() {
-    return uriSchema.backward.array().optional()
-  },
-  get security() {
-    return codingBackwardSchema.array().optional()
-  },
-  get tag() {
-    return codingBackwardSchema.array().optional()
-  },
-})
+type _Assert = AssertOutput<typeof metaSchema, Meta>
+type _AssertFull = AssertOutputFull<typeof metaSchema, Meta>

@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+/*
 import {
   codeSchema,
   markdownSchema,
@@ -73,7 +74,6 @@ export const questionnaireEnableWhenForwardSchema =
     },
   })
 
-/*
 export const questionnaireItemForwardSchema =
   backBoneElementForwardSchema.extend({
     linkId: z.string(),
@@ -91,7 +91,6 @@ export const questionnaireItemForwardSchema =
     //   return questionnaireItemForwardSchema.array().optional()
     // },
   })
-    */
 
 export const questionaireSchema = domainResourceForwardSchema.extend({
   get resourceType() {
@@ -161,3 +160,4 @@ export const questionaireSchema = domainResourceForwardSchema.extend({
     return codingForwardSchema.optional()
   },
 })
+*/

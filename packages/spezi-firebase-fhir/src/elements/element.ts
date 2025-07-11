@@ -7,25 +7,19 @@
 //
 
 import { z } from 'zod/v4'
-import { extensionBackwardSchema, extensionForwardSchema } from './extension.js'
+import { Element } from 'fhir/r4b.js'
+import { extensionSchema } from './extension.js'
+import {
+  AssertOutput,
+  AssertOutputFull,
+} from '@stanfordspezi/spezi-firebase-utils'
 
-export const elementForwardSchema = z.object({
-  get id() {
-    return z.string().optional()
-  },
+export const elementSchema = z.object({
+  id: z.string().optional(),
   get extension() {
-    return extensionForwardSchema.array().optional()
+    return extensionSchema.array().optional()
   },
 })
 
-export const elementBackwardSchema = z.object({
-  get id() {
-    return z.string().optional()
-  },
-  get extension() {
-    return extensionBackwardSchema.array().optional()
-  },
-})
-
-export type ElementDto = z.input<typeof elementForwardSchema>
-export type Element = z.output<typeof elementForwardSchema>
+type _Assert = AssertOutput<typeof elementSchema, Element>
+type _AssertFull = AssertOutputFull<typeof elementSchema, Element>

@@ -6,39 +6,23 @@
 // SPDX-License-Identifier: MIT
 //
 
+import { extensionSchema } from './extension.js'
+import { elementSchema } from './element.js'
+import { z } from 'zod/v4'
 import {
-  narrativeBackwardSchema,
-  narrativeForwardSchema,
-} from '../dataTypes/narrative.js'
-import { extensionForwardSchema, extensionBackwardSchema } from './extension.js'
-import { resourceForwardSchema, resourceBackwardSchema } from './resource.js'
+  AssertOutput,
+  AssertOutputFull,
+} from '@stanfordspezi/spezi-firebase-utils'
+import { DomainResource } from 'fhir/r4b.js'
+import { narrativeSchema } from './index.js'
 
-export const domainResourceForwardSchema = resourceForwardSchema.extend({
-  // get text() {
-  //   return narrativeForwardSchema.optional()
-  // },
-  // get contained() {
-  //   return resourceForwardSchema.array().optional()
-  // },
-  // get extension() {
-  //   return extensionForwardSchema.array().optional()
-  // },
-  // get modifierExtension() {
-  //   return extensionForwardSchema.array().optional()
-  // },
+export const domainResourceSchema = elementSchema.extend({
+  resourceType: z.string().readonly(),
+  text: narrativeSchema.optional(),
+  // contained: resourceSchema.array().optional(),
+  // extension: extensionSchema.array().optional(),
+  modifierExtension: extensionSchema.array().optional(),
 })
 
-export const domainResourceBackwardSchema = resourceBackwardSchema.extend({
-  // get text() {
-  //   return narrativeBackwardSchema.optional()
-  // },
-  // get contained() {
-  //   return resourceBackwardSchema.array().optional()
-  // },
-  // get extension() {
-  //    return extensionBackwardSchema.array().optional()
-  //  },
-  //  get modifierExtension() {
-  //    return extensionBackwardSchema.array().optional()
-  //},
-})
+type _Assert = AssertOutput<typeof domainResourceSchema, DomainResource>
+type _AssertFull = AssertOutputFull<typeof domainResourceSchema, DomainResource>

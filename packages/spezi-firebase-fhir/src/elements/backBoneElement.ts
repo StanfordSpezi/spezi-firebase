@@ -6,17 +6,13 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { elementBackwardSchema, elementForwardSchema } from './element.js'
-import { extensionBackwardSchema, extensionForwardSchema } from './extension.js'
+import { AssertOutput } from '@stanfordspezi/spezi-firebase-utils'
+import { elementSchema } from './element.js'
+import { extensionSchema } from './extension.js'
+import { BackboneElement } from 'fhir/r4b.js'
 
-export const backBoneElementForwardSchema = elementForwardSchema.extend({
-  get modifierExtension() {
-    return extensionForwardSchema.array().optional()
-  },
+export const backboneElementSchema = elementSchema.extend({
+  modifierExtension: extensionSchema.array().optional(),
 })
 
-export const backBoneElementBackwardSchema = elementBackwardSchema.extend({
-  get modifierExtension() {
-    return extensionBackwardSchema.array().optional()
-  },
-})
+type _Assert = AssertOutput<typeof backboneElementSchema, BackboneElement>
