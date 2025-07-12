@@ -30,6 +30,10 @@ export const extensionSchema: ZodType<Extension> = z.object({
   valueCode: z.string().optional(),
   valueUri: z.string().optional(),
   valueBase64Binary: z.string().optional(),
+  valueAttachment: attachmentSchema.optional(),
+  valueCoding: codingSchema.optional(),
+  valueReference: referenceSchema.optional(),
+  valueQuantity: quantitySchema.optional(),
   /*
   get valueAttachment() {
     return attachmentSchema.optional()
