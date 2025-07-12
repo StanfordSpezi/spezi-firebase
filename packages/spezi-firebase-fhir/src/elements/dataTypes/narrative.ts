@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
 import { Narrative } from 'fhir/r4b.js'
 import {
@@ -21,10 +21,12 @@ const narrativeStatus = [
   'empty',
 ] as const
 
-export const narrativeSchema = elementSchema.extend({
-  status: z.enum(narrativeStatus),
-  div: z.string(), // TODO: technically this is xhtml
-})
+export const narrativeSchema: ZodType<Narrative> = z.lazy(() =>
+  elementSchema.extend({
+    status: z.enum(narrativeStatus),
+    div: z.string(), // TODO: technically this is xhtml
+  }),
+)
 
 type _Assert = AssertOutput<typeof narrativeSchema, Narrative>
 type _AssertFull = AssertOutputFull<typeof narrativeSchema, Narrative>

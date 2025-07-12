@@ -8,7 +8,7 @@
 
 import { uriSchema } from '../primitiveTypes/primitiveTypes.js'
 import { referenceSchema } from './reference.js'
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import { periodSchema } from './period.js'
 import { codeableConceptSchema } from './codeableConcept.js'
 import {
@@ -20,14 +20,16 @@ import { elementSchema } from '../element.js'
 
 const identifierUse = ['usual', 'official', 'temp', 'secondary', 'old'] as const
 
-export const identifierSchema = elementSchema.extend({
-  use: z.enum(identifierUse).optional(),
-  type: codeableConceptSchema.optional(),
-  system: uriSchema.optional(),
-  value: z.string().optional(),
-  period: periodSchema.optional(),
-  assigner: referenceSchema.optional(),
-})
+export const identifierSchema: ZodType<Identifier> = z.lazy(() =>
+  elementSchema.extend({
+    use: z.enum(identifierUse).optional(),
+    type: codeableConceptSchema.optional(),
+    system: uriSchema.optional(),
+    value: z.string().optional(),
+    period: periodSchema.optional(),
+    assigner: referenceSchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof identifierSchema, Identifier>
 type _AssertFull = AssertOutputFull<typeof identifierSchema, Identifier>

@@ -13,7 +13,7 @@ import {
   unsignedIntSchema,
   urlSchema,
 } from '../primitiveTypes/primitiveTypes.js'
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 import { Attachment } from 'fhir/r4b.js'
 import {
@@ -21,16 +21,18 @@ import {
   AssertOutputFull,
 } from '@stanfordspezi/spezi-firebase-utils'
 
-export const attachmentSchema = elementSchema.extend({
-  contentType: codeSchema.optional(),
-  language: codeSchema.optional(),
-  data: base64BinarySchema.optional(),
-  url: urlSchema.optional(),
-  size: unsignedIntSchema.optional(),
-  hash: base64BinarySchema.optional(),
-  title: z.string().optional(),
-  creation: dateTimeSchema.optional(),
-})
+export const attachmentSchema: ZodType<Attachment> = z.lazy(() =>
+  elementSchema.extend({
+    contentType: codeSchema.optional(),
+    language: codeSchema.optional(),
+    data: base64BinarySchema.optional(),
+    url: urlSchema.optional(),
+    size: unsignedIntSchema.optional(),
+    hash: base64BinarySchema.optional(),
+    title: z.string().optional(),
+    creation: dateTimeSchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof attachmentSchema, Attachment>
 type _AssertFull = AssertOutputFull<typeof attachmentSchema, Attachment>

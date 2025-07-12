@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
 import {
   codeSchema,
@@ -19,13 +19,15 @@ import {
 } from '@stanfordspezi/spezi-firebase-utils'
 import { Expression } from 'fhir/r4b.js'
 
-export const expressionSchema = elementSchema.extend({
-  description: z.string().optional(),
-  name: idSchema.optional(),
-  language: codeSchema,
-  expression: z.string().optional(),
-  reference: uriSchema.optional(),
-})
+export const expressionSchema: ZodType<Expression> = z.lazy(() =>
+  elementSchema.extend({
+    description: z.string().optional(),
+    name: idSchema.optional(),
+    language: codeSchema,
+    expression: z.string().optional(),
+    reference: uriSchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof expressionSchema, Expression>
 type _AssertFull = AssertOutputFull<typeof expressionSchema, Expression>

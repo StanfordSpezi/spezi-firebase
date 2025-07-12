@@ -13,13 +13,16 @@ import {
   AssertOutput,
   AssertOutputFull,
 } from '@stanfordspezi/spezi-firebase-utils'
+import { z, ZodType } from 'zod/v4'
 
-export const rangeSchema = elementSchema.extend({
-  low: quantitySchema.optional(),
-  _low: elementSchema.optional(),
-  high: quantitySchema.optional(),
-  _high: elementSchema.optional(),
-})
+export const rangeSchema: ZodType<Range> = z.lazy(() =>
+  elementSchema.extend({
+    low: quantitySchema.optional(),
+    _low: elementSchema.optional(),
+    high: quantitySchema.optional(),
+    _high: elementSchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof rangeSchema, Range>
 type _AssertFull = AssertOutputFull<typeof rangeSchema, Range>

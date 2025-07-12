@@ -7,7 +7,7 @@
 //
 
 import { positiveIntSchema } from '../primitiveTypes/primitiveTypes.js'
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import { ContactPoint } from 'fhir/r4b.js'
 import { elementSchema } from '../element.js'
 import { periodSchema } from './period.js'
@@ -28,13 +28,15 @@ const contactPointSystem = [
 
 const contactPointUse = ['home', 'work', 'temp', 'old', 'mobile'] as const
 
-export const contactPointSchema = elementSchema.extend({
-  system: z.enum(contactPointSystem).optional(),
-  value: z.string().optional(),
-  use: z.enum(contactPointUse).optional(),
-  rank: positiveIntSchema.optional(),
-  period: periodSchema.optional(),
-})
+export const contactPointSchema: ZodType<ContactPoint> = z.lazy(() =>
+  elementSchema.extend({
+    system: z.enum(contactPointSystem).optional(),
+    value: z.string().optional(),
+    use: z.enum(contactPointUse).optional(),
+    rank: positiveIntSchema.optional(),
+    period: periodSchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof contactPointSchema, ContactPoint>
 type _AssertFull = AssertOutputFull<typeof contactPointSchema, ContactPoint>

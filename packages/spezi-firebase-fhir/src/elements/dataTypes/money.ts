@@ -9,16 +9,18 @@
 import { Money } from 'fhir/r4b.js'
 import { elementSchema } from '../element.js'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import {
   AssertOutput,
   AssertOutputFull,
 } from '@stanfordspezi/spezi-firebase-utils'
 
-export const moneySchema = elementSchema.extend({
-  value: z.number().optional(),
-  currency: codeSchema.optional(),
-})
+export const moneySchema: ZodType<Money> = z.lazy(() =>
+  elementSchema.extend({
+    value: z.number().optional(),
+    currency: codeSchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof moneySchema, Money>
 type _AssertFull = AssertOutputFull<typeof moneySchema, Money>

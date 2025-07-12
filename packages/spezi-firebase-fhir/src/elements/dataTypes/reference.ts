@@ -7,7 +7,7 @@
 //
 
 import { elementSchema } from '../element.js'
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import { uriSchema } from '../primitiveTypes/primitiveTypes.js'
 import { Reference } from 'fhir/r4b.js'
 import {
@@ -16,14 +16,16 @@ import {
 } from '@stanfordspezi/spezi-firebase-utils'
 import { identifierSchema } from './identifier.js'
 
-export const referenceSchema = elementSchema.extend({
-  reference: z.string().optional(),
-  type: uriSchema.optional(),
-  get identifier() {
-    return identifierSchema.optional()
-  },
-  display: z.string().optional(),
-})
+export const referenceSchema: ZodType<Reference> = z.lazy(() =>
+  elementSchema.extend({
+    reference: z.string().optional(),
+    type: uriSchema.optional(),
+    get identifier() {
+      return identifierSchema.optional()
+    },
+    display: z.string().optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof referenceSchema, Reference>
 type _AssertFull = AssertOutputFull<typeof referenceSchema, Reference>

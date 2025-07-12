@@ -6,14 +6,13 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
 import { referenceSchema } from '../dataTypes/reference.js'
 import { timingSchema } from '../dataTypes/timing.js'
 import { dateSchema } from '../primitiveTypes/date.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
-import { dataRequirementSchema } from './dataRequirement.js'
 import { expressionSchema } from './expression.js'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
 import { TriggerDefinition } from 'fhir/r4b.js'
@@ -33,18 +32,20 @@ const triggerDefinitionType = [
   'data-access-ended',
 ] as const
 
-export const triggerDefinitionSchema = elementSchema.extend({
-  type: z.enum(triggerDefinitionType),
-  name: z.string().optional(),
-  code: codeableConceptSchema.optional(),
-  subscriptionTopic: z.string().optional(),
-  timingTiming: timingSchema.optional(),
-  timingReference: referenceSchema.optional(),
-  timingDate: dateSchema.optional(),
-  timingDateTime: dateTimeSchema.optional(),
-  data: dataRequirementSchema.array().optional(),
-  condition: expressionSchema.optional(),
-})
+export const triggerDefinitionSchema: ZodType<TriggerDefinition> = z.lazy(() =>
+  elementSchema.extend({
+    type: z.enum(triggerDefinitionType),
+    name: z.string().optional(),
+    code: codeableConceptSchema.optional(),
+    subscriptionTopic: z.string().optional(),
+    timingTiming: timingSchema.optional(),
+    timingReference: referenceSchema.optional(),
+    timingDate: dateSchema.optional(),
+    timingDateTime: dateTimeSchema.optional(),
+    // data: dataRequirementSchema.array().optional(),
+    condition: expressionSchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof triggerDefinitionSchema, TriggerDefinition>
 type _AssertFull = AssertOutputFull<

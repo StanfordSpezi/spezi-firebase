@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
 import { codeSchema, urlSchema } from '../primitiveTypes/primitiveTypes.js'
 import { attachmentSchema } from '../dataTypes/attachment.js'
@@ -27,15 +27,17 @@ const relatedArtifactType = [
   'composed-of',
 ] as const
 
-export const relatedArtifactSchema = elementSchema.extend({
-  type: z.enum(relatedArtifactType),
-  label: z.string().optional(),
-  display: z.string().optional(),
-  citation: z.string().optional(),
-  url: urlSchema.optional(),
-  document: attachmentSchema.optional(),
-  resource: z.string().optional(),
-})
+export const relatedArtifactSchema: ZodType<RelatedArtifact> = z.lazy(() =>
+  elementSchema.extend({
+    type: z.enum(relatedArtifactType),
+    label: z.string().optional(),
+    display: z.string().optional(),
+    citation: z.string().optional(),
+    url: urlSchema.optional(),
+    document: attachmentSchema.optional(),
+    resource: z.string().optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof relatedArtifactSchema, RelatedArtifact>
 type _AssertFull = AssertOutputFull<

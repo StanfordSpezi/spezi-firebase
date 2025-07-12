@@ -9,7 +9,7 @@
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
 import { elementSchema } from '../element.js'
 import { contactDetailSchema } from './contactDetail.js'
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import {
   AssertOutput,
   AssertOutputFull,
@@ -18,11 +18,13 @@ import { Contributor } from 'fhir/r4b.js'
 
 const contributorType = ['author', 'editor', 'reviewer', 'endorser'] as const
 
-export const contributorSchema = elementSchema.extend({
-  type: z.enum(contributorType),
-  name: z.string(),
-  contact: contactDetailSchema.array().optional(),
-})
+export const contributorSchema: ZodType<Contributor> = z.lazy(() =>
+  elementSchema.extend({
+    type: z.enum(contributorType),
+    name: z.string(),
+    contact: contactDetailSchema.array().optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof contributorSchema, Contributor>
 type _AssertFull = AssertOutputFull<typeof contributorSchema, Contributor>

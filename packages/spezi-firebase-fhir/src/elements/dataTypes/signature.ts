@@ -19,16 +19,19 @@ import {
   AssertOutput,
   AssertOutputFull,
 } from '@stanfordspezi/spezi-firebase-utils'
+import { z, ZodType } from 'zod/v4'
 
-export const signatureSchema = elementSchema.extend({
-  type: codingSchema.array(), // TODO: .min(1)
-  when: instantSchema,
-  who: referenceSchema,
-  onBehalfOf: referenceSchema.optional(),
-  targetFormat: codeSchema.optional(),
-  sigFormat: codeSchema.optional(),
-  data: base64BinarySchema.optional(),
-})
+export const signatureSchema: ZodType<Signature> = z.lazy(() =>
+  elementSchema.extend({
+    type: codingSchema.array(), // TODO: .min(1)
+    when: instantSchema,
+    who: referenceSchema,
+    onBehalfOf: referenceSchema.optional(),
+    targetFormat: codeSchema.optional(),
+    sigFormat: codeSchema.optional(),
+    data: base64BinarySchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof signatureSchema, Signature>
 type _AssertFull = AssertOutputFull<typeof signatureSchema, Signature>

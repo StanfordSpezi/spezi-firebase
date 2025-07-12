@@ -13,13 +13,16 @@ import {
   AssertOutput,
   AssertOutputFull,
 } from '@stanfordspezi/spezi-firebase-utils'
+import { z, ZodType } from 'zod/v4'
 
-export const ratioSchema = elementSchema.extend({
-  numerator: quantitySchema.optional(),
-  _numerator: elementSchema.optional(),
-  denominator: quantitySchema.optional(),
-  _denominator: elementSchema.optional(),
-})
+export const ratioSchema: ZodType<Ratio> = z.lazy(() =>
+  elementSchema.extend({
+    numerator: quantitySchema.optional(),
+    _numerator: elementSchema.optional(),
+    denominator: quantitySchema.optional(),
+    _denominator: elementSchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof ratioSchema, Ratio>
 type _AssertFull = AssertOutputFull<typeof ratioSchema, Ratio>

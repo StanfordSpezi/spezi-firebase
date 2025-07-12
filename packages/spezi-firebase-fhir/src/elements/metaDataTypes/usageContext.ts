@@ -17,14 +17,17 @@ import {
   AssertOutputFull,
 } from '@stanfordspezi/spezi-firebase-utils'
 import { UsageContext } from 'fhir/r4b.js'
+import { z, ZodType } from 'zod/v4'
 
-export const usageContextSchema = elementSchema.extend({
-  code: codingSchema,
-  valueCodeableConcept: codeableConceptSchema.optional(),
-  valueQuantity: quantitySchema.optional(),
-  valueRange: rangeSchema.optional(),
-  valueReference: referenceSchema.optional(),
-})
+export const usageContextSchema: ZodType<UsageContext> = z.lazy(() =>
+  elementSchema.extend({
+    code: codingSchema,
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueRange: rangeSchema.optional(),
+    valueReference: referenceSchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof usageContextSchema, UsageContext>
 type _AssertFull = AssertOutputFull<typeof usageContextSchema, UsageContext>

@@ -16,6 +16,9 @@ import {
 
 export const elementSchema = z.object({
   id: z.string().optional(),
+  get _id() {
+    return elementSchema.optional()
+  },
   get extension() {
     return extensionSchema.array().optional()
   },

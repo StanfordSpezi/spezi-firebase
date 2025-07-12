@@ -13,13 +13,16 @@ import {
 import { elementSchema } from '../element.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 import { Period } from 'fhir/r4b.js'
+import { z, ZodType } from 'zod/v4'
 
-export const periodSchema = elementSchema.extend({
-  start: dateTimeSchema.optional(),
-  _start: elementSchema.optional(),
-  end: dateTimeSchema.optional(),
-  _end: elementSchema.optional(),
-})
+export const periodSchema: ZodType<Period> = z.lazy(() =>
+  elementSchema.extend({
+    start: dateTimeSchema.optional(),
+    _start: elementSchema.optional(),
+    end: dateTimeSchema.optional(),
+    _end: elementSchema.optional(),
+  }),
+)
 
 type _Assert = AssertOutput<typeof periodSchema, Period>
 type _AssertFull = AssertOutputFull<typeof periodSchema, Period>
