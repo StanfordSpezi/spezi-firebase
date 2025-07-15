@@ -7,20 +7,21 @@
 //
 
 import { extensionSchema } from './extension.js'
-import { elementSchema } from './element.js'
-import { z } from 'zod/v4'
+import { z, ZodType } from 'zod/v4'
 import {
   AssertOutput,
   AssertOutputFull,
 } from '@stanfordspezi/spezi-firebase-utils'
 import { DomainResource } from 'fhir/r4b.js'
-import { narrativeSchema } from './index.js'
+import { narrativeSchema, resourceSchema } from './index.js'
 
-export const domainResourceSchema = elementSchema.extend({
+export const domainResourceSchema = resourceSchema.extend({
   resourceType: z.string().readonly(),
   text: narrativeSchema.optional(),
-  // contained: resourceSchema.array().optional(),
-  // extension: extensionSchema.array().optional(),
+  get contained() {
+    return resourceSchema.array().optional()
+  },
+  extension: extensionSchema.array().optional(),
   modifierExtension: extensionSchema.array().optional(),
 })
 

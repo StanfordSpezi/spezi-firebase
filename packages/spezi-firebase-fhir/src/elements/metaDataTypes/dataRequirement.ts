@@ -17,14 +17,12 @@ import { periodSchema } from '../dataTypes/period.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 import { codingSchema } from '../dataTypes/coding.js'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
-import path from 'path'
 import { DataRequirement } from 'fhir/r4b.js'
 import {
   AssertOutput,
   AssertOutputFull,
 } from '@stanfordspezi/spezi-firebase-utils'
 
-/*
 export const dataRequirementSchema: ZodType<DataRequirement> = z.lazy(() =>
   elementSchema.extend({
     type: codeSchema,
@@ -51,8 +49,7 @@ export const dataRequirementSchema: ZodType<DataRequirement> = z.lazy(() =>
       .array()
       .optional(),
     limit: positiveIntSchema.optional(),
-    sort: z.object({ path: z.string(), direction: codeSchema }).array()
-      .optional,
+    // sort: z.object({ path: z.string(), direction: codeSchema }).array().optional,
   }),
 )
 
@@ -61,4 +58,3 @@ type _AssertFull = AssertOutputFull<
   typeof dataRequirementSchema,
   DataRequirement
 >
-  */

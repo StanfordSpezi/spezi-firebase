@@ -21,3 +21,4 @@ export const resourceSchema = z.object({
 })
 
 type _Assert = AssertOutput<typeof resourceSchema, Resource>
+type _AssertFull = AssertOutput<typeof resourceSchema, Resource>
