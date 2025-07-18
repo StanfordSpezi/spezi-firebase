@@ -6,31 +6,27 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod/v4'
+import { type Observation } from 'fhir/r4b.js'
+import { z, ZodType } from 'zod/v4'
 import {
   codeableConceptSchema,
   domainResourceSchema,
 } from '../elements/index.js'
-import { Observation } from 'fhir/r4b.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
 
-type _Assert = AssertOutput<typeof observationSchema, Observation>
-type _AssertFull = AssertOutputFull<typeof observationSchema, Observation>
+const observationStatus = [
+  'registered',
+  'preliminary',
+  'final',
+  'amended',
+  'corrected',
+  'cancelled',
+  'entered-in-error',
+  'unknown',
+] as const
 
-export const observationSchema = domainResourceSchema.extend({
-  resourceType: z.literal('Observation'),
-  status: z.enum([
-    'registered',
-    'preliminary',
-    'final',
-    'amended',
-    'corrected',
-    'cancelled',
-    'entered-in-error',
-    'unknown',
-  ] as const),
-  code: codeableConceptSchema,
-})
+export const observationSchema: ZodType<Observation> =
+  domainResourceSchema.extend({
+    resourceType: z.literal('Observation'),
+    status: z.enum(observationStatus),
+    code: codeableConceptSchema,
+  })

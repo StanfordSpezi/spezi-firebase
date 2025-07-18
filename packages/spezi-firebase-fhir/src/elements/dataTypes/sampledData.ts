@@ -6,15 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
+import { type SampledData } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
+import { quantitySchema } from './quantity.js'
 import { elementSchema } from '../element.js'
 import { positiveIntSchema } from '../primitiveTypes/primitiveTypes.js'
-import { quantitySchema } from './quantity.js'
-import { SampledData } from 'fhir/r4b.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
 
 export const sampledDataSchema: ZodType<SampledData> = z.lazy(() =>
   elementSchema.extend({
@@ -25,8 +21,6 @@ export const sampledDataSchema: ZodType<SampledData> = z.lazy(() =>
     upperLimit: z.number().optional(),
     dimensions: positiveIntSchema,
     data: z.string().optional(),
+    _data: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof sampledDataSchema, SampledData>
-type _AssertFull = AssertOutputFull<typeof sampledDataSchema, SampledData>

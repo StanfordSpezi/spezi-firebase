@@ -6,21 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { Money } from 'fhir/r4b.js'
+import { type Money } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
-import { z, ZodType } from 'zod/v4'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
 
 export const moneySchema: ZodType<Money> = z.lazy(() =>
   elementSchema.extend({
     value: z.number().optional(),
     currency: codeSchema.optional(),
+    _currency: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof moneySchema, Money>
-type _AssertFull = AssertOutputFull<typeof moneySchema, Money>

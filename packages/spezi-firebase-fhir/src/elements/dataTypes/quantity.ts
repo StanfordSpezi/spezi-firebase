@@ -6,21 +6,16 @@
 // SPDX-License-Identifier: MIT
 //
 
+import { type Quantity } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
-import { z, ZodType } from 'zod/v4'
 import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
-import { Quantity } from 'fhir/r4b.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
 
 const quantityComparator = ['<', '<=', '>=', '>'] as const
 
 export const quantitySchema: ZodType<Quantity> = z.lazy(() =>
   elementSchema.extend({
     value: z.number().optional(),
-    _value: elementSchema.optional(),
     comparator: z.enum(quantityComparator).optional(),
     _comparator: elementSchema.optional(),
     unit: z.string().optional(),
@@ -31,6 +26,3 @@ export const quantitySchema: ZodType<Quantity> = z.lazy(() =>
     _code: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof quantitySchema, Quantity>
-type _AssertFull = AssertOutputFull<typeof quantitySchema, Quantity>

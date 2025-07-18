@@ -6,24 +6,19 @@
 // SPDX-License-Identifier: MIT
 //
 
+import { narrativeSchema } from './dataTypes/narrative.js'
 import { extensionSchema } from './extension.js'
-import { z, ZodType } from 'zod/v4'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { DomainResource } from 'fhir/r4b.js'
-import { narrativeSchema, resourceSchema } from './index.js'
+import { resourceSchema } from './resource.js'
 
 export const domainResourceSchema = resourceSchema.extend({
-  resourceType: z.string().readonly(),
   text: narrativeSchema.optional(),
-  get contained() {
-    return resourceSchema.array().optional()
+  // get contained() {
+  //   return resourceSchema.array().optional()
+  // },
+  get extension() {
+    return extensionSchema.array().optional()
   },
-  extension: extensionSchema.array().optional(),
-  modifierExtension: extensionSchema.array().optional(),
+  get modifierExtension() {
+    return extensionSchema.array().optional()
+  },
 })
-
-type _Assert = AssertOutput<typeof domainResourceSchema, DomainResource>
-type _AssertFull = AssertOutputFull<typeof domainResourceSchema, DomainResource>

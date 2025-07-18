@@ -6,15 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
-import { elementSchema } from '../element.js'
-import { codeSchema, urlSchema } from '../primitiveTypes/primitiveTypes.js'
+import { type RelatedArtifact } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { attachmentSchema } from '../dataTypes/attachment.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { RelatedArtifact } from 'fhir/r4b.js'
+import { elementSchema } from '../element.js'
+import { urlSchema } from '../primitiveTypes/primitiveTypes.js'
 
 const relatedArtifactType = [
   'documentation',
@@ -30,17 +26,17 @@ const relatedArtifactType = [
 export const relatedArtifactSchema: ZodType<RelatedArtifact> = z.lazy(() =>
   elementSchema.extend({
     type: z.enum(relatedArtifactType),
+    _type: elementSchema.optional(),
     label: z.string().optional(),
+    _label: elementSchema.optional(),
     display: z.string().optional(),
+    _display: elementSchema.optional(),
     citation: z.string().optional(),
+    _citation: elementSchema.optional(),
     url: urlSchema.optional(),
+    _url: elementSchema.optional(),
     document: attachmentSchema.optional(),
     resource: z.string().optional(),
+    _resource: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof relatedArtifactSchema, RelatedArtifact>
-type _AssertFull = AssertOutputFull<
-  typeof relatedArtifactSchema,
-  RelatedArtifact
->

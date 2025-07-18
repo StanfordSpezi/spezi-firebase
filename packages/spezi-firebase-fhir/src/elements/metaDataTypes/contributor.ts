@@ -6,25 +6,19 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type Contributor } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { contactDetailSchema } from './contactDetail.js'
-import { z, ZodType } from 'zod/v4'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { Contributor } from 'fhir/r4b.js'
+import { elementSchema } from '../element.js'
 
 const contributorType = ['author', 'editor', 'reviewer', 'endorser'] as const
 
 export const contributorSchema: ZodType<Contributor> = z.lazy(() =>
   elementSchema.extend({
     type: z.enum(contributorType),
+    _type: elementSchema.optional(),
     name: z.string(),
+    _name: elementSchema.optional(),
     contact: contactDetailSchema.array().optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof contributorSchema, Contributor>
-type _AssertFull = AssertOutputFull<typeof contributorSchema, Contributor>

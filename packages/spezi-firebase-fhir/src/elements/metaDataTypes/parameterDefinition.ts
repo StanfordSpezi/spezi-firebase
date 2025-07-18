@@ -6,36 +6,31 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { ParameterDefinition } from 'fhir/r4b.js'
-import { z, ZodType } from 'zod/v4'
+import { type ParameterDefinition } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
 import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
+
+const parameterDefinitionUse = ['in', 'out'] as const
 
 export const parameterDefinitionSchema: ZodType<ParameterDefinition> = z.lazy(
   () =>
     elementSchema.extend({
       name: z.string().optional(),
-      use: z.enum(['in', 'out']),
+      _name: elementSchema.optional(),
+      use: z.enum(parameterDefinitionUse),
+      _use: elementSchema.optional(),
       min: z.number().int().optional(),
       max: z
         .string()
         .regex(/^\d+|\*$/)
         .optional(),
+      _max: elementSchema.optional(),
       documentation: z.string().optional(),
+      _documentation: elementSchema.optional(),
       type: codeSchema,
+      _type: elementSchema.optional(),
       profile: z.string().optional(),
+      _profile: elementSchema.optional(),
     }),
 )
-
-type _Assert = AssertOutput<
-  typeof parameterDefinitionSchema,
-  ParameterDefinition
->
-type _AssertFull = AssertOutputFull<
-  typeof parameterDefinitionSchema,
-  ParameterDefinition
->

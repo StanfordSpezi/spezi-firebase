@@ -6,23 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { Ratio } from 'fhir/r4b.js'
-import { elementSchema } from '../element.js'
+import { type Ratio } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { quantitySchema } from './quantity.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { z, ZodType } from 'zod/v4'
+import { elementSchema } from '../element.js'
 
 export const ratioSchema: ZodType<Ratio> = z.lazy(() =>
   elementSchema.extend({
     numerator: quantitySchema.optional(),
-    _numerator: elementSchema.optional(),
     denominator: quantitySchema.optional(),
-    _denominator: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof ratioSchema, Ratio>
-type _AssertFull = AssertOutputFull<typeof ratioSchema, Ratio>

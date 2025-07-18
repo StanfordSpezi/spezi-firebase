@@ -6,24 +6,16 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
-import { elementSchema } from '../element.js'
+import { type CodeableConcept } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { codingSchema } from './coding.js'
-import { CodeableConcept } from 'fhir/r4b.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
+import { elementSchema } from '../element.js'
 
 export const codeableConceptSchema: ZodType<CodeableConcept> = z.lazy(() =>
   elementSchema.extend({
     coding: codingSchema.array().optional(),
+    _coding: elementSchema.optional(),
     text: z.string().optional(),
+    _text: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof codeableConceptSchema, CodeableConcept>
-type _AssertFull = AssertOutputFull<
-  typeof codeableConceptSchema,
-  CodeableConcept
->

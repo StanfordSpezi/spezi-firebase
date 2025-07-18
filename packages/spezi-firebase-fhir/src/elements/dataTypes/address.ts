@@ -6,14 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
-import { elementSchema } from '../element.js'
-import { Address } from 'fhir/r4b.js'
+import { type Address } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { periodSchema } from './period.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
+import { elementSchema } from '../element.js'
 
 const addressType = ['postal', 'physical', 'both'] as const
 const addressUse = ['home', 'work', 'temp', 'old', 'billing'] as const
@@ -21,17 +17,23 @@ const addressUse = ['home', 'work', 'temp', 'old', 'billing'] as const
 export const addressSchema: ZodType<Address> = z.lazy(() =>
   elementSchema.extend({
     use: z.enum(addressUse).optional(),
+    _use: elementSchema.optional(),
     type: z.enum(addressType).optional(),
+    _type: elementSchema.optional(),
     text: z.string().optional(),
+    _text: elementSchema.optional(),
     line: z.string().array().optional(),
+    _line: elementSchema.array().optional(),
     city: z.string().optional(),
+    _city: elementSchema.optional(),
     district: z.string().optional(),
+    _district: elementSchema.optional(),
     state: z.string().optional(),
+    _state: elementSchema.optional(),
     postalCode: z.string().optional(),
+    _postalCode: elementSchema.optional(),
     country: z.string().optional(),
+    _country: elementSchema.optional(),
     period: periodSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof addressSchema, Address>
-type _AssertFull = AssertOutputFull<typeof addressSchema, Address>

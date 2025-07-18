@@ -9,8 +9,6 @@
 import { z } from 'zod/v4'
 import { metaSchema } from './meta.js'
 import { codeSchema, uriSchema } from './primitiveTypes/primitiveTypes.js'
-import { AssertOutput } from '@stanfordspezi/spezi-firebase-utils'
-import { Resource } from 'fhir/r4b.js'
 
 export const resourceSchema = z.object({
   resourceType: z.string(),
@@ -19,6 +17,3 @@ export const resourceSchema = z.object({
   implicitRules: uriSchema.optional(),
   language: codeSchema.optional(),
 })
-
-type _Assert = AssertOutput<typeof resourceSchema, Resource>
-type _AssertFull = AssertOutput<typeof resourceSchema, Resource>

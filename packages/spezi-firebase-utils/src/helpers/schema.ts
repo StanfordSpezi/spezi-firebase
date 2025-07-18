@@ -6,23 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
-
-type Full<T> = {
-  [P in keyof T]-?: T[P]
-}
-
-export type AssertOutput<T extends ZodType, Output> =
-  z.infer<T> extends Output ?
-    Output extends z.infer<T> ?
-      true
-    : never
-  : never
-
-export type AssertOutputFull<T extends ZodType, Output> = AssertOutput<
-  Full<T>,
-  Full<Output>
->
+import { type z, type ZodType } from 'zod/v4'
 
 export type Forward<S> =
   S extends BidirectionalSchema<infer Forward, any> ? Forward : never
@@ -59,7 +43,7 @@ export class BidirectionalSchema<
   static separate<
     Input extends object | string,
     Output extends object | string,
-    Forward extends ZodType<Output, Input>,
+    Forward extends ZodType<Output, unknown>,
     Backward extends ZodType<Input, Output>,
   >(
     forward: Forward,
@@ -71,14 +55,14 @@ export class BidirectionalSchema<
   // Methods
 
   decode<Input, Output>(
-    this: BidirectionalSchema<ZodType<Output, Input>, ZodType<Input, Output>>,
+    this: BidirectionalSchema<ZodType<Output, unknown>, ZodType<Input, Output>>,
     input: unknown,
   ): Output {
     return this.forward.parse(input)
   }
 
   encode<Input, Output>(
-    this: BidirectionalSchema<ZodType<Output, Input>, ZodType<Input, Output>>,
+    this: BidirectionalSchema<ZodType<Output, unknown>, ZodType<Input, Output>>,
     output: unknown,
   ): Input {
     return this.backward.parse(output)

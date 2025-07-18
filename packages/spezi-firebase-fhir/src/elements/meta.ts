@@ -6,27 +6,24 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
-import { uriSchema } from './primitiveTypes/primitiveTypes.js'
-import { instantSchema } from './primitiveTypes/instant.js'
+import { type Meta } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { codingSchema } from './dataTypes/coding.js'
 import { elementSchema } from './element.js'
-import { Meta } from 'fhir/r4b.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
+import { instantSchema } from './primitiveTypes/instant.js'
+import { uriSchema } from './primitiveTypes/primitiveTypes.js'
 
 export const metaSchema: ZodType<Meta> = z.lazy(() =>
   elementSchema.extend({
     versionId: z.string().optional(),
+    _versionId: elementSchema.optional(),
     lastUpdated: instantSchema.optional(),
+    _lastUpdated: elementSchema.optional(),
     source: uriSchema.optional(),
+    _source: elementSchema.optional(),
     profile: uriSchema.array().optional(),
+    _profile: elementSchema.array().optional(),
     security: codingSchema.array().optional(),
     tag: codingSchema.array().optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof metaSchema, Meta>
-type _AssertFull = AssertOutputFull<typeof metaSchema, Meta>

@@ -6,33 +6,33 @@
 // SPDX-License-Identifier: MIT
 //
 
+import { type Attachment } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
+import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 import {
   base64BinarySchema,
   codeSchema,
   unsignedIntSchema,
   urlSchema,
 } from '../primitiveTypes/primitiveTypes.js'
-import { z, ZodType } from 'zod/v4'
-import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
-import { Attachment } from 'fhir/r4b.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
 
 export const attachmentSchema: ZodType<Attachment> = z.lazy(() =>
   elementSchema.extend({
     contentType: codeSchema.optional(),
+    _contentType: elementSchema.optional(),
     language: codeSchema.optional(),
+    _language: elementSchema.optional(),
     data: base64BinarySchema.optional(),
+    _data: elementSchema.optional(),
     url: urlSchema.optional(),
+    _url: elementSchema.optional(),
     size: unsignedIntSchema.optional(),
     hash: base64BinarySchema.optional(),
+    _hash: elementSchema.optional(),
     title: z.string().optional(),
+    _title: elementSchema.optional(),
     creation: dateTimeSchema.optional(),
+    _creation: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof attachmentSchema, Attachment>
-type _AssertFull = AssertOutputFull<typeof attachmentSchema, Attachment>

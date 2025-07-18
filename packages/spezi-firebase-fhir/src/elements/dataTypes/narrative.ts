@@ -6,13 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
+import { type Narrative } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
-import { Narrative } from 'fhir/r4b.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
 
 const narrativeStatus = [
   'generated',
@@ -24,9 +20,8 @@ const narrativeStatus = [
 export const narrativeSchema: ZodType<Narrative> = z.lazy(() =>
   elementSchema.extend({
     status: z.enum(narrativeStatus),
+    _status: elementSchema.optional(),
     div: z.string(), // TODO: technically this is xhtml
+    _div: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof narrativeSchema, Narrative>
-type _AssertFull = AssertOutputFull<typeof narrativeSchema, Narrative>

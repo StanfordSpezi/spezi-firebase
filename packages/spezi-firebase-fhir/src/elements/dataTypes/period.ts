@@ -6,14 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
+import { type Period } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
-import { Period } from 'fhir/r4b.js'
-import { z, ZodType } from 'zod/v4'
 
 export const periodSchema: ZodType<Period> = z.lazy(() =>
   elementSchema.extend({
@@ -23,6 +19,3 @@ export const periodSchema: ZodType<Period> = z.lazy(() =>
     _end: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof periodSchema, Period>
-type _AssertFull = AssertOutputFull<typeof periodSchema, Period>

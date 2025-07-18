@@ -6,23 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { Range } from 'fhir/r4b.js'
-import { elementSchema } from '../element.js'
+import { type Range } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { quantitySchema } from './quantity.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { z, ZodType } from 'zod/v4'
+import { elementSchema } from '../element.js'
 
 export const rangeSchema: ZodType<Range> = z.lazy(() =>
   elementSchema.extend({
     low: quantitySchema.optional(),
-    _low: elementSchema.optional(),
     high: quantitySchema.optional(),
-    _high: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof rangeSchema, Range>
-type _AssertFull = AssertOutputFull<typeof rangeSchema, Range>

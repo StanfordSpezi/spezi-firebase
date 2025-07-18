@@ -6,16 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
-import { markdownSchema } from '../primitiveTypes/primitiveTypes.js'
-import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
+import { type Annotation } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { referenceSchema } from './reference.js'
-import { Annotation } from 'fhir/r4b.js'
 import { elementSchema } from '../element.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
+import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
+import { markdownSchema } from '../primitiveTypes/primitiveTypes.js'
 
 export const annotationSchema: ZodType<Annotation> = z.lazy(() =>
   elementSchema.extend({
@@ -28,6 +24,3 @@ export const annotationSchema: ZodType<Annotation> = z.lazy(() =>
     _text: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof annotationSchema, Annotation>
-type _AssertFull = AssertOutputFull<typeof annotationSchema, Annotation>

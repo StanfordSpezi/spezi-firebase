@@ -6,14 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { elementSchema } from '../element.js'
-import { z, ZodType } from 'zod/v4'
+import { type HumanName } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { periodSchema } from './period.js'
-import { HumanName } from 'fhir/r4b.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
+import { elementSchema } from '../element.js'
 
 const humanNameUse = [
   'usual',
@@ -28,14 +24,17 @@ const humanNameUse = [
 export const humanNameSchema: ZodType<HumanName> = z.lazy(() =>
   elementSchema.extend({
     use: z.enum(humanNameUse).optional(),
+    _use: elementSchema.optional(),
     text: z.string().optional(),
+    _text: elementSchema.optional(),
     family: z.string().optional(),
+    _family: elementSchema.optional(),
     given: z.string().array().optional(),
+    _given: elementSchema.array().optional(),
     prefix: z.string().array().optional(),
+    _prefix: elementSchema.array().optional(),
     suffix: z.string().array().optional(),
+    _suffix: elementSchema.array().optional(),
     period: periodSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof humanNameSchema, HumanName>
-type _AssertFull = AssertOutputFull<typeof humanNameSchema, HumanName>

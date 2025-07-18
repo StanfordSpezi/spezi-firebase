@@ -6,32 +6,33 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
+import { type DataRequirement } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
+import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
+import { codingSchema } from '../dataTypes/coding.js'
+import { periodSchema } from '../dataTypes/period.js'
+import { referenceSchema } from '../dataTypes/reference.js'
 import { elementSchema } from '../element.js'
+import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 import {
   codeSchema,
   positiveIntSchema,
 } from '../primitiveTypes/primitiveTypes.js'
-import { referenceSchema } from '../dataTypes/reference.js'
-import { periodSchema } from '../dataTypes/period.js'
-import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
-import { codingSchema } from '../dataTypes/coding.js'
-import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
-import { DataRequirement } from 'fhir/r4b.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
+
+const sortDirection = ['ascending', 'descending'] as const
 
 export const dataRequirementSchema: ZodType<DataRequirement> = z.lazy(() =>
   elementSchema.extend({
     type: codeSchema,
+    _type: elementSchema.optional(),
     profile: z.string().array().optional(),
+    _profile: elementSchema.array().optional(),
     subjectCodeableConcept: codeableConceptSchema.optional(),
     subjectReference: referenceSchema.optional(),
     mustSupport: z.string().array().optional(),
-    codeFilter: z
-      .object({
+    _mustSupport: elementSchema.array().optional(),
+    codeFilter: elementSchema
+      .extend({
         path: z.string().optional(),
         searchParam: z.string().optional(),
         valueSet: z.string().optional(),
@@ -39,8 +40,8 @@ export const dataRequirementSchema: ZodType<DataRequirement> = z.lazy(() =>
       })
       .array()
       .optional(),
-    dateFilter: z
-      .object({
+    dateFilter: elementSchema
+      .extend({
         path: z.string().optional(),
         searchParam: z.string().optional(),
         valueDateTime: dateTimeSchema.optional(),
@@ -49,12 +50,13 @@ export const dataRequirementSchema: ZodType<DataRequirement> = z.lazy(() =>
       .array()
       .optional(),
     limit: positiveIntSchema.optional(),
-    // sort: z.object({ path: z.string(), direction: codeSchema }).array().optional,
+    sort: elementSchema
+      .extend({
+        direction: z.enum(sortDirection),
+        _direction: elementSchema.optional(),
+        path: z.string(),
+        _path: elementSchema.optional(),
+      })
+      .array(),
   }),
 )
-
-type _Assert = AssertOutput<typeof dataRequirementSchema, DataRequirement>
-type _AssertFull = AssertOutputFull<
-  typeof dataRequirementSchema,
-  DataRequirement
->

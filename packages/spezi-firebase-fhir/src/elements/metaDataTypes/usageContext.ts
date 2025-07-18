@@ -6,28 +6,22 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { codingSchema } from '../dataTypes/coding.js'
-import { elementSchema } from '../element.js'
+import { type UsageContext } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
-import { referenceSchema } from '../dataTypes/reference.js'
+import { codingSchema } from '../dataTypes/coding.js'
 import { quantitySchema } from '../dataTypes/quantity.js'
 import { rangeSchema } from '../dataTypes/range.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { UsageContext } from 'fhir/r4b.js'
-import { z, ZodType } from 'zod/v4'
+import { referenceSchema } from '../dataTypes/reference.js'
+import { elementSchema } from '../element.js'
 
 export const usageContextSchema: ZodType<UsageContext> = z.lazy(() =>
   elementSchema.extend({
     code: codingSchema,
+    _code: elementSchema.optional(),
     valueCodeableConcept: codeableConceptSchema.optional(),
     valueQuantity: quantitySchema.optional(),
     valueRange: rangeSchema.optional(),
     valueReference: referenceSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof usageContextSchema, UsageContext>
-type _AssertFull = AssertOutputFull<typeof usageContextSchema, UsageContext>

@@ -6,30 +6,26 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { uriSchema } from '../primitiveTypes/primitiveTypes.js'
-import { referenceSchema } from './reference.js'
-import { z, ZodType } from 'zod/v4'
-import { periodSchema } from './period.js'
+import { type Identifier } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { codeableConceptSchema } from './codeableConcept.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { Identifier } from 'fhir/r4b.js'
+import { periodSchema } from './period.js'
+import { referenceSchema } from './reference.js'
 import { elementSchema } from '../element.js'
+import { uriSchema } from '../primitiveTypes/primitiveTypes.js'
 
 const identifierUse = ['usual', 'official', 'temp', 'secondary', 'old'] as const
 
 export const identifierSchema: ZodType<Identifier> = z.lazy(() =>
   elementSchema.extend({
     use: z.enum(identifierUse).optional(),
+    _use: elementSchema.optional(),
     type: codeableConceptSchema.optional(),
     system: uriSchema.optional(),
+    _system: elementSchema.optional(),
     value: z.string().optional(),
+    _value: elementSchema.optional(),
     period: periodSchema.optional(),
     assigner: referenceSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof identifierSchema, Identifier>
-type _AssertFull = AssertOutputFull<typeof identifierSchema, Identifier>

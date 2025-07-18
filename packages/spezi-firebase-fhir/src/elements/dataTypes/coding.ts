@@ -6,24 +6,22 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
-import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
+import { type Coding } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { elementSchema } from '../element.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { Coding } from 'fhir/r4b.js'
+import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
 
 export const codingSchema: ZodType<Coding> = z.lazy(() =>
   elementSchema.extend({
     system: uriSchema.optional(),
+    _system: elementSchema.optional(),
     version: z.string().optional(),
+    _version: elementSchema.optional(),
     code: codeSchema.optional(),
+    _code: elementSchema.optional(),
     display: z.string().optional(),
+    _display: elementSchema.optional(),
     userSelected: z.boolean().optional(),
+    _userSelected: elementSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof codingSchema, Coding>
-type _AssertFull = AssertOutputFull<typeof codingSchema, Coding>

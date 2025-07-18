@@ -6,15 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { positiveIntSchema } from '../primitiveTypes/primitiveTypes.js'
-import { z, ZodType } from 'zod/v4'
-import { ContactPoint } from 'fhir/r4b.js'
-import { elementSchema } from '../element.js'
+import { type ContactPoint } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { periodSchema } from './period.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
+import { elementSchema } from '../element.js'
+import { positiveIntSchema } from '../primitiveTypes/primitiveTypes.js'
 
 const contactPointSystem = [
   'phone',
@@ -31,12 +27,12 @@ const contactPointUse = ['home', 'work', 'temp', 'old', 'mobile'] as const
 export const contactPointSchema: ZodType<ContactPoint> = z.lazy(() =>
   elementSchema.extend({
     system: z.enum(contactPointSystem).optional(),
+    _system: elementSchema.optional(),
     value: z.string().optional(),
+    _value: elementSchema.optional(),
     use: z.enum(contactPointUse).optional(),
+    _use: elementSchema.optional(),
     rank: positiveIntSchema.optional(),
     period: periodSchema.optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof contactPointSchema, ContactPoint>
-type _AssertFull = AssertOutputFull<typeof contactPointSchema, ContactPoint>

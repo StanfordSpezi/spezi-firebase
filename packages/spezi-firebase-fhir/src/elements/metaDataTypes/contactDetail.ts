@@ -6,21 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
-import { elementSchema } from '../element.js'
+import { type ContactDetail } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { contactPointSchema } from '../dataTypes/contactPoint.js'
-import {
-  AssertOutput,
-  AssertOutputFull,
-} from '@stanfordspezi/spezi-firebase-utils'
-import { ContactDetail } from 'fhir/r4b.js'
+import { elementSchema } from '../element.js'
 
 export const contactDetailSchema: ZodType<ContactDetail> = z.lazy(() =>
   elementSchema.extend({
     name: z.string().optional(),
+    _name: elementSchema.optional(),
     telecom: contactPointSchema.array().optional(),
   }),
 )
-
-type _Assert = AssertOutput<typeof contactDetailSchema, ContactDetail>
-type _AssertFull = AssertOutputFull<typeof contactDetailSchema, ContactDetail>
