@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
+import { type Element } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { extensionSchema } from './extension.js'
-import { Element } from 'fhir/r4b.js'
 
 export const elementSchema = z.object({
   id: z.string().optional(),
