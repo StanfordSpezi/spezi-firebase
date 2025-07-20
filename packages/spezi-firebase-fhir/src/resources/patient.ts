@@ -13,6 +13,7 @@ import {
   addressSchema,
   attachmentSchema,
   backboneElementSchema,
+  booleanSchema,
   codeableConceptSchema,
   contactPointSchema,
   dateSchema,
@@ -20,33 +21,43 @@ import {
   elementSchema,
   humanNameSchema,
   identifierSchema,
+  intSchema,
   periodSchema,
   referenceSchema,
 } from '../elements/index.js'
 
-export const patientGender = ['male', 'female', 'other', 'unknown'] as const
+const patientGenderSchema = z.enum(['male', 'female', 'other', 'unknown'])
+export type PatientGender = z.infer<typeof patientGenderSchema>
+
+const patientLinkTypeSchema = z.enum([
+  'replaced-by',
+  'replaces',
+  'refer',
+  'seealso',
+])
+export type PatientLinkType = z.infer<typeof patientLinkTypeSchema>
 
 export const patientSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Patient').readonly(),
     identifier: identifierSchema.array().optional(),
-    active: z.boolean().optional(),
+    active: booleanSchema.optional(),
     _active: elementSchema.optional(),
     name: humanNameSchema.array().optional(),
     telecom: contactPointSchema.array().optional(),
-    gender: z.enum(patientGender).optional(),
+    gender: patientGenderSchema.optional(),
     _gender: elementSchema.optional(),
     birthDate: dateSchema.optional(),
     _birthDate: elementSchema.optional(),
-    deceasedBoolean: z.boolean().optional(),
+    deceasedBoolean: booleanSchema.optional(),
     _deceasedBoolean: elementSchema.optional(),
     deceasedDateTime: dateTimeSchema.optional(),
     _deceasedDateTime: elementSchema.optional(),
     address: addressSchema.array().optional(),
     maritalStatus: codeableConceptSchema.optional(),
-    multipleBirthBoolean: z.boolean().optional(),
+    multipleBirthBoolean: booleanSchema.optional(),
     _multipleBirthBoolean: elementSchema.optional(),
-    multipleBirthInteger: z.number().int().optional(),
+    multipleBirthInteger: intSchema.optional(),
     _multipleBirthInteger: elementSchema.optional(),
     photo: attachmentSchema.array().optional(),
     contact: backboneElementSchema
@@ -55,7 +66,7 @@ export const patientSchema = z.lazy(() =>
         name: humanNameSchema.optional(),
         telecom: contactPointSchema.array().optional(),
         address: addressSchema.optional(),
-        gender: z.enum(patientGender).optional(),
+        gender: patientGenderSchema.optional(),
         _gender: elementSchema.optional(),
         organization: referenceSchema.optional(),
         period: periodSchema.optional(),
@@ -65,7 +76,7 @@ export const patientSchema = z.lazy(() =>
     communication: backboneElementSchema
       .extend({
         language: codeableConceptSchema,
-        preferred: z.boolean().optional(),
+        preferred: booleanSchema.optional(),
         _preferred: elementSchema.optional(),
       })
       .array()
@@ -75,7 +86,7 @@ export const patientSchema = z.lazy(() =>
     link: backboneElementSchema
       .extend({
         other: referenceSchema,
-        type: z.enum(['replaced-by', 'replaces', 'refer', 'seealso']),
+        type: patientLinkTypeSchema,
         _type: elementSchema.optional(),
       })
       .array()

@@ -8,14 +8,15 @@
 
 import { type Attachment } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
-import { elementSchema } from '../element.js'
-import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 import {
   base64BinarySchema,
   codeSchema,
+  dateTimeSchema,
+  stringSchema,
   unsignedIntSchema,
   urlSchema,
-} from '../primitiveTypes/primitiveTypes.js'
+} from './primitiveTypes.js'
+import { elementSchema } from '../element.js'
 
 export const attachmentSchema: ZodType<Attachment> = z.lazy(() =>
   elementSchema.extend({
@@ -30,7 +31,7 @@ export const attachmentSchema: ZodType<Attachment> = z.lazy(() =>
     size: unsignedIntSchema.optional(),
     hash: base64BinarySchema.optional(),
     _hash: elementSchema.optional(),
-    title: z.string().optional(),
+    title: stringSchema.optional(),
     _title: elementSchema.optional(),
     creation: dateTimeSchema.optional(),
     _creation: elementSchema.optional(),

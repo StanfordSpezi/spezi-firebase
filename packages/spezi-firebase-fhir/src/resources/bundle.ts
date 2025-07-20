@@ -11,21 +11,50 @@ import { z, type ZodType } from 'zod/v4'
 import { fhirResourceSchema } from './fhirResource.js'
 import {
   backboneElementSchema,
+  decimalSchema,
   elementSchema,
   identifierSchema,
   instantSchema,
   signatureSchema,
+  stringSchema,
   unsignedIntSchema,
   uriSchema,
 } from '../elements/index.js'
 import { resourceSchema } from '../elements/resource.js'
 
 const bundleLinkSchema = backboneElementSchema.extend({
-  relation: z.string(),
+  relation: stringSchema,
   _relation: elementSchema.optional(),
   url: uriSchema,
   _url: elementSchema.optional(),
 })
+
+const bundleEntrySearchModeSchema = z.enum(['match', 'include', 'outcome'])
+export type BundleEntrySearchMode = z.infer<typeof bundleEntrySearchModeSchema>
+
+const bundleEntryRequestMethodSchema = z.enum([
+  'GET',
+  'POST',
+  'PUT',
+  'DELETE',
+  'PATCH',
+])
+export type BundleEntryRequestMethod = z.infer<
+  typeof bundleEntryRequestMethodSchema
+>
+
+const bundleTypeSchema = z.enum([
+  'document',
+  'message',
+  'transaction',
+  'transaction-response',
+  'batch',
+  'batch-response',
+  'history',
+  'searchset',
+  'collection',
+])
+export type BundleType = z.infer<typeof bundleTypeSchema>
 
 export function bundleSchema<R extends DomainResource>(
   schema: ZodType<R>,
@@ -33,17 +62,7 @@ export function bundleSchema<R extends DomainResource>(
   return resourceSchema.extend({
     resourceType: z.literal('Bundle').readonly(),
     identifier: identifierSchema.optional(),
-    type: z.enum([
-      'document',
-      'message',
-      'transaction',
-      'transaction-response',
-      'batch',
-      'batch-response',
-      'history',
-      'searchset',
-      'collection',
-    ]),
+    type: bundleTypeSchema,
     _type: elementSchema.optional(),
     timestamp: instantSchema.optional(),
     _timestamp: elementSchema.optional(),
@@ -56,30 +75,30 @@ export function bundleSchema<R extends DomainResource>(
         _fullUrl: elementSchema.optional(),
         resource: schema.optional(),
         search: backboneElementSchema.extend({
-          mode: z.enum(['match', 'include', 'outcome']).optional(),
+          mode: bundleEntrySearchModeSchema.optional(),
           _mode: elementSchema.optional(),
-          score: z.number().optional(),
+          score: decimalSchema.optional(),
         }),
         request: backboneElementSchema.extend({
-          method: z.enum(['GET', 'POST', 'PUT', 'DELETE', 'PATCH']),
+          method: bundleEntryRequestMethodSchema,
           _method: elementSchema.optional(),
           url: uriSchema,
           _url: elementSchema.optional(),
-          ifNoneExist: z.string().optional(),
+          ifNoneExist: stringSchema.optional(),
           _ifNoneExist: elementSchema.optional(),
           ifModifiedSince: instantSchema.optional(),
           _ifModifiedSince: elementSchema.optional(),
-          ifMatch: z.string().optional(),
+          ifMatch: stringSchema.optional(),
           _ifMatch: elementSchema.optional(),
-          ifNoneMatch: z.string().optional(),
+          ifNoneMatch: stringSchema.optional(),
           _ifNoneMatch: elementSchema.optional(),
         }),
         response: backboneElementSchema.extend({
-          status: z.string(),
+          status: stringSchema,
           _status: elementSchema.optional(),
           location: uriSchema.optional(),
           _location: elementSchema.optional(),
-          etag: z.string().optional(),
+          etag: stringSchema.optional(),
           _etag: elementSchema.optional(),
           lastModified: instantSchema.optional(),
           _lastModified: elementSchema.optional(),

@@ -9,10 +9,10 @@
 import { type RelatedArtifact } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
 import { attachmentSchema } from '../dataTypes/attachment.js'
+import { stringSchema, urlSchema } from '../dataTypes/primitiveTypes.js'
 import { elementSchema } from '../element.js'
-import { urlSchema } from '../primitiveTypes/primitiveTypes.js'
 
-const relatedArtifactType = [
+const relatedArtifactTypeSchema = z.enum([
   'documentation',
   'justification',
   'citation',
@@ -21,22 +21,23 @@ const relatedArtifactType = [
   'derived-from',
   'depends-on',
   'composed-of',
-] as const
+])
+export type RelatedArtifactType = z.infer<typeof relatedArtifactTypeSchema>
 
 export const relatedArtifactSchema: ZodType<RelatedArtifact> = z.lazy(() =>
   elementSchema.extend({
-    type: z.enum(relatedArtifactType),
+    type: relatedArtifactTypeSchema,
     _type: elementSchema.optional(),
-    label: z.string().optional(),
+    label: stringSchema.optional(),
     _label: elementSchema.optional(),
-    display: z.string().optional(),
+    display: stringSchema.optional(),
     _display: elementSchema.optional(),
-    citation: z.string().optional(),
+    citation: stringSchema.optional(),
     _citation: elementSchema.optional(),
     url: urlSchema.optional(),
     _url: elementSchema.optional(),
     document: attachmentSchema.optional(),
-    resource: z.string().optional(),
+    resource: stringSchema.optional(),
     _resource: elementSchema.optional(),
   }),
 )

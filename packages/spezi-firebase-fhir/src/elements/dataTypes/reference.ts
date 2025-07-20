@@ -9,19 +9,19 @@
 import { type Reference } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
 import { identifierSchema } from './identifier.js'
+import { stringSchema, uriSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
-import { uriSchema } from '../primitiveTypes/primitiveTypes.js'
 
 export const referenceSchema: ZodType<Reference> = z.lazy(() =>
   elementSchema.extend({
-    reference: z.string().optional(),
+    reference: stringSchema.optional(),
     _reference: elementSchema.optional(),
     type: uriSchema.optional(),
     _type: elementSchema.optional(),
     get identifier() {
       return identifierSchema.optional()
     },
-    display: z.string().optional(),
+    display: stringSchema.optional(),
     _display: elementSchema.optional(),
   }),
 )

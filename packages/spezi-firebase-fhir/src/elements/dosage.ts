@@ -10,6 +10,11 @@ import { type Dosage } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
 import { backboneElementSchema } from './backBoneElement.js'
 import { codeableConceptSchema } from './dataTypes/codeableConcept.js'
+import {
+  booleanSchema,
+  intSchema,
+  stringSchema,
+} from './dataTypes/primitiveTypes.js'
 import { quantitySchema } from './dataTypes/quantity.js'
 import { ratioSchema } from './dataTypes/ratio.js'
 import { timingSchema } from './dataTypes/timing.js'
@@ -17,14 +22,14 @@ import { elementSchema } from './element.js'
 
 export const dosageSchema: ZodType<Dosage> = z.lazy(() =>
   backboneElementSchema.extend({
-    sequence: z.number().int().optional(),
-    text: z.string().optional(),
+    sequence: intSchema.optional(),
+    text: stringSchema.optional(),
     _text: elementSchema.optional(),
     additionalInstruction: codeableConceptSchema.array().optional(),
-    patientInstruction: z.string().optional(),
+    patientInstruction: stringSchema.optional(),
     _patientInstruction: elementSchema.optional(),
     timing: timingSchema.optional(),
-    asNeededBoolean: z.boolean().optional(),
+    asNeededBoolean: booleanSchema.optional(),
     _asNeededBoolean: elementSchema.optional(),
     asNeededCodeableConcept: codeableConceptSchema.optional(),
     site: codeableConceptSchema.optional(),

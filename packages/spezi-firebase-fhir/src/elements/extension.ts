@@ -18,6 +18,26 @@ import { humanNameSchema } from './dataTypes/humanName.js'
 import { identifierSchema } from './dataTypes/identifier.js'
 import { moneySchema } from './dataTypes/money.js'
 import { periodSchema } from './dataTypes/period.js'
+import {
+  base64BinarySchema,
+  booleanSchema,
+  canonicalSchema,
+  codeSchema,
+  dateSchema,
+  dateTimeSchema,
+  decimalSchema,
+  idSchema,
+  instantSchema,
+  intSchema,
+  markdownSchema,
+  oidSchema,
+  positiveIntSchema,
+  stringSchema,
+  timeSchema,
+  unsignedIntSchema,
+  urlSchema,
+  uuidSchema,
+} from './dataTypes/primitiveTypes.js'
 import { quantitySchema } from './dataTypes/quantity.js'
 import { rangeSchema } from './dataTypes/range.js'
 import { ratioSchema } from './dataTypes/ratio.js'
@@ -36,25 +56,16 @@ import { parameterDefinitionSchema } from './metaDataTypes/parameterDefinition.j
 import { relatedArtifactSchema } from './metaDataTypes/relatedArtifact.js'
 import { triggerDefinitionSchema } from './metaDataTypes/triggerDefinition.js'
 import { usageContextSchema } from './metaDataTypes/usageContext.js'
-import { dateSchema } from './primitiveTypes/date.js'
-import { dateTimeSchema } from './primitiveTypes/dateTime.js'
-import { instantSchema } from './primitiveTypes/instant.js'
-import {
-  codeSchema,
-  markdownSchema,
-  oidSchema,
-  urlSchema,
-} from './primitiveTypes/primitiveTypes.js'
 
 export const extensionSchema: ZodType<Extension> = z.lazy(() =>
   elementSchema.extend({
     url: urlSchema,
     _url: elementSchema.optional(),
-    valueBase64Binary: z.string().optional(),
+    valueBase64Binary: base64BinarySchema.optional(),
     _valueBase64Binary: elementSchema.optional(),
-    valueBoolean: z.boolean().optional(),
+    valueBoolean: booleanSchema.optional(),
     _valueBoolean: elementSchema.optional(),
-    valueCanonical: z.string().optional(),
+    valueCanonical: canonicalSchema.optional(),
     _valueCanonical: elementSchema.optional(),
     valueCodeableConcept: codeableConceptSchema.optional(),
     valueCode: codeSchema.optional(),
@@ -63,27 +74,27 @@ export const extensionSchema: ZodType<Extension> = z.lazy(() =>
     _valueDate: elementSchema.optional(),
     valueDateTime: dateTimeSchema.optional(),
     _valueDateTime: elementSchema.optional(),
-    valueDecimal: z.number().optional(),
-    valueId: z.string().optional(),
+    valueDecimal: decimalSchema.optional(),
+    valueId: idSchema.optional(),
     _valueId: elementSchema.optional(),
     valueInstant: instantSchema.optional(),
     _valueInstant: elementSchema.optional(),
-    valueInteger: z.number().int().optional(),
+    valueInteger: intSchema.optional(),
     valueMarkdown: markdownSchema.optional(),
     _valueMarkdown: elementSchema.optional(),
     valueOid: oidSchema.optional(),
     _valueOid: elementSchema.optional(),
-    valuePositiveInt: z.number().int().positive().optional(),
-    valueString: z.string().optional(),
+    valuePositiveInt: positiveIntSchema.optional(),
+    valueString: stringSchema.optional(),
     _valueString: elementSchema.optional(),
-    valueTime: z.string().optional(),
+    valueTime: timeSchema.optional(),
     _valueTime: elementSchema.optional(),
-    valueUnsignedInt: z.number().int().nonnegative().optional(),
+    valueUnsignedInt: unsignedIntSchema.optional(),
     valueUri: urlSchema.optional(),
     _valueUri: elementSchema.optional(),
     valueUrl: urlSchema.optional(),
     _valueUrl: elementSchema.optional(),
-    valueUuid: z.string().uuid().optional(),
+    valueUuid: uuidSchema.optional(),
     _valueUuid: elementSchema.optional(),
     valueAddress: addressSchema.optional(),
     valueAge: quantitySchema.optional(),

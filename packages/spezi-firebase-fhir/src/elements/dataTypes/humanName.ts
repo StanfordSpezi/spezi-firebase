@@ -9,9 +9,10 @@
 import { type HumanName } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
 import { periodSchema } from './period.js'
+import { stringSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
-const humanNameUse = [
+export const humanNameUseSchema = z.enum([
   'usual',
   'official',
   'temp',
@@ -19,21 +20,22 @@ const humanNameUse = [
   'anonymous',
   'old',
   'maiden',
-] as const
+])
+export type HumanNameUse = z.infer<typeof humanNameUseSchema>
 
 export const humanNameSchema: ZodType<HumanName> = z.lazy(() =>
   elementSchema.extend({
-    use: z.enum(humanNameUse).optional(),
+    use: humanNameUseSchema.optional(),
     _use: elementSchema.optional(),
-    text: z.string().optional(),
+    text: stringSchema.optional(),
     _text: elementSchema.optional(),
-    family: z.string().optional(),
+    family: stringSchema.optional(),
     _family: elementSchema.optional(),
-    given: z.string().array().optional(),
+    given: stringSchema.array().optional(),
     _given: elementSchema.array().optional(),
-    prefix: z.string().array().optional(),
+    prefix: stringSchema.array().optional(),
     _prefix: elementSchema.array().optional(),
-    suffix: z.string().array().optional(),
+    suffix: stringSchema.array().optional(),
     _suffix: elementSchema.array().optional(),
     period: periodSchema.optional(),
   }),

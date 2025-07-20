@@ -9,13 +9,16 @@
 import { type Meta } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
 import { codingSchema } from './dataTypes/coding.js'
+import {
+  idSchema,
+  instantSchema,
+  uriSchema,
+} from './dataTypes/primitiveTypes.js'
 import { elementSchema } from './element.js'
-import { instantSchema } from './primitiveTypes/instant.js'
-import { uriSchema } from './primitiveTypes/primitiveTypes.js'
 
 export const metaSchema: ZodType<Meta> = z.lazy(() =>
   elementSchema.extend({
-    versionId: z.string().optional(),
+    versionId: idSchema.optional(),
     _versionId: elementSchema.optional(),
     lastUpdated: instantSchema.optional(),
     _lastUpdated: elementSchema.optional(),

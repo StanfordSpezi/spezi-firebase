@@ -8,10 +8,11 @@
 
 import { type Element } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
+import { stringSchema } from './dataTypes/primitiveTypes.js'
 import { extensionSchema } from './extension.js'
 
 export const elementSchema = z.object({
-  id: z.string().optional(),
+  id: stringSchema.optional(),
   get _id() {
     const schema = elementSchema as ZodType<Element>
     return schema.optional()

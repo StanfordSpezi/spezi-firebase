@@ -11,6 +11,8 @@ import { z, type ZodType } from 'zod/v4'
 import {
   annotationSchema,
   backboneElementSchema,
+  booleanSchema,
+  canonicalSchema,
   codeableConceptSchema,
   dateTimeSchema,
   domainResourceSchema,
@@ -21,6 +23,7 @@ import {
   quantitySchema,
   referenceSchema,
   unsignedIntSchema,
+  uriSchema,
 } from '../elements/index.js'
 
 const medicationRequestStatus = [
@@ -54,7 +57,7 @@ export const medicationRequestSchema = z.lazy(() =>
     category: codeableConceptSchema.array().optional(),
     priority: z.enum(medicationRequestPriority).optional(),
     _priority: elementSchema.optional(),
-    doNotPerform: z.boolean().optional(),
+    doNotPerform: booleanSchema.optional(),
     _doNotPerform: elementSchema.optional(),
     medicationCodeableConcept: codeableConceptSchema.optional(),
     medicationReference: referenceSchema.optional(),
@@ -69,9 +72,9 @@ export const medicationRequestSchema = z.lazy(() =>
     recorder: referenceSchema.optional(),
     reasonCode: codeableConceptSchema.array().optional(),
     reasonReference: referenceSchema.array().optional(),
-    instantiatesCanonical: z.string().array().optional(),
+    instantiatesCanonical: canonicalSchema.array().optional(),
     _instantiatesCanonical: elementSchema.array().optional(),
-    instantiatesUri: z.string().array().optional(),
+    instantiatesUri: uriSchema.array().optional(),
     _instantiatesUri: elementSchema.array().optional(),
     basedOn: referenceSchema.array().optional(),
     groupIdentifier: identifierSchema.optional(),
@@ -97,7 +100,7 @@ export const medicationRequestSchema = z.lazy(() =>
       .optional(),
     substitution: backboneElementSchema
       .extend({
-        allowedBoolean: z.boolean().optional(),
+        allowedBoolean: booleanSchema.optional(),
         _allowedBoolean: elementSchema.optional(),
         allowedCodeableConcept: codeableConceptSchema.optional(),
       })

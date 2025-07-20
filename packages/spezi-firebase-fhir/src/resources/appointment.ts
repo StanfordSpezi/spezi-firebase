@@ -16,12 +16,14 @@ import {
   elementSchema,
   identifierSchema,
   instantSchema,
+  intSchema,
   periodSchema,
   referenceSchema,
+  stringSchema,
   unsignedIntSchema,
 } from '../elements/index.js'
 
-export const appointmentStatus = [
+const appointmentStatusSchema = z.enum([
   'proposed',
   'pending',
   'booked',
@@ -32,13 +34,33 @@ export const appointmentStatus = [
   'entered-in-error',
   'checked-in',
   'waitlist',
-] as const
+])
+export type AppointmentStatus = z.infer<typeof appointmentStatusSchema>
+
+const appointmentParticipantRequiredSchema = z.enum([
+  'required',
+  'optional',
+  'information-only',
+])
+export type AppointmentParticipantRequired = z.infer<
+  typeof appointmentParticipantRequiredSchema
+>
+
+const appointmentParticipantStatusSchema = z.enum([
+  'accepted',
+  'declined',
+  'tentative',
+  'needs-action',
+])
+export type AppointmentParticipantStatus = z.infer<
+  typeof appointmentParticipantStatusSchema
+>
 
 export const appointmentSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Appointment').readonly(),
     identifier: identifierSchema.array().optional(),
-    status: z.enum(appointmentStatus),
+    status: appointmentStatusSchema,
     _status: elementSchema.optional(),
     cancelationReason: codeableConceptSchema.optional(),
     serviceCategory: codeableConceptSchema.array().optional(),
@@ -48,21 +70,21 @@ export const appointmentSchema = z.lazy(() =>
     reasonCode: codeableConceptSchema.array().optional(),
     reasonReference: referenceSchema.array().optional(),
     priority: unsignedIntSchema.optional(),
-    description: z.string().optional(),
+    description: stringSchema.optional(),
     _description: elementSchema.optional(),
     supportingInformation: referenceSchema.array().optional(),
     start: instantSchema.optional(),
     _start: elementSchema.optional(),
     end: instantSchema.optional(),
     _end: elementSchema.optional(),
-    minutesDuration: z.number().int().optional(),
+    minutesDuration: intSchema.optional(),
     _minutesDuration: elementSchema.optional(),
     slot: referenceSchema.array().optional(),
     created: dateTimeSchema.optional(),
     _created: elementSchema.optional(),
-    comment: z.string().optional(),
+    comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
-    patientInstruction: z.string().optional(),
+    patientInstruction: stringSchema.optional(),
     _patientInstruction: elementSchema.optional(),
     basedOn: referenceSchema.array().optional(),
     participant: backboneElementSchema
@@ -70,10 +92,8 @@ export const appointmentSchema = z.lazy(() =>
         type: codeableConceptSchema.array().optional(),
         period: periodSchema.optional(),
         actor: referenceSchema.optional(),
-        required: z
-          .enum(['required', 'optional', 'information-only'])
-          .optional(),
-        status: z.enum(['accepted', 'declined', 'tentative', 'needs-action']),
+        required: appointmentParticipantRequiredSchema.optional(),
+        status: appointmentParticipantStatusSchema,
         _status: elementSchema.optional(),
       })
       .array()

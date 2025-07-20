@@ -9,30 +9,34 @@
 import { type Address } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
 import { periodSchema } from './period.js'
+import { stringSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
-const addressType = ['postal', 'physical', 'both'] as const
-const addressUse = ['home', 'work', 'temp', 'old', 'billing'] as const
+const addressTypeSchema = z.enum(['postal', 'physical', 'both'])
+export type AddressType = z.infer<typeof addressTypeSchema>
+
+const addressUseSchema = z.enum(['home', 'work', 'temp', 'old', 'billing'])
+export type AddressUse = z.infer<typeof addressUseSchema>
 
 export const addressSchema: ZodType<Address> = z.lazy(() =>
   elementSchema.extend({
-    use: z.enum(addressUse).optional(),
+    use: addressUseSchema.optional(),
     _use: elementSchema.optional(),
-    type: z.enum(addressType).optional(),
+    type: addressTypeSchema.optional(),
     _type: elementSchema.optional(),
-    text: z.string().optional(),
+    text: stringSchema.optional(),
     _text: elementSchema.optional(),
-    line: z.string().array().optional(),
+    line: stringSchema.array().optional(),
     _line: elementSchema.array().optional(),
-    city: z.string().optional(),
+    city: stringSchema.optional(),
     _city: elementSchema.optional(),
-    district: z.string().optional(),
+    district: stringSchema.optional(),
     _district: elementSchema.optional(),
-    state: z.string().optional(),
+    state: stringSchema.optional(),
     _state: elementSchema.optional(),
-    postalCode: z.string().optional(),
+    postalCode: stringSchema.optional(),
     _postalCode: elementSchema.optional(),
-    country: z.string().optional(),
+    country: stringSchema.optional(),
     _country: elementSchema.optional(),
     period: periodSchema.optional(),
   }),

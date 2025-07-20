@@ -10,19 +10,39 @@ import { type Timing } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
 import { codeableConceptSchema } from './codeableConcept.js'
 import { periodSchema } from './period.js'
+import {
+  codeSchema,
+  dateTimeSchema,
+  decimalSchema,
+  positiveIntSchema,
+  timeSchema,
+} from './primitiveTypes.js'
 import { quantitySchema } from './quantity.js'
 import { rangeSchema } from './range.js'
 import { backboneElementSchema } from '../backBoneElement.js'
 import { elementSchema } from '../element.js'
-import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
-import {
-  codeSchema,
-  positiveIntSchema,
-  timeSchema,
-} from '../primitiveTypes/primitiveTypes.js'
 
-const dayOfWeek = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const
-const timeUnit = ['s', 'min', 'h', 'd', 'wk', 'mo', 'a'] as const
+const timingRepeatDayOfWeekSchema = z.enum([
+  'mon',
+  'tue',
+  'wed',
+  'thu',
+  'fri',
+  'sat',
+  'sun',
+])
+export type TimingRepeatDayOfWeek = z.infer<typeof timingRepeatDayOfWeekSchema>
+
+const timingRepeatTimeUnitSchema = z.enum([
+  's',
+  'min',
+  'h',
+  'd',
+  'wk',
+  'mo',
+  'a',
+])
+export type TimingRepeatTimeUnit = z.infer<typeof timingRepeatTimeUnitSchema>
 
 export const timingSchema: ZodType<Timing> = z.lazy(() =>
   backboneElementSchema.extend({
@@ -35,17 +55,17 @@ export const timingSchema: ZodType<Timing> = z.lazy(() =>
         boundsPeriod: periodSchema.optional(),
         count: positiveIntSchema.optional(),
         countMax: positiveIntSchema.optional(),
-        duration: z.number().optional(),
-        durationMax: z.number().optional(),
-        durationUnit: z.enum(timeUnit).optional(),
+        duration: decimalSchema.optional(),
+        durationMax: decimalSchema.optional(),
+        durationUnit: timingRepeatTimeUnitSchema.optional(),
         _durationUnit: elementSchema.optional(),
         frequency: positiveIntSchema.optional(),
         frequencyMax: positiveIntSchema.optional(),
-        period: z.number().optional(),
-        periodMax: z.number().optional(),
-        periodUnit: z.enum(timeUnit).optional(),
+        period: decimalSchema.optional(),
+        periodMax: decimalSchema.optional(),
+        periodUnit: timingRepeatTimeUnitSchema.optional(),
         _periodUnit: elementSchema.optional(),
-        dayOfWeek: z.enum(dayOfWeek).array().optional(),
+        dayOfWeek: timingRepeatDayOfWeekSchema.array().optional(),
         _dayOfWeek: elementSchema.array().optional(),
         timeOfDay: timeSchema.array().optional(),
         _timeOfDay: elementSchema.array().optional(),

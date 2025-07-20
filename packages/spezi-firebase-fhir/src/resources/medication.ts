@@ -11,26 +11,29 @@ import { z, type ZodType } from 'zod/v4'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   backboneElementSchema,
+  booleanSchema,
   codeableConceptSchema,
+  dateTimeSchema,
   elementSchema,
   identifierSchema,
   quantitySchema,
   ratioSchema,
   referenceSchema,
+  stringSchema,
 } from '../elements/index.js'
 
-export const medicationStatus = [
+export const medicationStatusSchema = z.enum([
   'active',
   'inactive',
   'entered-in-error',
-] as const
+])
 
 export const medicationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Medication').readonly(),
     identifier: identifierSchema.array().optional(),
     code: codeableConceptSchema.optional(),
-    status: z.enum(medicationStatus),
+    status: medicationStatusSchema,
     _status: elementSchema.optional(),
     manufacturer: referenceSchema.optional(),
     form: codeableConceptSchema.optional(),
@@ -39,16 +42,16 @@ export const medicationSchema = z.lazy(() =>
       .extend({
         itemCodeableConcept: codeableConceptSchema.optional(),
         itemReference: referenceSchema.optional(),
-        isActive: z.boolean().optional(),
+        isActive: booleanSchema.optional(),
         _isActive: elementSchema.optional(),
         strength: ratioSchema.optional(),
       })
       .array()
       .optional(),
     batch: backboneElementSchema.extend({
-      lotNumber: z.string().optional(),
+      lotNumber: stringSchema.optional(),
       _lotNumber: elementSchema.optional(),
-      expirationDate: z.string().optional(),
+      expirationDate: dateTimeSchema.optional(),
       _expirationDate: elementSchema.optional(),
     }),
   }),

@@ -20,7 +20,41 @@ import {
   quantitySchema,
   rangeSchema,
   referenceSchema,
+  stringSchema,
 } from '../elements/index.js'
+
+const allergyIntoleranceTypeSchema = z.enum(['allergy', 'intolerance'])
+export type AllergyIntoleranceType = z.infer<
+  typeof allergyIntoleranceTypeSchema
+>
+
+const allergyIntoleranceCategorySchema = z.enum([
+  'food',
+  'medication',
+  'environment',
+  'biologic',
+])
+export type AllergyIntoleranceCategory = z.infer<
+  typeof allergyIntoleranceCategorySchema
+>
+
+const allergyIntoleranceCriticalitySchema = z.enum([
+  'low',
+  'high',
+  'unable-to-assess',
+])
+export type AllergyIntoleranceCriticality = z.infer<
+  typeof allergyIntoleranceCriticalitySchema
+>
+
+const allergyIntoleranceReactionSeveritySchema = z.enum([
+  'mild',
+  'moderate',
+  'severe',
+])
+export type AllergyIntoleranceReactionSeverity = z.infer<
+  typeof allergyIntoleranceReactionSeveritySchema
+>
 
 export const allergyIntoleranceSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -28,14 +62,11 @@ export const allergyIntoleranceSchema = z.lazy(() =>
     identifier: identifierSchema.array().optional(),
     clinicalStatus: codeableConceptSchema.optional(),
     verificationStatus: codeableConceptSchema.optional(),
-    type: z.enum(['allergy', 'intolerance']),
+    type: allergyIntoleranceTypeSchema,
     _type: elementSchema.optional(),
-    category: z
-      .enum(['food', 'medication', 'environment', 'biologic'])
-      .array()
-      .optional(),
+    category: allergyIntoleranceCategorySchema.array().optional(),
     _category: elementSchema.array().optional(),
-    criticality: z.enum(['low', 'high', 'unable-to-assess']).optional(),
+    criticality: allergyIntoleranceCriticalitySchema.optional(),
     code: codeableConceptSchema.optional(),
     patient: referenceSchema,
     encounter: referenceSchema.optional(),
@@ -44,7 +75,7 @@ export const allergyIntoleranceSchema = z.lazy(() =>
     onsetAge: quantitySchema.optional(),
     onsetPeriod: periodSchema.optional(),
     onsetRange: rangeSchema.optional(),
-    onsetString: z.string().optional(),
+    onsetString: stringSchema.optional(),
     _onsetString: elementSchema.optional(),
     recordedDate: dateTimeSchema.optional(),
     _recordedDate: elementSchema.optional(),
@@ -59,7 +90,7 @@ export const allergyIntoleranceSchema = z.lazy(() =>
         manifestation: codeableConceptSchema.array().min(1),
         onset: dateTimeSchema.optional(),
         _onset: elementSchema.optional(),
-        severity: z.enum(['mild', 'moderate', 'severe']).optional(),
+        severity: allergyIntoleranceReactionSeveritySchema.optional(),
         _severity: elementSchema.optional(),
         exposureRoute: codeableConceptSchema.optional(),
         note: annotationSchema.array().optional(),

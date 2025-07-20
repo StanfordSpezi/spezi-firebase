@@ -8,20 +8,22 @@
 
 import { type Narrative } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
+import { xhtmlSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
-const narrativeStatus = [
+export const narrativeStatusSchema = z.enum([
   'generated',
   'extensions',
   'additional',
   'empty',
-] as const
+])
+export type NarrativeStatus = z.infer<typeof narrativeStatusSchema>
 
 export const narrativeSchema: ZodType<Narrative> = z.lazy(() =>
   elementSchema.extend({
-    status: z.enum(narrativeStatus),
+    status: narrativeStatusSchema,
     _status: elementSchema.optional(),
-    div: z.string(), // TODO: technically this is xhtml
+    div: xhtmlSchema,
     _div: elementSchema.optional(),
   }),
 )

@@ -9,11 +9,12 @@
 import { type ContactDetail } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
 import { contactPointSchema } from '../dataTypes/contactPoint.js'
+import { stringSchema } from '../dataTypes/primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
 export const contactDetailSchema: ZodType<ContactDetail> = z.lazy(() =>
   elementSchema.extend({
-    name: z.string().optional(),
+    name: stringSchema.optional(),
     _name: elementSchema.optional(),
     telecom: contactPointSchema.array().optional(),
   }),

@@ -11,13 +11,16 @@ import { z, type ZodType } from 'zod/v4'
 import { dataRequirementSchema } from './dataRequirement.js'
 import { expressionSchema } from './expression.js'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
+import {
+  dateSchema,
+  dateTimeSchema,
+  stringSchema,
+} from '../dataTypes/primitiveTypes.js'
 import { referenceSchema } from '../dataTypes/reference.js'
 import { timingSchema } from '../dataTypes/timing.js'
 import { elementSchema } from '../element.js'
-import { dateSchema } from '../primitiveTypes/date.js'
-import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 
-const triggerDefinitionType = [
+const triggerDefinitionTypeSchema = z.enum([
   'named-event',
   'periodic',
   'data-changed',
@@ -26,16 +29,17 @@ const triggerDefinitionType = [
   'data-removed',
   'data-accessed',
   'data-access-ended',
-] as const
+])
+export type TriggerDefinitionType = z.infer<typeof triggerDefinitionTypeSchema>
 
 export const triggerDefinitionSchema: ZodType<TriggerDefinition> = z.lazy(() =>
   elementSchema.extend({
-    type: z.enum(triggerDefinitionType),
+    type: triggerDefinitionTypeSchema,
     _type: elementSchema.optional(),
-    name: z.string().optional(),
+    name: stringSchema.optional(),
     _name: elementSchema.optional(),
     code: codeableConceptSchema.optional(),
-    subscriptionTopic: z.string().optional(),
+    subscriptionTopic: stringSchema.optional(),
     _subscriptionTopic: elementSchema.optional(),
     timingTiming: timingSchema.optional(),
     timingReference: referenceSchema.optional(),

@@ -10,20 +10,27 @@ import { type Identifier } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
 import { codeableConceptSchema } from './codeableConcept.js'
 import { periodSchema } from './period.js'
+import { stringSchema, uriSchema } from './primitiveTypes.js'
 import { referenceSchema } from './reference.js'
 import { elementSchema } from '../element.js'
-import { uriSchema } from '../primitiveTypes/primitiveTypes.js'
 
-const identifierUse = ['usual', 'official', 'temp', 'secondary', 'old'] as const
+export const identifierUseSchema = z.enum([
+  'usual',
+  'official',
+  'temp',
+  'secondary',
+  'old',
+])
+export type IdentifierUse = z.infer<typeof identifierUseSchema>
 
 export const identifierSchema: ZodType<Identifier> = z.lazy(() =>
   elementSchema.extend({
-    use: z.enum(identifierUse).optional(),
+    use: identifierUseSchema.optional(),
     _use: elementSchema.optional(),
     type: codeableConceptSchema.optional(),
     system: uriSchema.optional(),
     _system: elementSchema.optional(),
-    value: z.string().optional(),
+    value: stringSchema.optional(),
     _value: elementSchema.optional(),
     period: periodSchema.optional(),
     assigner: referenceSchema.optional(),

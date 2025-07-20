@@ -8,12 +8,12 @@
 
 import { type Money } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
+import { codeSchema, decimalSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
-import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
 
 export const moneySchema: ZodType<Money> = z.lazy(() =>
   elementSchema.extend({
-    value: z.number().optional(),
+    value: decimalSchema.optional(),
     currency: codeSchema.optional(),
     _currency: elementSchema.optional(),
   }),

@@ -15,39 +15,45 @@ import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   attachmentSchema,
   backboneElementSchema,
+  booleanSchema,
   codingSchema,
+  dateSchema,
   dateTimeSchema,
+  decimalSchema,
   elementSchema,
   identifierSchema,
+  intSchema,
   quantitySchema,
   referenceSchema,
+  stringSchema,
+  timeSchema,
   uriSchema,
 } from '../elements/index.js'
 
 const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
   z.lazy(() =>
     backboneElementSchema.extend({
-      linkId: z.string(),
+      linkId: stringSchema,
       _linkId: elementSchema.optional(),
       definition: uriSchema.optional(),
       _definition: elementSchema.optional(),
-      text: z.string().optional(),
+      text: stringSchema.optional(),
       _text: elementSchema.optional(),
       answer: backboneElementSchema
         .extend({
-          valueBoolean: z.boolean().optional(),
+          valueBoolean: booleanSchema.optional(),
           _valueBoolean: elementSchema.optional(),
-          valueDecimal: z.number().optional(),
+          valueDecimal: decimalSchema.optional(),
           _valueDecimal: elementSchema.optional(),
-          valueInteger: z.number().int().optional(),
+          valueInteger: intSchema.optional(),
           _valueInteger: elementSchema.optional(),
-          valueDate: z.string().optional(),
+          valueDate: dateSchema.optional(),
           _valueDate: elementSchema.optional(),
-          valueDateTime: z.string().optional(),
+          valueDateTime: dateTimeSchema.optional(),
           _valueDateTime: elementSchema.optional(),
-          valueTime: z.string().optional(),
+          valueTime: timeSchema.optional(),
           _valueTime: elementSchema.optional(),
-          valueString: z.string().optional(),
+          valueString: stringSchema.optional(),
           _valueString: elementSchema.optional(),
           valueUri: uriSchema.optional(),
           _valueUri: elementSchema.optional(),
@@ -67,6 +73,16 @@ const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
     }),
   )
 
+const questionnaireResponseStatusSchema = z.enum([
+  'in-progress',
+  'completed',
+  'amended',
+  'entered-in-error',
+])
+export type QuestionnaireResponseStatus = z.infer<
+  typeof questionnaireResponseStatusSchema
+>
+
 export const questionnaireResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('QuestionnaireResponse').readonly(),
@@ -75,7 +91,7 @@ export const questionnaireResponseSchema = z.lazy(() =>
     partOf: referenceSchema.array().optional(),
     questionnaire: uriSchema.optional(),
     _questionnaire: elementSchema.optional(),
-    status: z.enum(['in-progress', 'completed', 'amended', 'entered-in-error']),
+    status: questionnaireResponseStatusSchema,
     _status: elementSchema.optional(),
     subject: referenceSchema.optional(),
     encounter: referenceSchema.optional(),

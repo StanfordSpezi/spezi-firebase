@@ -8,19 +8,24 @@
 
 import { type SampledData } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
+import {
+  decimalSchema,
+  positiveDecimalSchema,
+  positiveIntSchema,
+  stringSchema,
+} from './primitiveTypes.js'
 import { quantitySchema } from './quantity.js'
 import { elementSchema } from '../element.js'
-import { positiveIntSchema } from '../primitiveTypes/primitiveTypes.js'
 
 export const sampledDataSchema: ZodType<SampledData> = z.lazy(() =>
   elementSchema.extend({
     origin: quantitySchema,
-    period: z.number().positive(),
-    factor: z.number().optional(),
-    lowerLimit: z.number().optional(),
-    upperLimit: z.number().optional(),
+    period: positiveDecimalSchema,
+    factor: decimalSchema.optional(),
+    lowerLimit: decimalSchema.optional(),
+    upperLimit: decimalSchema.optional(),
     dimensions: positiveIntSchema,
-    data: z.string().optional(),
+    data: stringSchema.optional(),
     _data: elementSchema.optional(),
   }),
 )

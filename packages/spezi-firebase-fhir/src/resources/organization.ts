@@ -12,24 +12,26 @@ import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   addressSchema,
   backboneElementSchema,
+  booleanSchema,
   codeableConceptSchema,
   contactPointSchema,
   elementSchema,
   humanNameSchema,
   identifierSchema,
   referenceSchema,
+  stringSchema,
 } from '../elements/index.js'
 
 export const organizationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Organization').readonly(),
     identifier: identifierSchema.array().optional(),
-    active: z.boolean().optional(),
+    active: booleanSchema.optional(),
     _active: elementSchema.optional(),
     type: codeableConceptSchema.array().optional(),
-    name: z.string().optional(),
+    name: stringSchema.optional(),
     _name: elementSchema.optional(),
-    alias: z.string().array().optional(),
+    alias: stringSchema.array().optional(),
     _alias: elementSchema.array().optional(),
     telecom: contactPointSchema.array().optional(),
     address: addressSchema.array().optional(),

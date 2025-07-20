@@ -11,24 +11,35 @@ import { z, type ZodType } from 'zod/v4'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   attachmentSchema,
+  booleanSchema,
   codeableConceptSchema,
   codingSchema,
   contactDetailSchema,
   dateSchema,
   dateTimeSchema,
+  decimalSchema,
   elementSchema,
   identifierSchema,
+  intSchema,
   markdownSchema,
   periodSchema,
   quantitySchema,
   referenceSchema,
+  stringSchema,
   timeSchema,
   urlSchema,
   usageContextSchema,
 } from '../elements/index.js'
 
-const questionnaireStatus = ['draft', 'active', 'retired', 'unknown'] as const
-const questionnaireItemType = [
+const questionnaireStatusSchema = z.enum([
+  'draft',
+  'active',
+  'retired',
+  'unknown',
+])
+export type QuestionnaireStatus = z.infer<typeof questionnaireStatusSchema>
+
+const questionnaireItemTypeSchema = z.enum([
   'group',
   'display',
   'boolean',
@@ -45,9 +56,15 @@ const questionnaireItemType = [
   'attachment',
   'reference',
   'quantity',
-] as const
-const questionnaireItemEnableBehavior = ['all', 'any'] as const
-const questionnaireItemEnableWhenOperator = [
+])
+export type QuestionnaireItemType = z.infer<typeof questionnaireItemTypeSchema>
+
+const questionnaireItemEnableBehaviorSchema = z.enum(['all', 'any'])
+export type QuestionnaireItemEnableBehavior = z.infer<
+  typeof questionnaireItemEnableBehaviorSchema
+>
+
+const questionnaireItemEnableWhenOperatorSchema = z.enum([
   'exists',
   '=',
   '!=',
@@ -55,30 +72,33 @@ const questionnaireItemEnableWhenOperator = [
   '<=',
   '>',
   '>=',
-] as const
+])
+export type questionnaireItemEnableWhenOperator = z.infer<
+  typeof questionnaireItemEnableWhenOperatorSchema
+>
 
 const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
   elementSchema.extend({
-    linkId: z.string(),
+    linkId: stringSchema,
     _linkId: elementSchema.optional(),
     definition: urlSchema.optional(),
     _definition: elementSchema.optional(),
     code: codingSchema.array().optional(),
-    prefix: z.string().optional(),
+    prefix: stringSchema.optional(),
     _prefix: elementSchema.optional(),
-    text: z.string().optional(),
+    text: stringSchema.optional(),
     _text: elementSchema.optional(),
-    type: z.enum(questionnaireItemType),
+    type: questionnaireItemTypeSchema,
     enableWhen: elementSchema
       .extend({
-        question: z.string(),
+        question: stringSchema,
         _question: elementSchema.optional(),
-        operator: z.enum(questionnaireItemEnableWhenOperator),
+        operator: questionnaireItemEnableWhenOperatorSchema,
         _operator: elementSchema.optional(),
-        answerBoolean: z.boolean().optional(),
+        answerBoolean: booleanSchema.optional(),
         _answerBoolean: elementSchema.optional(),
-        answerDecimal: z.number().optional(),
-        answerInteger: z.number().int().optional(),
+        answerDecimal: decimalSchema.optional(),
+        answerInteger: intSchema.optional(),
         _answerInteger: elementSchema.optional(),
         answerDate: dateSchema.optional(),
         _answerDate: elementSchema.optional(),
@@ -86,7 +106,7 @@ const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
         _answerDateTime: elementSchema.optional(),
         answerTime: timeSchema.optional(),
         _answerTime: elementSchema.optional(),
-        answerString: z.string().optional(),
+        answerString: stringSchema.optional(),
         _answerString: elementSchema.optional(),
         answerUri: urlSchema.optional(),
         _answerUri: elementSchema.optional(),
@@ -97,26 +117,26 @@ const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
       })
       .array()
       .optional(),
-    enableBehavior: z.enum(questionnaireItemEnableBehavior).optional(),
-    required: z.boolean().optional(),
+    enableBehavior: questionnaireItemEnableBehaviorSchema.optional(),
+    required: booleanSchema.optional(),
     _required: elementSchema.optional(),
-    repeats: z.boolean().optional(),
+    repeats: booleanSchema.optional(),
     _repeats: elementSchema.optional(),
-    readOnly: z.boolean().optional(),
+    readOnly: booleanSchema.optional(),
     _readOnly: elementSchema.optional(),
-    maxLength: z.number().int().optional(),
+    maxLength: intSchema.optional(),
     _maxLength: elementSchema.optional(),
     answerOption: elementSchema
       .extend({
-        valueInteger: z.number().int().optional(),
-        valueDecimal: z.number().optional(),
+        valueInteger: intSchema.optional(),
+        valueDecimal: decimalSchema.optional(),
         valueDate: dateSchema.optional(),
         _valueDate: elementSchema.optional(),
         valueDateTime: dateTimeSchema.optional(),
         _valueDateTime: elementSchema.optional(),
         valueTime: timeSchema.optional(),
         _valueTime: elementSchema.optional(),
-        valueString: z.string().optional(),
+        valueString: stringSchema.optional(),
         _valueString: elementSchema.optional(),
         valueUri: urlSchema.optional(),
         _valueUri: elementSchema.optional(),
@@ -124,24 +144,24 @@ const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
         valueCoding: codingSchema.optional(),
         valueQuantity: quantitySchema.optional(),
         valueReference: referenceSchema.optional(),
-        initialSelected: z.boolean().optional(),
+        initialSelected: booleanSchema.optional(),
         _initialSelected: elementSchema.optional(),
       })
       .array()
       .optional(),
     initial: elementSchema
       .extend({
-        valueBoolean: z.boolean().optional(),
+        valueBoolean: booleanSchema.optional(),
         _valueBoolean: elementSchema.optional(),
-        valueDecimal: z.number().optional(),
-        valueInteger: z.number().int().optional(),
+        valueDecimal: decimalSchema.optional(),
+        valueInteger: intSchema.optional(),
         valueDate: dateSchema.optional(),
         _valueDate: elementSchema.optional(),
         valueDateTime: dateTimeSchema.optional(),
         _valueDateTime: elementSchema.optional(),
         valueTime: timeSchema.optional(),
         _valueTime: elementSchema.optional(),
-        valueString: z.string().optional(),
+        valueString: stringSchema.optional(),
         _valueString: elementSchema.optional(),
         valueUri: urlSchema.optional(),
         _valueUri: elementSchema.optional(),
@@ -164,22 +184,22 @@ export const questionnaireSchema = z.lazy(() =>
     url: urlSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
-    version: z.string().optional(),
+    version: stringSchema.optional(),
     _version: elementSchema.optional(),
-    name: z.string().optional(),
+    name: stringSchema.optional(),
     _name: elementSchema.optional(),
-    title: z.string().optional(),
+    title: stringSchema.optional(),
     _title: elementSchema.optional(),
-    status: z.enum(questionnaireStatus),
+    status: questionnaireStatusSchema,
     _status: elementSchema.optional(),
-    experimental: z.boolean().optional(),
+    experimental: booleanSchema.optional(),
     _experimental: elementSchema.optional(),
     date: dateTimeSchema.optional(),
     _date: elementSchema.optional(),
-    publisher: z.string().optional(),
+    publisher: stringSchema.optional(),
     _publisher: elementSchema.optional(),
     contact: contactDetailSchema.array().optional(),
-    description: z.string().optional(),
+    description: stringSchema.optional(),
     _description: elementSchema.optional(),
     useContext: usageContextSchema.array().optional(),
     jurisdiction: codeableConceptSchema.array().optional(),

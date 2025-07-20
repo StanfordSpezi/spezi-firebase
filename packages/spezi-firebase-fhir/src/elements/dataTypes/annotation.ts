@@ -8,15 +8,18 @@
 
 import { type Annotation } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
+import {
+  dateTimeSchema,
+  markdownSchema,
+  stringSchema,
+} from './primitiveTypes.js'
 import { referenceSchema } from './reference.js'
 import { elementSchema } from '../element.js'
-import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
-import { markdownSchema } from '../primitiveTypes/primitiveTypes.js'
 
 export const annotationSchema: ZodType<Annotation> = z.lazy(() =>
   elementSchema.extend({
     authorReference: referenceSchema.optional(),
-    authorString: z.string().optional(),
+    authorString: stringSchema.optional(),
     _authorString: elementSchema.optional(),
     time: dateTimeSchema.optional(),
     _time: elementSchema.optional(),

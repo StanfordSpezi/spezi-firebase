@@ -9,6 +9,7 @@
 import { type Contributor } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod/v4'
 import { contactDetailSchema } from './contactDetail.js'
+import { stringSchema } from '../dataTypes/primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
 const contributorType = ['author', 'editor', 'reviewer', 'endorser'] as const
@@ -17,7 +18,7 @@ export const contributorSchema: ZodType<Contributor> = z.lazy(() =>
   elementSchema.extend({
     type: z.enum(contributorType),
     _type: elementSchema.optional(),
-    name: z.string(),
+    name: stringSchema,
     _name: elementSchema.optional(),
     contact: contactDetailSchema.array().optional(),
   }),

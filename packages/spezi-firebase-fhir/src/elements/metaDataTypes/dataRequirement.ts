@@ -11,39 +11,43 @@ import { z, type ZodType } from 'zod/v4'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
 import { codingSchema } from '../dataTypes/coding.js'
 import { periodSchema } from '../dataTypes/period.js'
-import { referenceSchema } from '../dataTypes/reference.js'
-import { elementSchema } from '../element.js'
-import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
 import {
   codeSchema,
+  dateTimeSchema,
   positiveIntSchema,
-} from '../primitiveTypes/primitiveTypes.js'
+  stringSchema,
+} from '../dataTypes/primitiveTypes.js'
+import { referenceSchema } from '../dataTypes/reference.js'
+import { elementSchema } from '../element.js'
 
-const sortDirection = ['ascending', 'descending'] as const
+const dataRequirementSortDirectionSchema = z.enum(['ascending', 'descending'])
+export type DataRequirementSortDirection = z.infer<
+  typeof dataRequirementSortDirectionSchema
+>
 
 export const dataRequirementSchema: ZodType<DataRequirement> = z.lazy(() =>
   elementSchema.extend({
     type: codeSchema,
     _type: elementSchema.optional(),
-    profile: z.string().array().optional(),
+    profile: stringSchema.array().optional(),
     _profile: elementSchema.array().optional(),
     subjectCodeableConcept: codeableConceptSchema.optional(),
     subjectReference: referenceSchema.optional(),
-    mustSupport: z.string().array().optional(),
+    mustSupport: stringSchema.array().optional(),
     _mustSupport: elementSchema.array().optional(),
     codeFilter: elementSchema
       .extend({
-        path: z.string().optional(),
-        searchParam: z.string().optional(),
-        valueSet: z.string().optional(),
+        path: stringSchema.optional(),
+        searchParam: stringSchema.optional(),
+        valueSet: stringSchema.optional(),
         code: codingSchema.array().optional(),
       })
       .array()
       .optional(),
     dateFilter: elementSchema
       .extend({
-        path: z.string().optional(),
-        searchParam: z.string().optional(),
+        path: stringSchema.optional(),
+        searchParam: stringSchema.optional(),
         valueDateTime: dateTimeSchema.optional(),
         valuePeriod: periodSchema.optional(),
       })
@@ -52,9 +56,9 @@ export const dataRequirementSchema: ZodType<DataRequirement> = z.lazy(() =>
     limit: positiveIntSchema.optional(),
     sort: elementSchema
       .extend({
-        direction: z.enum(sortDirection),
+        direction: dataRequirementSortDirectionSchema,
         _direction: elementSchema.optional(),
-        path: z.string(),
+        path: stringSchema,
         _path: elementSchema.optional(),
       })
       .array(),
