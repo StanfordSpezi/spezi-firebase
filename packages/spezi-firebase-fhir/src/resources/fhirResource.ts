@@ -14,6 +14,8 @@ import { medicationSchema } from './medication.js'
 import { medicationRequestSchema } from './medicationRequest.js'
 import { questionnaireSchema } from './questionnaire.js'
 import { questionnaireResponseSchema } from './questionnaireResponse.js'
+import { patientSchema } from './patient.js'
+import { organizationSchema } from './organization.js'
 
 export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
@@ -21,6 +23,8 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     appointmentSchema,
     medicationSchema,
     medicationRequestSchema,
+    organizationSchema,
+    patientSchema,
     questionnaireSchema,
     questionnaireResponseSchema,
   ]),
