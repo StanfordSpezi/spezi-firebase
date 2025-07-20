@@ -42,6 +42,8 @@ export const patientSchema = z.lazy(() =>
     _deceasedBoolean: elementSchema.optional(),
     deceasedDateTime: dateTimeSchema.optional(),
     _deceasedDateTime: elementSchema.optional(),
+    address: addressSchema.array().optional(),
+    maritalStatus: codeableConceptSchema.optional(),
     multipleBirthBoolean: z.boolean().optional(),
     _multipleBirthBoolean: elementSchema.optional(),
     multipleBirthInteger: z.number().int().optional(),
