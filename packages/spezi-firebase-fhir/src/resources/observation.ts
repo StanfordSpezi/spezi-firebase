@@ -36,7 +36,7 @@ const observationStatus = [
   'unknown',
 ] as const
 
-export const observationSchema: ZodType<Observation> = z.lazy(() =>
+export const observationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Observation'),
     identifier: identifierSchema.array().optional(),
@@ -124,4 +124,4 @@ export const observationSchema: ZodType<Observation> = z.lazy(() =>
       .array()
       .optional(),
   }),
-)
+) satisfies ZodType<Observation>

@@ -25,7 +25,7 @@ export const medicationStatus = [
   'entered-in-error',
 ] as const
 
-export const medicationSchema: ZodType<Medication> = z.lazy(() =>
+export const medicationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Medication').readonly(),
     identifier: identifierSchema.array().optional(),
@@ -52,4 +52,4 @@ export const medicationSchema: ZodType<Medication> = z.lazy(() =>
       _expirationDate: elementSchema.optional(),
     }),
   }),
-)
+) satisfies ZodType<Medication>

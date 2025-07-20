@@ -43,7 +43,7 @@ const medicationRequestIntent = [
 ] as const
 const medicationRequestPriority = ['routine', 'urgent', 'asap', 'stat'] as const
 
-export const medicationRequestSchema: ZodType<MedicationRequest> = z.lazy(() =>
+export const medicationRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('MedicationRequest'),
     identifier: identifierSchema.array().optional(),
@@ -106,4 +106,4 @@ export const medicationRequestSchema: ZodType<MedicationRequest> = z.lazy(() =>
     detectedIssue: referenceSchema.array().optional(),
     eventHistory: referenceSchema.array().optional(),
   }),
-)
+) satisfies ZodType<MedicationRequest>

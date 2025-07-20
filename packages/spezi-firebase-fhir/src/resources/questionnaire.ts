@@ -158,7 +158,7 @@ const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
   }),
 )
 
-export const questionnaireSchema: ZodType<Questionnaire> = z.lazy(() =>
+export const questionnaireSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Questionnaire').readonly(),
     url: urlSchema.optional(),
@@ -195,4 +195,4 @@ export const questionnaireSchema: ZodType<Questionnaire> = z.lazy(() =>
     code: codingSchema.array().optional(),
     item: questionnaireItemSchema.array().optional(),
   }),
-)
+) satisfies ZodType<Questionnaire>

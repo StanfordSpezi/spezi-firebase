@@ -34,7 +34,7 @@ export const appointmentStatus = [
   'waitlist',
 ] as const
 
-export const appointmentSchema: ZodType<Appointment> = z.lazy(() =>
+export const appointmentSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Appointment').readonly(),
     identifier: identifierSchema.array().optional(),
@@ -80,4 +80,4 @@ export const appointmentSchema: ZodType<Appointment> = z.lazy(() =>
       .min(1),
     requestPeriod: periodSchema.array().optional(),
   }),
-)
+) satisfies ZodType<Appointment>

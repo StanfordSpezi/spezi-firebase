@@ -6,9 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
+import { ZodType } from 'zod/v4'
 import { elementSchema } from './element.js'
 import { extensionSchema } from './extension.js'
+import { BackboneElement } from 'fhir/r4b.js'
 
 export const backboneElementSchema = elementSchema.extend({
   modifierExtension: extensionSchema.array().optional(),
-})
+}) satisfies ZodType<BackboneElement>

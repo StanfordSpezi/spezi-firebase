@@ -67,28 +67,22 @@ const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
     }),
   )
 
-export const questionnaireResponseSchema: ZodType<QuestionnaireResponse> =
-  z.lazy(() =>
-    domainResourceSchema.extend({
-      resourceType: z.literal('QuestionnaireResponse').readonly(),
-      identifier: identifierSchema.optional(),
-      basedOn: referenceSchema.array().optional(),
-      partOf: referenceSchema.array().optional(),
-      questionnaire: uriSchema.optional(),
-      _questionnaire: elementSchema.optional(),
-      status: z.enum([
-        'in-progress',
-        'completed',
-        'amended',
-        'entered-in-error',
-      ]),
-      _status: elementSchema.optional(),
-      subject: referenceSchema.optional(),
-      encounter: referenceSchema.optional(),
-      authored: dateTimeSchema.optional(),
-      _authored: elementSchema.optional(),
-      author: referenceSchema.optional(),
-      source: referenceSchema.optional(),
-      item: questionnaireResponseItemSchema.array().optional(),
-    }),
-  )
+export const questionnaireResponseSchema = z.lazy(() =>
+  domainResourceSchema.extend({
+    resourceType: z.literal('QuestionnaireResponse').readonly(),
+    identifier: identifierSchema.optional(),
+    basedOn: referenceSchema.array().optional(),
+    partOf: referenceSchema.array().optional(),
+    questionnaire: uriSchema.optional(),
+    _questionnaire: elementSchema.optional(),
+    status: z.enum(['in-progress', 'completed', 'amended', 'entered-in-error']),
+    _status: elementSchema.optional(),
+    subject: referenceSchema.optional(),
+    encounter: referenceSchema.optional(),
+    authored: dateTimeSchema.optional(),
+    _authored: elementSchema.optional(),
+    author: referenceSchema.optional(),
+    source: referenceSchema.optional(),
+    item: questionnaireResponseItemSchema.array().optional(),
+  }),
+) satisfies ZodType<QuestionnaireResponse>
