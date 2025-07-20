@@ -25,7 +25,7 @@ export const dateSchema = z
 export const urlSchema = z.url()
 
 // TODO: Restrict to https://datatracker.ietf.org/doc/html/rfc3986
-export const uriSchema = z.string()
+export const uriSchema = z.string().regex(/\S*/)
 
 export const timeSchema = z
   .string()
@@ -63,7 +63,7 @@ export const uuidSchema = z.uuid()
 
 export const xhtmlSchema = z.string()
 
-export const canonicalSchema = z.string()
+export const canonicalSchema = z.url()
 
 export const base64BinarySchema = z
   .string()
