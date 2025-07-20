@@ -18,10 +18,6 @@ export const domainResourceSchema = resourceSchema.extend({
   get contained() {
     return fhirResourceSchema.array().optional()
   },
-  get extension() {
-    return extensionSchema.array().optional()
-  },
-  get modifierExtension() {
-    return extensionSchema.array().optional()
-  },
+  extension: extensionSchema.array().optional(),
+  modifierExtension: extensionSchema.array().optional(),
 }) satisfies ZodType<DomainResource>
