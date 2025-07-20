@@ -10,26 +10,13 @@ import { z, ZodType } from 'zod/v4'
 import { narrativeSchema } from './dataTypes/narrative.js'
 import { extensionSchema } from './extension.js'
 import { resourceSchema } from './resource.js'
-import { allergyIntoleranceSchema } from '../resources/allergyIntolerance.js'
-import { appointmentSchema } from '../resources/appointment.js'
-import { medicationSchema } from '../resources/medication.js'
-import { DomainResource, FhirResource } from 'fhir/r4b.js'
-import { medicationRequestSchema } from '../resources/medicationRequest.js'
-import { questionnaireSchema } from '../resources/questionnaire.js'
-import { questionnaireResponseSchema } from '../resources/questionnaireResponse.js'
+import { DomainResource } from 'fhir/r4b.js'
+import { fhirResourceSchema } from '../resources/fhirResource.js'
 
 export const domainResourceSchema = resourceSchema.extend({
   text: narrativeSchema.optional(),
   get contained() {
-    const resources = z.discriminatedUnion('resourceType', [
-      allergyIntoleranceSchema,
-      appointmentSchema,
-      medicationSchema,
-      medicationRequestSchema,
-      questionnaireSchema,
-      questionnaireResponseSchema,
-    ]) as ZodType<FhirResource>
-    return resources.array().optional()
+    return fhirResourceSchema.array().optional()
   },
   get extension() {
     return extensionSchema.array().optional()
