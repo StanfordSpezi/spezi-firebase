@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Element } from 'fhir/r4b.js'
 import { z } from 'zod/v4'
 import { extensionSchema } from './extension.js'
 

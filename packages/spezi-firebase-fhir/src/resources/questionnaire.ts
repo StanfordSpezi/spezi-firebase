@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
+import { type Questionnaire, type QuestionnaireItem } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { domainResourceSchema } from '../elements/domainResource.js'
-import { Questionnaire, QuestionnaireItem } from 'fhir/r4b.js'
 import {
   attachmentSchema,
   codeableConceptSchema,

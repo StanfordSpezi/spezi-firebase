@@ -6,7 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
+import { type MedicationRequest } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -21,7 +22,6 @@ import {
   referenceSchema,
   unsignedIntSchema,
 } from '../elements/index.js'
-import { MedicationRequest } from 'fhir/r4b.js'
 
 const medicationRequestStatus = [
   'draft',

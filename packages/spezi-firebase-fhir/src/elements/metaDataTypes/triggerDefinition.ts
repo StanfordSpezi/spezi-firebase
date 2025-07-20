@@ -16,7 +16,6 @@ import { timingSchema } from '../dataTypes/timing.js'
 import { elementSchema } from '../element.js'
 import { dateSchema } from '../primitiveTypes/date.js'
 import { dateTimeSchema } from '../primitiveTypes/dateTime.js'
-import { codeSchema } from '../primitiveTypes/primitiveTypes.js'
 
 const triggerDefinitionType = [
   'named-event',

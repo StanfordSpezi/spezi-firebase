@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { BidirectionalSchema } from '@stanfordspezi/spezi-firebase-utils'
 import { z } from 'zod/v4'
 
 // This file contains the primitive types used in FHIR resources, as defined in https://hl7.org/fhir/R4B/datatypes.html.

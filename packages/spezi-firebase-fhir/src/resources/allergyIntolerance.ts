@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { AllergyIntolerance } from 'fhir/r4b.js'
-import { z, ZodType } from 'zod/v4'
+import { type AllergyIntolerance } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   annotationSchema,
