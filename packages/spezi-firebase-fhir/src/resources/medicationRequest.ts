@@ -26,7 +26,7 @@ import {
   uriSchema,
 } from '../elements/index.js'
 
-const medicationRequestStatus = [
+const medicationRequestStatusSchema = z.enum([
   'draft',
   'active',
   'on-hold',
@@ -34,8 +34,12 @@ const medicationRequestStatus = [
   'entered-in-error',
   'stopped',
   'unknown',
-] as const
-const medicationRequestIntent = [
+])
+export type MedicationRequestStatus = z.infer<
+  typeof medicationRequestStatusSchema
+>
+
+const medicationRequestIntentSchema = z.enum([
   'proposal',
   'plan',
   'order',
@@ -43,19 +47,31 @@ const medicationRequestIntent = [
   'reflex-order',
   'filler-order',
   'instance-order',
-] as const
-const medicationRequestPriority = ['routine', 'urgent', 'asap', 'stat'] as const
+])
+export type MedicationRequestIntent = z.infer<
+  typeof medicationRequestIntentSchema
+>
+
+const medicationRequestPrioritySchema = z.enum([
+  'routine',
+  'urgent',
+  'asap',
+  'stat',
+])
+export type MedicationRequestPriority = z.infer<
+  typeof medicationRequestPrioritySchema
+>
 
 export const medicationRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('MedicationRequest'),
     identifier: identifierSchema.array().optional(),
-    status: z.enum(medicationRequestStatus),
+    status: medicationRequestStatusSchema,
     _status: elementSchema.optional(),
     statusReason: codeableConceptSchema.optional(),
-    intent: z.enum(medicationRequestIntent),
+    intent: medicationRequestIntentSchema,
     category: codeableConceptSchema.array().optional(),
-    priority: z.enum(medicationRequestPriority).optional(),
+    priority: medicationRequestPrioritySchema.optional(),
     _priority: elementSchema.optional(),
     doNotPerform: booleanSchema.optional(),
     _doNotPerform: elementSchema.optional(),

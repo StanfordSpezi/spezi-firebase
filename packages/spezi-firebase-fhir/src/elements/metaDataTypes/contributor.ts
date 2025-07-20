@@ -12,11 +12,17 @@ import { contactDetailSchema } from './contactDetail.js'
 import { stringSchema } from '../dataTypes/primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
-const contributorType = ['author', 'editor', 'reviewer', 'endorser'] as const
+const contributorTypeSchema = z.enum([
+  'author',
+  'editor',
+  'reviewer',
+  'endorser',
+])
+export type ContributorType = z.infer<typeof contributorTypeSchema>
 
 export const contributorSchema: ZodType<Contributor> = z.lazy(() =>
   elementSchema.extend({
-    type: z.enum(contributorType),
+    type: contributorTypeSchema,
     _type: elementSchema.optional(),
     name: stringSchema,
     _name: elementSchema.optional(),

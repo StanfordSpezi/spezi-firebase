@@ -28,7 +28,7 @@ import {
   timingSchema,
 } from '../elements/index.js'
 
-const observationStatus = [
+const observationStatusSchema = z.enum([
   'registered',
   'preliminary',
   'final',
@@ -37,7 +37,8 @@ const observationStatus = [
   'cancelled',
   'entered-in-error',
   'unknown',
-] as const
+])
+export type ObservationStatus = z.infer<typeof observationStatusSchema>
 
 export const observationSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -45,7 +46,7 @@ export const observationSchema = z.lazy(() =>
     identifier: identifierSchema.array().optional(),
     basedOn: referenceSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
-    status: z.enum(observationStatus),
+    status: observationStatusSchema,
     category: codeableConceptSchema.array().optional(),
     code: codeableConceptSchema,
     subject: referenceSchema.optional(),

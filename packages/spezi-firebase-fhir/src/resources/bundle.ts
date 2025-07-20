@@ -111,4 +111,6 @@ export function bundleSchema<R extends DomainResource>(
   }) satisfies ZodType<Bundle<R>>
 }
 
-export const genericBundleSchema = bundleSchema(fhirResourceSchema)
+export const genericBundleSchema: ZodType<Bundle> = z.lazy(() =>
+  bundleSchema(fhirResourceSchema),
+)
