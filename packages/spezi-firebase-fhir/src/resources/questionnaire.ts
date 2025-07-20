@@ -124,6 +124,8 @@ const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
         valueCoding: codingSchema.optional(),
         valueQuantity: quantitySchema.optional(),
         valueReference: referenceSchema.optional(),
+        initialSelected: z.boolean().optional(),
+        _initialSelected: elementSchema.optional(),
       })
       .array()
       .optional(),
