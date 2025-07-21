@@ -45,6 +45,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@types/fhir": "^0.0.41",
     "zod": "^3.25.56"
   }
 }

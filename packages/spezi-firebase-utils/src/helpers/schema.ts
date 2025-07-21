@@ -6,11 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z, ZodType } from 'zod/v4'
+import { type z, type ZodType } from 'zod/v4'
 
-export type Forward<S> =
+export type Forward<S> = // eslint-disable-next-line @typescript-eslint/no-explicit-any
   S extends BidirectionalSchema<infer Forward, any> ? Forward : never
-export type Backward<S> =
+export type Backward<S> = // eslint-disable-next-line @typescript-eslint/no-explicit-any
   S extends BidirectionalSchema<any, infer Backward> ? Backward : never
 
 export type Input<S> = z.input<Forward<S>>
@@ -43,7 +43,7 @@ export class BidirectionalSchema<
   static separate<
     Input extends object | string,
     Output extends object | string,
-    Forward extends ZodType<Output, Input>,
+    Forward extends ZodType<Output>,
     Backward extends ZodType<Input, Output>,
   >(
     forward: Forward,
@@ -55,14 +55,14 @@ export class BidirectionalSchema<
   // Methods
 
   decode<Input, Output>(
-    this: BidirectionalSchema<ZodType<Output, Input>, ZodType<Input, Output>>,
+    this: BidirectionalSchema<ZodType<Output>, ZodType<Input, Output>>,
     input: unknown,
   ): Output {
     return this.forward.parse(input)
   }
 
   encode<Input, Output>(
-    this: BidirectionalSchema<ZodType<Output, Input>, ZodType<Input, Output>>,
+    this: BidirectionalSchema<ZodType<Output>, ZodType<Input, Output>>,
     output: unknown,
   ): Input {
     return this.backward.parse(output)

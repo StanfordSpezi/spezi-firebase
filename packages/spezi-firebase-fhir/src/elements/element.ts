@@ -6,26 +6,16 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod/v4'
-import { extensionBackwardSchema, extensionForwardSchema } from './extension.js'
+import { type Element } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
+import { stringSchema } from './dataTypes/primitiveTypes.js'
+import { extensionSchema } from './extension.js'
 
-export const elementForwardSchema = z.object({
-  get id() {
-    return z.string().optional()
+export const elementSchema = z.object({
+  id: stringSchema.optional(),
+  get _id() {
+    const schema = elementSchema as ZodType<Element>
+    return schema.optional()
   },
-  get extension() {
-    return extensionForwardSchema.array().optional()
-  },
-})
-
-export const elementBackwardSchema = z.object({
-  get id() {
-    return z.string().optional()
-  },
-  get extension() {
-    return extensionBackwardSchema.array().optional()
-  },
-})
-
-export type ElementDto = z.input<typeof elementForwardSchema>
-export type Element = z.output<typeof elementForwardSchema>
+  extension: extensionSchema.array().optional(),
+}) satisfies ZodType<Element>

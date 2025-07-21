@@ -6,53 +6,27 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod/v4'
-import { uriSchema } from '../primitiveTypes/primitiveTypes.js'
-import { instantSchema } from '../primitiveTypes/instant.js'
+import { type Meta } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
+import { codingSchema } from './dataTypes/coding.js'
 import {
-  codingBackwardSchema,
-  codingForwardSchema,
-} from '../dataTypes/coding.js'
-import { elementBackwardSchema, elementForwardSchema } from './element.js'
+  idSchema,
+  instantSchema,
+  uriSchema,
+} from './dataTypes/primitiveTypes.js'
+import { elementSchema } from './element.js'
 
-export const metaForwardSchema = elementForwardSchema.extend({
-  get versionId() {
-    return z.string().optional()
-  },
-  get lastUpdated() {
-    return instantSchema.forward.optional()
-  },
-  get source() {
-    return uriSchema.forward.optional()
-  },
-  get profile() {
-    return uriSchema.forward.array().optional()
-  },
-  get security() {
-    return codingForwardSchema.array().optional()
-  },
-  get tag() {
-    return codingForwardSchema.array().optional()
-  },
-})
-
-export const metaBackwardSchema = elementBackwardSchema.extend({
-  get versionId() {
-    return z.string().optional()
-  },
-  get lastUpdated() {
-    return instantSchema.backward.optional()
-  },
-  get source() {
-    return uriSchema.backward.optional()
-  },
-  get profile() {
-    return uriSchema.backward.array().optional()
-  },
-  get security() {
-    return codingBackwardSchema.array().optional()
-  },
-  get tag() {
-    return codingBackwardSchema.array().optional()
-  },
-})
+export const metaSchema: ZodType<Meta> = z.lazy(() =>
+  elementSchema.extend({
+    versionId: idSchema.optional(),
+    _versionId: elementSchema.optional(),
+    lastUpdated: instantSchema.optional(),
+    _lastUpdated: elementSchema.optional(),
+    source: uriSchema.optional(),
+    _source: elementSchema.optional(),
+    profile: uriSchema.array().optional(),
+    _profile: elementSchema.array().optional(),
+    security: codingSchema.array().optional(),
+    tag: codingSchema.array().optional(),
+  }),
+)

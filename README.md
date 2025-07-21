@@ -50,18 +50,22 @@ npm install @stanfordspezi/spezi-firebase-utils
 This project uses [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) for managing multiple packages. To set up the development environment:
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/StanfordSpezi/spezi-firebase.git
    cd spezi-firebase
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
    ```
+
    This will install dependencies for all workspace packages.
 
 3. **Build all packages**:
+
    ```bash
    npm run build
    ```
@@ -77,7 +81,7 @@ For more advanced development, you can use npm workspace commands:
 
 - **Build all packages**: `npm run build --workspaces`
 - **Build specific package**: `npm run build -w @stanfordspezi/spezi-firebase-utils`
-- **Test all packages**: `npm run test --workspaces`  
+- **Test all packages**: `npm run test --workspaces`
 - **Test specific package**: `npm run test -w @stanfordspezi/spezi-firebase-cloud-messaging`
 - **Start development mode**: `npm run dev`
 

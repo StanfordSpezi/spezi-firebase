@@ -5,3 +5,12 @@
 //
 // SPDX-License-Identifier: MIT
 //
+
+export * from './elements/index.js'
+export * from './resources/allergyIntolerance.js'
+export * from './resources/appointment.js'
+export * from './resources/medication.js'
+export * from './resources/medicationRequest.js'
+export * from './resources/observation.js'
+export * from './resources/questionnaire.js'
+export * from './resources/questionnaireResponse.js'

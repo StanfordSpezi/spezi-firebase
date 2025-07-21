@@ -6,36 +6,19 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod/v4'
-import { metaForwardSchema, metaBackwardSchema } from './meta.js'
-import { codeSchema, uriSchema } from '../primitiveTypes/primitiveTypes.js'
+import { type Resource } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod/v4'
+import {
+  codeSchema,
+  stringSchema,
+  uriSchema,
+} from './dataTypes/primitiveTypes.js'
+import { metaSchema } from './meta.js'
 
-export const resourceForwardSchema = z.object({
-  get id() {
-    return z.string().optional()
-  },
-  get meta() {
-    return metaForwardSchema.optional()
-  },
-  get implicitRules() {
-    return uriSchema.forward.optional()
-  },
-  get language() {
-    return codeSchema.forward.optional()
-  },
-})
-
-export const resourceBackwardSchema = z.object({
-  get id() {
-    return z.string().optional()
-  },
-  get meta() {
-    return metaBackwardSchema.optional()
-  },
-  get implicitRules() {
-    return uriSchema.backward.optional()
-  },
-  get language() {
-    return codeSchema.backward.optional()
-  },
-})
+export const resourceSchema = z.object({
+  resourceType: stringSchema,
+  id: stringSchema.optional(),
+  meta: metaSchema.optional(),
+  implicitRules: uriSchema.optional(),
+  language: codeSchema.optional(),
+}) satisfies ZodType<Resource>
