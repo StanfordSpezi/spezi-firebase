@@ -188,7 +188,7 @@ export class FirebaseNotificationService implements NotificationService {
       } else {
         Object.entries(message.content.title.content).forEach(
           ([lang, text]) => {
-            title[lang] = text as string
+            title[lang] = text
           },
         )
       }
@@ -201,7 +201,7 @@ export class FirebaseNotificationService implements NotificationService {
       } else {
         Object.entries(message.content.description.content).forEach(
           ([lang, text]) => {
-            body[lang] = text as string
+            body[lang] = text
           },
         )
       }
