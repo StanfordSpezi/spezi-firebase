@@ -44,7 +44,7 @@
     "typedoc": "^0.25",
     "typescript": "^5"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@types/fhir": "^0.0.41",
     "zod": "^3.25.56"
   }
