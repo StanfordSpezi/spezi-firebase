@@ -37,7 +37,7 @@ const patientLinkTypeSchema = z.enum([
 ])
 export type PatientLinkType = z.infer<typeof patientLinkTypeSchema>
 
-export const patientSchema = z.lazy(() =>
+export const untypedPatientSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Patient').readonly(),
     identifier: identifierSchema.array().optional(),
@@ -93,3 +93,5 @@ export const patientSchema = z.lazy(() =>
       .optional(),
   }),
 ) satisfies ZodType<Patient>
+
+export const patientSchema: ZodType<Patient> = untypedPatientSchema

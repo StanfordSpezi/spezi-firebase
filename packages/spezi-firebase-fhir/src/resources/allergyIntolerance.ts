@@ -56,7 +56,7 @@ export type AllergyIntoleranceReactionSeverity = z.infer<
   typeof allergyIntoleranceReactionSeveritySchema
 >
 
-export const allergyIntoleranceSchema = z.lazy(() =>
+export const untypedAllergyIntoleranceSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('AllergyIntolerance').readonly(),
     identifier: identifierSchema.array().optional(),
@@ -99,3 +99,6 @@ export const allergyIntoleranceSchema = z.lazy(() =>
       .optional(),
   }),
 ) satisfies ZodType<AllergyIntolerance>
+
+export const allergyIntoleranceSchema: ZodType<AllergyIntolerance> =
+  untypedAllergyIntoleranceSchema

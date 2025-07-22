@@ -62,7 +62,7 @@ export type MedicationRequestPriority = z.infer<
   typeof medicationRequestPrioritySchema
 >
 
-export const medicationRequestSchema = z.lazy(() =>
+export const untypedMedicationRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('MedicationRequest'),
     identifier: identifierSchema.array().optional(),
@@ -126,3 +126,6 @@ export const medicationRequestSchema = z.lazy(() =>
     eventHistory: referenceSchema.array().optional(),
   }),
 ) satisfies ZodType<MedicationRequest>
+
+export const medicationRequestSchema: ZodType<MedicationRequest> =
+  untypedMedicationRequestSchema

@@ -83,7 +83,7 @@ export type QuestionnaireResponseStatus = z.infer<
   typeof questionnaireResponseStatusSchema
 >
 
-export const questionnaireResponseSchema = z.lazy(() =>
+export const untypedQuestionnaireResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('QuestionnaireResponse').readonly(),
     identifier: identifierSchema.optional(),
@@ -102,3 +102,6 @@ export const questionnaireResponseSchema = z.lazy(() =>
     item: questionnaireResponseItemSchema.array().optional(),
   }),
 ) satisfies ZodType<QuestionnaireResponse>
+
+export const questionnaireResponseSchema: ZodType<QuestionnaireResponse> =
+  untypedQuestionnaireResponseSchema

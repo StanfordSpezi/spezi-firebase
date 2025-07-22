@@ -28,7 +28,7 @@ export const medicationStatusSchema = z.enum([
   'entered-in-error',
 ])
 
-export const medicationSchema = z.lazy(() =>
+export const untypedMedicationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Medication').readonly(),
     identifier: identifierSchema.array().optional(),
@@ -56,3 +56,5 @@ export const medicationSchema = z.lazy(() =>
     }),
   }),
 ) satisfies ZodType<Medication>
+
+export const medicationSchema: ZodType<Medication> = untypedMedicationSchema

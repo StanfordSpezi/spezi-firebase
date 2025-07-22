@@ -56,7 +56,7 @@ export type AppointmentParticipantStatus = z.infer<
   typeof appointmentParticipantStatusSchema
 >
 
-export const appointmentSchema = z.lazy(() =>
+export const untypedAppointmentSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Appointment').readonly(),
     identifier: identifierSchema.array().optional(),
@@ -101,3 +101,5 @@ export const appointmentSchema = z.lazy(() =>
     requestPeriod: periodSchema.array().optional(),
   }),
 ) satisfies ZodType<Appointment>
+
+export const appointmentSchema: ZodType<Appointment> = untypedAppointmentSchema

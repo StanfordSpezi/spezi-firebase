@@ -40,7 +40,7 @@ const observationStatusSchema = z.enum([
 ])
 export type ObservationStatus = z.infer<typeof observationStatusSchema>
 
-export const observationSchema = z.lazy(() =>
+export const untypedObservationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Observation'),
     identifier: identifierSchema.array().optional(),
@@ -129,3 +129,5 @@ export const observationSchema = z.lazy(() =>
       .optional(),
   }),
 ) satisfies ZodType<Observation>
+
+export const observationSchema: ZodType<Observation> = untypedObservationSchema

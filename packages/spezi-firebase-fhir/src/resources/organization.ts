@@ -22,7 +22,7 @@ import {
   stringSchema,
 } from '../elements/index.js'
 
-export const organizationSchema = z.lazy(() =>
+export const untypedOrganizationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Organization').readonly(),
     identifier: identifierSchema.array().optional(),
@@ -48,3 +48,6 @@ export const organizationSchema = z.lazy(() =>
     endpoint: referenceSchema.array().optional(),
   }),
 ) satisfies ZodType<Organization>
+
+export const organizationSchema: ZodType<Organization> =
+  untypedOrganizationSchema
