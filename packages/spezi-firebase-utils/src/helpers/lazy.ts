@@ -11,12 +11,18 @@
  * The factory function is only called when the value is first accessed.
  */
 export class Lazy<T> {
+  // Properties
+
   private _factory?: () => T
   private _value?: T
+
+  // Constructor
 
   constructor(factory: () => T) {
     this._factory = factory
   }
+
+  // Accessors
 
   get value(): T {
     if (this._value === undefined && this._factory) {

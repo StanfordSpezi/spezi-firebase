@@ -11,7 +11,6 @@ import {
   LocalizedText,
   average,
   chunks,
-  capitalize,
   advanceDateByDays,
   optionalish,
   optionalishDefault,

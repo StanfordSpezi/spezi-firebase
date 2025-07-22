@@ -1,6 +1,6 @@
 <!--
 
-This source file is part of the Stanford Biodesign Digital Health Spezi Firebae open-source project
+This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
 
 SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see CONTRIBUTORS.md)
 
@@ -8,19 +8,14 @@ SPDX-License-Identifier: MIT
 
 -->
 
-# Spezi Firebase
+# Spezi Firebase Remote Notifications
 
 [![Build and Test](https://github.com/StanfordSpezi/spezi-firebase/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/StanfordSpezi/spezi-firebase/actions/workflows/build-and-test.yml)
 [![codecov](https://codecov.io/gh/StanfordSpezi/spezi-firebase/graph/badge.svg)](https://codecov.io/gh/StanfordSpezi/spezi-firebase)
 
-A collection of Firebase utilities and further components to kickstart the development for firebase-related functions in the Stanford Spezi Ecosystem.
+A standalone package for handling Firebase Cloud Messaging (FCM) remote notifications in Spezi applications. This package provides a complete solution for managing device registration, sending multi-language notifications, and handling message delivery across different platforms.
 
-## Repository Structure
-
-This repository is organized as an npm workspace containing two main packages:
-
-- **spezi-firebase-utils** (`packages/spezi-firebase-utils`): Base utility functions for Firebase projects
-- **spezi-firebase-cloud-messaging** (`packages/spezi-firebase-cloud-messaging`): Firebase Cloud Messaging (FCM) remote notifications package that builds on the utilities
+This package is part of the [Spezi Firebase](https://github.com/StanfordSpezi/spezi-firebase) project and depends on the `spezi-firebase-utils` package for core utilities.
 
 ## Features
 
@@ -33,59 +28,9 @@ This repository is organized as an npm workspace containing two main packages:
 
 ## Installation
 
-### For End Users
-
-Install the packages you need:
-
 ```bash
-# For Firebase Cloud Messaging functionality
 npm install @stanfordspezi/spezi-firebase-cloud-messaging
-
-# For Firebase utilities only
-npm install @stanfordspezi/spezi-firebase-utils
 ```
-
-### For Development
-
-This project uses [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) for managing multiple packages. To set up the development environment:
-
-1. **Clone the repository**:
-
-   ```bash
-   git clone https://github.com/StanfordSpezi/spezi-firebase.git
-   cd spezi-firebase
-   ```
-
-2. **Install dependencies**:
-
-   ```bash
-   npm install
-   ```
-
-   This will install dependencies for all workspace packages.
-
-3. **Build all packages**:
-
-   ```bash
-   npm run build
-   ```
-
-4. **Run tests**:
-   ```bash
-   npm test
-   ```
-
-#### Workspace Commands
-
-For more advanced development, you can use npm workspace commands:
-
-- **Build all packages**: `npm run build --workspaces`
-- **Build specific package**: `npm run build -w @stanfordspezi/spezi-firebase-utils`
-- **Test all packages**: `npm run test --workspaces`
-- **Test specific package**: `npm run test -w @stanfordspezi/spezi-firebase-cloud-messaging`
-- **Start development mode**: `npm run dev`
-
-Learn more about npm workspaces in the [official documentation](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
 
 ## Quick Start
 

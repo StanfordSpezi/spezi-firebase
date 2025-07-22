@@ -1,7 +1,7 @@
 {
-  "name": "@stanfordspezi/spezi-firebase-cloud-messaging",
+  "name": "@stanfordspezi/spezi-firebase-fhir",
   "version": "0.1.0",
-  "description": "Firebase Cloud Messaging (FCM) remote notifications package for Spezi",
+  "description": "Firebase fhir package for Spezi",
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -26,17 +26,14 @@
   "keywords": [
     "spezi",
     "firebase",
-    "fcm",
-    "notifications",
-    "push",
-    "messaging"
+    "fhir"
   ],
   "author": "Stanford University",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/StanfordSpezi/spezi-firebase.git",
-    "directory": "packages/spezi-firebase-cloud-messaging"
+    "directory": "packages/spezi-firebase-fhir"
   },
   "dependencies": {
     "firebase-admin": "^12.0",
