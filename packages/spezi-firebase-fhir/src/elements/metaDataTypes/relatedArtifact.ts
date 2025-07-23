@@ -7,7 +7,7 @@
 //
 
 import { type RelatedArtifact } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod/v4'
+import { z, type ZodType } from 'zod'
 import { attachmentSchema } from '../dataTypes/attachment.js'
 import { stringSchema, urlSchema } from '../dataTypes/primitiveTypes.js'
 import { elementSchema } from '../element.js'

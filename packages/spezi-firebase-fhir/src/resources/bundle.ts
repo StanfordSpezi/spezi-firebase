@@ -7,7 +7,7 @@
 //
 
 import { type Bundle, type DomainResource } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod/v4'
+import { z, type ZodType } from 'zod'
 import { fhirResourceSchema } from './fhirResource.js'
 import {
   backboneElementSchema,

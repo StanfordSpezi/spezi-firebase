@@ -7,7 +7,7 @@
 //
 
 import { type MedicationRequest } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod/v4'
+import { z, type ZodType } from 'zod'
 import {
   annotationSchema,
   backboneElementSchema,
