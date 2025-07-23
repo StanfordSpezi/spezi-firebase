@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type z, type ZodType } from 'zod/v4'
+import { type z, type ZodType } from 'zod'
 
 export type Forward<S> = // eslint-disable-next-line @typescript-eslint/no-explicit-any
   S extends BidirectionalSchema<infer Forward, any> ? Forward : never

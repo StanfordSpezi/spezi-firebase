@@ -41,7 +41,7 @@ export const messageConverter = new SchemaConverter<Message, z.ZodType>({
       action: optionalish(z.string()),
       isDismissible: z.boolean(),
       reference: optionalish(z.string()),
-      data: optionalish(z.record(z.string())),
+      data: optionalish(z.record(z.string(), z.string())),
     })
     .transform((content) => {
       // Create a properly typed instance with correct transformation

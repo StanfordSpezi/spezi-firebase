@@ -15,7 +15,7 @@ import { SchemaConverter } from '../helpers/schemaConverter.js'
 export const localizedTextConverter = new SchemaConverter({
   schema: z
     .string()
-    .or(z.record(z.string()))
+    .or(z.record(z.string(), z.string()))
     .transform((content) => new LocalizedText(content)),
   encode: (object) => object.content,
 })
