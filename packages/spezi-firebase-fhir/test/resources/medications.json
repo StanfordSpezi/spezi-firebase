@@ -37,7 +37,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -81,7 +81,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -151,7 +151,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -195,7 +195,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -317,7 +317,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -361,7 +361,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -431,7 +431,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -475,7 +475,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -545,7 +545,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -589,7 +589,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -659,7 +659,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -703,7 +703,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -773,7 +773,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -817,7 +817,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -887,7 +887,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -931,7 +931,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1001,7 +1001,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1045,7 +1045,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1115,7 +1115,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1159,7 +1159,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1255,7 +1255,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1299,7 +1299,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1369,7 +1369,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1413,7 +1413,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1483,7 +1483,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1527,7 +1527,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1597,7 +1597,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1641,7 +1641,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1711,7 +1711,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1755,7 +1755,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1825,7 +1825,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1869,7 +1869,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1939,7 +1939,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -1983,7 +1983,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2053,7 +2053,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2097,7 +2097,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2167,7 +2167,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2211,7 +2211,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2281,7 +2281,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2325,7 +2325,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2395,7 +2395,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2439,7 +2439,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2509,7 +2509,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2553,7 +2553,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2623,7 +2623,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2667,7 +2667,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2737,7 +2737,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2781,7 +2781,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2851,7 +2851,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2895,7 +2895,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -2965,7 +2965,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3009,7 +3009,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3079,7 +3079,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3123,7 +3123,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3193,7 +3193,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3243,7 +3243,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3343,7 +3343,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3387,7 +3387,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3457,7 +3457,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3501,7 +3501,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3571,7 +3571,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/minimumDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
@@ -3615,7 +3615,7 @@
       },
       {
         "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/Medication/extension/targetDailyDose",
-        "valueMedicationRequest": {
+        "valueString": {
           "extension": [
             {
               "url": "http://engagehf.bdh.stanford.edu/fhir/StructureDefinition/MedicationRequest/extension/totalDailyDose",
