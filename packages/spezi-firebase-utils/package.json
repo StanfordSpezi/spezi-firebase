@@ -42,7 +42,7 @@
     "LICENSE"
   ],
   "dependencies": {
-    "zod": "^3.25"
+    "zod": "^4.0.5"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",

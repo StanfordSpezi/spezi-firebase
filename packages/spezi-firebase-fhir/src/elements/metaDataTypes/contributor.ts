@@ -7,7 +7,7 @@
 //
 
 import { type Contributor } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod/v4'
+import { z, type ZodType } from 'zod'
 import { contactDetailSchema } from './contactDetail.js'
 import { stringSchema } from '../dataTypes/primitiveTypes.js'
 import { elementSchema } from '../element.js'

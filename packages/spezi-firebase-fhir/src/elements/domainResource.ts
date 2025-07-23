@@ -7,7 +7,7 @@
 //
 
 import { type DomainResource } from 'fhir/r4b.js'
-import { type ZodType } from 'zod/v4'
+import { type ZodType } from 'zod'
 import { narrativeSchema } from './dataTypes/narrative.js'
 import { extensionSchema } from './extension.js'
 import { resourceSchema } from './resource.js'

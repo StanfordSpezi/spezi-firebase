@@ -7,7 +7,7 @@
 //
 
 import { type Identifier } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod/v4'
+import { z, type ZodType } from 'zod'
 import { codeableConceptSchema } from './codeableConcept.js'
 import { periodSchema } from './period.js'
 import { stringSchema, uriSchema } from './primitiveTypes.js'
