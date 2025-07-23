@@ -1,6 +1,6 @@
 {
   "name": "@stanfordspezi/spezi-firebase-cloud-messaging",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Firebase Cloud Messaging (FCM) remote notifications package for Spezi",
   "type": "module",
   "main": "./lib/index.js",
