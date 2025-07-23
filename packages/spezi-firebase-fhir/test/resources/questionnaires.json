@@ -26,9 +26,7 @@
     "language": "en-US",
     "status": "active",
     "publisher": "Stanford Biodesign Digital Health",
-    "subjectType": [
-      "Patient"
-    ],
+    "subjectType": ["Patient"],
     "useContext": [
       {
         "code": {
@@ -1467,9 +1465,7 @@
     "language": "en-US",
     "status": "active",
     "publisher": "Stanford Biodesign Digital Health",
-    "subjectType": [
-      "Patient"
-    ],
+    "subjectType": ["Patient"],
     "useContext": [],
     "contact": [
       {
@@ -4658,9 +4654,7 @@
     "language": "en-US",
     "status": "active",
     "publisher": "Stanford Biodesign Digital Health",
-    "subjectType": [
-      "Patient"
-    ],
+    "subjectType": ["Patient"],
     "useContext": [],
     "contact": [
       {
@@ -7776,9 +7770,7 @@
     "language": "en-US",
     "status": "active",
     "publisher": "Stanford Biodesign Digital Health",
-    "subjectType": [
-      "Patient"
-    ],
+    "subjectType": ["Patient"],
     "useContext": [],
     "contact": [
       {
