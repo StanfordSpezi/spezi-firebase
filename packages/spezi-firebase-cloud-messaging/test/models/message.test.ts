@@ -138,7 +138,7 @@ describe('Message Model', () => {
   describe('Message Converter', () => {
     test('should encode a Message instance properly', () => {
       const message = new Message(validMessageData)
-      const encoded = messageConverter.encode(message)
+      const encoded = messageConverter.encode(message) as any
 
       expect(encoded).not.toBeNull()
       expect(typeof encoded).toBe('object')
@@ -159,7 +159,7 @@ describe('Message Model', () => {
       }
 
       const message = new Message(messageData)
-      const encoded = messageConverter.encode(message)
+      const encoded = messageConverter.encode(message) as any
 
       expect(encoded).not.toBeNull()
       expect(typeof encoded).toBe('object')
