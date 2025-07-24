@@ -7,7 +7,7 @@
 //
 
 import { type TriggerDefinition } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod/v4'
+import { z, type ZodType } from 'zod'
 import { dataRequirementSchema } from './dataRequirement.js'
 import { expressionSchema } from './expression.js'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'

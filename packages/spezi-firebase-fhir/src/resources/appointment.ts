@@ -7,7 +7,7 @@
 //
 
 import { type Appointment } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod/v4'
+import { z, type ZodType } from 'zod'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   backboneElementSchema,

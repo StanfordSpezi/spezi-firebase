@@ -7,7 +7,7 @@
 //
 
 import { type DataRequirement } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod/v4'
+import { z, type ZodType } from 'zod'
 import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
 import { codingSchema } from '../dataTypes/coding.js'
 import { periodSchema } from '../dataTypes/period.js'

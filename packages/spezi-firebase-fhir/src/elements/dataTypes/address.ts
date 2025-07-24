@@ -7,7 +7,7 @@
 //
 
 import { type Address } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod/v4'
+import { z, type ZodType } from 'zod'
 import { periodSchema } from './period.js'
 import { stringSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
