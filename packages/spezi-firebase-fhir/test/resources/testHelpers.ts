@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-export function jsonStringifyDeterministically(value: unknown): string {
+export function jsonStringifyDeterministically(object: unknown): string {
   return JSON.stringify(
-    value,
+    object,
     (_, value) => {
       if (value && typeof value === 'object' && !Array.isArray(value)) {
         return Object.keys(value)
