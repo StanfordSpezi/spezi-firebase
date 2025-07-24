@@ -10,12 +10,10 @@ import fs from 'fs'
 import { observationSchema } from '../../src/resources/observation.js'
 
 describe('Observation Resource', () => {
-  it('should be able to parse a valid observation resource', () => {
-    const fileData = fs.readFileSync(__dirname + '/observation.json', 'utf-8')
-    const json = JSON.parse(fileData)
-    const observation = observationSchema.parse(json)
-    console.log(JSON.stringify(observation, undefined, 2))
-    expect(observation).toBeDefined()
-    expect(observation.resourceType).toBe('Observation')
+  it('should validate FHIR observation from observation.json', () => {
+    const data = fs.readFileSync(__dirname + '/observation.json', 'utf-8')
+    const decodedJson = JSON.parse(data)
+    const fhirResource = observationSchema.parse(decodedJson)
+    expect(JSON.stringify(decodedJson)).toBe(JSON.stringify(fhirResource))
   })
 })

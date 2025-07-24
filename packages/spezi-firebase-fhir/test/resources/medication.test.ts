@@ -7,27 +7,19 @@
 //
 
 import fs from 'fs'
+import { medicationSchema } from '../../src/resources/medication.js'
 
 describe('Medication Resource', () => {
-  it('should be able to load medication resources and validate structure', () => {
-    const fileData = fs.readFileSync(__dirname + '/medications.json', 'utf-8')
-    const json = JSON.parse(fileData)
-
-    // The medications.json contains an object with medication IDs as keys
-    expect(typeof json).toBe('object')
-    expect(json).not.toBeNull()
-
-    const medicationIds = Object.keys(json)
-    expect(medicationIds.length).toBeGreaterThan(0)
-
-    medicationIds.forEach((id: string) => {
-      const medicationData = json[id]
-      expect(medicationData).toBeDefined()
-      expect(medicationData.resourceType).toBe('Medication')
-      expect(medicationData.id).toBeTruthy()
-      console.log(`Medication ${id}:`, medicationData.id || 'No ID')
+  it('should validate FHIR medications from drugs.json', () => {
+    const data = fs.readFileSync(__dirname + '/drugs.json', 'utf-8')
+    const decodedJson = JSON.parse(data)
+    
+    // drugs.json contains nested structure: {categoryId: {drugId: medicationResource}}
+    Object.values(decodedJson).forEach((categoryData: any) => {
+      Object.values(categoryData).forEach((medicationData: any) => {
+        const fhirResource = medicationSchema.parse(medicationData)
+        expect(JSON.stringify(medicationData)).toBe(JSON.stringify(fhirResource))
+      })
     })
-
-    console.log(`Total medications loaded: ${medicationIds.length}`)
   })
 })

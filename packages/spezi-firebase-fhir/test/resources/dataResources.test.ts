@@ -10,58 +10,55 @@ import fs from 'fs'
 
 describe('Data Resources', () => {
   describe('Medication Classes', () => {
-    it('should be able to parse medication classes as generic JSON', () => {
-      const fileData = fs.readFileSync(
-        __dirname + '/medicationClasses.json',
-        'utf-8',
-      )
-      const json = JSON.parse(fileData)
-
-      expect(json).toBeDefined()
-      expect(Array.isArray(json)).toBe(true)
-      console.log(`Medication classes loaded: ${json.length} items`)
+    it('should load and validate medicationClasses.json structure', () => {
+      const data = fs.readFileSync(__dirname + '/medicationClasses.json', 'utf-8')
+      const decodedJson = JSON.parse(data)
+      
+      expect(Array.isArray(decodedJson)).toBe(true)
+      expect(decodedJson.length).toBeGreaterThan(0)
+      
+      decodedJson.forEach((medicationClass: any) => {
+        expect(medicationClass.name).toBeDefined()
+        expect(medicationClass.videoPath).toBeDefined()
+      })
     })
   })
 
   describe('Medication Codes', () => {
-    it('should be able to parse medication codes as generic JSON', () => {
-      const fileData = fs.readFileSync(
-        __dirname + '/medicationCodes.json',
-        'utf-8',
-      )
-      const json = JSON.parse(fileData)
-
-      expect(json).toBeDefined()
-      expect(Array.isArray(json)).toBe(true)
-      console.log(`Medication codes loaded: ${json.length} items`)
-    })
-  })
-
-  describe('Drugs', () => {
-    it('should be able to parse drugs as generic JSON', () => {
-      const fileData = fs.readFileSync(__dirname + '/drugs.json', 'utf-8')
-      const json = JSON.parse(fileData)
-
-      expect(json).toBeDefined()
-      expect(typeof json).toBe('object')
-      expect(json).not.toBeNull()
-
-      const drugIds = Object.keys(json)
-      console.log(`Drugs loaded: ${drugIds.length} items`)
+    it('should load and validate medicationCodes.json structure', () => {
+      const data = fs.readFileSync(__dirname + '/medicationCodes.json', 'utf-8')
+      const decodedJson = JSON.parse(data)
+      
+      expect(Array.isArray(decodedJson)).toBe(true)
+      expect(decodedJson.length).toBeGreaterThan(0)
+      
+      decodedJson.forEach((medicationCode: any) => {
+        expect(medicationCode.key).toBeDefined()
+        expect(Array.isArray(medicationCode.medications)).toBe(true)
+        
+        medicationCode.medications.forEach((medication: any) => {
+          expect(medication.code).toBeDefined()
+        })
+      })
     })
   })
 
   describe('Video Sections', () => {
-    it('should be able to parse video sections as generic JSON', () => {
-      const fileData = fs.readFileSync(
-        __dirname + '/videoSections.json',
-        'utf-8',
-      )
-      const json = JSON.parse(fileData)
-
-      expect(json).toBeDefined()
-      expect(Array.isArray(json)).toBe(true)
-      console.log(`Video sections loaded: ${json.length} items`)
+    it('should load and validate videoSections.json structure', () => {
+      const data = fs.readFileSync(__dirname + '/videoSections.json', 'utf-8')
+      const decodedJson = JSON.parse(data)
+      
+      expect(Array.isArray(decodedJson)).toBe(true)
+      expect(decodedJson.length).toBeGreaterThan(0)
+      
+      decodedJson.forEach((videoSection: any) => {
+        expect(videoSection.orderIndex).toBeDefined()
+        expect(typeof videoSection.orderIndex).toBe('number')
+        
+        if (videoSection.videos) {
+          expect(Array.isArray(videoSection.videos)).toBe(true)
+        }
+      })
     })
   })
 })

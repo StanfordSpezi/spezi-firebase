@@ -7,36 +7,17 @@
 //
 
 import fs from 'fs'
+import { questionnaireSchema } from '../../src/resources/questionnaire.js'
 
 describe('Questionnaire Resource', () => {
-  it('should be able to load questionnaire resources and validate structure', () => {
-    const fileData = fs.readFileSync(
-      __dirname + '/questionnaires.json',
-      'utf-8',
-    )
-    const json = JSON.parse(fileData)
-
-    // The questionnaires.json contains an object with questionnaire IDs as keys
-    expect(typeof json).toBe('object')
-    expect(json).not.toBeNull()
-
-    const questionnaireIds = Object.keys(json)
-    expect(questionnaireIds.length).toBeGreaterThan(0)
-
-    questionnaireIds.forEach((id: string) => {
-      const questionnaireData = json[id]
-      expect(questionnaireData).toBeDefined()
-      expect(questionnaireData.resourceType).toBe('Questionnaire')
-      expect(questionnaireData.id).toBeTruthy()
-      console.log(
-        `Questionnaire ${id}:`,
-        questionnaireData.title || questionnaireData.name || 'No title',
-      )
+  it('should validate FHIR questionnaires from questionnaires.json', () => {
+    const data = fs.readFileSync(__dirname + '/questionnaires.json', 'utf-8')
+    const decodedJson = JSON.parse(data)
+    
+    // questionnaires.json contains object with questionnaire IDs as keys
+    Object.values(decodedJson).forEach((questionnaireData: any) => {
+      const fhirResource = questionnaireSchema.parse(questionnaireData)
+      expect(JSON.stringify(questionnaireData)).toBe(JSON.stringify(fhirResource))
     })
-
-    console.log(`Total questionnaires loaded: ${questionnaireIds.length}`)
-    console.log(
-      'Note: Full schema validation may require cleaning null values.',
-    )
   })
 })
