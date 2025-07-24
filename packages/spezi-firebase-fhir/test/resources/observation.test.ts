@@ -7,8 +7,8 @@
 //
 
 import fs from 'fs'
-import { observationSchema } from '../../src/resources/observation.js'
 import { jsonStringifyDeterministically } from './testHelpers.js'
+import { observationSchema } from '../../src/resources/observation.js'
 
 describe('Observation Resource', () => {
   it('should validate FHIR observation from observation.json', () => {

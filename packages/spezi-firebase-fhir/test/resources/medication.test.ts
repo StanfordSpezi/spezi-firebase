@@ -7,8 +7,8 @@
 //
 
 import fs from 'fs'
-import { medicationSchema } from '../../src/resources/medication.js'
 import { jsonStringifyDeterministically } from './testHelpers.js'
+import { medicationSchema } from '../../src/resources/medication.js'
 
 describe('Medication Resource', () => {
   it('should validate FHIR medications from drugs.json', () => {

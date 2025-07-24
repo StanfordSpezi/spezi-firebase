@@ -48,12 +48,14 @@ export const untypedMedicationSchema = z.lazy(() =>
       })
       .array()
       .optional(),
-    batch: elementSchema.extend({
-      lotNumber: stringSchema.optional(),
-      _lotNumber: elementSchema.optional(),
-      expirationDate: dateTimeSchema.optional(),
-      _expirationDate: elementSchema.optional(),
-    }).optional(),
+    batch: elementSchema
+      .extend({
+        lotNumber: stringSchema.optional(),
+        _lotNumber: elementSchema.optional(),
+        expirationDate: dateTimeSchema.optional(),
+        _expirationDate: elementSchema.optional(),
+      })
+      .optional(),
   }),
 ) satisfies ZodType<Medication>
 

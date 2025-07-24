@@ -7,8 +7,8 @@
 //
 
 import fs from 'fs'
-import { questionnaireSchema } from '../../src/resources/questionnaire.js'
 import { jsonStringifyDeterministically } from './testHelpers.js'
+import { questionnaireSchema } from '../../src/resources/questionnaire.js'
 
 describe('Questionnaire Resource', () => {
   it('should validate FHIR questionnaires from questionnaires.json', () => {

@@ -19,7 +19,6 @@ import {
 } from './primitiveTypes.js'
 import { quantitySchema } from './quantity.js'
 import { rangeSchema } from './range.js'
-import { backboneElementSchema } from '../backBoneElement.js'
 import { elementSchema } from '../element.js'
 
 const timingRepeatDayOfWeekSchema = z.enum([

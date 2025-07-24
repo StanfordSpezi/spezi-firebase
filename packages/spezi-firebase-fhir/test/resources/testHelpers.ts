@@ -13,10 +13,10 @@ export function jsonStringifyDeterministically(value: unknown): string {
       if (value && typeof value === 'object' && !Array.isArray(value)) {
         return Object.keys(value)
           .sort()
-          .reduce((sorted, key) => {
+          .reduce<any>((sorted, key) => {
             sorted[key] = value[key]
             return sorted
-          }, {} as any)
+          }, {})
       }
       return value
     },
