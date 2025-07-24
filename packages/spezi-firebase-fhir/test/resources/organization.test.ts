@@ -13,11 +13,13 @@ describe('Organization Resource', () => {
   it('should validate FHIR organizations from organizations.json', () => {
     const data = fs.readFileSync(__dirname + '/organizations.json', 'utf-8')
     const decodedJson = JSON.parse(data)
-    
+
     // organizations.json contains object with organization IDs as keys
     Object.values(decodedJson).forEach((organizationData: any) => {
       const fhirResource = organizationSchema.parse(organizationData)
-      expect(JSON.stringify(organizationData)).toBe(JSON.stringify(fhirResource))
+      expect(JSON.stringify(organizationData)).toBe(
+        JSON.stringify(fhirResource),
+      )
     })
   })
 })

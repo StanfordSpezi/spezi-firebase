@@ -13,11 +13,13 @@ describe('Questionnaire Resource', () => {
   it('should validate FHIR questionnaires from questionnaires.json', () => {
     const data = fs.readFileSync(__dirname + '/questionnaires.json', 'utf-8')
     const decodedJson = JSON.parse(data)
-    
+
     // questionnaires.json contains object with questionnaire IDs as keys
     Object.values(decodedJson).forEach((questionnaireData: any) => {
       const fhirResource = questionnaireSchema.parse(questionnaireData)
-      expect(JSON.stringify(questionnaireData)).toBe(JSON.stringify(fhirResource))
+      expect(JSON.stringify(questionnaireData)).toBe(
+        JSON.stringify(fhirResource),
+      )
     })
   })
 })
