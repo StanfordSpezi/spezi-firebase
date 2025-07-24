@@ -8,6 +8,7 @@
 
 import fs from 'fs'
 import { medicationSchema } from '../../src/resources/medication.js'
+import { jsonStringifyDeterministically } from './testHelpers.js'
 
 describe('Medication Resource', () => {
   it('should validate FHIR medications from drugs.json', () => {
@@ -18,8 +19,8 @@ describe('Medication Resource', () => {
     Object.values(decodedJson).forEach((categoryData: any) => {
       Object.values(categoryData).forEach((medicationData: any) => {
         const fhirResource = medicationSchema.parse(medicationData)
-        expect(JSON.stringify(medicationData)).toBe(
-          JSON.stringify(fhirResource),
+        expect(jsonStringifyDeterministically(medicationData)).toBe(
+          jsonStringifyDeterministically(fhirResource),
         )
       })
     })

@@ -8,12 +8,15 @@
 
 import fs from 'fs'
 import { observationSchema } from '../../src/resources/observation.js'
+import { jsonStringifyDeterministically } from './testHelpers.js'
 
 describe('Observation Resource', () => {
   it('should validate FHIR observation from observation.json', () => {
     const data = fs.readFileSync(__dirname + '/observation.json', 'utf-8')
     const decodedJson = JSON.parse(data)
     const fhirResource = observationSchema.parse(decodedJson)
-    expect(JSON.stringify(decodedJson)).toBe(JSON.stringify(fhirResource))
+    expect(jsonStringifyDeterministically(decodedJson)).toBe(
+      jsonStringifyDeterministically(fhirResource),
+    )
   })
 })

@@ -45,7 +45,7 @@ const timingRepeatTimeUnitSchema = z.enum([
 export type TimingRepeatTimeUnit = z.infer<typeof timingRepeatTimeUnitSchema>
 
 export const timingSchema: ZodType<Timing> = z.lazy(() =>
-  backboneElementSchema.extend({
+  elementSchema.extend({
     event: dateTimeSchema.array().optional(),
     _event: elementSchema.array().optional(),
     repeat: elementSchema

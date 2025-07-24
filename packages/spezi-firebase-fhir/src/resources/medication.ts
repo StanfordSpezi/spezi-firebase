@@ -48,7 +48,7 @@ export const untypedMedicationSchema = z.lazy(() =>
       })
       .array()
       .optional(),
-    batch: backboneElementSchema.extend({
+    batch: elementSchema.extend({
       lotNumber: stringSchema.optional(),
       _lotNumber: elementSchema.optional(),
       expirationDate: dateTimeSchema.optional(),
