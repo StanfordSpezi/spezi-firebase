@@ -9,7 +9,7 @@
 export function jsonStringifyDeterministically(value: unknown): string {
   return JSON.stringify(
     value,
-    function replacer(key, value) {
+    (_, value) => {
       if (value && typeof value === 'object' && !Array.isArray(value)) {
         return Object.keys(value)
           .sort()
