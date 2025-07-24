@@ -1171,8 +1171,7 @@
             "linkId": "lab.2160-0.value",
             "type": "decimal",
             "text": "Creatinine (mg/dL):",
-            "required": true,
-            "unit": "mg/dL"
+            "required": true
           },
           {
             "linkId": "lab.2160-0.dateTime",
@@ -1255,8 +1254,7 @@
             "linkId": "lab.6298-4.value",
             "type": "decimal",
             "text": "Potassium (mEq/L):",
-            "required": true,
-            "unit": "mEq/L"
+            "required": true
           },
           {
             "linkId": "lab.6298-4.dateTime",
@@ -1339,8 +1337,7 @@
             "linkId": "lab.8340-2.value",
             "type": "decimal",
             "text": "Dry Weight (lbs):",
-            "required": true,
-            "unit": "lbs"
+            "required": true
           },
           {
             "linkId": "lab.8340-2.dateTime",
@@ -3184,8 +3181,7 @@
             "linkId": "lab.2160-0.value",
             "type": "decimal",
             "text": "Creatinine (mg/dL):",
-            "required": true,
-            "unit": "mg/dL"
+            "required": true
           },
           {
             "linkId": "lab.2160-0.dateTime",
@@ -3268,8 +3264,7 @@
             "linkId": "lab.6298-4.value",
             "type": "decimal",
             "text": "Potassium (mEq/L):",
-            "required": true,
-            "unit": "mEq/L"
+            "required": true
           },
           {
             "linkId": "lab.6298-4.dateTime",
@@ -3352,8 +3347,7 @@
             "linkId": "lab.8340-2.value",
             "type": "decimal",
             "text": "Dry Weight (lbs):",
-            "required": true,
-            "unit": "lbs"
+            "required": true
           },
           {
             "linkId": "lab.8340-2.dateTime",
@@ -5237,8 +5231,7 @@
             "linkId": "lab.2160-0.value",
             "type": "decimal",
             "text": "Creatinine (mg/dL):",
-            "required": true,
-            "unit": "mg/dL"
+            "required": true
           },
           {
             "linkId": "lab.2160-0.dateTime",
@@ -5321,8 +5314,7 @@
             "linkId": "lab.6298-4.value",
             "type": "decimal",
             "text": "Potassium (mEq/L):",
-            "required": true,
-            "unit": "mEq/L"
+            "required": true
           },
           {
             "linkId": "lab.6298-4.dateTime",
@@ -5405,8 +5397,7 @@
             "linkId": "lab.8340-2.value",
             "type": "decimal",
             "text": "Dry Weight (lbs):",
-            "required": true,
-            "unit": "lbs"
+            "required": true
           },
           {
             "linkId": "lab.8340-2.dateTime",
