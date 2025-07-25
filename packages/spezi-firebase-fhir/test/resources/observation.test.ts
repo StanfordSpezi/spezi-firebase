@@ -7,16 +7,16 @@
 //
 
 import fs from 'fs'
+import { jsonStringifyDeterministically } from './testHelpers.js'
 import { observationSchema } from '../../src/resources/observation.js'
 
-describe('Observation', () => {
-  it('should be able to parse a valid observation resource', () => {
-    const fileData = fs.readFileSync(__dirname + '/observation.json', 'utf-8')
-    const json = JSON.parse(fileData)
-    // console.log(domainResourceSchema)
-    // console.log(observationSchema)
-    const observation = observationSchema.parse(json)
-    console.log(JSON.stringify(observation, undefined, 2))
-    // expect(observation).toBeDefined()
+describe('Observation Resource', () => {
+  it('should validate FHIR observation from observation.json', () => {
+    const data = fs.readFileSync(__dirname + '/observation.json', 'utf-8')
+    const decodedJson = JSON.parse(data)
+    const fhirResource = observationSchema.parse(decodedJson)
+    expect(jsonStringifyDeterministically(decodedJson)).toBe(
+      jsonStringifyDeterministically(fhirResource),
+    )
   })
 })

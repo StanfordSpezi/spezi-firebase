@@ -32,7 +32,7 @@ import {
 
 const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
   z.lazy(() =>
-    backboneElementSchema.extend({
+    elementSchema.extend({
       linkId: stringSchema,
       _linkId: elementSchema.optional(),
       definition: uriSchema.optional(),

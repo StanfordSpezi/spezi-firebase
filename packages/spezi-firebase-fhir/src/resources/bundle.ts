@@ -10,7 +10,6 @@ import { type Bundle, type DomainResource } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { fhirResourceSchema } from './fhirResource.js'
 import {
-  backboneElementSchema,
   decimalSchema,
   elementSchema,
   identifierSchema,
@@ -22,7 +21,7 @@ import {
 } from '../elements/index.js'
 import { resourceSchema } from '../elements/resource.js'
 
-const bundleLinkSchema = backboneElementSchema.extend({
+const bundleLinkSchema = elementSchema.extend({
   relation: stringSchema,
   _relation: elementSchema.optional(),
   url: uriSchema,
@@ -68,18 +67,18 @@ export function bundleSchema<R extends DomainResource>(
     _timestamp: elementSchema.optional(),
     total: unsignedIntSchema.optional(),
     link: bundleLinkSchema.array().optional(),
-    entry: backboneElementSchema
+    entry: elementSchema
       .extend({
         link: bundleLinkSchema.array().optional(),
         fullUrl: uriSchema.optional(),
         _fullUrl: elementSchema.optional(),
         resource: schema.optional(),
-        search: backboneElementSchema.extend({
+        search: elementSchema.extend({
           mode: bundleEntrySearchModeSchema.optional(),
           _mode: elementSchema.optional(),
           score: decimalSchema.optional(),
         }),
-        request: backboneElementSchema.extend({
+        request: elementSchema.extend({
           method: bundleEntryRequestMethodSchema,
           _method: elementSchema.optional(),
           url: uriSchema,
@@ -93,7 +92,7 @@ export function bundleSchema<R extends DomainResource>(
           ifNoneMatch: stringSchema.optional(),
           _ifNoneMatch: elementSchema.optional(),
         }),
-        response: backboneElementSchema.extend({
+        response: elementSchema.extend({
           status: stringSchema,
           _status: elementSchema.optional(),
           location: uriSchema.optional(),

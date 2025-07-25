@@ -33,7 +33,7 @@ export const untypedMedicationSchema = z.lazy(() =>
     resourceType: z.literal('Medication').readonly(),
     identifier: identifierSchema.array().optional(),
     code: codeableConceptSchema.optional(),
-    status: medicationStatusSchema,
+    status: medicationStatusSchema.optional(),
     _status: elementSchema.optional(),
     manufacturer: referenceSchema.optional(),
     form: codeableConceptSchema.optional(),
@@ -48,12 +48,14 @@ export const untypedMedicationSchema = z.lazy(() =>
       })
       .array()
       .optional(),
-    batch: backboneElementSchema.extend({
-      lotNumber: stringSchema.optional(),
-      _lotNumber: elementSchema.optional(),
-      expirationDate: dateTimeSchema.optional(),
-      _expirationDate: elementSchema.optional(),
-    }),
+    batch: elementSchema
+      .extend({
+        lotNumber: stringSchema.optional(),
+        _lotNumber: elementSchema.optional(),
+        expirationDate: dateTimeSchema.optional(),
+        _expirationDate: elementSchema.optional(),
+      })
+      .optional(),
   }),
 ) satisfies ZodType<Medication>
 
