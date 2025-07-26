@@ -19,7 +19,6 @@ import {
 } from './primitiveTypes.js'
 import { quantitySchema } from './quantity.js'
 import { rangeSchema } from './range.js'
-import { backboneElementSchema } from '../backBoneElement.js'
 import { elementSchema } from '../element.js'
 
 const timingRepeatDayOfWeekSchema = z.enum([
@@ -45,7 +44,7 @@ const timingRepeatTimeUnitSchema = z.enum([
 export type TimingRepeatTimeUnit = z.infer<typeof timingRepeatTimeUnitSchema>
 
 export const timingSchema: ZodType<Timing> = z.lazy(() =>
-  backboneElementSchema.extend({
+  elementSchema.extend({
     event: dateTimeSchema.array().optional(),
     _event: elementSchema.array().optional(),
     repeat: elementSchema

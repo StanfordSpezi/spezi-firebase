@@ -194,6 +194,8 @@ export const untypedQuestionnaireSchema = z.lazy(() =>
     _status: elementSchema.optional(),
     experimental: booleanSchema.optional(),
     _experimental: elementSchema.optional(),
+    subjectType: stringSchema.array().optional(),
+    _subjectType: elementSchema.array().optional(),
     date: dateTimeSchema.optional(),
     _date: elementSchema.optional(),
     publisher: stringSchema.optional(),
