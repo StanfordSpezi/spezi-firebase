@@ -1,6 +1,6 @@
 {
   "name": "@stanfordspezi/spezi-firebase-fhir",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Firebase fhir package for Spezi",
   "type": "module",
   "main": "./lib/index.js",

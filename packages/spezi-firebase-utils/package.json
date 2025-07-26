@@ -1,6 +1,6 @@
 {
   "name": "@stanfordspezi/spezi-firebase-utils",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Utility functions for Firebase projects",
   "type": "module",
   "main": "lib/index.js",
