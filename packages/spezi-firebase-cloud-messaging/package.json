@@ -38,6 +38,11 @@
     "url": "https://github.com/StanfordSpezi/spezi-firebase.git",
     "directory": "packages/spezi-firebase-cloud-messaging"
   },
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "firebase-admin": "^12.0",
     "@stanfordspezi/spezi-firebase-utils": "^0.1.0",
