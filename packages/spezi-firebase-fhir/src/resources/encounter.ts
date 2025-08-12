@@ -6,7 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import z, { type ZodType } from 'zod'
+import { type Encounter } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod'
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -19,7 +20,6 @@ import {
   quantitySchema,
   referenceSchema,
 } from '../elements/index.js'
-import { Encounter } from 'fhir/r4b.js'
 
 export const encounterStatusSchema = z.enum([
   'planned',

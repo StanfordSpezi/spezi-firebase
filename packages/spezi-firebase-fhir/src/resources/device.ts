@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import z, { type ZodType } from 'zod'
-import { Device } from 'fhir/r4b.js'
+import { type Device } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod'
 import {
   annotationSchema,
   backboneElementSchema,

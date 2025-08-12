@@ -6,7 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import z, { type ZodType } from 'zod'
+import { type DiagnosticReport } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   attachmentSchema,
@@ -18,7 +19,6 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
-import { DiagnosticReport } from 'fhir/r4b.js'
 
 export const diagnosticReportStatusSchema = z.enum([
   'registered',

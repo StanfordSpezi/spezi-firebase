@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import z, { type ZodType } from 'zod'
-import { ServiceRequest } from 'fhir/r4b.js'
+import { type ServiceRequest } from 'fhir/r4b.js'
+import { z, type ZodType } from 'zod'
 import {
   annotationSchema,
   booleanSchema,
