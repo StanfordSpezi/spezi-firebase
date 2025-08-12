@@ -12,7 +12,7 @@ import { questionnaireSchema } from '../../src/resources/questionnaire.js'
 
 describe('Questionnaire Resource', () => {
   it('should validate FHIR questionnaires from questionnaires.json', () => {
-    const data = fs.readFileSync(__dirname + '/questionnaires.json', 'utf-8')
+    const data = fs.readFileSync('test/resources/questionnaires.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

@@ -16,9 +16,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run watch -w @stanfordspezi/spezi-firebase-cloud-messaging",
     "prebuild": "npm run build --workspaces",
     "build": "npm run build --workspaces",
+    "build:fhir": "npm run build -w @stanfordspezi/spezi-firebase-fhir",
     "build:utils": "npm run build -w @stanfordspezi/spezi-firebase-utils",
     "build:cloud-messaging": "npm run build -w @stanfordspezi/spezi-firebase-cloud-messaging",
     "lint": "eslint .",
@@ -27,6 +27,7 @@
     "lint:strict": "npm run prebuild && eslint . --max-warnings=0",
     "pretest": "npm run build",
     "test": "npm run test --workspaces",
+    "test:fhir": "npm run test -w @stanfordspezi/spezi-firebase-fhir",
     "test:utils": "npm run test -w @stanfordspezi/spezi-firebase-utils",
     "test:cloud-messaging": "npm run test -w @stanfordspezi/spezi-firebase-cloud-messaging",
     "docs": "typedoc",

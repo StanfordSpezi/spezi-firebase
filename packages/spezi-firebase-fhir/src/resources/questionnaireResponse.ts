@@ -32,7 +32,7 @@ import {
 
 const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
   z.lazy(() =>
-    elementSchema.extend({
+    backboneElementSchema.extend({
       linkId: stringSchema,
       _linkId: elementSchema.optional(),
       definition: uriSchema.optional(),
@@ -79,9 +79,6 @@ const questionnaireResponseStatusSchema = z.enum([
   'amended',
   'entered-in-error',
 ])
-export type QuestionnaireResponseStatus = z.infer<
-  typeof questionnaireResponseStatusSchema
->
 
 export const untypedQuestionnaireResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({

@@ -13,10 +13,7 @@ import { stringSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
 const addressTypeSchema = z.enum(['postal', 'physical', 'both'])
-export type AddressType = z.infer<typeof addressTypeSchema>
-
 const addressUseSchema = z.enum(['home', 'work', 'temp', 'old', 'billing'])
-export type AddressUse = z.infer<typeof addressUseSchema>
 
 export const addressSchema: ZodType<Address> = z.lazy(() =>
   elementSchema.extend({

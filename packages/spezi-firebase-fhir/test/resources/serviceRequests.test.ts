@@ -11,7 +11,7 @@ import { serviceRequestSchema } from '../../src/index.js'
 
 describe('ServiceRequest Resource', () => {
   it('should validate FHIR ServiceRequest from serviceRequests.json', () => {
-    const data = fs.readFileSync(__dirname + '/serviceRequests.json', 'utf-8')
+    const data = fs.readFileSync('test/resources/serviceRequests.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

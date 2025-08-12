@@ -11,7 +11,7 @@ import { encounterSchema } from '../../src/index.js'
 
 describe('Encounter Resource', () => {
   it('should validate FHIR Encounters from encounters.json', () => {
-    const data = fs.readFileSync(__dirname + '/encounters.json', 'utf-8')
+    const data = fs.readFileSync('test/resources/encounters.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

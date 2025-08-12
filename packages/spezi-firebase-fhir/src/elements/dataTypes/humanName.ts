@@ -12,7 +12,7 @@ import { periodSchema } from './period.js'
 import { stringSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
-export const humanNameUseSchema = z.enum([
+const humanNameUseSchema = z.enum([
   'usual',
   'official',
   'temp',
@@ -21,7 +21,6 @@ export const humanNameUseSchema = z.enum([
   'old',
   'maiden',
 ])
-export type HumanNameUse = z.infer<typeof humanNameUseSchema>
 
 export const humanNameSchema: ZodType<HumanName> = z.lazy(() =>
   elementSchema.extend({

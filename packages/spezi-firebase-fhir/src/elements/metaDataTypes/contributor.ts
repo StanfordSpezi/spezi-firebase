@@ -18,7 +18,6 @@ const contributorTypeSchema = z.enum([
   'reviewer',
   'endorser',
 ])
-export type ContributorType = z.infer<typeof contributorTypeSchema>
 
 export const contributorSchema: ZodType<Contributor> = z.lazy(() =>
   elementSchema.extend({

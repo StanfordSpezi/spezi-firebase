@@ -11,6 +11,7 @@ import { z, type ZodType } from 'zod'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   attachmentSchema,
+  backboneElementSchema,
   booleanSchema,
   codeableConceptSchema,
   codingSchema,
@@ -37,7 +38,6 @@ const questionnaireStatusSchema = z.enum([
   'retired',
   'unknown',
 ])
-export type QuestionnaireStatus = z.infer<typeof questionnaireStatusSchema>
 
 const questionnaireItemTypeSchema = z.enum([
   'group',
@@ -57,12 +57,8 @@ const questionnaireItemTypeSchema = z.enum([
   'reference',
   'quantity',
 ])
-export type QuestionnaireItemType = z.infer<typeof questionnaireItemTypeSchema>
 
 const questionnaireItemEnableBehaviorSchema = z.enum(['all', 'any'])
-export type QuestionnaireItemEnableBehavior = z.infer<
-  typeof questionnaireItemEnableBehaviorSchema
->
 
 const questionnaireItemEnableWhenOperatorSchema = z.enum([
   'exists',
@@ -73,12 +69,9 @@ const questionnaireItemEnableWhenOperatorSchema = z.enum([
   '>',
   '>=',
 ])
-export type questionnaireItemEnableWhenOperator = z.infer<
-  typeof questionnaireItemEnableWhenOperatorSchema
->
 
 const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
-  elementSchema.extend({
+  backboneElementSchema.extend({
     linkId: stringSchema,
     _linkId: elementSchema.optional(),
     definition: urlSchema.optional(),

@@ -11,7 +11,7 @@ import { diagnosticReportSchema } from '../../src/index.js'
 
 describe('DiagnosticReport Resource', () => {
   it('should validate FHIR DiagnosticReports from diagnosticReports.json', () => {
-    const data = fs.readFileSync(__dirname + '/diagnosticReports.json', 'utf-8')
+    const data = fs.readFileSync('test/resources/diagnosticReports.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

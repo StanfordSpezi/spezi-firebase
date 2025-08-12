@@ -11,13 +11,12 @@ import { z, type ZodType } from 'zod'
 import { xhtmlSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
-export const narrativeStatusSchema = z.enum([
+const narrativeStatusSchema = z.enum([
   'generated',
   'extensions',
   'additional',
   'empty',
 ])
-export type NarrativeStatus = z.infer<typeof narrativeStatusSchema>
 
 export const narrativeSchema: ZodType<Narrative> = z.lazy(() =>
   elementSchema.extend({

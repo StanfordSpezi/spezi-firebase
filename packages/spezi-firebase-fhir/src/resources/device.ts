@@ -21,7 +21,7 @@ import {
   stringSchema,
 } from '../elements/index.js'
 
-export const deviceNameTypeSchema = z.enum([
+const deviceNameTypeSchema = z.enum([
   'udi-label-name',
   'user-friendly-name',
   'patient-reported-name',
@@ -30,13 +30,13 @@ export const deviceNameTypeSchema = z.enum([
   'other',
 ])
 
-export const deviceStatusSchema = z.enum([
+const deviceStatusSchema = z.enum([
   'active',
   'inactive',
   'entered-in-error',
 ])
 
-export const deviceDefinitionDeviceName = z.lazy(() =>
+const deviceDefinitionDeviceName = z.lazy(() =>
   backboneElementSchema.extend({
     name: stringSchema,
     type: deviceNameTypeSchema,
@@ -44,7 +44,7 @@ export const deviceDefinitionDeviceName = z.lazy(() =>
   }),
 )
 
-export const devicePropertySchema = z.lazy(() =>
+const devicePropertySchema = z.lazy(() =>
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     valueCode: codeableConceptSchema.array().optional(),
@@ -52,7 +52,7 @@ export const devicePropertySchema = z.lazy(() =>
   }),
 )
 
-export const deviceDefinitionSpecializationSchema = z.lazy(() =>
+const deviceDefinitionSpecializationSchema = z.lazy(() =>
   backboneElementSchema.extend({
     systemType: codeableConceptSchema,
     _systemType: elementSchema.optional(),
@@ -61,7 +61,7 @@ export const deviceDefinitionSpecializationSchema = z.lazy(() =>
   }),
 )
 
-export const deviceUdiCarrierSchema = z.lazy(() =>
+const deviceUdiCarrierSchema = z.lazy(() =>
   backboneElementSchema.extend({
     deviceIdentifier: stringSchema,
     _deviceIdentifier: elementSchema.optional(),
@@ -76,7 +76,7 @@ export const deviceUdiCarrierSchema = z.lazy(() =>
   }),
 )
 
-export const deviceVersionSchema = z.lazy(() =>
+const deviceVersionSchema = z.lazy(() =>
   backboneElementSchema.extend({
     type: codeableConceptSchema.optional(),
     component: codeableConceptSchema.optional(),

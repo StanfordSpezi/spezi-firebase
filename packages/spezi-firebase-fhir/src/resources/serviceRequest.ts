@@ -24,14 +24,14 @@ import {
   timingSchema,
 } from '../elements/index.js'
 
-export const serviceRequestPrioritySchema = z.enum([
+const serviceRequestPrioritySchema = z.enum([
   'routine',
   'urgent',
   'asap',
   'stat',
 ])
 
-export const serviceRequestStatusSchema = z.enum([
+const serviceRequestStatusSchema = z.enum([
   'draft',
   'active',
   'on-hold',
@@ -41,7 +41,7 @@ export const serviceRequestStatusSchema = z.enum([
   'unknown',
 ])
 
-export const serviceRequestIntentSchema = z.enum([
+const serviceRequestIntentSchema = z.enum([
   'proposal',
   'plan',
   'directive',

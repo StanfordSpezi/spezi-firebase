@@ -27,7 +27,6 @@ import {
 } from '../elements/index.js'
 
 const patientGenderSchema = z.enum(['male', 'female', 'other', 'unknown'])
-export type PatientGender = z.infer<typeof patientGenderSchema>
 
 const patientLinkTypeSchema = z.enum([
   'replaced-by',
@@ -35,7 +34,6 @@ const patientLinkTypeSchema = z.enum([
   'refer',
   'seealso',
 ])
-export type PatientLinkType = z.infer<typeof patientLinkTypeSchema>
 
 export const untypedPatientSchema = z.lazy(() =>
   domainResourceSchema.extend({

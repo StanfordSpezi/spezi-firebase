@@ -38,7 +38,6 @@ const observationStatusSchema = z.enum([
   'entered-in-error',
   'unknown',
 ])
-export type ObservationStatus = z.infer<typeof observationStatusSchema>
 
 export const untypedObservationSchema = z.lazy(() =>
   domainResourceSchema.extend({

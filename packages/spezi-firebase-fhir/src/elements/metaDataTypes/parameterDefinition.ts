@@ -16,9 +16,6 @@ import {
 import { elementSchema } from '../element.js'
 
 const parameterDefinitionUseSchema = z.enum(['in', 'out'])
-export type ParameterDefinitionUse = z.infer<
-  typeof parameterDefinitionUseSchema
->
 
 export const parameterDefinitionSchema: ZodType<ParameterDefinition> = z.lazy(
   () =>

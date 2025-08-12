@@ -16,8 +16,7 @@ import {
 } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
-export const quantityComparatorSchema = z.enum(['<', '<=', '>=', '>'])
-export type QuantityComparator = z.infer<typeof quantityComparatorSchema>
+const quantityComparatorSchema = z.enum(['<', '<=', '>=', '>'])
 
 export const quantitySchema: ZodType<Quantity> = z.lazy(() =>
   elementSchema.extend({

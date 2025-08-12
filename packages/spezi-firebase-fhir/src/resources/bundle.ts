@@ -10,6 +10,7 @@ import { type Bundle, type DomainResource } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { fhirResourceSchema } from './fhirResource.js'
 import {
+  backboneElementSchema,
   decimalSchema,
   elementSchema,
   identifierSchema,
@@ -21,7 +22,7 @@ import {
 } from '../elements/index.js'
 import { resourceSchema } from '../elements/resource.js'
 
-const bundleLinkSchema = elementSchema.extend({
+const bundleLinkSchema = backboneElementSchema.extend({
   relation: stringSchema,
   _relation: elementSchema.optional(),
   url: uriSchema,
@@ -29,7 +30,6 @@ const bundleLinkSchema = elementSchema.extend({
 })
 
 const bundleEntrySearchModeSchema = z.enum(['match', 'include', 'outcome'])
-export type BundleEntrySearchMode = z.infer<typeof bundleEntrySearchModeSchema>
 
 const bundleEntryRequestMethodSchema = z.enum([
   'GET',
@@ -38,9 +38,6 @@ const bundleEntryRequestMethodSchema = z.enum([
   'DELETE',
   'PATCH',
 ])
-export type BundleEntryRequestMethod = z.infer<
-  typeof bundleEntryRequestMethodSchema
->
 
 const bundleTypeSchema = z.enum([
   'document',
@@ -53,7 +50,6 @@ const bundleTypeSchema = z.enum([
   'searchset',
   'collection',
 ])
-export type BundleType = z.infer<typeof bundleTypeSchema>
 
 export function bundleSchema<R extends DomainResource>(
   schema: ZodType<R>,
@@ -67,18 +63,18 @@ export function bundleSchema<R extends DomainResource>(
     _timestamp: elementSchema.optional(),
     total: unsignedIntSchema.optional(),
     link: bundleLinkSchema.array().optional(),
-    entry: elementSchema
+    entry: backboneElementSchema
       .extend({
         link: bundleLinkSchema.array().optional(),
         fullUrl: uriSchema.optional(),
         _fullUrl: elementSchema.optional(),
         resource: schema.optional(),
-        search: elementSchema.extend({
+        search: backboneElementSchema.extend({
           mode: bundleEntrySearchModeSchema.optional(),
           _mode: elementSchema.optional(),
           score: decimalSchema.optional(),
         }),
-        request: elementSchema.extend({
+        request: backboneElementSchema.extend({
           method: bundleEntryRequestMethodSchema,
           _method: elementSchema.optional(),
           url: uriSchema,
@@ -92,7 +88,7 @@ export function bundleSchema<R extends DomainResource>(
           ifNoneMatch: stringSchema.optional(),
           _ifNoneMatch: elementSchema.optional(),
         }),
-        response: elementSchema.extend({
+        response: backboneElementSchema.extend({
           status: stringSchema,
           _status: elementSchema.optional(),
           location: uriSchema.optional(),

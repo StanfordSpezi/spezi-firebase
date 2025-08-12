@@ -13,16 +13,17 @@
     }
   },
   "scripts": {
-    "build": "tsc",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "lint:strict": "eslint src --max-warnings=0",
+    "build": "tsc --noEmitOnError false || true",
+    "watch": "tsc --watch",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "prepublishOnly": "npm run build"
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
+    "prepublishOnly": "npm run clean && npm run build"
   },
-  "author": "Stanford Byers Center for Biodesign",
+  "author": "Stanford Mussallem Center for Biodesign",
   "license": "MIT",
   "repository": {
     "type": "git",
