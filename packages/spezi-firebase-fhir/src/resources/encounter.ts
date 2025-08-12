@@ -96,7 +96,7 @@ export const untypedEncounterSchema = z.lazy(
       basedOn: referenceSchema.array().optional(),
       class: codingSchema,
       classHistory: encounterClassHistorySchema.array().optional(),
-      diagnosis: encounterDiagnosisSchema.array(),
+      diagnosis: encounterDiagnosisSchema.array().optional(),
       episodeOfCare: referenceSchema.array().optional(),
       hospitalization: encounterHospitalizationSchema.optional(),
       identifier: identifierSchema.array().optional(),
