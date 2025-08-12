@@ -30,11 +30,7 @@ const deviceNameTypeSchema = z.enum([
   'other',
 ])
 
-const deviceStatusSchema = z.enum([
-  'active',
-  'inactive',
-  'entered-in-error',
-])
+const deviceStatusSchema = z.enum(['active', 'inactive', 'entered-in-error'])
 
 const deviceDefinitionDeviceName = z.lazy(() =>
   backboneElementSchema.extend({
