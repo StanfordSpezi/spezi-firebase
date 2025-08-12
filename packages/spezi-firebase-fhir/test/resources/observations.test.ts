@@ -12,11 +12,14 @@ import { observationSchema } from '../../src/resources/observation.js'
 
 describe('Observation Resource', () => {
   it('should validate FHIR observation from observation.json', () => {
-    const data = fs.readFileSync(__dirname + '/observation.json', 'utf-8')
+    const data = fs.readFileSync(__dirname + '/observations.json', 'utf-8')
     const decodedJson = JSON.parse(data)
-    const fhirResource = observationSchema.parse(decodedJson)
-    expect(jsonStringifyDeterministically(decodedJson)).toBe(
-      jsonStringifyDeterministically(fhirResource),
-    )
+
+    Object.values(decodedJson).forEach((jsonValue: unknown) => {
+      const parsedResource = observationSchema.parse(jsonValue)
+      expect(jsonStringifyDeterministically(jsonValue)).toBe(
+        jsonStringifyDeterministically(parsedResource),
+      )
+    })
   })
 })
