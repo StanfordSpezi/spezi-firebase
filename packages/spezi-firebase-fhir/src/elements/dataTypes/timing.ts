@@ -30,7 +30,6 @@ const timingRepeatDayOfWeekSchema = z.enum([
   'sat',
   'sun',
 ])
-export type TimingRepeatDayOfWeek = z.infer<typeof timingRepeatDayOfWeekSchema>
 
 const timingRepeatTimeUnitSchema = z.enum([
   's',
@@ -41,7 +40,6 @@ const timingRepeatTimeUnitSchema = z.enum([
   'mo',
   'a',
 ])
-export type TimingRepeatTimeUnit = z.infer<typeof timingRepeatTimeUnitSchema>
 
 export const timingSchema: ZodType<Timing> = z.lazy(() =>
   elementSchema.extend({

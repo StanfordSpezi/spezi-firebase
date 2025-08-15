@@ -21,9 +21,6 @@ import { referenceSchema } from '../dataTypes/reference.js'
 import { elementSchema } from '../element.js'
 
 const dataRequirementSortDirectionSchema = z.enum(['ascending', 'descending'])
-export type DataRequirementSortDirection = z.infer<
-  typeof dataRequirementSortDirectionSchema
->
 
 export const dataRequirementSchema: ZodType<DataRequirement> = z.lazy(() =>
   elementSchema.extend({

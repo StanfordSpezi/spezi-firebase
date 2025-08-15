@@ -14,14 +14,13 @@ import { stringSchema, uriSchema } from './primitiveTypes.js'
 import { referenceSchema } from './reference.js'
 import { elementSchema } from '../element.js'
 
-export const identifierUseSchema = z.enum([
+const identifierUseSchema = z.enum([
   'usual',
   'official',
   'temp',
   'secondary',
   'old',
 ])
-export type IdentifierUse = z.infer<typeof identifierUseSchema>
 
 export const identifierSchema: ZodType<Identifier> = z.lazy(() =>
   elementSchema.extend({

@@ -35,9 +35,6 @@ const medicationRequestStatusSchema = z.enum([
   'stopped',
   'unknown',
 ])
-export type MedicationRequestStatus = z.infer<
-  typeof medicationRequestStatusSchema
->
 
 const medicationRequestIntentSchema = z.enum([
   'proposal',
@@ -48,9 +45,6 @@ const medicationRequestIntentSchema = z.enum([
   'filler-order',
   'instance-order',
 ])
-export type MedicationRequestIntent = z.infer<
-  typeof medicationRequestIntentSchema
->
 
 const medicationRequestPrioritySchema = z.enum([
   'routine',
@@ -58,9 +52,6 @@ const medicationRequestPrioritySchema = z.enum([
   'asap',
   'stat',
 ])
-export type MedicationRequestPriority = z.infer<
-  typeof medicationRequestPrioritySchema
->
 
 export const untypedMedicationRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({

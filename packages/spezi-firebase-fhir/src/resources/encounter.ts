@@ -21,7 +21,7 @@ import {
   referenceSchema,
 } from '../elements/index.js'
 
-export const encounterStatusSchema = z.enum([
+const encounterStatusSchema = z.enum([
   'planned',
   'arrived',
   'triaged',
@@ -33,14 +33,14 @@ export const encounterStatusSchema = z.enum([
   'unknown',
 ])
 
-export const encounterClassHistorySchema = z.lazy(() =>
+const encounterClassHistorySchema = z.lazy(() =>
   backboneElementSchema.extend({
     class: codingSchema,
     period: periodSchema,
   }),
 )
 
-export const encounterDiagnosisSchema = z.lazy(() =>
+const encounterDiagnosisSchema = z.lazy(() =>
   backboneElementSchema.extend({
     condition: referenceSchema,
     use: codeableConceptSchema.optional(),
@@ -48,7 +48,7 @@ export const encounterDiagnosisSchema = z.lazy(() =>
   }),
 )
 
-export const encounterHospitalizationSchema = z.lazy(() =>
+const encounterHospitalizationSchema = z.lazy(() =>
   backboneElementSchema.extend({
     preAdmissionIdentifier: identifierSchema.optional(),
     origin: referenceSchema.optional(),
@@ -62,7 +62,7 @@ export const encounterHospitalizationSchema = z.lazy(() =>
   }),
 )
 
-export const encounterLocationSchema = z.lazy(() =>
+const encounterLocationSchema = z.lazy(() =>
   backboneElementSchema.extend({
     location: referenceSchema,
     status: z.enum(['planned', 'active', 'reserved', 'completed']).optional(),
@@ -72,7 +72,7 @@ export const encounterLocationSchema = z.lazy(() =>
   }),
 )
 
-export const encounterParticipantSchema = z.lazy(() =>
+const encounterParticipantSchema = z.lazy(() =>
   backboneElementSchema.extend({
     type: codeableConceptSchema.array().optional(),
     period: periodSchema.optional(),
@@ -80,7 +80,7 @@ export const encounterParticipantSchema = z.lazy(() =>
   }),
 )
 
-export const encounterStatusHistorySchema = z.lazy(() =>
+const encounterStatusHistorySchema = z.lazy(() =>
   backboneElementSchema.extend({
     status: encounterStatusSchema,
     period: periodSchema,

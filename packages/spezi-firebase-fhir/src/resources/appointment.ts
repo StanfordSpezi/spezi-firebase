@@ -35,16 +35,12 @@ const appointmentStatusSchema = z.enum([
   'checked-in',
   'waitlist',
 ])
-export type AppointmentStatus = z.infer<typeof appointmentStatusSchema>
 
 const appointmentParticipantRequiredSchema = z.enum([
   'required',
   'optional',
   'information-only',
 ])
-export type AppointmentParticipantRequired = z.infer<
-  typeof appointmentParticipantRequiredSchema
->
 
 const appointmentParticipantStatusSchema = z.enum([
   'accepted',
@@ -52,9 +48,6 @@ const appointmentParticipantStatusSchema = z.enum([
   'tentative',
   'needs-action',
 ])
-export type AppointmentParticipantStatus = z.infer<
-  typeof appointmentParticipantStatusSchema
->
 
 export const untypedAppointmentSchema = z.lazy(() =>
   domainResourceSchema.extend({

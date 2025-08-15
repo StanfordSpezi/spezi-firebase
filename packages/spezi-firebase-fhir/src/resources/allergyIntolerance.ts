@@ -23,38 +23,26 @@ import {
   stringSchema,
 } from '../elements/index.js'
 
-const allergyIntoleranceTypeSchema = z.enum(['allergy', 'intolerance'])
-export type AllergyIntoleranceType = z.infer<
-  typeof allergyIntoleranceTypeSchema
->
-
 const allergyIntoleranceCategorySchema = z.enum([
   'food',
   'medication',
   'environment',
   'biologic',
 ])
-export type AllergyIntoleranceCategory = z.infer<
-  typeof allergyIntoleranceCategorySchema
->
 
 const allergyIntoleranceCriticalitySchema = z.enum([
   'low',
   'high',
   'unable-to-assess',
 ])
-export type AllergyIntoleranceCriticality = z.infer<
-  typeof allergyIntoleranceCriticalitySchema
->
 
 const allergyIntoleranceReactionSeveritySchema = z.enum([
   'mild',
   'moderate',
   'severe',
 ])
-export type AllergyIntoleranceReactionSeverity = z.infer<
-  typeof allergyIntoleranceReactionSeveritySchema
->
+
+const allergyIntoleranceTypeSchema = z.enum(['allergy', 'intolerance'])
 
 export const untypedAllergyIntoleranceSchema = z.lazy(() =>
   domainResourceSchema.extend({

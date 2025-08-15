@@ -22,7 +22,7 @@ import {
   stringSchema,
 } from '../elements/index.js'
 
-export const medicationStatusSchema = z.enum([
+const medicationStatusSchema = z.enum([
   'active',
   'inactive',
   'entered-in-error',

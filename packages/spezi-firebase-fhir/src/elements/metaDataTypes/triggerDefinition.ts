@@ -30,7 +30,6 @@ const triggerDefinitionTypeSchema = z.enum([
   'data-accessed',
   'data-access-ended',
 ])
-export type TriggerDefinitionType = z.infer<typeof triggerDefinitionTypeSchema>
 
 export const triggerDefinitionSchema: ZodType<TriggerDefinition> = z.lazy(() =>
   elementSchema.extend({

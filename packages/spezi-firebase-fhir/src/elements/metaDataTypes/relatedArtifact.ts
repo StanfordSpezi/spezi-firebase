@@ -22,7 +22,6 @@ const relatedArtifactTypeSchema = z.enum([
   'depends-on',
   'composed-of',
 ])
-export type RelatedArtifactType = z.infer<typeof relatedArtifactTypeSchema>
 
 export const relatedArtifactSchema: ZodType<RelatedArtifact> = z.lazy(() =>
   elementSchema.extend({

@@ -12,7 +12,7 @@ import { deviceSchema } from '../../src/index.js'
 
 describe('Device Resource', () => {
   it('should validate FHIR Devices from devices.json', () => {
-    const data = fs.readFileSync(__dirname + '/devices.json', 'utf-8')
+    const data = fs.readFileSync('test/resources/devices.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

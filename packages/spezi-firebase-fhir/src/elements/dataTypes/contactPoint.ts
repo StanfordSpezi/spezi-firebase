@@ -12,7 +12,7 @@ import { periodSchema } from './period.js'
 import { positiveIntSchema, stringSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
-export const contactPointSystemSchema = z.enum([
+const contactPointSystemSchema = z.enum([
   'phone',
   'fax',
   'email',
@@ -21,16 +21,8 @@ export const contactPointSystemSchema = z.enum([
   'sms',
   'other',
 ])
-export type ContactPointSystem = z.infer<typeof contactPointSystemSchema>
 
-export const contactPointUseSchema = z.enum([
-  'home',
-  'work',
-  'temp',
-  'old',
-  'mobile',
-])
-export type ContactPointUse = z.infer<typeof contactPointUseSchema>
+const contactPointUseSchema = z.enum(['home', 'work', 'temp', 'old', 'mobile'])
 
 export const contactPointSchema: ZodType<ContactPoint> = z.lazy(() =>
   elementSchema.extend({

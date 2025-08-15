@@ -20,7 +20,7 @@ import {
   stringSchema,
 } from '../elements/index.js'
 
-export const diagnosticReportStatusSchema = z.enum([
+const diagnosticReportStatusSchema = z.enum([
   'registered',
   'partial',
   'preliminary',
@@ -33,7 +33,7 @@ export const diagnosticReportStatusSchema = z.enum([
   'unknown',
 ])
 
-export const diagnosticReportMediaSchema = z.lazy(() =>
+const diagnosticReportMediaSchema = z.lazy(() =>
   backboneElementSchema.extend({
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),

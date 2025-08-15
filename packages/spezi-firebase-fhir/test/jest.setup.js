@@ -6,6 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
+import { jest } from '@jest/globals'
+
+global.jest = jest
+
 // Custom Jest matchers for improved readability
 expect.extend({
   toBeObject(received) {

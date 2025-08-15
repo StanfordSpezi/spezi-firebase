@@ -12,7 +12,7 @@ import { observationSchema } from '../../src/resources/observation.js'
 
 describe('Observation Resource', () => {
   it('should validate FHIR observation from observation.json', () => {
-    const data = fs.readFileSync(__dirname + '/observations.json', 'utf-8')
+    const data = fs.readFileSync('test/resources/observations.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
