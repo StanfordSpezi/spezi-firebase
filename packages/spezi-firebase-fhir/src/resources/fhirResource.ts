@@ -10,22 +10,30 @@ import { type FhirResource } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { untypedAllergyIntoleranceSchema } from './allergyIntolerance.js'
 import { untypedAppointmentSchema } from './appointment.js'
+import { untypedDeviceSchema } from './device.js'
+import { untypedDiagnosticReportSchema } from './diagnosticReport.js'
+import { untypedEncounterSchema } from './encounter.js'
 import { untypedMedicationSchema } from './medication.js'
 import { untypedMedicationRequestSchema } from './medicationRequest.js'
 import { untypedOrganizationSchema } from './organization.js'
 import { untypedPatientSchema } from './patient.js'
 import { untypedQuestionnaireSchema } from './questionnaire.js'
 import { untypedQuestionnaireResponseSchema } from './questionnaireResponse.js'
+import { untypedServiceRequestSchema } from './serviceRequest.js'
 
 export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
     untypedAllergyIntoleranceSchema,
     untypedAppointmentSchema,
+    untypedDeviceSchema,
+    untypedDiagnosticReportSchema,
+    untypedEncounterSchema,
     untypedMedicationSchema,
     untypedMedicationRequestSchema,
     untypedOrganizationSchema,
     untypedPatientSchema,
     untypedQuestionnaireSchema,
     untypedQuestionnaireResponseSchema,
+    untypedServiceRequestSchema,
   ]),
 )

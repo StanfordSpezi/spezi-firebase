@@ -15,10 +15,9 @@ describe('Questionnaire Resource', () => {
     const data = fs.readFileSync(__dirname + '/questionnaires.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 
-    // questionnaires.json contains object with questionnaire IDs as keys
-    Object.values(decodedJson).forEach((questionnaireData: any) => {
-      const fhirResource = questionnaireSchema.parse(questionnaireData)
-      expect(jsonStringifyDeterministically(questionnaireData)).toBe(
+    Object.values(decodedJson).forEach((jsonValue: unknown) => {
+      const fhirResource = questionnaireSchema.parse(jsonValue)
+      expect(jsonStringifyDeterministically(jsonValue)).toBe(
         jsonStringifyDeterministically(fhirResource),
       )
     })
