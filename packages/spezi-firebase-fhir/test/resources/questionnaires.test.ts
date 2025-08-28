@@ -8,7 +8,7 @@
 
 import fs from 'fs'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { questionnaireSchema } from '../../src/index.js'
+import { FhirQuestionnaire } from '../../src/index.js'
 
 describe('Questionnaire Resource', () => {
   it('should validate FHIR questionnaires from questionnaires.json', () => {
@@ -16,7 +16,7 @@ describe('Questionnaire Resource', () => {
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
-      const fhirResource = questionnaireSchema.parse(jsonValue)
+      const fhirResource = FhirQuestionnaire.parse(jsonValue).value
       expect(jsonStringifyDeterministically(jsonValue)).toBe(
         jsonStringifyDeterministically(fhirResource),
       )

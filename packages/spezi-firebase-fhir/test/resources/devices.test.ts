@@ -8,7 +8,7 @@
 
 import fs from 'fs'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { deviceSchema } from '../../src/index.js'
+import { FhirDevice } from '../../src/index.js'
 
 describe('Device Resource', () => {
   it('should validate FHIR Devices from devices.json', () => {
@@ -16,7 +16,7 @@ describe('Device Resource', () => {
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
-      const parsedResource = deviceSchema.parse(jsonValue)
+      const parsedResource = FhirDevice.parse(jsonValue).value
       expect(jsonStringifyDeterministically(jsonValue)).toBe(
         jsonStringifyDeterministically(parsedResource),
       )
