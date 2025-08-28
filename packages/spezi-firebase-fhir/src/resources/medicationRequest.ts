@@ -8,6 +8,7 @@
 
 import { type MedicationRequest } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -18,7 +19,6 @@ import {
   domainResourceSchema,
   dosageSchema,
   elementSchema,
-  FhirDomainResource,
   identifierSchema,
   periodSchema,
   quantitySchema,

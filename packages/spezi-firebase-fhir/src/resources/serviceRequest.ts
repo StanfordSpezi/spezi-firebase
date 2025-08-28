@@ -8,13 +8,13 @@
 
 import { type ServiceRequest } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   annotationSchema,
   booleanSchema,
   codeableConceptSchema,
   domainResourceSchema,
   elementSchema,
-  FhirDomainResource,
   identifierSchema,
   periodSchema,
   quantitySchema,

@@ -8,6 +8,7 @@
 
 import { type Medication } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -15,7 +16,6 @@ import {
   dateTimeSchema,
   domainResourceSchema,
   elementSchema,
-  FhirDomainResource,
   identifierSchema,
   quantitySchema,
   ratioSchema,

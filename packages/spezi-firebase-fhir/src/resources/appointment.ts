@@ -8,13 +8,13 @@
 
 import { type Appointment } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
   codeableConceptSchema,
   dateTimeSchema,
   domainResourceSchema,
   elementSchema,
-  FhirDomainResource,
   identifierSchema,
   instantSchema,
   intSchema,

@@ -8,6 +8,7 @@
 
 import { type Organization } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   addressSchema,
   backboneElementSchema,
@@ -16,7 +17,6 @@ import {
   contactPointSchema,
   domainResourceSchema,
   elementSchema,
-  FhirDomainResource,
   humanNameSchema,
   identifierSchema,
   referenceSchema,

@@ -8,20 +8,20 @@
 
 import { type Bundle, type DomainResource } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import { fhirResourceSchema } from './fhirResource.js'
 import {
   backboneElementSchema,
   decimalSchema,
   elementSchema,
-  FhirDomainResource,
   identifierSchema,
   instantSchema,
+  resourceSchema,
   signatureSchema,
   stringSchema,
   unsignedIntSchema,
   uriSchema,
 } from '../elements/index.js'
-import { resourceSchema } from '../elements/resource.js'
 
 const bundleLinkSchema = backboneElementSchema.extend({
   relation: stringSchema,

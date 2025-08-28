@@ -8,6 +8,7 @@
 
 import { type AllergyIntolerance } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -15,7 +16,6 @@ import {
   dateTimeSchema,
   domainResourceSchema,
   elementSchema,
-  FhirDomainResource,
   identifierSchema,
   periodSchema,
   quantitySchema,
