@@ -13,6 +13,7 @@ import {
   backboneElementSchema,
   decimalSchema,
   elementSchema,
+  FhirDomainResource,
   identifierSchema,
   instantSchema,
   signatureSchema,
@@ -109,3 +110,20 @@ export function bundleSchema<R extends DomainResource>(
 export const genericBundleSchema: ZodType<Bundle> = z.lazy(() =>
   bundleSchema(fhirResourceSchema),
 )
+
+export class FhirBundle<R extends DomainResource> extends FhirDomainResource<
+  Bundle<R>
+> {
+  // Static Functions
+
+  public static parseGeneric(value: unknown): FhirBundle<DomainResource> {
+    return new FhirBundle(genericBundleSchema.parse(value))
+  }
+
+  public static parse<R extends DomainResource>(
+    value: unknown,
+    schema: ZodType<R>,
+  ): FhirBundle<R> {
+    return new FhirBundle(bundleSchema(schema).parse(value))
+  }
+}

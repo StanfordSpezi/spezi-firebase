@@ -8,13 +8,14 @@
 
 import { type AllergyIntolerance } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   annotationSchema,
   backboneElementSchema,
   codeableConceptSchema,
   dateTimeSchema,
+  domainResourceSchema,
   elementSchema,
+  FhirDomainResource,
   identifierSchema,
   periodSchema,
   quantitySchema,
@@ -90,3 +91,11 @@ export const untypedAllergyIntoleranceSchema = z.lazy(() =>
 
 export const allergyIntoleranceSchema: ZodType<AllergyIntolerance> =
   untypedAllergyIntoleranceSchema
+
+export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntolerance> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirAllergyIntolerance {
+    return new FhirAllergyIntolerance(allergyIntoleranceSchema.parse(value))
+  }
+}

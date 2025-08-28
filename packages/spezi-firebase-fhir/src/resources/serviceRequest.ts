@@ -14,6 +14,7 @@ import {
   codeableConceptSchema,
   domainResourceSchema,
   elementSchema,
+  FhirDomainResource,
   identifierSchema,
   periodSchema,
   quantitySchema,
@@ -109,3 +110,11 @@ export const untypedServiceRequestSchema = z.lazy(() =>
 
 export const serviceRequestSchema: ZodType<ServiceRequest> =
   untypedServiceRequestSchema
+
+export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirServiceRequest {
+    return new FhirServiceRequest(serviceRequestSchema.parse(value))
+  }
+}

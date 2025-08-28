@@ -15,6 +15,7 @@ import {
   contactPointSchema,
   domainResourceSchema,
   elementSchema,
+  FhirDomainResource,
   identifierSchema,
   quantitySchema,
   referenceSchema,
@@ -124,3 +125,11 @@ export const untypedDeviceSchema = z.lazy(() =>
 ) satisfies ZodType<Device>
 
 export const deviceSchema: ZodType<Device> = untypedDeviceSchema
+
+export class FhirDevice extends FhirDomainResource<Device> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirDevice {
+    return new FhirDevice(deviceSchema.parse(value))
+  }
+}

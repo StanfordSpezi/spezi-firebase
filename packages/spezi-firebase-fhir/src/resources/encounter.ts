@@ -14,6 +14,7 @@ import {
   codingSchema,
   domainResourceSchema,
   elementSchema,
+  FhirDomainResource,
   identifierSchema,
   intSchema,
   periodSchema,
@@ -117,3 +118,11 @@ export const untypedEncounterSchema = z.lazy(
 )
 
 export const encounterSchema: ZodType<Encounter> = untypedEncounterSchema
+
+export class FhirEncounter extends FhirDomainResource<Encounter> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirEncounter {
+    return new FhirEncounter(encounterSchema.parse(value))
+  }
+}

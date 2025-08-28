@@ -18,6 +18,7 @@ import {
   domainResourceSchema,
   dosageSchema,
   elementSchema,
+  FhirDomainResource,
   identifierSchema,
   periodSchema,
   quantitySchema,
@@ -120,3 +121,11 @@ export const untypedMedicationRequestSchema = z.lazy(() =>
 
 export const medicationRequestSchema: ZodType<MedicationRequest> =
   untypedMedicationRequestSchema
+
+export class FhirMedicationRequest extends FhirDomainResource<MedicationRequest> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirMedicationRequest {
+    return new FhirMedicationRequest(medicationRequestSchema.parse(value))
+  }
+}

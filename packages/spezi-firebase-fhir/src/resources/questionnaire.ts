@@ -8,7 +8,10 @@
 
 import { type Questionnaire, type QuestionnaireItem } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import {
+  domainResourceSchema,
+  FhirDomainResource,
+} from '../elements/domainResource.js'
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -214,3 +217,11 @@ export const untypedQuestionnaireSchema = z.lazy(() =>
 
 export const questionnaireSchema: ZodType<Questionnaire> =
   untypedQuestionnaireSchema
+
+export class FhirQuestionnaire extends FhirDomainResource<Questionnaire> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirQuestionnaire {
+    return new FhirQuestionnaire(questionnaireSchema.parse(value))
+  }
+}

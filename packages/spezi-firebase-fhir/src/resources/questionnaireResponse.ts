@@ -11,7 +11,10 @@ import {
   type QuestionnaireResponseItem,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import {
+  domainResourceSchema,
+  FhirDomainResource,
+} from '../elements/domainResource.js'
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -102,3 +105,120 @@ export const untypedQuestionnaireResponseSchema = z.lazy(() =>
 
 export const questionnaireResponseSchema: ZodType<QuestionnaireResponse> =
   untypedQuestionnaireResponseSchema
+
+export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireResponse> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirQuestionnaireResponse {
+    return new FhirQuestionnaireResponse(
+      questionnaireResponseSchema.parse(value),
+    )
+  }
+
+  // Properties
+
+  public get authoredDate(): Date | undefined {
+    return this.value.authored !== undefined ?
+        new Date(this.value.authored)
+      : undefined
+  }
+
+  public set authoredDate(date: Date | undefined) {
+    if (date !== undefined) {
+      this.value.authored = date.toISOString()
+    } else {
+      delete this.value.authored
+    }
+  }
+
+  // Methods
+
+  uniqueResponseItem(
+    linkIdPath: string[],
+  ): QuestionnaireResponseItem | undefined {
+    const items = this.responseItems(linkIdPath)
+    switch (items.length) {
+      case 0:
+        return undefined
+      case 1:
+        return items[0]
+      default:
+        throw new Error(`Unexpected number of response items found.`)
+    }
+  }
+
+  responseItems(linkIdPath: string[]): QuestionnaireResponseItem[] {
+    const resultValue: QuestionnaireResponseItem[] = []
+    for (const child of this.value.item ?? []) {
+      resultValue.push(...this.responseItemsRecursive(linkIdPath, child))
+    }
+    return resultValue
+  }
+
+  private responseItemsRecursive(
+    linkIdPath: string[],
+    item: QuestionnaireResponseItem,
+  ): QuestionnaireResponseItem[] {
+    switch (linkIdPath.length) {
+      case 0:
+        break
+      case 1:
+        if (item.linkId === linkIdPath[0]) {
+          return [item]
+        }
+        break
+      default:
+        if (item.linkId === linkIdPath[0]) {
+          const childLinkIds = linkIdPath.slice(1)
+          const resultValue: QuestionnaireResponseItem[] = []
+          for (const child of item.item ?? []) {
+            resultValue.push(
+              ...this.responseItemsRecursive(childLinkIds, child),
+            )
+          }
+          return resultValue
+        }
+        break
+    }
+    return []
+  }
+
+  // Methods - Response items from leaf link id
+
+  uniqueLeafResponseItem(
+    linkId: string,
+  ): QuestionnaireResponseItem | undefined {
+    const items = this.leafResponseItems(linkId)
+    switch (items.length) {
+      case 0:
+        return undefined
+      case 1:
+        return items[0]
+      default:
+        throw new Error('Unexpected number of leaf response items found.')
+    }
+  }
+
+  leafResponseItems(linkId: string): QuestionnaireResponseItem[] {
+    const items: QuestionnaireResponseItem[] = []
+    for (const item of this.value.item ?? []) {
+      items.push(...this.leafResponseItemsRecursive(linkId, item))
+    }
+    return items
+  }
+
+  private leafResponseItemsRecursive(
+    linkId: string,
+    item: QuestionnaireResponseItem,
+  ): QuestionnaireResponseItem[] {
+    const children = item.item ?? []
+    if (children.length === 0 && item.linkId === linkId) {
+      return [item]
+    }
+    const items: QuestionnaireResponseItem[] = []
+    for (const child of item.item ?? []) {
+      items.push(...this.leafResponseItemsRecursive(linkId, child))
+    }
+    return items
+  }
+}

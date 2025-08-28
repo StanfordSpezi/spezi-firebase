@@ -14,6 +14,7 @@ import {
   dateTimeSchema,
   domainResourceSchema,
   elementSchema,
+  FhirDomainResource,
   identifierSchema,
   instantSchema,
   intSchema,
@@ -130,3 +131,11 @@ export const untypedObservationSchema = z.lazy(() =>
 ) satisfies ZodType<Observation>
 
 export const observationSchema: ZodType<Observation> = untypedObservationSchema
+
+export class FhirObservation extends FhirDomainResource<Observation> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirObservation {
+    return new FhirObservation(observationSchema.parse(value))
+  }
+}
