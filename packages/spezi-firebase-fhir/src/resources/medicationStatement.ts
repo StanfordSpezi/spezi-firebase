@@ -36,6 +36,7 @@ export const untypedMedicationStatementSchema = z.lazy(() =>
       'unknown',
     ]),
     _status: elementSchema.optional(),
+    statusReason: codeableConceptSchema.array().optional(),
     category: codeableConceptSchema.optional(),
     medicationCodeableConcept: codeableConceptSchema.optional(),
     medicationReference: referenceSchema.optional(),
