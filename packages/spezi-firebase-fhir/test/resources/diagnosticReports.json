@@ -1,0 +1,338 @@
+{
+  "0": {
+    "resourceType": "DiagnosticReport",
+    "id": "98496390-c204-4eae-85fd-d8c298adc171",
+    "meta": {
+      "extension": [
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-timestamp",
+          "valueDateTime": "2025-08-12T11:34:39-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-trigger",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0003",
+                "code": "R01"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-type",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0076",
+                "code": "ORU"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-timestamp",
+          "valueDateTime": "2025-03-23T05:27:00-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-id",
+          "valueString": "145"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-data-model-version",
+          "valueString": "2.6"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-facility",
+          "valueString": "XYZ"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-client-id",
+          "valueString": "ZZ"
+        }
+      ]
+    },
+    "identifier": [
+      {
+        "system": "urn:id:extID",
+        "value": "202503230527"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "FILL",
+              "display": "Filler Identifier"
+            }
+          ]
+        },
+        "value": "1356666"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "PLAC",
+              "display": "Placer Identifier"
+            }
+          ]
+        },
+        "value": "1356666"
+      }
+    ],
+    "basedOn": [
+      {
+        "reference": "ServiceRequest/c028a8d3-1b75-4906-8bad-351bf37439ff"
+      }
+    ],
+    "status": "unknown",
+    "code": {
+      "coding": [
+        {
+          "system": "urn:id:CUSTLAB",
+          "code": "AMP",
+          "display": "Amphetamine"
+        }
+      ],
+      "text": "Amphetamine"
+    },
+    "subject": {
+      "reference": "Patient/9f747657-3cc6-4b9a-8371-640bd017501f"
+    },
+    "encounter": {
+      "reference": "Encounter/9c76de44-7755-449c-9973-75babc0e5c87"
+    },
+    "effectiveDateTime": "2025-03-23T05:26:00-01:00",
+    "result": [
+      {
+        "reference": "Observation/b49c242a-6021-40b6-9354-a8b2ba2415b6"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "DiagnosticReport",
+    "id": "18bbe1bf-fc46-44ea-adc7-ae102a77f658",
+    "meta": {
+      "extension": [
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-timestamp",
+          "valueDateTime": "2025-08-12T11:34:39-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-trigger",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0003",
+                "code": "R01"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-type",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0076",
+                "code": "ORU"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-timestamp",
+          "valueDateTime": "2025-03-23T05:27:00-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-id",
+          "valueString": "244556"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-data-model-version",
+          "valueString": "2.6"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-facility",
+          "valueString": "XYZ"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-client-id",
+          "valueString": "ZZ"
+        }
+      ]
+    },
+    "identifier": [
+      {
+        "system": "urn:id:extID",
+        "value": "123"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "FILL",
+              "display": "Filler Identifier"
+            }
+          ]
+        },
+        "value": "42863"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "PLAC",
+              "display": "Placer Identifier"
+            }
+          ]
+        },
+        "value": "2934778"
+      }
+    ],
+    "basedOn": [
+      {
+        "reference": "ServiceRequest/1bfb8e66-e62a-4e7a-aac1-14bec6e26e84"
+      }
+    ],
+    "status": "unknown",
+    "code": {
+      "coding": [
+        {
+          "system": "urn:id:CUSTLAB",
+          "code": "BARB",
+          "display": "Barbiturate"
+        }
+      ],
+      "text": "Barbiturate"
+    },
+    "subject": {
+      "reference": "Patient/9f747657-3cc6-4b9a-8371-640bd017501f"
+    },
+    "encounter": {
+      "reference": "Encounter/9c76de44-7755-449c-9973-75babc0e5c87"
+    },
+    "effectiveDateTime": "2025-03-23T05:26:00-01:00",
+    "result": [
+      {
+        "reference": "Observation/55774520-7f7f-434e-81c6-5c5623a48161"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "DiagnosticReport",
+    "id": "4cdf8dfa-7817-46bf-99d2-745865d534d4",
+    "meta": {
+      "extension": [
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-timestamp",
+          "valueDateTime": "2025-08-12T11:34:39-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-trigger",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0003",
+                "code": "R01"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-type",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0076",
+                "code": "ORU"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-timestamp",
+          "valueDateTime": "2025-03-23T05:27:00-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-id",
+          "valueString": "248563"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-data-model-version",
+          "valueString": "2.6"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-facility",
+          "valueString": "XYZ"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-client-id",
+          "valueString": "ZZ"
+        }
+      ]
+    },
+    "identifier": [
+      {
+        "system": "urn:id:extID",
+        "value": "2359876"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "FILL",
+              "display": "Filler Identifier"
+            }
+          ]
+        },
+        "value": "23507927"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "PLAC",
+              "display": "Placer Identifier"
+            }
+          ]
+        },
+        "value": "89327598"
+      }
+    ],
+    "basedOn": [
+      {
+        "reference": "ServiceRequest/19552e91-cccb-43c4-833e-fbcfdfde5da1"
+      }
+    ],
+    "status": "unknown",
+    "code": {
+      "coding": [
+        {
+          "system": "urn:id:CUSTLAB",
+          "code": "CANN",
+          "display": "Cannabinoide"
+        }
+      ],
+      "text": "Cannabinoide"
+    },
+    "subject": {
+      "reference": "Patient/9f747657-3cc6-4b9a-8371-640bd017501f"
+    },
+    "encounter": {
+      "reference": "Encounter/9c76de44-7755-449c-9973-75babc0e5c87"
+    },
+    "effectiveDateTime": "2025-03-23T05:26:00-01:00",
+    "result": [
+      {
+        "reference": "Observation/9907be93-7487-4168-8371-7d74b20bcfa2"
+      }
+    ]
+  }
+}

@@ -1,0 +1,308 @@
+{
+  "0": {
+    "resourceType": "ServiceRequest",
+    "id": "c028a8d3-1b75-4906-8bad-351bf37439ff",
+    "meta": {
+      "extension": [
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-timestamp",
+          "valueDateTime": "2025-08-13T16:56:56-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-trigger",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0003",
+                "code": "R01"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-type",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0076",
+                "code": "ORU"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-timestamp",
+          "valueDateTime": "2015-01-23T08:13:24-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-id",
+          "valueString": "156"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-data-model-version",
+          "valueString": "2.6"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-facility",
+          "valueString": "TLK"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-client-id",
+          "valueString": "ABC"
+        }
+      ]
+    },
+    "identifier": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "VN",
+              "display": "Visit number"
+            }
+          ]
+        },
+        "value": "456"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "FILL",
+              "display": "Filler Identifier"
+            }
+          ]
+        },
+        "system": "urn:id:ORD",
+        "value": "13"
+      }
+    ],
+    "status": "active",
+    "intent": "order",
+    "code": {
+      "coding": [
+        {
+          "system": "urn:id:CUSTLAB",
+          "code": "HBEL",
+          "display": "Hb-Elektrophorese"
+        }
+      ],
+      "text": "Hb-Elektrophorese"
+    },
+    "subject": {
+      "reference": "Patient/9f747657-3cc6-4b9a-8371-640bd017501f"
+    },
+    "occurrenceDateTime": "2015-02-16T08:11:23-01:00",
+    "authoredOn": "2015-04-16T08:11:23-01:00"
+  },
+  "1": {
+    "resourceType": "ServiceRequest",
+    "id": "1bfb8e66-e62a-4e7a-aac1-14bec6e26e84",
+    "meta": {
+      "extension": [
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-timestamp",
+          "valueDateTime": "2025-12-12T11:34:39-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-trigger",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0003",
+                "code": "R01"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-type",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0076",
+                "code": "ORU"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-timestamp",
+          "valueDateTime": "2025-08-23T05:27:00-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-id",
+          "valueString": "4367"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-data-model-version",
+          "valueString": "2.6"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-facility",
+          "valueString": "EHR"
+        }
+      ]
+    },
+    "identifier": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "VN",
+              "display": "Visit number"
+            }
+          ]
+        },
+        "value": "123"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "FILL",
+              "display": "Filler Identifier"
+            }
+          ]
+        },
+        "value": "246"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "PLAC",
+              "display": "Placer Identifier"
+            }
+          ]
+        },
+        "value": "24568"
+      }
+    ],
+    "status": "unknown",
+    "intent": "order",
+    "code": {
+      "coding": [
+        {
+          "system": "urn:id:CUSTLAB",
+          "code": "BARB",
+          "display": "Barbiturate"
+        }
+      ],
+      "text": "Barbiturate"
+    },
+    "subject": {
+      "reference": "Patient/9f747657-3cc6-4b9a-8371-640bd017501f"
+    },
+    "occurrenceDateTime": "2025-02-23T05:26:00-01:00"
+  },
+  "2": {
+    "resourceType": "ServiceRequest",
+    "id": "b2800f7c-f741-479f-bc6f-5e7a065f4d2b",
+    "meta": {
+      "extension": [
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-timestamp",
+          "valueDateTime": "2025-06-12T11:34:39-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-trigger",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0003",
+                "code": "R01"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-type",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0076",
+                "code": "ORU"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-event-timestamp",
+          "valueDateTime": "2025-03-23T05:27:00-01:00"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-record-id",
+          "valueString": "34567"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/source-data-model-version",
+          "valueString": "2.6"
+        },
+        {
+          "url": "http://ibm.com/fhir/cdm/StructureDefinition/process-facility",
+          "valueString": "EHR"
+        }
+      ]
+    },
+    "identifier": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "VN",
+              "display": "Visit number"
+            }
+          ]
+        },
+        "value": "12345678"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "FILL",
+              "display": "Filler Identifier"
+            }
+          ]
+        },
+        "value": "87654321"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "PLAC",
+              "display": "Placer Identifier"
+            }
+          ]
+        },
+        "value": "13579246"
+      }
+    ],
+    "status": "unknown",
+    "intent": "order",
+    "code": {
+      "coding": [
+        {
+          "system": "urn:id:CUSTLAB",
+          "code": "BENZ",
+          "display": "Benzodiazepine"
+        }
+      ],
+      "text": "Benzodiazepine"
+    },
+    "subject": {
+      "reference": "Patient/9f747657-3cc6-4b9a-8371-640bd017501f"
+    },
+    "occurrenceDateTime": "2025-03-23T05:26:00-01:00"
+  }
+}

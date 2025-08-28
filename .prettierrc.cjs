@@ -7,7 +7,6 @@
 //
 
 const config = {
-  plugins: [require.resolve('prettier-plugin-tailwindcss')],
   semi: false,
   singleQuote: true,
   experimentalTernaries: true,
