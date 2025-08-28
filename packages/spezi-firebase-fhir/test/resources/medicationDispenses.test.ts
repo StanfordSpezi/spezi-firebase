@@ -8,17 +8,20 @@
 
 import fs from 'fs'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { questionnaireSchema } from '../../src/index.js'
+import { medicationDispenseSchema } from '../../src/index.js'
 
-describe('Questionnaire Resource', () => {
-  it('should validate FHIR questionnaires from questionnaires.json', () => {
-    const data = fs.readFileSync('test/resources/questionnaires.json', 'utf-8')
+describe('MedicationDispense Resource', () => {
+  it('should validate FHIR medication dispenses from medicationDispenses.json', () => {
+    const data = fs.readFileSync(
+      'test/resources/medicationDispenses.json',
+      'utf-8',
+    )
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
-      const fhirResource = questionnaireSchema.parse(jsonValue)
+      const parsedResource = medicationDispenseSchema.parse(jsonValue)
       expect(jsonStringifyDeterministically(jsonValue)).toBe(
-        jsonStringifyDeterministically(fhirResource),
+        jsonStringifyDeterministically(parsedResource),
       )
     })
   })
