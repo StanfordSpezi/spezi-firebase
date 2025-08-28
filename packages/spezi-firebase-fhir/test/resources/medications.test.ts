@@ -8,7 +8,7 @@
 
 import fs from 'fs'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { medicationSchema } from '../../src/index.js'
+import { FhirMedication } from '../../src/index.js'
 
 describe('Medication Resource', () => {
   it('should validate FHIR medications from medications.json', () => {
@@ -18,7 +18,7 @@ describe('Medication Resource', () => {
     // drugs.json contains nested structure: {categoryId: {drugId: medicationResource}}
     Object.values(decodedJson).forEach((categoryData: any) => {
       Object.values(categoryData).forEach((medicationData: unknown) => {
-        const fhirResource = medicationSchema.parse(medicationData)
+        const fhirResource = FhirMedication.parse(medicationData).value
         expect(jsonStringifyDeterministically(medicationData)).toBe(
           jsonStringifyDeterministically(fhirResource),
         )

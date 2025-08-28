@@ -8,6 +8,7 @@
 
 import { type Observation } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   booleanSchema,
   codeableConceptSchema,
@@ -130,3 +131,11 @@ export const untypedObservationSchema = z.lazy(() =>
 ) satisfies ZodType<Observation>
 
 export const observationSchema: ZodType<Observation> = untypedObservationSchema
+
+export class FhirObservation extends FhirDomainResource<Observation> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirObservation {
+    return new FhirObservation(observationSchema.parse(value))
+  }
+}

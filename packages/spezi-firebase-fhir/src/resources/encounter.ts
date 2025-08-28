@@ -8,6 +8,7 @@
 
 import { type Encounter } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -117,3 +118,11 @@ export const untypedEncounterSchema = z.lazy(
 )
 
 export const encounterSchema: ZodType<Encounter> = untypedEncounterSchema
+
+export class FhirEncounter extends FhirDomainResource<Encounter> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirEncounter {
+    return new FhirEncounter(encounterSchema.parse(value))
+  }
+}

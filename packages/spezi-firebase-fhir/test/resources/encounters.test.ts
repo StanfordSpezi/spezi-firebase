@@ -7,7 +7,7 @@
 
 import fs from 'fs'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { encounterSchema } from '../../src/index.js'
+import { FhirEncounter } from '../../src/index.js'
 
 describe('Encounter Resource', () => {
   it('should validate FHIR Encounters from encounters.json', () => {
@@ -15,7 +15,7 @@ describe('Encounter Resource', () => {
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
-      const parsedResource = encounterSchema.parse(jsonValue)
+      const parsedResource = FhirEncounter.parse(jsonValue).value
       expect(jsonStringifyDeterministically(jsonValue)).toBe(
         jsonStringifyDeterministically(parsedResource),
       )

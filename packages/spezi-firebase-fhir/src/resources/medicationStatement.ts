@@ -8,12 +8,13 @@
 
 import { type MedicationStatement } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   annotationSchema,
   codeableConceptSchema,
   dateTimeSchema,
   dosageSchema,
+  domainResourceSchema,
   elementSchema,
   identifierSchema,
   periodSchema,
@@ -58,3 +59,11 @@ export const untypedMedicationStatementSchema = z.lazy(() =>
 
 export const medicationStatementSchema: ZodType<MedicationStatement> =
   untypedMedicationStatementSchema
+
+export class FhirMedicationStatement extends FhirDomainResource<MedicationStatement> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirMedicationStatement {
+    return new FhirMedicationStatement(medicationStatementSchema.parse(value))
+  }
+}

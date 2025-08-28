@@ -8,7 +8,7 @@
 
 import { type Patient } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   addressSchema,
   attachmentSchema,
@@ -18,6 +18,7 @@ import {
   contactPointSchema,
   dateSchema,
   dateTimeSchema,
+  domainResourceSchema,
   elementSchema,
   humanNameSchema,
   identifierSchema,
@@ -93,3 +94,11 @@ export const untypedPatientSchema = z.lazy(() =>
 ) satisfies ZodType<Patient>
 
 export const patientSchema: ZodType<Patient> = untypedPatientSchema
+
+export class FhirPatient extends FhirDomainResource<Patient> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirPatient {
+    return new FhirPatient(patientSchema.parse(value))
+  }
+}

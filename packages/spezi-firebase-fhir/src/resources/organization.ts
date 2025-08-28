@@ -8,13 +8,14 @@
 
 import { type Organization } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   addressSchema,
   backboneElementSchema,
   booleanSchema,
   codeableConceptSchema,
   contactPointSchema,
+  domainResourceSchema,
   elementSchema,
   humanNameSchema,
   identifierSchema,
@@ -51,3 +52,11 @@ export const untypedOrganizationSchema = z.lazy(() =>
 
 export const organizationSchema: ZodType<Organization> =
   untypedOrganizationSchema
+
+export class FhirOrganization extends FhirDomainResource<Organization> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirOrganization {
+    return new FhirOrganization(organizationSchema.parse(value))
+  }
+}

@@ -8,6 +8,7 @@
 
 import { type Bundle, type DomainResource } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import { fhirResourceSchema } from './fhirResource.js'
 import {
   backboneElementSchema,
@@ -15,12 +16,12 @@ import {
   elementSchema,
   identifierSchema,
   instantSchema,
+  resourceSchema,
   signatureSchema,
   stringSchema,
   unsignedIntSchema,
   uriSchema,
 } from '../elements/index.js'
-import { resourceSchema } from '../elements/resource.js'
 
 const bundleLinkSchema = backboneElementSchema.extend({
   relation: stringSchema,
@@ -109,3 +110,20 @@ export function bundleSchema<R extends DomainResource>(
 export const genericBundleSchema: ZodType<Bundle> = z.lazy(() =>
   bundleSchema(fhirResourceSchema),
 )
+
+export class FhirBundle<R extends DomainResource> extends FhirDomainResource<
+  Bundle<R>
+> {
+  // Static Functions
+
+  public static parseGeneric(value: unknown): FhirBundle<DomainResource> {
+    return new FhirBundle(genericBundleSchema.parse(value))
+  }
+
+  public static parse<R extends DomainResource>(
+    value: unknown,
+    schema: ZodType<R>,
+  ): FhirBundle<R> {
+    return new FhirBundle(bundleSchema(schema).parse(value))
+  }
+}

@@ -8,11 +8,12 @@
 
 import { type Appointment } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
   codeableConceptSchema,
   dateTimeSchema,
+  domainResourceSchema,
   elementSchema,
   identifierSchema,
   instantSchema,
@@ -96,3 +97,39 @@ export const untypedAppointmentSchema = z.lazy(() =>
 ) satisfies ZodType<Appointment>
 
 export const appointmentSchema: ZodType<Appointment> = untypedAppointmentSchema
+
+export class FhirAppointment extends FhirDomainResource<Appointment> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirAppointment {
+    return new FhirAppointment(appointmentSchema.parse(value))
+  }
+
+  // Properties
+
+  public get startDate(): Date | undefined {
+    return this.value.start !== undefined ?
+        new Date(this.value.start)
+      : undefined
+  }
+
+  public set startDate(date: Date | undefined) {
+    if (date !== undefined) {
+      this.value.start = date.toISOString()
+    } else {
+      delete this.value.start
+    }
+  }
+
+  public get endDate(): Date | undefined {
+    return this.value.end !== undefined ? new Date(this.value.end) : undefined
+  }
+
+  public set endDate(date: Date | undefined) {
+    if (date !== undefined) {
+      this.value.end = date.toISOString()
+    } else {
+      delete this.value.end
+    }
+  }
+}

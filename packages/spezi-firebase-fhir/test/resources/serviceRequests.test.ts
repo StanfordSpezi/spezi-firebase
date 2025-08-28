@@ -7,7 +7,7 @@
 
 import fs from 'fs'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { serviceRequestSchema } from '../../src/index.js'
+import { FhirServiceRequest } from '../../src/index.js'
 
 describe('ServiceRequest Resource', () => {
   it('should validate FHIR ServiceRequest from serviceRequests.json', () => {
@@ -15,7 +15,7 @@ describe('ServiceRequest Resource', () => {
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
-      const parsedResource = serviceRequestSchema.parse(jsonValue)
+      const parsedResource = FhirServiceRequest.parse(jsonValue).value
       expect(jsonStringifyDeterministically(jsonValue)).toBe(
         jsonStringifyDeterministically(parsedResource),
       )

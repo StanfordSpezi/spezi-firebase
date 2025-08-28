@@ -8,6 +8,7 @@
 
 import { type ServiceRequest } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import {
   annotationSchema,
   booleanSchema,
@@ -109,3 +110,11 @@ export const untypedServiceRequestSchema = z.lazy(() =>
 
 export const serviceRequestSchema: ZodType<ServiceRequest> =
   untypedServiceRequestSchema
+
+export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
+  // Static Functions
+
+  public static parse(value: unknown): FhirServiceRequest {
+    return new FhirServiceRequest(serviceRequestSchema.parse(value))
+  }
+}
