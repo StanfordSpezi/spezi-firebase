@@ -62,7 +62,6 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
     )
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   public containedResource<T extends DomainResource>(
     id: string,
   ): T | undefined {

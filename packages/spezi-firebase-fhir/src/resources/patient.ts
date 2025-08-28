@@ -9,10 +9,6 @@
 import { type Patient } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import {
-  domainResourceSchema,
-  FhirDomainResource,
-} from '../elements/domainResource.js'
-import {
   addressSchema,
   attachmentSchema,
   backboneElementSchema,
@@ -21,7 +17,9 @@ import {
   contactPointSchema,
   dateSchema,
   dateTimeSchema,
+  domainResourceSchema,
   elementSchema,
+  FhirDomainResource,
   humanNameSchema,
   identifierSchema,
   intSchema,

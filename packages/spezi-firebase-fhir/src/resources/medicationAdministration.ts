@@ -9,15 +9,13 @@
 import { type MedicationAdministration } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import {
-  domainResourceSchema,
-  FhirDomainResource,
-} from '../elements/domainResource.js'
-import {
   annotationSchema,
   backboneElementSchema,
   codeableConceptSchema,
   dateTimeSchema,
+  domainResourceSchema,
   elementSchema,
+  FhirDomainResource,
   identifierSchema,
   periodSchema,
   quantitySchema,

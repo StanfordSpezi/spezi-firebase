@@ -9,14 +9,12 @@
 import { type DiagnosticReport } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import {
-  domainResourceSchema,
-  FhirDomainResource,
-} from '../elements/domainResource.js'
-import {
   attachmentSchema,
   backboneElementSchema,
   codeableConceptSchema,
+  domainResourceSchema,
   elementSchema,
+  FhirDomainResource,
   identifierSchema,
   periodSchema,
   referenceSchema,

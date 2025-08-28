@@ -12,10 +12,6 @@ import {
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import {
-  domainResourceSchema,
-  FhirDomainResource,
-} from '../elements/domainResource.js'
-import {
   attachmentSchema,
   backboneElementSchema,
   booleanSchema,
@@ -23,7 +19,9 @@ import {
   dateSchema,
   dateTimeSchema,
   decimalSchema,
+  domainResourceSchema,
   elementSchema,
+  FhirDomainResource,
   identifierSchema,
   intSchema,
   quantitySchema,

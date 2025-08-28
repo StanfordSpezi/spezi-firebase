@@ -9,16 +9,14 @@
 import { type Organization } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import {
-  domainResourceSchema,
-  FhirDomainResource,
-} from '../elements/domainResource.js'
-import {
   addressSchema,
   backboneElementSchema,
   booleanSchema,
   codeableConceptSchema,
   contactPointSchema,
+  domainResourceSchema,
   elementSchema,
+  FhirDomainResource,
   humanNameSchema,
   identifierSchema,
   referenceSchema,
