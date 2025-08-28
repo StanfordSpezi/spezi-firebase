@@ -14,15 +14,15 @@ import { untypedDeviceSchema } from './device.js'
 import { untypedDiagnosticReportSchema } from './diagnosticReport.js'
 import { untypedEncounterSchema } from './encounter.js'
 import { untypedMedicationSchema } from './medication.js'
+import { untypedMedicationAdministrationSchema } from './medicationAdministration.js'
+import { untypedMedicationDispenseSchema } from './medicationDispense.js'
 import { untypedMedicationRequestSchema } from './medicationRequest.js'
+import { untypedMedicationStatementSchema } from './medicationStatement.js'
 import { untypedOrganizationSchema } from './organization.js'
 import { untypedPatientSchema } from './patient.js'
 import { untypedQuestionnaireSchema } from './questionnaire.js'
 import { untypedQuestionnaireResponseSchema } from './questionnaireResponse.js'
 import { untypedServiceRequestSchema } from './serviceRequest.js'
-import { untypedMedicationAdministrationSchema } from './medicationAdministration.js'
-import { untypedMedicationDispenseSchema } from './medicationDispense.js'
-import { untypedMedicationStatementSchema } from './medicationStatement.js'
 
 export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [

@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-
 import { type MedicationStatement } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { domainResourceSchema } from '../elements/domainResource.js'
@@ -21,14 +20,21 @@ import {
   referenceSchema,
 } from '../elements/index.js'
 
-
 export const untypedMedicationStatementSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('MedicationStatement').readonly(),
     identifier: identifierSchema.array().optional(),
     basedOn: referenceSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
-    status: z.enum(['active', 'completed', 'entered-in-error', 'intended', 'stopped', 'on-hold', 'unknown']),
+    status: z.enum([
+      'active',
+      'completed',
+      'entered-in-error',
+      'intended',
+      'stopped',
+      'on-hold',
+      'unknown',
+    ]),
     _status: elementSchema.optional(),
     category: codeableConceptSchema.optional(),
     medicationCodeableConcept: codeableConceptSchema.optional(),
