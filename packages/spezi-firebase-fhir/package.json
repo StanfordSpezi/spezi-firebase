@@ -41,7 +41,7 @@
     "LICENSE"
   ],
   "dependencies": {
-    "zod": "^4.0.5"
+    "@types/fhir": "^0.0.41"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",
