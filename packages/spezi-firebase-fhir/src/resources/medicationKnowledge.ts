@@ -24,6 +24,7 @@ import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
+  base64BinarySchema,
   booleanSchema,
   codeableConceptSchema,
   domainResourceSchema,
@@ -65,7 +66,7 @@ const ingredientSchema: ZodType<MedicationKnowledgeIngredient> = z.lazy(() =>
 const costSchema: ZodType<MedicationKnowledgeCost> = z.lazy(() =>
   backboneElementSchema.extend({
     type: codeableConceptSchema,
-    source: z.string().optional(),
+    source: stringSchema.optional(),
     _source: elementSchema.optional(),
     cost: quantitySchema,
   }),
@@ -75,7 +76,7 @@ const monitoringProgramSchema: ZodType<MedicationKnowledgeMonitoringProgram> =
   z.lazy(() =>
     backboneElementSchema.extend({
       type: codeableConceptSchema,
-      name: z.string().optional(),
+      name: stringSchema.optional(),
       _name: elementSchema.optional(),
     }),
   )
@@ -123,10 +124,10 @@ const drugCharacteristicSchema: ZodType<MedicationKnowledgeDrugCharacteristic> =
     backboneElementSchema.extend({
       type: codeableConceptSchema,
       valueCodeableConcept: codeableConceptSchema.optional(),
-      valueString: z.string().optional(),
+      valueString: stringSchema.optional(),
       _valueString: elementSchema.optional(),
       valueQuantity: quantitySchema.optional(),
-      valueBase64Binary: z.string().optional(),
+      valueBase64Binary: base64BinarySchema.optional(),
       _valueBase64Binary: elementSchema.optional(),
     }),
   )
