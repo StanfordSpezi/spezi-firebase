@@ -23,6 +23,10 @@ import { untypedPatientSchema } from './patient.js'
 import { untypedQuestionnaireSchema } from './questionnaire.js'
 import { untypedQuestionnaireResponseSchema } from './questionnaireResponse.js'
 import { untypedServiceRequestSchema } from './serviceRequest.js'
+import { untypedMedicationKnowledgeSchema } from './medicationKnowledge.js'
+import { untypedImmunizationSchema } from './immunization.js'
+import { untypedImmunizationEvaluationSchema } from './immunizationEvaluation.js'
+import { untypedImmunizationRecommendationSchema } from './immunizationRecommendation.js'
 
 export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
@@ -31,9 +35,13 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedDeviceSchema,
     untypedDiagnosticReportSchema,
     untypedEncounterSchema,
+    untypedImmunizationSchema,
+    untypedImmunizationEvaluationSchema,
+    untypedImmunizationRecommendationSchema,
     untypedMedicationSchema,
     untypedMedicationAdministrationSchema,
     untypedMedicationDispenseSchema,
+    untypedMedicationKnowledgeSchema,
     untypedMedicationRequestSchema,
     untypedMedicationStatementSchema,
     untypedOrganizationSchema,
