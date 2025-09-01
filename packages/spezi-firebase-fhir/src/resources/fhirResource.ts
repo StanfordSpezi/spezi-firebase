@@ -13,9 +13,13 @@ import { untypedAppointmentSchema } from './appointment.js'
 import { untypedDeviceSchema } from './device.js'
 import { untypedDiagnosticReportSchema } from './diagnosticReport.js'
 import { untypedEncounterSchema } from './encounter.js'
+import { untypedImmunizationSchema } from './immunization.js'
+import { untypedImmunizationEvaluationSchema } from './immunizationEvaluation.js'
+import { untypedImmunizationRecommendationSchema } from './immunizationRecommendation.js'
 import { untypedMedicationSchema } from './medication.js'
 import { untypedMedicationAdministrationSchema } from './medicationAdministration.js'
 import { untypedMedicationDispenseSchema } from './medicationDispense.js'
+import { untypedMedicationKnowledgeSchema } from './medicationKnowledge.js'
 import { untypedMedicationRequestSchema } from './medicationRequest.js'
 import { untypedMedicationStatementSchema } from './medicationStatement.js'
 import { untypedOrganizationSchema } from './organization.js'
@@ -31,9 +35,13 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedDeviceSchema,
     untypedDiagnosticReportSchema,
     untypedEncounterSchema,
+    untypedImmunizationSchema,
+    untypedImmunizationEvaluationSchema,
+    untypedImmunizationRecommendationSchema,
     untypedMedicationSchema,
     untypedMedicationAdministrationSchema,
     untypedMedicationDispenseSchema,
+    untypedMedicationKnowledgeSchema,
     untypedMedicationRequestSchema,
     untypedMedicationStatementSchema,
     untypedOrganizationSchema,

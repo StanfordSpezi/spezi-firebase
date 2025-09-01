@@ -1,0 +1,129 @@
+{
+  "0": {
+    "resourceType": "ImmunizationRecommendation",
+    "id": "rec-0",
+    "identifier": [
+      { "system": "http://hospital.example.org/immrecs", "value": "REC-0001" }
+    ],
+    "patient": { "reference": "Patient/123" },
+    "date": "2024-11-01",
+    "authority": { "reference": "Organization/cdc", "display": "CDC" },
+    "recommendation": [
+      {
+        "vaccineCode": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/sid/cvx",
+                "code": "140",
+                "display": "Influenza"
+              }
+            ]
+          }
+        ],
+        "forecastStatus": { "text": "Due" }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "ImmunizationRecommendation",
+    "id": "rec-1",
+    "patient": { "reference": "Patient/456" },
+    "date": "2023-06-10",
+    "recommendation": [
+      {
+        "vaccineCode": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/sid/cvx",
+                "code": "207",
+                "display": "COVID-19"
+              }
+            ]
+          }
+        ],
+        "forecastStatus": { "text": "Overdue" },
+        "dateCriterion": [
+          { "code": { "text": "Earliest date" }, "value": "2023-05-01" },
+          { "code": { "text": "Latest date" }, "value": "2023-06-01" }
+        ],
+        "doseNumberPositiveInt": 2,
+        "seriesDosesPositiveInt": 3
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ImmunizationRecommendation",
+    "id": "rec-2",
+    "patient": { "reference": "Patient/789" },
+    "date": "2022-08-15",
+    "recommendation": [
+      {
+        "vaccineCode": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/sid/cvx",
+                "code": "03",
+                "display": "MMR"
+              }
+            ]
+          }
+        ],
+        "forecastStatus": { "text": "Not recommended" },
+        "description": "Patient has documented immunity",
+        "supportingImmunization": [{ "reference": "Immunization/imm-2" }],
+        "supportingPatientInformation": [
+          { "reference": "Observation/obs-immunity", "display": "IgG positive" }
+        ],
+        "dateCriterion": [
+          { "code": { "text": "Earliest date" }, "value": "2022-07-01" }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ImmunizationRecommendation",
+    "id": "rec-3",
+    "patient": { "reference": "Patient/999" },
+    "date": "2021-02-20",
+    "authority": { "display": "WHO" },
+    "recommendation": [
+      {
+        "vaccineCode": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/sid/cvx",
+                "code": "08",
+                "display": "Hepatitis B"
+              }
+            ]
+          }
+        ],
+        "forecastStatus": { "text": "Due soon" },
+        "series": "HepB series",
+        "targetDisease": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "40468003",
+              "display": "Viral hepatitis type B"
+            }
+          ]
+        },
+        "doseNumberPositiveInt": 3,
+        "seriesDosesPositiveInt": 3,
+        "supportingImmunization": [{ "reference": "Immunization/imm-3" }],
+        "supportingPatientInformation": [
+          {
+            "reference": "Condition/chronic-liver",
+            "display": "Chronic liver disease"
+          }
+        ],
+        "description": "Final dose of series recommended"
+      }
+    ]
+  }
+}
