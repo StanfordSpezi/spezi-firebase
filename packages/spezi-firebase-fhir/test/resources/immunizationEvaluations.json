@@ -1,0 +1,101 @@
+{
+  "0": {
+    "resourceType": "ImmunizationEvaluation",
+    "id": "eval-0",
+    "identifier": [
+      { "system": "http://hospital.example.org/immevals", "value": "EVAL-0001" }
+    ],
+    "status": "completed",
+    "patient": { "reference": "Patient/123" },
+    "date": "2024-10-01",
+    "authority": { "reference": "Organization/cdc", "display": "CDC" },
+    "targetDisease": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "6142004",
+          "display": "Influenza"
+        }
+      ]
+    },
+    "immunizationEvent": { "reference": "Immunization/imm-0" },
+    "doseStatus": { "text": "Valid" }
+  },
+  "1": {
+    "resourceType": "ImmunizationEvaluation",
+    "id": "eval-1",
+    "status": "completed",
+    "patient": { "reference": "Patient/456" },
+    "date": "2023-06-15",
+    "authority": { "display": "WHO" },
+    "targetDisease": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "840539006",
+          "display": "COVID-19"
+        }
+      ]
+    },
+    "immunizationEvent": { "reference": "Immunization/imm-1" },
+    "doseStatus": { "text": "Valid" },
+    "description": "Dose meets recommended timing and interval criteria",
+    "series": "COVID primary series",
+    "doseNumberPositiveInt": 2,
+    "seriesDosesPositiveInt": 2
+  },
+  "2": {
+    "resourceType": "ImmunizationEvaluation",
+    "id": "eval-2",
+    "status": "completed",
+    "patient": { "reference": "Patient/789" },
+    "date": "2022-08-20",
+    "authority": {
+      "reference": "Organization/local",
+      "display": "Local Health Authority"
+    },
+    "targetDisease": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "36653000",
+          "display": "Measles"
+        }
+      ]
+    },
+    "immunizationEvent": { "reference": "Immunization/imm-2" },
+    "doseStatus": { "text": "Invalid" },
+    "doseStatusReason": [
+      { "coding": [{ "code": "EXPIRED" }], "text": "Expired lot" },
+      { "coding": [{ "code": "TOO_EARLY" }], "text": "Administered too early" }
+    ],
+    "description": "Invalid because administered prior to minimum recommended age"
+  },
+  "3": {
+    "resourceType": "ImmunizationEvaluation",
+    "id": "eval-3",
+    "status": "completed",
+    "patient": { "reference": "Patient/999" },
+    "date": "2021-02-25",
+    "authority": {
+      "reference": "Organization/who",
+      "display": "World Health Organization"
+    },
+    "targetDisease": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "40468003",
+          "display": "Viral hepatitis type B"
+        }
+      ]
+    },
+    "immunizationEvent": { "reference": "Immunization/imm-3" },
+    "doseStatus": { "text": "Valid" },
+    "doseStatusReason": [{ "text": "Meets all criteria" }],
+    "description": "Second dose administered on time, series progressing appropriately",
+    "series": "HepB series",
+    "doseNumberPositiveInt": 2,
+    "seriesDosesPositiveInt": 3
+  }
+}

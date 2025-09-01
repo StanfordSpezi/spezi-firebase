@@ -75,7 +75,7 @@ const costSchema: ZodType<MedicationKnowledgeCost> = z.lazy(() =>
 const monitoringProgramSchema: ZodType<MedicationKnowledgeMonitoringProgram> =
   z.lazy(() =>
     backboneElementSchema.extend({
-      type: codeableConceptSchema,
+      type: codeableConceptSchema.optional(),
       name: stringSchema.optional(),
       _name: elementSchema.optional(),
     }),
@@ -97,7 +97,7 @@ const administrationGuidelinesSchema: ZodType<MedicationKnowledgeAdministrationG
         .extend({
           characteristicCodeableConcept: codeableConceptSchema.optional(),
           characteristicQuantity: quantitySchema.optional(),
-          value: stringSchema.array(),
+          value: stringSchema.array().optional(),
         })
         .array()
         .optional(),
@@ -170,7 +170,7 @@ const kineticsSchema: ZodType<MedicationKnowledgeKinetics> = z.lazy(() =>
 export const untypedMedicationKnowledgeSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('MedicationKnowledge').readonly(),
-    code: codeableConceptSchema,
+    code: codeableConceptSchema.optional(),
     status: z.enum(['active', 'inactive', 'entered-in-error']).optional(),
     _status: elementSchema.optional(),
     manufacturer: referenceSchema.optional(),

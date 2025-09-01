@@ -1,0 +1,175 @@
+{
+  "0": {
+    "resourceType": "MedicationKnowledge",
+    "id": "med-001",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code": "1049630",
+          "display": "Amoxicillin 250mg capsule"
+        }
+      ],
+      "text": "Amoxicillin 250mg capsule"
+    },
+    "status": "active",
+    "manufacturer": { "reference": "Organization/123" },
+    "doseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385055001",
+          "display": "Capsule"
+        }
+      ],
+      "text": "Capsule"
+    },
+    "ingredient": [
+      {
+        "itemCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "7070",
+              "display": "Amoxicillin"
+            }
+          ]
+        },
+        "isActive": true,
+        "strength": {
+          "numerator": { "value": 250, "unit": "mg" },
+          "denominator": { "value": 1, "unit": "capsule" }
+        }
+      }
+    ],
+    "regulatory": [
+      {
+        "regulatoryAuthority": { "reference": "Organization/456" }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "MedicationKnowledge",
+    "id": "example",
+    "text": {
+      "status": "generated",
+      "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource &quot;example&quot; </p></div><p><b>code</b>: Vancomycin Hydrochloride (VANCOMYCIN HYDROCHLORIDE) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/3.1.0/CodeSystem-v3-ndc.html\">National drug codes</a>#0409-6531-02)</span></p><p><b>status</b>: active</p><p><b>manufacturer</b>: <a name=\"org4\"> </a></p><blockquote><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource &quot;org4&quot; </p></div><p><b>name</b>: Pfizer Laboratories Div Pfizer Inc</p></blockquote><p><b>doseForm</b>: Oral Dose Form (qualifier value) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#385268001)</span></p><p><b>amount</b>: 50 mg/ml</p><p><b>synonym</b>: Vancomycin Hydrochloride (VANCOMYCIN HYDROCHLORIDE)</p></div>"
+    },
+    "contained": [
+      {
+        "resourceType": "Organization",
+        "id": "org4",
+        "name": "Pfizer Laboratories Div Pfizer Inc"
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/sid/ndc",
+          "code": "0409-6531-02",
+          "display": "Vancomycin Hydrochloride (VANCOMYCIN HYDROCHLORIDE)"
+        }
+      ]
+    },
+    "status": "active",
+    "manufacturer": {
+      "reference": "#org4"
+    },
+    "doseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385268001",
+          "display": "Oral Dose Form (qualifier value)"
+        }
+      ]
+    },
+    "amount": {
+      "value": 50,
+      "unit": "mg/ml"
+    },
+    "synonym": ["Vancomycin Hydrochloride (VANCOMYCIN HYDROCHLORIDE)"]
+  },
+  "2": {
+    "resourceType": "MedicationKnowledge",
+    "id": "med-003",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code": "1049629",
+          "display": "Azithromycin 500mg tablet"
+        }
+      ],
+      "text": "Azithromycin 500mg tablet"
+    },
+    "status": "active",
+    "manufacturer": { "reference": "Organization/321" },
+    "doseForm": { "text": "Tablet" },
+    "ingredient": [
+      {
+        "itemCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1979",
+              "display": "Azithromycin"
+            }
+          ]
+        },
+        "isActive": true,
+        "strength": {
+          "numerator": { "value": 500, "unit": "mg" },
+          "denominator": { "value": 1, "unit": "tablet" }
+        }
+      }
+    ],
+    "monitoringProgram": [
+      {
+        "type": { "text": "Hepatic function" },
+        "name": "Liver enzyme monitoring"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "MedicationKnowledge",
+    "id": "med-004",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code": "861013",
+          "display": "Paracetamol 500mg tablet"
+        }
+      ],
+      "text": "Paracetamol 500mg tablet"
+    },
+    "status": "active",
+    "manufacturer": { "reference": "Organization/654" },
+    "doseForm": { "text": "Tablet" },
+    "ingredient": [
+      {
+        "itemCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "161",
+              "display": "Paracetamol"
+            }
+          ]
+        },
+        "isActive": true,
+        "strength": {
+          "numerator": { "value": 500, "unit": "mg" },
+          "denominator": { "value": 1, "unit": "tablet" }
+        }
+      }
+    ],
+    "kinetics": [
+      {
+        "areaUnderCurve": [{ "value": 25, "unit": "mg*h/L" }],
+        "halfLifePeriod": { "value": 2, "unit": "h" }
+      }
+    ]
+  }
+}

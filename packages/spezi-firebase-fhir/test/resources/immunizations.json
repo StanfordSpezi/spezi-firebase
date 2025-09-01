@@ -1,0 +1,147 @@
+{
+  "0": {
+    "resourceType": "Immunization",
+    "id": "imm-0",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/immunizations",
+        "value": "IMM-0001"
+      }
+    ],
+    "status": "completed",
+    "statusReason": { "text": "Routine vaccination" },
+    "vaccineCode": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/sid/cvx",
+          "code": "140",
+          "display": "Influenza, seasonal"
+        }
+      ],
+      "text": "Flu shot"
+    },
+    "patient": { "reference": "Patient/123" },
+    "encounter": { "reference": "Encounter/enc-001" },
+    "occurrenceDateTime": "2024-10-01",
+    "recorded": "2024-10-01T10:00:00Z",
+    "primarySource": true,
+    "reportOrigin": { "text": "Provider report" },
+    "location": {
+      "reference": "Location/clinic1",
+      "display": "Downtown Clinic"
+    },
+    "manufacturer": { "reference": "Organization/org1", "display": "Pfizer" },
+    "lotNumber": "LOT12345",
+    "expirationDate": "2025-05-01"
+  },
+  "1": {
+    "resourceType": "Immunization",
+    "id": "imm-1",
+    "status": "completed",
+    "vaccineCode": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/sid/cvx",
+          "code": "208",
+          "display": "COVID-19 mRNA"
+        }
+      ]
+    },
+    "patient": { "reference": "Patient/456" },
+    "occurrenceDateTime": "2023-06-12",
+    "site": { "coding": [{ "code": "LA" }], "text": "Left arm" },
+    "route": { "coding": [{ "code": "IM" }], "text": "Intramuscular" },
+    "doseQuantity": { "value": 0.5, "unit": "mL" },
+    "performer": [
+      {
+        "function": { "text": "Administering provider" },
+        "actor": { "reference": "Practitioner/111", "display": "Dr. Smith" }
+      },
+      {
+        "function": { "text": "Ordering provider" },
+        "actor": { "reference": "Practitioner/222", "display": "Dr. Jones" }
+      }
+    ],
+    "note": [{ "text": "Observed 15 min post-vaccination. No reaction." }],
+    "isSubpotent": false,
+    "programEligibility": [{ "text": "VFC eligible" }],
+    "fundingSource": { "text": "Government supplied" }
+  },
+  "2": {
+    "resourceType": "Immunization",
+    "id": "imm-2",
+    "status": "entered-in-error",
+    "vaccineCode": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/sid/cvx",
+          "code": "03",
+          "display": "MMR"
+        }
+      ]
+    },
+    "patient": { "reference": "Patient/789" },
+    "occurrenceDateTime": "2022-08-15",
+    "site": { "text": "Right thigh" },
+    "route": { "text": "Subcutaneous" },
+    "doseQuantity": { "value": 0.5, "unit": "mL" },
+    "performer": [
+      {
+        "function": { "text": "Administering provider" },
+        "actor": { "display": "Nurse Jane" }
+      }
+    ],
+    "note": [{ "text": "Dose entered in error, not administered" }],
+    "reasonCode": [{ "text": "System data entry error" }],
+    "reaction": [
+      {
+        "date": "2022-08-15T12:00:00Z",
+        "detail": { "reference": "Observation/obs-reaction-1" },
+        "reported": true
+      }
+    ],
+    "isSubpotent": true,
+    "subpotentReason": [{ "text": "Expired lot" }]
+  },
+  "3": {
+    "resourceType": "Immunization",
+    "id": "imm-3",
+    "status": "completed",
+    "vaccineCode": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/sid/cvx",
+          "code": "08",
+          "display": "Hepatitis B"
+        }
+      ]
+    },
+    "patient": { "reference": "Patient/999" },
+    "occurrenceDateTime": "2021-02-20",
+    "doseQuantity": { "value": 1.0, "unit": "mL" },
+    "protocolApplied": [
+      {
+        "series": "HepB series",
+        "authority": { "reference": "Organization/cdc", "display": "CDC" },
+        "targetDisease": [
+          {
+            "coding": [
+              { "code": "40468003", "display": "Viral hepatitis type B" }
+            ]
+          }
+        ],
+        "doseNumberPositiveInt": 2,
+        "seriesDosesPositiveInt": 3
+      }
+    ],
+    "reportOrigin": { "text": "Immunization registry" },
+    "location": { "display": "Regional Health Center" },
+    "manufacturer": { "display": "GlaxoSmithKline" },
+    "lotNumber": "HBV123",
+    "expirationDate": "2023-01-01",
+    "reasonCode": [{ "text": "Routine infant schedule" }],
+    "programEligibility": [{ "text": "Medicaid" }],
+    "fundingSource": { "text": "Insurance" },
+    "note": [{ "text": "Second dose administered on schedule" }]
+  }
+}
