@@ -72,8 +72,7 @@ export const untypedCompositionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Composition').readonly(),
     identifier: identifierSchema.optional(),
-    status: z
-      .enum(['preliminary', 'final', 'amended', 'entered-in-error']),
+    status: z.enum(['preliminary', 'final', 'amended', 'entered-in-error']),
     _status: elementSchema.optional(),
     type: codeableConceptSchema,
     category: codeableConceptSchema.array().optional(),
