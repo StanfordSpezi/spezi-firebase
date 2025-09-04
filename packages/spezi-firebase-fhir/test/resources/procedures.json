@@ -1,0 +1,154 @@
+{
+  "0": {
+    "resourceType": "Procedure",
+    "id": "procedure-example-0",
+    "status": "completed",
+    "category": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "103693007",
+          "display": "Diagnostic procedure"
+        }
+      ]
+    },
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "80146002",
+          "display": "Appendectomy"
+        }
+      ]
+    },
+    "subject": { "reference": "Patient/patient-example" },
+    "performedDateTime": "2019-07-22",
+    "performer": [
+      { "actor": { "reference": "Practitioner/practitioner-example" } }
+    ],
+    "recorder": { "reference": "Practitioner/practitioner-recorder" }
+  },
+  "1": {
+    "resourceType": "Procedure",
+    "id": "procedure-example-1",
+    "status": "in-progress",
+    "code": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "LP12345-6",
+          "display": "Chemotherapy"
+        }
+      ]
+    },
+    "subject": { "reference": "Patient/patient-another" },
+    "encounter": { "reference": "Encounter/encounter-example" },
+    "performedPeriod": { "start": "2021-05-01", "end": "2021-08-01" },
+    "performer": [
+      { "actor": { "reference": "Practitioner/practitioner-oncologist" } }
+    ],
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "363346000",
+            "display": "Malignant tumor"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Procedure",
+    "id": "procedure-example-2",
+    "status": "not-done",
+    "statusReason": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/procedure-not-performed-reason",
+          "code": "PATOBJ"
+        }
+      ]
+    },
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "73761001",
+          "display": "Colonoscopy"
+        }
+      ]
+    },
+    "subject": { "reference": "Patient/patient-refusal" },
+    "note": [{ "text": "Patient refused the procedure." }]
+  },
+  "3": {
+    "resourceType": "Procedure",
+    "id": "procedure-example-3",
+    "status": "completed",
+    "category": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "387713003",
+          "display": "Surgical procedure"
+        }
+      ]
+    },
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "174041007",
+          "display": "Coronary artery bypass graft"
+        }
+      ]
+    },
+    "subject": { "reference": "Patient/patient-heart" },
+    "encounter": { "reference": "Encounter/enc-surgery" },
+    "performedDateTime": "2022-02-15",
+    "performer": [
+      {
+        "actor": { "reference": "Practitioner/practitioner-surgeon" },
+        "onBehalfOf": { "reference": "Organization/org-hospital" }
+      }
+    ],
+    "bodySite": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "302509004",
+            "display": "Coronary artery"
+          }
+        ]
+      }
+    ],
+    "focalDevice": [
+      {
+        "action": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "129303008",
+              "display": "Implantation"
+            }
+          ]
+        },
+        "manipulated": { "reference": "Device/device-stent" }
+      }
+    ],
+    "complication": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "233604007",
+            "display": "Surgical wound infection"
+          }
+        ]
+      }
+    ]
+  }
+}

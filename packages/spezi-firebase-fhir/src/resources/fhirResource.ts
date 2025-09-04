@@ -10,6 +10,7 @@ import { type FhirResource } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { untypedAllergyIntoleranceSchema } from './allergyIntolerance.js'
 import { untypedAppointmentSchema } from './appointment.js'
+import { untypedConditionSchema } from './condition.js'
 import { untypedDeviceSchema } from './device.js'
 import { untypedDiagnosticReportSchema } from './diagnosticReport.js'
 import { untypedEncounterSchema } from './encounter.js'
@@ -24,6 +25,7 @@ import { untypedMedicationRequestSchema } from './medicationRequest.js'
 import { untypedMedicationStatementSchema } from './medicationStatement.js'
 import { untypedOrganizationSchema } from './organization.js'
 import { untypedPatientSchema } from './patient.js'
+import { untypedProcedureSchema } from './procedure.js'
 import { untypedQuestionnaireSchema } from './questionnaire.js'
 import { untypedQuestionnaireResponseSchema } from './questionnaireResponse.js'
 import { untypedServiceRequestSchema } from './serviceRequest.js'
@@ -32,6 +34,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
     untypedAllergyIntoleranceSchema,
     untypedAppointmentSchema,
+    untypedConditionSchema,
     untypedDeviceSchema,
     untypedDiagnosticReportSchema,
     untypedEncounterSchema,
@@ -46,6 +49,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedMedicationStatementSchema,
     untypedOrganizationSchema,
     untypedPatientSchema,
+    untypedProcedureSchema,
     untypedQuestionnaireSchema,
     untypedQuestionnaireResponseSchema,
     untypedServiceRequestSchema,
