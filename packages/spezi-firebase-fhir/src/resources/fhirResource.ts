@@ -34,6 +34,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
     untypedAllergyIntoleranceSchema,
     untypedAppointmentSchema,
+    untypedCoverageSchema,
     untypedDeviceSchema,
     untypedDiagnosticReportSchema,
     untypedEncounterSchema,
@@ -48,10 +49,9 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedMedicationStatementSchema,
     untypedOrganizationSchema,
     untypedPatientSchema,
+    untypedPractitionerSchema,
     untypedQuestionnaireSchema,
     untypedQuestionnaireResponseSchema,
     untypedServiceRequestSchema,
-    untypedCoverageSchema,
-    untypedPractitionerSchema,
   ]),
 )
