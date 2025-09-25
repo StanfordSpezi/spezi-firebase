@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { FhirDomainResource } from './domainResourceClass.js'
 import { type Coverage } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { FhirDomainResource } from './domainResourceClass.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   identifierSchema,
