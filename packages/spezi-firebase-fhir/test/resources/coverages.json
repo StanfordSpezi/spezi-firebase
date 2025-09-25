@@ -82,14 +82,6 @@
       }
     ],
     "status": "active",
-
-    "paymentBy": {
-      "party": {
-        "reference": "Organization/employer-001",
-        "display": "Tech Corporation"
-      },
-      "responsibility": "Primary employer-sponsored coverage"
-    },
     "type": {
       "coding": [
         {
@@ -131,16 +123,6 @@
     "period": {
       "start": "2024-01-01T00:00:00Z",
       "end": "2024-12-31T23:59:59Z"
-    },
-    "insurer": [
-      {
-        "reference": "Organization/blue-cross",
-        "display": "Blue Cross Blue Shield"
-      }
-    ],
-    "valueMoney": {
-      "value": 5000.0,
-      "currency": "USD"
     },
     "class": [
       {
@@ -202,42 +184,6 @@
             }
           ]
         },
-        "category": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/ex-benefitcategory",
-              "code": "medical",
-              "display": "Medical"
-            }
-          ]
-        },
-        "network": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/benefit-network",
-              "code": "in",
-              "display": "In Network"
-            }
-          ]
-        },
-        "unit": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/benefit-unit",
-              "code": "individual",
-              "display": "Individual"
-            }
-          ]
-        },
-        "term": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/benefit-term",
-              "code": "annual",
-              "display": "Annual"
-            }
-          ]
-        },
         "valueMoney": {
           "value": 25.0,
           "currency": "USD"
@@ -250,15 +196,6 @@
               "system": "http://terminology.hl7.org/CodeSystem/coverage-copay-type",
               "code": "deductible",
               "display": "Deductible"
-            }
-          ]
-        },
-        "category": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/ex-benefitcategory",
-              "code": "medical",
-              "display": "Medical"
             }
           ]
         },
@@ -345,12 +282,6 @@
       "start": "2024-01-01T00:00:00Z",
       "end": "2024-06-30T23:59:59Z"
     },
-    "insurer": [
-      {
-        "reference": "Organization/aetna",
-        "display": "Aetna Health Insurance"
-      }
-    ],
     "class": [
       {
         "type": {
@@ -464,18 +395,6 @@
       "start": "2024-01-01T00:00:00Z",
       "end": "2026-12-31T23:59:59Z"
     },
-    "insurer": [
-      {
-        "reference": "Organization/unitedhealth",
-        "display": "UnitedHealth Group"
-      }
-    ],
-    "valueQuantity": {
-      "value": 95,
-      "unit": "percent",
-      "system": "http://unitsofmeasure.org",
-      "code": "%"
-    },
     "class": [
       {
         "type": {
@@ -523,33 +442,6 @@
             }
           ]
         },
-        "category": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/ex-benefitcategory",
-              "code": "medical",
-              "display": "Medical"
-            }
-          ]
-        },
-        "unit": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/benefit-unit",
-              "code": "individual",
-              "display": "Individual"
-            }
-          ]
-        },
-        "term": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/benefit-term",
-              "code": "day",
-              "display": "Day"
-            }
-          ]
-        },
         "valueMoney": {
           "value": 15.0,
           "currency": "USD"
@@ -562,15 +454,6 @@
               "system": "http://terminology.hl7.org/CodeSystem/coverage-copay-type",
               "code": "coinsurance",
               "display": "Coinsurance"
-            }
-          ]
-        },
-        "category": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/ex-benefitcategory",
-              "code": "dental",
-              "display": "Dental"
             }
           ]
         },
