@@ -228,40 +228,31 @@
     ],
     "communication": [
       {
-        "language": {
-          "coding": [
-            {
-              "system": "urn:ietf:bcp:47",
-              "code": "en-US",
-              "display": "English (United States)"
-            }
-          ]
-        },
-        "preferred": true
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "en-US",
+            "display": "English (United States)"
+          }
+        ]
       },
       {
-        "language": {
-          "coding": [
-            {
-              "system": "urn:ietf:bcp:47",
-              "code": "es",
-              "display": "Spanish"
-            }
-          ]
-        },
-        "preferred": false
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "es",
+            "display": "Spanish"
+          }
+        ]
       },
       {
-        "language": {
-          "coding": [
-            {
-              "system": "urn:ietf:bcp:47",
-              "code": "fr",
-              "display": "French"
-            }
-          ]
-        },
-        "preferred": false
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "fr",
+            "display": "French"
+          }
+        ]
       }
     ]
   },
@@ -307,7 +298,6 @@
       }
     ],
     "gender": "male",
-    "deceasedDateTime": "2023-12-15T10:30:00-05:00",
     "address": [
       {
         "use": "work",
@@ -344,16 +334,13 @@
     ],
     "communication": [
       {
-        "language": {
-          "coding": [
-            {
-              "system": "urn:ietf:bcp:47",
-              "code": "en-US",
-              "display": "English (United States)"
-            }
-          ]
-        },
-        "preferred": true
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "en-US",
+            "display": "English (United States)"
+          }
+        ]
       }
     ]
   },
@@ -440,7 +427,6 @@
       }
     ],
     "gender": "other",
-    "deceasedBoolean": false,
     "address": [
       {
         "use": "work",
@@ -556,40 +542,31 @@
     ],
     "communication": [
       {
-        "language": {
-          "coding": [
-            {
-              "system": "urn:ietf:bcp:47",
-              "code": "en-US",
-              "display": "English (United States)"
-            }
-          ]
-        },
-        "preferred": true
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "en-US",
+            "display": "English (United States)"
+          }
+        ]
       },
       {
-        "language": {
-          "coding": [
-            {
-              "system": "urn:ietf:bcp:47",
-              "code": "zh-CN",
-              "display": "Chinese (China)"
-            }
-          ]
-        },
-        "preferred": false
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "zh-CN",
+            "display": "Chinese (China)"
+          }
+        ]
       },
       {
-        "language": {
-          "coding": [
-            {
-              "system": "urn:ietf:bcp:47",
-              "code": "ko",
-              "display": "Korean"
-            }
-          ]
-        },
-        "preferred": false
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "ko",
+            "display": "Korean"
+          }
+        ]
       }
     ]
   }
