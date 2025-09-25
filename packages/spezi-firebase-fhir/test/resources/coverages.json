@@ -8,7 +8,6 @@
       "profile": ["http://hl7.org/fhir/StructureDefinition/Coverage"]
     },
     "status": "active",
-    "kind": "insurance",
     "beneficiary": {
       "reference": "Patient/patient-001",
       "display": "John Smith"
@@ -83,7 +82,7 @@
       }
     ],
     "status": "active",
-    "kind": "insurance",
+
     "paymentBy": {
       "party": {
         "reference": "Organization/employer-001",
@@ -314,7 +313,7 @@
       }
     ],
     "status": "cancelled",
-    "kind": "insurance",
+
     "type": {
       "coding": [
         {
@@ -422,7 +421,7 @@
       }
     ],
     "status": "active",
-    "kind": "insurance",
+
     "type": {
       "coding": [
         {
