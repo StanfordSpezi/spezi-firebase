@@ -27,7 +27,12 @@ import {
   referenceSchema,
 } from '../elements/index.js'
 
-const patientGenderSchema = z.enum(['male', 'female', 'other', 'unknown'])
+export const patientGenderSchema = z.enum([
+  'male',
+  'female',
+  'other',
+  'unknown',
+])
 
 const patientLinkTypeSchema = z.enum([
   'replaced-by',
