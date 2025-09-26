@@ -1,0 +1,275 @@
+{
+  "0": {
+    "resourceType": "Composition",
+    "id": "comp-0",
+    "status": "final",
+    "type": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "11488-4",
+          "display": "Consult note"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/pat-0"
+    },
+    "date": "2025-01-01T10:00:00Z",
+    "author": [
+      {
+        "reference": "Practitioner/prac-0"
+      }
+    ],
+    "title": "Initial Consultation",
+    "confidentiality": "N",
+    "custodian": {
+      "reference": "Organization/org-0"
+    },
+    "event": [
+      {
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                "code": "ENC",
+                "display": "Encounter"
+              }
+            ]
+          }
+        ],
+        "period": {
+          "start": "2025-01-01T09:00:00Z",
+          "end": "2025-01-01T10:00:00Z"
+        },
+        "detail": [
+          {
+            "reference": "Encounter/enc-0"
+          }
+        ]
+      }
+    ],
+    "section": [
+      {
+        "title": "Medical Conditions",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11450-4",
+              "display": "Problem list"
+            }
+          ]
+        },
+        "entry": [
+          {
+            "reference": "Condition/cond-0"
+          },
+          {
+            "reference": "AllergyIntolerance/allergy-0"
+          }
+        ]
+      },
+      {
+        "title": "Medications",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "10160-0",
+              "display": "Medication list"
+            }
+          ]
+        },
+        "entry": [
+          {
+            "reference": "Medication/med-0"
+          },
+          {
+            "reference": "MedicationRequest/medreq-0"
+          },
+          {
+            "reference": "MedicationStatement/medstat-0"
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Composition",
+    "id": "comp-1",
+    "status": "preliminary",
+    "type": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "18748-4",
+          "display": "Discharge summary"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/pat-1"
+    },
+    "date": "2025-02-15T12:00:00Z",
+    "author": [
+      {
+        "reference": "Practitioner/prac-1"
+      }
+    ],
+    "title": "Hospital Discharge Summary",
+    "attester": [
+      {
+        "mode": "legal",
+        "time": "2025-02-15T12:30:00Z",
+        "party": {
+          "reference": "Practitioner/prac-1"
+        }
+      }
+    ],
+    "relatesTo": [
+      {
+        "code": "replaces",
+        "targetReference": {
+          "reference": "Composition/comp-0"
+        }
+      }
+    ],
+    "section": [
+      {
+        "title": "Procedures",
+        "entry": [
+          {
+            "reference": "Procedure/proc-1"
+          }
+        ]
+      },
+      {
+        "title": "Immunizations",
+        "entry": [
+          {
+            "reference": "Immunization/imm-1"
+          },
+          {
+            "reference": "ImmunizationEvaluation/immeval-1"
+          },
+          {
+            "reference": "ImmunizationRecommendation/immrec-1"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Composition",
+    "id": "comp-2",
+    "status": "amended",
+    "type": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "51847-2",
+          "display": "Evaluation note"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/pat-2"
+    },
+    "date": "2025-03-10T09:00:00Z",
+    "author": [
+      {
+        "reference": "Practitioner/prac-2"
+      }
+    ],
+    "title": "Follow-up Evaluation",
+    "event": [
+      {
+        "detail": [
+          {
+            "reference": "Appointment/appt-2"
+          }
+        ]
+      }
+    ],
+    "section": [
+      {
+        "title": "Diagnostics",
+        "entry": [
+          {
+            "reference": "DiagnosticReport/diagrep-2"
+          },
+          {
+            "reference": "Observation/obs-2"
+          },
+          {
+            "reference": "ServiceRequest/sr-2"
+          }
+        ]
+      },
+      {
+        "title": "Medication Management",
+        "entry": [
+          {
+            "reference": "MedicationAdministration/medadmin-2"
+          },
+          {
+            "reference": "MedicationDispense/meddisp-2"
+          },
+          {
+            "reference": "MedicationKnowledge/medknow-2"
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Composition",
+    "id": "comp-3",
+    "status": "entered-in-error",
+    "type": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "8648-8",
+          "display": "Patient insurance information"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/pat-3"
+    },
+    "date": "2025-04-01T14:00:00Z",
+    "author": [
+      {
+        "reference": "Practitioner/prac-3"
+      }
+    ],
+    "title": "Coverage and Questionnaire",
+    "section": [
+      {
+        "title": "Coverage",
+        "entry": [
+          {
+            "reference": "Coverage/cov-3"
+          },
+          {
+            "reference": "Device/dev-3"
+          }
+        ]
+      },
+      {
+        "title": "Patient-reported Data",
+        "entry": [
+          {
+            "reference": "Questionnaire/quest-3"
+          },
+          {
+            "reference": "QuestionnaireResponse/qres-3"
+          }
+        ]
+      }
+    ]
+  }
+}
