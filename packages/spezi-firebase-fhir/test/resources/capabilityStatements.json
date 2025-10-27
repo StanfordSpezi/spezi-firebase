@@ -1,0 +1,99 @@
+{
+  "0": {
+    "resourceType": "CapabilityStatement",
+    "id": "example",
+    "status": "active",
+    "date": "2023-01-01T00:00:00Z",
+    "kind": "instance",
+    "fhirVersion": "4.3.0",
+    "format": ["json", "xml"],
+    "implementation": {
+      "description": "Main FHIR Server"
+    }
+  },
+  "1": {
+    "resourceType": "CapabilityStatement",
+    "id": "capability-example",
+    "status": "draft",
+    "date": "2023-06-15T10:30:00Z",
+    "kind": "capability",
+    "fhirVersion": "4.3.0",
+    "format": ["json"],
+    "publisher": "ACME Healthcare",
+    "rest": [
+      {
+        "mode": "server",
+        "resource": [
+          {
+            "type": "Patient",
+            "interaction": [
+              {
+                "code": "read"
+              },
+              {
+                "code": "search-type"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "CapabilityStatement",
+    "id": "requirements-example",
+    "status": "active",
+    "date": "2023-03-20T14:00:00Z",
+    "kind": "requirements",
+    "fhirVersion": "4.0.1",
+    "format": ["json", "xml"],
+    "software": {
+      "name": "HealthSystem FHIR",
+      "version": "1.2.3"
+    },
+    "rest": [
+      {
+        "mode": "client",
+        "resource": [
+          {
+            "type": "Observation",
+            "interaction": [
+              {
+                "code": "create"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "CapabilityStatement",
+    "id": "messaging-example",
+    "status": "active",
+    "date": "2023-09-10T08:15:00Z",
+    "kind": "instance",
+    "fhirVersion": "4.3.0",
+    "format": ["json"],
+    "description": "Messaging capability statement",
+    "messaging": [
+      {
+        "endpoint": [
+          {
+            "protocol": {
+              "system": "http://terminology.hl7.org/CodeSystem/message-transport",
+              "code": "http"
+            },
+            "address": "https://example.org/fhir/messaging"
+          }
+        ],
+        "supportedMessage": [
+          {
+            "mode": "receiver",
+            "definition": "http://example.org/fhir/MessageDefinition/example"
+          }
+        ]
+      }
+    ]
+  }
+}

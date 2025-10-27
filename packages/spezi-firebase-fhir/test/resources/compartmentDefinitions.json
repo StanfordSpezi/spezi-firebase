@@ -1,0 +1,58 @@
+{
+  "0": {
+    "resourceType": "CompartmentDefinition",
+    "id": "patient",
+    "url": "http://hl7.org/fhir/CompartmentDefinition/patient",
+    "name": "PatientCompartment",
+    "status": "active",
+    "code": "Patient",
+    "search": true
+  },
+  "1": {
+    "resourceType": "CompartmentDefinition",
+    "id": "encounter",
+    "url": "http://hl7.org/fhir/CompartmentDefinition/encounter",
+    "name": "EncounterCompartment",
+    "status": "draft",
+    "code": "Encounter",
+    "search": true,
+    "resource": [
+      {
+        "code": "Observation",
+        "param": ["encounter"]
+      },
+      {
+        "code": "Condition",
+        "param": ["encounter"]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "CompartmentDefinition",
+    "id": "practitioner",
+    "url": "http://example.org/fhir/CompartmentDefinition/practitioner",
+    "name": "PractitionerCompartment",
+    "status": "active",
+    "code": "Practitioner",
+    "search": false,
+    "description": "Practitioner compartment definition",
+    "resource": [
+      {
+        "code": "Appointment",
+        "param": ["actor"],
+        "documentation": "Appointments involving the practitioner"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "CompartmentDefinition",
+    "id": "device",
+    "url": "http://example.org/fhir/CompartmentDefinition/device",
+    "name": "DeviceCompartment",
+    "status": "retired",
+    "code": "Device",
+    "search": true,
+    "date": "2023-05-15T10:00:00Z",
+    "publisher": "Example Organization"
+  }
+}

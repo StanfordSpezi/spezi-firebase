@@ -1,0 +1,62 @@
+{
+  "0": {
+    "resourceType": "SearchParameter",
+    "id": "example",
+    "url": "http://example.org/fhir/SearchParameter/example",
+    "name": "ExampleSearchParameter",
+    "status": "active",
+    "description": "Example search parameter",
+    "code": "example",
+    "base": ["Patient"],
+    "type": "string"
+  },
+  "1": {
+    "resourceType": "SearchParameter",
+    "id": "patient-identifier",
+    "url": "http://hl7.org/fhir/SearchParameter/Patient-identifier",
+    "name": "PatientIdentifier",
+    "status": "active",
+    "description": "A patient identifier",
+    "code": "identifier",
+    "base": ["Patient"],
+    "type": "token",
+    "expression": "Patient.identifier",
+    "multipleOr": true,
+    "multipleAnd": true
+  },
+  "2": {
+    "resourceType": "SearchParameter",
+    "id": "observation-date",
+    "url": "http://hl7.org/fhir/SearchParameter/Observation-date",
+    "name": "ObservationDate",
+    "status": "draft",
+    "description": "Obtained date/time",
+    "code": "date",
+    "base": ["Observation"],
+    "type": "date",
+    "expression": "Observation.effective",
+    "comparator": ["eq", "ne", "gt", "lt", "ge", "le"],
+    "modifier": ["missing"]
+  },
+  "3": {
+    "resourceType": "SearchParameter",
+    "id": "composite-example",
+    "url": "http://example.org/fhir/SearchParameter/composite",
+    "name": "CompositeSearchParameter",
+    "status": "active",
+    "description": "Composite search parameter",
+    "code": "composite",
+    "base": ["Observation"],
+    "type": "composite",
+    "component": [
+      {
+        "definition": "http://hl7.org/fhir/SearchParameter/Observation-code",
+        "expression": "code"
+      },
+      {
+        "definition": "http://hl7.org/fhir/SearchParameter/Observation-value-quantity",
+        "expression": "value"
+      }
+    ]
+  }
+}
