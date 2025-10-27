@@ -1,0 +1,766 @@
+{
+  "0": {
+    "resourceType": "Bundle",
+    "id": "bundle-example-0",
+    "type": "collection",
+    "entry": [
+      {
+        "fullUrl": "https://example.org/Patient/patient-1",
+        "resource": {
+          "resourceType": "Patient",
+          "id": "patient-1",
+          "name": [
+            {
+              "family": "Smith",
+              "given": ["John"]
+            }
+          ],
+          "gender": "male"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Observation/obs-1",
+        "resource": {
+          "resourceType": "Observation",
+          "id": "obs-1",
+          "status": "final",
+          "code": {
+            "text": "Blood pressure"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Bundle",
+    "id": "bundle-example-1",
+    "type": "searchset",
+    "total": 3,
+    "entry": [
+      {
+        "fullUrl": "https://example.org/Condition/cond-1",
+        "resource": {
+          "resourceType": "Condition",
+          "id": "cond-1",
+          "clinicalStatus": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                "code": "active"
+              }
+            ]
+          },
+          "code": {
+            "text": "Diabetes"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        },
+        "search": {
+          "mode": "match"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/MedicationRequest/medreq-1",
+        "resource": {
+          "resourceType": "MedicationRequest",
+          "id": "medreq-1",
+          "status": "active",
+          "intent": "order",
+          "medicationCodeableConcept": {
+            "text": "Insulin"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        },
+        "search": {
+          "mode": "include"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Bundle",
+    "id": "bundle-example-2",
+    "type": "transaction",
+    "entry": [
+      {
+        "fullUrl": "urn:uuid:61ebe359-bfdc-4613-8bf2-c5e300945f0a",
+        "resource": {
+          "resourceType": "Patient",
+          "name": [
+            {
+              "family": "Transaction",
+              "given": ["Test"]
+            }
+          ]
+        },
+        "request": {
+          "method": "POST",
+          "url": "Patient"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Bundle",
+    "id": "bundle-all-resources",
+    "type": "collection",
+    "timestamp": "2024-11-15T10:00:00Z",
+    "entry": [
+      {
+        "fullUrl": "https://example.org/AllergyIntolerance/allergy-1",
+        "resource": {
+          "resourceType": "AllergyIntolerance",
+          "id": "allergy-1",
+          "clinicalStatus": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+                "code": "active"
+              }
+            ]
+          },
+          "type": "allergy",
+          "code": {
+            "text": "Peanuts"
+          },
+          "patient": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Appointment/appointment-1",
+        "resource": {
+          "resourceType": "Appointment",
+          "id": "appointment-1",
+          "status": "booked",
+          "start": "2024-12-15T09:00:00Z",
+          "end": "2024-12-15T10:00:00Z",
+          "participant": [
+            {
+              "actor": {
+                "reference": "Patient/patient-1"
+              },
+              "status": "accepted"
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/AppointmentResponse/apptresp-1",
+        "resource": {
+          "resourceType": "AppointmentResponse",
+          "id": "apptresp-1",
+          "appointment": {
+            "reference": "Appointment/appointment-1"
+          },
+          "participantStatus": "accepted"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Composition/comp-1",
+        "resource": {
+          "resourceType": "Composition",
+          "id": "comp-1",
+          "status": "final",
+          "type": {
+            "text": "Progress note"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          },
+          "date": "2024-11-15",
+          "author": [
+            {
+              "reference": "Practitioner/practitioner-1"
+            }
+          ],
+          "title": "Patient Progress Note"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Condition/cond-1",
+        "resource": {
+          "resourceType": "Condition",
+          "id": "cond-1",
+          "clinicalStatus": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                "code": "active"
+              }
+            ]
+          },
+          "code": {
+            "text": "Hypertension"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Coverage/coverage-1",
+        "resource": {
+          "resourceType": "Coverage",
+          "id": "coverage-1",
+          "status": "active",
+          "beneficiary": {
+            "reference": "Patient/patient-1"
+          },
+          "payor": [
+            {
+              "reference": "Organization/org-insurance"
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Device/device-1",
+        "resource": {
+          "resourceType": "Device",
+          "id": "device-1",
+          "status": "active",
+          "type": {
+            "text": "Blood glucose meter"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/DiagnosticReport/report-1",
+        "resource": {
+          "resourceType": "DiagnosticReport",
+          "id": "report-1",
+          "status": "final",
+          "code": {
+            "text": "Lab results"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Encounter/enc-1",
+        "resource": {
+          "resourceType": "Encounter",
+          "id": "enc-1",
+          "status": "finished",
+          "class": {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            "code": "AMB"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Endpoint/endpoint-1",
+        "resource": {
+          "resourceType": "Endpoint",
+          "id": "endpoint-1",
+          "status": "active",
+          "connectionType": {
+            "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+            "code": "hl7-fhir-rest"
+          },
+          "address": "https://example.org/fhir",
+          "payloadType": [
+            {
+              "text": "FHIR"
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/EpisodeOfCare/episode-1",
+        "resource": {
+          "resourceType": "EpisodeOfCare",
+          "id": "episode-1",
+          "status": "active",
+          "patient": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Group/group-1",
+        "resource": {
+          "resourceType": "Group",
+          "id": "group-1",
+          "type": "person",
+          "actual": true
+        }
+      },
+      {
+        "fullUrl": "https://example.org/HealthcareService/service-1",
+        "resource": {
+          "resourceType": "HealthcareService",
+          "id": "service-1",
+          "active": true,
+          "name": "General Practice"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/ImagingStudy/imaging-1",
+        "resource": {
+          "resourceType": "ImagingStudy",
+          "id": "imaging-1",
+          "status": "available",
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Immunization/imm-1",
+        "resource": {
+          "resourceType": "Immunization",
+          "id": "imm-1",
+          "status": "completed",
+          "vaccineCode": {
+            "text": "Flu vaccine"
+          },
+          "patient": {
+            "reference": "Patient/patient-1"
+          },
+          "occurrenceDateTime": "2024-10-01"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/ImmunizationEvaluation/immeval-1",
+        "resource": {
+          "resourceType": "ImmunizationEvaluation",
+          "id": "immeval-1",
+          "status": "completed",
+          "patient": {
+            "reference": "Patient/patient-1"
+          },
+          "targetDisease": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "6142004",
+                "display": "Influenza"
+              }
+            ]
+          },
+          "immunizationEvent": {
+            "reference": "Immunization/imm-1"
+          },
+          "doseStatus": {
+            "text": "Valid"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/ImmunizationRecommendation/immrec-1",
+        "resource": {
+          "resourceType": "ImmunizationRecommendation",
+          "id": "immrec-1",
+          "patient": {
+            "reference": "Patient/patient-1"
+          },
+          "date": "2024-11-15",
+          "recommendation": [
+            {
+              "vaccineCode": [
+                {
+                  "text": "COVID-19 vaccine"
+                }
+              ],
+              "forecastStatus": {
+                "text": "Due"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Library/lib-1",
+        "resource": {
+          "resourceType": "Library",
+          "id": "lib-1",
+          "status": "active",
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/library-type",
+                "code": "logic-library"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/List/list-1",
+        "resource": {
+          "resourceType": "List",
+          "id": "list-1",
+          "status": "current",
+          "mode": "working",
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Location/loc-1",
+        "resource": {
+          "resourceType": "Location",
+          "id": "loc-1",
+          "status": "active",
+          "name": "Main Hospital",
+          "mode": "instance"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Medication/med-1",
+        "resource": {
+          "resourceType": "Medication",
+          "id": "med-1",
+          "status": "active",
+          "code": {
+            "text": "Aspirin"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/MedicationAdministration/medadmin-1",
+        "resource": {
+          "resourceType": "MedicationAdministration",
+          "id": "medadmin-1",
+          "status": "completed",
+          "medicationCodeableConcept": {
+            "text": "Aspirin"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          },
+          "effectiveDateTime": "2024-11-15T08:00:00Z"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/MedicationDispense/meddisp-1",
+        "resource": {
+          "resourceType": "MedicationDispense",
+          "id": "meddisp-1",
+          "status": "completed",
+          "medicationCodeableConcept": {
+            "text": "Aspirin"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/MedicationKnowledge/medknow-1",
+        "resource": {
+          "resourceType": "MedicationKnowledge",
+          "id": "medknow-1",
+          "status": "active",
+          "code": {
+            "text": "Aspirin"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/MedicationRequest/medreq-1",
+        "resource": {
+          "resourceType": "MedicationRequest",
+          "id": "medreq-1",
+          "status": "active",
+          "intent": "order",
+          "medicationCodeableConcept": {
+            "text": "Aspirin"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/MedicationStatement/medstat-1",
+        "resource": {
+          "resourceType": "MedicationStatement",
+          "id": "medstat-1",
+          "status": "active",
+          "medicationCodeableConcept": {
+            "text": "Aspirin"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/MessageHeader/msg-1",
+        "resource": {
+          "resourceType": "MessageHeader",
+          "id": "msg-1",
+          "eventCoding": {
+            "system": "http://example.org/events",
+            "code": "test"
+          },
+          "source": {
+            "endpoint": "https://example.org"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Observation/obs-1",
+        "resource": {
+          "resourceType": "Observation",
+          "id": "obs-1",
+          "status": "final",
+          "code": {
+            "text": "Blood pressure"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/OperationOutcome/opout-1",
+        "resource": {
+          "resourceType": "OperationOutcome",
+          "id": "opout-1",
+          "issue": [
+            {
+              "severity": "information",
+              "code": "informational"
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Organization/org-1",
+        "resource": {
+          "resourceType": "Organization",
+          "id": "org-1",
+          "active": true,
+          "name": "General Hospital"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Parameters/params-1",
+        "resource": {
+          "resourceType": "Parameters",
+          "id": "params-1",
+          "parameter": [
+            {
+              "name": "test",
+              "valueString": "value"
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Patient/patient-1",
+        "resource": {
+          "resourceType": "Patient",
+          "id": "patient-1",
+          "name": [
+            {
+              "family": "Doe",
+              "given": ["John"]
+            }
+          ],
+          "gender": "male"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Person/person-1",
+        "resource": {
+          "resourceType": "Person",
+          "id": "person-1",
+          "active": true,
+          "name": [
+            {
+              "family": "Doe",
+              "given": ["Jane"]
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Practitioner/pract-1",
+        "resource": {
+          "resourceType": "Practitioner",
+          "id": "pract-1",
+          "active": true,
+          "name": [
+            {
+              "family": "Smith",
+              "given": ["Dr."]
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/PractitionerRole/practrole-1",
+        "resource": {
+          "resourceType": "PractitionerRole",
+          "id": "practrole-1",
+          "active": true,
+          "practitioner": {
+            "reference": "Practitioner/pract-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Procedure/proc-1",
+        "resource": {
+          "resourceType": "Procedure",
+          "id": "proc-1",
+          "status": "completed",
+          "code": {
+            "text": "Blood draw"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Questionnaire/quest-1",
+        "resource": {
+          "resourceType": "Questionnaire",
+          "id": "quest-1",
+          "status": "active",
+          "item": [
+            {
+              "linkId": "1",
+              "type": "boolean",
+              "text": "Question 1"
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/QuestionnaireResponse/questresp-1",
+        "resource": {
+          "resourceType": "QuestionnaireResponse",
+          "id": "questresp-1",
+          "status": "completed",
+          "authored": "2024-11-15"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/RelatedPerson/rel-1",
+        "resource": {
+          "resourceType": "RelatedPerson",
+          "id": "rel-1",
+          "active": true,
+          "patient": {
+            "reference": "Patient/patient-1"
+          },
+          "relationship": [
+            {
+              "text": "Spouse"
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Schedule/sched-1",
+        "resource": {
+          "resourceType": "Schedule",
+          "id": "sched-1",
+          "active": true,
+          "actor": [
+            {
+              "reference": "Practitioner/pract-1"
+            }
+          ]
+        }
+      },
+      {
+        "fullUrl": "https://example.org/ServiceRequest/servreq-1",
+        "resource": {
+          "resourceType": "ServiceRequest",
+          "id": "servreq-1",
+          "status": "active",
+          "intent": "order",
+          "code": {
+            "text": "Lab test"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Slot/slot-1",
+        "resource": {
+          "resourceType": "Slot",
+          "id": "slot-1",
+          "schedule": {
+            "reference": "Schedule/sched-1"
+          },
+          "status": "free",
+          "start": "2024-12-15T09:00:00Z",
+          "end": "2024-12-15T10:00:00Z"
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Specimen/spec-1",
+        "resource": {
+          "resourceType": "Specimen",
+          "id": "spec-1",
+          "status": "available",
+          "type": {
+            "text": "Blood"
+          },
+          "subject": {
+            "reference": "Patient/patient-1"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Subscription/sub-1",
+        "resource": {
+          "resourceType": "Subscription",
+          "id": "sub-1",
+          "status": "active",
+          "reason": "Monitor updates",
+          "criteria": "Patient?",
+          "channel": {
+            "type": "rest-hook",
+            "endpoint": "https://example.org/hook"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Substance/subst-1",
+        "resource": {
+          "resourceType": "Substance",
+          "id": "subst-1",
+          "status": "active",
+          "code": {
+            "text": "Aspirin"
+          }
+        }
+      },
+      {
+        "fullUrl": "https://example.org/Task/task-1",
+        "resource": {
+          "resourceType": "Task",
+          "id": "task-1",
+          "status": "requested",
+          "intent": "order"
+        }
+      }
+    ]
+  }
+}

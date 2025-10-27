@@ -1,0 +1,65 @@
+{
+  "0": {
+    "resourceType": "Subscription",
+    "id": "subscription-example-0",
+    "status": "active",
+    "reason": "Monitor patient updates",
+    "criteria": "Patient?",
+    "channel": {
+      "type": "rest-hook",
+      "endpoint": "https://example.org/webhook",
+      "payload": "application/fhir+json"
+    }
+  },
+  "1": {
+    "resourceType": "Subscription",
+    "id": "subscription-example-1",
+    "status": "requested",
+    "contact": [
+      {
+        "system": "email",
+        "value": "admin@example.org"
+      }
+    ],
+    "end": "2025-12-31T23:59:59Z",
+    "reason": "Track new observations",
+    "criteria": "Observation?code=http://loinc.org|15074-8",
+    "channel": {
+      "type": "rest-hook",
+      "endpoint": "https://example.org/fhir/subscription",
+      "payload": "application/fhir+json",
+      "header": ["Authorization: Bearer secret-token-here"]
+    }
+  },
+  "2": {
+    "resourceType": "Subscription",
+    "id": "subscription-example-2",
+    "status": "off",
+    "reason": "Temporary suspension",
+    "criteria": "Encounter?",
+    "channel": {
+      "type": "email",
+      "endpoint": "mailto:notifications@example.org",
+      "payload": "application/fhir+json"
+    }
+  },
+  "3": {
+    "resourceType": "Subscription",
+    "id": "subscription-example-3",
+    "status": "active",
+    "contact": [
+      {
+        "system": "phone",
+        "value": "+1-555-999-0000"
+      }
+    ],
+    "end": "2025-06-30T23:59:59Z",
+    "reason": "Alert for critical results",
+    "criteria": "DiagnosticReport?status=final",
+    "error": "Connection timeout on 2024-11-01",
+    "channel": {
+      "type": "websocket",
+      "payload": "application/fhir+json"
+    }
+  }
+}

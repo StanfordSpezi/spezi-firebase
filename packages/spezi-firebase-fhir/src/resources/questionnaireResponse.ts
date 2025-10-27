@@ -30,6 +30,7 @@ import {
   timeSchema,
   uriSchema,
 } from '../elements/index.js'
+import { questionnaireResponseStatusSchema } from '../valueSets/index.js'
 
 const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
   z.lazy(() =>
@@ -73,13 +74,6 @@ const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
       },
     }),
   )
-
-const questionnaireResponseStatusSchema = z.enum([
-  'in-progress',
-  'completed',
-  'amended',
-  'entered-in-error',
-])
 
 export const untypedQuestionnaireResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({

@@ -1,0 +1,267 @@
+{
+  "0": {
+    "resourceType": "TerminologyCapabilities",
+    "id": "example-terminologycapabilities-0",
+    "url": "http://example.org/fhir/TerminologyCapabilities/example-0",
+    "version": "1.0.0",
+    "name": "ExampleTerminologyCapabilities0",
+    "title": "Example Terminology Capabilities 0",
+    "status": "active",
+    "experimental": true,
+    "date": "2023-01-15T10:00:00Z",
+    "publisher": "Example Health Organization",
+    "contact": [
+      {
+        "name": "Terminology Services Team",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "terminology@example.org"
+          }
+        ]
+      }
+    ],
+    "description": "An example terminology capabilities statement",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "purpose": "Describes the terminology service capabilities",
+    "copyright": "Copyright 2023 Example Health Organization",
+    "kind": "instance",
+    "software": {
+      "name": "Example Terminology Server",
+      "version": "2.5.0"
+    },
+    "implementation": {
+      "description": "Example terminology service implementation",
+      "url": "http://example.org/fhir/terminology"
+    },
+    "lockedDate": true,
+    "codeSystem": [
+      {
+        "uri": "http://snomed.info/sct",
+        "subsumption": true
+      },
+      {
+        "uri": "http://loinc.org",
+        "version": [
+          {
+            "code": "2.73",
+            "isDefault": true,
+            "compositional": false,
+            "language": ["en", "es"]
+          }
+        ]
+      }
+    ],
+    "expansion": {
+      "hierarchical": true,
+      "paging": true,
+      "incomplete": false,
+      "parameter": [
+        {
+          "name": "includeDesignations",
+          "documentation": "Controls whether concept designations are included"
+        }
+      ]
+    },
+    "codeSearch": "explicit",
+    "validateCode": {
+      "translations": true
+    }
+  },
+  "1": {
+    "resourceType": "TerminologyCapabilities",
+    "id": "example-terminologycapabilities-1",
+    "url": "http://example.org/fhir/TerminologyCapabilities/example-1",
+    "version": "2.0.0",
+    "name": "ExampleTerminologyCapabilities1",
+    "title": "Example Terminology Capabilities 1 with Filters",
+    "status": "draft",
+    "experimental": false,
+    "date": "2023-03-20T14:30:00Z",
+    "publisher": "Medical Standards Institute",
+    "description": "A terminology capabilities statement with filter support",
+    "kind": "capability",
+    "codeSystem": [
+      {
+        "uri": "http://example.org/fhir/CodeSystem/conditions",
+        "version": [
+          {
+            "code": "1.0.0",
+            "isDefault": true,
+            "compositional": true,
+            "language": ["en"],
+            "filter": [
+              {
+                "code": "concept",
+                "op": ["is-a", "descendent-of"]
+              },
+              {
+                "code": "property",
+                "op": ["=", "in"]
+              }
+            ],
+            "property": ["status", "effectiveDate"]
+          }
+        ],
+        "subsumption": true
+      }
+    ],
+    "expansion": {
+      "hierarchical": false,
+      "paging": false,
+      "textFilter": "Supports text search in displays"
+    },
+    "codeSearch": "all",
+    "validateCode": {
+      "translations": false
+    },
+    "translation": {
+      "needsMap": true
+    }
+  },
+  "2": {
+    "resourceType": "TerminologyCapabilities",
+    "id": "example-terminologycapabilities-2",
+    "url": "http://example.org/fhir/TerminologyCapabilities/example-2",
+    "version": "1.5.0",
+    "name": "ExampleTerminologyCapabilities2",
+    "title": "Example Terminology Capabilities 2 - Multi-System",
+    "status": "active",
+    "date": "2023-06-10T09:00:00Z",
+    "publisher": "Terminology Services Ltd",
+    "description": "A capabilities statement describing support for multiple code systems",
+    "useContext": [
+      {
+        "code": {
+          "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+          "code": "workflow"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "CLINNOTEE",
+              "display": "clinical note entry"
+            }
+          ]
+        }
+      }
+    ],
+    "kind": "instance",
+    "software": {
+      "name": "MultiTerm Server",
+      "version": "3.2.1"
+    },
+    "implementation": {
+      "description": "Production terminology service",
+      "url": "https://terminology.example.org/fhir"
+    },
+    "lockedDate": false,
+    "codeSystem": [
+      {
+        "uri": "http://snomed.info/sct",
+        "version": [
+          {
+            "code": "20230301",
+            "isDefault": true,
+            "compositional": true,
+            "language": ["en", "es", "fr"],
+            "filter": [
+              {
+                "code": "concept",
+                "op": ["is-a", "descendent-of", "generalizes"]
+              }
+            ]
+          }
+        ],
+        "subsumption": true
+      },
+      {
+        "uri": "http://loinc.org",
+        "version": [
+          {
+            "code": "2.73",
+            "isDefault": true,
+            "language": ["en"]
+          }
+        ],
+        "subsumption": false
+      },
+      {
+        "uri": "http://www.nlm.nih.gov/research/umls/rxnorm",
+        "subsumption": false
+      }
+    ],
+    "expansion": {
+      "hierarchical": true,
+      "paging": true,
+      "incomplete": true,
+      "parameter": [
+        {
+          "name": "activeOnly",
+          "documentation": "Only include active concepts"
+        },
+        {
+          "name": "displayLanguage",
+          "documentation": "Preferred language for displays"
+        }
+      ],
+      "textFilter": "Full text search on concept display and synonyms"
+    },
+    "validateCode": {
+      "translations": true
+    },
+    "translation": {
+      "needsMap": false
+    },
+    "closure": {
+      "translation": true
+    }
+  },
+  "3": {
+    "resourceType": "TerminologyCapabilities",
+    "id": "example-terminologycapabilities-3",
+    "url": "http://example.org/fhir/TerminologyCapabilities/example-3",
+    "version": "3.0.0",
+    "name": "ExampleTerminologyCapabilities3",
+    "title": "Example Terminology Capabilities 3 - Requirements",
+    "status": "retired",
+    "experimental": true,
+    "date": "2022-12-15T16:45:00Z",
+    "publisher": "Legacy Terminology Provider",
+    "description": "A retired capabilities statement describing requirements",
+    "kind": "requirements",
+    "lockedDate": false,
+    "codeSystem": [
+      {
+        "uri": "http://example.org/fhir/CodeSystem/legacy",
+        "version": [
+          {
+            "code": "1.0.0",
+            "isDefault": true,
+            "compositional": false,
+            "language": ["en"],
+            "property": ["deprecated", "effectiveDate", "parent"]
+          }
+        ]
+      }
+    ],
+    "expansion": {
+      "hierarchical": false,
+      "paging": false
+    },
+    "validateCode": {
+      "translations": false
+    }
+  }
+}
