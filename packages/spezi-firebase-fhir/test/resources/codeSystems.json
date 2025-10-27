@@ -1,0 +1,300 @@
+{
+  "0": {
+    "resourceType": "CodeSystem",
+    "id": "example-codesystem-0",
+    "url": "http://example.org/fhir/CodeSystem/example-0",
+    "identifier": [
+      {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:oid:2.16.840.1.113883.4.642.1.0"
+      }
+    ],
+    "version": "1.0.0",
+    "name": "ExampleCodeSystem0",
+    "title": "Example Code System 0",
+    "status": "active",
+    "experimental": true,
+    "date": "2023-01-01T00:00:00Z",
+    "publisher": "Example Organization",
+    "contact": [
+      {
+        "name": "Example Contact",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "contact@example.org"
+          }
+        ]
+      }
+    ],
+    "description": "An example code system for testing purposes",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "purpose": "This code system is used for demonstration purposes",
+    "copyright": "Copyright 2023 Example Organization",
+    "caseSensitive": true,
+    "valueSet": "http://example.org/fhir/ValueSet/example-0",
+    "hierarchyMeaning": "is-a",
+    "compositional": false,
+    "versionNeeded": false,
+    "content": "complete",
+    "count": 3,
+    "property": [
+      {
+        "code": "status",
+        "uri": "http://example.org/fhir/concept-properties#status",
+        "description": "The status of the concept",
+        "type": "code"
+      }
+    ],
+    "concept": [
+      {
+        "code": "code1",
+        "display": "Code 1",
+        "definition": "The first example code",
+        "designation": [
+          {
+            "language": "en",
+            "value": "Code One"
+          }
+        ],
+        "property": [
+          {
+            "code": "status",
+            "valueCode": "active"
+          }
+        ]
+      },
+      {
+        "code": "code2",
+        "display": "Code 2",
+        "definition": "The second example code",
+        "property": [
+          {
+            "code": "status",
+            "valueCode": "active"
+          }
+        ]
+      },
+      {
+        "code": "code3",
+        "display": "Code 3",
+        "definition": "The third example code",
+        "property": [
+          {
+            "code": "status",
+            "valueCode": "deprecated"
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "CodeSystem",
+    "id": "example-codesystem-1",
+    "url": "http://example.org/fhir/CodeSystem/example-1",
+    "version": "2.0.0",
+    "name": "ExampleCodeSystem1",
+    "title": "Example Code System 1 with Hierarchy",
+    "status": "draft",
+    "experimental": false,
+    "date": "2023-06-15T12:30:00Z",
+    "publisher": "Health Standards Organization",
+    "description": "A hierarchical code system example",
+    "caseSensitive": false,
+    "hierarchyMeaning": "part-of",
+    "content": "complete",
+    "count": 5,
+    "concept": [
+      {
+        "code": "parent1",
+        "display": "Parent Concept 1",
+        "definition": "A parent concept",
+        "concept": [
+          {
+            "code": "child1-1",
+            "display": "Child Concept 1-1",
+            "definition": "First child of parent 1"
+          },
+          {
+            "code": "child1-2",
+            "display": "Child Concept 1-2",
+            "definition": "Second child of parent 1"
+          }
+        ]
+      },
+      {
+        "code": "parent2",
+        "display": "Parent Concept 2",
+        "definition": "Another parent concept",
+        "concept": [
+          {
+            "code": "child2-1",
+            "display": "Child Concept 2-1",
+            "definition": "First child of parent 2"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "CodeSystem",
+    "id": "example-codesystem-2",
+    "url": "http://example.org/fhir/CodeSystem/example-2",
+    "version": "1.5.0",
+    "name": "ExampleCodeSystem2",
+    "title": "Example Code System 2 with Filters",
+    "status": "active",
+    "date": "2023-09-20T08:15:00Z",
+    "publisher": "Medical Terminology Institute",
+    "contact": [
+      {
+        "name": "Terminology Team",
+        "telecom": [
+          {
+            "system": "url",
+            "value": "http://example.org/terminology"
+          }
+        ]
+      }
+    ],
+    "description": "Code system with filter definitions",
+    "useContext": [
+      {
+        "code": {
+          "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+          "code": "focus"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "408475000",
+              "display": "Diabetic"
+            }
+          ]
+        }
+      }
+    ],
+    "caseSensitive": true,
+    "content": "fragment",
+    "count": 150,
+    "filter": [
+      {
+        "code": "child",
+        "description": "Filter to find all child concepts",
+        "operator": ["=", "is-a"],
+        "value": "A code from the code system"
+      },
+      {
+        "code": "regex",
+        "description": "Filter using regular expression",
+        "operator": ["regex"],
+        "value": "A regular expression pattern"
+      }
+    ],
+    "property": [
+      {
+        "code": "deprecated",
+        "description": "Whether the concept is deprecated",
+        "type": "boolean"
+      },
+      {
+        "code": "parent",
+        "description": "Parent concept code",
+        "type": "code"
+      }
+    ],
+    "concept": [
+      {
+        "code": "concept-a",
+        "display": "Concept A",
+        "definition": "First filtered concept",
+        "property": [
+          {
+            "code": "deprecated",
+            "valueBoolean": false
+          }
+        ]
+      },
+      {
+        "code": "concept-b",
+        "display": "Concept B",
+        "definition": "Second filtered concept",
+        "designation": [
+          {
+            "language": "es",
+            "value": "Concepto B"
+          },
+          {
+            "language": "fr",
+            "value": "Concept B"
+          }
+        ],
+        "property": [
+          {
+            "code": "deprecated",
+            "valueBoolean": false
+          },
+          {
+            "code": "parent",
+            "valueCode": "concept-a"
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "CodeSystem",
+    "id": "example-codesystem-3",
+    "url": "http://example.org/fhir/CodeSystem/example-3",
+    "version": "3.1.0",
+    "name": "ExampleCodeSystem3",
+    "title": "Example Code System 3 - Supplement",
+    "status": "retired",
+    "experimental": true,
+    "date": "2022-12-31T23:59:59Z",
+    "publisher": "Legacy Systems Inc",
+    "description": "A code system supplement example",
+    "content": "supplement",
+    "supplements": "http://example.org/fhir/CodeSystem/base-system",
+    "property": [
+      {
+        "code": "translation",
+        "uri": "http://example.org/translation",
+        "description": "Translation to another language",
+        "type": "string"
+      },
+      {
+        "code": "effectiveDate",
+        "description": "When the concept became effective",
+        "type": "dateTime"
+      }
+    ],
+    "concept": [
+      {
+        "code": "supplemented-1",
+        "display": "Supplemented Concept 1",
+        "property": [
+          {
+            "code": "translation",
+            "valueString": "Concepto Suplementado 1"
+          },
+          {
+            "code": "effectiveDate",
+            "valueDateTime": "2022-01-01"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "0": {
+    "resourceType": "QuestionnaireResponse",
+    "id": "qr-example-0",
+    "status": "completed",
+    "authored": "2024-11-15T10:30:00Z",
+    "item": [
+      {
+        "linkId": "1",
+        "text": "Do you smoke?",
+        "answer": [
+          {
+            "valueBoolean": false
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "QuestionnaireResponse",
+    "id": "qr-example-1",
+    "identifier": {
+      "system": "http://example.org/questionnaire-responses",
+      "value": "QR-001"
+    },
+    "questionnaire": "http://example.org/Questionnaire/health-survey",
+    "status": "completed",
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "authored": "2024-11-10T14:20:00Z",
+    "author": {
+      "reference": "Patient/patient-example"
+    },
+    "item": [
+      {
+        "linkId": "1",
+        "text": "General health",
+        "answer": [
+          {
+            "valueCoding": {
+              "system": "http://example.org/health-status",
+              "code": "good",
+              "display": "Good"
+            }
+          }
+        ]
+      },
+      {
+        "linkId": "2",
+        "text": "Exercise frequency",
+        "answer": [
+          {
+            "valueString": "3 times per week"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "QuestionnaireResponse",
+    "id": "qr-example-2",
+    "status": "in-progress",
+    "authored": "2024-11-15T09:00:00Z",
+    "item": [
+      {
+        "linkId": "1",
+        "text": "Name",
+        "answer": [
+          {
+            "valueString": "John Smith"
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "QuestionnaireResponse",
+    "id": "qr-example-3",
+    "questionnaire": "http://example.org/Questionnaire/pain-assessment",
+    "status": "completed",
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    },
+    "authored": "2024-11-01T11:45:00Z",
+    "author": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "source": {
+      "reference": "Patient/patient-example-2"
+    },
+    "item": [
+      {
+        "linkId": "1",
+        "text": "Pain level (0-10)",
+        "answer": [
+          {
+            "valueInteger": 7
+          }
+        ]
+      },
+      {
+        "linkId": "2",
+        "text": "Pain location",
+        "answer": [
+          {
+            "valueString": "Lower back"
+          }
+        ]
+      },
+      {
+        "linkId": "3",
+        "text": "Pain duration",
+        "item": [
+          {
+            "linkId": "3.1",
+            "text": "Duration in days",
+            "answer": [
+              {
+                "valueInteger": 5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

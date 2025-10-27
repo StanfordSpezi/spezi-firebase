@@ -24,6 +24,7 @@ import {
   stringSchema,
   uriSchema,
 } from '../elements/index.js'
+import { medicationAdministrationStatusSchema } from '../valueSets/index.js'
 
 export const untypedMedicationAdministrationSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -32,15 +33,7 @@ export const untypedMedicationAdministrationSchema = z.lazy(() =>
     instantiates: uriSchema.array().optional(),
     _instantiates: elementSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
-    status: z.enum([
-      'in-progress',
-      'not-done',
-      'on-hold',
-      'completed',
-      'entered-in-error',
-      'stopped',
-      'unknown',
-    ]),
+    status: medicationAdministrationStatusSchema,
     _status: elementSchema.optional(),
     statusReason: codeableConceptSchema.array().optional(),
     category: codeableConceptSchema.optional(),

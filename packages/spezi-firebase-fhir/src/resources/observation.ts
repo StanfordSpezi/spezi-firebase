@@ -28,17 +28,7 @@ import {
   timeSchema,
   timingSchema,
 } from '../elements/index.js'
-
-const observationStatusSchema = z.enum([
-  'registered',
-  'preliminary',
-  'final',
-  'amended',
-  'corrected',
-  'cancelled',
-  'entered-in-error',
-  'unknown',
-])
+import { observationStatusSchema } from '../valueSets/index.js'
 
 export const untypedObservationSchema = z.lazy(() =>
   domainResourceSchema.extend({

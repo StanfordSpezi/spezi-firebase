@@ -26,10 +26,16 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+import {
+  compositionAttestationModeSchema,
+  compositionRelatestoCodeSchema,
+  compositionStatusSchema,
+  listModeSchema,
+} from '../valueSets/index.js'
 
 const attesterSchema: ZodType<CompositionAttester> = z.lazy(() =>
   backboneElementSchema.extend({
-    mode: z.enum(['personal', 'professional', 'legal', 'official']),
+    mode: compositionAttestationModeSchema,
     time: stringSchema.optional(),
     _time: elementSchema.optional(),
     party: referenceSchema.optional(),
@@ -38,7 +44,7 @@ const attesterSchema: ZodType<CompositionAttester> = z.lazy(() =>
 
 const relatesToSchema: ZodType<CompositionRelatesTo> = z.lazy(() =>
   backboneElementSchema.extend({
-    code: z.enum(['replaces', 'transforms', 'signs', 'appends']),
+    code: compositionRelatestoCodeSchema,
     targetIdentifier: identifierSchema.optional(),
     targetReference: referenceSchema.optional(),
   }),
@@ -58,7 +64,7 @@ const sectionSchema: ZodType<CompositionSection> = z.lazy(() =>
     _title: elementSchema.optional(),
     code: codeableConceptSchema.optional(),
     text: narrativeSchema.optional(),
-    mode: z.enum(['working', 'snapshot', 'changes']).optional(),
+    mode: listModeSchema.optional(),
     orderedBy: codeableConceptSchema.optional(),
     entry: referenceSchema.array().optional(),
     emptyReason: codeableConceptSchema.optional(),
@@ -72,7 +78,7 @@ export const untypedCompositionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Composition').readonly(),
     identifier: identifierSchema.optional(),
-    status: z.enum(['preliminary', 'final', 'amended', 'entered-in-error']),
+    status: compositionStatusSchema,
     _status: elementSchema.optional(),
     type: codeableConceptSchema,
     category: codeableConceptSchema.array().optional(),

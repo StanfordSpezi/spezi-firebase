@@ -26,20 +26,15 @@ import {
   periodSchema,
   referenceSchema,
 } from '../elements/index.js'
+import {
+  administrativeGenderSchema,
+  patientLinkTypeSchema,
+} from '../valueSets/index.js'
 
-export const patientGenderSchema = z.enum([
-  'male',
-  'female',
-  'other',
-  'unknown',
-])
-
-const patientLinkTypeSchema = z.enum([
-  'replaced-by',
-  'replaces',
-  'refer',
-  'seealso',
-])
+/**
+ * @deprecated Use administrativeGenderSchema from valueSets instead
+ */
+export const patientGenderSchema = administrativeGenderSchema
 
 export const untypedPatientSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -49,7 +44,7 @@ export const untypedPatientSchema = z.lazy(() =>
     _active: elementSchema.optional(),
     name: humanNameSchema.array().optional(),
     telecom: contactPointSchema.array().optional(),
-    gender: patientGenderSchema.optional(),
+    gender: administrativeGenderSchema.optional(),
     _gender: elementSchema.optional(),
     birthDate: dateSchema.optional(),
     _birthDate: elementSchema.optional(),
@@ -70,7 +65,7 @@ export const untypedPatientSchema = z.lazy(() =>
         name: humanNameSchema.optional(),
         telecom: contactPointSchema.array().optional(),
         address: addressSchema.optional(),
-        gender: patientGenderSchema.optional(),
+        gender: administrativeGenderSchema.optional(),
         _gender: elementSchema.optional(),
         organization: referenceSchema.optional(),
         period: periodSchema.optional(),

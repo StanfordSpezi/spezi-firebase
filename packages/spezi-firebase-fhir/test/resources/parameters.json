@@ -1,0 +1,79 @@
+{
+  "0": {
+    "resourceType": "Parameters",
+    "parameter": [
+      {
+        "name": "param1",
+        "valueString": "value1"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Parameters",
+    "id": "params-example-1",
+    "parameter": [
+      {
+        "name": "code",
+        "valueCode": "active"
+      },
+      {
+        "name": "system",
+        "valueUri": "http://example.org/codes"
+      },
+      {
+        "name": "exact",
+        "valueBoolean": true
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Parameters",
+    "id": "params-example-2",
+    "parameter": [
+      {
+        "name": "patient",
+        "resource": {
+          "resourceType": "Patient",
+          "id": "param-patient",
+          "name": [
+            {
+              "family": "Test",
+              "given": ["Patient"]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Parameters",
+    "id": "params-example-3",
+    "parameter": [
+      {
+        "name": "input",
+        "part": [
+          {
+            "name": "name",
+            "valueString": "John Doe"
+          },
+          {
+            "name": "age",
+            "valueInteger": 35
+          },
+          {
+            "name": "active",
+            "valueBoolean": true
+          }
+        ]
+      },
+      {
+        "name": "count",
+        "valueInteger": 10
+      },
+      {
+        "name": "date",
+        "valueDate": "2024-11-15"
+      }
+    ]
+  }
+}

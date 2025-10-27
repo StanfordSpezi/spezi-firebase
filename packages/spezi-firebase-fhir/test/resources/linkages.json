@@ -1,0 +1,101 @@
+{
+  "0": {
+    "resourceType": "Linkage",
+    "id": "example-0",
+    "active": true,
+    "author": {
+      "reference": "Practitioner/practitioner-001",
+      "display": "Dr. Smith"
+    },
+    "item": [
+      {
+        "resource": {
+          "reference": "Patient/patient-001"
+        },
+        "type": "source"
+      },
+      {
+        "resource": {
+          "reference": "Patient/patient-002"
+        },
+        "type": "alternate"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Linkage",
+    "id": "example-1",
+    "active": true,
+    "author": {
+      "reference": "Organization/org-001"
+    },
+    "item": [
+      {
+        "resource": {
+          "reference": "Observation/obs-001"
+        },
+        "type": "source"
+      },
+      {
+        "resource": {
+          "reference": "Observation/obs-002"
+        },
+        "type": "alternate"
+      },
+      {
+        "resource": {
+          "reference": "Observation/obs-003"
+        },
+        "type": "historical"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Linkage",
+    "id": "example-2",
+    "active": false,
+    "author": {
+      "reference": "Practitioner/practitioner-002",
+      "display": "Dr. Johnson"
+    },
+    "item": [
+      {
+        "resource": {
+          "reference": "Condition/condition-001"
+        },
+        "type": "source"
+      },
+      {
+        "resource": {
+          "reference": "Condition/condition-002"
+        },
+        "type": "alternate"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Linkage",
+    "id": "example-3",
+    "active": true,
+    "item": [
+      {
+        "resource": {
+          "reference": "Encounter/encounter-001"
+        },
+        "type": "source"
+      },
+      {
+        "resource": {
+          "reference": "Encounter/encounter-002"
+        },
+        "type": "alternate"
+      },
+      {
+        "resource": {
+          "reference": "Encounter/encounter-003"
+        },
+        "type": "alternate"
+      }
+    ]
+  }
+}

@@ -32,44 +32,12 @@ import {
   urlSchema,
   usageContextSchema,
 } from '../elements/index.js'
-
-const questionnaireStatusSchema = z.enum([
-  'draft',
-  'active',
-  'retired',
-  'unknown',
-])
-
-const questionnaireItemTypeSchema = z.enum([
-  'group',
-  'display',
-  'boolean',
-  'decimal',
-  'integer',
-  'date',
-  'dateTime',
-  'time',
-  'string',
-  'text',
-  'url',
-  'choice',
-  'open-choice',
-  'attachment',
-  'reference',
-  'quantity',
-])
-
-const questionnaireItemEnableBehaviorSchema = z.enum(['all', 'any'])
-
-const questionnaireItemEnableWhenOperatorSchema = z.enum([
-  'exists',
-  '=',
-  '!=',
-  '<',
-  '<=',
-  '>',
-  '>=',
-])
+import {
+  questionnaireItemEnableBehaviorSchema,
+  questionnaireItemEnableWhenOperatorSchema,
+  questionnaireItemTypeSchema,
+  questionnaireStatusSchema,
+} from '../valueSets/index.js'
 
 const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
   backboneElementSchema.extend({
