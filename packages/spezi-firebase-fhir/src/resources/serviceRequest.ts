@@ -84,7 +84,7 @@ export const untypedServiceRequestSchema = z.lazy(() =>
   }),
 )
 
-export const serviceRequestSchema: ZodType<ServiceRequest> =
+export const serviceRequestSchema =
   untypedServiceRequestSchema
 
 export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {

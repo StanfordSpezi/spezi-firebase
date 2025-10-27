@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import type { import { type MolecularSequence } from 'fhir/r4b.js' } from 'fhir/r4b.js'
+import type { MolecularSequence } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { domainResourceSchema } from '../elements/index.js'

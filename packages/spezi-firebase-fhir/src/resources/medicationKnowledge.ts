@@ -25,7 +25,7 @@ import {
 } from '../elements/index.js'
 import { medicationStatusSchema } from '../valueSets/index.js'
 
-const relatedMedicationKnowledgeSchema: ZodType<MedicationKnowledgeRelatedMedicationKnowledge> =
+const relatedMedicationKnowledgeSchema =
   z.lazy(() =>
     backboneElementSchema.extend({
       type: codeableConceptSchema,
@@ -60,7 +60,7 @@ const costSchema = z.lazy(() =>
   }),
 )
 
-const monitoringProgramSchema: ZodType<MedicationKnowledgeMonitoringProgram> =
+const monitoringProgramSchema =
   z.lazy(() =>
     backboneElementSchema.extend({
       type: codeableConceptSchema.optional(),
@@ -69,7 +69,7 @@ const monitoringProgramSchema: ZodType<MedicationKnowledgeMonitoringProgram> =
     }),
   )
 
-const administrationGuidelinesSchema: ZodType<MedicationKnowledgeAdministrationGuidelines> =
+const administrationGuidelinesSchema =
   z.lazy(() =>
     backboneElementSchema.extend({
       dosage: backboneElementSchema
@@ -92,7 +92,7 @@ const administrationGuidelinesSchema: ZodType<MedicationKnowledgeAdministrationG
     }),
   )
 
-const medicineClassificationSchema: ZodType<MedicationKnowledgeMedicineClassification> =
+const medicineClassificationSchema =
   z.lazy(() =>
     backboneElementSchema.extend({
       type: codeableConceptSchema,
@@ -107,7 +107,7 @@ const packagingSchema = z.lazy(() =>
   }),
 )
 
-const drugCharacteristicSchema: ZodType<MedicationKnowledgeDrugCharacteristic> =
+const drugCharacteristicSchema =
   z.lazy(() =>
     backboneElementSchema.extend({
       type: codeableConceptSchema,
@@ -187,7 +187,7 @@ export const untypedMedicationKnowledgeSchema = z.lazy(() =>
   }),
 )
 
-export const medicationKnowledgeSchema: ZodType<MedicationKnowledge> =
+export const medicationKnowledgeSchema =
   untypedMedicationKnowledgeSchema
 
 export class FhirMedicationKnowledge extends FhirDomainResource<MedicationKnowledge> {

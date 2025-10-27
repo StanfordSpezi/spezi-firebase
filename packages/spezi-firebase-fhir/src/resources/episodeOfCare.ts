@@ -51,7 +51,7 @@ export const untypedEpisodeOfCareSchema = z.lazy(() =>
   }),
 )
 
-export const episodeOfCareSchema: ZodType<EpisodeOfCare> =
+export const episodeOfCareSchema =
   untypedEpisodeOfCareSchema
 
 export class FhirEpisodeOfCare extends FhirDomainResource<EpisodeOfCare> {

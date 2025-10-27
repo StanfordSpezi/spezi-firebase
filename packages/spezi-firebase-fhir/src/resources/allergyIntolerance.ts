@@ -74,7 +74,7 @@ export const untypedAllergyIntoleranceSchema = z.lazy(() =>
   }),
 )
 
-export const allergyIntoleranceSchema: ZodType<AllergyIntolerance> =
+export const allergyIntoleranceSchema =
   untypedAllergyIntoleranceSchema
 
 export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntolerance> {

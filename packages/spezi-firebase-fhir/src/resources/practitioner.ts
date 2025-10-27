@@ -53,7 +53,7 @@ export const untypedPractitionerSchema = z.lazy(() =>
   }),
 )
 
-export const practitionerSchema: ZodType<Practitioner> =
+export const practitionerSchema =
   untypedPractitionerSchema
 
 export class FhirPractitioner extends FhirDomainResource<Practitioner> {

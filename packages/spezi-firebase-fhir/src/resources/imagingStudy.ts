@@ -89,7 +89,7 @@ export const untypedImagingStudySchema = z.lazy(() =>
   }),
 )
 
-export const imagingStudySchema: ZodType<ImagingStudy> =
+export const imagingStudySchema =
   untypedImagingStudySchema
 
 export class FhirImagingStudy extends FhirDomainResource<ImagingStudy> {

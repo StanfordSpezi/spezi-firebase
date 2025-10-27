@@ -110,7 +110,7 @@ export const untypedImmunizationSchema = z.lazy(() =>
   }),
 )
 
-export const immunizationSchema: ZodType<Immunization> =
+export const immunizationSchema =
   untypedImmunizationSchema
 
 export class FhirImmunization extends FhirDomainResource<Immunization> {

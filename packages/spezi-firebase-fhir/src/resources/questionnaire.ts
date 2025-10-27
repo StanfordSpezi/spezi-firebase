@@ -181,7 +181,7 @@ export const untypedQuestionnaireSchema = z.lazy(() =>
   }),
 )
 
-export const questionnaireSchema: ZodType<Questionnaire> =
+export const questionnaireSchema =
   untypedQuestionnaireSchema
 
 export class FhirQuestionnaire extends FhirDomainResource<Questionnaire> {

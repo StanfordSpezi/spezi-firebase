@@ -38,7 +38,7 @@ export const untypedAppointmentResponseSchema = z.lazy(() =>
   }),
 )
 
-export const appointmentResponseSchema: ZodType<AppointmentResponse> =
+export const appointmentResponseSchema =
   untypedAppointmentResponseSchema
 
 export class FhirAppointmentResponse extends FhirDomainResource<AppointmentResponse> {

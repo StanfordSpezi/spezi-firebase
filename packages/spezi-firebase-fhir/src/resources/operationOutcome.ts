@@ -39,7 +39,7 @@ export const untypedOperationOutcomeSchema = z.lazy(() =>
   }),
 )
 
-export const operationOutcomeSchema: ZodType<OperationOutcome> =
+export const operationOutcomeSchema =
   untypedOperationOutcomeSchema
 
 export class FhirOperationOutcome extends FhirDomainResource<OperationOutcome> {

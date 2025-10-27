@@ -59,7 +59,7 @@ export const untypedDiagnosticReportSchema = z.lazy(() =>
   }),
 )
 
-export const diagnosticReportSchema: ZodType<DiagnosticReport> =
+export const diagnosticReportSchema =
   untypedDiagnosticReportSchema
 
 export class FhirDiagnosticReport extends FhirDomainResource<DiagnosticReport> {

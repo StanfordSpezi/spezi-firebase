@@ -32,7 +32,7 @@ import {
 } from '../elements/index.js'
 import { questionnaireResponseStatusSchema } from '../valueSets/index.js'
 
-const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
+const questionnaireResponseItemSchema =
   z.lazy(() =>
     backboneElementSchema.extend({
       linkId: stringSchema,
@@ -95,7 +95,7 @@ export const untypedQuestionnaireResponseSchema = z.lazy(() =>
   }),
 )
 
-export const questionnaireResponseSchema: ZodType<QuestionnaireResponse> =
+export const questionnaireResponseSchema =
   untypedQuestionnaireResponseSchema
 
 export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireResponse> {

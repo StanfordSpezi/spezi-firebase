@@ -69,7 +69,7 @@ export const untypedMessageHeaderSchema = z.lazy(() =>
   }),
 )
 
-export const messageHeaderSchema: ZodType<MessageHeader> =
+export const messageHeaderSchema =
   untypedMessageHeaderSchema
 
 export class FhirMessageHeader extends FhirDomainResource<MessageHeader> {

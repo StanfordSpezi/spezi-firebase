@@ -97,7 +97,7 @@ export const untypedMedicationRequestSchema = z.lazy(() =>
   }),
 )
 
-export const medicationRequestSchema: ZodType<MedicationRequest> =
+export const medicationRequestSchema =
   untypedMedicationRequestSchema
 
 export class FhirMedicationRequest extends FhirDomainResource<MedicationRequest> {

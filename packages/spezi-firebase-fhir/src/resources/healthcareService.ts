@@ -87,7 +87,7 @@ export const untypedHealthcareServiceSchema = z.lazy(() =>
   }),
 )
 
-export const healthcareServiceSchema: ZodType<HealthcareService> =
+export const healthcareServiceSchema =
   untypedHealthcareServiceSchema
 
 export class FhirHealthcareService extends FhirDomainResource<HealthcareService> {

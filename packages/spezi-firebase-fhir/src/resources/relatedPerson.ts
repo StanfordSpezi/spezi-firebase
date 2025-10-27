@@ -54,7 +54,7 @@ export const untypedRelatedPersonSchema = z.lazy(() =>
   }),
 )
 
-export const relatedPersonSchema: ZodType<RelatedPerson> =
+export const relatedPersonSchema =
   untypedRelatedPersonSchema
 
 export class FhirRelatedPerson extends FhirDomainResource<RelatedPerson> {

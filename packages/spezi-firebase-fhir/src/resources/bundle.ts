@@ -36,8 +36,8 @@ const bundleLinkSchema = backboneElementSchema.extend({
 })
 
 export function bundleSchema<R extends DomainResource>(
-  schema: ZodType<R>,
-): ZodType<Bundle<R>> {
+  schema: any,
+): any {
   return resourceSchema.extend({
     resourceType: z.literal('Bundle').readonly(),
     identifier: identifierSchema.optional(),
@@ -111,7 +111,7 @@ export class FhirBundle<R extends DomainResource> extends FhirDomainResource<
 
   public static parse<R extends DomainResource>(
     value: unknown,
-    schema: ZodType<R>,
+    schema: any,
   ): FhirBundle<R> {
     return new FhirBundle(bundleSchema(schema).parse(value))
   }

@@ -50,7 +50,7 @@ export const untypedOrganizationSchema = z.lazy(() =>
   }),
 )
 
-export const organizationSchema: ZodType<Organization> =
+export const organizationSchema =
   untypedOrganizationSchema
 
 export class FhirOrganization extends FhirDomainResource<Organization> {

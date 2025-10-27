@@ -49,7 +49,7 @@ export const untypedSubscriptionSchema = z.lazy(() =>
   }),
 )
 
-export const subscriptionSchema: ZodType<Subscription> =
+export const subscriptionSchema =
   untypedSubscriptionSchema
 
 export class FhirSubscription extends FhirDomainResource<Subscription> {
