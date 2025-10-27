@@ -1,0 +1,245 @@
+{
+  "0": {
+    "resourceType": "Invoice",
+    "id": "invoice-example-0",
+    "status": "issued",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v2-0003",
+          "code": "INV",
+          "display": "Invoice"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example"
+    },
+    "recipient": {
+      "reference": "Organization/insurance-company"
+    },
+    "date": "2024-01-15",
+    "participant": [
+      {
+        "role": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "46255001",
+              "display": "Pharmacist"
+            }
+          ]
+        },
+        "actor": {
+          "reference": "Practitioner/example"
+        }
+      }
+    ],
+    "issuer": {
+      "reference": "Organization/hospital"
+    },
+    "lineItem": [
+      {
+        "sequence": 1,
+        "chargeItemReference": {
+          "reference": "ChargeItem/example-1"
+        },
+        "priceComponent": [
+          {
+            "type": "base",
+            "amount": {
+              "value": 100.00,
+              "currency": "USD"
+            }
+          }
+        ]
+      }
+    ],
+    "totalNet": {
+      "value": 100.00,
+      "currency": "USD"
+    },
+    "totalGross": {
+      "value": 100.00,
+      "currency": "USD"
+    }
+  },
+  "1": {
+    "resourceType": "Invoice",
+    "id": "invoice-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/invoices",
+        "value": "INV-2024-001"
+      }
+    ],
+    "status": "balanced",
+    "subject": {
+      "reference": "Patient/example-2"
+    },
+    "date": "2024-02-01",
+    "account": {
+      "reference": "Account/example"
+    },
+    "lineItem": [
+      {
+        "sequence": 1,
+        "chargeItemCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "99213",
+              "display": "Office visit"
+            }
+          ]
+        },
+        "priceComponent": [
+          {
+            "type": "base",
+            "amount": {
+              "value": 150.00,
+              "currency": "USD"
+            }
+          },
+          {
+            "type": "tax",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://example.org/tax-codes",
+                  "code": "VAT"
+                }
+              ]
+            },
+            "factor": 0.08,
+            "amount": {
+              "value": 12.00,
+              "currency": "USD"
+            }
+          }
+        ]
+      }
+    ],
+    "totalPriceComponent": [
+      {
+        "type": "base",
+        "amount": {
+          "value": 150.00,
+          "currency": "USD"
+        }
+      },
+      {
+        "type": "tax",
+        "amount": {
+          "value": 12.00,
+          "currency": "USD"
+        }
+      }
+    ],
+    "totalNet": {
+      "value": 150.00,
+      "currency": "USD"
+    },
+    "totalGross": {
+      "value": 162.00,
+      "currency": "USD"
+    },
+    "paymentTerms": "Payment due within 30 days"
+  },
+  "2": {
+    "resourceType": "Invoice",
+    "id": "invoice-example-2",
+    "status": "cancelled",
+    "cancelledReason": "Billing error - duplicate charge",
+    "subject": {
+      "reference": "Patient/example-3"
+    },
+    "date": "2024-03-10",
+    "note": [
+      {
+        "text": "This invoice was cancelled due to duplicate billing"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Invoice",
+    "id": "invoice-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/invoices",
+        "value": "INV-2024-002"
+      }
+    ],
+    "status": "issued",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v2-0003",
+          "code": "INV"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example-4"
+    },
+    "recipient": {
+      "reference": "Patient/example-4"
+    },
+    "date": "2024-04-05",
+    "issuer": {
+      "reference": "Organization/clinic"
+    },
+    "lineItem": [
+      {
+        "sequence": 1,
+        "chargeItemReference": {
+          "reference": "ChargeItem/lab-test-1"
+        },
+        "priceComponent": [
+          {
+            "type": "base",
+            "amount": {
+              "value": 80.00,
+              "currency": "USD"
+            }
+          }
+        ]
+      },
+      {
+        "sequence": 2,
+        "chargeItemReference": {
+          "reference": "ChargeItem/lab-test-2"
+        },
+        "priceComponent": [
+          {
+            "type": "base",
+            "amount": {
+              "value": 120.00,
+              "currency": "USD"
+            }
+          },
+          {
+            "type": "discount",
+            "code": {
+              "text": "Volume discount"
+            },
+            "factor": 0.1,
+            "amount": {
+              "value": -12.00,
+              "currency": "USD"
+            }
+          }
+        ]
+      }
+    ],
+    "totalNet": {
+      "value": 188.00,
+      "currency": "USD"
+    },
+    "totalGross": {
+      "value": 188.00,
+      "currency": "USD"
+    },
+    "paymentTerms": "Payment due upon receipt"
+  }
+}

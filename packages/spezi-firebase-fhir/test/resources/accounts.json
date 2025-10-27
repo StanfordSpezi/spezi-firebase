@@ -1,0 +1,142 @@
+{
+  "0": {
+    "resourceType": "Account",
+    "id": "account-example-0",
+    "status": "active",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "PBILLACCT",
+          "display": "patient billing account"
+        }
+      ],
+      "text": "patient"
+    },
+    "name": "Patient Account - John Doe",
+    "subject": [
+      {
+        "reference": "Patient/example",
+        "display": "John Doe"
+      }
+    ],
+    "servicePeriod": {
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    "coverage": [
+      {
+        "coverage": {
+          "reference": "Coverage/example"
+        },
+        "priority": 1
+      }
+    ],
+    "owner": {
+      "reference": "Organization/example-hospital"
+    },
+    "description": "Primary account for patient John Doe"
+  },
+  "1": {
+    "resourceType": "Account",
+    "id": "account-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/account",
+        "value": "ACC-12345"
+      }
+    ],
+    "status": "on-hold",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "PBILLACCT"
+        }
+      ]
+    },
+    "name": "Insurance Billing Account",
+    "guarantor": [
+      {
+        "party": {
+          "reference": "RelatedPerson/guarantor-1"
+        },
+        "onHold": false,
+        "period": {
+          "start": "2024-01-01"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Account",
+    "id": "account-example-2",
+    "status": "inactive",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "PBILLACCT"
+        }
+      ]
+    },
+    "name": "Closed Patient Account",
+    "subject": [
+      {
+        "reference": "Patient/example-2"
+      }
+    ],
+    "servicePeriod": {
+      "start": "2023-01-01",
+      "end": "2023-12-31"
+    },
+    "partOf": {
+      "reference": "Account/master-account"
+    }
+  },
+  "3": {
+    "resourceType": "Account",
+    "id": "account-example-3",
+    "identifier": [
+      {
+        "use": "official",
+        "system": "http://example.org/account",
+        "value": "ACC-67890"
+      }
+    ],
+    "status": "active",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "PBILLACCT",
+          "display": "patient billing account"
+        }
+      ]
+    },
+    "name": "Multi-Coverage Account",
+    "subject": [
+      {
+        "reference": "Patient/example-3"
+      }
+    ],
+    "coverage": [
+      {
+        "coverage": {
+          "reference": "Coverage/primary"
+        },
+        "priority": 1
+      },
+      {
+        "coverage": {
+          "reference": "Coverage/secondary"
+        },
+        "priority": 2
+      }
+    ],
+    "owner": {
+      "reference": "Organization/clinic-1"
+    },
+    "description": "Account with multiple insurance coverages"
+  }
+}

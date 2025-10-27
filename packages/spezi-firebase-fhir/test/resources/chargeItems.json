@@ -1,0 +1,191 @@
+{
+  "0": {
+    "resourceType": "ChargeItem",
+    "id": "chargeitem-example-0",
+    "status": "billable",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.ama-assn.org/go/cpt",
+          "code": "99213",
+          "display": "Office visit"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example"
+    },
+    "context": {
+      "reference": "Encounter/example"
+    },
+    "occurrenceDateTime": "2024-01-15T10:30:00Z",
+    "performer": [
+      {
+        "function": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "17561000",
+              "display": "Cardiologist"
+            }
+          ]
+        },
+        "actor": {
+          "reference": "Practitioner/example"
+        }
+      }
+    ],
+    "performingOrganization": {
+      "reference": "Organization/example-hospital"
+    },
+    "quantity": {
+      "value": 1
+    },
+    "account": [
+      {
+        "reference": "Account/example"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "ChargeItem",
+    "id": "chargeitem-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/charge-items",
+        "value": "CHG-12345"
+      }
+    ],
+    "status": "billed",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.ama-assn.org/go/cpt",
+          "code": "80053",
+          "display": "Comprehensive metabolic panel"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example-2"
+    },
+    "occurrencePeriod": {
+      "start": "2024-02-01T08:00:00Z",
+      "end": "2024-02-01T08:30:00Z"
+    },
+    "quantity": {
+      "value": 1
+    },
+    "factorOverride": 1.2,
+    "priceOverride": {
+      "value": 150.00,
+      "currency": "USD"
+    },
+    "overrideReason": "Urgent processing requested",
+    "enterer": {
+      "reference": "Practitioner/billing-clerk"
+    },
+    "enteredDate": "2024-02-01T09:00:00Z"
+  },
+  "2": {
+    "resourceType": "ChargeItem",
+    "id": "chargeitem-example-2",
+    "status": "not-billable",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.ama-assn.org/go/cpt",
+          "code": "99499",
+          "display": "Unlisted evaluation and management service"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example-3"
+    },
+    "occurrenceDateTime": "2024-03-10T14:00:00Z",
+    "reason": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/charge-item-reason",
+            "code": "goodwill",
+            "display": "Goodwill gesture"
+          }
+        ]
+      }
+    ],
+    "note": [
+      {
+        "text": "Service provided as part of community outreach program"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ChargeItem",
+    "id": "chargeitem-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/charge-items",
+        "value": "CHG-67890"
+      }
+    ],
+    "definitionUri": [
+      "http://example.org/fhir/ChargeItemDefinition/consultation"
+    ],
+    "status": "billable",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.ama-assn.org/go/cpt",
+          "code": "99214",
+          "display": "Office visit, established patient"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example-4"
+    },
+    "context": {
+      "reference": "Encounter/example-4"
+    },
+    "occurrenceDateTime": "2024-04-05T11:00:00Z",
+    "performer": [
+      {
+        "actor": {
+          "reference": "Practitioner/example-2"
+        }
+      }
+    ],
+    "requestingOrganization": {
+      "reference": "Organization/clinic"
+    },
+    "costCenter": {
+      "reference": "Organization/cost-center-cardiology"
+    },
+    "quantity": {
+      "value": 1
+    },
+    "bodysite": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "80891009",
+            "display": "Heart structure"
+          }
+        ]
+      }
+    ],
+    "service": [
+      {
+        "reference": "Procedure/cardiac-consultation"
+      }
+    ],
+    "account": [
+      {
+        "reference": "Account/patient-account"
+      }
+    ]
+  }
+}
