@@ -24,12 +24,13 @@ import {
   stringSchema,
   uriSchema,
 } from '../elements/index.js'
+import { immunizationStatusSchema } from '../valueSets/index.js'
 
 export const untypedImmunizationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Immunization').readonly(),
     identifier: identifierSchema.array().optional(),
-    status: z.enum(['completed', 'entered-in-error', 'not-done']),
+    status: immunizationStatusSchema,
     _status: elementSchema.optional(),
     statusReason: codeableConceptSchema.optional(),
     vaccineCode: codeableConceptSchema,

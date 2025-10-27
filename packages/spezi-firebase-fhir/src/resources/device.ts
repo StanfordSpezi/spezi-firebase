@@ -21,17 +21,7 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
-
-const deviceNameTypeSchema = z.enum([
-  'udi-label-name',
-  'user-friendly-name',
-  'patient-reported-name',
-  'manufacturer-name',
-  'model-name',
-  'other',
-])
-
-const deviceStatusSchema = z.enum(['active', 'inactive', 'entered-in-error'])
+import { deviceNameTypeSchema, deviceStatusSchema } from '../valueSets/index.js'
 
 const deviceDefinitionDeviceName = z.lazy(() =>
   backboneElementSchema.extend({

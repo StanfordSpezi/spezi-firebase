@@ -24,35 +24,11 @@ import {
   stringSchema,
   timingSchema,
 } from '../elements/index.js'
-
-const serviceRequestPrioritySchema = z.enum([
-  'routine',
-  'urgent',
-  'asap',
-  'stat',
-])
-
-const serviceRequestStatusSchema = z.enum([
-  'draft',
-  'active',
-  'on-hold',
-  'revoked',
-  'completed',
-  'entered-in-error',
-  'unknown',
-])
-
-const serviceRequestIntentSchema = z.enum([
-  'proposal',
-  'plan',
-  'directive',
-  'order',
-  'original-order',
-  'reflex-order',
-  'filler-order',
-  'instance-order',
-  'option',
-])
+import {
+  requestPrioritySchema,
+  serviceRequestIntentSchema,
+  serviceRequestStatusSchema,
+} from '../valueSets/index.js'
 
 export const untypedServiceRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -89,7 +65,7 @@ export const untypedServiceRequestSchema = z.lazy(() =>
     _patientInstruction: elementSchema.optional(),
     performer: referenceSchema.array().optional(),
     performerType: codeableConceptSchema.optional(),
-    priority: serviceRequestPrioritySchema.optional(),
+    priority: requestPrioritySchema.optional(),
     _priority: elementSchema.optional(),
     quantityQuantity: quantitySchema.optional(),
     quantityRatio: ratioSchema.optional(),

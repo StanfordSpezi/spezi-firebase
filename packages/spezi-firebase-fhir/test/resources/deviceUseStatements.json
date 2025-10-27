@@ -1,0 +1,169 @@
+{
+  "0": {
+    "resourceType": "DeviceUseStatement",
+    "id": "example-device-use-1",
+    "identifier": [
+      {
+        "system": "http://example.org/device-use-statements",
+        "value": "USE-001"
+      }
+    ],
+    "status": "active",
+    "subject": {
+      "reference": "Patient/example-patient-1"
+    },
+    "device": {
+      "reference": "Device/example-glucose-monitor"
+    },
+    "timingPeriod": {
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    "recordedOn": "2024-01-05T10:30:00Z",
+    "source": {
+      "reference": "Patient/example-patient-1"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "73211009",
+            "display": "Diabetes mellitus"
+          }
+        ]
+      }
+    ],
+    "note": [
+      {
+        "text": "Patient is using device daily for glucose monitoring"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "DeviceUseStatement",
+    "id": "example-device-use-2",
+    "status": "completed",
+    "subject": {
+      "reference": "Patient/example-patient-2"
+    },
+    "basedOn": [
+      {
+        "reference": "DeviceRequest/example-device-request-2"
+      }
+    ],
+    "device": {
+      "reference": "Device/example-wheelchair"
+    },
+    "timingPeriod": {
+      "start": "2024-01-15",
+      "end": "2024-03-15"
+    },
+    "recordedOn": "2024-03-20T14:00:00Z",
+    "source": {
+      "reference": "Practitioner/example-practitioner-2"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "161874006",
+            "display": "Difficulty walking"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "DeviceUseStatement",
+    "id": "example-device-use-3",
+    "status": "active",
+    "subject": {
+      "reference": "Patient/example-patient-3"
+    },
+    "device": {
+      "reference": "Device/example-cpap-machine"
+    },
+    "timingTiming": {
+      "repeat": {
+        "frequency": 1,
+        "period": 1,
+        "periodUnit": "d",
+        "when": ["NIGHT"]
+      }
+    },
+    "recordedOn": "2024-02-01T09:00:00Z",
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "78275009",
+            "display": "Obstructive sleep apnea syndrome"
+          }
+        ]
+      }
+    ],
+    "bodySite": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "123851003",
+          "display": "Mouth region structure"
+        }
+      ]
+    },
+    "note": [
+      {
+        "text": "Patient uses CPAP machine nightly"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "DeviceUseStatement",
+    "id": "example-device-use-4",
+    "identifier": [
+      {
+        "system": "http://example.org/device-use-statements",
+        "value": "USE-004"
+      }
+    ],
+    "status": "stopped",
+    "subject": {
+      "reference": "Patient/example-patient-4"
+    },
+    "derivedFrom": [
+      {
+        "reference": "Observation/example-device-observation"
+      }
+    ],
+    "device": {
+      "reference": "Device/example-insulin-pump"
+    },
+    "timingPeriod": {
+      "start": "2023-06-01",
+      "end": "2024-01-31"
+    },
+    "recordedOn": "2024-02-01T11:00:00Z",
+    "source": {
+      "reference": "Practitioner/example-endocrinologist"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "46635009",
+            "display": "Type 1 diabetes mellitus"
+          }
+        ]
+      }
+    ],
+    "note": [
+      {
+        "text": "Device discontinued due to upgrade to newer model"
+      }
+    ]
+  }
+}

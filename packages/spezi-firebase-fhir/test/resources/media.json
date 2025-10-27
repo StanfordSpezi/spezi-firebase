@@ -1,0 +1,240 @@
+{
+  "0": {
+    "resourceType": "Media",
+    "id": "example-media-1",
+    "identifier": [
+      {
+        "system": "http://example.org/media",
+        "value": "MEDIA-001"
+      }
+    ],
+    "status": "completed",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/media-type",
+          "code": "image",
+          "display": "Image"
+        }
+      ]
+    },
+    "modality": {
+      "coding": [
+        {
+          "system": "http://dicom.nema.org/resources/ontology/DCM",
+          "code": "DX",
+          "display": "Digital Radiography"
+        }
+      ]
+    },
+    "view": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "399067008",
+          "display": "Lateral view"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example-patient-1"
+    },
+    "encounter": {
+      "reference": "Encounter/example-encounter-1"
+    },
+    "createdDateTime": "2024-01-15T10:30:00Z",
+    "issued": "2024-01-15T10:35:00Z",
+    "operator": {
+      "reference": "Practitioner/example-radiologist"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "267336000",
+            "display": "Chest pain"
+          }
+        ]
+      }
+    ],
+    "bodySite": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "51185008",
+          "display": "Thorax"
+        }
+      ]
+    },
+    "deviceName": "Acme Digital X-Ray System",
+    "height": 1024,
+    "width": 1024,
+    "content": {
+      "contentType": "image/jpeg",
+      "url": "https://example.org/media/chest-xray-001.jpg",
+      "title": "Chest X-Ray Lateral View",
+      "creation": "2024-01-15T10:30:00Z"
+    }
+  },
+  "1": {
+    "resourceType": "Media",
+    "id": "example-media-2",
+    "status": "completed",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/media-type",
+          "code": "video",
+          "display": "Video"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example-patient-2"
+    },
+    "createdPeriod": {
+      "start": "2024-02-01T14:00:00Z",
+      "end": "2024-02-01T14:05:00Z"
+    },
+    "operator": {
+      "reference": "Practitioner/example-surgeon"
+    },
+    "deviceName": "Olympus Endoscope",
+    "frames": 9000,
+    "duration": 300,
+    "content": {
+      "contentType": "video/mp4",
+      "url": "https://example.org/media/endoscopy-video-001.mp4",
+      "title": "Upper GI Endoscopy",
+      "creation": "2024-02-01T14:00:00Z"
+    },
+    "note": [
+      {
+        "text": "Normal mucosa observed throughout examination"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Media",
+    "id": "example-media-3",
+    "identifier": [
+      {
+        "system": "http://example.org/media",
+        "value": "MEDIA-003"
+      }
+    ],
+    "basedOn": [
+      {
+        "reference": "ServiceRequest/example-ultrasound-request"
+      }
+    ],
+    "status": "completed",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/media-type",
+          "code": "image",
+          "display": "Image"
+        }
+      ]
+    },
+    "modality": {
+      "coding": [
+        {
+          "system": "http://dicom.nema.org/resources/ontology/DCM",
+          "code": "US",
+          "display": "Ultrasound"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example-patient-3"
+    },
+    "encounter": {
+      "reference": "Encounter/example-encounter-3"
+    },
+    "createdDateTime": "2024-03-10T09:15:00Z",
+    "operator": {
+      "reference": "Practitioner/example-sonographer"
+    },
+    "bodySite": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "113345001",
+          "display": "Abdomen"
+        }
+      ]
+    },
+    "deviceName": "GE Ultrasound System",
+    "device": {
+      "reference": "Device/example-ultrasound-device"
+    },
+    "height": 512,
+    "width": 512,
+    "content": {
+      "contentType": "image/dicom",
+      "data": "BASE64_ENCODED_DICOM_DATA_HERE",
+      "title": "Abdominal Ultrasound"
+    }
+  },
+  "3": {
+    "resourceType": "Media",
+    "id": "example-media-4",
+    "status": "completed",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/media-type",
+          "code": "audio",
+          "display": "Audio"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example-patient-4"
+    },
+    "encounter": {
+      "reference": "Encounter/example-encounter-4"
+    },
+    "createdDateTime": "2024-04-05T11:00:00Z",
+    "issued": "2024-04-05T11:30:00Z",
+    "operator": {
+      "reference": "Practitioner/example-cardiologist"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "301113001",
+            "display": "Finding of heart sounds"
+          }
+        ]
+      }
+    ],
+    "bodySite": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "80891009",
+          "display": "Heart"
+        }
+      ]
+    },
+    "deviceName": "Electronic Stethoscope Model-X",
+    "duration": 30,
+    "content": {
+      "contentType": "audio/mp4",
+      "url": "https://example.org/media/heart-sounds-001.mp4",
+      "title": "Heart Sounds Recording",
+      "creation": "2024-04-05T11:00:00Z"
+    },
+    "note": [
+      {
+        "text": "S1 and S2 heart sounds clearly audible, no murmurs detected"
+      }
+    ]
+  }
+}

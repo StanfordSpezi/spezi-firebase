@@ -23,6 +23,7 @@ import {
   stringSchema,
   unsignedIntSchema,
 } from '../elements/index.js'
+import { groupTypeSchema } from '../valueSets/index.js'
 
 export const untypedGroupSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -30,14 +31,7 @@ export const untypedGroupSchema = z.lazy(() =>
     identifier: identifierSchema.array().optional(),
     active: booleanSchema.optional(),
     _active: elementSchema.optional(),
-    type: z.enum([
-      'person',
-      'animal',
-      'practitioner',
-      'device',
-      'medication',
-      'substance',
-    ]),
+    type: groupTypeSchema,
     _type: elementSchema.optional(),
     actual: booleanSchema,
     _actual: elementSchema.optional(),

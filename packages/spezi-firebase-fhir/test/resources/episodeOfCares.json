@@ -1,0 +1,127 @@
+{
+  "0": {
+    "resourceType": "EpisodeOfCare",
+    "id": "episode-example-0",
+    "status": "active",
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/episodeofcare-type",
+            "code": "hacc",
+            "display": "Home and Community Care"
+          }
+        ]
+      }
+    ],
+    "patient": {
+      "reference": "Patient/patient-example"
+    },
+    "period": {
+      "start": "2024-01-15"
+    }
+  },
+  "1": {
+    "resourceType": "EpisodeOfCare",
+    "id": "episode-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/episodes",
+        "value": "E12345"
+      }
+    ],
+    "status": "finished",
+    "statusHistory": [
+      {
+        "status": "active",
+        "period": {
+          "start": "2023-06-01",
+          "end": "2024-06-01"
+        }
+      }
+    ],
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/episodeofcare-type",
+            "code": "diab",
+            "display": "Diabetes management"
+          }
+        ]
+      }
+    ],
+    "diagnosis": [
+      {
+        "condition": {
+          "reference": "Condition/condition-diabetes"
+        },
+        "role": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/diagnosis-role",
+              "code": "CC",
+              "display": "Chief complaint"
+            }
+          ]
+        },
+        "rank": 1
+      }
+    ],
+    "patient": {
+      "reference": "Patient/patient-example-2"
+    },
+    "managingOrganization": {
+      "reference": "Organization/org-endocrinology"
+    },
+    "period": {
+      "start": "2023-06-01",
+      "end": "2024-06-01"
+    }
+  },
+  "2": {
+    "resourceType": "EpisodeOfCare",
+    "id": "episode-example-2",
+    "status": "waitlist",
+    "patient": {
+      "reference": "Patient/patient-example-3"
+    },
+    "careManager": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "period": {
+      "start": "2024-11-01"
+    }
+  },
+  "3": {
+    "resourceType": "EpisodeOfCare",
+    "id": "episode-example-3",
+    "status": "cancelled",
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/episodeofcare-type",
+            "code": "pac",
+            "display": "Post Acute Care"
+          }
+        ]
+      }
+    ],
+    "patient": {
+      "reference": "Patient/patient-xyz"
+    },
+    "managingOrganization": {
+      "reference": "Organization/org-rehab"
+    },
+    "period": {
+      "start": "2024-09-01",
+      "end": "2024-09-05"
+    },
+    "referralRequest": [
+      {
+        "reference": "ServiceRequest/referral-123"
+      }
+    ]
+  }
+}

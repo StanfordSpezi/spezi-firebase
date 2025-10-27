@@ -1,0 +1,90 @@
+{
+  "0": {
+    "resourceType": "AppointmentResponse",
+    "id": "appointmentresponse-example-0",
+    "appointment": {
+      "reference": "Appointment/appointment-example-0"
+    },
+    "participantType": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+            "code": "ATND",
+            "display": "attender"
+          }
+        ]
+      }
+    ],
+    "actor": {
+      "reference": "Patient/patient-example"
+    },
+    "participantStatus": "accepted",
+    "comment": "I will be there on time"
+  },
+  "1": {
+    "resourceType": "AppointmentResponse",
+    "id": "appointmentresponse-example-1",
+    "appointment": {
+      "reference": "Appointment/appointment-example-1"
+    },
+    "start": "2024-11-20T14:30:00Z",
+    "end": "2024-11-20T15:00:00Z",
+    "participantType": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+            "code": "PPRF",
+            "display": "primary performer"
+          }
+        ]
+      }
+    ],
+    "actor": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "participantStatus": "accepted"
+  },
+  "2": {
+    "resourceType": "AppointmentResponse",
+    "id": "appointmentresponse-example-2",
+    "appointment": {
+      "reference": "Appointment/appointment-example-2"
+    },
+    "actor": {
+      "reference": "Patient/patient-example-3"
+    },
+    "participantStatus": "declined",
+    "comment": "Unable to attend due to prior commitment"
+  },
+  "3": {
+    "resourceType": "AppointmentResponse",
+    "id": "appointmentresponse-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/appointment-responses",
+        "value": "RESP-123"
+      }
+    ],
+    "appointment": {
+      "reference": "Appointment/appointment-example-3"
+    },
+    "participantType": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+            "code": "PART",
+            "display": "Participation"
+          }
+        ]
+      }
+    ],
+    "actor": {
+      "reference": "Location/location-example"
+    },
+    "participantStatus": "tentative",
+    "comment": "Room availability needs to be confirmed"
+  }
+}
