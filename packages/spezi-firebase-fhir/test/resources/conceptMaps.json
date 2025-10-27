@@ -1,0 +1,275 @@
+{
+  "0": {
+    "resourceType": "ConceptMap",
+    "id": "example-conceptmap-0",
+    "url": "http://example.org/fhir/ConceptMap/example-0",
+    "identifier": {
+      "system": "urn:ietf:rfc:3986",
+      "value": "urn:oid:2.16.840.1.113883.4.642.1.0"
+    },
+    "version": "1.0.0",
+    "name": "ExampleConceptMap0",
+    "title": "Example Concept Map 0",
+    "status": "active",
+    "experimental": true,
+    "date": "2023-01-15T10:00:00Z",
+    "publisher": "Example Health Organization",
+    "contact": [
+      {
+        "name": "Terminology Team",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "terminology@example.org"
+          }
+        ]
+      }
+    ],
+    "description": "An example concept map for testing purposes",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "purpose": "Demonstrates mapping between two code systems",
+    "copyright": "Copyright 2023 Example Health Organization",
+    "sourceUri": "http://example.org/fhir/ValueSet/source-vs",
+    "targetUri": "http://example.org/fhir/ValueSet/target-vs",
+    "group": [
+      {
+        "source": "http://example.org/fhir/CodeSystem/source-cs",
+        "sourceVersion": "1.0.0",
+        "target": "http://example.org/fhir/CodeSystem/target-cs",
+        "targetVersion": "2.0.0",
+        "element": [
+          {
+            "code": "code1",
+            "display": "Source Code 1",
+            "target": [
+              {
+                "code": "target-code1",
+                "display": "Target Code 1",
+                "equivalence": "equivalent"
+              }
+            ]
+          },
+          {
+            "code": "code2",
+            "display": "Source Code 2",
+            "target": [
+              {
+                "code": "target-code2a",
+                "display": "Target Code 2A",
+                "equivalence": "wider",
+                "comment": "This is a broader concept"
+              },
+              {
+                "code": "target-code2b",
+                "display": "Target Code 2B",
+                "equivalence": "wider",
+                "comment": "This is also a broader concept"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "ConceptMap",
+    "id": "example-conceptmap-1",
+    "url": "http://example.org/fhir/ConceptMap/example-1",
+    "version": "2.1.0",
+    "name": "ExampleConceptMap1",
+    "title": "Example Concept Map 1 with Dependencies",
+    "status": "draft",
+    "experimental": false,
+    "date": "2023-03-20T14:30:00Z",
+    "publisher": "Medical Standards Institute",
+    "description": "A concept map with dependencies and products",
+    "sourceCanonical": "http://example.org/fhir/ValueSet/conditions",
+    "targetCanonical": "http://snomed.info/sct",
+    "group": [
+      {
+        "source": "http://example.org/fhir/CodeSystem/local-conditions",
+        "target": "http://snomed.info/sct",
+        "element": [
+          {
+            "code": "diabetes-t2",
+            "display": "Type 2 Diabetes",
+            "target": [
+              {
+                "code": "44054006",
+                "display": "Diabetes mellitus type 2",
+                "equivalence": "equal",
+                "dependsOn": [
+                  {
+                    "property": "http://example.org/fhir/property/age",
+                    "system": "http://example.org/fhir/CodeSystem/age-groups",
+                    "value": "adult",
+                    "display": "Adult"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "hypertension",
+            "display": "High Blood Pressure",
+            "target": [
+              {
+                "code": "38341003",
+                "display": "Hypertensive disorder",
+                "equivalence": "equivalent",
+                "product": [
+                  {
+                    "property": "http://example.org/fhir/property/severity",
+                    "system": "http://example.org/fhir/CodeSystem/severity",
+                    "value": "moderate",
+                    "display": "Moderate"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ConceptMap",
+    "id": "example-conceptmap-2",
+    "url": "http://example.org/fhir/ConceptMap/example-2",
+    "version": "1.5.0",
+    "name": "ExampleConceptMap2",
+    "title": "Example Concept Map 2 with Unmapped",
+    "status": "active",
+    "date": "2023-06-10T09:00:00Z",
+    "publisher": "Terminology Services Ltd",
+    "description": "Demonstrates unmapped codes handling",
+    "useContext": [
+      {
+        "code": {
+          "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+          "code": "venue"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "AMB",
+              "display": "ambulatory"
+            }
+          ]
+        }
+      }
+    ],
+    "sourceUri": "http://example.org/fhir/ValueSet/medications-old",
+    "targetUri": "http://example.org/fhir/ValueSet/medications-new",
+    "group": [
+      {
+        "source": "http://example.org/fhir/CodeSystem/medications-v1",
+        "target": "http://example.org/fhir/CodeSystem/medications-v2",
+        "element": [
+          {
+            "code": "aspirin-100",
+            "display": "Aspirin 100mg",
+            "target": [
+              {
+                "code": "asp-100",
+                "display": "Aspirin 100mg Tablet",
+                "equivalence": "equal"
+              }
+            ]
+          },
+          {
+            "code": "paracetamol-500",
+            "display": "Paracetamol 500mg",
+            "target": [
+              {
+                "code": "para-500",
+                "display": "Paracetamol 500mg Tablet",
+                "equivalence": "equivalent"
+              }
+            ]
+          }
+        ],
+        "unmapped": {
+          "mode": "fixed",
+          "code": "unmapped-medication",
+          "display": "Unmapped Medication"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ConceptMap",
+    "id": "example-conceptmap-3",
+    "url": "http://example.org/fhir/ConceptMap/example-3",
+    "version": "3.0.0",
+    "name": "ExampleConceptMap3",
+    "title": "Example Concept Map 3 - Multiple Groups",
+    "status": "retired",
+    "experimental": true,
+    "date": "2022-12-15T16:45:00Z",
+    "publisher": "Legacy Terminology Provider",
+    "description": "A retired concept map with multiple mapping groups",
+    "sourceCanonical": "http://example.org/fhir/ValueSet/all-codes",
+    "targetCanonical": "http://example.org/fhir/ValueSet/new-codes",
+    "group": [
+      {
+        "source": "http://example.org/fhir/CodeSystem/group-a",
+        "target": "http://example.org/fhir/CodeSystem/unified",
+        "element": [
+          {
+            "code": "a1",
+            "display": "Code A1",
+            "target": [
+              {
+                "code": "unified-1",
+                "display": "Unified Code 1",
+                "equivalence": "equivalent"
+              }
+            ]
+          }
+        ],
+        "unmapped": {
+          "mode": "other-map",
+          "url": "http://example.org/fhir/ConceptMap/fallback-map"
+        }
+      },
+      {
+        "source": "http://example.org/fhir/CodeSystem/group-b",
+        "target": "http://example.org/fhir/CodeSystem/unified",
+        "element": [
+          {
+            "code": "b1",
+            "display": "Code B1",
+            "target": [
+              {
+                "code": "unified-2",
+                "display": "Unified Code 2",
+                "equivalence": "narrower",
+                "comment": "The source concept is more specific"
+              }
+            ]
+          },
+          {
+            "code": "b2",
+            "target": [
+              {
+                "equivalence": "unmatched"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

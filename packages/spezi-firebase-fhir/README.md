@@ -153,7 +153,10 @@ export const createPatient = onCall(async (request) => {
 
   // Store in Firestore
   const firestore = getFirestore()
-  await firestore.collection('patients').doc(patient.value.id).set(patient.value)
+  await firestore
+    .collection('patients')
+    .doc(patient.value.id)
+    .set(patient.value)
 
   return { success: true, id: patient.value.id }
 })

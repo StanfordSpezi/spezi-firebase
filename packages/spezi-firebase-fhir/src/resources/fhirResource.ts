@@ -11,7 +11,9 @@ import { z, type ZodType } from 'zod'
 import { untypedAllergyIntoleranceSchema } from './allergyIntolerance.js'
 import { untypedAppointmentSchema } from './appointment.js'
 import { untypedAppointmentResponseSchema } from './appointmentResponse.js'
+import { untypedCodeSystemSchema } from './codeSystem.js'
 import { untypedCompositionSchema } from './composition.js'
+import { untypedConceptMapSchema } from './conceptMap.js'
 import { untypedConditionSchema } from './condition.js'
 import { untypedCoverageSchema } from './coverage.js'
 import { untypedDeviceSchema } from './device.js'
@@ -35,6 +37,7 @@ import { untypedMedicationKnowledgeSchema } from './medicationKnowledge.js'
 import { untypedMedicationRequestSchema } from './medicationRequest.js'
 import { untypedMedicationStatementSchema } from './medicationStatement.js'
 import { untypedMessageHeaderSchema } from './messageHeader.js'
+import { untypedNamingSystemSchema } from './namingSystem.js'
 import { untypedObservationSchema } from './observation.js'
 import { untypedOperationOutcomeSchema } from './operationOutcome.js'
 import { untypedOrganizationSchema } from './organization.js'
@@ -54,13 +57,17 @@ import { untypedSpecimenSchema } from './specimen.js'
 import { untypedSubscriptionSchema } from './subscription.js'
 import { untypedSubstanceSchema } from './substance.js'
 import { untypedTaskSchema } from './task.js'
+import { untypedTerminologyCapabilitiesSchema } from './terminologyCapabilities.js'
+import { untypedValueSetSchema } from './valueSet.js'
 
 export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
     untypedAllergyIntoleranceSchema,
     untypedAppointmentSchema,
     untypedAppointmentResponseSchema,
+    untypedCodeSystemSchema,
     untypedCompositionSchema,
+    untypedConceptMapSchema,
     untypedConditionSchema,
     untypedCoverageSchema,
     untypedDeviceSchema,
@@ -84,6 +91,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedMedicationRequestSchema,
     untypedMedicationStatementSchema,
     untypedMessageHeaderSchema,
+    untypedNamingSystemSchema,
     untypedObservationSchema,
     untypedOperationOutcomeSchema,
     untypedOrganizationSchema,
@@ -103,5 +111,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedSubscriptionSchema,
     untypedSubstanceSchema,
     untypedTaskSchema,
+    untypedTerminologyCapabilitiesSchema,
+    untypedValueSetSchema,
   ]),
 )
