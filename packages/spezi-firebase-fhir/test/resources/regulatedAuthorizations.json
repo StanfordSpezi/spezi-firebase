@@ -1,0 +1,156 @@
+{
+  "0": {
+    "resourceType": "RegulatedAuthorization",
+    "id": "example",
+    "identifier": [
+      {
+        "system": "http://ema.europa.eu/example/marketingAuthorisationNumber",
+        "value": "EU/1/11/999/001"
+      }
+    ],
+    "subject": [
+      {
+        "reference": "MedicinalProductDefinition/example"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/marketingAuthorisationType",
+          "code": "Marketing Authorization"
+        }
+      ]
+    },
+    "status": "active",
+    "statusDate": "2015-01-14",
+    "validityPeriod": {
+      "start": "2015-08-16",
+      "end": "2020-05-20"
+    },
+    "holder": {
+      "reference": "Organization/example"
+    },
+    "regulator": {
+      "reference": "Organization/ema"
+    }
+  },
+  "1": {
+    "resourceType": "RegulatedAuthorization",
+    "id": "example2",
+    "identifier": [
+      {
+        "system": "http://fda.gov/nda",
+        "value": "NDA123456"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
+          "code": "HOLDER"
+        }
+      ]
+    },
+    "description": "New Drug Application approval for treatment of hypertension",
+    "region": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "status": "active",
+    "statusDate": "2020-03-15",
+    "holder": {
+      "reference": "Organization/pharma-company"
+    },
+    "regulator": {
+      "reference": "Organization/fda"
+    }
+  },
+  "2": {
+    "resourceType": "RegulatedAuthorization",
+    "id": "example3",
+    "type": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/regulationType",
+          "code": "Clinical Trial Authorization"
+        }
+      ]
+    },
+    "status": "active",
+    "validityPeriod": {
+      "start": "2021-01-01",
+      "end": "2024-12-31"
+    },
+    "indication": {
+      "text": "Treatment of Type 2 Diabetes"
+    },
+    "case": {
+      "identifier": {
+        "system": "http://example.org/case-numbers",
+        "value": "CT-2021-001"
+      },
+      "type": {
+        "coding": [
+          {
+            "system": "http://example.org/case-types",
+            "code": "ClinicalTrialApplication"
+          }
+        ]
+      },
+      "status": {
+        "coding": [
+          {
+            "system": "http://example.org/case-status",
+            "code": "Approved"
+          }
+        ]
+      },
+      "dateDateTime": "2021-01-01T00:00:00Z"
+    }
+  },
+  "3": {
+    "resourceType": "RegulatedAuthorization",
+    "id": "example4",
+    "status": "draft",
+    "type": {
+      "coding": [
+        {
+          "system": "http://example.org/authorization-types",
+          "code": "Import License"
+        }
+      ]
+    },
+    "region": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "CA",
+            "display": "Canada"
+          }
+        ]
+      }
+    ],
+    "basis": [
+      {
+        "coding": [
+          {
+            "system": "http://example.org/basis",
+            "code": "Reciprocal",
+            "display": "Reciprocal recognition"
+          }
+        ]
+      }
+    ],
+    "holder": {
+      "reference": "Organization/importer"
+    }
+  }
+}

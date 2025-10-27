@@ -1,0 +1,183 @@
+{
+  "0": {
+    "resourceType": "AdministrableProductDefinition",
+    "id": "example",
+    "status": "active",
+    "formOf": [
+      {
+        "reference": "MedicinalProductDefinition/example"
+      }
+    ],
+    "administrableDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385219001",
+          "display": "Conventional release solution for injection"
+        }
+      ]
+    },
+    "routeOfAdministration": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "26643006",
+              "display": "Oral use"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "AdministrableProductDefinition",
+    "id": "example2",
+    "status": "active",
+    "administrableDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385049006",
+          "display": "Tablet"
+        }
+      ]
+    },
+    "unitOfPresentation": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "732936001",
+          "display": "Tablet (unit of presentation)"
+        }
+      ]
+    },
+    "routeOfAdministration": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "26643006",
+              "display": "Oral use"
+            }
+          ]
+        },
+        "maxSingleDose": {
+          "value": 500,
+          "unit": "mg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg"
+        },
+        "maxDosePerDay": {
+          "value": 4000,
+          "unit": "mg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "AdministrableProductDefinition",
+    "id": "example3",
+    "identifier": [
+      {
+        "system": "http://example.org/administrable-products",
+        "value": "123456"
+      }
+    ],
+    "status": "active",
+    "administrableDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385101003",
+          "display": "Inhalation powder"
+        }
+      ]
+    },
+    "routeOfAdministration": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "447694001",
+              "display": "Respiratory tract route"
+            }
+          ]
+        }
+      }
+    ],
+    "property": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/property-types",
+              "code": "pH"
+            }
+          ]
+        },
+        "valueQuantity": {
+          "value": 7.4,
+          "system": "http://unitsofmeasure.org",
+          "code": "[pH]"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "AdministrableProductDefinition",
+    "id": "example4",
+    "status": "draft",
+    "administrableDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385221006",
+          "display": "Solution for infusion"
+        }
+      ]
+    },
+    "ingredient": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "387517004",
+            "display": "Paracetamol"
+          }
+        ]
+      }
+    ],
+    "routeOfAdministration": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "47625008",
+              "display": "Intravenous use"
+            }
+          ]
+        },
+        "targetSpecies": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "337915000",
+                  "display": "Homo sapiens"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

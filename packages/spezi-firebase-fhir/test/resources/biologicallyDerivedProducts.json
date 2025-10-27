@@ -1,0 +1,122 @@
+{
+  "0": {
+    "resourceType": "BiologicallyDerivedProduct",
+    "id": "example",
+    "identifier": [
+      {
+        "system": "https://www.isbt128.org/uri/MPHOUniqueIdentifier",
+        "value": "A999999Z999999A999999"
+      }
+    ],
+    "productCategory": "organ",
+    "productCode": {
+      "coding": [
+        {
+          "system": "https://www.isbt128.org/uri/ProductCode",
+          "code": "E4364"
+        }
+      ]
+    },
+    "status": "available",
+    "request": [
+      {
+        "reference": "ServiceRequest/example"
+      }
+    ],
+    "collection": {
+      "collector": {
+        "reference": "Practitioner/example"
+      },
+      "collectedDateTime": "2021-01-01T01:01:01.000Z"
+    }
+  },
+  "1": {
+    "resourceType": "BiologicallyDerivedProduct",
+    "id": "example2",
+    "productCategory": "tissue",
+    "productCode": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "14888004",
+          "display": "Tissue specimen"
+        }
+      ]
+    },
+    "status": "available",
+    "processing": [
+      {
+        "description": "Cryopreservation",
+        "procedure": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "430863003",
+              "display": "Cryopreservation"
+            }
+          ]
+        },
+        "timeDateTime": "2021-01-02T10:00:00Z"
+      }
+    ],
+    "storage": [
+      {
+        "description": "Stored in liquid nitrogen",
+        "temperature": -196,
+        "scale": "celsius"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "BiologicallyDerivedProduct",
+    "id": "example3",
+    "productCategory": "cells",
+    "productCode": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "62972009",
+          "display": "Bone marrow cells"
+        }
+      ]
+    },
+    "status": "available",
+    "quantity": 1000000,
+    "collection": {
+      "collectedDateTime": "2021-03-15T14:30:00Z"
+    },
+    "manipulation": {
+      "description": "CD34+ cell selection",
+      "timeDateTime": "2021-03-15T16:00:00Z"
+    }
+  },
+  "3": {
+    "resourceType": "BiologicallyDerivedProduct",
+    "id": "example4",
+    "productCategory": "fluid",
+    "productCode": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "119297000",
+          "display": "Blood specimen"
+        }
+      ]
+    },
+    "status": "unavailable",
+    "parent": [
+      {
+        "reference": "BiologicallyDerivedProduct/parent-example"
+      }
+    ],
+    "collection": {
+      "source": {
+        "reference": "Patient/example"
+      },
+      "collectedPeriod": {
+        "start": "2021-06-01T09:00:00Z",
+        "end": "2021-06-01T09:15:00Z"
+      }
+    }
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "0": {
+    "resourceType": "PackagedProductDefinition",
+    "id": "example",
+    "name": "Amoxicillin 250mg Capsules Bottle of 100",
+    "type": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/package-type",
+          "code": "Medicinal Product Pack"
+        }
+      ]
+    },
+    "packageFor": [
+      {
+        "reference": "MedicinalProductDefinition/example"
+      }
+    ],
+    "status": "active",
+    "package": {
+      "type": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "419672006",
+            "display": "Bottle"
+          }
+        ]
+      },
+      "quantity": 1,
+      "material": [
+        {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "61088005",
+              "display": "Plastic"
+            }
+          ]
+        }
+      ],
+      "containedItem": [
+        {
+          "item": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "385087003",
+                "display": "Capsule"
+              }
+            ]
+          },
+          "amount": {
+            "value": 100,
+            "unit": "capsule",
+            "system": "http://unitsofmeasure.org",
+            "code": "{capsule}"
+          }
+        }
+      ]
+    }
+  },
+  "1": {
+    "resourceType": "PackagedProductDefinition",
+    "id": "example2",
+    "identifier": [
+      {
+        "system": "http://example.org/packages",
+        "value": "PKG-123"
+      }
+    ],
+    "name": "Ibuprofen 200mg Tablets Blister Pack",
+    "type": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/package-type",
+          "code": "Medicinal Product Pack"
+        }
+      ]
+    },
+    "status": "active",
+    "description": "Blister pack containing 24 tablets",
+    "manufacturer": [
+      {
+        "reference": "Organization/example"
+      }
+    ],
+    "package": {
+      "type": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "409518007",
+            "display": "Blister pack"
+          }
+        ]
+      },
+      "quantity": 2,
+      "containedItem": [
+        {
+          "item": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "385049006",
+                "display": "Tablet"
+              }
+            ]
+          },
+          "amount": {
+            "value": 12,
+            "unit": "tablet",
+            "system": "http://unitsofmeasure.org",
+            "code": "{tablet}"
+          }
+        }
+      ]
+    }
+  },
+  "2": {
+    "resourceType": "PackagedProductDefinition",
+    "id": "example3",
+    "name": "Insulin Injection Pre-filled Pen",
+    "status": "active",
+    "legalStatusOfSupply": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://ema.europa.eu/example/legal-status-of-supply",
+              "code": "POM",
+              "display": "Prescription only medicine"
+            }
+          ]
+        }
+      }
+    ],
+    "package": {
+      "type": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "415818006",
+            "display": "Pre-filled pen injector"
+          }
+        ]
+      },
+      "quantity": 5,
+      "shelfLifeStorage": [
+        {
+          "type": {
+            "coding": [
+              {
+                "system": "http://ema.europa.eu/example/shelf-life-type",
+                "code": "ShelfLifeofMedicinalProduct"
+              }
+            ]
+          },
+          "periodDuration": {
+            "value": 24,
+            "unit": "months",
+            "system": "http://unitsofmeasure.org",
+            "code": "mo"
+          },
+          "specialPrecautionsForStorage": [
+            {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "419954003",
+                  "display": "Store in refrigerator"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "3": {
+    "resourceType": "PackagedProductDefinition",
+    "id": "example4",
+    "name": "Antibiotic Suspension Bottle with Measuring Cup",
+    "status": "draft",
+    "copackagedIndicator": true,
+    "package": {
+      "type": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "419672006",
+            "display": "Bottle"
+          }
+        ]
+      },
+      "quantity": 1,
+      "package": [
+        {
+          "type": {
+            "coding": [
+              {
+                "system": "http://example.org/package-types",
+                "code": "MeasuringCup"
+              }
+            ]
+          },
+          "quantity": 1
+        }
+      ]
+    }
+  }
+}

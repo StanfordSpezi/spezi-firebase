@@ -1,0 +1,156 @@
+{
+  "0": {
+    "resourceType": "ManufacturedItemDefinition",
+    "id": "example",
+    "status": "active",
+    "manufacturedDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385049006",
+          "display": "Tablet"
+        }
+      ]
+    },
+    "unitOfPresentation": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "732936001",
+          "display": "Tablet (unit of presentation)"
+        }
+      ]
+    },
+    "manufacturer": [
+      {
+        "reference": "Organization/example"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "ManufacturedItemDefinition",
+    "id": "example2",
+    "identifier": [
+      {
+        "system": "http://example.org/manufactured-items",
+        "value": "MI-12345"
+      }
+    ],
+    "status": "active",
+    "manufacturedDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385219001",
+          "display": "Solution for injection"
+        }
+      ]
+    },
+    "ingredient": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "387517004",
+            "display": "Paracetamol"
+          }
+        ]
+      }
+    ],
+    "property": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/property-types",
+              "code": "color"
+            }
+          ]
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://example.org/colors",
+              "code": "white"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ManufacturedItemDefinition",
+    "id": "example3",
+    "status": "active",
+    "manufacturedDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385101003",
+          "display": "Inhalation powder"
+        }
+      ]
+    },
+    "component": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/component-types",
+              "code": "layer"
+            }
+          ]
+        },
+        "amount": [
+          {
+            "value": 100,
+            "unit": "mg",
+            "system": "http://unitsofmeasure.org",
+            "code": "mg"
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ManufacturedItemDefinition",
+    "id": "example4",
+    "status": "draft",
+    "manufacturedDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385087003",
+          "display": "Capsule"
+        }
+      ]
+    },
+    "unitOfPresentation": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "732937005",
+          "display": "Capsule (unit of presentation)"
+        }
+      ]
+    },
+    "property": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/property-types",
+              "code": "weight"
+            }
+          ]
+        },
+        "valueQuantity": {
+          "value": 500,
+          "unit": "mg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg"
+        }
+      }
+    ]
+  }
+}

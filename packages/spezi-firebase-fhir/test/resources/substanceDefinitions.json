@@ -1,0 +1,218 @@
+{
+  "0": {
+    "resourceType": "SubstanceDefinition",
+    "id": "example",
+    "identifier": [
+      {
+        "system": "http://example.org/substance-ids",
+        "value": "SUB-001"
+      }
+    ],
+    "status": "active",
+    "classification": [
+      {
+        "coding": [
+          {
+            "system": "http://example.org/substance-classification",
+            "code": "ChemicalSubstance"
+          }
+        ]
+      }
+    ],
+    "name": [
+      {
+        "name": "Acetylsalicylic acid",
+        "preferred": true
+      }
+    ],
+    "structure": {
+      "molecularFormula": "C9H8O4",
+      "molecularWeight": {
+        "amount": {
+          "value": 180.16,
+          "unit": "g/mol",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/mol"
+        }
+      }
+    }
+  },
+  "1": {
+    "resourceType": "SubstanceDefinition",
+    "id": "example2",
+    "status": "active",
+    "domain": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/domain",
+          "code": "Human"
+        }
+      ]
+    },
+    "description": "A beta-lactam antibiotic",
+    "name": [
+      {
+        "name": "Amoxicillin",
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/name-types",
+              "code": "INN"
+            }
+          ]
+        },
+        "preferred": true
+      },
+      {
+        "name": "Amoxycillin",
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/name-types",
+              "code": "BAN"
+            }
+          ]
+        }
+      }
+    ],
+    "code": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372687004",
+              "display": "Amoxicillin"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "SubstanceDefinition",
+    "id": "example3",
+    "status": "active",
+    "classification": [
+      {
+        "coding": [
+          {
+            "system": "http://example.org/substance-classification",
+            "code": "Polymer"
+          }
+        ]
+      }
+    ],
+    "name": [
+      {
+        "name": "Polyethylene glycol 400"
+      }
+    ],
+    "property": [
+      {
+        "category": {
+          "coding": [
+            {
+              "system": "http://example.org/property-categories",
+              "code": "Physical"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://example.org/property-codes",
+              "code": "Viscosity"
+            }
+          ]
+        },
+        "amountQuantity": {
+          "value": 7.3,
+          "unit": "cP",
+          "system": "http://unitsofmeasure.org",
+          "code": "cP"
+        }
+      }
+    ],
+    "molecularWeight": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/molecular-weight-type",
+              "code": "average"
+            }
+          ]
+        },
+        "amount": {
+          "value": 400,
+          "unit": "g/mol",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/mol"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "SubstanceDefinition",
+    "id": "example4",
+    "status": "draft",
+    "name": [
+      {
+        "name": "Water",
+        "preferred": true,
+        "language": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "name": "Aqua",
+            "language": [
+              {
+                "coding": [
+                  {
+                    "system": "urn:ietf:bcp:47",
+                    "code": "la"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "structure": {
+      "molecularFormula": "H2O",
+      "representation": [
+        {
+          "type": {
+            "coding": [
+              {
+                "system": "http://example.org/representation-types",
+                "code": "SMILES"
+              }
+            ]
+          },
+          "representation": "O"
+        }
+      ]
+    },
+    "sourceMaterial": {
+      "type": {
+        "coding": [
+          {
+            "system": "http://example.org/source-material-type",
+            "code": "Natural"
+          }
+        ]
+      }
+    }
+  }
+}

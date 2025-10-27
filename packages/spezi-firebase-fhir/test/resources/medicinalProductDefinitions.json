@@ -1,0 +1,189 @@
+{
+  "0": {
+    "resourceType": "MedicinalProductDefinition",
+    "id": "example",
+    "identifier": [
+      {
+        "system": "http://example.org/products",
+        "value": "12345"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/medicinal-product-type",
+          "code": "MedicinalProduct"
+        }
+      ]
+    },
+    "domain": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/domain",
+          "code": "Human"
+        }
+      ]
+    },
+    "status": "active",
+    "combinedPharmaceuticalDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385049006",
+          "display": "Tablet"
+        }
+      ]
+    },
+    "name": [
+      {
+        "productName": "Equilidem 2.5 mg film-coated tablets"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "MedicinalProductDefinition",
+    "id": "example2",
+    "type": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/medicinal-product-type",
+          "code": "MedicinalProduct"
+        }
+      ]
+    },
+    "status": "active",
+    "description": "A pharmaceutical product for treating hypertension",
+    "combinedPharmaceuticalDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385087003",
+          "display": "Capsule"
+        }
+      ]
+    },
+    "legalStatusOfSupply": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/legal-status-of-supply",
+          "code": "POM",
+          "display": "Prescription only medicine"
+        }
+      ]
+    },
+    "classification": [
+      {
+        "coding": [
+          {
+            "system": "http://www.whocc.no/atc",
+            "code": "C09AA01",
+            "display": "Captopril"
+          }
+        ]
+      }
+    ],
+    "name": [
+      {
+        "productName": "Captopril 25mg Capsules"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "MedicinalProductDefinition",
+    "id": "example3",
+    "status": "active",
+    "combinedPharmaceuticalDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385219001",
+          "display": "Solution for injection"
+        }
+      ]
+    },
+    "indication": "For the treatment of bacterial infections",
+    "name": [
+      {
+        "productName": "Amoxicillin 500mg/5mL Solution",
+        "namePart": [
+          {
+            "part": "Amoxicillin",
+            "type": {
+              "code": "INNPart"
+            }
+          },
+          {
+            "part": "500mg/5mL",
+            "type": {
+              "code": "StrengthPart"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "MedicinalProductDefinition",
+    "id": "example4",
+    "status": "draft",
+    "version": "1.0",
+    "combinedPharmaceuticalDoseForm": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "385101003",
+          "display": "Inhalation powder"
+        }
+      ]
+    },
+    "additionalMonitoringIndicator": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/monitoring",
+          "code": "Black Triangle",
+          "display": "Black Triangle"
+        }
+      ]
+    },
+    "name": [
+      {
+        "productName": "Respiratory Care Inhaler 100mcg",
+        "countryLanguage": [
+          {
+            "country": {
+              "coding": [
+                {
+                  "system": "urn:iso:std:iso:3166",
+                  "code": "US"
+                }
+              ]
+            },
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "contact": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/contact-types",
+              "code": "ProposedMAH"
+            }
+          ]
+        },
+        "contact": {
+          "reference": "Organization/example"
+        }
+      }
+    ]
+  }
+}
