@@ -19,12 +19,13 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+import { immunizationEvaluationStatusSchema } from '../valueSets/index.js'
 
 export const untypedImmunizationEvaluationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ImmunizationEvaluation').readonly(),
     identifier: identifierSchema.array().optional(),
-    status: z.enum(['completed', 'entered-in-error']),
+    status: immunizationEvaluationStatusSchema,
     _status: elementSchema.optional(),
     patient: referenceSchema,
     date: dateTimeSchema.optional(),

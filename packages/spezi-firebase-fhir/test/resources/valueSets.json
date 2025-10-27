@@ -1,0 +1,285 @@
+{
+  "0": {
+    "resourceType": "ValueSet",
+    "id": "example-valueset-0",
+    "url": "http://example.org/fhir/ValueSet/example-0",
+    "identifier": [
+      {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:oid:2.16.840.1.113883.4.642.3.0"
+      }
+    ],
+    "version": "1.0.0",
+    "name": "ExampleValueSet0",
+    "title": "Example Value Set 0",
+    "status": "active",
+    "experimental": true,
+    "date": "2023-01-15T10:00:00Z",
+    "publisher": "Example Health Organization",
+    "contact": [
+      {
+        "name": "Terminology Team",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "terminology@example.org"
+          }
+        ]
+      }
+    ],
+    "description": "An example value set with specific concepts",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "purpose": "Demonstrates a simple value set with enumerated concepts",
+    "copyright": "Copyright 2023 Example Health Organization",
+    "compose": {
+      "include": [
+        {
+          "system": "http://example.org/fhir/CodeSystem/conditions",
+          "version": "1.0.0",
+          "concept": [
+            {
+              "code": "diabetes",
+              "display": "Diabetes Mellitus"
+            },
+            {
+              "code": "hypertension",
+              "display": "Hypertension",
+              "designation": [
+                {
+                  "language": "es",
+                  "value": "Hipertensión"
+                }
+              ]
+            },
+            {
+              "code": "asthma",
+              "display": "Asthma"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "1": {
+    "resourceType": "ValueSet",
+    "id": "example-valueset-1",
+    "url": "http://example.org/fhir/ValueSet/example-1",
+    "version": "2.0.0",
+    "name": "ExampleValueSet1",
+    "title": "Example Value Set 1 with Filters",
+    "status": "draft",
+    "experimental": false,
+    "date": "2023-03-20T14:30:00Z",
+    "publisher": "Medical Standards Institute",
+    "description": "A value set using filters to select concepts",
+    "immutable": false,
+    "compose": {
+      "lockedDate": "2023-03-01",
+      "inactive": false,
+      "include": [
+        {
+          "system": "http://snomed.info/sct",
+          "filter": [
+            {
+              "property": "concept",
+              "op": "is-a",
+              "value": "64572001"
+            }
+          ]
+        },
+        {
+          "system": "http://example.org/fhir/CodeSystem/local-codes",
+          "concept": [
+            {
+              "code": "local-1",
+              "display": "Local Code 1"
+            }
+          ]
+        }
+      ],
+      "exclude": [
+        {
+          "system": "http://snomed.info/sct",
+          "concept": [
+            {
+              "code": "12345678",
+              "display": "Excluded Concept"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "2": {
+    "resourceType": "ValueSet",
+    "id": "example-valueset-2",
+    "url": "http://example.org/fhir/ValueSet/example-2",
+    "version": "1.5.0",
+    "name": "ExampleValueSet2",
+    "title": "Example Value Set 2 with Expansion",
+    "status": "active",
+    "date": "2023-06-10T09:00:00Z",
+    "publisher": "Terminology Services Ltd",
+    "description": "A value set with expansion included",
+    "useContext": [
+      {
+        "code": {
+          "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+          "code": "focus"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "408475000",
+              "display": "Diabetic"
+            }
+          ]
+        }
+      }
+    ],
+    "compose": {
+      "include": [
+        {
+          "system": "http://example.org/fhir/CodeSystem/medications",
+          "concept": [
+            {
+              "code": "metformin",
+              "display": "Metformin"
+            },
+            {
+              "code": "insulin",
+              "display": "Insulin"
+            }
+          ]
+        }
+      ]
+    },
+    "expansion": {
+      "identifier": "urn:uuid:550e8400-e29b-41d4-a716-446655440000",
+      "timestamp": "2023-06-10T09:00:00Z",
+      "total": 2,
+      "offset": 0,
+      "parameter": [
+        {
+          "name": "version",
+          "valueString": "1.5.0"
+        }
+      ],
+      "contains": [
+        {
+          "system": "http://example.org/fhir/CodeSystem/medications",
+          "version": "1.0.0",
+          "code": "metformin",
+          "display": "Metformin",
+          "designation": [
+            {
+              "language": "es",
+              "value": "Metformina"
+            }
+          ]
+        },
+        {
+          "system": "http://example.org/fhir/CodeSystem/medications",
+          "version": "1.0.0",
+          "code": "insulin",
+          "display": "Insulin"
+        }
+      ]
+    }
+  },
+  "3": {
+    "resourceType": "ValueSet",
+    "id": "example-valueset-3",
+    "url": "http://example.org/fhir/ValueSet/example-3",
+    "version": "3.0.0",
+    "name": "ExampleValueSet3",
+    "title": "Example Value Set 3 - Complex Hierarchy",
+    "status": "retired",
+    "experimental": true,
+    "date": "2022-12-15T16:45:00Z",
+    "publisher": "Legacy Terminology Provider",
+    "description": "A retired value set with hierarchical expansion",
+    "immutable": true,
+    "compose": {
+      "include": [
+        {
+          "system": "http://example.org/fhir/CodeSystem/hierarchy",
+          "valueSet": [
+            "http://example.org/fhir/ValueSet/parent-set-1",
+            "http://example.org/fhir/ValueSet/parent-set-2"
+          ]
+        }
+      ]
+    },
+    "expansion": {
+      "timestamp": "2022-12-15T16:45:00Z",
+      "total": 4,
+      "parameter": [
+        {
+          "name": "includeDesignations",
+          "valueBoolean": true
+        },
+        {
+          "name": "limitedExpansion",
+          "valueBoolean": false
+        }
+      ],
+      "contains": [
+        {
+          "system": "http://example.org/fhir/CodeSystem/hierarchy",
+          "abstract": false,
+          "inactive": false,
+          "code": "parent-1",
+          "display": "Parent Concept 1",
+          "contains": [
+            {
+              "system": "http://example.org/fhir/CodeSystem/hierarchy",
+              "code": "child-1-1",
+              "display": "Child Concept 1-1"
+            },
+            {
+              "system": "http://example.org/fhir/CodeSystem/hierarchy",
+              "code": "child-1-2",
+              "display": "Child Concept 1-2"
+            }
+          ]
+        },
+        {
+          "system": "http://example.org/fhir/CodeSystem/hierarchy",
+          "abstract": false,
+          "code": "parent-2",
+          "display": "Parent Concept 2",
+          "contains": [
+            {
+              "system": "http://example.org/fhir/CodeSystem/hierarchy",
+              "code": "child-2-1",
+              "display": "Child Concept 2-1",
+              "designation": [
+                {
+                  "language": "fr",
+                  "use": {
+                    "system": "http://snomed.info/sct",
+                    "code": "900000000000013009",
+                    "display": "Synonym"
+                  },
+                  "value": "Concept Enfant 2-1"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

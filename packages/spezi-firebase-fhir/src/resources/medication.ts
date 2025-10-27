@@ -22,12 +22,7 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
-
-const medicationStatusSchema = z.enum([
-  'active',
-  'inactive',
-  'entered-in-error',
-])
+import { medicationStatusSchema } from '../valueSets/index.js'
 
 export const untypedMedicationSchema = z.lazy(() =>
   domainResourceSchema.extend({

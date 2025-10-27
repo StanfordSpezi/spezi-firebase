@@ -21,14 +21,15 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+import { listStatusSchema, listModeSchema } from '../valueSets/index.js'
 
 export const untypedListSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('List').readonly(),
     identifier: identifierSchema.array().optional(),
-    status: z.enum(['current', 'retired', 'entered-in-error']).readonly(),
+    status: listStatusSchema.readonly(),
     _status: elementSchema.optional(),
-    mode: z.enum(['working', 'snapshot', 'changes']).readonly(),
+    mode: listModeSchema.readonly(),
     _mode: elementSchema.optional(),
     title: stringSchema.optional(),
     _title: elementSchema.optional(),

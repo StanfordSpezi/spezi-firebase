@@ -20,19 +20,7 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
-
-const diagnosticReportStatusSchema = z.enum([
-  'registered',
-  'partial',
-  'preliminary',
-  'final',
-  'amended',
-  'corrected',
-  'appended',
-  'cancelled',
-  'entered-in-error',
-  'unknown',
-])
+import { diagnosticReportStatusSchema } from '../valueSets/index.js'
 
 const diagnosticReportMediaSchema = z.lazy(() =>
   backboneElementSchema.extend({
