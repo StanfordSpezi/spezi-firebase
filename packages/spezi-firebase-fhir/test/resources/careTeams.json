@@ -1,0 +1,291 @@
+{
+  "0": {
+    "resourceType": "CareTeam",
+    "id": "careteam-example-0",
+    "status": "active",
+    "name": "Diabetes Care Team",
+    "subject": { "reference": "Patient/patient-example" },
+    "encounter": { "reference": "Encounter/encounter-example" },
+    "period": {
+      "start": "2024-01-01"
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "LA27976-2",
+            "display": "Longitudinal care-coordination focused care team"
+          }
+        ]
+      }
+    ],
+    "participant": [
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "17561000",
+                "display": "Cardiologist"
+              }
+            ]
+          }
+        ],
+        "member": { "reference": "Practitioner/practitioner-cardiologist" },
+        "period": {
+          "start": "2024-01-01"
+        }
+      },
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "46255001",
+                "display": "Pharmacist"
+              }
+            ]
+          }
+        ],
+        "member": { "reference": "Practitioner/practitioner-pharmacist" },
+        "onBehalfOf": { "reference": "Organization/pharmacy-example" }
+      },
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "768730001",
+                "display": "Diabetes nurse"
+              }
+            ]
+          }
+        ],
+        "member": { "reference": "Practitioner/nurse-diabetes" }
+      }
+    ],
+    "managingOrganization": [{ "reference": "Organization/hospital-example" }],
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "44054006",
+            "display": "Diabetes mellitus type 2"
+          }
+        ]
+      }
+    ],
+    "note": [{ "text": "Primary diabetes care coordination team" }]
+  },
+  "1": {
+    "resourceType": "CareTeam",
+    "id": "careteam-example-1",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/careteam",
+        "value": "CT-2024-0075"
+      }
+    ],
+    "status": "proposed",
+    "name": "Cancer Treatment Team",
+    "subject": { "reference": "Patient/patient-oncology" },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "394593009",
+            "display": "Medical oncology"
+          }
+        ]
+      }
+    ],
+    "participant": [
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "41672002",
+                "display": "Oncologist"
+              }
+            ]
+          }
+        ],
+        "member": { "reference": "Practitioner/oncologist-primary" }
+      },
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "394571006",
+                "display": "Radiation oncologist"
+              }
+            ]
+          }
+        ],
+        "member": { "reference": "Practitioner/radiation-oncologist" }
+      }
+    ],
+    "reasonReference": [{ "reference": "Condition/cancer-diagnosis" }],
+    "managingOrganization": [{ "reference": "Organization/cancer-center" }]
+  },
+  "2": {
+    "resourceType": "CareTeam",
+    "id": "careteam-example-2",
+    "status": "inactive",
+    "name": "Maternity Care Team",
+    "subject": { "reference": "Patient/patient-pregnancy" },
+    "period": {
+      "start": "2023-01-15",
+      "end": "2023-10-20"
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "394586005",
+            "display": "Gynecology"
+          }
+        ]
+      }
+    ],
+    "participant": [
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "158965000",
+                "display": "Obstetrician"
+              }
+            ]
+          }
+        ],
+        "member": { "reference": "Practitioner/obstetrician-example" },
+        "period": {
+          "start": "2023-01-15",
+          "end": "2023-10-20"
+        }
+      },
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "309453006",
+                "display": "Midwife"
+              }
+            ]
+          }
+        ],
+        "member": { "reference": "Practitioner/midwife-example" },
+        "period": {
+          "start": "2023-01-15",
+          "end": "2023-10-20"
+        }
+      }
+    ],
+    "managingOrganization": [{ "reference": "Organization/maternity-ward" }],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+1-555-0123",
+        "use": "work"
+      }
+    ],
+    "note": [
+      { "text": "Team successfully supported pregnancy through delivery" },
+      { "text": "Closed after postpartum care completed" }
+    ]
+  },
+  "3": {
+    "resourceType": "CareTeam",
+    "id": "careteam-example-3",
+    "status": "suspended",
+    "name": "Cardiac Surgery Team",
+    "subject": { "reference": "Patient/patient-cardiac" },
+    "period": {
+      "start": "2024-05-01"
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "394609007",
+            "display": "Cardiac surgery"
+          }
+        ]
+      }
+    ],
+    "participant": [
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "304292004",
+                "display": "Cardiac surgeon"
+              }
+            ]
+          }
+        ],
+        "member": { "reference": "Practitioner/surgeon-cardiac" },
+        "onBehalfOf": { "reference": "Organization/cardiac-surgery-dept" }
+      },
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "88189002",
+                "display": "Anesthesiologist"
+              }
+            ]
+          }
+        ],
+        "member": { "reference": "Practitioner/anesthesiologist-example" }
+      },
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "106292003",
+                "display": "Surgical nurse"
+              }
+            ]
+          }
+        ],
+        "member": { "reference": "Practitioner/nurse-surgical" }
+      }
+    ],
+    "reasonReference": [
+      { "reference": "Condition/coronary-artery-disease" }
+    ],
+    "managingOrganization": [{ "reference": "Organization/hospital-example" }],
+    "telecom": [
+      {
+        "system": "email",
+        "value": "cardiac.team@hospital.example.org",
+        "use": "work"
+      }
+    ],
+    "note": [{ "text": "Surgery postponed due to patient health status - awaiting stabilization" }]
+  }
+}

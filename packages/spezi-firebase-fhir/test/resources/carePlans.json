@@ -1,0 +1,270 @@
+{
+  "0": {
+    "resourceType": "CarePlan",
+    "id": "careplan-example-0",
+    "status": "active",
+    "intent": "plan",
+    "title": "Diabetes Management Plan",
+    "description": "Comprehensive care plan for managing type 2 diabetes",
+    "subject": { "reference": "Patient/patient-example" },
+    "period": {
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    "created": "2024-01-01T10:00:00Z",
+    "author": { "reference": "Practitioner/practitioner-example" },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/us/core/CodeSystem/careplan-category",
+            "code": "assess-plan",
+            "display": "Assessment and Plan of Treatment"
+          }
+        ]
+      }
+    ],
+    "careTeam": [{ "reference": "CareTeam/careteam-example" }],
+    "addresses": [{ "reference": "Condition/diabetes-example" }],
+    "goal": [{ "reference": "Goal/goal-diabetes-control" }],
+    "activity": [
+      {
+        "outcomeCodeableConcept": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "385669000",
+                "display": "Successful"
+              }
+            ]
+          }
+        ],
+        "detail": {
+          "kind": "MedicationRequest",
+          "code": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "33747003",
+                "display": "Insulin therapy"
+              }
+            ]
+          },
+          "status": "in-progress",
+          "scheduledTiming": {
+            "repeat": {
+              "frequency": 2,
+              "period": 1,
+              "periodUnit": "d"
+            }
+          },
+          "performer": [{ "reference": "Practitioner/practitioner-example" }],
+          "description": "Administer insulin as prescribed"
+        }
+      }
+    ],
+    "note": [{ "text": "Patient is compliant with medication regimen" }]
+  },
+  "1": {
+    "resourceType": "CarePlan",
+    "id": "careplan-example-1",
+    "status": "draft",
+    "intent": "proposal",
+    "title": "Weight Loss Program",
+    "subject": { "reference": "Patient/patient-example-2" },
+    "encounter": { "reference": "Encounter/encounter-example" },
+    "created": "2024-02-15T14:30:00Z",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "386359008",
+            "display": "Nutrition management"
+          }
+        ]
+      }
+    ],
+    "goal": [{ "reference": "Goal/goal-weight-loss" }],
+    "activity": [
+      {
+        "detail": {
+          "kind": "Task",
+          "code": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "229065009",
+                "display": "Exercise therapy"
+              }
+            ]
+          },
+          "status": "not-started",
+          "scheduledString": "30 minutes daily",
+          "description": "Moderate intensity exercise 5 days per week"
+        }
+      },
+      {
+        "detail": {
+          "kind": "NutritionOrder",
+          "code": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "182922004",
+                "display": "Dietary regime"
+              }
+            ]
+          },
+          "status": "not-started",
+          "description": "Low-calorie, balanced diet"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "CarePlan",
+    "id": "careplan-example-2",
+    "status": "completed",
+    "intent": "order",
+    "title": "Post-Surgery Recovery Plan",
+    "subject": { "reference": "Patient/patient-example-3" },
+    "period": {
+      "start": "2023-06-01",
+      "end": "2023-08-31"
+    },
+    "created": "2023-05-28T09:00:00Z",
+    "author": { "reference": "Practitioner/surgeon-example" },
+    "contributor": [
+      { "reference": "Practitioner/nurse-example" },
+      { "reference": "Practitioner/physiotherapist-example" }
+    ],
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "787481004",
+            "display": "Postoperative care"
+          }
+        ]
+      }
+    ],
+    "addresses": [{ "reference": "Condition/post-surgery-recovery" }],
+    "activity": [
+      {
+        "outcomeCodeableConcept": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "385669000",
+                "display": "Successful"
+              }
+            ]
+          }
+        ],
+        "progress": [
+          {
+            "time": "2023-07-15",
+            "text": "Patient showing excellent progress with physical therapy"
+          }
+        ],
+        "detail": {
+          "kind": "ServiceRequest",
+          "code": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "91251008",
+                "display": "Physical therapy"
+              }
+            ]
+          },
+          "status": "completed",
+          "scheduledPeriod": {
+            "start": "2023-06-05",
+            "end": "2023-08-15"
+          },
+          "performer": [{ "reference": "Practitioner/physiotherapist-example" }],
+          "description": "Graduated physical therapy program"
+        }
+      }
+    ],
+    "note": [
+      { "text": "Recovery completed ahead of schedule" },
+      { "text": "Full range of motion restored" }
+    ]
+  },
+  "3": {
+    "resourceType": "CarePlan",
+    "id": "careplan-example-3",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/careplan",
+        "value": "CP-2024-0042"
+      }
+    ],
+    "status": "on-hold",
+    "intent": "plan",
+    "title": "Hypertension Management",
+    "subject": { "reference": "Patient/patient-example-4" },
+    "period": {
+      "start": "2024-03-01"
+    },
+    "created": "2024-02-28T11:00:00Z",
+    "author": { "reference": "Practitioner/cardiologist-example" },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "38341003",
+            "display": "Hypertensive disorder"
+          }
+        ]
+      }
+    ],
+    "basedOn": [{ "reference": "CarePlan/previous-hypertension-plan" }],
+    "addresses": [{ "reference": "Condition/hypertension-example" }],
+    "supportingInfo": [
+      { "reference": "Observation/blood-pressure-readings" }
+    ],
+    "goal": [
+      { "reference": "Goal/goal-bp-control" },
+      { "reference": "Goal/goal-reduce-sodium" }
+    ],
+    "activity": [
+      {
+        "detail": {
+          "kind": "MedicationRequest",
+          "code": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "77386006",
+                "display": "Pregnant"
+              }
+            ]
+          },
+          "status": "on-hold",
+          "statusReason": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "77386006",
+                "display": "Patient pregnant - medication review needed"
+              }
+            ]
+          },
+          "doNotPerform": false,
+          "description": "Review antihypertensive medication for pregnancy safety"
+        }
+      },
+      {
+        "reference": { "reference": "Appointment/bp-monitoring-appointment" }
+      }
+    ]
+  }
+}

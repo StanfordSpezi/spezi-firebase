@@ -1,0 +1,284 @@
+{
+  "0": {
+    "resourceType": "Goal",
+    "id": "goal-example-0",
+    "lifecycleStatus": "active",
+    "achievementStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/goal-achievement",
+          "code": "in-progress",
+          "display": "In Progress"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/goal-category",
+            "code": "dietary",
+            "display": "Dietary"
+          }
+        ]
+      }
+    ],
+    "priority": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/goal-priority",
+          "code": "high-priority",
+          "display": "High Priority"
+        }
+      ]
+    },
+    "description": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "289169006",
+          "display": "Weight loss"
+        }
+      ],
+      "text": "Achieve target weight of 150 lbs"
+    },
+    "subject": { "reference": "Patient/patient-example" },
+    "startDate": "2024-01-01",
+    "target": [
+      {
+        "measure": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body Weight"
+            }
+          ]
+        },
+        "detailQuantity": {
+          "value": 150,
+          "unit": "lbs",
+          "system": "http://unitsofmeasure.org",
+          "code": "[lb_av]"
+        },
+        "dueDate": "2024-12-31"
+      }
+    ],
+    "statusDate": "2024-01-15",
+    "expressedBy": { "reference": "Practitioner/practitioner-example" },
+    "addresses": [{ "reference": "Condition/obesity-example" }],
+    "note": [{ "text": "Patient motivated and making progress with diet plan" }]
+  },
+  "1": {
+    "resourceType": "Goal",
+    "id": "goal-example-1",
+    "lifecycleStatus": "completed",
+    "achievementStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/goal-achievement",
+          "code": "achieved",
+          "display": "Achieved"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/goal-category",
+            "code": "safety",
+            "display": "Safety"
+          }
+        ]
+      }
+    ],
+    "description": {
+      "text": "Patient to quit smoking"
+    },
+    "subject": { "reference": "Patient/patient-example-2" },
+    "startDate": "2023-06-01",
+    "target": [
+      {
+        "measure": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72166-2",
+              "display": "Tobacco smoking status"
+            }
+          ]
+        },
+        "detailCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "8517006",
+              "display": "Ex-smoker"
+            }
+          ]
+        },
+        "dueDate": "2024-06-01"
+      }
+    ],
+    "statusDate": "2023-12-15",
+    "expressedBy": { "reference": "Patient/patient-example-2" },
+    "outcomeCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "8517006",
+            "display": "Ex-smoker"
+          }
+        ]
+      }
+    ],
+    "note": [{ "text": "Patient successfully quit smoking after 6 months" }]
+  },
+  "2": {
+    "resourceType": "Goal",
+    "id": "goal-example-2",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/goal",
+        "value": "GOAL-2024-0523"
+      }
+    ],
+    "lifecycleStatus": "on-hold",
+    "achievementStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/goal-achievement",
+          "code": "sustaining",
+          "display": "Sustaining"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/goal-category",
+            "code": "physiotherapy",
+            "display": "Physiotherapy"
+          }
+        ]
+      }
+    ],
+    "priority": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/goal-priority",
+          "code": "medium-priority",
+          "display": "Medium Priority"
+        }
+      ]
+    },
+    "description": {
+      "text": "Improve mobility and range of motion in left knee"
+    },
+    "subject": { "reference": "Patient/patient-example-3" },
+    "startDate": "2024-02-01",
+    "target": [
+      {
+        "measure": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "89253-8",
+              "display": "Range of motion"
+            }
+          ]
+        },
+        "detailRange": {
+          "low": {
+            "value": 120,
+            "unit": "degrees",
+            "system": "http://unitsofmeasure.org",
+            "code": "deg"
+          },
+          "high": {
+            "value": 135,
+            "unit": "degrees",
+            "system": "http://unitsofmeasure.org",
+            "code": "deg"
+          }
+        },
+        "dueDate": "2024-08-01"
+      }
+    ],
+    "statusDate": "2024-05-01",
+    "statusReason": "Patient recovering from minor setback",
+    "expressedBy": { "reference": "Practitioner/physiotherapist-example" },
+    "addresses": [{ "reference": "Condition/knee-injury" }],
+    "outcomeReference": [{ "reference": "Observation/rom-measurement" }],
+    "note": [
+      { "text": "Progress on hold due to re-injury" },
+      { "text": "Will resume exercises after healing period" }
+    ]
+  },
+  "3": {
+    "resourceType": "Goal",
+    "id": "goal-example-3",
+    "lifecycleStatus": "proposed",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/goal-category",
+            "code": "behavioral",
+            "display": "Behavioral"
+          }
+        ]
+      }
+    ],
+    "priority": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/goal-priority",
+          "code": "low-priority",
+          "display": "Low Priority"
+        }
+      ]
+    },
+    "description": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "226060000",
+          "display": "Stress management"
+        }
+      ],
+      "text": "Learn and practice stress reduction techniques"
+    },
+    "subject": { "reference": "Patient/patient-example-4" },
+    "startCodeableConcept": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "32485007",
+          "display": "Hospital admission"
+        }
+      ],
+      "text": "After hospital discharge"
+    },
+    "target": [
+      {
+        "measure": {
+          "text": "Stress level assessment"
+        },
+        "detailInteger": 3,
+        "dueDuration": {
+          "value": 3,
+          "unit": "months",
+          "system": "http://unitsofmeasure.org",
+          "code": "mo"
+        }
+      }
+    ],
+    "expressedBy": { "reference": "Patient/patient-example-4" },
+    "addresses": [{ "reference": "Condition/anxiety-disorder" }],
+    "note": [{ "text": "Patient interested in mindfulness and meditation techniques" }]
+  }
+}
