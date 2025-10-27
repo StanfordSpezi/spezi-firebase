@@ -9,6 +9,7 @@
 import { type Task } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
+import { anyValueSchema } from '../elements/anyValueSchema.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -23,11 +24,6 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
-
-const taskValueSchema = backboneElementSchema.extend({
-  type: codeableConceptSchema,
-  // ... all possible value expressions ...
-})
 
 export const untypedTaskSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -96,8 +92,18 @@ export const untypedTaskSchema = z.lazy(() =>
         recipient: referenceSchema.array().optional(),
       })
       .optional(),
-    input: taskValueSchema.array().optional(),
-    output: taskValueSchema.array().optional(),
+    input: anyValueSchema
+      .extend({
+        type: codeableConceptSchema,
+      })
+      .array()
+      .optional(),
+    output: anyValueSchema
+      .extend({
+        type: codeableConceptSchema,
+      })
+      .array()
+      .optional(),
   }),
 ) satisfies ZodType<Task>
 

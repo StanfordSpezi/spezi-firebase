@@ -21,6 +21,7 @@ import {
   elementSchema,
   identifierSchema,
   markdownSchema,
+  parameterDefinitionSchema,
   periodSchema,
   referenceSchema,
   relatedArtifactSchema,
@@ -28,7 +29,6 @@ import {
   uriSchema,
   usageContextSchema,
 } from '../elements/index.js'
-import { parameterDefinitionSchema } from '../elements/metaDataTypes/parameterDefinition.js'
 
 export const untypedLibrarySchema = z.lazy(() =>
   domainResourceSchema.extend({
