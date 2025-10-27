@@ -1,7 +1,7 @@
 {
   "0": {
     "resourceType": "PractitionerRole",
-    "id": "prolerole-example-0",
+    "id": "practrole-example-0",
     "active": true,
     "practitioner": {
       "reference": "Practitioner/practitioner-example"
@@ -20,7 +20,7 @@
   },
   "1": {
     "resourceType": "PractitionerRole",
-    "id": "prolerole-example-1",
+    "id": "practrole-example-1",
     "identifier": [
       {
         "system": "http://example.org/practitioner-roles",
@@ -91,7 +91,7 @@
   },
   "2": {
     "resourceType": "PractitionerRole",
-    "id": "prolerole-example-2",
+    "id": "practrole-example-2",
     "active": false,
     "practitioner": {
       "reference": "Practitioner/practitioner-retired"
@@ -104,7 +104,7 @@
   },
   "3": {
     "resourceType": "PractitionerRole",
-    "id": "prolerole-example-3",
+    "id": "practrole-example-3",
     "active": true,
     "period": {
       "start": "2023-06-01",
