@@ -9,7 +9,6 @@
 import { type Practitioner } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import { patientGenderSchema } from './patient.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   attachmentSchema,
@@ -25,6 +24,7 @@ import {
   contactPointSchema,
   dateSchema,
 } from '../elements/index.js'
+import { administrativeGenderSchema } from '../valueSets/index.js'
 
 export const untypedPractitionerSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -36,7 +36,7 @@ export const untypedPractitionerSchema = z.lazy(() =>
     birthDate: dateSchema.optional(),
     _birthDate: elementSchema.optional(),
     telecom: contactPointSchema.array().optional(),
-    gender: patientGenderSchema.optional(),
+    gender: administrativeGenderSchema.optional(),
     _gender: elementSchema.optional(),
     address: addressSchema.array().optional(),
     photo: attachmentSchema.array().optional(),

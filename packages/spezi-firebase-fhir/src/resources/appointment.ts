@@ -23,32 +23,11 @@ import {
   stringSchema,
   unsignedIntSchema,
 } from '../elements/index.js'
-
-const appointmentStatusSchema = z.enum([
-  'proposed',
-  'pending',
-  'booked',
-  'arrived',
-  'fulfilled',
-  'cancelled',
-  'noshow',
-  'entered-in-error',
-  'checked-in',
-  'waitlist',
-])
-
-const appointmentParticipantRequiredSchema = z.enum([
-  'required',
-  'optional',
-  'information-only',
-])
-
-const appointmentParticipantStatusSchema = z.enum([
-  'accepted',
-  'declined',
-  'tentative',
-  'needs-action',
-])
+import {
+  appointmentStatusSchema,
+  appointmentParticipantRequiredSchema,
+  appointmentParticipantStatusSchema,
+} from '../valueSets/index.js'
 
 export const untypedAppointmentSchema = z.lazy(() =>
   domainResourceSchema.extend({

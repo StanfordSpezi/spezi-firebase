@@ -22,6 +22,11 @@ import {
   unsignedIntSchema,
   uriSchema,
 } from '../elements/index.js'
+import {
+  bundleEntrySearchModeSchema,
+  bundleEntryRequestMethodSchema,
+  bundleTypeSchema,
+} from '../valueSets/index.js'
 
 const bundleLinkSchema = backboneElementSchema.extend({
   relation: stringSchema,
@@ -29,28 +34,6 @@ const bundleLinkSchema = backboneElementSchema.extend({
   url: uriSchema,
   _url: elementSchema.optional(),
 })
-
-const bundleEntrySearchModeSchema = z.enum(['match', 'include', 'outcome'])
-
-const bundleEntryRequestMethodSchema = z.enum([
-  'GET',
-  'POST',
-  'PUT',
-  'DELETE',
-  'PATCH',
-])
-
-const bundleTypeSchema = z.enum([
-  'document',
-  'message',
-  'transaction',
-  'transaction-response',
-  'batch',
-  'batch-response',
-  'history',
-  'searchset',
-  'collection',
-])
 
 export function bundleSchema<R extends DomainResource>(
   schema: ZodType<R>,
