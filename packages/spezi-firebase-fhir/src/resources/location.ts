@@ -29,7 +29,7 @@ export const untypedLocationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Location').readonly(),
     identifier: identifierSchema.array().optional(),
-    status: z.enum(['active', 'suspended', 'inactive']),
+    status: z.enum(['active', 'suspended', 'inactive']).optional(),
     _status: elementSchema.optional(),
     operationalStatus: codingSchema.optional(),
     name: stringSchema.optional(),

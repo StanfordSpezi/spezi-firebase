@@ -35,6 +35,7 @@ export const untypedImagingStudySchema = z.lazy(() =>
       'entered-in-error',
       'unknown',
     ]),
+    _status: elementSchema.optional(),
     modality: codingSchema.array().optional(),
     subject: referenceSchema,
     encounter: referenceSchema.optional(),
@@ -81,8 +82,8 @@ export const untypedImagingStudySchema = z.lazy(() =>
             uid: idSchema,
             _uid: elementSchema.optional(),
             sopClass: codingSchema,
-            number: unsignedIntSchema,
-            title: stringSchema,
+            number: unsignedIntSchema.optional(),
+            title: stringSchema.optional(),
             _title: elementSchema.optional(),
           })
           .array()
