@@ -10,7 +10,6 @@ import { type PlanDefinition, type PlanDefinitionAction } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
-  ageSchema,
   booleanSchema,
   canonicalSchema,
   codeableConceptSchema,
@@ -19,11 +18,11 @@ import {
   dateSchema,
   dateTimeSchema,
   domainResourceSchema,
-  durationSchema,
   elementSchema,
   identifierSchema,
   markdownSchema,
   periodSchema,
+  quantitySchema,
   rangeSchema,
   referenceSchema,
   relatedArtifactSchema,
@@ -163,21 +162,21 @@ const planDefinitionActionSchema: ZodType<PlanDefinitionAction> = z.lazy(() =>
         _actionId: elementSchema.optional(),
         relationship: planDefinitionActionRelationshipTypeSchema,
         _relationship: elementSchema.optional(),
-        offsetDuration: durationSchema.optional(),
+        offsetDuration: quantitySchema.optional(),
         offsetRange: rangeSchema.optional(),
       })
       .array()
       .optional(),
     timingDateTime: dateTimeSchema.optional(),
     _timingDateTime: elementSchema.optional(),
-    timingAge: ageSchema.optional(),
+    timingAge: quantitySchema.optional(),
     timingPeriod: periodSchema.optional(),
-    timingDuration: durationSchema.optional(),
+    timingDuration: quantitySchema.optional(),
     timingRange: rangeSchema.optional(),
     timingTiming: timingSchema.optional(),
     participant: elementSchema
       .extend({
-        type: planDefinitionActionParticipantTypeSchema.optional(),
+        type: planDefinitionActionParticipantTypeSchema,
         _type: elementSchema.optional(),
         role: codeableConceptSchema.optional(),
       })
@@ -242,7 +241,7 @@ export const untypedPlanDefinitionSchema = z.lazy(() =>
     _title: elementSchema.optional(),
     subtitle: stringSchema.optional(),
     _subtitle: elementSchema.optional(),
-    type: planDefinitionTypeSchema.optional(),
+    type: codeableConceptSchema.optional(),
     status: planDefinitionStatusSchema,
     _status: elementSchema.optional(),
     experimental: booleanSchema.optional(),
@@ -305,7 +304,7 @@ export const untypedPlanDefinitionSchema = z.lazy(() =>
               .optional(),
             detailRange: rangeSchema.optional(),
             detailCodeableConcept: codeableConceptSchema.optional(),
-            due: durationSchema.optional(),
+            due: quantitySchema.optional(),
           })
           .array()
           .optional(),

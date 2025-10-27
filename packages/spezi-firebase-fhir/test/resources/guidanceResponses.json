@@ -1,0 +1,207 @@
+{
+  "0": {
+    "resourceType": "GuidanceResponse",
+    "id": "example-guidance-1",
+    "status": "success",
+    "moduleUri": "http://example.org/ActivityDefinition/pain-management"
+  },
+  "1": {
+    "resourceType": "GuidanceResponse",
+    "id": "example-guidance-2",
+    "requestIdentifier": {
+      "system": "http://example.org/guidance-requests",
+      "value": "REQ-2024-001"
+    },
+    "identifier": [
+      {
+        "system": "http://example.org/guidance-responses",
+        "value": "RESP-2024-001"
+      }
+    ],
+    "moduleCanonical": "http://example.org/PlanDefinition/diabetes-care-pathway|2.5.0",
+    "status": "success",
+    "subject": {
+      "reference": "Patient/example-patient-123",
+      "display": "John Doe"
+    },
+    "encounter": {
+      "reference": "Encounter/example-encounter-456"
+    },
+    "occurrenceDateTime": "2024-03-15T10:30:00Z",
+    "performer": {
+      "reference": "Organization/clinical-decision-support-system",
+      "display": "Clinical Decision Support System"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "44054006",
+            "display": "Type 2 diabetes mellitus"
+          }
+        ]
+      }
+    ],
+    "result": {
+      "reference": "CarePlan/diabetes-care-plan-123",
+      "display": "Diabetes Care Plan"
+    }
+  },
+  "2": {
+    "resourceType": "GuidanceResponse",
+    "id": "example-guidance-3",
+    "requestIdentifier": {
+      "system": "http://example.org/guidance-requests",
+      "value": "REQ-2024-002"
+    },
+    "identifier": [
+      {
+        "system": "http://example.org/guidance-responses",
+        "value": "RESP-2024-002"
+      }
+    ],
+    "moduleUri": "http://example.org/Measure/blood-pressure-control",
+    "status": "data-required",
+    "subject": {
+      "reference": "Patient/example-patient-789",
+      "display": "Jane Smith"
+    },
+    "occurrenceDateTime": "2024-03-20T14:15:00Z",
+    "performer": {
+      "reference": "Device/cds-engine-v2",
+      "display": "CDS Engine v2.0"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "38341003",
+            "display": "Hypertensive disorder"
+          }
+        ]
+      }
+    ],
+    "note": [
+      {
+        "text": "Additional blood pressure readings required for accurate assessment",
+        "time": "2024-03-20T14:15:00Z"
+      }
+    ],
+    "evaluationMessage": [
+      {
+        "reference": "OperationOutcome/missing-data-warning",
+        "display": "Missing recent blood pressure measurements"
+      }
+    ],
+    "dataRequirement": [
+      {
+        "type": "Observation",
+        "profile": [
+          "http://hl7.org/fhir/StructureDefinition/bp"
+        ],
+        "codeFilter": [
+          {
+            "path": "code",
+            "code": [
+              {
+                "system": "http://loinc.org",
+                "code": "85354-9",
+                "display": "Blood pressure panel"
+              }
+            ]
+          }
+        ],
+        "dateFilter": [
+          {
+            "path": "effective",
+            "valuePeriod": {
+              "start": "2024-02-20T00:00:00Z",
+              "end": "2024-03-20T23:59:59Z"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "GuidanceResponse",
+    "id": "example-guidance-4",
+    "requestIdentifier": {
+      "system": "http://example.org/guidance-requests",
+      "value": "REQ-2024-003"
+    },
+    "identifier": [
+      {
+        "system": "http://example.org/guidance-responses",
+        "value": "RESP-2024-003"
+      }
+    ],
+    "moduleCodeableConcept": {
+      "coding": [
+        {
+          "system": "http://example.org/clinical-protocols",
+          "code": "SEPSIS-PROTOCOL",
+          "display": "Sepsis Management Protocol"
+        }
+      ]
+    },
+    "status": "in-progress",
+    "subject": {
+      "reference": "Patient/emergency-patient-321",
+      "display": "Emergency Patient"
+    },
+    "encounter": {
+      "reference": "Encounter/emergency-encounter-654"
+    },
+    "occurrenceDateTime": "2024-03-25T08:45:00Z",
+    "performer": {
+      "reference": "Practitioner/dr-smith",
+      "display": "Dr. Smith"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "91302008",
+            "display": "Sepsis"
+          }
+        ]
+      }
+    ],
+    "reasonReference": [
+      {
+        "reference": "Condition/sepsis-diagnosis-321",
+        "display": "Sepsis Diagnosis"
+      }
+    ],
+    "note": [
+      {
+        "text": "Patient meets criteria for sepsis protocol. Initiating treatment pathway.",
+        "time": "2024-03-25T08:45:00Z",
+        "authorReference": {
+          "reference": "Practitioner/dr-smith",
+          "display": "Dr. Smith"
+        }
+      },
+      {
+        "text": "Blood cultures obtained. Broad-spectrum antibiotics ordered.",
+        "time": "2024-03-25T08:50:00Z",
+        "authorReference": {
+          "reference": "Practitioner/dr-smith",
+          "display": "Dr. Smith"
+        }
+      }
+    ],
+    "outputParameters": {
+      "reference": "Parameters/sepsis-protocol-output-321",
+      "display": "Sepsis Protocol Output Parameters"
+    },
+    "result": {
+      "reference": "RequestGroup/sepsis-orders-321",
+      "display": "Sepsis Treatment Orders"
+    }
+  }
+}

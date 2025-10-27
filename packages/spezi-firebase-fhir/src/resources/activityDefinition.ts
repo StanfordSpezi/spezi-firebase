@@ -10,7 +10,6 @@ import { type ActivityDefinition } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
-  ageSchema,
   booleanSchema,
   canonicalSchema,
   codeableConceptSchema,
@@ -20,7 +19,6 @@ import {
   dateTimeSchema,
   domainResourceSchema,
   dosageSchema,
-  durationSchema,
   elementSchema,
   identifierSchema,
   markdownSchema,
@@ -150,14 +148,14 @@ export const untypedActivityDefinitionSchema = z.lazy(() =>
     timingTiming: timingSchema.optional(),
     timingDateTime: dateTimeSchema.optional(),
     _timingDateTime: elementSchema.optional(),
-    timingAge: ageSchema.optional(),
+    timingAge: quantitySchema.optional(),
     timingPeriod: periodSchema.optional(),
     timingRange: rangeSchema.optional(),
-    timingDuration: durationSchema.optional(),
+    timingDuration: quantitySchema.optional(),
     location: referenceSchema.optional(),
     participant: elementSchema
       .extend({
-        type: activityDefinitionParticipantTypeSchema.optional(),
+        type: activityDefinitionParticipantTypeSchema,
         _type: elementSchema.optional(),
         role: codeableConceptSchema.optional(),
       })

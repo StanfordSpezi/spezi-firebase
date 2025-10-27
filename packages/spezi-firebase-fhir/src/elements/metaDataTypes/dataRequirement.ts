@@ -58,6 +58,7 @@ export const dataRequirementSchema: ZodType<DataRequirement> = z.lazy(() =>
         path: stringSchema,
         _path: elementSchema.optional(),
       })
-      .array(),
+      .array()
+      .optional(),
   }),
 )
