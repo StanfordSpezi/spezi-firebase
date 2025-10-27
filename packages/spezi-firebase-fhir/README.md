@@ -1,6 +1,6 @@
 <!--
 
-This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+This source file is part of the Stanford Biodesign Digital Health Spezi Firebase open-source project
 
 SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see CONTRIBUTORS.md)
 
@@ -8,150 +8,218 @@ SPDX-License-Identifier: MIT
 
 -->
 
-# Spezi Firebase Remote Notifications
+# Spezi Firebase FHIR
 
 [![Build and Test](https://github.com/StanfordSpezi/spezi-firebase/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/StanfordSpezi/spezi-firebase/actions/workflows/build-and-test.yml)
 [![codecov](https://codecov.io/gh/StanfordSpezi/spezi-firebase/graph/badge.svg)](https://codecov.io/gh/StanfordSpezi/spezi-firebase)
 
-A standalone package for handling Firebase Cloud Messaging (FCM) remote notifications in Spezi applications. This package provides a complete solution for managing device registration, sending multi-language notifications, and handling message delivery across different platforms.
+Type-safe FHIR R4B resource schemas and utilities for Firebase applications. This package provides comprehensive [Zod](https://zod.dev) schemas for FHIR (Fast Healthcare Interoperability Resources) data validation, making it easy to work with healthcare data in Firebase Functions, Firestore, and TypeScript applications.
 
-This package is part of the [Spezi Firebase](https://github.com/StanfordSpezi/spezi-firebase) project and depends on the `spezi-firebase-utils` package for core utilities.
+This package is part of the [Spezi Firebase](https://github.com/StanfordSpezi/spezi-firebase) project, bringing standardized healthcare data exchange to the Stanford Spezi ecosystem.
 
-## Features
+## Why Use This Package?
 
-- Device registration and token management
-- Multi-language notification support
-- Platform-specific message formatting (iOS, Android, Web)
-- Support for rich notification content
-- Token invalidation handling
-- Firestore integration for device storage
+Working with FHIR resources in TypeScript can be challenging due to their complex, nested structures and strict validation requirements. This package solves that by providing:
+
+- **Type Safety**: Leverage TypeScript's type system with automatically generated types from Zod schemas
+- **Runtime Validation**: Validate FHIR resources at runtime to catch data issues early
+- **Firebase Integration**: Designed to work seamlessly with Firebase Functions and Firestore
+- **Standards Compliance**: Schemas based on FHIR R4B specification
+- **Developer Experience**: Intuitive API with helpful utility methods
 
 ## Installation
 
 ```bash
-npm install @stanfordspezi/spezi-firebase-cloud-messaging
+npm install @stanfordspezi/spezi-firebase-fhir
 ```
+
+## Features
+
+- **Comprehensive FHIR Resources**: Schemas for 40+ FHIR resources including Patient, Observation, Medication, Appointment, and more
+- **FHIR Elements**: Support for all FHIR data types (CodeableConcept, Quantity, Reference, etc.)
+- **Value Sets**: Pre-defined schemas for FHIR value sets and enumerations
+- **Helper Methods**: Convenient utilities for working with coded concepts and extensions
+- **Full Type Inference**: Get complete TypeScript autocompletion and type checking
+
+### Supported FHIR Resources
+
+Patient, Practitioner, Observation, Medication, MedicationRequest, Appointment, AllergyIntolerance, Condition, Procedure, DiagnosticReport, Immunization, Questionnaire, QuestionnaireResponse, and many more. See the [full list](./src/index.ts).
 
 ## Quick Start
 
+### Validating FHIR Resources
+
 ```typescript
-import { initializeApp, cert } from 'firebase-admin/app'
-import { getMessaging } from 'firebase-admin/messaging'
-import { getFirestore } from 'firebase-admin/firestore'
-import {
-  FirebaseNotificationService,
-  FirestoreDeviceStorage,
-  Message,
-  DevicePlatform,
-  Device,
-  LocalizedText,
-} from '@stanfordspezi/spezi-firebase-cloud-messaging'
+import { FhirPatient } from '@stanfordspezi/spezi-firebase-fhir'
 
-// Initialize Firebase
-const app = initializeApp()
-const messaging = getMessaging(app)
-const firestore = getFirestore(app)
+// Parse and validate a patient resource
+const rawData = {
+  resourceType: 'Patient',
+  id: 'patient-123',
+  name: [
+    {
+      use: 'official',
+      family: 'Smith',
+      given: ['John', 'Michael'],
+    },
+  ],
+  gender: 'male',
+  birthDate: '1980-01-15',
+}
 
-// Initialize device storage
-const deviceStorage = new FirestoreDeviceStorage(firestore)
-
-// Initialize notification service
-const notificationService = new FirebaseNotificationService(
-  messaging,
-  deviceStorage,
-)
-
-// Register a device
-await notificationService.registerDevice(
-  'user123',
-  new Device({
-    notificationToken: 'fcm-token-123',
-    platform: DevicePlatform.iOS,
-    language: 'en',
-    appVersion: '1.0.0',
-  }),
-)
-
-// Send a notification
-await notificationService.sendNotification('user123', {
-  title: { en: 'Hello', de: 'Hallo' },
-  body: {
-    en: 'This is a test notification',
-    de: 'Dies ist eine Test-Benachrichtigung',
-  },
-  data: { action: 'open_home' },
-})
-
-// Create and send a message notification
-const message = Message.createInformation({
-  title: { en: 'Information', de: 'Information' },
-  description: {
-    en: 'This is important information',
-    de: 'Dies ist eine wichtige Information',
-  },
-  action: 'view_details',
-  isDismissible: true,
-  data: { itemId: '123' },
-})
-
-// Send a message-based notification
-await notificationService.sendMessageNotification('user123', {
-  id: 'message-123',
-  path: '/messages/message-123',
-  lastUpdate: new Date(),
-  content: message,
-})
-
-// Unregister a device
-await notificationService.unregisterDevice(
-  'user123',
-  'fcm-token-123',
-  DevicePlatform.iOS,
-)
+// Validate the data and get a typed resource
+const patient = FhirPatient.parse(rawData)
+console.log(patient.value.name?.[0]?.family) // 'Smith'
 ```
 
-## Firebase Functions Integration
+### Working with Observations
 
-This package includes helpers for creating Firebase Functions:
+```typescript
+import { FhirObservation } from '@stanfordspezi/spezi-firebase-fhir'
+
+const observationData = {
+  resourceType: 'Observation',
+  status: 'final',
+  code: {
+    coding: [
+      {
+        system: 'http://loinc.org',
+        code: '29463-7',
+        display: 'Body Weight',
+      },
+    ],
+  },
+  subject: {
+    reference: 'Patient/patient-123',
+  },
+  valueQuantity: {
+    value: 72.5,
+    unit: 'kg',
+    system: 'http://unitsofmeasure.org',
+    code: 'kg',
+  },
+}
+
+const observation = FhirObservation.parse(observationData)
+console.log(observation.value.valueQuantity?.value) // 72.5
+```
+
+### Using Helper Methods
+
+```typescript
+import { FhirCondition } from '@stanfordspezi/spezi-firebase-fhir'
+
+const condition = FhirCondition.parse({
+  resourceType: 'Condition',
+  code: {
+    coding: [
+      {
+        system: 'http://snomed.info/sct',
+        code: '73211009',
+        display: 'Diabetes mellitus',
+      },
+    ],
+  },
+  // ... other fields
+})
+
+// Check if condition contains specific coding
+const hasDiabetes = condition.containsCoding(condition.value.code, [
+  {
+    system: 'http://snomed.info/sct',
+    code: '73211009',
+  },
+])
+
+// Extract codes from CodeableConcept
+const codes = condition.codes(condition.value.code, {
+  system: 'http://snomed.info/sct',
+})
+console.log(codes) // ['73211009']
+```
+
+### Firebase Functions Integration
 
 ```typescript
 import { onCall } from 'firebase-functions/v2/https'
+import { getFirestore } from 'firebase-admin/firestore'
+import { FhirPatient } from '@stanfordspezi/spezi-firebase-fhir'
+
+export const createPatient = onCall(async (request) => {
+  const patientData = request.data
+
+  // Validate the patient data
+  const patient = FhirPatient.parse(patientData)
+
+  // Store in Firestore
+  const firestore = getFirestore()
+  await firestore.collection('patients').doc(patient.value.id).set(patient.value)
+
+  return { success: true, id: patient.value.id }
+})
+```
+
+### Firestore Integration
+
+```typescript
+import { getFirestore } from 'firebase-admin/firestore'
+import { FhirObservation } from '@stanfordspezi/spezi-firebase-fhir'
+
+const firestore = getFirestore()
+
+// Read and validate from Firestore
+const doc = await firestore.collection('observations').doc('obs-123').get()
+const observation = FhirObservation.parse(doc.data())
+
+// Write validated data to Firestore
+const newObservation = FhirObservation.parse({
+  /* ... */
+})
+await firestore
+  .collection('observations')
+  .doc(newObservation.value.id)
+  .set(newObservation.value)
+```
+
+## API Overview
+
+### Resource Classes
+
+All FHIR resources are exported as classes that extend `FhirDomainResource`:
+
+```typescript
 import {
-  createRegisterDeviceHandler,
-  createUnregisterDeviceHandler,
-  registerDeviceInputSchema,
-  unregisterDeviceInputSchema,
-} from '@stanfordspezi/spezi-firebase-cloud-messaging'
+  FhirPatient,
+  FhirObservation,
+  FhirMedicationRequest,
+  FhirAppointment,
+} from '@stanfordspezi/spezi-firebase-fhir'
 
-// Create function handlers
-const registerDeviceHandler = createRegisterDeviceHandler(notificationService)
-const unregisterDeviceHandler =
-  createUnregisterDeviceHandler(notificationService)
+// Each resource has a parse method
+const patient = FhirPatient.parse(rawData)
 
-// Create Firebase Functions
-export const registerDevice = onCall(
-  {
-    schema: registerDeviceInputSchema,
-  },
-  async (request) => {
-    const userId = request.auth?.uid
-    if (!userId) throw new Error('Unauthorized')
+// Access the validated value
+console.log(patient.value) // Typed FHIR Patient resource
+```
 
-    return registerDeviceHandler(userId, request.data)
-  },
-)
+### Helper Methods
 
-export const unregisterDevice = onCall(
-  {
-    schema: unregisterDeviceInputSchema,
-  },
-  async (request) => {
-    const userId = request.auth?.uid
-    if (!userId) throw new Error('Unauthorized')
+The `FhirDomainResource` base class provides useful utilities:
 
-    return unregisterDeviceHandler(userId, request.data)
-  },
-)
+- **`codes(concept, filter)`**: Extract code values from a CodeableConcept
+- **`containsCoding(concept, filter)`**: Check if a CodeableConcept contains specific codings
+- **`getExtension(url)`**: Retrieve extensions by URL
+
+### Type Safety
+
+All schemas provide full TypeScript type inference:
+
+```typescript
+import { type Patient } from 'fhir/r4b.js'
+
+// The parsed value is fully typed
+const patient = FhirPatient.parse(data)
+const name: string | undefined = patient.value.name?.[0]?.family
 ```
 
 ## License
