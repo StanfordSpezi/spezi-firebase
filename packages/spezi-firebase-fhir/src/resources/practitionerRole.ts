@@ -69,6 +69,8 @@ export const practitionerRoleSchema: ZodType<PractitionerRole> =
   untypedPractitionerRoleSchema
 
 export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
+  // Static Functions
+
   public static parse(value: unknown): FhirPractitionerRole {
     return new FhirPractitionerRole(practitionerRoleSchema.parse(value))
   }

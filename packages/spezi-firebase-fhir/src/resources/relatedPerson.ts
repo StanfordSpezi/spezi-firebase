@@ -32,7 +32,7 @@ export const untypedRelatedPersonSchema = z.lazy(() =>
     active: booleanSchema.optional(),
     _active: elementSchema.optional(),
     patient: referenceSchema,
-    relationShip: codeableConceptSchema.array().optional(),
+    relationship: codeableConceptSchema.array().optional(),
     name: humanNameSchema.array().optional(),
     telecom: contactPointSchema.array().optional(),
     gender: z.enum(['male', 'female', 'other', 'unknown']).optional(),
