@@ -21,12 +21,13 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+import { substanceStatusSchema } from '../valueSets/index.js'
 
 export const untypedSubstanceSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Substance').readonly(),
     identifier: identifierSchema.array().optional(),
-    status: z.enum(['active', 'inactive', 'entered-in-error']),
+    status: substanceStatusSchema,
     _status: elementSchema.optional(),
     category: codeableConceptSchema.array().optional(),
     code: codeableConceptSchema,

@@ -23,9 +23,7 @@ import {
   stringSchema,
   booleanSchema,
 } from '../elements/index.js'
-import {
-  coverageStatusSchema,
-} from '../valueSets/index.js'
+import { coverageStatusSchema } from '../valueSets/index.js'
 
 export const untypedCoverageSchema = z.lazy(() =>
   domainResourceSchema.extend({

@@ -18,16 +18,7 @@ import {
   positiveIntSchema,
   referenceSchema,
 } from '../elements/index.js'
-
-const episodeOfCareStatusSchema = z.enum([
-  'planned',
-  'waitlist',
-  'active',
-  'onhold',
-  'finished',
-  'cancelled',
-  'entered-in-error',
-])
+import { episodeOfCareStatusSchema } from '../valueSets/index.js'
 
 export const untypedEpisodeOfCareSchema = z.lazy(() =>
   domainResourceSchema.extend({

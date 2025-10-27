@@ -17,11 +17,15 @@ import {
   stringSchema,
   urlSchema,
 } from '../elements/index.js'
+import {
+  subscriptionStatusSchema,
+  subscriptionChannelTypeSchema,
+} from '../valueSets/index.js'
 
 export const untypedSubscriptionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Subscription').readonly(),
-    status: z.enum(['requested', 'active', 'error', 'off']),
+    status: subscriptionStatusSchema,
     _status: elementSchema.optional(),
     contact: contactPointSchema.array().optional(),
     end: instantSchema.optional(),
@@ -33,7 +37,7 @@ export const untypedSubscriptionSchema = z.lazy(() =>
     error: stringSchema.optional(),
     _error: elementSchema.optional(),
     channel: z.object({
-      type: z.enum(['rest-hook', 'websocket', 'email', 'sms', 'message']),
+      type: subscriptionChannelTypeSchema,
       _type: elementSchema.optional(),
       endpoint: urlSchema.optional(),
       _endpoint: elementSchema.optional(),

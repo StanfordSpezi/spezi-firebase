@@ -12,11 +12,7 @@ import { z } from 'zod'
  * The status of a location.
  * http://hl7.org/fhir/valueset-location-status.html
  */
-export const locationStatusSchema = z.enum([
-  'active',
-  'suspended',
-  'inactive',
-])
+export const locationStatusSchema = z.enum(['active', 'suspended', 'inactive'])
 
 export type LocationStatus = z.infer<typeof locationStatusSchema>
 

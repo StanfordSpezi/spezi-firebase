@@ -22,6 +22,7 @@ import {
   uriSchema,
   urlSchema,
 } from '../elements/index.js'
+import { messageHeaderResponseCodeSchema } from '../valueSets/index.js'
 
 export const untypedMessageHeaderSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -59,7 +60,7 @@ export const untypedMessageHeaderSchema = z.lazy(() =>
       .extend({
         identifier: idSchema,
         _identifier: elementSchema.optional(),
-        code: z.enum(['ok', 'transient-error', 'fatal-error']),
+        code: messageHeaderResponseCodeSchema,
         details: referenceSchema.optional(),
       })
       .optional(),

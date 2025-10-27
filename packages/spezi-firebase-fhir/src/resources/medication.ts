@@ -22,9 +22,7 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
-import {
-  medicationStatusSchema,
-} from '../valueSets/index.js'
+import { medicationStatusSchema } from '../valueSets/index.js'
 
 export const untypedMedicationSchema = z.lazy(() =>
   domainResourceSchema.extend({

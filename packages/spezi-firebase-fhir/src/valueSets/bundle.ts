@@ -30,7 +30,11 @@ export type BundleType = z.infer<typeof bundleTypeSchema>
  * The search mode of an entry in a bundle.
  * http://hl7.org/fhir/valueset-search-entry-mode.html
  */
-export const bundleEntrySearchModeSchema = z.enum(['match', 'include', 'outcome'])
+export const bundleEntrySearchModeSchema = z.enum([
+  'match',
+  'include',
+  'outcome',
+])
 
 export type BundleEntrySearchMode = z.infer<typeof bundleEntrySearchModeSchema>
 

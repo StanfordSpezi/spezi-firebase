@@ -18,9 +18,7 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
-import {
-  slotStatusSchema,
-} from '../valueSets/index.js'
+import { slotStatusSchema } from '../valueSets/index.js'
 
 export const untypedSlotSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -31,13 +29,7 @@ export const untypedSlotSchema = z.lazy(() =>
     specialty: codeableConceptSchema.array().optional(),
     appointmentType: codeableConceptSchema.optional(),
     schedule: referenceSchema,
-    status: z.enum([
-      'busy',
-      'free',
-      'busy-unavailable',
-      'busy-tentative',
-      'entered-in-error',
-    ]),
+    status: slotStatusSchema,
     _status: elementSchema.optional(),
     start: dateTimeSchema,
     _start: elementSchema.optional(),
