@@ -11,6 +11,7 @@ import { z, type ZodType } from 'zod'
 import { untypedAllergyIntoleranceSchema } from './allergyIntolerance.js'
 import { untypedAppointmentSchema } from './appointment.js'
 import { untypedAppointmentResponseSchema } from './appointmentResponse.js'
+import { untypedCompositionSchema } from './composition.js'
 import { untypedConditionSchema } from './condition.js'
 import { untypedCoverageSchema } from './coverage.js'
 import { untypedDeviceSchema } from './device.js'
@@ -18,12 +19,14 @@ import { untypedDiagnosticReportSchema } from './diagnosticReport.js'
 import { untypedEncounterSchema } from './encounter.js'
 import { untypedEndpointSchema } from './endpoint.js'
 import { untypedEpisodeOfCareSchema } from './episodeOfCare.js'
+import { untypedGroupSchema } from './group.js'
 import { untypedHealthcareServiceSchema } from './healthcareService.js'
 import { untypedImagingStudySchema } from './imagingStudy.js'
 import { untypedImmunizationSchema } from './immunization.js'
 import { untypedImmunizationEvaluationSchema } from './immunizationEvaluation.js'
 import { untypedImmunizationRecommendationSchema } from './immunizationRecommendation.js'
 import { untypedLibrarySchema } from './library.js'
+import { untypedListSchema } from './list.js'
 import { untypedLocationSchema } from './location.js'
 import { untypedMedicationSchema } from './medication.js'
 import { untypedMedicationAdministrationSchema } from './medicationAdministration.js'
@@ -31,6 +34,7 @@ import { untypedMedicationDispenseSchema } from './medicationDispense.js'
 import { untypedMedicationKnowledgeSchema } from './medicationKnowledge.js'
 import { untypedMedicationRequestSchema } from './medicationRequest.js'
 import { untypedMedicationStatementSchema } from './medicationStatement.js'
+import { untypedObservationSchema } from './observation.js'
 import { untypedOrganizationSchema } from './organization.js'
 import { untypedPatientSchema } from './patient.js'
 import { untypedPersonSchema } from './person.js'
@@ -53,6 +57,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedAllergyIntoleranceSchema,
     untypedAppointmentSchema,
     untypedAppointmentResponseSchema,
+    untypedCompositionSchema,
     untypedConditionSchema,
     untypedCoverageSchema,
     untypedDeviceSchema,
@@ -60,12 +65,14 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedEncounterSchema,
     untypedEndpointSchema,
     untypedEpisodeOfCareSchema,
+    untypedGroupSchema,
     untypedHealthcareServiceSchema,
     untypedImagingStudySchema,
     untypedImmunizationSchema,
     untypedImmunizationEvaluationSchema,
     untypedImmunizationRecommendationSchema,
     untypedLibrarySchema,
+    untypedListSchema,
     untypedLocationSchema,
     untypedMedicationSchema,
     untypedMedicationAdministrationSchema,
@@ -73,6 +80,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedMedicationKnowledgeSchema,
     untypedMedicationRequestSchema,
     untypedMedicationStatementSchema,
+    untypedObservationSchema,
     untypedOrganizationSchema,
     untypedPatientSchema,
     untypedPersonSchema,

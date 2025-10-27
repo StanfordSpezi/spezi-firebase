@@ -1,0 +1,162 @@
+{
+  "0": {
+    "resourceType": "Group",
+    "id": "group-0",
+    "identifier": [
+      {
+        "system": "http://hospital.org/groups",
+        "value": "g-000"
+      }
+    ],
+    "active": true,
+    "type": "person",
+    "actual": true,
+    "name": "Diabetes Patients",
+    "quantity": 2,
+    "member": [
+      {
+        "entity": {
+          "reference": "Patient/pat-0a"
+        },
+        "period": {
+          "start": "2025-01-01"
+        },
+        "inactive": false
+      },
+      {
+        "entity": {
+          "reference": "Patient/pat-0b"
+        },
+        "period": {
+          "start": "2025-01-02",
+          "end": "2025-01-10"
+        },
+        "inactive": true
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Group",
+    "id": "group-1",
+    "active": false,
+    "type": "animal",
+    "actual": true,
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "387961004",
+          "display": "Dog"
+        }
+      ]
+    },
+    "name": "Canine Research Cohort",
+    "quantity": 3,
+    "member": [
+      {
+        "entity": {
+          "reference": "Patient/dog-1"
+        }
+      },
+      {
+        "entity": {
+          "reference": "Patient/dog-2"
+        }
+      },
+      {
+        "entity": {
+          "reference": "Patient/dog-3"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Group",
+    "id": "group-2",
+    "active": true,
+    "type": "device",
+    "actual": false,
+    "code": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/group-type",
+          "code": "device",
+          "display": "Device"
+        }
+      ]
+    },
+    "name": "Cardiac Implants",
+    "quantity": 1,
+    "characteristic": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://example.org/criteria",
+              "code": "pacemaker"
+            }
+          ]
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://example.org/devices",
+              "code": "PM123",
+              "display": "Pacemaker Model 123"
+            }
+          ]
+        },
+        "exclude": false,
+        "period": {
+          "start": "2025-01-01"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Group",
+    "id": "group-3",
+    "active": true,
+    "type": "practitioner",
+    "actual": true,
+    "name": "Cardiology Team",
+    "managingEntity": {
+      "reference": "Organization/org-3"
+    },
+    "quantity": 2,
+    "member": [
+      {
+        "entity": {
+          "reference": "Practitioner/prac-3a"
+        }
+      },
+      {
+        "entity": {
+          "reference": "Practitioner/prac-3b"
+        }
+      }
+    ],
+    "characteristic": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://example.org/criteria",
+              "code": "specialty"
+            }
+          ]
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "394579002",
+              "display": "Cardiology"
+            }
+          ]
+        },
+        "exclude": false
+      }
+    ]
+  }
+}

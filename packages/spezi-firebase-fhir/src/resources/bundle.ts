@@ -70,36 +70,42 @@ export function bundleSchema<R extends DomainResource>(
         fullUrl: uriSchema.optional(),
         _fullUrl: elementSchema.optional(),
         resource: schema.optional(),
-        search: backboneElementSchema.extend({
-          mode: bundleEntrySearchModeSchema.optional(),
-          _mode: elementSchema.optional(),
-          score: decimalSchema.optional(),
-        }),
-        request: backboneElementSchema.extend({
-          method: bundleEntryRequestMethodSchema,
-          _method: elementSchema.optional(),
-          url: uriSchema,
-          _url: elementSchema.optional(),
-          ifNoneExist: stringSchema.optional(),
-          _ifNoneExist: elementSchema.optional(),
-          ifModifiedSince: instantSchema.optional(),
-          _ifModifiedSince: elementSchema.optional(),
-          ifMatch: stringSchema.optional(),
-          _ifMatch: elementSchema.optional(),
-          ifNoneMatch: stringSchema.optional(),
-          _ifNoneMatch: elementSchema.optional(),
-        }),
-        response: backboneElementSchema.extend({
-          status: stringSchema,
-          _status: elementSchema.optional(),
-          location: uriSchema.optional(),
-          _location: elementSchema.optional(),
-          etag: stringSchema.optional(),
-          _etag: elementSchema.optional(),
-          lastModified: instantSchema.optional(),
-          _lastModified: elementSchema.optional(),
-          outcome: fhirResourceSchema.optional(),
-        }),
+        search: backboneElementSchema
+          .extend({
+            mode: bundleEntrySearchModeSchema.optional(),
+            _mode: elementSchema.optional(),
+            score: decimalSchema.optional(),
+          })
+          .optional(),
+        request: backboneElementSchema
+          .extend({
+            method: bundleEntryRequestMethodSchema,
+            _method: elementSchema.optional(),
+            url: uriSchema,
+            _url: elementSchema.optional(),
+            ifNoneExist: stringSchema.optional(),
+            _ifNoneExist: elementSchema.optional(),
+            ifModifiedSince: instantSchema.optional(),
+            _ifModifiedSince: elementSchema.optional(),
+            ifMatch: stringSchema.optional(),
+            _ifMatch: elementSchema.optional(),
+            ifNoneMatch: stringSchema.optional(),
+            _ifNoneMatch: elementSchema.optional(),
+          })
+          .optional(),
+        response: backboneElementSchema
+          .extend({
+            status: stringSchema,
+            _status: elementSchema.optional(),
+            location: uriSchema.optional(),
+            _location: elementSchema.optional(),
+            etag: stringSchema.optional(),
+            _etag: elementSchema.optional(),
+            lastModified: instantSchema.optional(),
+            _lastModified: elementSchema.optional(),
+            outcome: fhirResourceSchema.optional(),
+          })
+          .optional(),
       })
       .array()
       .optional(),
