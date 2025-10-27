@@ -1,0 +1,430 @@
+{
+  "0": {
+    "resourceType": "MeasureReport",
+    "id": "example-report-1",
+    "status": "complete",
+    "type": "summary",
+    "measure": "http://example.org/Measure/diabetes-hba1c-control",
+    "period": {
+      "start": "2024-01-01T00:00:00Z",
+      "end": "2024-01-31T23:59:59Z"
+    }
+  },
+  "1": {
+    "resourceType": "MeasureReport",
+    "id": "example-report-2",
+    "identifier": [
+      {
+        "system": "http://example.org/measure-reports",
+        "value": "REPORT-2024-Q1-001"
+      }
+    ],
+    "status": "complete",
+    "type": "summary",
+    "measure": "http://example.org/Measure/diabetes-hba1c-control",
+    "date": "2024-04-05T10:00:00Z",
+    "reporter": {
+      "reference": "Organization/quality-dept",
+      "display": "Quality Department"
+    },
+    "period": {
+      "start": "2024-01-01T00:00:00Z",
+      "end": "2024-03-31T23:59:59Z"
+    },
+    "improvementNotation": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-improvement-notation",
+          "code": "decrease",
+          "display": "Decreased score indicates improvement"
+        }
+      ]
+    },
+    "group": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://example.org/measure-groups",
+              "code": "diabetes-control",
+              "display": "Diabetes Control"
+            }
+          ]
+        },
+        "population": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                  "code": "initial-population",
+                  "display": "Initial Population"
+                }
+              ]
+            },
+            "count": 250
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                  "code": "numerator",
+                  "display": "Numerator"
+                }
+              ]
+            },
+            "count": 45
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                  "code": "denominator",
+                  "display": "Denominator"
+                }
+              ]
+            },
+            "count": 250
+          }
+        ],
+        "measureScore": {
+          "value": 0.18,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "MeasureReport",
+    "id": "example-report-3",
+    "identifier": [
+      {
+        "system": "http://example.org/measure-reports",
+        "value": "BP-CONTROL-2024-Q2"
+      }
+    ],
+    "status": "complete",
+    "type": "summary",
+    "measure": "http://example.org/Measure/blood-pressure-control",
+    "date": "2024-07-10T14:30:00Z",
+    "reporter": {
+      "reference": "Organization/cardiology-clinic",
+      "display": "Cardiology Clinic"
+    },
+    "period": {
+      "start": "2024-04-01T00:00:00Z",
+      "end": "2024-06-30T23:59:59Z"
+    },
+    "improvementNotation": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-improvement-notation",
+          "code": "increase",
+          "display": "Increased score indicates improvement"
+        }
+      ]
+    },
+    "group": [
+      {
+        "population": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                  "code": "initial-population",
+                  "display": "Initial Population"
+                }
+              ]
+            },
+            "count": 500
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                  "code": "numerator",
+                  "display": "Numerator"
+                }
+              ]
+            },
+            "count": 350
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                  "code": "denominator",
+                  "display": "Denominator"
+                }
+              ]
+            },
+            "count": 480
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                  "code": "denominator-exclusion",
+                  "display": "Denominator Exclusion"
+                }
+              ]
+            },
+            "count": 20
+          }
+        ],
+        "measureScore": {
+          "value": 0.729,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "stratifier": [
+          {
+            "code": [
+              {
+                "coding": [
+                  {
+                    "system": "http://example.org/stratifiers",
+                    "code": "age-group",
+                    "display": "Age Group"
+                  }
+                ]
+              }
+            ],
+            "stratum": [
+              {
+                "value": {
+                  "coding": [
+                    {
+                      "system": "http://example.org/age-groups",
+                      "code": "18-44",
+                      "display": "Age 18-44"
+                    }
+                  ]
+                },
+                "population": [
+                  {
+                    "code": {
+                      "coding": [
+                        {
+                          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                          "code": "initial-population",
+                          "display": "Initial Population"
+                        }
+                      ]
+                    },
+                    "count": 120
+                  },
+                  {
+                    "code": {
+                      "coding": [
+                        {
+                          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                          "code": "numerator",
+                          "display": "Numerator"
+                        }
+                      ]
+                    },
+                    "count": 95
+                  }
+                ],
+                "measureScore": {
+                  "value": 0.792,
+                  "unit": "%",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "%"
+                }
+              },
+              {
+                "value": {
+                  "coding": [
+                    {
+                      "system": "http://example.org/age-groups",
+                      "code": "45-64",
+                      "display": "Age 45-64"
+                    }
+                  ]
+                },
+                "population": [
+                  {
+                    "code": {
+                      "coding": [
+                        {
+                          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                          "code": "initial-population",
+                          "display": "Initial Population"
+                        }
+                      ]
+                    },
+                    "count": 200
+                  },
+                  {
+                    "code": {
+                      "coding": [
+                        {
+                          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                          "code": "numerator",
+                          "display": "Numerator"
+                        }
+                      ]
+                    },
+                    "count": 145
+                  }
+                ],
+                "measureScore": {
+                  "value": 0.725,
+                  "unit": "%",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "%"
+                }
+              },
+              {
+                "value": {
+                  "coding": [
+                    {
+                      "system": "http://example.org/age-groups",
+                      "code": "65-85",
+                      "display": "Age 65-85"
+                    }
+                  ]
+                },
+                "population": [
+                  {
+                    "code": {
+                      "coding": [
+                        {
+                          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                          "code": "initial-population",
+                          "display": "Initial Population"
+                        }
+                      ]
+                    },
+                    "count": 180
+                  },
+                  {
+                    "code": {
+                      "coding": [
+                        {
+                          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                          "code": "numerator",
+                          "display": "Numerator"
+                        }
+                      ]
+                    },
+                    "count": 110
+                  }
+                ],
+                "measureScore": {
+                  "value": 0.611,
+                  "unit": "%",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "%"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "MeasureReport",
+    "id": "example-report-4",
+    "identifier": [
+      {
+        "system": "http://example.org/measure-reports",
+        "value": "INDIV-REPORT-12345"
+      }
+    ],
+    "status": "complete",
+    "type": "individual",
+    "measure": "http://example.org/Measure/breast-cancer-screening",
+    "subject": {
+      "reference": "Patient/example-patient-123",
+      "display": "Jane Doe"
+    },
+    "date": "2024-08-15T09:00:00Z",
+    "reporter": {
+      "reference": "Organization/womens-health-center",
+      "display": "Women's Health Center"
+    },
+    "period": {
+      "start": "2022-06-01T00:00:00Z",
+      "end": "2024-08-31T23:59:59Z"
+    },
+    "improvementNotation": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-improvement-notation",
+          "code": "increase",
+          "display": "Increased score indicates improvement"
+        }
+      ]
+    },
+    "group": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://example.org/measure-groups",
+              "code": "breast-screening",
+              "display": "Breast Cancer Screening"
+            }
+          ]
+        },
+        "population": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                  "code": "initial-population",
+                  "display": "Initial Population"
+                }
+              ]
+            },
+            "count": 1
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                  "code": "numerator",
+                  "display": "Numerator"
+                }
+              ]
+            },
+            "count": 1
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                  "code": "denominator",
+                  "display": "Denominator"
+                }
+              ]
+            },
+            "count": 1
+          }
+        ]
+      }
+    ],
+    "evaluatedResource": [
+      {
+        "reference": "Observation/mammogram-result-2024",
+        "display": "Mammogram Result"
+      }
+    ]
+  }
+}
