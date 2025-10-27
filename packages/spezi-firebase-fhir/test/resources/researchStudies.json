@@ -1,0 +1,244 @@
+{
+  "0": {
+    "resourceType": "ResearchStudy",
+    "id": "research-study-example-0",
+    "identifier": [
+      {
+        "system": "http://clinicaltrials.gov",
+        "value": "NCT00000001"
+      }
+    ],
+    "title": "Study of Drug A in Hypertension",
+    "status": "active",
+    "phase": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
+          "code": "phase-3",
+          "display": "Phase 3"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/study-type",
+            "code": "interventional",
+            "display": "Interventional"
+          }
+        ]
+      }
+    ],
+    "focus": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "372733002",
+            "display": "Drug A"
+          }
+        ]
+      }
+    ],
+    "condition": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "38341003",
+            "display": "Hypertension"
+          }
+        ]
+      }
+    ],
+    "description": "A randomized, double-blind study to evaluate the efficacy of Drug A in treating hypertension.",
+    "period": {
+      "start": "2023-01-01",
+      "end": "2025-12-31"
+    },
+    "sponsor": {
+      "reference": "Organization/sponsor-example"
+    },
+    "principalInvestigator": {
+      "reference": "Practitioner/pi-example"
+    },
+    "arm": [
+      {
+        "name": "Drug A 10mg",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/study-arm-type",
+              "code": "experimental",
+              "display": "Experimental"
+            }
+          ]
+        },
+        "description": "Participants receive 10mg of Drug A daily"
+      },
+      {
+        "name": "Placebo",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/study-arm-type",
+              "code": "placebo-comparator",
+              "display": "Placebo Comparator"
+            }
+          ]
+        },
+        "description": "Participants receive placebo daily"
+      }
+    ],
+    "objective": [
+      {
+        "name": "Primary Efficacy",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+              "code": "primary",
+              "display": "Primary"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "ResearchStudy",
+    "id": "research-study-example-1",
+    "identifier": [
+      {
+        "system": "http://clinicaltrials.gov",
+        "value": "NCT00000002"
+      }
+    ],
+    "title": "Observational Study of Diabetes Risk Factors",
+    "status": "completed",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/study-type",
+            "code": "observational",
+            "display": "Observational"
+          }
+        ]
+      }
+    ],
+    "condition": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "44054006",
+            "display": "Diabetes mellitus type 2"
+          }
+        ]
+      }
+    ],
+    "period": {
+      "start": "2020-01-01",
+      "end": "2023-12-31"
+    },
+    "enrollment": [
+      {
+        "reference": "Group/cohort-example"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ResearchStudy",
+    "id": "research-study-example-2",
+    "identifier": [
+      {
+        "system": "http://example.org/studies",
+        "value": "STUDY-XYZ-2023"
+      }
+    ],
+    "title": "Vaccine Safety Study",
+    "status": "in-review",
+    "phase": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
+          "code": "phase-1",
+          "display": "Phase 1"
+        }
+      ]
+    },
+    "focus": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "398827000",
+            "display": "Vaccine"
+          }
+        ]
+      }
+    ],
+    "description": "Safety assessment of a novel vaccine candidate",
+    "contact": [
+      {
+        "name": "Study Coordinator",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "coordinator@example.org"
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ResearchStudy",
+    "id": "research-study-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/studies",
+        "value": "STUDY-ABC-2024"
+      }
+    ],
+    "title": "Multi-center Cancer Treatment Study",
+    "status": "closed-to-accrual",
+    "phase": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
+          "code": "phase-2",
+          "display": "Phase 2"
+        }
+      ]
+    },
+    "condition": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "363346000",
+            "display": "Malignant neoplasm"
+          }
+        ]
+      }
+    ],
+    "period": {
+      "start": "2022-06-01"
+    },
+    "site": [
+      {
+        "reference": "Location/hospital-1"
+      },
+      {
+        "reference": "Location/hospital-2"
+      }
+    ],
+    "note": [
+      {
+        "text": "Recruitment completed ahead of schedule"
+      }
+    ]
+  }
+}

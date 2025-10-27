@@ -1,0 +1,93 @@
+{
+  "0": {
+    "resourceType": "ResearchSubject",
+    "id": "research-subject-example-0",
+    "identifier": [
+      {
+        "system": "http://example.org/study-subjects",
+        "value": "SUB-001"
+      }
+    ],
+    "status": "on-study",
+    "period": {
+      "start": "2023-01-15"
+    },
+    "study": {
+      "reference": "ResearchStudy/study-example-1"
+    },
+    "individual": {
+      "reference": "Patient/patient-example-1"
+    },
+    "assignedArm": "Treatment Arm A",
+    "actualArm": "Treatment Arm A",
+    "consent": {
+      "reference": "Consent/consent-example-1"
+    }
+  },
+  "1": {
+    "resourceType": "ResearchSubject",
+    "id": "research-subject-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/study-subjects",
+        "value": "SUB-002"
+      }
+    ],
+    "status": "follow-up",
+    "period": {
+      "start": "2023-02-01",
+      "end": "2024-02-01"
+    },
+    "study": {
+      "reference": "ResearchStudy/study-example-2"
+    },
+    "individual": {
+      "reference": "Patient/patient-example-2"
+    },
+    "assignedArm": "Placebo Arm",
+    "actualArm": "Treatment Arm B"
+  },
+  "2": {
+    "resourceType": "ResearchSubject",
+    "id": "research-subject-example-2",
+    "identifier": [
+      {
+        "system": "http://example.org/study-subjects",
+        "value": "SUB-003"
+      }
+    ],
+    "status": "screening",
+    "study": {
+      "reference": "ResearchStudy/study-example-3"
+    },
+    "individual": {
+      "reference": "Patient/patient-example-3"
+    }
+  },
+  "3": {
+    "resourceType": "ResearchSubject",
+    "id": "research-subject-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/study-subjects",
+        "value": "SUB-004"
+      }
+    ],
+    "status": "withdrawn",
+    "period": {
+      "start": "2023-03-10",
+      "end": "2023-06-15"
+    },
+    "study": {
+      "reference": "ResearchStudy/study-example-4"
+    },
+    "individual": {
+      "reference": "Patient/patient-example-4"
+    },
+    "assignedArm": "Control Arm",
+    "actualArm": "Control Arm",
+    "consent": {
+      "reference": "Consent/consent-example-2"
+    }
+  }
+}
