@@ -33,5 +33,4 @@ export const medicationRequestIntentSchema = z.enum([
   'reflex-order',
   'filler-order',
   'instance-order',
-  'option',
 ])

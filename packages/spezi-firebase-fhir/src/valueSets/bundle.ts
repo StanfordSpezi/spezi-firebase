@@ -28,7 +28,6 @@ export const bundleTypeSchema = z.enum([
  */
 export const bundleEntryRequestMethodSchema = z.enum([
   'GET',
-  'HEAD',
   'POST',
   'PUT',
   'DELETE',
