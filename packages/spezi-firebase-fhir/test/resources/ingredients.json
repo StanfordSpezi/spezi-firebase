@@ -1,0 +1,174 @@
+{
+  "0": {
+    "resourceType": "Ingredient",
+    "id": "example",
+    "status": "active",
+    "for": [
+      {
+        "reference": "MedicinalProductDefinition/example"
+      }
+    ],
+    "role": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/ingredientRole",
+          "code": "ActiveBase"
+        }
+      ]
+    },
+    "substance": {
+      "code": {
+        "coding": [
+          {
+            "system": "http://ema.europa.eu/example/substance",
+            "code": "EQUIXABAN"
+          }
+        ]
+      },
+      "strength": [
+        {
+          "presentationRatio": {
+            "numerator": {
+              "value": 2.5,
+              "unit": "mg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg"
+            },
+            "denominator": {
+              "value": 1,
+              "unit": "tablet"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "1": {
+    "resourceType": "Ingredient",
+    "id": "example2",
+    "status": "active",
+    "role": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/ingredientRole",
+          "code": "ActiveBase"
+        }
+      ]
+    },
+    "substance": {
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "372687004",
+            "display": "Amoxicillin"
+          }
+        ]
+      },
+      "strength": [
+        {
+          "presentationQuantity": {
+            "value": 500,
+            "unit": "mg",
+            "system": "http://unitsofmeasure.org",
+            "code": "mg"
+          }
+        }
+      ]
+    }
+  },
+  "2": {
+    "resourceType": "Ingredient",
+    "id": "example3",
+    "identifier": {
+      "system": "http://example.org/ingredients",
+      "value": "12345"
+    },
+    "status": "active",
+    "role": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/ingredientRole",
+          "code": "Excipient"
+        }
+      ]
+    },
+    "function": [
+      {
+        "coding": [
+          {
+            "system": "http://ema.europa.eu/example/ingredientFunction",
+            "code": "Coating"
+          }
+        ]
+      }
+    ],
+    "allergenicIndicator": false,
+    "substance": {
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "256259004",
+            "display": "Lactose"
+          }
+        ]
+      }
+    }
+  },
+  "3": {
+    "resourceType": "Ingredient",
+    "id": "example4",
+    "status": "active",
+    "role": {
+      "coding": [
+        {
+          "system": "http://ema.europa.eu/example/ingredientRole",
+          "code": "ActiveBase"
+        }
+      ]
+    },
+    "manufacturer": [
+      {
+        "role": {
+          "coding": [
+            {
+              "system": "http://ema.europa.eu/example/manufacturerRole",
+              "code": "API"
+            }
+          ]
+        },
+        "manufacturer": {
+          "reference": "Organization/example"
+        }
+      }
+    ],
+    "substance": {
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "387207008",
+            "display": "Ibuprofen"
+          }
+        ]
+      },
+      "strength": [
+        {
+          "concentrationRatio": {
+            "numerator": {
+              "value": 200,
+              "unit": "mg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg"
+            },
+            "denominator": {
+              "value": 1,
+              "unit": "capsule"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
