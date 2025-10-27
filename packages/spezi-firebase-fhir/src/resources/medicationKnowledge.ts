@@ -6,21 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import {
-  type MedicationKnowledgeAdministrationGuidelines,
-  type MedicationKnowledgeCost,
-  type MedicationKnowledgeIngredient,
-  type MedicationKnowledgeMedicineClassification,
-  type MedicationKnowledgeMonitoringProgram,
-  type MedicationKnowledgeMonograph,
-  type MedicationKnowledgePackaging,
-  type MedicationKnowledgeRelatedMedicationKnowledge,
-  type MedicationKnowledge,
-  type MedicationKnowledgeRegulatory,
-  type MedicationKnowledgeDrugCharacteristic,
-  type MedicationKnowledgeKinetics,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { type MedicationKnowledge } from 'fhir/r4b.js'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
@@ -47,14 +34,14 @@ const relatedMedicationKnowledgeSchema: ZodType<MedicationKnowledgeRelatedMedica
     }),
   )
 
-const monographSchema= z.lazy(() =>
+const monographSchema = z.lazy(() =>
   backboneElementSchema.extend({
     source: referenceSchema.optional(),
     type: codeableConceptSchema.optional(),
   }),
 )
 
-const ingredientSchema= z.lazy(() =>
+const ingredientSchema = z.lazy(() =>
   backboneElementSchema.extend({
     itemCodeableConcept: codeableConceptSchema.optional(),
     itemReference: referenceSchema.optional(),
@@ -64,7 +51,7 @@ const ingredientSchema= z.lazy(() =>
   }),
 )
 
-const costSchema= z.lazy(() =>
+const costSchema = z.lazy(() =>
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     source: stringSchema.optional(),
@@ -113,7 +100,7 @@ const medicineClassificationSchema: ZodType<MedicationKnowledgeMedicineClassific
     }),
   )
 
-const packagingSchema= z.lazy(() =>
+const packagingSchema = z.lazy(() =>
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     quantity: quantitySchema,
@@ -133,7 +120,7 @@ const drugCharacteristicSchema: ZodType<MedicationKnowledgeDrugCharacteristic> =
     }),
   )
 
-const regulatorySchema= z.lazy(() =>
+const regulatorySchema = z.lazy(() =>
   backboneElementSchema.extend({
     regulatoryAuthority: referenceSchema,
     substitution: backboneElementSchema
@@ -160,7 +147,7 @@ const regulatorySchema= z.lazy(() =>
   }),
 )
 
-const kineticsSchema= z.lazy(() =>
+const kineticsSchema = z.lazy(() =>
   backboneElementSchema.extend({
     areaUnderCurve: quantitySchema.array().optional(),
     lethalDose50: quantitySchema.array().optional(),

@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Contract } from 'fhir/r4b.js'
+import type { import { type Contract } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedContractSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('Contract').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('Contract').readonly(),
+    })
+    .passthrough(),
 )
 
 export const contractSchema = untypedContractSchema

@@ -7,7 +7,7 @@
 //
 
 import { type MessageHeader } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,

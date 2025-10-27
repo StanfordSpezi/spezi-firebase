@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type AuditEvent } from 'fhir/r4b.js'
+import type { import { type AuditEvent } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedAuditEventSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('AuditEvent').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('AuditEvent').readonly(),
+    })
+    .passthrough(),
 )
 
 export const auditEventSchema = untypedAuditEventSchema

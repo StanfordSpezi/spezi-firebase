@@ -6,26 +6,29 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type TerminologyCapabilities } from 'fhir/r4b.js'
+import type { import { type TerminologyCapabilities } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedTerminologyCapabilitiesSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('TerminologyCapabilities').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('TerminologyCapabilities').readonly(),
+    })
+    .passthrough(),
 )
 
-export const terminologyCapabilitiesSchema = untypedTerminologyCapabilitiesSchema
+export const terminologyCapabilitiesSchema =
+  untypedTerminologyCapabilitiesSchema
 
 export class FhirTerminologyCapabilities extends FhirDomainResource<TerminologyCapabilities> {
   // Static Functions
 
   public static parse(value: unknown): FhirTerminologyCapabilities {
     const parsed = terminologyCapabilitiesSchema.parse(value)
-    return new FhirTerminologyCapabilities(parsed as unknown as TerminologyCapabilities)
+    return new FhirTerminologyCapabilities(
+      parsed as unknown as TerminologyCapabilities,
+    )
   }
 }

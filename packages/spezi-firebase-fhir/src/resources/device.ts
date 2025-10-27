@@ -7,7 +7,7 @@
 //
 
 import { type Device } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   annotationSchema,
@@ -114,7 +114,7 @@ export const untypedDeviceSchema = z.lazy(() =>
   }),
 )
 
-export const deviceSchema= untypedDeviceSchema
+export const deviceSchema = untypedDeviceSchema
 
 export class FhirDevice extends FhirDomainResource<Device> {
   // Static Functions

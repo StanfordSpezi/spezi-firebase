@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type CarePlan } from 'fhir/r4b.js'
+import type { import { type CarePlan } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedCarePlanSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('CarePlan').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('CarePlan').readonly(),
+    })
+    .passthrough(),
 )
 
 export const carePlanSchema = untypedCarePlanSchema

@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type NutritionProduct } from 'fhir/r4b.js'
+import type { import { type NutritionProduct } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedNutritionProductSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('NutritionProduct').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('NutritionProduct').readonly(),
+    })
+    .passthrough(),
 )
 
 export const nutritionProductSchema = untypedNutritionProductSchema

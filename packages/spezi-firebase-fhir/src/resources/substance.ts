@@ -7,7 +7,7 @@
 //
 
 import { type Substance } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
@@ -53,7 +53,7 @@ export const untypedSubstanceSchema = z.lazy(() =>
   }),
 )
 
-export const substanceSchema= untypedSubstanceSchema
+export const substanceSchema = untypedSubstanceSchema
 
 export class FhirSubstance extends FhirDomainResource<Substance> {
   // Static Functions

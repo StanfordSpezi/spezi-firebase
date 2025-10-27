@@ -7,7 +7,7 @@
 //
 
 import { type Bundle, type DomainResource } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { fhirResourceSchema } from './fhirResource.js'
 import {
@@ -96,7 +96,7 @@ export function bundleSchema<R extends DomainResource>(
   })
 }
 
-export const genericBundleSchema= z.lazy(() =>
+export const genericBundleSchema = z.lazy(() =>
   bundleSchema(fhirResourceSchema),
 )
 

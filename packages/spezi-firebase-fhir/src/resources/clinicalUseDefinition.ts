@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ClinicalUseDefinition } from 'fhir/r4b.js'
+import type { import { type ClinicalUseDefinition } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedClinicalUseDefinitionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('ClinicalUseDefinition').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('ClinicalUseDefinition').readonly(),
+    })
+    .passthrough(),
 )
 
 export const clinicalUseDefinitionSchema = untypedClinicalUseDefinitionSchema
@@ -26,6 +26,8 @@ export class FhirClinicalUseDefinition extends FhirDomainResource<ClinicalUseDef
 
   public static parse(value: unknown): FhirClinicalUseDefinition {
     const parsed = clinicalUseDefinitionSchema.parse(value)
-    return new FhirClinicalUseDefinition(parsed as unknown as ClinicalUseDefinition)
+    return new FhirClinicalUseDefinition(
+      parsed as unknown as ClinicalUseDefinition,
+    )
   }
 }

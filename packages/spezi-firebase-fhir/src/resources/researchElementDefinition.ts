@@ -6,26 +6,29 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ResearchElementDefinition } from 'fhir/r4b.js'
+import type { import { type ResearchElementDefinition } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedResearchElementDefinitionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('ResearchElementDefinition').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('ResearchElementDefinition').readonly(),
+    })
+    .passthrough(),
 )
 
-export const researchElementDefinitionSchema = untypedResearchElementDefinitionSchema
+export const researchElementDefinitionSchema =
+  untypedResearchElementDefinitionSchema
 
 export class FhirResearchElementDefinition extends FhirDomainResource<ResearchElementDefinition> {
   // Static Functions
 
   public static parse(value: unknown): FhirResearchElementDefinition {
     const parsed = researchElementDefinitionSchema.parse(value)
-    return new FhirResearchElementDefinition(parsed as unknown as ResearchElementDefinition)
+    return new FhirResearchElementDefinition(
+      parsed as unknown as ResearchElementDefinition,
+    )
   }
 }

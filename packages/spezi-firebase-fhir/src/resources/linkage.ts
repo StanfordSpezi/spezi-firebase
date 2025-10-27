@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Linkage } from 'fhir/r4b.js'
+import type { import { type Linkage } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedLinkageSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('Linkage').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('Linkage').readonly(),
+    })
+    .passthrough(),
 )
 
 export const linkageSchema = untypedLinkageSchema

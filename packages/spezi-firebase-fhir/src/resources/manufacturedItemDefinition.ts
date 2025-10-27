@@ -6,26 +6,29 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ManufacturedItemDefinition } from 'fhir/r4b.js'
+import type { import { type ManufacturedItemDefinition } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedManufacturedItemDefinitionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('ManufacturedItemDefinition').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('ManufacturedItemDefinition').readonly(),
+    })
+    .passthrough(),
 )
 
-export const manufacturedItemDefinitionSchema = untypedManufacturedItemDefinitionSchema
+export const manufacturedItemDefinitionSchema =
+  untypedManufacturedItemDefinitionSchema
 
 export class FhirManufacturedItemDefinition extends FhirDomainResource<ManufacturedItemDefinition> {
   // Static Functions
 
   public static parse(value: unknown): FhirManufacturedItemDefinition {
     const parsed = manufacturedItemDefinitionSchema.parse(value)
-    return new FhirManufacturedItemDefinition(parsed as unknown as ManufacturedItemDefinition)
+    return new FhirManufacturedItemDefinition(
+      parsed as unknown as ManufacturedItemDefinition,
+    )
   }
 }

@@ -7,7 +7,7 @@
 //
 
 import { type Schedule } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   codeableConceptSchema,
@@ -35,7 +35,7 @@ export const untypedScheduleSchema = z.lazy(() =>
   }),
 )
 
-export const scheduleSchema= untypedScheduleSchema
+export const scheduleSchema = untypedScheduleSchema
 
 export class FhirSchedule extends FhirDomainResource<Schedule> {
   // Static Functions

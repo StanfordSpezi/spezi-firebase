@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type EnrollmentRequest } from 'fhir/r4b.js'
+import type { import { type EnrollmentRequest } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedEnrollmentRequestSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('EnrollmentRequest').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('EnrollmentRequest').readonly(),
+    })
+    .passthrough(),
 )
 
 export const enrollmentRequestSchema = untypedEnrollmentRequestSchema

@@ -7,7 +7,7 @@
 //
 
 import { type Coverage } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
@@ -76,7 +76,7 @@ export const untypedCoverageSchema = z.lazy(() =>
   }),
 )
 
-export const coverageSchema= untypedCoverageSchema
+export const coverageSchema = untypedCoverageSchema
 
 export class FhirCoverage extends FhirDomainResource<Coverage> {
   public static parse(value: unknown): FhirCoverage {

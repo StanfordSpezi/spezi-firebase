@@ -7,7 +7,7 @@
 //
 
 import { type Questionnaire, type QuestionnaireItem } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   attachmentSchema,
@@ -39,7 +39,7 @@ import {
   questionnaireStatusSchema,
 } from '../valueSets/index.js'
 
-const questionnaireItemSchema= z.lazy(() =>
+const questionnaireItemSchema = z.lazy(() =>
   backboneElementSchema.extend({
     linkId: stringSchema,
     _linkId: elementSchema.optional(),

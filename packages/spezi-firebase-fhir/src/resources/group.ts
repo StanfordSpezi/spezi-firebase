@@ -7,7 +7,7 @@
 //
 
 import { type Group } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
@@ -68,7 +68,7 @@ export const untypedGroupSchema = z.lazy(() =>
   }),
 )
 
-export const groupSchema= untypedGroupSchema
+export const groupSchema = untypedGroupSchema
 
 export class FhirGroup extends FhirDomainResource<Group> {
   // Static Functions

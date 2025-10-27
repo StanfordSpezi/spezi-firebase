@@ -19,7 +19,9 @@ export const subscriptionStatusCodeSchema = z.enum([
   'off',
 ])
 
-export type SubscriptionStatusCode = z.infer<typeof subscriptionStatusCodeSchema>
+export type SubscriptionStatusCode = z.infer<
+  typeof subscriptionStatusCodeSchema
+>
 
 /**
  * The type of method used to execute a subscription.

@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Claim } from 'fhir/r4b.js'
+import type { import { type Claim } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedClaimSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('Claim').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('Claim').readonly(),
+    })
+    .passthrough(),
 )
 
 export const claimSchema = untypedClaimSchema

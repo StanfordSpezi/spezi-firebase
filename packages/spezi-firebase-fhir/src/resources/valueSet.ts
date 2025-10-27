@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ValueSet } from 'fhir/r4b.js'
+import type { import { type ValueSet } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedValueSetSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('ValueSet').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('ValueSet').readonly(),
+    })
+    .passthrough(),
 )
 
 export const valueSetSchema = untypedValueSetSchema

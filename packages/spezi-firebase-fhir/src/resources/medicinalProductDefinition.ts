@@ -6,26 +6,29 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type MedicinalProductDefinition } from 'fhir/r4b.js'
+import type { import { type MedicinalProductDefinition } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedMedicinalProductDefinitionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('MedicinalProductDefinition').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('MedicinalProductDefinition').readonly(),
+    })
+    .passthrough(),
 )
 
-export const medicinalProductDefinitionSchema = untypedMedicinalProductDefinitionSchema
+export const medicinalProductDefinitionSchema =
+  untypedMedicinalProductDefinitionSchema
 
 export class FhirMedicinalProductDefinition extends FhirDomainResource<MedicinalProductDefinition> {
   // Static Functions
 
   public static parse(value: unknown): FhirMedicinalProductDefinition {
     const parsed = medicinalProductDefinitionSchema.parse(value)
-    return new FhirMedicinalProductDefinition(parsed as unknown as MedicinalProductDefinition)
+    return new FhirMedicinalProductDefinition(
+      parsed as unknown as MedicinalProductDefinition,
+    )
   }
 }

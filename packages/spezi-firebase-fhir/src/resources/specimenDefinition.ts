@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type SpecimenDefinition } from 'fhir/r4b.js'
+import type { import { type SpecimenDefinition } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedSpecimenDefinitionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('SpecimenDefinition').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('SpecimenDefinition').readonly(),
+    })
+    .passthrough(),
 )
 
 export const specimenDefinitionSchema = untypedSpecimenDefinitionSchema

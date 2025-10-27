@@ -6,7 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type DomainResource } from 'fhir/r4b.js'
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
+import { z } from 'zod'
 import { narrativeSchema } from './dataTypes/narrative.js'
 import { extensionSchema } from './extension.js'
 import { resourceSchema } from './resource.js'

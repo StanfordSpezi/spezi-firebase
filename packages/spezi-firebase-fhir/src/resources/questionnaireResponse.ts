@@ -10,7 +10,7 @@ import {
   type QuestionnaireResponse,
   type QuestionnaireResponseItem,
 } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   attachmentSchema,

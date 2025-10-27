@@ -6,26 +6,29 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type PackagedProductDefinition } from 'fhir/r4b.js'
+import type { import { type PackagedProductDefinition } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedPackagedProductDefinitionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('PackagedProductDefinition').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('PackagedProductDefinition').readonly(),
+    })
+    .passthrough(),
 )
 
-export const packagedProductDefinitionSchema = untypedPackagedProductDefinitionSchema
+export const packagedProductDefinitionSchema =
+  untypedPackagedProductDefinitionSchema
 
 export class FhirPackagedProductDefinition extends FhirDomainResource<PackagedProductDefinition> {
   // Static Functions
 
   public static parse(value: unknown): FhirPackagedProductDefinition {
     const parsed = packagedProductDefinitionSchema.parse(value)
-    return new FhirPackagedProductDefinition(parsed as unknown as PackagedProductDefinition)
+    return new FhirPackagedProductDefinition(
+      parsed as unknown as PackagedProductDefinition,
+    )
   }
 }

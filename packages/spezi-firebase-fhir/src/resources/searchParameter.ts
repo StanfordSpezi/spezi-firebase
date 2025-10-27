@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type SearchParameter } from 'fhir/r4b.js'
+import type { import { type SearchParameter } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedSearchParameterSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('SearchParameter').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('SearchParameter').readonly(),
+    })
+    .passthrough(),
 )
 
 export const searchParameterSchema = untypedSearchParameterSchema

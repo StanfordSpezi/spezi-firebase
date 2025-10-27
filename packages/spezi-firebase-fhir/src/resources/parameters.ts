@@ -6,8 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Parameters, type ParametersParameter } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
+import { type Parameters } from 'fhir/r4b.js'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { fhirResourceSchema } from './fhirResource.js'
 import { anyValueSchema } from '../elements/anyValueSchema.js'
@@ -36,7 +40,7 @@ export const untypedParametersSchema: any = z.lazy(() =>
   }),
 )
 
-export const parametersSchema= untypedParametersSchema
+export const parametersSchema = untypedParametersSchema
 
 export class FhirParameters extends FhirDomainResource<Parameters> {
   // Static Functions

@@ -7,7 +7,7 @@
 //
 
 import { type Practitioner } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { patientGenderSchema } from './patient.js'
 import { domainResourceSchema } from '../elements/domainResource.js'

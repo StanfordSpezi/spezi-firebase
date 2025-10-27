@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type EvidenceVariable } from 'fhir/r4b.js'
+import type { import { type EvidenceVariable } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedEvidenceVariableSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('EvidenceVariable').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('EvidenceVariable').readonly(),
+    })
+    .passthrough(),
 )
 
 export const evidenceVariableSchema = untypedEvidenceVariableSchema

@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type DocumentReference } from 'fhir/r4b.js'
+import type { import { type DocumentReference } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedDocumentReferenceSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('DocumentReference').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('DocumentReference').readonly(),
+    })
+    .passthrough(),
 )
 
 export const documentReferenceSchema = untypedDocumentReferenceSchema

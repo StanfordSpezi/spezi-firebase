@@ -7,7 +7,7 @@
 //
 
 import { type Procedure } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   annotationSchema,
@@ -82,7 +82,7 @@ export const untypedProcedureSchema = z.lazy(() =>
   }),
 )
 
-export const procedureSchema= untypedProcedureSchema
+export const procedureSchema = untypedProcedureSchema
 
 export class FhirProcedure extends FhirDomainResource<Procedure> {
   // Static Functions

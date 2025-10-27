@@ -7,7 +7,7 @@
 //
 
 import { type List } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   annotationSchema,
@@ -56,7 +56,7 @@ export const untypedListSchema = z.lazy(() =>
   }),
 )
 
-export const listSchema= untypedListSchema
+export const listSchema = untypedListSchema
 
 export class FhirList extends FhirDomainResource<List> {
   // Static Functions

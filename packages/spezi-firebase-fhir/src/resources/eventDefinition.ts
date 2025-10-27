@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type EventDefinition } from 'fhir/r4b.js'
+import type { import { type EventDefinition } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedEventDefinitionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('EventDefinition').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('EventDefinition').readonly(),
+    })
+    .passthrough(),
 )
 
 export const eventDefinitionSchema = untypedEventDefinitionSchema

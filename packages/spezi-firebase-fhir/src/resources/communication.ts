@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Communication } from 'fhir/r4b.js'
+import type { import { type Communication } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedCommunicationSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('Communication').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('Communication').readonly(),
+    })
+    .passthrough(),
 )
 
 export const communicationSchema = untypedCommunicationSchema

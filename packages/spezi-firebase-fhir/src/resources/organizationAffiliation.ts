@@ -6,26 +6,29 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type OrganizationAffiliation } from 'fhir/r4b.js'
+import type { import { type OrganizationAffiliation } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedOrganizationAffiliationSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('OrganizationAffiliation').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('OrganizationAffiliation').readonly(),
+    })
+    .passthrough(),
 )
 
-export const organizationAffiliationSchema = untypedOrganizationAffiliationSchema
+export const organizationAffiliationSchema =
+  untypedOrganizationAffiliationSchema
 
 export class FhirOrganizationAffiliation extends FhirDomainResource<OrganizationAffiliation> {
   // Static Functions
 
   public static parse(value: unknown): FhirOrganizationAffiliation {
     const parsed = organizationAffiliationSchema.parse(value)
-    return new FhirOrganizationAffiliation(parsed as unknown as OrganizationAffiliation)
+    return new FhirOrganizationAffiliation(
+      parsed as unknown as OrganizationAffiliation,
+    )
   }
 }

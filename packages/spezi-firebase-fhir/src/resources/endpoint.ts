@@ -7,7 +7,7 @@
 //
 
 import { type Endpoint } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   codeableConceptSchema,
@@ -45,7 +45,7 @@ export const untypedEndpointSchema = z.lazy(() =>
   }),
 )
 
-export const endpointSchema= untypedEndpointSchema
+export const endpointSchema = untypedEndpointSchema
 
 export class FhirEndpoint extends FhirDomainResource<Endpoint> {
   // Static Functions

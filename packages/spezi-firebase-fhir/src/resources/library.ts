@@ -7,7 +7,7 @@
 //
 
 import { type Library } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   attachmentSchema,
@@ -78,7 +78,7 @@ export const untypedLibrarySchema = z.lazy(() =>
   }),
 )
 
-export const librarySchema= untypedLibrarySchema
+export const librarySchema = untypedLibrarySchema
 
 export class FhirLibrary extends FhirDomainResource<Library> {
   // Static Functions

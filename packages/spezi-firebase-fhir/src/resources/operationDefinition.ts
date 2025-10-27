@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type OperationDefinition } from 'fhir/r4b.js'
+import type { import { type OperationDefinition } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedOperationDefinitionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('OperationDefinition').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('OperationDefinition').readonly(),
+    })
+    .passthrough(),
 )
 
 export const operationDefinitionSchema = untypedOperationDefinitionSchema

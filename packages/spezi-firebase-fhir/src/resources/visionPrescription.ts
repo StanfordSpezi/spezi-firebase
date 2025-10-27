@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type VisionPrescription } from 'fhir/r4b.js'
+import type { import { type VisionPrescription } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedVisionPrescriptionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('VisionPrescription').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('VisionPrescription').readonly(),
+    })
+    .passthrough(),
 )
 
 export const visionPrescriptionSchema = untypedVisionPrescriptionSchema

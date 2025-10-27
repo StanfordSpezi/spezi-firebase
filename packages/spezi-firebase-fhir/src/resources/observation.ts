@@ -7,7 +7,7 @@
 //
 
 import { type Observation } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   booleanSchema,
@@ -120,7 +120,7 @@ export const untypedObservationSchema = z.lazy(() =>
   }),
 )
 
-export const observationSchema= untypedObservationSchema
+export const observationSchema = untypedObservationSchema
 
 export class FhirObservation extends FhirDomainResource<Observation> {
   // Static Functions

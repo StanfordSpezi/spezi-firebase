@@ -7,7 +7,7 @@
 //
 
 import { type Encounter } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
@@ -80,36 +80,35 @@ const encounterStatusHistorySchema = z.lazy(() =>
   }),
 )
 
-export const untypedEncounterSchema = z.lazy(
-  () =>
-    domainResourceSchema.extend({
-      resourceType: z.literal('Encounter').readonly(),
-      account: referenceSchema.array().optional(),
-      appointment: referenceSchema.array().optional(),
-      basedOn: referenceSchema.array().optional(),
-      class: codingSchema,
-      classHistory: encounterClassHistorySchema.array().optional(),
-      diagnosis: encounterDiagnosisSchema.array().optional(),
-      episodeOfCare: referenceSchema.array().optional(),
-      hospitalization: encounterHospitalizationSchema.optional(),
-      identifier: identifierSchema.array().optional(),
-      length: quantitySchema.optional(),
-      location: encounterLocationSchema.array().optional(),
-      participant: encounterParticipantSchema.array().optional(),
-      partOf: referenceSchema.optional(),
-      period: periodSchema.optional(),
-      priority: codeableConceptSchema.optional(),
-      reasonReference: referenceSchema.array().optional(),
-      serviceProvider: referenceSchema.optional(),
-      status: encounterStatusSchema,
-      _status: elementSchema.optional(),
-      statusHistory: encounterStatusHistorySchema.array().optional(),
-      subject: referenceSchema.optional(),
-      type: codeableConceptSchema.array().optional(),
-    }),
+export const untypedEncounterSchema = z.lazy(() =>
+  domainResourceSchema.extend({
+    resourceType: z.literal('Encounter').readonly(),
+    account: referenceSchema.array().optional(),
+    appointment: referenceSchema.array().optional(),
+    basedOn: referenceSchema.array().optional(),
+    class: codingSchema,
+    classHistory: encounterClassHistorySchema.array().optional(),
+    diagnosis: encounterDiagnosisSchema.array().optional(),
+    episodeOfCare: referenceSchema.array().optional(),
+    hospitalization: encounterHospitalizationSchema.optional(),
+    identifier: identifierSchema.array().optional(),
+    length: quantitySchema.optional(),
+    location: encounterLocationSchema.array().optional(),
+    participant: encounterParticipantSchema.array().optional(),
+    partOf: referenceSchema.optional(),
+    period: periodSchema.optional(),
+    priority: codeableConceptSchema.optional(),
+    reasonReference: referenceSchema.array().optional(),
+    serviceProvider: referenceSchema.optional(),
+    status: encounterStatusSchema,
+    _status: elementSchema.optional(),
+    statusHistory: encounterStatusHistorySchema.array().optional(),
+    subject: referenceSchema.optional(),
+    type: codeableConceptSchema.array().optional(),
+  }),
 )
 
-export const encounterSchema= untypedEncounterSchema
+export const encounterSchema = untypedEncounterSchema
 
 export class FhirEncounter extends FhirDomainResource<Encounter> {
   // Static Functions

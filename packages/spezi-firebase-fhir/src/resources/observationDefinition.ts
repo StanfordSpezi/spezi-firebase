@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ObservationDefinition } from 'fhir/r4b.js'
+import type { import { type ObservationDefinition } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedObservationDefinitionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('ObservationDefinition').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('ObservationDefinition').readonly(),
+    })
+    .passthrough(),
 )
 
 export const observationDefinitionSchema = untypedObservationDefinitionSchema
@@ -26,6 +26,8 @@ export class FhirObservationDefinition extends FhirDomainResource<ObservationDef
 
   public static parse(value: unknown): FhirObservationDefinition {
     const parsed = observationDefinitionSchema.parse(value)
-    return new FhirObservationDefinition(parsed as unknown as ObservationDefinition)
+    return new FhirObservationDefinition(
+      parsed as unknown as ObservationDefinition,
+    )
   }
 }

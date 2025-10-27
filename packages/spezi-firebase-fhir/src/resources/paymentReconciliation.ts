@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type PaymentReconciliation } from 'fhir/r4b.js'
+import type { import { type PaymentReconciliation } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedPaymentReconciliationSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('PaymentReconciliation').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('PaymentReconciliation').readonly(),
+    })
+    .passthrough(),
 )
 
 export const paymentReconciliationSchema = untypedPaymentReconciliationSchema
@@ -26,6 +26,8 @@ export class FhirPaymentReconciliation extends FhirDomainResource<PaymentReconci
 
   public static parse(value: unknown): FhirPaymentReconciliation {
     const parsed = paymentReconciliationSchema.parse(value)
-    return new FhirPaymentReconciliation(parsed as unknown as PaymentReconciliation)
+    return new FhirPaymentReconciliation(
+      parsed as unknown as PaymentReconciliation,
+    )
   }
 }

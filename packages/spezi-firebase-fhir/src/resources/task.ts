@@ -6,8 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 import { type Task } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { anyValueSchema } from '../elements/anyValueSchema.js'
 import {
@@ -89,7 +93,7 @@ export const untypedTaskSchema = z.lazy(() =>
   }),
 )
 
-export const taskSchema= untypedTaskSchema
+export const taskSchema = untypedTaskSchema
 
 export class FhirTask extends FhirDomainResource<Task> {
   // Static Functions

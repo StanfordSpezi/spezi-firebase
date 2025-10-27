@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ChargeItemDefinition } from 'fhir/r4b.js'
+import type { import { type ChargeItemDefinition } from 'fhir/r4b.js' } from 'fhir/r4b.js'
 import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
-import {
-  domainResourceSchema,
-} from '../elements/index.js'
+import { domainResourceSchema } from '../elements/index.js'
 
 export const untypedChargeItemDefinitionSchema = z.lazy(() =>
-  domainResourceSchema.extend({
-    resourceType: z.literal('ChargeItemDefinition').readonly(),
-  }).passthrough(),
+  domainResourceSchema
+    .extend({
+      resourceType: z.literal('ChargeItemDefinition').readonly(),
+    })
+    .passthrough(),
 )
 
 export const chargeItemDefinitionSchema = untypedChargeItemDefinitionSchema
@@ -26,6 +26,8 @@ export class FhirChargeItemDefinition extends FhirDomainResource<ChargeItemDefin
 
   public static parse(value: unknown): FhirChargeItemDefinition {
     const parsed = chargeItemDefinitionSchema.parse(value)
-    return new FhirChargeItemDefinition(parsed as unknown as ChargeItemDefinition)
+    return new FhirChargeItemDefinition(
+      parsed as unknown as ChargeItemDefinition,
+    )
   }
 }

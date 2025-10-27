@@ -6,14 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import {
-  type CompositionAttester,
-  type CompositionEvent,
-  type CompositionRelatesTo,
-  type CompositionSection,
-  type Composition,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { type Composition } from 'fhir/r4b.js'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
@@ -33,7 +27,7 @@ import {
   listModeSchema,
 } from '../valueSets/index.js'
 
-const attesterSchema= z.lazy(() =>
+const attesterSchema = z.lazy(() =>
   backboneElementSchema.extend({
     mode: compositionAttestationModeSchema,
     time: stringSchema.optional(),
@@ -42,7 +36,7 @@ const attesterSchema= z.lazy(() =>
   }),
 )
 
-const relatesToSchema= z.lazy(() =>
+const relatesToSchema = z.lazy(() =>
   backboneElementSchema.extend({
     code: compositionRelatestoCodeSchema,
     targetIdentifier: identifierSchema.optional(),
@@ -50,7 +44,7 @@ const relatesToSchema= z.lazy(() =>
   }),
 )
 
-const eventSchema= z.lazy(() =>
+const eventSchema = z.lazy(() =>
   backboneElementSchema.extend({
     code: codeableConceptSchema.array().optional(),
     period: periodSchema.optional(),
@@ -58,7 +52,7 @@ const eventSchema= z.lazy(() =>
   }),
 )
 
-const sectionSchema= z.lazy(() =>
+const sectionSchema = z.lazy(() =>
   backboneElementSchema.extend({
     title: stringSchema.optional(),
     _title: elementSchema.optional(),
@@ -99,7 +93,7 @@ export const untypedCompositionSchema = z.lazy(() =>
   }),
 )
 
-export const compositionSchema= untypedCompositionSchema
+export const compositionSchema = untypedCompositionSchema
 
 export class FhirComposition extends FhirDomainResource<Composition> {
   // Static Functions

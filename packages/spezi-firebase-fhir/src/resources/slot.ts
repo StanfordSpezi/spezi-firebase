@@ -7,7 +7,7 @@
 //
 
 import { type Slot } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   codeableConceptSchema,
@@ -42,7 +42,7 @@ export const untypedSlotSchema = z.lazy(() =>
   }),
 )
 
-export const slotSchema= untypedSlotSchema
+export const slotSchema = untypedSlotSchema
 
 export class FhirSlot extends FhirDomainResource<Slot> {
   // Static Functions

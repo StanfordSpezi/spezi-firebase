@@ -7,7 +7,7 @@
 //
 
 import { type Appointment } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { z } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
@@ -75,7 +75,7 @@ export const untypedAppointmentSchema = z.lazy(() =>
   }),
 )
 
-export const appointmentSchema= untypedAppointmentSchema
+export const appointmentSchema = untypedAppointmentSchema
 
 export class FhirAppointment extends FhirDomainResource<Appointment> {
   // Static Functions
