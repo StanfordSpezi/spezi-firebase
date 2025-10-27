@@ -24,6 +24,11 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+import {
+  requestPrioritySchema,
+  taskIntentSchema,
+  taskStatusSchema,
+} from '../valueSets/index.js'
 
 export const untypedTaskSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -34,36 +39,13 @@ export const untypedTaskSchema = z.lazy(() =>
     basedOn: referenceSchema.array().optional(),
     groupIdentifier: identifierSchema.optional(),
     partOf: referenceSchema.array().optional(),
-    status: z.enum([
-      'draft',
-      'requested',
-      'received',
-      'accepted',
-      'rejected',
-      'ready',
-      'cancelled',
-      'in-progress',
-      'on-hold',
-      'failed',
-      'completed',
-      'entered-in-error',
-    ]),
+    status: taskStatusSchema,
     _status: elementSchema.optional(),
     statusReason: codeableConceptSchema.optional(),
     businessStatus: codeableConceptSchema.optional(),
-    intent: z.enum([
-      'unknown',
-      'proposal',
-      'plan',
-      'order',
-      'original-order',
-      'reflex-order',
-      'filler-order',
-      'instance-order',
-      'option',
-    ]),
+    intent: taskIntentSchema,
     _intent: elementSchema.optional(),
-    priority: z.enum(['routine', 'urgent', 'asap', 'stat']).optional(),
+    priority: requestPrioritySchema.optional(),
     _priority: elementSchema.optional(),
     code: codeableConceptSchema.optional(),
     description: stringSchema.optional(),

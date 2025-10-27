@@ -29,6 +29,7 @@ import {
   uriSchema,
   usageContextSchema,
 } from '../elements/index.js'
+import { publicationStatusSchema } from '../valueSets/index.js'
 
 export const untypedLibrarySchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -44,7 +45,7 @@ export const untypedLibrarySchema = z.lazy(() =>
     _title: elementSchema.optional(),
     subtitle: stringSchema.optional(),
     _subtitle: elementSchema.optional(),
-    status: z.enum(['draft', 'active', 'retired', 'unknown']),
+    status: publicationStatusSchema,
     _status: elementSchema.optional(),
     experimental: booleanSchema.optional(),
     type: codeableConceptSchema,

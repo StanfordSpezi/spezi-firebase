@@ -21,19 +21,13 @@ import {
   stringSchema,
   urlSchema,
 } from '../elements/index.js'
+import { endpointStatusSchema } from '../valueSets/index.js'
 
 export const untypedEndpointSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Endpoint').readonly(),
     identifier: identifierSchema.array().optional(),
-    status: z.enum([
-      'active',
-      'suspended',
-      'error',
-      'off',
-      'entered-in-error',
-      'test',
-    ]),
+    status: endpointStatusSchema,
     _status: elementSchema.optional(),
     connectionType: codingSchema,
     name: stringSchema.optional(),

@@ -23,18 +23,13 @@ import {
   stringSchema,
   unsignedIntSchema,
 } from '../elements/index.js'
+import { imagingStudyStatusSchema } from '../valueSets/index.js'
 
 export const untypedImagingStudySchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ImagingStudy').readonly(),
     identifier: identifierSchema.array().optional(),
-    status: z.enum([
-      'registered',
-      'available',
-      'cancelled',
-      'entered-in-error',
-      'unknown',
-    ]),
+    status: imagingStudyStatusSchema,
     _status: elementSchema.optional(),
     modality: codingSchema.array().optional(),
     subject: referenceSchema,

@@ -23,27 +23,12 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
-
-const allergyIntoleranceCategorySchema = z.enum([
-  'food',
-  'medication',
-  'environment',
-  'biologic',
-])
-
-const allergyIntoleranceCriticalitySchema = z.enum([
-  'low',
-  'high',
-  'unable-to-assess',
-])
-
-const allergyIntoleranceReactionSeveritySchema = z.enum([
-  'mild',
-  'moderate',
-  'severe',
-])
-
-const allergyIntoleranceTypeSchema = z.enum(['allergy', 'intolerance'])
+import {
+  allergyIntoleranceCategorySchema,
+  allergyIntoleranceCriticalitySchema,
+  allergyIntoleranceReactionSeveritySchema,
+  allergyIntoleranceTypeSchema,
+} from '../valueSets/index.js'
 
 export const untypedAllergyIntoleranceSchema = z.lazy(() =>
   domainResourceSchema.extend({

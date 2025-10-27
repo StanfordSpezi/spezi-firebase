@@ -22,15 +22,14 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+import { specimenStatusSchema } from '../valueSets/index.js'
 
 export const untypedSpecimenSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Specimen').readonly(),
     identifier: identifierSchema.array().optional(),
     accessionIdentifier: identifierSchema.optional(),
-    status: z
-      .enum(['available', 'unavailable', 'unsatisfactory', 'entered-in-error'])
-      .optional(),
+    status: specimenStatusSchema.optional(),
     _status: elementSchema.optional(),
     type: codeableConceptSchema.optional(),
     subject: referenceSchema.optional(),

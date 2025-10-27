@@ -18,6 +18,7 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+import { appointmentResponseParticipantStatusSchema } from '../valueSets/index.js'
 
 export const untypedAppointmentResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -30,12 +31,7 @@ export const untypedAppointmentResponseSchema = z.lazy(() =>
     _end: elementSchema.optional(),
     participantType: codeableConceptSchema.array().optional(),
     actor: referenceSchema.optional(),
-    participantStatus: z.enum([
-      'accepted',
-      'declined',
-      'tentative',
-      'needs-action',
-    ]),
+    participantStatus: appointmentResponseParticipantStatusSchema,
     _participantStatus: elementSchema.optional(),
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
