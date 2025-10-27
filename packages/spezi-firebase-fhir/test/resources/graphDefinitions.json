@@ -1,0 +1,42 @@
+{
+  "0": {
+    "resourceType": "GraphDefinition",
+    "id": "example",
+    "name": "ExampleGraph",
+    "status": "active",
+    "start": "Patient"
+  },
+  "1": {
+    "resourceType": "GraphDefinition",
+    "id": "patient-encounters",
+    "name": "PatientEncounters",
+    "status": "draft",
+    "start": "Patient",
+    "link": [
+      {
+        "target": [
+          {
+            "type": "Encounter"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "GraphDefinition",
+    "id": "complex-graph",
+    "name": "ComplexGraph",
+    "status": "active",
+    "start": "Observation",
+    "description": "Complex graph definition"
+  },
+  "3": {
+    "resourceType": "GraphDefinition",
+    "id": "patient-graph",
+    "name": "PatientGraph",
+    "status": "active",
+    "start": "Patient",
+    "date": "2023-01-01T00:00:00Z",
+    "publisher": "Example Organization"
+  }
+}

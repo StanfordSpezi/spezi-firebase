@@ -1,0 +1,48 @@
+{
+  "0": {
+    "resourceType": "TestReport",
+    "id": "example",
+    "status": "completed",
+    "testScript": {
+      "reference": "TestScript/example"
+    },
+    "result": "pass"
+  },
+  "1": {
+    "resourceType": "TestReport",
+    "id": "failed-test",
+    "status": "completed",
+    "testScript": {
+      "reference": "TestScript/patient-test"
+    },
+    "result": "fail",
+    "score": 75.5,
+    "tester": "John Doe"
+  },
+  "2": {
+    "resourceType": "TestReport",
+    "id": "in-progress",
+    "status": "in-progress",
+    "testScript": {
+      "reference": "TestScript/complex-test"
+    },
+    "result": "pending",
+    "issued": "2023-06-15T10:30:00Z"
+  },
+  "3": {
+    "resourceType": "TestReport",
+    "id": "detailed-report",
+    "status": "completed",
+    "testScript": {
+      "reference": "TestScript/detailed"
+    },
+    "result": "pass",
+    "participant": [
+      {
+        "type": "test-engine",
+        "uri": "http://example.org/test-engine",
+        "display": "Test Engine 1.0"
+      }
+    ]
+  }
+}

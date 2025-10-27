@@ -1,0 +1,49 @@
+{
+  "0": {
+    "resourceType": "ImplementationGuide",
+    "id": "example",
+    "url": "http://example.org/fhir/ImplementationGuide/example",
+    "name": "ExampleIG",
+    "status": "active",
+    "packageId": "example.fhir.ig",
+    "fhirVersion": ["4.3.0"]
+  },
+  "1": {
+    "resourceType": "ImplementationGuide",
+    "id": "patient-ig",
+    "url": "http://example.org/fhir/ImplementationGuide/patient",
+    "name": "PatientIG",
+    "status": "draft",
+    "packageId": "example.patient.ig",
+    "fhirVersion": ["4.3.0"],
+    "description": "Implementation guide for patient resources"
+  },
+  "2": {
+    "resourceType": "ImplementationGuide",
+    "id": "with-deps",
+    "url": "http://example.org/fhir/ImplementationGuide/deps",
+    "name": "IGWithDependencies",
+    "status": "active",
+    "packageId": "example.deps.ig",
+    "fhirVersion": ["4.3.0"],
+    "dependsOn": [
+      {
+        "uri": "http://hl7.org/fhir/us/core/ImplementationGuide/hl7.fhir.us.core",
+        "packageId": "hl7.fhir.us.core",
+        "version": "5.0.0"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ImplementationGuide",
+    "id": "complete-ig",
+    "url": "http://example.org/fhir/ImplementationGuide/complete",
+    "name": "CompleteIG",
+    "status": "active",
+    "packageId": "example.complete.ig",
+    "fhirVersion": ["4.3.0"],
+    "date": "2023-01-01T00:00:00Z",
+    "publisher": "Example Organization",
+    "license": "MIT"
+  }
+}

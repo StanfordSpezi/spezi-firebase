@@ -1,0 +1,40 @@
+{
+  "0": {
+    "resourceType": "ExampleScenario",
+    "id": "example",
+    "status": "active"
+  },
+  "1": {
+    "resourceType": "ExampleScenario",
+    "id": "patient-workflow",
+    "name": "PatientWorkflow",
+    "status": "draft",
+    "actor": [
+      {
+        "actorId": "patient",
+        "type": "person",
+        "name": "Patient"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ExampleScenario",
+    "id": "with-instances",
+    "status": "active",
+    "instance": [
+      {
+        "resourceId": "patient1",
+        "resourceType": "Patient",
+        "name": "Patient Instance"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ExampleScenario",
+    "id": "complete-scenario",
+    "status": "active",
+    "date": "2023-01-01T00:00:00Z",
+    "publisher": "Example Org",
+    "purpose": "Example scenario for testing"
+  }
+}

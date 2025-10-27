@@ -1,0 +1,62 @@
+{
+  "0": {
+    "resourceType": "MessageDefinition",
+    "id": "example",
+    "status": "active",
+    "date": "2023-01-01T00:00:00Z",
+    "eventCoding": {
+      "system": "http://example.org/fhir/message-events",
+      "code": "admin-notify"
+    }
+  },
+  "1": {
+    "resourceType": "MessageDefinition",
+    "id": "patient-link",
+    "status": "draft",
+    "date": "2023-06-15T10:30:00Z",
+    "eventCoding": {
+      "system": "http://hl7.org/fhir/message-events",
+      "code": "patient-link"
+    },
+    "category": "notification",
+    "focus": [
+      {
+        "code": "Patient",
+        "min": 2,
+        "max": "2"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "MessageDefinition",
+    "id": "observation-provide",
+    "status": "active",
+    "date": "2023-03-20T14:00:00Z",
+    "eventUri": "http://example.org/observation-provide",
+    "category": "consequence",
+    "responseRequired": "always"
+  },
+  "3": {
+    "resourceType": "MessageDefinition",
+    "id": "complex-message",
+    "status": "active",
+    "date": "2023-09-10T08:15:00Z",
+    "eventCoding": {
+      "system": "http://example.org/fhir/message-events",
+      "code": "complex"
+    },
+    "focus": [
+      {
+        "code": "Observation",
+        "min": 1,
+        "max": "*"
+      }
+    ],
+    "allowedResponse": [
+      {
+        "message": "http://example.org/fhir/MessageDefinition/response",
+        "situation": "Response to complex message"
+      }
+    ]
+  }
+}

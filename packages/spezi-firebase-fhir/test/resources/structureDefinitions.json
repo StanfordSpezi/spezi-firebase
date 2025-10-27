@@ -1,0 +1,46 @@
+{
+  "0": {
+    "resourceType": "StructureDefinition",
+    "id": "example",
+    "url": "http://example.org/fhir/StructureDefinition/example",
+    "name": "ExampleStructure",
+    "status": "active",
+    "kind": "resource",
+    "abstract": false,
+    "type": "http://hl7.org/fhir/StructureDefinition/Patient",
+    "fhirVersion": ["4.3.0"]
+  },
+  "1": {
+    "resourceType": "StructureDefinition",
+    "id": "patient-extension",
+    "url": "http://example.org/fhir/StructureDefinition/patient-ext",
+    "name": "PatientExtension",
+    "status": "draft",
+    "kind": "complex-type",
+    "abstract": false,
+    "type": "http://hl7.org/fhir/StructureDefinition/Extension"
+  },
+  "2": {
+    "resourceType": "StructureDefinition",
+    "id": "custom-resource",
+    "url": "http://example.org/fhir/StructureDefinition/custom",
+    "name": "CustomResource",
+    "status": "active",
+    "kind": "resource",
+    "abstract": false,
+    "type": "http://example.org/CustomResource",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/DomainResource",
+    "derivation": "specialization"
+  },
+  "3": {
+    "resourceType": "StructureDefinition",
+    "id": "logical-model",
+    "url": "http://example.org/fhir/StructureDefinition/logical",
+    "name": "LogicalModel",
+    "status": "active",
+    "kind": "logical",
+    "abstract": true,
+    "type": "http://example.org/LogicalModel",
+    "date": "2023-01-01T00:00:00Z"
+  }
+}

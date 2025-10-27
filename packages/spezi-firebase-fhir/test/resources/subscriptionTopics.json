@@ -1,0 +1,60 @@
+{
+  "0": {
+    "resourceType": "SubscriptionTopic",
+    "id": "example",
+    "url": "http://example.org/fhir/SubscriptionTopic/example",
+    "status": "active"
+  },
+  "1": {
+    "resourceType": "SubscriptionTopic",
+    "id": "admission",
+    "url": "http://example.org/fhir/SubscriptionTopic/admission",
+    "status": "draft",
+    "description": "Topic for patient admission events",
+    "resourceTrigger": [
+      {
+        "resource": "http://hl7.org/fhir/StructureDefinition/Encounter",
+        "supportedInteraction": ["create", "update"]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "SubscriptionTopic",
+    "id": "observation-create",
+    "url": "http://example.org/fhir/SubscriptionTopic/observation-create",
+    "status": "active",
+    "resourceTrigger": [
+      {
+        "resource": "http://hl7.org/fhir/StructureDefinition/Observation",
+        "supportedInteraction": ["create"]
+      }
+    ],
+    "canFilterBy": [
+      {
+        "filterParameter": "code",
+        "resource": "http://hl7.org/fhir/StructureDefinition/Observation"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "SubscriptionTopic",
+    "id": "complex-topic",
+    "url": "http://example.org/fhir/SubscriptionTopic/complex",
+    "status": "active",
+    "date": "2023-01-01T00:00:00Z",
+    "publisher": "Example Organization",
+    "eventTrigger": [
+      {
+        "event": {
+          "coding": [
+            {
+              "system": "http://example.org/events",
+              "code": "custom-event"
+            }
+          ]
+        },
+        "resource": "http://hl7.org/fhir/StructureDefinition/Patient"
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "0": {
+    "resourceType": "TestScript",
+    "id": "example",
+    "url": "http://example.org/fhir/TestScript/example",
+    "name": "ExampleTestScript",
+    "status": "active"
+  },
+  "1": {
+    "resourceType": "TestScript",
+    "id": "patient-test",
+    "url": "http://hl7.org/fhir/TestScript/patient-test",
+    "name": "PatientTestScript",
+    "status": "draft",
+    "description": "Tests patient resource operations"
+  },
+  "2": {
+    "resourceType": "TestScript",
+    "id": "with-metadata",
+    "url": "http://example.org/fhir/TestScript/metadata",
+    "name": "MetadataTestScript",
+    "status": "active",
+    "metadata": {
+      "capability": [
+        {
+          "required": true,
+          "validated": true,
+          "capabilities": "http://hl7.org/fhir/CapabilityStatement/base"
+        }
+      ]
+    }
+  },
+  "3": {
+    "resourceType": "TestScript",
+    "id": "complex",
+    "url": "http://example.org/fhir/TestScript/complex",
+    "name": "ComplexTestScript",
+    "status": "active",
+    "date": "2023-01-01T00:00:00Z",
+    "publisher": "Example Org",
+    "variable": [
+      {
+        "name": "patientId",
+        "defaultValue": "123",
+        "hint": "The patient ID to test"
+      }
+    ]
+  }
+}

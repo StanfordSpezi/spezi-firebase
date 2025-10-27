@@ -1,0 +1,28 @@
+//
+// This source file is part of the Stanford Biodesign Digital Health Spezi Firebase Remote Notifications open-source project
+//
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
+import fs from 'fs'
+import { jsonStringifyDeterministically } from './testHelpers.js'
+import { FhirTestReport } from '../../src/index.js'
+
+describe('TestReport Resource', () => {
+  it('should validate FHIR test reports from testReports.json', () => {
+    const data = fs.readFileSync(
+      'test/resources/testReports.json',
+      'utf-8',
+    )
+    const decodedJson = JSON.parse(data)
+
+    Object.values(decodedJson).forEach((jsonValue: unknown) => {
+      const fhirResource = FhirTestReport.parse(jsonValue).value
+      expect(jsonStringifyDeterministically(jsonValue)).toBe(
+        jsonStringifyDeterministically(fhirResource),
+      )
+    })
+  })
+})

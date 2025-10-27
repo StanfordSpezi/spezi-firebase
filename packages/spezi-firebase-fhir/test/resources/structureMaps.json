@@ -1,0 +1,132 @@
+{
+  "0": {
+    "resourceType": "StructureMap",
+    "id": "example",
+    "url": "http://example.org/fhir/StructureMap/example",
+    "name": "ExampleMap",
+    "status": "active",
+    "group": [
+      {
+        "name": "main",
+        "typeMode": "none",
+        "input": [
+          {
+            "name": "source",
+            "mode": "source"
+          }
+        ],
+        "rule": [
+          {
+            "name": "rule1",
+            "source": [
+              {
+                "context": "source"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "StructureMap",
+    "id": "patient-transform",
+    "url": "http://example.org/fhir/StructureMap/patient",
+    "name": "PatientTransform",
+    "status": "draft",
+    "group": [
+      {
+        "name": "transform",
+        "typeMode": "none",
+        "input": [
+          {
+            "name": "src",
+            "mode": "source"
+          },
+          {
+            "name": "tgt",
+            "mode": "target"
+          }
+        ],
+        "rule": [
+          {
+            "name": "copy-id",
+            "source": [
+              {
+                "context": "src",
+                "element": "id",
+                "variable": "id"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "StructureMap",
+    "id": "with-structure",
+    "url": "http://example.org/fhir/StructureMap/structure",
+    "name": "StructureMapWithStructure",
+    "status": "active",
+    "structure": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/Patient",
+        "mode": "source"
+      }
+    ],
+    "group": [
+      {
+        "name": "main",
+        "typeMode": "none",
+        "input": [
+          {
+            "name": "source",
+            "mode": "source"
+          }
+        ],
+        "rule": [
+          {
+            "name": "rule1",
+            "source": [
+              {
+                "context": "source"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "StructureMap",
+    "id": "complete",
+    "url": "http://example.org/fhir/StructureMap/complete",
+    "name": "CompleteMap",
+    "status": "active",
+    "date": "2023-01-01T00:00:00Z",
+    "publisher": "Example Org",
+    "group": [
+      {
+        "name": "main",
+        "typeMode": "none",
+        "input": [
+          {
+            "name": "source",
+            "mode": "source"
+          }
+        ],
+        "rule": [
+          {
+            "name": "rule1",
+            "source": [
+              {
+                "context": "source"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "0": {
+    "resourceType": "SubscriptionStatus",
+    "id": "example",
+    "type": "handshake",
+    "subscription": {
+      "reference": "Subscription/example"
+    }
+  },
+  "1": {
+    "resourceType": "SubscriptionStatus",
+    "id": "active-status",
+    "status": "active",
+    "type": "event-notification",
+    "subscription": {
+      "reference": "Subscription/123"
+    },
+    "eventsSinceSubscriptionStart": 42
+  },
+  "2": {
+    "resourceType": "SubscriptionStatus",
+    "id": "heartbeat",
+    "type": "heartbeat",
+    "subscription": {
+      "reference": "Subscription/456"
+    },
+    "topic": "http://example.org/fhir/SubscriptionTopic/admission"
+  },
+  "3": {
+    "resourceType": "SubscriptionStatus",
+    "id": "error-status",
+    "status": "error",
+    "type": "event-notification",
+    "subscription": {
+      "reference": "Subscription/789"
+    },
+    "error": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/subscription-error",
+            "code": "no-response"
+          }
+        ]
+      }
+    ]
+  }
+}
