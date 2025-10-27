@@ -48,7 +48,7 @@ export const untypedOrganizationSchema = z.lazy(() =>
       .optional(),
     endpoint: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<Organization>
+)
 
 export const organizationSchema: ZodType<Organization> =
   untypedOrganizationSchema

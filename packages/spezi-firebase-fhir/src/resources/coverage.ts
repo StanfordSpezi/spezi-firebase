@@ -74,9 +74,9 @@ export const untypedCoverageSchema = z.lazy(() =>
     _subrogation: elementSchema.optional(),
     contract: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<Coverage>
+)
 
-export const coverageSchema: ZodType<Coverage> = untypedCoverageSchema
+export const coverageSchema= untypedCoverageSchema
 
 export class FhirCoverage extends FhirDomainResource<Coverage> {
   public static parse(value: unknown): FhirCoverage {

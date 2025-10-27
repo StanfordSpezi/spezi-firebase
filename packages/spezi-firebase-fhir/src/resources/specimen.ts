@@ -78,9 +78,9 @@ export const untypedSpecimenSchema = z.lazy(() =>
     condition: codeableConceptSchema.array().optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<Specimen>
+)
 
-export const specimenSchema: ZodType<Specimen> = untypedSpecimenSchema
+export const specimenSchema= untypedSpecimenSchema
 
 export class FhirSpecimen extends FhirDomainResource<Specimen> {
   // Static Functions

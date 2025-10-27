@@ -66,9 +66,9 @@ export const untypedGroupSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Group>
+)
 
-export const groupSchema: ZodType<Group> = untypedGroupSchema
+export const groupSchema= untypedGroupSchema
 
 export class FhirGroup extends FhirDomainResource<Group> {
   // Static Functions

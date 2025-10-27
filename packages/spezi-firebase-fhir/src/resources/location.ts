@@ -74,9 +74,9 @@ export const untypedLocationSchema = z.lazy(() =>
     _availabilityExceptions: elementSchema.optional(),
     endpoint: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<Location>
+)
 
-export const locationSchema: ZodType<Location> = untypedLocationSchema
+export const locationSchema= untypedLocationSchema
 
 export class FhirLocation extends FhirDomainResource<Location> {
   // Static Functions

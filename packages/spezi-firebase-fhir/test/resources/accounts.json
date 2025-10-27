@@ -1,0 +1,90 @@
+{
+  "0": {
+    "resourceType": "Account",
+    "id": "account-example-0",
+    "status": "active",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "PBILLACCT",
+          "display": "patient billing account"
+        }
+      ],
+      "text": "patient"
+    },
+    "name": "Patient Account",
+    "subject": [
+      {
+        "reference": "Patient/patient-1"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Account",
+    "id": "account-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/accounts",
+        "value": "ACC-001"
+      }
+    ],
+    "status": "active",
+    "name": "John Doe Account",
+    "subject": [
+      {
+        "reference": "Patient/patient-1"
+      }
+    ],
+    "servicePeriod": {
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    }
+  },
+  "2": {
+    "resourceType": "Account",
+    "id": "account-example-2",
+    "status": "on-hold",
+    "type": {
+      "text": "Insurance account"
+    },
+    "subject": [
+      {
+        "reference": "Patient/patient-1"
+      }
+    ],
+    "coverage": [
+      {
+        "coverage": {
+          "reference": "Coverage/coverage-1"
+        },
+        "priority": 1
+      }
+    ],
+    "description": "Account on hold pending insurance verification"
+  },
+  "3": {
+    "resourceType": "Account",
+    "id": "account-example-3",
+    "status": "active",
+    "subject": [
+      {
+        "reference": "Patient/patient-1"
+      }
+    ],
+    "guarantor": [
+      {
+        "party": {
+          "reference": "RelatedPerson/rel-1"
+        },
+        "onHold": false,
+        "period": {
+          "start": "2024-01-01"
+        }
+      }
+    ],
+    "owner": {
+      "reference": "Organization/org-1"
+    }
+  }
+}

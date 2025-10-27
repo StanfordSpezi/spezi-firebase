@@ -106,10 +106,10 @@ export const untypedEncounterSchema = z.lazy(
       statusHistory: encounterStatusHistorySchema.array().optional(),
       subject: referenceSchema.optional(),
       type: codeableConceptSchema.array().optional(),
-    }) satisfies ZodType<Encounter>,
+    }),
 )
 
-export const encounterSchema: ZodType<Encounter> = untypedEncounterSchema
+export const encounterSchema= untypedEncounterSchema
 
 export class FhirEncounter extends FhirDomainResource<Encounter> {
   // Static Functions

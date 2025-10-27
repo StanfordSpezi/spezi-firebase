@@ -118,9 +118,9 @@ export const untypedObservationSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Observation>
+)
 
-export const observationSchema: ZodType<Observation> = untypedObservationSchema
+export const observationSchema= untypedObservationSchema
 
 export class FhirObservation extends FhirDomainResource<Observation> {
   // Static Functions

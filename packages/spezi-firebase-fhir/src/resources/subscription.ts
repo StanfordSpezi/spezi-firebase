@@ -18,14 +18,14 @@ import {
   urlSchema,
 } from '../elements/index.js'
 import {
-  subscriptionStatusSchema,
+  subscriptionStatusCodeSchema,
   subscriptionChannelTypeSchema,
 } from '../valueSets/index.js'
 
 export const untypedSubscriptionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Subscription').readonly(),
-    status: subscriptionStatusSchema,
+    status: subscriptionStatusCodeSchema,
     _status: elementSchema.optional(),
     contact: contactPointSchema.array().optional(),
     end: instantSchema.optional(),
@@ -47,7 +47,7 @@ export const untypedSubscriptionSchema = z.lazy(() =>
       _header: elementSchema.array().optional(),
     }),
   }),
-) satisfies ZodType<Subscription>
+)
 
 export const subscriptionSchema: ZodType<Subscription> =
   untypedSubscriptionSchema

@@ -52,7 +52,7 @@ export const untypedRelatedPersonSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<RelatedPerson>
+)
 
 export const relatedPersonSchema: ZodType<RelatedPerson> =
   untypedRelatedPersonSchema

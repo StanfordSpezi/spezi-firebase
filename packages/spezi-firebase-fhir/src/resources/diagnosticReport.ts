@@ -57,7 +57,7 @@ export const untypedDiagnosticReportSchema = z.lazy(() =>
     _status: elementSchema.optional(),
     subject: referenceSchema.optional(),
   }),
-) satisfies ZodType<DiagnosticReport>
+)
 
 export const diagnosticReportSchema: ZodType<DiagnosticReport> =
   untypedDiagnosticReportSchema

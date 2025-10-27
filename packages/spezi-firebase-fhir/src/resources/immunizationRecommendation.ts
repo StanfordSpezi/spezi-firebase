@@ -61,7 +61,7 @@ export const untypedImmunizationRecommendationSchema = z.lazy(() =>
     authority: referenceSchema.optional(),
     recommendation: immunizationRecommendationRecommendationSchema.array(),
   }),
-) satisfies ZodType<ImmunizationRecommendation>
+)
 
 export const immunizationRecommendationSchema: ZodType<ImmunizationRecommendation> =
   untypedImmunizationRecommendationSchema

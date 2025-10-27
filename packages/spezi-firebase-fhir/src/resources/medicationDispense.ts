@@ -71,7 +71,7 @@ export const untypedMedicationDispenseSchema = z.lazy(() =>
     detectedIssue: referenceSchema.array().optional(),
     eventHistory: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<MedicationDispense>
+)
 
 export const medicationDispenseSchema: ZodType<MedicationDispense> =
   untypedMedicationDispenseSchema

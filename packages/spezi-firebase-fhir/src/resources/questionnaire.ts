@@ -39,7 +39,7 @@ import {
   questionnaireStatusSchema,
 } from '../valueSets/index.js'
 
-const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
+const questionnaireItemSchema= z.lazy(() =>
   backboneElementSchema.extend({
     linkId: stringSchema,
     _linkId: elementSchema.optional(),
@@ -179,7 +179,7 @@ export const untypedQuestionnaireSchema = z.lazy(() =>
     code: codingSchema.array().optional(),
     item: questionnaireItemSchema.array().optional(),
   }),
-) satisfies ZodType<Questionnaire>
+)
 
 export const questionnaireSchema: ZodType<Questionnaire> =
   untypedQuestionnaireSchema

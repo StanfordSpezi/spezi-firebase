@@ -51,9 +51,9 @@ export const untypedSubstanceSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Substance>
+)
 
-export const substanceSchema: ZodType<Substance> = untypedSubstanceSchema
+export const substanceSchema= untypedSubstanceSchema
 
 export class FhirSubstance extends FhirDomainResource<Substance> {
   // Static Functions

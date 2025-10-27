@@ -87,9 +87,9 @@ export const untypedTaskSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Task>
+)
 
-export const taskSchema: ZodType<Task> = untypedTaskSchema
+export const taskSchema= untypedTaskSchema
 
 export class FhirTask extends FhirDomainResource<Task> {
   // Static Functions

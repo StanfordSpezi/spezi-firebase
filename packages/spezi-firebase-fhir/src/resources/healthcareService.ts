@@ -85,7 +85,7 @@ export const untypedHealthcareServiceSchema = z.lazy(() =>
     _availabilityExceptions: elementSchema.optional(),
     endpoint: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<HealthcareService>
+)
 
 export const healthcareServiceSchema: ZodType<HealthcareService> =
   untypedHealthcareServiceSchema

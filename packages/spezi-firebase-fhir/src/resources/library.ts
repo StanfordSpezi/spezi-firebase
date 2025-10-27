@@ -76,9 +76,9 @@ export const untypedLibrarySchema = z.lazy(() =>
     dataRequirement: dataRequirementSchema.array().optional(),
     content: attachmentSchema.array().optional(),
   }),
-) satisfies ZodType<Library>
+)
 
-export const librarySchema: ZodType<Library> = untypedLibrarySchema
+export const librarySchema= untypedLibrarySchema
 
 export class FhirLibrary extends FhirDomainResource<Library> {
   // Static Functions

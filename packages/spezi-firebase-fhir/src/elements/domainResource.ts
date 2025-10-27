@@ -7,7 +7,6 @@
 //
 
 import { type DomainResource } from 'fhir/r4b.js'
-import { type ZodType } from 'zod'
 import { narrativeSchema } from './dataTypes/narrative.js'
 import { extensionSchema } from './extension.js'
 import { resourceSchema } from './resource.js'
@@ -20,4 +19,4 @@ export const domainResourceSchema = resourceSchema.extend({
   },
   extension: extensionSchema.array().optional(),
   modifierExtension: extensionSchema.array().optional(),
-}) satisfies ZodType<DomainResource>
+})

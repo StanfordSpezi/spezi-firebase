@@ -33,9 +33,9 @@ export const untypedScheduleSchema = z.lazy(() =>
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
   }),
-) satisfies ZodType<Schedule>
+)
 
-export const scheduleSchema: ZodType<Schedule> = untypedScheduleSchema
+export const scheduleSchema= untypedScheduleSchema
 
 export class FhirSchedule extends FhirDomainResource<Schedule> {
   // Static Functions

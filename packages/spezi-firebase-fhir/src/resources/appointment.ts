@@ -73,9 +73,9 @@ export const untypedAppointmentSchema = z.lazy(() =>
       .min(1),
     requestPeriod: periodSchema.array().optional(),
   }),
-) satisfies ZodType<Appointment>
+)
 
-export const appointmentSchema: ZodType<Appointment> = untypedAppointmentSchema
+export const appointmentSchema= untypedAppointmentSchema
 
 export class FhirAppointment extends FhirDomainResource<Appointment> {
   // Static Functions

@@ -91,9 +91,9 @@ export const untypedPatientSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Patient>
+)
 
-export const patientSchema: ZodType<Patient> = untypedPatientSchema
+export const patientSchema= untypedPatientSchema
 
 export class FhirPatient extends FhirDomainResource<Patient> {
   // Static Functions

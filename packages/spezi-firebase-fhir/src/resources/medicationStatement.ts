@@ -48,7 +48,7 @@ export const untypedMedicationStatementSchema = z.lazy(() =>
     note: annotationSchema.array().optional(),
     dosage: dosageSchema.array().optional(),
   }),
-) satisfies ZodType<MedicationStatement>
+)
 
 export const medicationStatementSchema: ZodType<MedicationStatement> =
   untypedMedicationStatementSchema

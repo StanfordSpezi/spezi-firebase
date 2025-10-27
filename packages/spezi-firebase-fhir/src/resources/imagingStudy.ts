@@ -87,7 +87,7 @@ export const untypedImagingStudySchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<ImagingStudy>
+)
 
 export const imagingStudySchema: ZodType<ImagingStudy> =
   untypedImagingStudySchema

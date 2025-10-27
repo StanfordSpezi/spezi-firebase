@@ -49,7 +49,7 @@ export const untypedEpisodeOfCareSchema = z.lazy(() =>
     team: referenceSchema.array().optional(),
     account: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<EpisodeOfCare>
+)
 
 export const episodeOfCareSchema: ZodType<EpisodeOfCare> =
   untypedEpisodeOfCareSchema

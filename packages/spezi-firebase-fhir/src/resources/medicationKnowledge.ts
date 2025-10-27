@@ -47,14 +47,14 @@ const relatedMedicationKnowledgeSchema: ZodType<MedicationKnowledgeRelatedMedica
     }),
   )
 
-const monographSchema: ZodType<MedicationKnowledgeMonograph> = z.lazy(() =>
+const monographSchema= z.lazy(() =>
   backboneElementSchema.extend({
     source: referenceSchema.optional(),
     type: codeableConceptSchema.optional(),
   }),
 )
 
-const ingredientSchema: ZodType<MedicationKnowledgeIngredient> = z.lazy(() =>
+const ingredientSchema= z.lazy(() =>
   backboneElementSchema.extend({
     itemCodeableConcept: codeableConceptSchema.optional(),
     itemReference: referenceSchema.optional(),
@@ -64,7 +64,7 @@ const ingredientSchema: ZodType<MedicationKnowledgeIngredient> = z.lazy(() =>
   }),
 )
 
-const costSchema: ZodType<MedicationKnowledgeCost> = z.lazy(() =>
+const costSchema= z.lazy(() =>
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     source: stringSchema.optional(),
@@ -113,7 +113,7 @@ const medicineClassificationSchema: ZodType<MedicationKnowledgeMedicineClassific
     }),
   )
 
-const packagingSchema: ZodType<MedicationKnowledgePackaging> = z.lazy(() =>
+const packagingSchema= z.lazy(() =>
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     quantity: quantitySchema,
@@ -133,7 +133,7 @@ const drugCharacteristicSchema: ZodType<MedicationKnowledgeDrugCharacteristic> =
     }),
   )
 
-const regulatorySchema: ZodType<MedicationKnowledgeRegulatory> = z.lazy(() =>
+const regulatorySchema= z.lazy(() =>
   backboneElementSchema.extend({
     regulatoryAuthority: referenceSchema,
     substitution: backboneElementSchema
@@ -160,7 +160,7 @@ const regulatorySchema: ZodType<MedicationKnowledgeRegulatory> = z.lazy(() =>
   }),
 )
 
-const kineticsSchema: ZodType<MedicationKnowledgeKinetics> = z.lazy(() =>
+const kineticsSchema= z.lazy(() =>
   backboneElementSchema.extend({
     areaUnderCurve: quantitySchema.array().optional(),
     lethalDose50: quantitySchema.array().optional(),
@@ -198,7 +198,7 @@ export const untypedMedicationKnowledgeSchema = z.lazy(() =>
     regulatory: regulatorySchema.array().optional(),
     kinetics: kineticsSchema.array().optional(),
   }),
-) satisfies ZodType<MedicationKnowledge>
+)
 
 export const medicationKnowledgeSchema: ZodType<MedicationKnowledge> =
   untypedMedicationKnowledgeSchema

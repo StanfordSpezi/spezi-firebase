@@ -67,7 +67,7 @@ export const untypedMessageHeaderSchema = z.lazy(() =>
     focus: referenceSchema.array().optional(),
     definition: canonicalSchema.optional(),
   }),
-) satisfies ZodType<MessageHeader>
+)
 
 export const messageHeaderSchema: ZodType<MessageHeader> =
   untypedMessageHeaderSchema

@@ -82,7 +82,7 @@ export const untypedServiceRequestSchema = z.lazy(() =>
     subject: referenceSchema,
     supportingInfo: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<ServiceRequest>
+)
 
 export const serviceRequestSchema: ZodType<ServiceRequest> =
   untypedServiceRequestSchema

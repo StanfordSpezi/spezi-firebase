@@ -43,9 +43,9 @@ export const untypedEndpointSchema = z.lazy(() =>
     header: stringSchema.array().optional(),
     _header: elementSchema.array().optional(),
   }),
-) satisfies ZodType<Endpoint>
+)
 
-export const endpointSchema: ZodType<Endpoint> = untypedEndpointSchema
+export const endpointSchema= untypedEndpointSchema
 
 export class FhirEndpoint extends FhirDomainResource<Endpoint> {
   // Static Functions

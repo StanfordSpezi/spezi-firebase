@@ -50,9 +50,9 @@ export const untypedPersonSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Person>
+)
 
-export const personSchema: ZodType<Person> = untypedPersonSchema
+export const personSchema= untypedPersonSchema
 
 export class FhirPerson extends FhirDomainResource<Person> {
   // Static Functions

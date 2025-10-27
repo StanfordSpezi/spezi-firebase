@@ -108,7 +108,7 @@ export const untypedImmunizationSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Immunization>
+)
 
 export const immunizationSchema: ZodType<Immunization> =
   untypedImmunizationSchema

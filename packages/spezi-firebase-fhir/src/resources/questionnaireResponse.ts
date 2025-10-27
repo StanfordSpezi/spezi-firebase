@@ -93,7 +93,7 @@ export const untypedQuestionnaireResponseSchema = z.lazy(() =>
     source: referenceSchema.optional(),
     item: questionnaireResponseItemSchema.array().optional(),
   }),
-) satisfies ZodType<QuestionnaireResponse>
+)
 
 export const questionnaireResponseSchema: ZodType<QuestionnaireResponse> =
   untypedQuestionnaireResponseSchema

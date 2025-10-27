@@ -53,9 +53,9 @@ export const untypedMedicationSchema = z.lazy(() =>
       })
       .optional(),
   }),
-) satisfies ZodType<Medication>
+)
 
-export const medicationSchema: ZodType<Medication> = untypedMedicationSchema
+export const medicationSchema= untypedMedicationSchema
 
 export class FhirMedication extends FhirDomainResource<Medication> {
   // Static Functions

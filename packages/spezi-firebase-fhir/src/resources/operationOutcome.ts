@@ -37,7 +37,7 @@ export const untypedOperationOutcomeSchema = z.lazy(() =>
       })
       .array(),
   }),
-) satisfies ZodType<OperationOutcome>
+)
 
 export const operationOutcomeSchema: ZodType<OperationOutcome> =
   untypedOperationOutcomeSchema

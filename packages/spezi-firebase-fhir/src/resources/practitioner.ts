@@ -51,7 +51,7 @@ export const untypedPractitionerSchema = z.lazy(() =>
       .optional(),
     communication: codeableConceptSchema.array().optional(),
   }),
-) satisfies ZodType<Practitioner>
+)
 
 export const practitionerSchema: ZodType<Practitioner> =
   untypedPractitionerSchema

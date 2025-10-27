@@ -54,9 +54,9 @@ export const untypedListSchema = z.lazy(() =>
       .optional(),
     emptyReason: codeableConceptSchema.optional(),
   }),
-) satisfies ZodType<List>
+)
 
-export const listSchema: ZodType<List> = untypedListSchema
+export const listSchema= untypedListSchema
 
 export class FhirList extends FhirDomainResource<List> {
   // Static Functions

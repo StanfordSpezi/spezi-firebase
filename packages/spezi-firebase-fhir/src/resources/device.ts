@@ -112,9 +112,9 @@ export const untypedDeviceSchema = z.lazy(() =>
     _url: elementSchema.optional(),
     version: deviceVersionSchema.array().optional(),
   }),
-) satisfies ZodType<Device>
+)
 
-export const deviceSchema: ZodType<Device> = untypedDeviceSchema
+export const deviceSchema= untypedDeviceSchema
 
 export class FhirDevice extends FhirDomainResource<Device> {
   // Static Functions

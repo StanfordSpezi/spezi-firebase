@@ -80,9 +80,9 @@ export const untypedProcedureSchema = z.lazy(() =>
     usedReference: referenceSchema.array().optional(),
     usedCode: codeableConceptSchema.array().optional(),
   }),
-) satisfies ZodType<Procedure>
+)
 
-export const procedureSchema: ZodType<Procedure> = untypedProcedureSchema
+export const procedureSchema= untypedProcedureSchema
 
 export class FhirProcedure extends FhirDomainResource<Procedure> {
   // Static Functions

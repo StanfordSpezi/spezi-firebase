@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+export * from './account.js'
 export * from './administrativeGender.js'
 export * from './allergyIntolerance.js'
 export * from './appointment.js'

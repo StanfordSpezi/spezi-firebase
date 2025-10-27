@@ -36,7 +36,7 @@ export const untypedAppointmentResponseSchema = z.lazy(() =>
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
   }),
-) satisfies ZodType<AppointmentResponse>
+)
 
 export const appointmentResponseSchema: ZodType<AppointmentResponse> =
   untypedAppointmentResponseSchema

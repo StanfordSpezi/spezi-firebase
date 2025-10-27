@@ -40,9 +40,9 @@ export const untypedSlotSchema = z.lazy(() =>
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
   }),
-) satisfies ZodType<Slot>
+)
 
-export const slotSchema: ZodType<Slot> = untypedSlotSchema
+export const slotSchema= untypedSlotSchema
 
 export class FhirSlot extends FhirDomainResource<Slot> {
   // Static Functions

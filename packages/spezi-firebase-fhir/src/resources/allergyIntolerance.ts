@@ -72,7 +72,7 @@ export const untypedAllergyIntoleranceSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<AllergyIntolerance>
+)
 
 export const allergyIntoleranceSchema: ZodType<AllergyIntolerance> =
   untypedAllergyIntoleranceSchema

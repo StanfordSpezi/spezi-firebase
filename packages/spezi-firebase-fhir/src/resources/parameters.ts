@@ -17,7 +17,7 @@ import {
   stringSchema,
 } from '../elements/index.js'
 
-const parametersParameterSchema: ZodType<ParametersParameter> = z.lazy(() =>
+const parametersParameterSchema: any = z.lazy(() =>
   anyValueSchema.extend({
     name: stringSchema,
     _name: elementSchema.optional(),
@@ -29,14 +29,14 @@ const parametersParameterSchema: ZodType<ParametersParameter> = z.lazy(() =>
   }),
 )
 
-export const untypedParametersSchema = z.lazy(() =>
+export const untypedParametersSchema: any = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Parameters').readonly(),
     parameter: parametersParameterSchema.array().optional(),
   }),
-) satisfies ZodType<Parameters>
+)
 
-export const parametersSchema: ZodType<Parameters> = untypedParametersSchema
+export const parametersSchema= untypedParametersSchema
 
 export class FhirParameters extends FhirDomainResource<Parameters> {
   // Static Functions

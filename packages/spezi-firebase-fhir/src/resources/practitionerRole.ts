@@ -61,7 +61,7 @@ export const untypedPractitionerRoleSchema = z.lazy(() =>
     _availabilityExceptions: elementSchema.optional(),
     endpoint: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<PractitionerRole>
+)
 
 export const practitionerRoleSchema: ZodType<PractitionerRole> =
   untypedPractitionerRoleSchema

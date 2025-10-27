@@ -33,7 +33,7 @@ import {
   listModeSchema,
 } from '../valueSets/index.js'
 
-const attesterSchema: ZodType<CompositionAttester> = z.lazy(() =>
+const attesterSchema= z.lazy(() =>
   backboneElementSchema.extend({
     mode: compositionAttestationModeSchema,
     time: stringSchema.optional(),
@@ -42,7 +42,7 @@ const attesterSchema: ZodType<CompositionAttester> = z.lazy(() =>
   }),
 )
 
-const relatesToSchema: ZodType<CompositionRelatesTo> = z.lazy(() =>
+const relatesToSchema= z.lazy(() =>
   backboneElementSchema.extend({
     code: compositionRelatestoCodeSchema,
     targetIdentifier: identifierSchema.optional(),
@@ -50,7 +50,7 @@ const relatesToSchema: ZodType<CompositionRelatesTo> = z.lazy(() =>
   }),
 )
 
-const eventSchema: ZodType<CompositionEvent> = z.lazy(() =>
+const eventSchema= z.lazy(() =>
   backboneElementSchema.extend({
     code: codeableConceptSchema.array().optional(),
     period: periodSchema.optional(),
@@ -58,7 +58,7 @@ const eventSchema: ZodType<CompositionEvent> = z.lazy(() =>
   }),
 )
 
-const sectionSchema: ZodType<CompositionSection> = z.lazy(() =>
+const sectionSchema= z.lazy(() =>
   backboneElementSchema.extend({
     title: stringSchema.optional(),
     _title: elementSchema.optional(),
@@ -97,9 +97,9 @@ export const untypedCompositionSchema = z.lazy(() =>
     event: eventSchema.array().optional(),
     section: sectionSchema.array().optional(),
   }),
-) satisfies ZodType<Composition>
+)
 
-export const compositionSchema: ZodType<Composition> = untypedCompositionSchema
+export const compositionSchema= untypedCompositionSchema
 
 export class FhirComposition extends FhirDomainResource<Composition> {
   // Static Functions

@@ -71,9 +71,9 @@ export const untypedConditionSchema = z.lazy(() =>
       .optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<Condition>
+)
 
-export const conditionSchema: ZodType<Condition> = untypedConditionSchema
+export const conditionSchema= untypedConditionSchema
 
 export class FhirCondition extends FhirDomainResource<Condition> {
   // Static Functions
