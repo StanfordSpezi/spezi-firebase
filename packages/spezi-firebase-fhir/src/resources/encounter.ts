@@ -21,18 +21,9 @@ import {
   quantitySchema,
   referenceSchema,
 } from '../elements/index.js'
-
-const encounterStatusSchema = z.enum([
-  'planned',
-  'arrived',
-  'triaged',
-  'in-progress',
-  'onleave',
-  'finished',
-  'cancelled',
-  'entered-in-error',
-  'unknown',
-])
+import {
+  encounterStatusSchema, encounterLocationStatusSchema,
+} from '../valueSets/index.js'
 
 const encounterClassHistorySchema = z.lazy(() =>
   backboneElementSchema.extend({

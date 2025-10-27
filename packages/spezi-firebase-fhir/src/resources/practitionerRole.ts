@@ -21,6 +21,7 @@ import {
   contactPointSchema,
   stringSchema,
 } from '../elements/index.js'
+import { daysOfWeekSchema } from '../valueSets/index.js'
 
 export const untypedPractitionerRoleSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -38,10 +39,7 @@ export const untypedPractitionerRoleSchema = z.lazy(() =>
     telecom: contactPointSchema.array().optional(),
     availableTime: backboneElementSchema
       .extend({
-        daysOfWeek: z
-          .enum(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'])
-          .array()
-          .optional(),
+        daysOfWeek: daysOfWeekSchema.array().optional(),
         allDay: booleanSchema.optional(),
         _allDay: elementSchema.optional(),
         availableStartTime: stringSchema.optional(),

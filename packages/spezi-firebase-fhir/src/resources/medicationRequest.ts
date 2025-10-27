@@ -26,33 +26,11 @@ import {
   unsignedIntSchema,
   uriSchema,
 } from '../elements/index.js'
-
-const medicationRequestStatusSchema = z.enum([
-  'draft',
-  'active',
-  'on-hold',
-  'completed',
-  'entered-in-error',
-  'stopped',
-  'unknown',
-])
-
-const medicationRequestIntentSchema = z.enum([
-  'proposal',
-  'plan',
-  'order',
-  'original-order',
-  'reflex-order',
-  'filler-order',
-  'instance-order',
-])
-
-const medicationRequestPrioritySchema = z.enum([
-  'routine',
-  'urgent',
-  'asap',
-  'stat',
-])
+import {
+  medicationRequestIntentSchema,
+  medicationRequestStatusSchema,
+  requestPrioritySchema,
+} from '../valueSets/index.js'
 
 export const untypedMedicationRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -63,7 +41,7 @@ export const untypedMedicationRequestSchema = z.lazy(() =>
     statusReason: codeableConceptSchema.optional(),
     intent: medicationRequestIntentSchema,
     category: codeableConceptSchema.array().optional(),
-    priority: medicationRequestPrioritySchema.optional(),
+    priority: requestPrioritySchema.optional(),
     _priority: elementSchema.optional(),
     doNotPerform: booleanSchema.optional(),
     _doNotPerform: elementSchema.optional(),

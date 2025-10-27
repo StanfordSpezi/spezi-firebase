@@ -24,12 +24,17 @@ import {
   stringSchema,
   timeSchema,
 } from '../elements/index.js'
+import {
+  daysOfWeekSchema,
+  locationModeSchema,
+  locationStatusSchema,
+} from '../valueSets/index.js'
 
 export const untypedLocationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Location').readonly(),
     identifier: identifierSchema.array().optional(),
-    status: z.enum(['active', 'suspended', 'inactive']).optional(),
+    status: locationStatusSchema.optional(),
     _status: elementSchema.optional(),
     operationalStatus: codingSchema.optional(),
     name: stringSchema.optional(),
@@ -38,7 +43,7 @@ export const untypedLocationSchema = z.lazy(() =>
     _alias: elementSchema.array().optional(),
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
-    mode: z.enum(['instance', 'kind']).optional(),
+    mode: locationModeSchema.optional(),
     _mode: elementSchema.optional(),
     type: codeableConceptSchema.array().optional(),
     telecom: contactPointSchema.array().optional(),
@@ -55,10 +60,7 @@ export const untypedLocationSchema = z.lazy(() =>
     partOf: referenceSchema.optional(),
     hoursOfOperation: backboneElementSchema
       .extend({
-        daysOfWeek: z
-          .enum(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'])
-          .array()
-          .optional(),
+        daysOfWeek: daysOfWeekSchema.array().optional(),
         _daysOfWeek: elementSchema.array().optional(),
         allDay: booleanSchema.optional(),
         openingTime: timeSchema.optional(),

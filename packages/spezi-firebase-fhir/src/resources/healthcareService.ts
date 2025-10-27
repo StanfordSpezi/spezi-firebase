@@ -23,6 +23,7 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+import { daysOfWeekSchema } from '../valueSets/index.js'
 
 export const untypedHealthcareServiceSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -61,10 +62,7 @@ export const untypedHealthcareServiceSchema = z.lazy(() =>
     _appointmentRequired: elementSchema.optional(),
     availableTime: backboneElementSchema
       .extend({
-        daysOfWeek: z
-          .enum(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'])
-          .array()
-          .optional(),
+        daysOfWeek: daysOfWeekSchema.array().optional(),
         _daysOfWeek: elementSchema.array().optional(),
         allDay: booleanSchema.optional(),
         _allDay: elementSchema.optional(),

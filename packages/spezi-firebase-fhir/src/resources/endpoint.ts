@@ -21,6 +21,9 @@ import {
   stringSchema,
   urlSchema,
 } from '../elements/index.js'
+import {
+  endpointStatusSchema,
+} from '../valueSets/index.js'
 
 export const untypedEndpointSchema = z.lazy(() =>
   domainResourceSchema.extend({

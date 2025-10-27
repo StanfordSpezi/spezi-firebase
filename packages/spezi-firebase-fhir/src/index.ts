@@ -7,6 +7,7 @@
 //
 
 export * from './elements/index.js'
+export * from './valueSets/index.js'
 export * from './resources/allergyIntolerance.js'
 export * from './resources/appointment.js'
 export * from './resources/appointmentResponse.js'

@@ -18,6 +18,9 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+import {
+  slotStatusSchema,
+} from '../valueSets/index.js'
 
 export const untypedSlotSchema = z.lazy(() =>
   domainResourceSchema.extend({

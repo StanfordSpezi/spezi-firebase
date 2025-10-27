@@ -24,6 +24,9 @@ import {
   stringSchema,
   uriSchema,
 } from '../elements/index.js'
+import {
+  immunizationStatusSchema,
+} from '../valueSets/index.js'
 
 export const untypedImmunizationSchema = z.lazy(() =>
   domainResourceSchema.extend({

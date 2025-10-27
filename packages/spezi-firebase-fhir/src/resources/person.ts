@@ -22,6 +22,10 @@ import {
   identifierSchema,
   referenceSchema,
 } from '../elements/index.js'
+import {
+  administrativeGenderSchema,
+  identityAssuranceLevelSchema,
+} from '../valueSets/index.js'
 
 export const untypedPersonSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -29,7 +33,7 @@ export const untypedPersonSchema = z.lazy(() =>
     identifier: identifierSchema.array().optional(),
     name: humanNameSchema.array().optional(),
     telecom: contactPointSchema.array().optional(),
-    gender: z.enum(['male', 'female', 'other', 'unknown']).optional(),
+    gender: administrativeGenderSchema.optional(),
     _gender: elementSchema.optional(),
     birthDate: dateSchema.optional(),
     _birthDate: elementSchema.optional(),
@@ -40,7 +44,7 @@ export const untypedPersonSchema = z.lazy(() =>
     link: backboneElementSchema
       .extend({
         target: referenceSchema,
-        assurance: z.enum(['level1', 'level2', 'level3', 'level4']).optional(),
+        assurance: identityAssuranceLevelSchema.optional(),
         _assurance: elementSchema.optional(),
       })
       .array()

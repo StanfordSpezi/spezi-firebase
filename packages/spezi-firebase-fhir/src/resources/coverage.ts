@@ -23,13 +23,9 @@ import {
   stringSchema,
   booleanSchema,
 } from '../elements/index.js'
-
-const coverageStatusSchema = z.enum([
-  'active',
-  'cancelled',
-  'draft',
-  'entered-in-error',
-])
+import {
+  coverageStatusSchema,
+} from '../valueSets/index.js'
 
 export const untypedCoverageSchema = z.lazy(() =>
   domainResourceSchema.extend({
