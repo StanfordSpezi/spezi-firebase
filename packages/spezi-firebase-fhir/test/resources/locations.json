@@ -1,0 +1,122 @@
+{
+  "0": {
+    "resourceType": "Location",
+    "id": "location-example-0",
+    "status": "active",
+    "name": "Main Hospital Building",
+    "mode": "instance",
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+            "code": "HOSP",
+            "display": "Hospital"
+          }
+        ]
+      }
+    ],
+    "address": {
+      "line": ["123 Medical Center Drive"],
+      "city": "Springfield",
+      "state": "IL",
+      "postalCode": "62701"
+    }
+  },
+  "1": {
+    "resourceType": "Location",
+    "id": "location-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/locations",
+        "value": "LOC-ROOM-301"
+      }
+    ],
+    "status": "active",
+    "name": "Examination Room 301",
+    "alias": ["Exam Room 301", "ER-301"],
+    "description": "Standard examination room on third floor",
+    "mode": "instance",
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+            "code": "ER",
+            "display": "Emergency room"
+          }
+        ]
+      }
+    ],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "ext. 301"
+      }
+    ],
+    "physicalType": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/location-physical-type",
+          "code": "ro",
+          "display": "Room"
+        }
+      ]
+    },
+    "partOf": {
+      "reference": "Location/location-example-0"
+    }
+  },
+  "2": {
+    "resourceType": "Location",
+    "id": "location-example-2",
+    "status": "suspended",
+    "name": "Building B - Under Renovation",
+    "mode": "instance",
+    "operationalStatus": {
+      "system": "http://terminology.hl7.org/CodeSystem/v2-0116",
+      "code": "C",
+      "display": "Closed"
+    }
+  },
+  "3": {
+    "resourceType": "Location",
+    "id": "location-example-3",
+    "status": "active",
+    "name": "Satellite Clinic - Downtown",
+    "mode": "instance",
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+            "code": "COMM",
+            "display": "Community Location"
+          }
+        ]
+      }
+    ],
+    "address": {
+      "line": ["456 Main Street", "Suite 100"],
+      "city": "Boston",
+      "state": "MA",
+      "postalCode": "02101",
+      "country": "USA"
+    },
+    "position": {
+      "longitude": -71.0589,
+      "latitude": 42.3601,
+      "altitude": 10.0
+    },
+    "managingOrganization": {
+      "reference": "Organization/org-example"
+    },
+    "hoursOfOperation": [
+      {
+        "daysOfWeek": ["mon", "tue", "wed", "thu", "fri"],
+        "openingTime": "08:00:00",
+        "closingTime": "17:00:00"
+      }
+    ]
+  }
+}
