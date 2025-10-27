@@ -29,7 +29,7 @@ export const untypedHealthcareServiceSchema = z.lazy(() =>
     resourceType: z.literal('HealthcareService').readonly(),
     identifier: identifierSchema.array().optional(),
     active: booleanSchema.optional(),
-    _active: backboneElementSchema.optional(),
+    _active: elementSchema.optional(),
     providedBy: referenceSchema.optional(),
     category: codeableConceptSchema.array().optional(),
     type: codeableConceptSchema.array().optional(),

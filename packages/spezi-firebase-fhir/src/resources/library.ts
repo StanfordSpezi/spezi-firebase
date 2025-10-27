@@ -62,7 +62,7 @@ export const untypedLibrarySchema = z.lazy(() =>
     _copyright: elementSchema.optional(),
     approvalDate: dateSchema.optional(),
     _approvalDate: elementSchema.optional(),
-    lastReviewDate: dateSchema,
+    lastReviewDate: dateSchema.optional(),
     _lastReviewDate: elementSchema.optional(),
     effectivePeriod: periodSchema.optional(),
     topic: codeableConceptSchema.array().optional(),
