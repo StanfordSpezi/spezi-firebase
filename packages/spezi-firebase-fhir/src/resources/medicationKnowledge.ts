@@ -36,6 +36,7 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+import { medicationStatusSchema } from '../valueSets/index.js'
 
 const relatedMedicationKnowledgeSchema: ZodType<MedicationKnowledgeRelatedMedicationKnowledge> =
   z.lazy(() =>
@@ -171,7 +172,7 @@ export const untypedMedicationKnowledgeSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('MedicationKnowledge').readonly(),
     code: codeableConceptSchema.optional(),
-    status: z.enum(['active', 'inactive', 'entered-in-error']).optional(),
+    status: medicationStatusSchema.optional(),
     _status: elementSchema.optional(),
     manufacturer: referenceSchema.optional(),
     doseForm: codeableConceptSchema.optional(),

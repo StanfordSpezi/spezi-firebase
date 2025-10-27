@@ -20,6 +20,7 @@ import {
   periodSchema,
   referenceSchema,
 } from '../elements/index.js'
+import { medicationStatementStatusSchema } from '../valueSets/index.js'
 
 export const untypedMedicationStatementSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -27,15 +28,7 @@ export const untypedMedicationStatementSchema = z.lazy(() =>
     identifier: identifierSchema.array().optional(),
     basedOn: referenceSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
-    status: z.enum([
-      'active',
-      'completed',
-      'entered-in-error',
-      'intended',
-      'stopped',
-      'on-hold',
-      'unknown',
-    ]),
+    status: medicationStatementStatusSchema,
     _status: elementSchema.optional(),
     statusReason: codeableConceptSchema.array().optional(),
     category: codeableConceptSchema.optional(),

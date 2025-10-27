@@ -1,0 +1,175 @@
+{
+  "0": {
+    "resourceType": "MedicationRequest",
+    "id": "medreq-example-0",
+    "status": "active",
+    "intent": "order",
+    "medicationCodeableConcept": {
+      "coding": [
+        {
+          "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code": "313782",
+          "display": "Acetaminophen 325 MG Oral Tablet"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "authoredOn": "2024-11-15"
+  },
+  "1": {
+    "resourceType": "MedicationRequest",
+    "id": "medreq-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/prescriptions",
+        "value": "RX-12345"
+      }
+    ],
+    "status": "active",
+    "intent": "order",
+    "priority": "routine",
+    "medicationCodeableConcept": {
+      "coding": [
+        {
+          "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code": "197361",
+          "display": "Lisinopril 10 MG Oral Tablet"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    },
+    "authoredOn": "2024-10-20T14:30:00Z",
+    "requester": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "38341003",
+            "display": "Hypertension"
+          }
+        ]
+      }
+    ],
+    "dosageInstruction": [
+      {
+        "text": "Take one tablet by mouth once daily",
+        "timing": {
+          "repeat": {
+            "frequency": 1,
+            "period": 1,
+            "periodUnit": "d"
+          }
+        },
+        "route": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "26643006",
+              "display": "Oral route"
+            }
+          ]
+        }
+      }
+    ],
+    "dispenseRequest": {
+      "numberOfRepeatsAllowed": 3,
+      "quantity": {
+        "value": 30,
+        "unit": "tablet"
+      },
+      "expectedSupplyDuration": {
+        "value": 30,
+        "unit": "days"
+      }
+    }
+  },
+  "2": {
+    "resourceType": "MedicationRequest",
+    "id": "medreq-example-2",
+    "status": "stopped",
+    "statusReason": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-status-reason",
+          "code": "altchoice",
+          "display": "Try another treatment first"
+        }
+      ]
+    },
+    "intent": "order",
+    "medicationCodeableConcept": {
+      "text": "Medication X"
+    },
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    },
+    "authoredOn": "2024-09-10"
+  },
+  "3": {
+    "resourceType": "MedicationRequest",
+    "id": "medreq-example-3",
+    "status": "completed",
+    "intent": "order",
+    "priority": "urgent",
+    "medicationReference": {
+      "reference": "Medication/med-insulin"
+    },
+    "subject": {
+      "reference": "Patient/patient-diabetes"
+    },
+    "authoredOn": "2024-11-01T08:00:00Z",
+    "requester": {
+      "reference": "Practitioner/practitioner-endo"
+    },
+    "reasonReference": [
+      {
+        "reference": "Condition/condition-diabetes"
+      }
+    ],
+    "note": [
+      {
+        "text": "Adjust dose based on blood glucose monitoring"
+      }
+    ],
+    "dosageInstruction": [
+      {
+        "sequence": 1,
+        "text": "Inject 10 units subcutaneously before breakfast",
+        "timing": {
+          "repeat": {
+            "when": ["ACM"]
+          }
+        },
+        "route": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "34206005",
+              "display": "Subcutaneous route"
+            }
+          ]
+        },
+        "doseAndRate": [
+          {
+            "doseQuantity": {
+              "value": 10,
+              "unit": "units",
+              "system": "http://unitsofmeasure.org",
+              "code": "U"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
