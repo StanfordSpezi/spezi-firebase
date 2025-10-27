@@ -1,0 +1,248 @@
+{
+  "0": {
+    "resourceType": "RiskAssessment",
+    "id": "risk-assessment-example-0",
+    "status": "final",
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "225338004",
+          "display": "Risk assessment"
+        }
+      ]
+    },
+    "occurrenceDateTime": "2024-03-15T09:00:00Z",
+    "performer": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "basis": [
+      {
+        "reference": "Observation/blood-pressure"
+      },
+      {
+        "reference": "Observation/cholesterol"
+      }
+    ],
+    "prediction": [
+      {
+        "outcome": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "22298006",
+              "display": "Myocardial infarction"
+            }
+          ]
+        },
+        "probabilityDecimal": 0.15,
+        "whenPeriod": {
+          "start": "2024-03-15",
+          "end": "2034-03-15"
+        },
+        "rationale": "Based on Framingham risk score calculation"
+      }
+    ],
+    "mitigation": "Lifestyle modifications including diet and exercise recommended"
+  },
+  "1": {
+    "resourceType": "RiskAssessment",
+    "id": "risk-assessment-example-1",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/risk-assessments",
+        "value": "RA-2024-123"
+      }
+    ],
+    "status": "preliminary",
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    },
+    "occurrenceDateTime": "2024-04-20T11:30:00Z",
+    "condition": {
+      "reference": "Condition/diabetes"
+    },
+    "performer": {
+      "reference": "Practitioner/practitioner-endocrinologist"
+    },
+    "method": {
+      "coding": [
+        {
+          "system": "http://example.org/risk-assessment-methods",
+          "code": "UKPDS",
+          "display": "United Kingdom Prospective Diabetes Study"
+        }
+      ]
+    },
+    "basis": [
+      {
+        "reference": "Observation/hba1c"
+      },
+      {
+        "reference": "Condition/diabetes"
+      }
+    ],
+    "prediction": [
+      {
+        "outcome": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "230572002",
+              "display": "Diabetic retinopathy"
+            }
+          ]
+        },
+        "probabilityRange": {
+          "low": {
+            "value": 0.10,
+            "unit": "%"
+          },
+          "high": {
+            "value": 0.25,
+            "unit": "%"
+          }
+        },
+        "whenPeriod": {
+          "start": "2024-04-20",
+          "end": "2029-04-20"
+        }
+      }
+    ],
+    "note": [
+      {
+        "text": "Patient shows good glycemic control but requires continued monitoring"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "RiskAssessment",
+    "id": "risk-assessment-example-2",
+    "status": "cancelled",
+    "subject": {
+      "reference": "Patient/patient-xyz"
+    },
+    "code": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "91371-6",
+          "display": "Patient risk assessment instrument"
+        }
+      ]
+    },
+    "occurrencePeriod": {
+      "start": "2024-01-10T08:00:00Z",
+      "end": "2024-01-10T10:00:00Z"
+    },
+    "basedOn": {
+      "reference": "ServiceRequest/risk-assessment-request"
+    },
+    "prediction": [
+      {
+        "outcome": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "271737000",
+              "display": "Anemia"
+            }
+          ]
+        },
+        "qualitativeRisk": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/risk-probability",
+              "code": "moderate",
+              "display": "Moderate likelihood"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "RiskAssessment",
+    "id": "risk-assessment-example-3",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/risk-assessments",
+        "value": "RA-2024-789"
+      }
+    ],
+    "status": "final",
+    "subject": {
+      "reference": "Patient/patient-abc"
+    },
+    "occurrenceDateTime": "2024-05-05T14:00:00Z",
+    "performer": {
+      "reference": "Practitioner/practitioner-geneticist"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "312948004",
+            "display": "Family history of cancer"
+          }
+        ]
+      }
+    ],
+    "reasonReference": [
+      {
+        "reference": "FamilyMemberHistory/family-history-cancer"
+      }
+    ],
+    "basis": [
+      {
+        "reference": "FamilyMemberHistory/family-history-cancer"
+      },
+      {
+        "reference": "Observation/genetic-test-results"
+      }
+    ],
+    "prediction": [
+      {
+        "outcome": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "254837009",
+              "display": "Malignant neoplasm of breast"
+            }
+          ]
+        },
+        "probabilityDecimal": 0.42,
+        "relativeRisk": 2.8,
+        "whenRange": {
+          "low": {
+            "value": 40,
+            "unit": "years"
+          },
+          "high": {
+            "value": 60,
+            "unit": "years"
+          }
+        },
+        "rationale": "Based on BRCA1 mutation and family history"
+      }
+    ],
+    "mitigation": "Enhanced surveillance with annual mammography and MRI screening recommended",
+    "note": [
+      {
+        "authorReference": {
+          "reference": "Practitioner/practitioner-geneticist"
+        },
+        "time": "2024-05-05T14:30:00Z",
+        "text": "Genetic counseling provided. Patient expressed understanding of risk factors."
+      }
+    ]
+  }
+}

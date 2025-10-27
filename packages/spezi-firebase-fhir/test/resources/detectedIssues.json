@@ -1,0 +1,206 @@
+{
+  "0": {
+    "resourceType": "DetectedIssue",
+    "id": "detected-issue-example-0",
+    "status": "final",
+    "code": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "DRG",
+          "display": "Drug interaction"
+        }
+      ]
+    },
+    "severity": "high",
+    "patient": {
+      "reference": "Patient/patient-example"
+    },
+    "identifiedDateTime": "2024-03-15T10:00:00Z",
+    "author": {
+      "reference": "Device/clinical-decision-support"
+    },
+    "implicated": [
+      {
+        "reference": "MedicationStatement/med-warfarin"
+      },
+      {
+        "reference": "MedicationStatement/med-aspirin"
+      }
+    ],
+    "detail": "Potential interaction between warfarin and aspirin may increase bleeding risk",
+    "reference": "https://example.org/drug-interaction-database/warfarin-aspirin",
+    "mitigation": [
+      {
+        "action": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "EMAUTH",
+              "display": "emergency authorization override"
+            }
+          ],
+          "text": "Monitor INR levels closely"
+        },
+        "date": "2024-03-15T10:30:00Z",
+        "author": {
+          "reference": "Practitioner/practitioner-example"
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "DetectedIssue",
+    "id": "detected-issue-example-1",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/detected-issues",
+        "value": "DI-2024-567"
+      }
+    ],
+    "status": "preliminary",
+    "code": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "ALGY",
+          "display": "Allergy"
+        }
+      ]
+    },
+    "severity": "moderate",
+    "patient": {
+      "reference": "Patient/patient-example-2"
+    },
+    "identifiedDateTime": "2024-04-20T14:15:00Z",
+    "author": {
+      "reference": "Practitioner/practitioner-pharmacist"
+    },
+    "implicated": [
+      {
+        "reference": "MedicationRequest/med-req-penicillin"
+      }
+    ],
+    "detail": "Patient has documented allergy to penicillin",
+    "evidence": [
+      {
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "91936005",
+                "display": "Allergy to penicillin"
+              }
+            ]
+          }
+        ],
+        "detail": [
+          {
+            "reference": "AllergyIntolerance/allergy-penicillin"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "DetectedIssue",
+    "id": "detected-issue-example-2",
+    "status": "cancelled",
+    "code": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "DOSE",
+          "display": "Dosage problem"
+        }
+      ]
+    },
+    "severity": "low",
+    "patient": {
+      "reference": "Patient/patient-xyz"
+    },
+    "identifiedPeriod": {
+      "start": "2024-01-10T08:00:00Z",
+      "end": "2024-01-10T12:00:00Z"
+    },
+    "author": {
+      "reference": "Device/pharmacy-system"
+    },
+    "implicated": [
+      {
+        "reference": "MedicationRequest/med-req-123"
+      }
+    ],
+    "detail": "Prescribed dose exceeds recommended maximum daily dose",
+    "mitigation": [
+      {
+        "action": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "_ActDetectedIssueManagementCode",
+              "display": "Detected Issue Management Code"
+            }
+          ],
+          "text": "Prescription corrected and reissued"
+        },
+        "date": "2024-01-10T09:00:00Z",
+        "author": {
+          "reference": "Practitioner/practitioner-prescriber"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "DetectedIssue",
+    "id": "detected-issue-example-3",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/detected-issues",
+        "value": "DI-2024-999"
+      }
+    ],
+    "status": "entered-in-error",
+    "code": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "DUPTHPY",
+          "display": "Duplicate therapy"
+        }
+      ]
+    },
+    "patient": {
+      "reference": "Patient/patient-abc"
+    },
+    "identifiedDateTime": "2024-05-01T11:30:00Z",
+    "author": {
+      "reference": "Practitioner/practitioner-nurse"
+    },
+    "implicated": [
+      {
+        "reference": "MedicationRequest/med-req-456"
+      },
+      {
+        "reference": "MedicationRequest/med-req-789"
+      }
+    ],
+    "detail": "Patient prescribed two different statins simultaneously",
+    "evidence": [
+      {
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "373873005",
+                "display": "Statin"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
