@@ -1,0 +1,111 @@
+{
+  "0": {
+    "resourceType": "Task",
+    "id": "task-example-0",
+    "status": "requested",
+    "intent": "order",
+    "code": {
+      "text": "Review lab results"
+    }
+  },
+  "1": {
+    "resourceType": "Task",
+    "id": "task-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/tasks",
+        "value": "TASK-123"
+      }
+    ],
+    "status": "in-progress",
+    "statusReason": {
+      "text": "Awaiting additional information"
+    },
+    "intent": "order",
+    "priority": "routine",
+    "code": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/CodeSystem/task-code",
+          "code": "approve",
+          "display": "Activate/approve the focal resource"
+        }
+      ]
+    },
+    "description": "Approve medication request",
+    "for": {
+      "reference": "Patient/patient-example"
+    },
+    "authoredOn": "2024-11-15T10:00:00Z",
+    "requester": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "owner": {
+      "reference": "Practitioner/practitioner-reviewer"
+    },
+    "reasonCode": {
+      "text": "High risk medication requires approval"
+    }
+  },
+  "2": {
+    "resourceType": "Task",
+    "id": "task-example-2",
+    "status": "cancelled",
+    "intent": "order",
+    "code": {
+      "text": "Schedule follow-up"
+    },
+    "for": {
+      "reference": "Patient/patient-example-2"
+    },
+    "note": [
+      {
+        "text": "Patient requested cancellation"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Task",
+    "id": "task-example-3",
+    "status": "completed",
+    "intent": "order",
+    "priority": "urgent",
+    "code": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/CodeSystem/task-code",
+          "code": "fulfill",
+          "display": "Fulfill the focal request"
+        }
+      ]
+    },
+    "focus": {
+      "reference": "ServiceRequest/lab-order-456"
+    },
+    "for": {
+      "reference": "Patient/patient-urgent"
+    },
+    "executionPeriod": {
+      "start": "2024-11-01T08:00:00Z",
+      "end": "2024-11-01T10:30:00Z"
+    },
+    "authoredOn": "2024-11-01T07:30:00Z",
+    "lastModified": "2024-11-01T10:35:00Z",
+    "requester": {
+      "reference": "Practitioner/practitioner-ordering"
+    },
+    "owner": {
+      "reference": "Organization/lab-department"
+    },
+    "output": [
+      {
+        "type": {
+          "text": "Lab result"
+        },
+        "valueReference": {
+          "reference": "DiagnosticReport/report-456"
+        }
+      }
+    ]
+  }
+}

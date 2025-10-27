@@ -1,0 +1,103 @@
+{
+  "0": {
+    "resourceType": "Library",
+    "id": "library-example-0",
+    "status": "active",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/library-type",
+          "code": "logic-library"
+        }
+      ]
+    },
+    "title": "Common Functions",
+    "description": "A library of common clinical functions"
+  },
+  "1": {
+    "resourceType": "Library",
+    "id": "library-example-1",
+    "url": "http://example.org/fhir/Library/diabetes-logic",
+    "identifier": [
+      {
+        "system": "http://example.org/libraries",
+        "value": "LIB-001"
+      }
+    ],
+    "version": "1.0.0",
+    "status": "active",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/library-type",
+          "code": "logic-library"
+        }
+      ]
+    },
+    "title": "Diabetes Management Logic",
+    "description": "Clinical decision support logic for diabetes care",
+    "date": "2024-01-15"
+  },
+  "2": {
+    "resourceType": "Library",
+    "id": "library-example-2",
+    "status": "retired",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/library-type",
+          "code": "model-definition"
+        }
+      ]
+    },
+    "title": "Deprecated Model",
+    "description": "This library is no longer in use"
+  },
+  "3": {
+    "resourceType": "Library",
+    "id": "library-example-3",
+    "url": "http://example.org/fhir/Library/hypertension",
+    "version": "2.1.0",
+    "status": "active",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/library-type",
+          "code": "logic-library"
+        }
+      ]
+    },
+    "title": "Hypertension Management",
+    "subtitle": "Guidelines for blood pressure control",
+    "experimental": false,
+    "publisher": "Example Healthcare Organization",
+    "contact": [
+      {
+        "name": "Clinical Support Team"
+      }
+    ],
+    "description": "Evidence-based guidelines for managing hypertension",
+    "useContext": [
+      {
+        "code": {
+          "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+          "code": "focus"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "38341003",
+              "display": "Hypertension"
+            }
+          ]
+        }
+      }
+    ],
+    "topic": [
+      {
+        "text": "Hypertension"
+      }
+    ]
+  }
+}

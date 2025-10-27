@@ -1,0 +1,110 @@
+{
+  "0": {
+    "resourceType": "Endpoint",
+    "id": "endpoint-example-0",
+    "status": "active",
+    "connectionType": {
+      "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+      "code": "hl7-fhir-rest"
+    },
+    "name": "FHIR Server Endpoint",
+    "address": "https://fhir.example.org/api/r4",
+    "payloadType": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+            "code": "any",
+            "display": "Any"
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Endpoint",
+    "id": "endpoint-example-1",
+    "status": "active",
+    "connectionType": {
+      "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+      "code": "dicom-wado-rs"
+    },
+    "name": "PACS WADO-RS Endpoint",
+    "managingOrganization": {
+      "reference": "Organization/org-radiology"
+    },
+    "contact": [
+      {
+        "system": "email",
+        "value": "support@example.org"
+      }
+    ],
+    "address": "https://pacs.example.org/wado-rs",
+    "payloadType": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+            "code": "dicom",
+            "display": "DICOM"
+          }
+        ]
+      }
+    ],
+    "payloadMimeType": [
+      "application/dicom"
+    ]
+  },
+  "2": {
+    "resourceType": "Endpoint",
+    "id": "endpoint-example-2",
+    "status": "suspended",
+    "connectionType": {
+      "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+      "code": "hl7-v2-mllp"
+    },
+    "name": "Legacy HL7 v2 Endpoint",
+    "address": "mllp://legacy.example.org:2575",
+    "payloadType": [
+      {
+        "text": "HL7 v2 messages"
+      }
+    ],
+    "header": [
+      "Authorization: Bearer token123"
+    ]
+  },
+  "3": {
+    "resourceType": "Endpoint",
+    "id": "endpoint-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/endpoints",
+        "value": "EP-789"
+      }
+    ],
+    "status": "active",
+    "connectionType": {
+      "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+      "code": "ihe-xds"
+    },
+    "name": "XDS Document Repository",
+    "managingOrganization": {
+      "reference": "Organization/org-health-info-exchange"
+    },
+    "period": {
+      "start": "2020-01-01"
+    },
+    "address": "https://xds.example.org/repository",
+    "payloadType": [
+      {
+        "coding": [
+          {
+            "system": "urn:ihe:iti:xds:2013",
+            "code": "urn:ihe:iti:xds:2013:schema:ebRIM"
+          }
+        ]
+      }
+    ]
+  }
+}

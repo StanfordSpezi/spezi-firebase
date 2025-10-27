@@ -1,0 +1,181 @@
+{
+  "0": {
+    "resourceType": "Specimen",
+    "id": "specimen-example-0",
+    "status": "available",
+    "type": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "119297000",
+          "display": "Blood specimen"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "receivedTime": "2024-11-15T08:30:00Z"
+  },
+  "1": {
+    "resourceType": "Specimen",
+    "id": "specimen-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/specimens",
+        "value": "SPEC-12345"
+      }
+    ],
+    "accessionIdentifier": {
+      "system": "http://lab.example.org/specimens",
+      "value": "LAB-67890"
+    },
+    "status": "available",
+    "type": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "122555007",
+          "display": "Venous blood specimen"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "receivedTime": "2024-11-10T09:00:00Z",
+    "request": [
+      {
+        "reference": "ServiceRequest/lab-order-123"
+      }
+    ],
+    "collection": {
+      "collector": {
+        "reference": "Practitioner/practitioner-phlebotomist"
+      },
+      "collectedDateTime": "2024-11-10T08:45:00Z",
+      "quantity": {
+        "value": 10,
+        "unit": "mL"
+      },
+      "method": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "129316008",
+            "display": "Venipuncture"
+          }
+        ]
+      },
+      "bodySite": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "368208006",
+            "display": "Left arm"
+          }
+        ]
+      }
+    },
+    "processing": [
+      {
+        "description": "Centrifuged",
+        "timeDateTime": "2024-11-10T09:15:00Z"
+      }
+    ],
+    "container": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "702268002",
+              "display": "Blood collection tube"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Specimen",
+    "id": "specimen-example-2",
+    "status": "unavailable",
+    "type": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "258580003",
+          "display": "Urine specimen"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    },
+    "note": [
+      {
+        "text": "Specimen was contaminated"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Specimen",
+    "id": "specimen-example-3",
+    "status": "available",
+    "type": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "119376003",
+          "display": "Tissue specimen"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/patient-biopsy"
+    },
+    "receivedTime": "2024-11-01T14:30:00Z",
+    "collection": {
+      "collectedDateTime": "2024-11-01T11:00:00Z",
+      "method": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "129314006",
+            "display": "Biopsy"
+          }
+        ]
+      },
+      "bodySite": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "78961009",
+            "display": "Splenic structure"
+          }
+        ]
+      },
+      "fastingStatusCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0916",
+            "code": "NF",
+            "display": "Not fasting"
+          }
+        ]
+      }
+    },
+    "condition": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0493",
+            "code": "ROOM",
+            "display": "Room temperature"
+          }
+        ]
+      }
+    ]
+  }
+}

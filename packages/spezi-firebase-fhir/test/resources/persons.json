@@ -1,0 +1,148 @@
+{
+  "0": {
+    "resourceType": "Person",
+    "id": "person-example-0",
+    "active": true,
+    "name": [
+      {
+        "use": "official",
+        "family": "Smith",
+        "given": [
+          "John"
+        ]
+      }
+    ],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+1-555-123-4567"
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1980-05-15"
+  },
+  "1": {
+    "resourceType": "Person",
+    "id": "person-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/persons",
+        "value": "PERSON-123"
+      }
+    ],
+    "active": true,
+    "name": [
+      {
+        "use": "official",
+        "family": "Johnson",
+        "given": [
+          "Emily",
+          "Rose"
+        ]
+      },
+      {
+        "use": "maiden",
+        "family": "Williams"
+      }
+    ],
+    "telecom": [
+      {
+        "system": "email",
+        "value": "emily.johnson@example.com",
+        "use": "work"
+      }
+    ],
+    "gender": "female",
+    "birthDate": "1992-11-23",
+    "address": [
+      {
+        "use": "home",
+        "line": [
+          "789 Oak Street"
+        ],
+        "city": "Boston",
+        "state": "MA",
+        "postalCode": "02101"
+      }
+    ],
+    "link": [
+      {
+        "target": {
+          "reference": "Patient/patient-example-1"
+        },
+        "assurance": "level3"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Person",
+    "id": "person-example-2",
+    "active": false,
+    "name": [
+      {
+        "family": "Brown",
+        "given": [
+          "Michael"
+        ]
+      }
+    ],
+    "gender": "male"
+  },
+  "3": {
+    "resourceType": "Person",
+    "id": "person-example-3",
+    "active": true,
+    "name": [
+      {
+        "use": "official",
+        "family": "Garcia",
+        "given": [
+          "Maria"
+        ],
+        "prefix": [
+          "Dr."
+        ]
+      }
+    ],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+1-555-777-8888",
+        "use": "mobile"
+      },
+      {
+        "system": "email",
+        "value": "maria.garcia@hospital.example.org",
+        "use": "work"
+      }
+    ],
+    "gender": "female",
+    "birthDate": "1978-03-10",
+    "address": [
+      {
+        "line": [
+          "123 Medical Plaza",
+          "Suite 200"
+        ],
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001"
+      }
+    ],
+    "photo": {
+      "contentType": "image/jpeg",
+      "url": "https://example.org/photos/garcia.jpg"
+    },
+    "link": [
+      {
+        "target": {
+          "reference": "Practitioner/practitioner-garcia"
+        },
+        "assurance": "level4"
+      }
+    ],
+    "managingOrganization": {
+      "reference": "Organization/org-example-0"
+    }
+  }
+}

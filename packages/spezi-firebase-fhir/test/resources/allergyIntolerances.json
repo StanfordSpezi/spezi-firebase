@@ -1,0 +1,190 @@
+{
+  "0": {
+    "resourceType": "AllergyIntolerance",
+    "id": "allergy-example-0",
+    "clinicalStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+          "code": "active"
+        }
+      ]
+    },
+    "verificationStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+          "code": "confirmed"
+        }
+      ]
+    },
+    "type": "allergy",
+    "category": [
+      "food"
+    ],
+    "criticality": "high",
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "227493005",
+          "display": "Cashew nuts"
+        }
+      ]
+    },
+    "patient": {
+      "reference": "Patient/patient-example"
+    },
+    "onsetDateTime": "2020-05-12"
+  },
+  "1": {
+    "resourceType": "AllergyIntolerance",
+    "id": "allergy-example-1",
+    "clinicalStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+          "code": "inactive"
+        }
+      ]
+    },
+    "verificationStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+          "code": "confirmed"
+        }
+      ]
+    },
+    "type": "intolerance",
+    "category": [
+      "medication"
+    ],
+    "criticality": "low",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code": "7980",
+          "display": "Penicillin"
+        }
+      ]
+    },
+    "patient": {
+      "reference": "Patient/patient-example-2"
+    },
+    "onsetAge": {
+      "value": 5,
+      "unit": "years"
+    },
+    "recordedDate": "2018-03-15",
+    "reaction": [
+      {
+        "substance": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "7980",
+              "display": "Penicillin"
+            }
+          ]
+        },
+        "manifestation": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "271807003",
+                "display": "Rash"
+              }
+            ]
+          }
+        ],
+        "severity": "moderate"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "AllergyIntolerance",
+    "id": "allergy-example-2",
+    "clinicalStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+          "code": "resolved"
+        }
+      ]
+    },
+    "verificationStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+          "code": "confirmed"
+        }
+      ]
+    },
+    "type": "allergy",
+    "category": [
+      "environment"
+    ],
+    "criticality": "unable-to-assess",
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "256277009",
+          "display": "Grass pollen"
+        }
+      ]
+    },
+    "patient": {
+      "reference": "Patient/patient-example-3"
+    },
+    "onsetString": "childhood",
+    "lastOccurrence": "2022-05-01"
+  },
+  "3": {
+    "resourceType": "AllergyIntolerance",
+    "id": "allergy-example-3",
+    "clinicalStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+          "code": "active"
+        }
+      ]
+    },
+    "verificationStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+          "code": "unconfirmed"
+        }
+      ]
+    },
+    "type": "allergy",
+    "category": [
+      "biologic"
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "111088007",
+          "display": "Latex"
+        }
+      ]
+    },
+    "patient": {
+      "reference": "Patient/patient-xyz"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    },
+    "note": [
+      {
+        "text": "Patient reports itching and hives when exposed to latex gloves."
+      }
+    ]
+  }
+}

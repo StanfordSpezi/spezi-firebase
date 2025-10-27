@@ -1,0 +1,101 @@
+{
+  "0": {
+    "resourceType": "MessageHeader",
+    "id": "msgheader-example-0",
+    "eventCoding": {
+      "system": "http://example.org/fhir/message-events",
+      "code": "patient-link"
+    },
+    "source": {
+      "endpoint": "https://example.org/fhir"
+    }
+  },
+  "1": {
+    "resourceType": "MessageHeader",
+    "id": "msgheader-example-1",
+    "eventCoding": {
+      "system": "http://terminology.hl7.org/CodeSystem/message-events",
+      "code": "notification",
+      "display": "Notification"
+    },
+    "destination": [
+      {
+        "name": "Central System",
+        "endpoint": "https://central.example.org/fhir"
+      }
+    ],
+    "sender": {
+      "reference": "Organization/org-example"
+    },
+    "source": {
+      "name": "Source System",
+      "software": "FHIR Server v2.0",
+      "version": "2.0.1",
+      "endpoint": "https://source.example.org/fhir"
+    },
+    "reason": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/message-reasons-encounter",
+          "code": "admit",
+          "display": "Admit"
+        }
+      ]
+    }
+  },
+  "2": {
+    "resourceType": "MessageHeader",
+    "id": "msgheader-example-2",
+    "eventCoding": {
+      "system": "http://example.org/events",
+      "code": "test-event"
+    },
+    "source": {
+      "endpoint": "https://test.example.org"
+    },
+    "response": {
+      "identifier": "msg-12345",
+      "code": "ok"
+    }
+  },
+  "3": {
+    "resourceType": "MessageHeader",
+    "id": "msgheader-example-3",
+    "eventCoding": {
+      "system": "http://terminology.hl7.org/CodeSystem/message-events",
+      "code": "communication-request"
+    },
+    "destination": [
+      {
+        "name": "Destination A",
+        "target": {
+          "reference": "Device/device-example"
+        },
+        "endpoint": "https://dest-a.example.org/fhir",
+        "receiver": {
+          "reference": "Practitioner/practitioner-example"
+        }
+      }
+    ],
+    "sender": {
+      "reference": "Organization/org-sender"
+    },
+    "author": {
+      "reference": "Practitioner/practitioner-author"
+    },
+    "source": {
+      "name": "Clinical System",
+      "software": "EMR v3.5",
+      "version": "3.5.2",
+      "endpoint": "https://emr.example.org/fhir"
+    },
+    "responsible": {
+      "reference": "Organization/org-responsible"
+    },
+    "focus": [
+      {
+        "reference": "Patient/patient-example"
+      }
+    ]
+  }
+}

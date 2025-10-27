@@ -1,0 +1,187 @@
+{
+  "0": {
+    "resourceType": "RelatedPerson",
+    "id": "related-example-0",
+    "active": true,
+    "patient": {
+      "reference": "Patient/patient-example"
+    },
+    "relationship": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+            "code": "WIFE",
+            "display": "wife"
+          }
+        ]
+      }
+    ],
+    "name": [
+      {
+        "family": "Smith",
+        "given": [
+          "Jane"
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "RelatedPerson",
+    "id": "related-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/related-persons",
+        "value": "REL-123"
+      }
+    ],
+    "active": true,
+    "patient": {
+      "reference": "Patient/patient-example-2"
+    },
+    "relationship": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+            "code": "FTH",
+            "display": "father"
+          }
+        ]
+      }
+    ],
+    "name": [
+      {
+        "use": "official",
+        "family": "Johnson",
+        "given": [
+          "Michael",
+          "Robert"
+        ]
+      }
+    ],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+1-555-888-9999",
+        "use": "mobile"
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1970-03-15",
+    "address": [
+      {
+        "use": "home",
+        "line": [
+          "456 Oak Street"
+        ],
+        "city": "Boston",
+        "state": "MA",
+        "postalCode": "02101"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "RelatedPerson",
+    "id": "related-example-2",
+    "active": false,
+    "patient": {
+      "reference": "Patient/patient-example-3"
+    },
+    "relationship": [
+      {
+        "text": "Former guardian"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "RelatedPerson",
+    "id": "related-example-3",
+    "active": true,
+    "patient": {
+      "reference": "Patient/patient-child"
+    },
+    "relationship": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+            "code": "MTH",
+            "display": "mother"
+          }
+        ]
+      },
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+            "code": "C",
+            "display": "Emergency Contact"
+          }
+        ]
+      }
+    ],
+    "name": [
+      {
+        "use": "official",
+        "family": "Garcia",
+        "given": [
+          "Maria"
+        ]
+      }
+    ],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+1-555-111-2222",
+        "use": "home",
+        "rank": 1
+      },
+      {
+        "system": "phone",
+        "value": "+1-555-333-4444",
+        "use": "mobile",
+        "rank": 2
+      },
+      {
+        "system": "email",
+        "value": "maria.garcia@example.com"
+      }
+    ],
+    "gender": "female",
+    "address": [
+      {
+        "line": [
+          "789 Main Street",
+          "Apt 3B"
+        ],
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "90001"
+      }
+    ],
+    "photo": [
+      {
+        "contentType": "image/jpeg",
+        "url": "https://example.org/photos/garcia-m.jpg"
+      }
+    ],
+    "period": {
+      "start": "2020-01-01"
+    },
+    "communication": [
+      {
+        "language": {
+          "coding": [
+            {
+              "system": "urn:ietf:bcp:47",
+              "code": "es",
+              "display": "Spanish"
+            }
+          ]
+        },
+        "preferred": true
+      }
+    ]
+  }
+}

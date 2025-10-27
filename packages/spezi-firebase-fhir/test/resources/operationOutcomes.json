@@ -1,0 +1,84 @@
+{
+  "0": {
+    "resourceType": "OperationOutcome",
+    "id": "opout-example-0",
+    "issue": [
+      {
+        "severity": "information",
+        "code": "informational",
+        "details": {
+          "text": "Operation completed successfully"
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "OperationOutcome",
+    "id": "opout-example-1",
+    "issue": [
+      {
+        "severity": "error",
+        "code": "required",
+        "details": {
+          "coding": [
+            {
+              "system": "http://example.org/errors",
+              "code": "ERR-001",
+              "display": "Missing required field"
+            }
+          ],
+          "text": "The field 'patient' is required"
+        },
+        "diagnostics": "Resource validation failed",
+        "expression": [
+          "Patient.identifier"
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "OperationOutcome",
+    "id": "opout-example-2",
+    "issue": [
+      {
+        "severity": "warning",
+        "code": "code-invalid",
+        "details": {
+          "text": "Code not found in value set"
+        },
+        "diagnostics": "The code '12345' was not found in the bound value set",
+        "location": [
+          "Observation.code"
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "OperationOutcome",
+    "id": "opout-example-3",
+    "issue": [
+      {
+        "severity": "fatal",
+        "code": "exception",
+        "details": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/operation-outcome",
+              "code": "MSG_TIMEOUT",
+              "display": "Timeout"
+            }
+          ],
+          "text": "Request timeout"
+        },
+        "diagnostics": "The operation timed out after 30 seconds"
+      },
+      {
+        "severity": "information",
+        "code": "informational",
+        "details": {
+          "text": "Retry recommended"
+        }
+      }
+    ]
+  }
+}
