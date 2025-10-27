@@ -12,7 +12,10 @@ import { FhirQuestionnaireResponse } from '../../src/index.js'
 
 describe('QuestionnaireResponse Resource', () => {
   it('should validate FHIR questionnaireResponse from questionnaireResponses.json', () => {
-    const data = fs.readFileSync('test/resources/questionnaireResponses.json', 'utf-8')
+    const data = fs.readFileSync(
+      'test/resources/questionnaireResponses.json',
+      'utf-8',
+    )
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

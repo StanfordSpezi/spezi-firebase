@@ -38,9 +38,7 @@
           "name": [
             {
               "family": "Test",
-              "given": [
-                "Patient"
-              ]
+              "given": ["Patient"]
             }
           ]
         }

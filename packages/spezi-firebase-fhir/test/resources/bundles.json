@@ -12,9 +12,7 @@
           "name": [
             {
               "family": "Smith",
-              "given": [
-                "John"
-              ]
+              "given": ["John"]
             }
           ],
           "gender": "male"
@@ -98,9 +96,7 @@
           "name": [
             {
               "family": "Transaction",
-              "given": [
-                "Test"
-              ]
+              "given": ["Test"]
             }
           ]
         },
@@ -577,9 +573,7 @@
           "name": [
             {
               "family": "Doe",
-              "given": [
-                "John"
-              ]
+              "given": ["John"]
             }
           ],
           "gender": "male"
@@ -594,9 +588,7 @@
           "name": [
             {
               "family": "Doe",
-              "given": [
-                "Jane"
-              ]
+              "given": ["Jane"]
             }
           ]
         }
@@ -610,9 +602,7 @@
           "name": [
             {
               "family": "Smith",
-              "given": [
-                "Dr."
-              ]
+              "given": ["Dr."]
             }
           ]
         }

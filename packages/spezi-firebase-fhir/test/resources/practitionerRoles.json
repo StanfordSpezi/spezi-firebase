@@ -77,13 +77,7 @@
     ],
     "availableTime": [
       {
-        "daysOfWeek": [
-          "mon",
-          "tue",
-          "wed",
-          "thu",
-          "fri"
-        ],
+        "daysOfWeek": ["mon", "tue", "wed", "thu", "fri"],
         "availableStartTime": "08:00:00",
         "availableEndTime": "17:00:00"
       }
@@ -145,11 +139,7 @@
     ],
     "availableTime": [
       {
-        "daysOfWeek": [
-          "mon",
-          "wed",
-          "fri"
-        ],
+        "daysOfWeek": ["mon", "wed", "fri"],
         "allDay": true
       }
     ],

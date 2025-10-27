@@ -28,9 +28,7 @@
       "type": "rest-hook",
       "endpoint": "https://example.org/fhir/subscription",
       "payload": "application/fhir+json",
-      "header": [
-        "Authorization: Bearer secret-token-here"
-      ]
+      "header": ["Authorization: Bearer secret-token-here"]
     }
   },
   "2": {

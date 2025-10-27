@@ -12,7 +12,10 @@ import { FhirAllergyIntolerance } from '../../src/index.js'
 
 describe('AllergyIntolerance Resource', () => {
   it('should validate FHIR allergyIntolerance from allergyIntolerances.json', () => {
-    const data = fs.readFileSync('test/resources/allergyIntolerances.json', 'utf-8')
+    const data = fs.readFileSync(
+      'test/resources/allergyIntolerances.json',
+      'utf-8',
+    )
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

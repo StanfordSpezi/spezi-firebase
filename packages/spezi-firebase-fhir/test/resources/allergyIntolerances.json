@@ -19,9 +19,7 @@
       ]
     },
     "type": "allergy",
-    "category": [
-      "food"
-    ],
+    "category": ["food"],
     "criticality": "high",
     "code": {
       "coding": [
@@ -57,9 +55,7 @@
       ]
     },
     "type": "intolerance",
-    "category": [
-      "medication"
-    ],
+    "category": ["medication"],
     "criticality": "low",
     "code": {
       "coding": [
@@ -124,9 +120,7 @@
       ]
     },
     "type": "allergy",
-    "category": [
-      "environment"
-    ],
+    "category": ["environment"],
     "criticality": "unable-to-assess",
     "code": {
       "coding": [
@@ -163,9 +157,7 @@
       ]
     },
     "type": "allergy",
-    "category": [
-      "biologic"
-    ],
+    "category": ["biologic"],
     "code": {
       "coding": [
         {

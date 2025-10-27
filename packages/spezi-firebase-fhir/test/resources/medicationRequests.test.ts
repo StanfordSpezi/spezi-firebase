@@ -12,7 +12,10 @@ import { FhirMedicationRequest } from '../../src/index.js'
 
 describe('MedicationRequest Resource', () => {
   it('should validate FHIR medicationRequest from medicationRequests.json', () => {
-    const data = fs.readFileSync('test/resources/medicationRequests.json', 'utf-8')
+    const data = fs.readFileSync(
+      'test/resources/medicationRequests.json',
+      'utf-8',
+    )
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

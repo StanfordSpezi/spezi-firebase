@@ -12,7 +12,10 @@ import { FhirPractitionerRole } from '../../src/index.js'
 
 describe('PractitionerRole Resource', () => {
   it('should validate FHIR practitionerRole from practitionerRoles.json', () => {
-    const data = fs.readFileSync('test/resources/practitionerRoles.json', 'utf-8')
+    const data = fs.readFileSync(
+      'test/resources/practitionerRoles.json',
+      'utf-8',
+    )
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

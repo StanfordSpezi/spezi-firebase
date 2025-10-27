@@ -12,7 +12,10 @@ import { FhirOperationOutcome } from '../../src/index.js'
 
 describe('OperationOutcome Resource', () => {
   it('should validate FHIR operationOutcome from operationOutcomes.json', () => {
-    const data = fs.readFileSync('test/resources/operationOutcomes.json', 'utf-8')
+    const data = fs.readFileSync(
+      'test/resources/operationOutcomes.json',
+      'utf-8',
+    )
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

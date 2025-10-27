@@ -51,9 +51,7 @@
         ]
       }
     ],
-    "payloadMimeType": [
-      "application/dicom"
-    ]
+    "payloadMimeType": ["application/dicom"]
   },
   "2": {
     "resourceType": "Endpoint",
@@ -70,9 +68,7 @@
         "text": "HL7 v2 messages"
       }
     ],
-    "header": [
-      "Authorization: Bearer token123"
-    ]
+    "header": ["Authorization: Bearer token123"]
   },
   "3": {
     "resourceType": "Endpoint",

@@ -12,7 +12,10 @@ import { FhirHealthcareService } from '../../src/index.js'
 
 describe('HealthcareService Resource', () => {
   it('should validate FHIR healthcareService from healthcareServices.json', () => {
-    const data = fs.readFileSync('test/resources/healthcareServices.json', 'utf-8')
+    const data = fs.readFileSync(
+      'test/resources/healthcareServices.json',
+      'utf-8',
+    )
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {

@@ -7,9 +7,7 @@
       {
         "use": "official",
         "family": "Smith",
-        "given": [
-          "John"
-        ]
+        "given": ["John"]
       }
     ],
     "telecom": [
@@ -35,10 +33,7 @@
       {
         "use": "official",
         "family": "Johnson",
-        "given": [
-          "Emily",
-          "Rose"
-        ]
+        "given": ["Emily", "Rose"]
       },
       {
         "use": "maiden",
@@ -57,9 +52,7 @@
     "address": [
       {
         "use": "home",
-        "line": [
-          "789 Oak Street"
-        ],
+        "line": ["789 Oak Street"],
         "city": "Boston",
         "state": "MA",
         "postalCode": "02101"
@@ -81,9 +74,7 @@
     "name": [
       {
         "family": "Brown",
-        "given": [
-          "Michael"
-        ]
+        "given": ["Michael"]
       }
     ],
     "gender": "male"
@@ -96,12 +87,8 @@
       {
         "use": "official",
         "family": "Garcia",
-        "given": [
-          "Maria"
-        ],
-        "prefix": [
-          "Dr."
-        ]
+        "given": ["Maria"],
+        "prefix": ["Dr."]
       }
     ],
     "telecom": [
@@ -120,10 +107,7 @@
     "birthDate": "1978-03-10",
     "address": [
       {
-        "line": [
-          "123 Medical Plaza",
-          "Suite 200"
-        ],
+        "line": ["123 Medical Plaza", "Suite 200"],
         "city": "Los Angeles",
         "state": "CA",
         "postalCode": "90001"

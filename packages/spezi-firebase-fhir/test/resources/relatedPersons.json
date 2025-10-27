@@ -20,9 +20,7 @@
     "name": [
       {
         "family": "Smith",
-        "given": [
-          "Jane"
-        ]
+        "given": ["Jane"]
       }
     ]
   },
@@ -54,10 +52,7 @@
       {
         "use": "official",
         "family": "Johnson",
-        "given": [
-          "Michael",
-          "Robert"
-        ]
+        "given": ["Michael", "Robert"]
       }
     ],
     "telecom": [
@@ -72,9 +67,7 @@
     "address": [
       {
         "use": "home",
-        "line": [
-          "456 Oak Street"
-        ],
+        "line": ["456 Oak Street"],
         "city": "Boston",
         "state": "MA",
         "postalCode": "02101"
@@ -125,9 +118,7 @@
       {
         "use": "official",
         "family": "Garcia",
-        "given": [
-          "Maria"
-        ]
+        "given": ["Maria"]
       }
     ],
     "telecom": [
@@ -151,10 +142,7 @@
     "gender": "female",
     "address": [
       {
-        "line": [
-          "789 Main Street",
-          "Apt 3B"
-        ],
+        "line": ["789 Main Street", "Apt 3B"],
         "city": "Los Angeles",
         "state": "CA",
         "postalCode": "90001"

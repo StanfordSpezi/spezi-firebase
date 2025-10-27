@@ -147,9 +147,7 @@
         "text": "Inject 10 units subcutaneously before breakfast",
         "timing": {
           "repeat": {
-            "when": [
-              "ACM"
-            ]
+            "when": ["ACM"]
           }
         },
         "route": {

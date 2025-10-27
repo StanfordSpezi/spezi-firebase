@@ -17,9 +17,7 @@
       }
     ],
     "address": {
-      "line": [
-        "123 Medical Center Drive"
-      ],
+      "line": ["123 Medical Center Drive"],
       "city": "Springfield",
       "state": "IL",
       "postalCode": "62701"
@@ -36,10 +34,7 @@
     ],
     "status": "active",
     "name": "Examination Room 301",
-    "alias": [
-      "Exam Room 301",
-      "ER-301"
-    ],
+    "alias": ["Exam Room 301", "ER-301"],
     "description": "Standard examination room on third floor",
     "mode": "instance",
     "type": [
@@ -102,10 +97,7 @@
       }
     ],
     "address": {
-      "line": [
-        "456 Main Street",
-        "Suite 100"
-      ],
+      "line": ["456 Main Street", "Suite 100"],
       "city": "Boston",
       "state": "MA",
       "postalCode": "02101",
@@ -121,13 +113,7 @@
     },
     "hoursOfOperation": [
       {
-        "daysOfWeek": [
-          "mon",
-          "tue",
-          "wed",
-          "thu",
-          "fri"
-        ],
+        "daysOfWeek": ["mon", "tue", "wed", "thu", "fri"],
         "openingTime": "08:00:00",
         "closingTime": "17:00:00"
       }

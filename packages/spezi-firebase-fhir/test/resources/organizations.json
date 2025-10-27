@@ -24,9 +24,7 @@
     ],
     "address": [
       {
-        "line": [
-          "100 Hospital Drive"
-        ],
+        "line": ["100 Hospital Drive"],
         "city": "Springfield",
         "state": "IL",
         "postalCode": "62701"
@@ -55,10 +53,7 @@
       }
     ],
     "name": "Cardiology Department",
-    "alias": [
-      "Cardiac Care",
-      "Heart Center"
-    ],
+    "alias": ["Cardiac Care", "Heart Center"],
     "telecom": [
       {
         "system": "phone",
@@ -126,9 +121,7 @@
     "address": [
       {
         "type": "both",
-        "line": [
-          "500 Insurance Plaza"
-        ],
+        "line": ["500 Insurance Plaza"],
         "city": "New York",
         "state": "NY",
         "postalCode": "10001",

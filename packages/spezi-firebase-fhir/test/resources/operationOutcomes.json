@@ -30,9 +30,7 @@
           "text": "The field 'patient' is required"
         },
         "diagnostics": "Resource validation failed",
-        "expression": [
-          "Patient.identifier"
-        ]
+        "expression": ["Patient.identifier"]
       }
     ]
   },
@@ -47,9 +45,7 @@
           "text": "Code not found in value set"
         },
         "diagnostics": "The code '12345' was not found in the bound value set",
-        "location": [
-          "Observation.code"
-        ]
+        "location": ["Observation.code"]
       }
     ]
   },
