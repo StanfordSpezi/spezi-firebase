@@ -11,6 +11,7 @@ import { z, type ZodType } from 'zod'
 import { untypedAllergyIntoleranceSchema } from './allergyIntolerance.js'
 import { untypedAppointmentSchema } from './appointment.js'
 import { untypedAppointmentResponseSchema } from './appointmentResponse.js'
+import { untypedAuditEventSchema } from './auditEvent.js'
 import { untypedBasicSchema } from './basic.js'
 import { untypedBinarySchema } from './binary.js'
 import { untypedBodyStructureSchema } from './bodyStructure.js'
@@ -19,6 +20,8 @@ import { untypedCodeSystemSchema } from './codeSystem.js'
 import { untypedCompositionSchema } from './composition.js'
 import { untypedConceptMapSchema } from './conceptMap.js'
 import { untypedConditionSchema } from './condition.js'
+import { untypedConsentSchema } from './consent.js'
+import { untypedContractSchema } from './contract.js'
 import { untypedCoverageSchema } from './coverage.js'
 import { untypedDeviceSchema } from './device.js'
 import { untypedDeviceDefinitionSchema } from './deviceDefinition.js'
@@ -63,6 +66,7 @@ import { untypedPersonSchema } from './person.js'
 import { untypedPractitionerSchema } from './practitioner.js'
 import { untypedPractitionerRoleSchema } from './practitionerRole.js'
 import { untypedProcedureSchema } from './procedure.js'
+import { untypedProvenanceSchema } from './provenance.js'
 import { untypedQuestionnaireSchema } from './questionnaire.js'
 import { untypedQuestionnaireResponseSchema } from './questionnaireResponse.js'
 import { untypedRelatedPersonSchema } from './relatedPerson.js'
@@ -76,12 +80,14 @@ import { untypedSubstanceSchema } from './substance.js'
 import { untypedTaskSchema } from './task.js'
 import { untypedTerminologyCapabilitiesSchema } from './terminologyCapabilities.js'
 import { untypedValueSetSchema } from './valueSet.js'
+import { untypedVerificationResultSchema } from './verificationResult.js'
 
 export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
     untypedAllergyIntoleranceSchema,
     untypedAppointmentSchema,
     untypedAppointmentResponseSchema,
+    untypedAuditEventSchema,
     untypedBasicSchema,
     untypedBinarySchema,
     untypedBodyStructureSchema,
@@ -90,6 +96,8 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedCompositionSchema,
     untypedConceptMapSchema,
     untypedConditionSchema,
+    untypedConsentSchema,
+    untypedContractSchema,
     untypedCoverageSchema,
     untypedDeviceSchema,
     untypedDeviceDefinitionSchema,
@@ -134,6 +142,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedPractitionerSchema,
     untypedPractitionerRoleSchema,
     untypedProcedureSchema,
+    untypedProvenanceSchema,
     untypedQuestionnaireSchema,
     untypedQuestionnaireResponseSchema,
     untypedRelatedPersonSchema,
@@ -147,5 +156,6 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedTaskSchema,
     untypedTerminologyCapabilitiesSchema,
     untypedValueSetSchema,
+    untypedVerificationResultSchema,
   ]),
 )

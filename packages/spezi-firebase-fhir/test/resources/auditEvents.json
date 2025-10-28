@@ -1,0 +1,301 @@
+{
+  "0": {
+    "resourceType": "AuditEvent",
+    "id": "audit-event-example-0",
+    "type": {
+      "system": "http://terminology.hl7.org/CodeSystem/audit-event-type",
+      "code": "rest",
+      "display": "RESTful Operation"
+    },
+    "subtype": [
+      {
+        "system": "http://hl7.org/fhir/restful-interaction",
+        "code": "read",
+        "display": "read"
+      }
+    ],
+    "action": "R",
+    "recorded": "2023-01-15T10:30:00Z",
+    "outcome": "0",
+    "agent": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
+              "code": "humanuser"
+            }
+          ]
+        },
+        "who": {
+          "reference": "Practitioner/example"
+        },
+        "requestor": true,
+        "network": {
+          "address": "192.168.1.100",
+          "type": "2"
+        }
+      }
+    ],
+    "source": {
+      "observer": {
+        "reference": "Device/audit-system"
+      },
+      "type": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/security-source-type",
+          "code": "4",
+          "display": "Application Server"
+        }
+      ]
+    },
+    "entity": [
+      {
+        "what": {
+          "reference": "Patient/example"
+        },
+        "type": {
+          "system": "http://terminology.hl7.org/CodeSystem/audit-entity-type",
+          "code": "1",
+          "display": "Person"
+        },
+        "role": {
+          "system": "http://terminology.hl7.org/CodeSystem/object-role",
+          "code": "1",
+          "display": "Patient"
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "AuditEvent",
+    "id": "audit-event-example-1",
+    "type": {
+      "system": "http://terminology.hl7.org/CodeSystem/audit-event-type",
+      "code": "rest",
+      "display": "RESTful Operation"
+    },
+    "subtype": [
+      {
+        "system": "http://hl7.org/fhir/restful-interaction",
+        "code": "update",
+        "display": "update"
+      }
+    ],
+    "action": "U",
+    "period": {
+      "start": "2023-02-20T14:00:00Z",
+      "end": "2023-02-20T14:01:00Z"
+    },
+    "recorded": "2023-02-20T14:01:00Z",
+    "outcome": "0",
+    "outcomeDesc": "Successfully updated patient record",
+    "agent": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
+              "code": "humanuser"
+            }
+          ]
+        },
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
+                "code": "ASSIGNED"
+              }
+            ]
+          }
+        ],
+        "who": {
+          "reference": "Practitioner/practitioner-1"
+        },
+        "altId": "user123",
+        "name": "Dr. Jane Smith",
+        "requestor": true,
+        "network": {
+          "address": "192.168.1.101",
+          "type": "2"
+        }
+      }
+    ],
+    "source": {
+      "site": "Hospital Main Campus",
+      "observer": {
+        "reference": "Device/ehr-system"
+      },
+      "type": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/security-source-type",
+          "code": "4"
+        }
+      ]
+    },
+    "entity": [
+      {
+        "what": {
+          "reference": "Patient/patient-1"
+        },
+        "type": {
+          "system": "http://terminology.hl7.org/CodeSystem/audit-entity-type",
+          "code": "1"
+        },
+        "role": {
+          "system": "http://terminology.hl7.org/CodeSystem/object-role",
+          "code": "1"
+        },
+        "name": "John Doe"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "AuditEvent",
+    "id": "audit-event-example-2",
+    "type": {
+      "system": "http://terminology.hl7.org/CodeSystem/audit-event-type",
+      "code": "rest",
+      "display": "RESTful Operation"
+    },
+    "subtype": [
+      {
+        "system": "http://hl7.org/fhir/restful-interaction",
+        "code": "create",
+        "display": "create"
+      }
+    ],
+    "action": "C",
+    "recorded": "2023-03-10T09:15:00Z",
+    "outcome": "0",
+    "purposeOfEvent": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+            "code": "TREAT"
+          }
+        ]
+      }
+    ],
+    "agent": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
+              "code": "humanuser"
+            }
+          ]
+        },
+        "who": {
+          "reference": "Practitioner/surgeon"
+        },
+        "requestor": true,
+        "location": {
+          "reference": "Location/operating-room-1"
+        },
+        "policy": ["http://example.org/fhir/policy/data-access"]
+      }
+    ],
+    "source": {
+      "observer": {
+        "reference": "Device/surgical-system"
+      }
+    },
+    "entity": [
+      {
+        "what": {
+          "reference": "Procedure/surgery-1"
+        },
+        "type": {
+          "system": "http://terminology.hl7.org/CodeSystem/audit-entity-type",
+          "code": "2",
+          "display": "System Object"
+        },
+        "lifecycle": {
+          "system": "http://terminology.hl7.org/CodeSystem/dicom-audit-lifecycle",
+          "code": "1",
+          "display": "Origination / Creation"
+        },
+        "description": "New surgical procedure record created"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "AuditEvent",
+    "id": "audit-event-example-3",
+    "type": {
+      "system": "http://terminology.hl7.org/CodeSystem/audit-event-type",
+      "code": "rest",
+      "display": "RESTful Operation"
+    },
+    "subtype": [
+      {
+        "system": "http://hl7.org/fhir/restful-interaction",
+        "code": "search-type",
+        "display": "search-type"
+      }
+    ],
+    "action": "E",
+    "recorded": "2023-04-05T16:45:00Z",
+    "outcome": "0",
+    "agent": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
+              "code": "humanuser"
+            }
+          ]
+        },
+        "who": {
+          "reference": "Practitioner/researcher"
+        },
+        "requestor": true,
+        "network": {
+          "address": "203.0.113.42",
+          "type": "2"
+        },
+        "purposeOfUse": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+                "code": "HRESCH",
+                "display": "healthcare research"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "source": {
+      "observer": {
+        "reference": "Device/fhir-server"
+      }
+    },
+    "entity": [
+      {
+        "type": {
+          "system": "http://terminology.hl7.org/CodeSystem/audit-entity-type",
+          "code": "2"
+        },
+        "role": {
+          "system": "http://terminology.hl7.org/CodeSystem/object-role",
+          "code": "3",
+          "display": "Report"
+        },
+        "query": "UGF0aWVudD9nZW5kZXI9bWFsZSZfY291bnQ9MTA=",
+        "detail": [
+          {
+            "type": "search-parameters",
+            "valueString": "gender=male&_count=10"
+          }
+        ]
+      }
+    ]
+  }
+}
