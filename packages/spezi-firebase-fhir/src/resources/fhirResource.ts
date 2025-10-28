@@ -18,6 +18,10 @@ import { untypedConceptMapSchema } from './conceptMap.js'
 import { untypedConditionSchema } from './condition.js'
 import { untypedCoverageSchema } from './coverage.js'
 import { untypedDeviceSchema } from './device.js'
+import { untypedDeviceDefinitionSchema } from './deviceDefinition.js'
+import { untypedDeviceMetricSchema } from './deviceMetric.js'
+import { untypedDeviceRequestSchema } from './deviceRequest.js'
+import { untypedDeviceUseStatementSchema } from './deviceUseStatement.js'
 import { untypedDiagnosticReportSchema } from './diagnosticReport.js'
 import { untypedEncounterSchema } from './encounter.js'
 import { untypedEndpointSchema } from './endpoint.js'
@@ -33,6 +37,7 @@ import { untypedLibrarySchema } from './library.js'
 import { untypedLinkageSchema } from './linkage.js'
 import { untypedListSchema } from './list.js'
 import { untypedLocationSchema } from './location.js'
+import { untypedMediaSchema } from './media.js'
 import { untypedMedicationSchema } from './medication.js'
 import { untypedMedicationAdministrationSchema } from './medicationAdministration.js'
 import { untypedMedicationDispenseSchema } from './medicationDispense.js'
@@ -40,8 +45,10 @@ import { untypedMedicationKnowledgeSchema } from './medicationKnowledge.js'
 import { untypedMedicationRequestSchema } from './medicationRequest.js'
 import { untypedMedicationStatementSchema } from './medicationStatement.js'
 import { untypedMessageHeaderSchema } from './messageHeader.js'
+import { untypedMolecularSequenceSchema } from './molecularSequence.js'
 import { untypedNamingSystemSchema } from './namingSystem.js'
 import { untypedObservationSchema } from './observation.js'
+import { untypedObservationDefinitionSchema } from './observationDefinition.js'
 import { untypedOperationOutcomeSchema } from './operationOutcome.js'
 import { untypedOrganizationSchema } from './organization.js'
 import { untypedOrganizationAffiliationSchema } from './organizationAffiliation.js'
@@ -58,6 +65,7 @@ import { untypedScheduleSchema } from './schedule.js'
 import { untypedServiceRequestSchema } from './serviceRequest.js'
 import { untypedSlotSchema } from './slot.js'
 import { untypedSpecimenSchema } from './specimen.js'
+import { untypedSpecimenDefinitionSchema } from './specimenDefinition.js'
 import { untypedSubscriptionSchema } from './subscription.js'
 import { untypedSubstanceSchema } from './substance.js'
 import { untypedTaskSchema } from './task.js'
@@ -76,6 +84,10 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedConditionSchema,
     untypedCoverageSchema,
     untypedDeviceSchema,
+    untypedDeviceDefinitionSchema,
+    untypedDeviceMetricSchema,
+    untypedDeviceRequestSchema,
+    untypedDeviceUseStatementSchema,
     untypedDiagnosticReportSchema,
     untypedEncounterSchema,
     untypedEndpointSchema,
@@ -91,6 +103,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedLinkageSchema,
     untypedListSchema,
     untypedLocationSchema,
+    untypedMediaSchema,
     untypedMedicationSchema,
     untypedMedicationAdministrationSchema,
     untypedMedicationDispenseSchema,
@@ -98,8 +111,10 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedMedicationRequestSchema,
     untypedMedicationStatementSchema,
     untypedMessageHeaderSchema,
+    untypedMolecularSequenceSchema,
     untypedNamingSystemSchema,
     untypedObservationSchema,
+    untypedObservationDefinitionSchema,
     untypedOperationOutcomeSchema,
     untypedOrganizationSchema,
     untypedOrganizationAffiliationSchema,
@@ -116,6 +131,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedServiceRequestSchema,
     untypedSlotSchema,
     untypedSpecimenSchema,
+    untypedSpecimenDefinitionSchema,
     untypedSubscriptionSchema,
     untypedSubstanceSchema,
     untypedTaskSchema,
