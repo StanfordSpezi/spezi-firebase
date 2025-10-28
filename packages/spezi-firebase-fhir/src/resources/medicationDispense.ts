@@ -22,23 +22,14 @@ import {
   quantitySchema,
   referenceSchema,
 } from '../elements/index.js'
+import { medicationDispenseStatusSchema } from '../valueSets/index.js'
 
 export const untypedMedicationDispenseSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('MedicationDispense').readonly(),
     identifier: identifierSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
-    status: z.enum([
-      'preparation',
-      'in-progress',
-      'cancelled',
-      'on-hold',
-      'completed',
-      'entered-in-error',
-      'stopped',
-      'declined',
-      'unknown',
-    ]),
+    status: medicationDispenseStatusSchema,
     _status: elementSchema.optional(),
     statusReasonCodeableConcept: codeableConceptSchema.optional(),
     statusReasonReference: referenceSchema.optional(),

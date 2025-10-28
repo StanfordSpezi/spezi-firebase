@@ -1,0 +1,127 @@
+{
+  "0": {
+    "resourceType": "CatalogEntry",
+    "id": "catalog-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/catalog",
+        "value": "CAT-12345"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/catalogType",
+          "code": "medication",
+          "display": "Medication"
+        }
+      ]
+    },
+    "orderable": true,
+    "referencedItem": {
+      "reference": "Medication/example"
+    },
+    "status": "active",
+    "validityPeriod": {
+      "start": "2023-01-01",
+      "end": "2024-12-31"
+    }
+  },
+  "1": {
+    "resourceType": "CatalogEntry",
+    "id": "catalog-example-2",
+    "identifier": [
+      {
+        "system": "http://example.org/catalog",
+        "value": "CAT-67890"
+      }
+    ],
+    "orderable": false,
+    "referencedItem": {
+      "reference": "Device/example"
+    },
+    "additionalIdentifier": [
+      {
+        "system": "http://example.org/manufacturer",
+        "value": "MFG-123"
+      }
+    ],
+    "classification": [
+      {
+        "coding": [
+          {
+            "system": "http://example.org/device-classification",
+            "code": "implantable",
+            "display": "Implantable Device"
+          }
+        ]
+      }
+    ],
+    "status": "draft"
+  },
+  "2": {
+    "resourceType": "CatalogEntry",
+    "id": "catalog-example-3",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/catalogType",
+          "code": "device",
+          "display": "Device"
+        }
+      ]
+    },
+    "orderable": true,
+    "referencedItem": {
+      "reference": "Device/example2"
+    },
+    "status": "retired",
+    "validTo": "2023-12-31",
+    "lastUpdated": "2023-11-15T10:30:00Z"
+  },
+  "3": {
+    "resourceType": "CatalogEntry",
+    "id": "catalog-example-4",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/catalog",
+        "value": "HOS-CAT-999"
+      }
+    ],
+    "orderable": true,
+    "referencedItem": {
+      "reference": "Medication/example2"
+    },
+    "classification": [
+      {
+        "coding": [
+          {
+            "system": "http://www.whocc.no/atc",
+            "code": "J01CR02",
+            "display": "Amoxicillin and clavulanic acid"
+          }
+        ]
+      }
+    ],
+    "status": "active",
+    "additionalCharacteristic": [
+      {
+        "coding": [
+          {
+            "system": "http://example.org/characteristics",
+            "code": "refrigerated",
+            "display": "Requires Refrigeration"
+          }
+        ]
+      }
+    ],
+    "relatedEntry": [
+      {
+        "relationtype": "triggers",
+        "item": {
+          "reference": "CatalogEntry/related-item"
+        }
+      }
+    ]
+  }
+}

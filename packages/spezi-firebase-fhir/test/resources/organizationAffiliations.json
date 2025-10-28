@@ -1,0 +1,196 @@
+{
+  "0": {
+    "resourceType": "OrganizationAffiliation",
+    "id": "example-0",
+    "identifier": [
+      {
+        "system": "http://example.org/affiliation-identifiers",
+        "value": "AFF-001"
+      }
+    ],
+    "active": true,
+    "period": {
+      "start": "2020-01-01"
+    },
+    "organization": {
+      "reference": "Organization/org-001",
+      "display": "Health Level Seven International"
+    },
+    "participatingOrganization": {
+      "reference": "Organization/org-002",
+      "display": "ABC Medical Center"
+    },
+    "code": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/organization-role",
+            "code": "provider",
+            "display": "Provider"
+          }
+        ]
+      }
+    ],
+    "specialty": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "394802001",
+            "display": "General medicine"
+          }
+        ]
+      }
+    ],
+    "location": [
+      {
+        "reference": "Location/location-001",
+        "display": "Main Campus"
+      }
+    ],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+1-555-0100"
+      },
+      {
+        "system": "email",
+        "value": "affiliation@example.org"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "OrganizationAffiliation",
+    "id": "example-1",
+    "active": true,
+    "organization": {
+      "reference": "Organization/org-003"
+    },
+    "participatingOrganization": {
+      "reference": "Organization/org-004"
+    },
+    "network": [
+      {
+        "reference": "Organization/network-001",
+        "display": "Regional Health Network"
+      }
+    ],
+    "code": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/organization-role",
+            "code": "member",
+            "display": "Member"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "OrganizationAffiliation",
+    "id": "example-2",
+    "identifier": [
+      {
+        "system": "http://example.org/affiliation-identifiers",
+        "value": "AFF-002"
+      }
+    ],
+    "active": false,
+    "period": {
+      "start": "2018-01-01",
+      "end": "2019-12-31"
+    },
+    "organization": {
+      "reference": "Organization/org-005"
+    },
+    "participatingOrganization": {
+      "reference": "Organization/org-006"
+    },
+    "code": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/organization-role",
+            "code": "HIE/HIO",
+            "display": "HIE/HIO"
+          }
+        ]
+      }
+    ],
+    "healthcareService": [
+      {
+        "reference": "HealthcareService/service-001"
+      }
+    ],
+    "endpoint": [
+      {
+        "reference": "Endpoint/endpoint-001"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "OrganizationAffiliation",
+    "id": "example-3",
+    "active": true,
+    "period": {
+      "start": "2021-06-01"
+    },
+    "organization": {
+      "reference": "Organization/org-007",
+      "display": "Community Hospital"
+    },
+    "participatingOrganization": {
+      "reference": "Organization/org-008",
+      "display": "Specialty Clinic"
+    },
+    "code": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/organization-role",
+            "code": "vendor",
+            "display": "Vendor"
+          }
+        ]
+      }
+    ],
+    "specialty": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "394585009",
+            "display": "Obstetrics and gynecology"
+          }
+        ]
+      },
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "394537008",
+            "display": "Pediatric specialty"
+          }
+        ]
+      }
+    ],
+    "location": [
+      {
+        "reference": "Location/location-002",
+        "display": "East Wing"
+      },
+      {
+        "reference": "Location/location-003",
+        "display": "West Wing"
+      }
+    ],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+1-555-0200",
+        "use": "work"
+      }
+    ]
+  }
+}

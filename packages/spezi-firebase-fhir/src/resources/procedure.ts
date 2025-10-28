@@ -24,6 +24,7 @@ import {
   stringSchema,
   uriSchema,
 } from '../elements/index.js'
+import { procedureStatusSchema } from '../valueSets/index.js'
 
 export const untypedProcedureSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -35,16 +36,7 @@ export const untypedProcedureSchema = z.lazy(() =>
     _instantiatesUri: elementSchema.array().optional(),
     basedOn: referenceSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
-    status: z.enum([
-      'preparation',
-      'in-progress',
-      'not-done',
-      'on-hold',
-      'stopped',
-      'completed',
-      'entered-in-error',
-      'unknown',
-    ]),
+    status: procedureStatusSchema,
     _status: elementSchema.optional(),
     statusReason: codeableConceptSchema.optional(),
     category: codeableConceptSchema.optional(),

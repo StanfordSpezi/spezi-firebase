@@ -1,0 +1,155 @@
+{
+  "0": {
+    "resourceType": "DeviceMetric",
+    "id": "example-device-metric-1",
+    "identifier": [
+      {
+        "system": "http://example.org/metrics",
+        "value": "METRIC-001"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "8867-4",
+          "display": "Heart rate"
+        }
+      ]
+    },
+    "unit": {
+      "coding": [
+        {
+          "system": "http://unitsofmeasure.org",
+          "code": "/min",
+          "display": "beats per minute"
+        }
+      ]
+    },
+    "source": {
+      "reference": "Device/example-monitor"
+    },
+    "operationalStatus": "on",
+    "color": "blue",
+    "category": "measurement",
+    "calibration": [
+      {
+        "type": "unspecified",
+        "state": "calibrated",
+        "time": "2024-01-15T10:30:00Z"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "DeviceMetric",
+    "id": "example-device-metric-2",
+    "identifier": [
+      {
+        "system": "http://example.org/metrics",
+        "value": "METRIC-002"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "2708-6",
+          "display": "Oxygen saturation in Arterial blood"
+        }
+      ]
+    },
+    "unit": {
+      "coding": [
+        {
+          "system": "http://unitsofmeasure.org",
+          "code": "%",
+          "display": "percent"
+        }
+      ]
+    },
+    "source": {
+      "reference": "Device/example-pulse-oximeter"
+    },
+    "parent": {
+      "reference": "Device/example-patient-monitor"
+    },
+    "operationalStatus": "on",
+    "color": "magenta",
+    "category": "measurement"
+  },
+  "2": {
+    "resourceType": "DeviceMetric",
+    "id": "example-device-metric-3",
+    "type": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "8480-6",
+          "display": "Systolic blood pressure"
+        }
+      ]
+    },
+    "unit": {
+      "coding": [
+        {
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]",
+          "display": "millimeter of mercury"
+        }
+      ]
+    },
+    "source": {
+      "reference": "Device/example-bp-monitor"
+    },
+    "operationalStatus": "standby",
+    "color": "green",
+    "category": "measurement",
+    "calibration": [
+      {
+        "type": "two-point",
+        "state": "calibration-required"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "DeviceMetric",
+    "id": "example-device-metric-4",
+    "identifier": [
+      {
+        "system": "http://example.org/metrics",
+        "value": "METRIC-004"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "urn:iso:std:iso:11073:10101",
+          "code": "150456",
+          "display": "MDC_TEMP"
+        }
+      ]
+    },
+    "unit": {
+      "coding": [
+        {
+          "system": "http://unitsofmeasure.org",
+          "code": "Cel",
+          "display": "degree Celsius"
+        }
+      ]
+    },
+    "source": {
+      "reference": "Device/example-thermometer"
+    },
+    "operationalStatus": "on",
+    "color": "red",
+    "category": "measurement",
+    "measurementPeriod": {
+      "repeat": {
+        "frequency": 1,
+        "period": 5,
+        "periodUnit": "min"
+      }
+    }
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "0": {
+    "resourceType": "Organization",
+    "id": "org-example-0",
+    "active": true,
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+            "code": "prov",
+            "display": "Healthcare Provider"
+          }
+        ]
+      }
+    ],
+    "name": "General Hospital",
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+1-555-100-2000",
+        "use": "work"
+      }
+    ],
+    "address": [
+      {
+        "line": ["100 Hospital Drive"],
+        "city": "Springfield",
+        "state": "IL",
+        "postalCode": "62701"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Organization",
+    "id": "org-example-1",
+    "identifier": [
+      {
+        "system": "http://hl7.org/fhir/sid/us-npi",
+        "value": "1234567890"
+      }
+    ],
+    "active": true,
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+            "code": "dept",
+            "display": "Hospital Department"
+          }
+        ]
+      }
+    ],
+    "name": "Cardiology Department",
+    "alias": ["Cardiac Care", "Heart Center"],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+1-555-100-2222"
+      },
+      {
+        "system": "email",
+        "value": "cardiology@hospital.example.org"
+      }
+    ],
+    "partOf": {
+      "reference": "Organization/org-example-0"
+    }
+  },
+  "2": {
+    "resourceType": "Organization",
+    "id": "org-example-2",
+    "active": false,
+    "name": "Closed Clinic",
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+            "code": "prov",
+            "display": "Healthcare Provider"
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Organization",
+    "id": "org-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/organizations",
+        "value": "ORG-789"
+      }
+    ],
+    "active": true,
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+            "code": "ins",
+            "display": "Insurance Company"
+          }
+        ]
+      }
+    ],
+    "name": "HealthCare Insurance Co.",
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "+1-800-555-1234",
+        "use": "work"
+      },
+      {
+        "system": "url",
+        "value": "https://www.healthcareins.example.org"
+      }
+    ],
+    "address": [
+      {
+        "type": "both",
+        "line": ["500 Insurance Plaza"],
+        "city": "New York",
+        "state": "NY",
+        "postalCode": "10001",
+        "country": "USA"
+      }
+    ],
+    "contact": [
+      {
+        "purpose": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+              "code": "ADMIN",
+              "display": "Administrative"
+            }
+          ]
+        },
+        "name": {
+          "text": "Customer Service"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1-800-555-5678"
+          }
+        ]
+      }
+    ]
+  }
+}

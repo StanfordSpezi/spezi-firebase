@@ -1,0 +1,164 @@
+{
+  "0": {
+    "resourceType": "BodyStructure",
+    "id": "example-0",
+    "identifier": [
+      {
+        "system": "http://example.org/bodystructure-identifiers",
+        "value": "BS-001"
+      }
+    ],
+    "active": true,
+    "morphology": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "4147007",
+          "display": "Mass"
+        }
+      ]
+    },
+    "location": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "78961009",
+          "display": "Splenic structure"
+        }
+      ]
+    },
+    "description": "Mass in the splenic region",
+    "patient": {
+      "reference": "Patient/patient-001"
+    }
+  },
+  "1": {
+    "resourceType": "BodyStructure",
+    "id": "example-1",
+    "active": true,
+    "morphology": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "399721002",
+          "display": "Tumor"
+        }
+      ]
+    },
+    "location": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "80248007",
+          "display": "Left breast structure"
+        }
+      ]
+    },
+    "locationQualifier": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "261183002",
+            "display": "Upper outer quadrant"
+          }
+        ]
+      }
+    ],
+    "description": "Tumor located in upper outer quadrant of left breast",
+    "patient": {
+      "reference": "Patient/patient-002",
+      "display": "Jane Doe"
+    }
+  },
+  "2": {
+    "resourceType": "BodyStructure",
+    "id": "example-2",
+    "identifier": [
+      {
+        "system": "http://example.org/bodystructure-identifiers",
+        "value": "BS-002"
+      }
+    ],
+    "active": false,
+    "location": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "39937001",
+          "display": "Skin structure"
+        }
+      ]
+    },
+    "locationQualifier": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "419161000",
+            "display": "Unilateral left"
+          }
+        ]
+      },
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "261122009",
+            "display": "Lower"
+          }
+        ]
+      }
+    ],
+    "description": "Previously marked surgical site on lower left skin area",
+    "patient": {
+      "reference": "Patient/patient-003"
+    }
+  },
+  "3": {
+    "resourceType": "BodyStructure",
+    "id": "example-3",
+    "active": true,
+    "morphology": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "68566005",
+          "display": "Urinary tract infectious disease"
+        }
+      ]
+    },
+    "location": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "113345001",
+          "display": "Abdominal structure"
+        }
+      ]
+    },
+    "locationQualifier": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "255561001",
+            "display": "Medial"
+          }
+        ]
+      }
+    ],
+    "description": "Abdominal mass, medial location",
+    "image": [
+      {
+        "contentType": "image/jpeg",
+        "url": "http://example.org/images/bodystructure-001.jpg",
+        "title": "Abdominal CT scan"
+      }
+    ],
+    "patient": {
+      "reference": "Patient/patient-004",
+      "display": "John Smith"
+    }
+  }
+}

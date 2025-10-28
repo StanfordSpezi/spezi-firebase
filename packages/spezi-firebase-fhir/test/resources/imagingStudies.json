@@ -1,0 +1,82 @@
+{
+  "0": {
+    "resourceType": "ImagingStudy",
+    "id": "imaging-example-0",
+    "status": "available",
+    "subject": {
+      "reference": "Patient/patient-example"
+    }
+  },
+  "1": {
+    "resourceType": "ImagingStudy",
+    "id": "imaging-example-1",
+    "identifier": [
+      {
+        "system": "urn:dicom:uid",
+        "value": "urn:oid:1.2.840.113619.2.1.1.1"
+      }
+    ],
+    "status": "available",
+    "modality": [
+      {
+        "system": "http://dicom.nema.org/resources/ontology/DCM",
+        "code": "CT"
+      }
+    ],
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "started": "2024-11-15T10:30:00Z",
+    "numberOfSeries": 1,
+    "numberOfInstances": 50
+  },
+  "2": {
+    "resourceType": "ImagingStudy",
+    "id": "imaging-example-2",
+    "status": "cancelled",
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    },
+    "note": [
+      {
+        "text": "Study cancelled due to patient discomfort"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ImagingStudy",
+    "id": "imaging-example-3",
+    "status": "available",
+    "modality": [
+      {
+        "system": "http://dicom.nema.org/resources/ontology/DCM",
+        "code": "MR"
+      }
+    ],
+    "subject": {
+      "reference": "Patient/patient-xyz"
+    },
+    "started": "2024-10-20T14:00:00Z",
+    "endpoint": [
+      {
+        "reference": "Endpoint/endpoint-pacs"
+      }
+    ],
+    "numberOfSeries": 2,
+    "numberOfInstances": 120,
+    "procedureReference": {
+      "reference": "Procedure/procedure-mri"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "25064002",
+            "display": "Headache"
+          }
+        ]
+      }
+    ]
+  }
+}

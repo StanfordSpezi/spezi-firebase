@@ -1,0 +1,142 @@
+{
+  "0": {
+    "resourceType": "DocumentManifest",
+    "id": "manifest-example-1",
+    "masterIdentifier": {
+      "system": "http://example.org/documents",
+      "value": "MANIFEST-123"
+    },
+    "status": "current",
+    "content": [
+      {
+        "reference": "DocumentReference/example1"
+      },
+      {
+        "reference": "DocumentReference/example2"
+      }
+    ],
+    "created": "2023-01-15T09:30:00Z",
+    "author": [
+      {
+        "reference": "Practitioner/example"
+      }
+    ],
+    "subject": {
+      "reference": "Patient/example"
+    }
+  },
+  "1": {
+    "resourceType": "DocumentManifest",
+    "id": "manifest-example-2",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/manifests",
+        "value": "DOC-MANIFEST-456"
+      }
+    ],
+    "status": "current",
+    "type": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "55112-7",
+          "display": "Document Summary"
+        }
+      ]
+    },
+    "content": [
+      {
+        "reference": "DocumentReference/doc1"
+      }
+    ],
+    "recipient": [
+      {
+        "reference": "Practitioner/recipient"
+      }
+    ],
+    "source": "http://example.org/source-system"
+  },
+  "2": {
+    "resourceType": "DocumentManifest",
+    "id": "manifest-example-3",
+    "status": "superseded",
+    "content": [
+      {
+        "reference": "DocumentReference/old-doc1"
+      },
+      {
+        "reference": "DocumentReference/old-doc2"
+      },
+      {
+        "reference": "DocumentReference/old-doc3"
+      }
+    ],
+    "description": "Old version of patient discharge summary documents",
+    "related": [
+      {
+        "identifier": {
+          "system": "http://example.org/related",
+          "value": "REL-789"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "DocumentManifest",
+    "id": "manifest-example-4",
+    "masterIdentifier": {
+      "system": "http://example.org/documents",
+      "value": "MANIFEST-999"
+    },
+    "identifier": [
+      {
+        "system": "http://example.org/alternate",
+        "value": "ALT-MANIFEST-999"
+      }
+    ],
+    "status": "current",
+    "type": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "60591-5",
+          "display": "Patient summary Document"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example2"
+    },
+    "created": "2023-12-01T14:00:00Z",
+    "author": [
+      {
+        "reference": "Practitioner/doc1"
+      },
+      {
+        "reference": "Organization/hospital"
+      }
+    ],
+    "recipient": [
+      {
+        "reference": "Patient/example2"
+      }
+    ],
+    "source": "urn:oid:1.2.3.4.5.6.7.8.9",
+    "description": "Comprehensive patient summary for transfer of care",
+    "content": [
+      {
+        "reference": "DocumentReference/summary-doc"
+      },
+      {
+        "reference": "List/medications"
+      }
+    ],
+    "related": [
+      {
+        "ref": {
+          "reference": "Encounter/admission-encounter"
+        }
+      }
+    ]
+  }
+}

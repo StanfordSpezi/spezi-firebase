@@ -1,0 +1,205 @@
+{
+  "0": {
+    "resourceType": "DeviceRequest",
+    "id": "example-device-request-1",
+    "identifier": [
+      {
+        "system": "http://example.org/device-requests",
+        "value": "REQ-001"
+      }
+    ],
+    "status": "active",
+    "intent": "order",
+    "priority": "routine",
+    "codeCodeableConcept": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "43252007",
+          "display": "Blood glucose monitoring device"
+        }
+      ],
+      "text": "Blood glucose monitor"
+    },
+    "subject": {
+      "reference": "Patient/example-patient-1"
+    },
+    "encounter": {
+      "reference": "Encounter/example-encounter-1"
+    },
+    "occurrenceDateTime": "2024-02-01T10:00:00Z",
+    "authoredOn": "2024-01-25T09:30:00Z",
+    "requester": {
+      "reference": "Practitioner/example-practitioner-1"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "73211009",
+            "display": "Diabetes mellitus"
+          }
+        ]
+      }
+    ],
+    "note": [
+      {
+        "text": "Patient requires home blood glucose monitoring"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "DeviceRequest",
+    "id": "example-device-request-2",
+    "identifier": [
+      {
+        "system": "http://example.org/device-requests",
+        "value": "REQ-002"
+      }
+    ],
+    "status": "completed",
+    "intent": "order",
+    "priority": "urgent",
+    "codeReference": {
+      "reference": "Device/example-wheelchair"
+    },
+    "subject": {
+      "reference": "Patient/example-patient-2"
+    },
+    "occurrencePeriod": {
+      "start": "2024-01-15",
+      "end": "2024-03-15"
+    },
+    "authoredOn": "2024-01-10T14:20:00Z",
+    "requester": {
+      "reference": "Practitioner/example-practitioner-2"
+    },
+    "performerType": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "224608005",
+          "display": "Administrative healthcare staff"
+        }
+      ]
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "161874006",
+            "display": "Difficulty walking"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "DeviceRequest",
+    "id": "example-device-request-3",
+    "status": "draft",
+    "intent": "plan",
+    "codeCodeableConcept": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "706172005",
+          "display": "Ventilator"
+        }
+      ]
+    },
+    "parameter": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://example.org/parameters",
+              "code": "tidal-volume",
+              "display": "Tidal Volume"
+            }
+          ]
+        },
+        "valueQuantity": {
+          "value": 500,
+          "unit": "mL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL"
+        }
+      }
+    ],
+    "subject": {
+      "reference": "Patient/example-patient-3"
+    },
+    "authoredOn": "2024-02-10T08:00:00Z",
+    "requester": {
+      "reference": "Practitioner/example-practitioner-3"
+    },
+    "performer": {
+      "reference": "Practitioner/example-respiratory-therapist"
+    },
+    "note": [
+      {
+        "text": "Patient requires mechanical ventilation support"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "DeviceRequest",
+    "id": "example-device-request-4",
+    "identifier": [
+      {
+        "system": "http://example.org/device-requests",
+        "value": "REQ-004"
+      }
+    ],
+    "basedOn": [
+      {
+        "reference": "ServiceRequest/example-service-request-1"
+      }
+    ],
+    "status": "on-hold",
+    "intent": "original-order",
+    "priority": "asap",
+    "codeCodeableConcept": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "360300001",
+          "display": "Cardiac pacemaker"
+        }
+      ],
+      "text": "Cardiac pacemaker implantation"
+    },
+    "subject": {
+      "reference": "Patient/example-patient-4"
+    },
+    "occurrenceDateTime": "2024-03-01T09:00:00Z",
+    "authoredOn": "2024-02-15T11:45:00Z",
+    "requester": {
+      "reference": "Practitioner/example-cardiologist"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "426648003",
+            "display": "Symptomatic bradycardia"
+          }
+        ]
+      }
+    ],
+    "insurance": [
+      {
+        "reference": "Coverage/example-coverage-1"
+      }
+    ],
+    "supportingInfo": [
+      {
+        "reference": "Observation/example-ecg-observation"
+      }
+    ]
+  }
+}
