@@ -1,0 +1,213 @@
+{
+  "0": {
+    "resourceType": "NutritionOrder",
+    "id": "nutrition-order-example-0",
+    "status": "active",
+    "intent": "order",
+    "patient": {
+      "reference": "Patient/example"
+    },
+    "dateTime": "2024-01-15T10:00:00Z"
+  },
+  "1": {
+    "resourceType": "NutritionOrder",
+    "id": "nutrition-order-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/nutrition-orders",
+        "value": "NO-2024-001"
+      }
+    ],
+    "status": "active",
+    "intent": "order",
+    "patient": {
+      "reference": "Patient/diabetic-patient"
+    },
+    "encounter": {
+      "reference": "Encounter/inpatient-stay"
+    },
+    "dateTime": "2024-01-15T08:00:00Z",
+    "orderer": {
+      "reference": "Practitioner/dietitian"
+    },
+    "oralDiet": {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386619000",
+              "display": "Diabetic diet"
+            }
+          ]
+        }
+      ],
+      "nutrient": [
+        {
+          "modifier": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "2331003",
+                "display": "Carbohydrate"
+              }
+            ]
+          },
+          "amount": {
+            "value": 100,
+            "unit": "grams",
+            "system": "http://unitsofmeasure.org",
+            "code": "g"
+          }
+        }
+      ],
+      "instruction": "Take meals at regular intervals"
+    }
+  },
+  "2": {
+    "resourceType": "NutritionOrder",
+    "id": "nutrition-order-example-2",
+    "status": "active",
+    "intent": "order",
+    "patient": {
+      "reference": "Patient/elderly-patient"
+    },
+    "dateTime": "2024-01-15T12:00:00Z",
+    "oralDiet": {
+      "type": [
+        {
+          "text": "Soft diet"
+        }
+      ],
+      "texture": [
+        {
+          "modifier": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "228059006",
+                "display": "Pureed"
+              }
+            ]
+          },
+          "foodType": {
+            "text": "All solids"
+          }
+        }
+      ],
+      "fluidConsistencyType": [
+        {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "439021000124105",
+              "display": "Nectar thick liquid"
+            }
+          ]
+        }
+      ]
+    },
+    "supplement": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "442991000124104",
+              "display": "High protein supplement"
+            }
+          ]
+        },
+        "productName": "Ensure Plus",
+        "quantity": {
+          "value": 1,
+          "unit": "bottle"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "NutritionOrder",
+    "id": "nutrition-order-example-3",
+    "status": "active",
+    "intent": "order",
+    "patient": {
+      "reference": "Patient/tube-fed-patient"
+    },
+    "dateTime": "2024-01-15T14:00:00Z",
+    "allergyIntolerance": [
+      {
+        "reference": "AllergyIntolerance/lactose"
+      }
+    ],
+    "foodPreferenceModifier": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/diet",
+            "code": "kosher",
+            "display": "Kosher"
+          }
+        ]
+      }
+    ],
+    "enteralFormula": {
+      "baseFormulaType": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "443051000124104",
+            "display": "Adult high protein formula"
+          }
+        ]
+      },
+      "baseFormulaProductName": "Osmolite HN",
+      "additiveType": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/entformula-additive",
+            "code": "fiber",
+            "display": "Fiber"
+          }
+        ]
+      },
+      "caloricDensity": {
+        "value": 1.2,
+        "unit": "calories per milliliter",
+        "system": "http://unitsofmeasure.org",
+        "code": "cal/mL"
+      },
+      "routeofAdministration": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "385219001",
+            "display": "Nasogastric route"
+          }
+        ]
+      },
+      "administration": [
+        {
+          "rateQuantity": {
+            "value": 75,
+            "unit": "mL/hr",
+            "system": "http://unitsofmeasure.org",
+            "code": "mL/h"
+          }
+        }
+      ],
+      "maxVolumeToDeliver": {
+        "value": 1800,
+        "unit": "mL/day",
+        "system": "http://unitsofmeasure.org",
+        "code": "mL/d"
+      },
+      "administrationInstruction": "Continuous feeding via pump"
+    },
+    "note": [
+      {
+        "text": "Monitor for signs of intolerance"
+      }
+    ]
+  }
+}
