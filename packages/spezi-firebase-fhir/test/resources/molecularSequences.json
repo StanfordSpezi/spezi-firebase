@@ -1,0 +1,187 @@
+{
+  "0": {
+    "resourceType": "MolecularSequence",
+    "id": "example-molecular-sequence-1",
+    "identifier": [
+      {
+        "system": "http://example.org/molecular-sequences",
+        "value": "SEQ-001"
+      }
+    ],
+    "type": "dna",
+    "coordinateSystem": 0,
+    "patient": {
+      "reference": "Patient/example-patient-1"
+    },
+    "specimen": {
+      "reference": "Specimen/example-specimen-1"
+    },
+    "device": {
+      "reference": "Device/example-sequencer"
+    },
+    "performer": {
+      "reference": "Organization/example-lab"
+    },
+    "observedSeq": "ACGTACGTACGT",
+    "readCoverage": 50,
+    "referenceSeq": {
+      "chromosome": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/chromosome-human",
+            "code": "1",
+            "display": "chromosome 1"
+          }
+        ]
+      },
+      "genomeBuild": "GRCh38",
+      "referenceSeqId": {
+        "coding": [
+          {
+            "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+            "code": "NC_000001.11"
+          }
+        ]
+      },
+      "strand": "watson",
+      "windowStart": 1000,
+      "windowEnd": 1012
+    }
+  },
+  "1": {
+    "resourceType": "MolecularSequence",
+    "id": "example-molecular-sequence-2",
+    "type": "rna",
+    "coordinateSystem": 1,
+    "patient": {
+      "reference": "Patient/example-patient-2"
+    },
+    "observedSeq": "ACGUACGUACGU",
+    "referenceSeq": {
+      "referenceSeqId": {
+        "coding": [
+          {
+            "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+            "code": "NM_001005484.1"
+          }
+        ]
+      },
+      "strand": "watson",
+      "windowStart": 1,
+      "windowEnd": 13
+    },
+    "variant": [
+      {
+        "start": 5,
+        "end": 5,
+        "observedAllele": "G",
+        "referenceAllele": "A"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "MolecularSequence",
+    "id": "example-molecular-sequence-3",
+    "identifier": [
+      {
+        "system": "http://example.org/molecular-sequences",
+        "value": "SEQ-003"
+      }
+    ],
+    "type": "aa",
+    "coordinateSystem": 1,
+    "patient": {
+      "reference": "Patient/example-patient-3"
+    },
+    "specimen": {
+      "reference": "Specimen/example-protein-specimen"
+    },
+    "observedSeq": "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQHKLRKLNPPDESGPGCMSCKCVLS",
+    "referenceSeq": {
+      "referenceSeqId": {
+        "coding": [
+          {
+            "system": "http://www.ncbi.nlm.nih.gov/protein",
+            "code": "NP_004976.2"
+          }
+        ]
+      },
+      "windowStart": 1,
+      "windowEnd": 189
+    }
+  },
+  "3": {
+    "resourceType": "MolecularSequence",
+    "id": "example-molecular-sequence-4",
+    "type": "dna",
+    "coordinateSystem": 0,
+    "patient": {
+      "reference": "Patient/example-patient-4"
+    },
+    "specimen": {
+      "reference": "Specimen/example-blood-specimen"
+    },
+    "performer": {
+      "reference": "Organization/example-genomics-lab"
+    },
+    "observedSeq": "ATGC",
+    "readCoverage": 100,
+    "referenceSeq": {
+      "chromosome": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/chromosome-human",
+            "code": "X",
+            "display": "chromosome X"
+          }
+        ]
+      },
+      "genomeBuild": "GRCh38",
+      "referenceSeqId": {
+        "coding": [
+          {
+            "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+            "code": "NC_000023.11"
+          }
+        ]
+      },
+      "strand": "crick",
+      "windowStart": 5000,
+      "windowEnd": 5004
+    },
+    "quality": [
+      {
+        "type": "snp",
+        "standardSequence": {
+          "coding": [
+            {
+              "system": "http://www.ncbi.nlm.nih.gov/nuccore",
+              "code": "NC_000023.11"
+            }
+          ]
+        },
+        "start": 5000,
+        "end": 5004,
+        "score": {
+          "value": 30
+        },
+        "method": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA6364-4",
+              "display": "Quality score"
+            }
+          ]
+        }
+      }
+    ],
+    "repository": [
+      {
+        "type": "openapi",
+        "url": "https://example.org/sequence-repository",
+        "name": "Example Sequence Repository"
+      }
+    ]
+  }
+}
