@@ -1,0 +1,247 @@
+{
+  "0": {
+    "resourceType": "DeviceDefinition",
+    "id": "example-device-definition-1",
+    "identifier": [
+      {
+        "system": "http://example.org/devices",
+        "value": "ABC123"
+      }
+    ],
+    "udiDeviceIdentifier": [
+      {
+        "deviceIdentifier": "(01)00844588003288(17)220101(10)ABC123",
+        "issuer": "http://hl7.org/fhir/NamingSystem/gs1-di",
+        "jurisdiction": "http://hl7.org/fhir/NamingSystem/fda-udi"
+      }
+    ],
+    "manufacturerString": "Acme Medical Devices",
+    "deviceName": [
+      {
+        "name": "Blood Glucose Monitor Model X",
+        "type": "user-friendly-name"
+      }
+    ],
+    "modelNumber": "BGM-X100",
+    "type": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "43252007",
+          "display": "Blood glucose monitoring device"
+        }
+      ]
+    },
+    "safety": [
+      {
+        "coding": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+            "code": "C106046",
+            "display": "Not made with natural rubber latex"
+          }
+        ]
+      }
+    ],
+    "languageCode": [
+      {
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "en-US"
+          }
+        ]
+      }
+    ],
+    "note": [
+      {
+        "text": "Requires calibration every 6 months"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "DeviceDefinition",
+    "id": "example-device-definition-2",
+    "identifier": [
+      {
+        "system": "http://example.org/devices",
+        "value": "XYZ789"
+      }
+    ],
+    "manufacturerString": "TechMed Inc",
+    "deviceName": [
+      {
+        "name": "Pulse Oximeter Pro",
+        "type": "manufacturer-name"
+      },
+      {
+        "name": "PulseOx Pro",
+        "type": "user-friendly-name"
+      }
+    ],
+    "modelNumber": "PO-2000",
+    "type": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "448703006",
+          "display": "Pulse oximeter"
+        }
+      ]
+    },
+    "capability": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/capabilities",
+              "code": "spo2-measurement",
+              "display": "SpO2 Measurement"
+            }
+          ]
+        }
+      }
+    ],
+    "property": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/properties",
+              "code": "battery-type",
+              "display": "Battery Type"
+            }
+          ]
+        },
+        "valueCode": [
+          {
+            "coding": [
+              {
+                "system": "http://example.org/battery-types",
+                "code": "AAA",
+                "display": "AAA Battery"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "contact": [
+      {
+        "system": "url",
+        "value": "http://www.techmedinc.com"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "DeviceDefinition",
+    "id": "example-device-definition-3",
+    "identifier": [
+      {
+        "system": "http://example.org/devices",
+        "value": "DEF456"
+      }
+    ],
+    "manufacturerString": "CardioTech Systems",
+    "deviceName": [
+      {
+        "name": "ECG Monitor Plus",
+        "type": "model-name"
+      }
+    ],
+    "modelNumber": "ECG-500",
+    "type": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "258057004",
+          "display": "Electrocardiographic monitor"
+        }
+      ]
+    },
+    "specialization": [
+      {
+        "systemType": "12-lead ECG",
+        "version": "2.1"
+      }
+    ],
+    "version": ["2.1.0"],
+    "safety": [
+      {
+        "coding": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+            "code": "C106045",
+            "display": "Contains latex"
+          }
+        ]
+      }
+    ],
+    "languageCode": [
+      {
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "en-US"
+          }
+        ]
+      }
+    ],
+    "material": [
+      {
+        "substance": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "111088007",
+              "display": "Latex"
+            }
+          ]
+        },
+        "allergenicIndicator": true
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "DeviceDefinition",
+    "id": "example-device-definition-4",
+    "identifier": [
+      {
+        "system": "http://example.org/devices",
+        "value": "GHI321"
+      }
+    ],
+    "manufacturerString": "RespiCare Medical",
+    "deviceName": [
+      {
+        "name": "Ventilator V3000",
+        "type": "manufacturer-name"
+      }
+    ],
+    "modelNumber": "V3000",
+    "type": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "706172005",
+          "display": "Ventilator"
+        }
+      ]
+    },
+    "version": ["3.0.1", "3.0.2"],
+    "url": "http://www.respicaremedical.com/devices/v3000",
+    "onlineInformation": "http://www.respicaremedical.com/support/v3000",
+    "note": [
+      {
+        "text": "Recommended for adult patients only"
+      },
+      {
+        "text": "Regular maintenance required every 1000 hours of operation"
+      }
+    ],
+    "quantity": {
+      "value": 1,
+      "unit": "unit"
+    }
+  }
+}

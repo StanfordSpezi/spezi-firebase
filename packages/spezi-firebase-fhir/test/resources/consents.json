@@ -1,0 +1,207 @@
+{
+  "0": {
+    "resourceType": "Consent",
+    "id": "consent-example-0",
+    "status": "active",
+    "scope": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+          "code": "patient-privacy"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            "code": "INFA"
+          }
+        ]
+      }
+    ],
+    "patient": {
+      "reference": "Patient/example"
+    },
+    "dateTime": "2023-01-15T10:30:00Z",
+    "performer": [
+      {
+        "reference": "Patient/example"
+      }
+    ],
+    "organization": [
+      {
+        "reference": "Organization/example"
+      }
+    ],
+    "policyRule": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "OPTIN"
+        }
+      ]
+    }
+  },
+  "1": {
+    "resourceType": "Consent",
+    "id": "consent-example-1",
+    "status": "proposed",
+    "scope": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+          "code": "research"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "59284-0",
+            "display": "Patient Consent"
+          }
+        ]
+      }
+    ],
+    "patient": {
+      "reference": "Patient/example2"
+    },
+    "dateTime": "2023-02-20T14:00:00Z",
+    "provision": {
+      "type": "permit",
+      "period": {
+        "start": "2023-02-20",
+        "end": "2024-02-20"
+      },
+      "actor": [
+        {
+          "role": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                "code": "IRCP"
+              }
+            ]
+          },
+          "reference": {
+            "reference": "Organization/research-org"
+          }
+        }
+      ],
+      "purpose": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+          "code": "HRESCH"
+        }
+      ]
+    }
+  },
+  "2": {
+    "resourceType": "Consent",
+    "id": "consent-example-2",
+    "status": "active",
+    "scope": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+          "code": "treatment"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/consentcategorycodes",
+            "code": "acd"
+          }
+        ]
+      }
+    ],
+    "patient": {
+      "reference": "Patient/example3"
+    },
+    "dateTime": "2023-03-10T09:15:00Z",
+    "verification": [
+      {
+        "verified": true,
+        "verificationDate": "2023-03-10T09:15:00Z",
+        "verifiedWith": {
+          "reference": "RelatedPerson/family-member"
+        }
+      }
+    ],
+    "provision": {
+      "type": "deny",
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "116859006",
+              "display": "Transfusion of blood product"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "3": {
+    "resourceType": "Consent",
+    "id": "consent-example-3",
+    "status": "draft",
+    "scope": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+          "code": "patient-privacy"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "64292-6"
+          }
+        ]
+      }
+    ],
+    "patient": {
+      "reference": "Patient/example4"
+    },
+    "dateTime": "2023-04-05T16:45:00Z",
+    "policy": [
+      {
+        "authority": "http://example.org/fhir/policy",
+        "uri": "http://example.org/fhir/policy/consent-policy-v1"
+      }
+    ],
+    "provision": {
+      "type": "permit",
+      "data": [
+        {
+          "meaning": "related",
+          "reference": {
+            "reference": "Observation/example"
+          }
+        }
+      ],
+      "action": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentaction",
+              "code": "access"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

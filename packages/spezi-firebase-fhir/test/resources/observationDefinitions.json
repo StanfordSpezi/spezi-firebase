@@ -1,0 +1,312 @@
+{
+  "0": {
+    "resourceType": "ObservationDefinition",
+    "id": "example-observation-definition-1",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+            "code": "vital-signs",
+            "display": "Vital Signs"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "8867-4",
+          "display": "Heart rate"
+        }
+      ]
+    },
+    "identifier": [
+      {
+        "system": "http://example.org/observation-definitions",
+        "value": "OBS-DEF-001"
+      }
+    ],
+    "permittedDataType": ["Quantity"],
+    "multipleResultsAllowed": false,
+    "preferredReportName": "Heart Rate",
+    "quantitativeDetails": {
+      "unit": {
+        "coding": [
+          {
+            "system": "http://unitsofmeasure.org",
+            "code": "/min",
+            "display": "beats per minute"
+          }
+        ]
+      },
+      "decimalPrecision": 0
+    },
+    "qualifiedInterval": [
+      {
+        "category": "reference",
+        "range": {
+          "low": {
+            "value": 60,
+            "unit": "/min",
+            "system": "http://unitsofmeasure.org",
+            "code": "/min"
+          },
+          "high": {
+            "value": 100,
+            "unit": "/min",
+            "system": "http://unitsofmeasure.org",
+            "code": "/min"
+          }
+        },
+        "context": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/referencerange-meaning",
+              "code": "normal",
+              "display": "Normal Range"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "ObservationDefinition",
+    "id": "example-observation-definition-2",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+            "code": "laboratory",
+            "display": "Laboratory"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "2339-0",
+          "display": "Glucose [Mass/volume] in Blood"
+        }
+      ]
+    },
+    "permittedDataType": ["Quantity"],
+    "method": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "83561000052101",
+          "display": "Glucose measurement, blood"
+        }
+      ]
+    },
+    "preferredReportName": "Blood Glucose",
+    "quantitativeDetails": {
+      "unit": {
+        "coding": [
+          {
+            "system": "http://unitsofmeasure.org",
+            "code": "mg/dL",
+            "display": "milligrams per deciliter"
+          }
+        ]
+      },
+      "customaryUnit": {
+        "coding": [
+          {
+            "system": "http://unitsofmeasure.org",
+            "code": "mmol/L",
+            "display": "millimoles per liter"
+          }
+        ]
+      },
+      "conversionFactor": 0.0555,
+      "decimalPrecision": 1
+    },
+    "qualifiedInterval": [
+      {
+        "category": "reference",
+        "range": {
+          "low": {
+            "value": 70,
+            "unit": "mg/dL",
+            "system": "http://unitsofmeasure.org",
+            "code": "mg/dL"
+          },
+          "high": {
+            "value": 100,
+            "unit": "mg/dL",
+            "system": "http://unitsofmeasure.org",
+            "code": "mg/dL"
+          }
+        },
+        "context": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/referencerange-meaning",
+              "code": "normal",
+              "display": "Normal Range"
+            }
+          ]
+        },
+        "condition": "Fasting"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ObservationDefinition",
+    "id": "example-observation-definition-3",
+    "code": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "8480-6",
+          "display": "Systolic blood pressure"
+        }
+      ]
+    },
+    "permittedDataType": ["Quantity"],
+    "multipleResultsAllowed": false,
+    "preferredReportName": "Systolic BP",
+    "quantitativeDetails": {
+      "unit": {
+        "coding": [
+          {
+            "system": "http://unitsofmeasure.org",
+            "code": "mm[Hg]",
+            "display": "millimeter of mercury"
+          }
+        ]
+      },
+      "decimalPrecision": 0
+    },
+    "qualifiedInterval": [
+      {
+        "category": "reference",
+        "range": {
+          "low": {
+            "value": 90,
+            "unit": "mm[Hg]",
+            "system": "http://unitsofmeasure.org",
+            "code": "mm[Hg]"
+          },
+          "high": {
+            "value": 120,
+            "unit": "mm[Hg]",
+            "system": "http://unitsofmeasure.org",
+            "code": "mm[Hg]"
+          }
+        },
+        "appliesTo": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "133936004",
+                "display": "Adult"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "critical",
+        "range": {
+          "high": {
+            "value": 180,
+            "unit": "mm[Hg]",
+            "system": "http://unitsofmeasure.org",
+            "code": "mm[Hg]"
+          }
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ObservationDefinition",
+    "id": "example-observation-definition-4",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+            "code": "laboratory",
+            "display": "Laboratory"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "789-8",
+          "display": "Erythrocytes [#/volume] in Blood by Automated count"
+        }
+      ]
+    },
+    "identifier": [
+      {
+        "system": "http://example.org/observation-definitions",
+        "value": "OBS-DEF-004"
+      }
+    ],
+    "permittedDataType": ["Quantity"],
+    "preferredReportName": "RBC Count",
+    "quantitativeDetails": {
+      "unit": {
+        "coding": [
+          {
+            "system": "http://unitsofmeasure.org",
+            "code": "10*6/uL",
+            "display": "million per microliter"
+          }
+        ]
+      },
+      "decimalPrecision": 2
+    },
+    "qualifiedInterval": [
+      {
+        "category": "reference",
+        "range": {
+          "low": {
+            "value": 4.5,
+            "unit": "10*6/uL",
+            "system": "http://unitsofmeasure.org",
+            "code": "10*6/uL"
+          },
+          "high": {
+            "value": 5.9,
+            "unit": "10*6/uL",
+            "system": "http://unitsofmeasure.org",
+            "code": "10*6/uL"
+          }
+        },
+        "gender": "male"
+      },
+      {
+        "category": "reference",
+        "range": {
+          "low": {
+            "value": 4.0,
+            "unit": "10*6/uL",
+            "system": "http://unitsofmeasure.org",
+            "code": "10*6/uL"
+          },
+          "high": {
+            "value": 5.2,
+            "unit": "10*6/uL",
+            "system": "http://unitsofmeasure.org",
+            "code": "10*6/uL"
+          }
+        },
+        "gender": "female"
+      }
+    ]
+  }
+}

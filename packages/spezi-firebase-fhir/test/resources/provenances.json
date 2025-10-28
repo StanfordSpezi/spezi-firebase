@@ -1,0 +1,186 @@
+{
+  "0": {
+    "resourceType": "Provenance",
+    "id": "provenance-example-0",
+    "target": [
+      {
+        "reference": "Patient/example"
+      }
+    ],
+    "recorded": "2023-01-15T10:30:00Z",
+    "agent": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
+              "code": "author"
+            }
+          ]
+        },
+        "who": {
+          "reference": "Practitioner/example"
+        }
+      }
+    ],
+    "reason": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+            "code": "TREAT"
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Provenance",
+    "id": "provenance-example-1",
+    "target": [
+      {
+        "reference": "Observation/example"
+      }
+    ],
+    "occurredDateTime": "2023-02-20T14:00:00Z",
+    "recorded": "2023-02-20T14:15:00Z",
+    "policy": ["http://example.org/fhir/policy/data-collection"],
+    "agent": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
+              "code": "enterer"
+            }
+          ]
+        },
+        "who": {
+          "reference": "Practitioner/practitioner-1"
+        }
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
+              "code": "verifier"
+            }
+          ]
+        },
+        "who": {
+          "reference": "Practitioner/practitioner-2"
+        },
+        "onBehalfOf": {
+          "reference": "Organization/hospital"
+        }
+      }
+    ],
+    "entity": [
+      {
+        "role": "source",
+        "what": {
+          "reference": "Device/measurement-device"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Provenance",
+    "id": "provenance-example-2",
+    "target": [
+      {
+        "reference": "MedicationRequest/example"
+      }
+    ],
+    "occurredPeriod": {
+      "start": "2023-03-10T09:00:00Z",
+      "end": "2023-03-10T09:30:00Z"
+    },
+    "recorded": "2023-03-10T09:35:00Z",
+    "location": {
+      "reference": "Location/clinic"
+    },
+    "agent": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
+              "code": "author"
+            }
+          ]
+        },
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleClass",
+                "code": "ASSIGNED"
+              }
+            ]
+          }
+        ],
+        "who": {
+          "reference": "Practitioner/prescriber"
+        }
+      }
+    ],
+    "activity": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-DataOperation",
+          "code": "CREATE"
+        }
+      ]
+    }
+  },
+  "3": {
+    "resourceType": "Provenance",
+    "id": "provenance-example-3",
+    "target": [
+      {
+        "reference": "Procedure/example"
+      }
+    ],
+    "recorded": "2023-04-05T16:45:00Z",
+    "agent": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
+              "code": "performer"
+            }
+          ]
+        },
+        "who": {
+          "reference": "Practitioner/surgeon"
+        }
+      }
+    ],
+    "entity": [
+      {
+        "role": "revision",
+        "what": {
+          "reference": "Procedure/original-procedure"
+        },
+        "agent": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
+                  "code": "author"
+                }
+              ]
+            },
+            "who": {
+              "reference": "Practitioner/original-surgeon"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
