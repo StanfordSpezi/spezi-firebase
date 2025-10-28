@@ -1,0 +1,156 @@
+{
+  "0": {
+    "resourceType": "GuidanceResponse",
+    "id": "guidanceresponse-example-0",
+    "moduleUri": "http://example.org/guidance/treatment-protocol",
+    "status": "success",
+    "subject": {
+      "reference": "Patient/example"
+    }
+  },
+  "1": {
+    "resourceType": "GuidanceResponse",
+    "id": "guidanceresponse-example-1",
+    "requestIdentifier": {
+      "system": "http://example.org/requests",
+      "value": "REQ-001"
+    },
+    "identifier": [
+      {
+        "system": "http://example.org/guidanceresponses",
+        "value": "GR-001"
+      }
+    ],
+    "moduleCanonical": "http://example.org/PlanDefinition/diabetes-management",
+    "status": "success",
+    "subject": {
+      "reference": "Patient/patient-diabetes-001"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-001"
+    },
+    "occurrenceDateTime": "2024-11-15T10:30:00Z",
+    "performer": {
+      "reference": "Device/clinical-decision-support-system",
+      "display": "Clinical Decision Support System"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "73211009",
+            "display": "Diabetes mellitus"
+          }
+        ]
+      }
+    ],
+    "note": [
+      {
+        "text": "Patient meets criteria for intensified diabetes management"
+      }
+    ],
+    "result": {
+      "reference": "CarePlan/diabetes-intensified-plan"
+    }
+  },
+  "2": {
+    "resourceType": "GuidanceResponse",
+    "id": "guidanceresponse-example-2",
+    "requestIdentifier": {
+      "system": "http://example.org/requests",
+      "value": "REQ-456"
+    },
+    "moduleCodeableConcept": {
+      "coding": [
+        {
+          "system": "http://example.org/guidance-modules",
+          "code": "antibiotic-selection",
+          "display": "Antibiotic Selection Guidance"
+        }
+      ]
+    },
+    "status": "data-required",
+    "subject": {
+      "reference": "Patient/patient-infection-001"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-er-001"
+    },
+    "occurrenceDateTime": "2024-11-20T14:15:00Z",
+    "reasonCode": [
+      {
+        "text": "Suspected bacterial infection"
+      }
+    ],
+    "evaluationMessage": [
+      {
+        "reference": "OperationOutcome/missing-lab-data",
+        "display": "Culture results required for optimal antibiotic selection"
+      }
+    ],
+    "note": [
+      {
+        "text": "Additional laboratory culture data required for optimal antibiotic selection"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "GuidanceResponse",
+    "id": "guidanceresponse-example-3",
+    "requestIdentifier": {
+      "system": "http://example.org/requests",
+      "value": "REQ-789"
+    },
+    "identifier": [
+      {
+        "system": "http://example.org/guidanceresponses",
+        "value": "GR-789"
+      }
+    ],
+    "moduleCanonical": "http://example.org/ActivityDefinition/medication-order",
+    "status": "success",
+    "subject": {
+      "reference": "Patient/patient-hypertension-001"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-cardiology-001"
+    },
+    "occurrenceDateTime": "2024-11-25T09:00:00Z",
+    "performer": {
+      "reference": "Practitioner/practitioner-cardiologist",
+      "display": "Dr. Cardiology"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "38341003",
+            "display": "Hypertensive disorder"
+          }
+        ]
+      }
+    ],
+    "reasonReference": [
+      {
+        "reference": "Observation/blood-pressure-high"
+      }
+    ],
+    "note": [
+      {
+        "authorReference": {
+          "reference": "Practitioner/practitioner-cardiologist"
+        },
+        "time": "2024-11-25T09:05:00Z",
+        "text": "Patient requires medication adjustment based on recent BP readings"
+      }
+    ],
+    "result": {
+      "reference": "RequestGroup/medication-adjustment-plan"
+    },
+    "outputParameters": {
+      "reference": "Parameters/output-recommendations"
+    }
+  }
+}
