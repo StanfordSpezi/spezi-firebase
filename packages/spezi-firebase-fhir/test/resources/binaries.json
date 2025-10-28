@@ -1,0 +1,32 @@
+{
+  "0": {
+    "resourceType": "Binary",
+    "id": "binary-example-1",
+    "contentType": "application/pdf",
+    "data": "JVBERi0xLjQKJeLjz9MKNCAwIG9iago8PC9GaWx0ZXIvRmxhdGVEZWNvZGUvTGVuZ3=="
+  },
+  "1": {
+    "resourceType": "Binary",
+    "id": "binary-example-2",
+    "contentType": "image/png",
+    "securityContext": {
+      "reference": "Patient/example"
+    },
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+  },
+  "3": {
+    "resourceType": "Binary",
+    "id": "binary-example-3",
+    "contentType": "text/plain",
+    "data": "VGhpcyBpcyBhIHNhbXBsZSB0ZXh0IGZpbGUgY29udGVudA=="
+  },
+  "2": {
+    "resourceType": "Binary",
+    "id": "binary-example-4",
+    "contentType": "application/xml",
+    "securityContext": {
+      "reference": "DocumentReference/example"
+    },
+    "data": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4="
+  }
+}
