@@ -11,7 +11,10 @@ import { z, type ZodType } from 'zod'
 import { untypedAllergyIntoleranceSchema } from './allergyIntolerance.js'
 import { untypedAppointmentSchema } from './appointment.js'
 import { untypedAppointmentResponseSchema } from './appointmentResponse.js'
+import { untypedBasicSchema } from './basic.js'
+import { untypedBinarySchema } from './binary.js'
 import { untypedBodyStructureSchema } from './bodyStructure.js'
+import { untypedCatalogEntrySchema } from './catalogEntry.js'
 import { untypedCodeSystemSchema } from './codeSystem.js'
 import { untypedCompositionSchema } from './composition.js'
 import { untypedConceptMapSchema } from './conceptMap.js'
@@ -23,6 +26,8 @@ import { untypedDeviceMetricSchema } from './deviceMetric.js'
 import { untypedDeviceRequestSchema } from './deviceRequest.js'
 import { untypedDeviceUseStatementSchema } from './deviceUseStatement.js'
 import { untypedDiagnosticReportSchema } from './diagnosticReport.js'
+import { untypedDocumentManifestSchema } from './documentManifest.js'
+import { untypedDocumentReferenceSchema } from './documentReference.js'
 import { untypedEncounterSchema } from './encounter.js'
 import { untypedEndpointSchema } from './endpoint.js'
 import { untypedEpisodeOfCareSchema } from './episodeOfCare.js'
@@ -77,7 +82,10 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedAllergyIntoleranceSchema,
     untypedAppointmentSchema,
     untypedAppointmentResponseSchema,
+    untypedBasicSchema,
+    untypedBinarySchema,
     untypedBodyStructureSchema,
+    untypedCatalogEntrySchema,
     untypedCodeSystemSchema,
     untypedCompositionSchema,
     untypedConceptMapSchema,
@@ -89,6 +97,8 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedDeviceRequestSchema,
     untypedDeviceUseStatementSchema,
     untypedDiagnosticReportSchema,
+    untypedDocumentManifestSchema,
+    untypedDocumentReferenceSchema,
     untypedEncounterSchema,
     untypedEndpointSchema,
     untypedEpisodeOfCareSchema,
