@@ -1,0 +1,148 @@
+{
+  "0": {
+    "resourceType": "BiologicallyDerivedProduct",
+    "id": "biologically-derived-product-example-0"
+  },
+  "1": {
+    "resourceType": "BiologicallyDerivedProduct",
+    "id": "biologically-derived-product-example-1",
+    "productCategory": "cells",
+    "productCode": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "420420001",
+          "display": "Peripheral blood stem cells"
+        }
+      ]
+    },
+    "status": "available",
+    "collection": {
+      "collector": {
+        "reference": "Practitioner/example"
+      },
+      "source": {
+        "reference": "Patient/example"
+      },
+      "collectedDateTime": "2024-01-15T09:00:00Z"
+    }
+  },
+  "2": {
+    "resourceType": "BiologicallyDerivedProduct",
+    "id": "biologically-derived-product-example-2",
+    "identifier": [
+      {
+        "system": "http://example.org/blood-bank",
+        "value": "BB-2024-001"
+      }
+    ],
+    "productCategory": "fluid",
+    "productCode": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "119297000",
+          "display": "Blood specimen"
+        }
+      ]
+    },
+    "status": "available",
+    "quantity": 2,
+    "collection": {
+      "source": {
+        "reference": "Patient/donor123"
+      },
+      "collectedPeriod": {
+        "start": "2024-01-10T08:00:00Z",
+        "end": "2024-01-10T08:30:00Z"
+      }
+    },
+    "processing": [
+      {
+        "description": "Leukoreduction",
+        "procedure": {
+          "coding": [
+            {
+              "system": "http://example.org/blood-processing",
+              "code": "leukoreduction",
+              "display": "Leukoreduction"
+            }
+          ]
+        },
+        "timeDateTime": "2024-01-10T10:00:00Z"
+      }
+    ],
+    "storage": [
+      {
+        "description": "Refrigerated storage",
+        "temperature": 4,
+        "scale": "celsius",
+        "duration": {
+          "start": "2024-01-10T12:00:00Z"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "BiologicallyDerivedProduct",
+    "id": "biologically-derived-product-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/tissue-bank",
+        "value": "TB-2024-456"
+      }
+    ],
+    "productCategory": "tissue",
+    "productCode": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "272411007",
+          "display": "Bone tissue"
+        }
+      ]
+    },
+    "status": "unavailable",
+    "collection": {
+      "collector": {
+        "reference": "Practitioner/surgeon"
+      },
+      "source": {
+        "reference": "Patient/donor456"
+      },
+      "collectedDateTime": "2023-12-01"
+    },
+    "manipulation": {
+      "description": "Allograft processing and sterilization",
+      "timePeriod": {
+        "start": "2023-12-02",
+        "end": "2023-12-05"
+      }
+    },
+    "processing": [
+      {
+        "description": "Freeze-drying",
+        "timeDateTime": "2023-12-03"
+      },
+      {
+        "description": "Gamma irradiation sterilization",
+        "timeDateTime": "2023-12-04"
+      }
+    ],
+    "storage": [
+      {
+        "description": "Frozen storage",
+        "temperature": -80,
+        "scale": "celsius",
+        "duration": {
+          "start": "2023-12-06"
+        }
+      }
+    ],
+    "request": [
+      {
+        "reference": "ServiceRequest/tissue-request"
+      }
+    ]
+  }
+}
