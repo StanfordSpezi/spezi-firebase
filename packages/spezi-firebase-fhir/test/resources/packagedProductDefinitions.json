@@ -1,0 +1,248 @@
+{
+  "0": {
+    "resourceType": "PackagedProductDefinition",
+    "id": "packaged-product-definition-example-0"
+  },
+  "1": {
+    "resourceType": "PackagedProductDefinition",
+    "id": "packaged-product-definition-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/packaged-products",
+        "value": "PPD-001"
+      }
+    ],
+    "name": "Aspirin 500mg Tablets - Blister Pack of 20",
+    "type": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/package-type",
+          "code": "medicinal-product-pack",
+          "display": "Medicinal Product Pack"
+        }
+      ]
+    },
+    "packageFor": [
+      {
+        "reference": "MedicinalProductDefinition/aspirin"
+      }
+    ],
+    "package": {
+      "type": {
+        "coding": [
+          {
+            "system": "http://example.org/package-type",
+            "code": "box",
+            "display": "Box"
+          }
+        ]
+      },
+      "quantity": 1,
+      "package": [
+        {
+          "type": {
+            "coding": [
+              {
+                "system": "http://example.org/package-type",
+                "code": "blister",
+                "display": "Blister"
+              }
+            ]
+          },
+          "quantity": 2,
+          "containedItem": [
+            {
+              "item": {
+                "reference": {
+                  "reference": "ManufacturedItemDefinition/aspirin-tablet"
+                }
+              },
+              "amount": {
+                "value": 10,
+                "unit": "tablet"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "2": {
+    "resourceType": "PackagedProductDefinition",
+    "id": "packaged-product-definition-example-2",
+    "name": "Insulin Injection Solution - 5 Pre-filled Pens",
+    "packageFor": [
+      {
+        "reference": "MedicinalProductDefinition/insulin"
+      }
+    ],
+    "containedItemQuantity": [
+      {
+        "value": 5,
+        "unit": "pen"
+      }
+    ],
+    "manufacturer": [
+      {
+        "reference": "Organization/insulin-manufacturer"
+      }
+    ],
+    "package": {
+      "type": {
+        "coding": [
+          {
+            "system": "http://example.org/package-type",
+            "code": "carton",
+            "display": "Carton"
+          }
+        ]
+      },
+      "containedItem": [
+        {
+          "item": {
+            "reference": {
+              "reference": "DeviceDefinition/insulin-pen"
+            }
+          },
+          "amount": {
+            "value": 5,
+            "unit": "pen"
+          }
+        }
+      ],
+      "property": [
+        {
+          "type": {
+            "text": "Temperature control"
+          },
+          "valueBoolean": true
+        }
+      ],
+      "shelfLifeStorage": [
+        {
+          "type": {
+            "text": "Refrigerated storage"
+          },
+          "periodDuration": {
+            "value": 24,
+            "unit": "months"
+          }
+        }
+      ]
+    }
+  },
+  "3": {
+    "resourceType": "PackagedProductDefinition",
+    "id": "packaged-product-definition-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/gtin",
+        "value": "05000471234567"
+      }
+    ],
+    "name": "Eye Drops - 10mL Bottle",
+    "description": "Sterile eye drops solution",
+    "packageFor": [
+      {
+        "reference": "MedicinalProductDefinition/eye-drops"
+      }
+    ],
+    "status": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/publication-status",
+          "code": "active",
+          "display": "Active"
+        }
+      ]
+    },
+    "marketingStatus": [
+      {
+        "country": {
+          "coding": [
+            {
+              "system": "urn:iso:std:iso:3166",
+              "code": "US",
+              "display": "United States"
+            }
+          ]
+        },
+        "status": {
+          "coding": [
+            {
+              "system": "http://example.org/marketing-status",
+              "code": "marketed",
+              "display": "Marketed"
+            }
+          ]
+        }
+      }
+    ],
+    "package": {
+      "type": {
+        "coding": [
+          {
+            "system": "http://example.org/package-type",
+            "code": "bottle",
+            "display": "Bottle"
+          }
+        ]
+      },
+      "material": [
+        {
+          "coding": [
+            {
+              "system": "http://example.org/material",
+              "code": "plastic",
+              "display": "Plastic"
+            }
+          ]
+        }
+      ],
+      "containedItem": [
+        {
+          "item": {
+            "concept": {
+              "text": "Eye drops solution"
+            }
+          },
+          "amount": {
+            "value": 10,
+            "unit": "mL",
+            "system": "http://unitsofmeasure.org",
+            "code": "mL"
+          }
+        }
+      ],
+      "shelfLifeStorage": [
+        {
+          "type": {
+            "text": "Shelf life"
+          },
+          "periodDuration": {
+            "value": 36,
+            "unit": "months"
+          },
+          "specialPrecautionsForStorage": [
+            {
+              "text": "Do not freeze"
+            }
+          ]
+        }
+      ]
+    },
+    "legalStatusOfSupply": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://example.org/legal-status",
+              "code": "OTC",
+              "display": "Over the counter"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

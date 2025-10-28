@@ -1,0 +1,190 @@
+{
+  "0": {
+    "resourceType": "RegulatedAuthorization",
+    "id": "regulated-authorization-example-0"
+  },
+  "1": {
+    "resourceType": "RegulatedAuthorization",
+    "id": "regulated-authorization-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/marketing-authorizations",
+        "value": "MA-12345"
+      }
+    ],
+    "subject": [
+      {
+        "reference": "MedicinalProductDefinition/example"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "http://example.org/authorization-type",
+          "code": "marketing-auth",
+          "display": "Marketing Authorization"
+        }
+      ]
+    },
+    "status": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/publication-status",
+          "code": "active",
+          "display": "Active"
+        }
+      ]
+    },
+    "statusDate": "2023-01-15",
+    "holder": {
+      "reference": "Organization/pharma-company"
+    },
+    "regulator": {
+      "reference": "Organization/fda"
+    }
+  },
+  "2": {
+    "resourceType": "RegulatedAuthorization",
+    "id": "regulated-authorization-example-2",
+    "identifier": [
+      {
+        "system": "http://ema.europa.eu/marketing-authorizations",
+        "value": "EU/1/23/1234"
+      }
+    ],
+    "subject": [
+      {
+        "reference": "MedicinalProductDefinition/vaccine"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "http://example.org/authorization-type",
+          "code": "conditional-approval",
+          "display": "Conditional Approval"
+        }
+      ]
+    },
+    "description": "Conditional marketing authorization for novel vaccine",
+    "region": [
+      {
+        "coding": [
+          {
+            "system": "http://unstats.un.org/unsd/methods/m49/m49.htm",
+            "code": "150",
+            "display": "Europe"
+          }
+        ]
+      }
+    ],
+    "indication": {
+      "concept": {
+        "text": "Prevention of infectious disease"
+      }
+    },
+    "validityPeriod": {
+      "start": "2023-06-01",
+      "end": "2024-06-01"
+    },
+    "case": {
+      "identifier": {
+        "system": "http://example.org/cases",
+        "value": "CASE-2023-001"
+      },
+      "type": {
+        "coding": [
+          {
+            "system": "http://example.org/case-type",
+            "code": "initial-application",
+            "display": "Initial Application"
+          }
+        ]
+      },
+      "dateDateTime": "2023-01-01"
+    }
+  },
+  "3": {
+    "resourceType": "RegulatedAuthorization",
+    "id": "regulated-authorization-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/orphan-drug-designations",
+        "value": "ODD-2023-789"
+      }
+    ],
+    "subject": [
+      {
+        "reference": "MedicinalProductDefinition/rare-disease-drug"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "http://example.org/authorization-type",
+          "code": "orphan-drug",
+          "display": "Orphan Drug Designation"
+        }
+      ]
+    },
+    "holder": {
+      "reference": "Organization/biotech-startup"
+    },
+    "basis": [
+      {
+        "text": "Rare disease affecting fewer than 200,000 patients"
+      }
+    ],
+    "intendedUse": {
+      "coding": [
+        {
+          "system": "http://example.org/intended-use",
+          "code": "treatment",
+          "display": "Treatment"
+        }
+      ]
+    },
+    "case": {
+      "identifier": {
+        "system": "http://example.org/cases",
+        "value": "CASE-2023-456"
+      },
+      "type": {
+        "text": "Orphan designation application"
+      },
+      "datePeriod": {
+        "start": "2022-11-01",
+        "end": "2023-02-28"
+      },
+      "status": {
+        "coding": [
+          {
+            "system": "http://example.org/case-status",
+            "code": "completed",
+            "display": "Completed"
+          }
+        ]
+      },
+      "application": [
+        {
+          "identifier": {
+            "value": "APP-2022-001"
+          },
+          "type": {
+            "text": "Initial submission"
+          },
+          "dateDateTime": "2022-11-01"
+        },
+        {
+          "identifier": {
+            "value": "APP-2023-002"
+          },
+          "type": {
+            "text": "Response to questions"
+          },
+          "dateDateTime": "2023-01-15"
+        }
+      ]
+    }
+  }
+}
