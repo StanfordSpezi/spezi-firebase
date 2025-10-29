@@ -10,6 +10,7 @@ import { type FhirResource } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { untypedActivityDefinitionSchema } from './activityDefinition.js'
 import { untypedAdministrableProductDefinitionSchema } from './administrableProductDefinition.js'
+import { untypedAdverseEventSchema } from './adverseEvent.js'
 import { untypedAllergyIntoleranceSchema } from './allergyIntolerance.js'
 import { untypedAppointmentSchema } from './appointment.js'
 import { untypedAppointmentResponseSchema } from './appointmentResponse.js'
@@ -26,6 +27,7 @@ import { untypedConditionSchema } from './condition.js'
 import { untypedConsentSchema } from './consent.js'
 import { untypedContractSchema } from './contract.js'
 import { untypedCoverageSchema } from './coverage.js'
+import { untypedDetectedIssueSchema } from './detectedIssue.js'
 import { untypedDeviceSchema } from './device.js'
 import { untypedDeviceDefinitionSchema } from './deviceDefinition.js'
 import { untypedDeviceMetricSchema } from './deviceMetric.js'
@@ -84,6 +86,7 @@ import { untypedQuestionnaireSchema } from './questionnaire.js'
 import { untypedQuestionnaireResponseSchema } from './questionnaireResponse.js'
 import { untypedRegulatedAuthorizationSchema } from './regulatedAuthorization.js'
 import { untypedRelatedPersonSchema } from './relatedPerson.js'
+import { untypedRiskAssessmentSchema } from './riskAssessment.js'
 import { untypedScheduleSchema } from './schedule.js'
 import { untypedServiceRequestSchema } from './serviceRequest.js'
 import { untypedSlotSchema } from './slot.js'
@@ -100,6 +103,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
     untypedActivityDefinitionSchema,
     untypedAdministrableProductDefinitionSchema,
+    untypedAdverseEventSchema,
     untypedAllergyIntoleranceSchema,
     untypedAppointmentSchema,
     untypedAppointmentResponseSchema,
@@ -116,6 +120,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedConsentSchema,
     untypedContractSchema,
     untypedCoverageSchema,
+    untypedDetectedIssueSchema,
     untypedDeviceSchema,
     untypedDeviceDefinitionSchema,
     untypedDeviceMetricSchema,
@@ -174,6 +179,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedQuestionnaireResponseSchema,
     untypedRegulatedAuthorizationSchema,
     untypedRelatedPersonSchema,
+    untypedRiskAssessmentSchema,
     untypedScheduleSchema,
     untypedServiceRequestSchema,
     untypedSlotSchema,
