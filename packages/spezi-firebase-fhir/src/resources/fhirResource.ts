@@ -8,6 +8,7 @@
 
 import { type FhirResource } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { untypedAccountSchema } from './account.js'
 import { untypedActivityDefinitionSchema } from './activityDefinition.js'
 import { untypedAdministrableProductDefinitionSchema } from './administrableProductDefinition.js'
 import { untypedAdverseEventSchema } from './adverseEvent.js'
@@ -22,6 +23,10 @@ import { untypedBodyStructureSchema } from './bodyStructure.js'
 import { untypedCarePlanSchema } from './carePlan.js'
 import { untypedCareTeamSchema } from './careTeam.js'
 import { untypedCatalogEntrySchema } from './catalogEntry.js'
+import { untypedChargeItemSchema } from './chargeItem.js'
+import { untypedChargeItemDefinitionSchema } from './chargeItemDefinition.js'
+import { untypedClaimSchema } from './claim.js'
+import { untypedClaimResponseSchema } from './claimResponse.js'
 import { untypedClinicalImpressionSchema } from './clinicalImpression.js'
 import { untypedCodeSystemSchema } from './codeSystem.js'
 import { untypedCommunicationSchema } from './communication.js'
@@ -32,6 +37,8 @@ import { untypedConditionSchema } from './condition.js'
 import { untypedConsentSchema } from './consent.js'
 import { untypedContractSchema } from './contract.js'
 import { untypedCoverageSchema } from './coverage.js'
+import { untypedCoverageEligibilityRequestSchema } from './coverageEligibilityRequest.js'
+import { untypedCoverageEligibilityResponseSchema } from './coverageEligibilityResponse.js'
 import { untypedDetectedIssueSchema } from './detectedIssue.js'
 import { untypedDeviceSchema } from './device.js'
 import { untypedDeviceDefinitionSchema } from './deviceDefinition.js'
@@ -43,8 +50,11 @@ import { untypedDocumentManifestSchema } from './documentManifest.js'
 import { untypedDocumentReferenceSchema } from './documentReference.js'
 import { untypedEncounterSchema } from './encounter.js'
 import { untypedEndpointSchema } from './endpoint.js'
+import { untypedEnrollmentRequestSchema } from './enrollmentRequest.js'
+import { untypedEnrollmentResponseSchema } from './enrollmentResponse.js'
 import { untypedEpisodeOfCareSchema } from './episodeOfCare.js'
 import { untypedEventDefinitionSchema } from './eventDefinition.js'
+import { untypedExplanationOfBenefitSchema } from './explanationOfBenefit.js'
 import { untypedFamilyMemberHistorySchema } from './familyMemberHistory.js'
 import { untypedFlagSchema } from './flag.js'
 import { untypedGoalSchema } from './goal.js'
@@ -56,6 +66,8 @@ import { untypedImmunizationSchema } from './immunization.js'
 import { untypedImmunizationEvaluationSchema } from './immunizationEvaluation.js'
 import { untypedImmunizationRecommendationSchema } from './immunizationRecommendation.js'
 import { untypedIngredientSchema } from './ingredient.js'
+import { untypedInsurancePlanSchema } from './insurancePlan.js'
+import { untypedInvoiceSchema } from './invoice.js'
 import { untypedLibrarySchema } from './library.js'
 import { untypedLinkageSchema } from './linkage.js'
 import { untypedListSchema } from './list.js'
@@ -83,6 +95,8 @@ import { untypedOrganizationAffiliationSchema } from './organizationAffiliation.
 import { untypedPackagedProductDefinitionSchema } from './packagedProductDefinition.js'
 import { untypedParametersSchema } from './parameters.js'
 import { untypedPatientSchema } from './patient.js'
+import { untypedPaymentNoticeSchema } from './paymentNotice.js'
+import { untypedPaymentReconciliationSchema } from './paymentReconciliation.js'
 import { untypedPersonSchema } from './person.js'
 import { untypedPlanDefinitionSchema } from './planDefinition.js'
 import { untypedPractitionerSchema } from './practitioner.js'
@@ -110,6 +124,7 @@ import { untypedVisionPrescriptionSchema } from './visionPrescription.js'
 
 export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
+    untypedAccountSchema,
     untypedActivityDefinitionSchema,
     untypedAdministrableProductDefinitionSchema,
     untypedAdverseEventSchema,
@@ -124,6 +139,10 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedCarePlanSchema,
     untypedCareTeamSchema,
     untypedCatalogEntrySchema,
+    untypedChargeItemSchema,
+    untypedChargeItemDefinitionSchema,
+    untypedClaimSchema,
+    untypedClaimResponseSchema,
     untypedClinicalImpressionSchema,
     untypedCodeSystemSchema,
     untypedCommunicationSchema,
@@ -134,6 +153,8 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedConsentSchema,
     untypedContractSchema,
     untypedCoverageSchema,
+    untypedCoverageEligibilityRequestSchema,
+    untypedCoverageEligibilityResponseSchema,
     untypedDetectedIssueSchema,
     untypedDeviceSchema,
     untypedDeviceDefinitionSchema,
@@ -145,8 +166,11 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedDocumentReferenceSchema,
     untypedEncounterSchema,
     untypedEndpointSchema,
+    untypedEnrollmentRequestSchema,
+    untypedEnrollmentResponseSchema,
     untypedEpisodeOfCareSchema,
     untypedEventDefinitionSchema,
+    untypedExplanationOfBenefitSchema,
     untypedFamilyMemberHistorySchema,
     untypedFlagSchema,
     untypedGoalSchema,
@@ -158,6 +182,8 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedImmunizationEvaluationSchema,
     untypedImmunizationRecommendationSchema,
     untypedIngredientSchema,
+    untypedInsurancePlanSchema,
+    untypedInvoiceSchema,
     untypedLibrarySchema,
     untypedLinkageSchema,
     untypedListSchema,
@@ -185,6 +211,8 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedPackagedProductDefinitionSchema,
     untypedParametersSchema,
     untypedPatientSchema,
+    untypedPaymentNoticeSchema,
+    untypedPaymentReconciliationSchema,
     untypedPersonSchema,
     untypedPlanDefinitionSchema,
     untypedPractitionerSchema,

@@ -1,0 +1,98 @@
+{
+  "0": {
+    "resourceType": "EnrollmentResponse",
+    "id": "enrollmentresponse-minimal",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T10:30:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/EnrollmentResponse"]
+    }
+  },
+  "1": {
+    "resourceType": "EnrollmentResponse",
+    "id": "enrollmentresponse-complete",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T11:30:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/EnrollmentResponse"]
+    },
+    "text": {
+      "status": "generated",
+      "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Enrollment response - approved</div>"
+    },
+    "identifier": [
+      {
+        "system": "http://insurance.example.org/enrollment-responses",
+        "value": "ENR-RESP-001"
+      }
+    ],
+    "status": "active",
+    "request": {
+      "reference": "EnrollmentRequest/enrollmentrequest-comprehensive",
+      "display": "Enrollment Request for John Doe"
+    },
+    "outcome": "complete",
+    "disposition": "Enrollment approved effective 2025-02-01",
+    "created": "2025-01-15T11:00:00Z",
+    "organization": {
+      "reference": "Organization/insurance-company-001",
+      "display": "Blue Cross Insurance"
+    },
+    "requestProvider": {
+      "reference": "Organization/hospital-001",
+      "display": "General Hospital"
+    }
+  },
+  "2": {
+    "resourceType": "EnrollmentResponse",
+    "id": "enrollmentresponse-error",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T12:30:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/EnrollmentResponse"]
+    },
+    "identifier": [
+      {
+        "system": "http://insurance.example.org/enrollment-responses",
+        "value": "ENR-RESP-002"
+      }
+    ],
+    "status": "active",
+    "request": {
+      "reference": "EnrollmentRequest/enrollmentrequest-002"
+    },
+    "outcome": "error",
+    "disposition": "Missing required documentation - birth certificate",
+    "created": "2025-01-15T12:00:00Z",
+    "organization": {
+      "reference": "Organization/insurance-company-002",
+      "display": "Aetna Insurance"
+    }
+  },
+  "3": {
+    "resourceType": "EnrollmentResponse",
+    "id": "enrollmentresponse-queued",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T13:30:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/EnrollmentResponse"]
+    },
+    "identifier": [
+      {
+        "system": "http://insurance.example.org/enrollment-responses",
+        "value": "ENR-RESP-003"
+      }
+    ],
+    "status": "active",
+    "request": {
+      "reference": "EnrollmentRequest/enrollmentrequest-003"
+    },
+    "outcome": "queued",
+    "disposition": "Application is under review - pending background check",
+    "created": "2025-01-15T13:00:00Z",
+    "organization": {
+      "reference": "Organization/insurance-company-003",
+      "display": "UnitedHealth Group"
+    }
+  }
+}

@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+export * from './account.js'
 export * from './activityDefinition.js'
 export * from './administrativeGender.js'
 export * from './administrableProductDefinition.js'
@@ -18,6 +19,7 @@ export * from './bundle.js'
 export * from './carePlan.js'
 export * from './careTeam.js'
 export * from './catalogEntry.js'
+export * from './chargeItem.js'
 export * from './clinicalImpression.js'
 export * from './codeSystem.js'
 export * from './communication.js'
@@ -41,6 +43,7 @@ export * from './encounter.js'
 export * from './endpoint.js'
 export * from './episodeOfCare.js'
 export * from './familyMemberHistory.js'
+export * from './financialResource.js'
 export * from './flag.js'
 export * from './goal.js'
 export * from './group.js'

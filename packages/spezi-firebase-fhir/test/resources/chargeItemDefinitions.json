@@ -1,0 +1,154 @@
+{
+  "0": {
+    "resourceType": "ChargeItemDefinition",
+    "id": "chargeitemdefinition-minimal",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T10:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/ChargeItemDefinition"
+      ]
+    },
+    "url": "http://hospital.example.org/ChargeItemDefinition/office-visit",
+    "status": "active"
+  },
+  "1": {
+    "resourceType": "ChargeItemDefinition",
+    "id": "chargeitemdefinition-comprehensive",
+    "meta": {
+      "versionId": "2",
+      "lastUpdated": "2025-01-15T11:30:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/ChargeItemDefinition"
+      ]
+    },
+    "text": {
+      "status": "generated",
+      "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Comprehensive charge item definition for knee surgery</div>"
+    },
+    "url": "http://hospital.example.org/ChargeItemDefinition/knee-surgery",
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/charge-definitions",
+        "value": "CID-27447"
+      }
+    ],
+    "version": "1.0.0",
+    "title": "Total Knee Arthroplasty Charge Definition",
+    "status": "active",
+    "experimental": false,
+    "date": "2025-01-01",
+    "publisher": "General Hospital Billing Department",
+    "contact": [
+      {
+        "name": "Billing Support",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "billing@hospital.example.org"
+          }
+        ]
+      }
+    ],
+    "description": "Defines the billing structure for total knee arthroplasty procedures",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.ama-assn.org/go/cpt",
+          "code": "27447",
+          "display": "Total knee arthroplasty"
+        }
+      ]
+    },
+    "propertyGroup": [
+      {
+        "priceComponent": [
+          {
+            "type": "base",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hospital.example.org/price-components",
+                  "code": "BASE",
+                  "display": "Base Price"
+                }
+              ]
+            },
+            "amount": {
+              "value": 20000.0,
+              "currency": "USD"
+            }
+          },
+          {
+            "type": "surcharge",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://hospital.example.org/price-components",
+                  "code": "COMPLEX",
+                  "display": "Complexity Surcharge"
+                }
+              ]
+            },
+            "factor": 0.15,
+            "amount": {
+              "value": 3000.0,
+              "currency": "USD"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ChargeItemDefinition",
+    "id": "chargeitemdefinition-draft",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T12:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/ChargeItemDefinition"
+      ]
+    },
+    "url": "http://hospital.example.org/ChargeItemDefinition/new-procedure",
+    "version": "0.1.0",
+    "title": "New Experimental Procedure",
+    "status": "draft",
+    "experimental": true,
+    "date": "2025-01-15",
+    "publisher": "General Hospital Research Department",
+    "description": "Draft definition for a new experimental procedure"
+  },
+  "3": {
+    "resourceType": "ChargeItemDefinition",
+    "id": "chargeitemdefinition-retired",
+    "meta": {
+      "versionId": "3",
+      "lastUpdated": "2025-01-15T13:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/ChargeItemDefinition"
+      ]
+    },
+    "url": "http://hospital.example.org/ChargeItemDefinition/old-procedure",
+    "version": "2.0.0",
+    "title": "Retired Procedure Charge Definition",
+    "replaces": [
+      "http://hospital.example.org/ChargeItemDefinition/old-procedure|1.0.0"
+    ],
+    "status": "retired",
+    "date": "2024-12-31",
+    "publisher": "General Hospital Billing Department",
+    "description": "This charge definition has been retired and replaced"
+  }
+}
