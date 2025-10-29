@@ -1,0 +1,105 @@
+{
+  "0": {
+    "resourceType": "Goal",
+    "id": "goal-example-0",
+    "lifecycleStatus": "active",
+    "description": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "289169006",
+          "display": "Weight loss"
+        }
+      ],
+      "text": "Target weight loss of 20 pounds"
+    },
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "startDate": "2024-01-01",
+    "target": [
+      {
+        "measure": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body weight"
+            }
+          ]
+        },
+        "detailQuantity": {
+          "value": 180,
+          "unit": "lbs",
+          "system": "http://unitsofmeasure.org",
+          "code": "[lb_av]"
+        },
+        "dueDate": "2024-12-31"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Goal",
+    "id": "goal-example-1",
+    "lifecycleStatus": "proposed",
+    "description": {
+      "text": "Improve blood glucose control"
+    },
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "priority": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/goal-priority",
+          "code": "high-priority"
+        }
+      ]
+    }
+  },
+  "2": {
+    "resourceType": "Goal",
+    "id": "goal-example-2",
+    "lifecycleStatus": "completed",
+    "description": {
+      "text": "Smoking cessation"
+    },
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    },
+    "statusDate": "2024-06-01",
+    "achievementStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/goal-achievement",
+          "code": "achieved"
+        }
+      ]
+    }
+  },
+  "3": {
+    "resourceType": "Goal",
+    "id": "goal-example-3",
+    "lifecycleStatus": "on-hold",
+    "description": {
+      "text": "Reduce blood pressure"
+    },
+    "subject": {
+      "reference": "Patient/patient-example-4"
+    },
+    "target": [
+      {
+        "measure": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85354-9",
+              "display": "Blood pressure"
+            }
+          ]
+        },
+        "detailString": "Less than 120/80 mmHg"
+      }
+    ]
+  }
+}

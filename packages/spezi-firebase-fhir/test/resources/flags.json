@@ -1,0 +1,93 @@
+{
+  "0": {
+    "resourceType": "Flag",
+    "id": "flag-example-0",
+    "status": "active",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/flag-category",
+            "code": "safety",
+            "display": "Safety"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/flag-code",
+          "code": "drug-allergy",
+          "display": "Drug allergy"
+        }
+      ],
+      "text": "Penicillin allergy"
+    },
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "period": {
+      "start": "2024-01-01"
+    },
+    "author": {
+      "reference": "Practitioner/practitioner-example"
+    }
+  },
+  "1": {
+    "resourceType": "Flag",
+    "id": "flag-example-1",
+    "status": "inactive",
+    "code": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/flag-code",
+          "code": "other"
+        }
+      ],
+      "text": "Fall risk"
+    },
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "period": {
+      "start": "2023-06-01",
+      "end": "2024-01-01"
+    }
+  },
+  "2": {
+    "resourceType": "Flag",
+    "id": "flag-example-2",
+    "status": "active",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/flag-category",
+            "code": "clinical"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "text": "Latex allergy"
+    },
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    }
+  },
+  "3": {
+    "resourceType": "Flag",
+    "id": "flag-example-3",
+    "status": "entered-in-error",
+    "code": {
+      "text": "Do not resuscitate"
+    },
+    "subject": {
+      "reference": "Patient/patient-example-4"
+    }
+  }
+}

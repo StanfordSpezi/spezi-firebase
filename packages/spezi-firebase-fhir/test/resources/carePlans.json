@@ -1,0 +1,92 @@
+{
+  "0": {
+    "resourceType": "CarePlan",
+    "id": "careplan-example-0",
+    "status": "active",
+    "intent": "plan",
+    "title": "Weight Loss Program",
+    "description": "Complete weight loss program including diet and exercise",
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "period": {
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    "created": "2024-01-01T10:00:00Z",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/care-plan-category",
+            "code": "assess-plan"
+          }
+        ]
+      }
+    ],
+    "activity": [
+      {
+        "detail": {
+          "status": "in-progress",
+          "code": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "229065009",
+                "display": "Exercise therapy"
+              }
+            ]
+          },
+          "scheduledTiming": {
+            "repeat": {
+              "frequency": 3,
+              "period": 1,
+              "periodUnit": "wk"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "CarePlan",
+    "id": "careplan-example-1",
+    "status": "draft",
+    "intent": "proposal",
+    "title": "Diabetes Management Plan",
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    }
+  },
+  "2": {
+    "resourceType": "CarePlan",
+    "id": "careplan-example-2",
+    "status": "completed",
+    "intent": "order",
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    },
+    "period": {
+      "start": "2023-06-01",
+      "end": "2023-12-31"
+    }
+  },
+  "3": {
+    "resourceType": "CarePlan",
+    "id": "careplan-example-3",
+    "status": "on-hold",
+    "intent": "option",
+    "title": "Cardiac Rehabilitation",
+    "subject": {
+      "reference": "Patient/patient-example-4"
+    },
+    "goal": [
+      {
+        "reference": "Goal/goal-example"
+      }
+    ]
+  }
+}

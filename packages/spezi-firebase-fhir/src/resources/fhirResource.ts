@@ -19,8 +19,13 @@ import { untypedBasicSchema } from './basic.js'
 import { untypedBinarySchema } from './binary.js'
 import { untypedBiologicallyDerivedProductSchema } from './biologicallyDerivedProduct.js'
 import { untypedBodyStructureSchema } from './bodyStructure.js'
+import { untypedCarePlanSchema } from './carePlan.js'
+import { untypedCareTeamSchema } from './careTeam.js'
 import { untypedCatalogEntrySchema } from './catalogEntry.js'
+import { untypedClinicalImpressionSchema } from './clinicalImpression.js'
 import { untypedCodeSystemSchema } from './codeSystem.js'
+import { untypedCommunicationSchema } from './communication.js'
+import { untypedCommunicationRequestSchema } from './communicationRequest.js'
 import { untypedCompositionSchema } from './composition.js'
 import { untypedConceptMapSchema } from './conceptMap.js'
 import { untypedConditionSchema } from './condition.js'
@@ -41,6 +46,8 @@ import { untypedEndpointSchema } from './endpoint.js'
 import { untypedEpisodeOfCareSchema } from './episodeOfCare.js'
 import { untypedEventDefinitionSchema } from './eventDefinition.js'
 import { untypedFamilyMemberHistorySchema } from './familyMemberHistory.js'
+import { untypedFlagSchema } from './flag.js'
+import { untypedGoalSchema } from './goal.js'
 import { untypedGroupSchema } from './group.js'
 import { untypedGuidanceResponseSchema } from './guidanceResponse.js'
 import { untypedHealthcareServiceSchema } from './healthcareService.js'
@@ -86,6 +93,7 @@ import { untypedQuestionnaireSchema } from './questionnaire.js'
 import { untypedQuestionnaireResponseSchema } from './questionnaireResponse.js'
 import { untypedRegulatedAuthorizationSchema } from './regulatedAuthorization.js'
 import { untypedRelatedPersonSchema } from './relatedPerson.js'
+import { untypedRequestGroupSchema } from './requestGroup.js'
 import { untypedRiskAssessmentSchema } from './riskAssessment.js'
 import { untypedScheduleSchema } from './schedule.js'
 import { untypedServiceRequestSchema } from './serviceRequest.js'
@@ -98,6 +106,7 @@ import { untypedTaskSchema } from './task.js'
 import { untypedTerminologyCapabilitiesSchema } from './terminologyCapabilities.js'
 import { untypedValueSetSchema } from './valueSet.js'
 import { untypedVerificationResultSchema } from './verificationResult.js'
+import { untypedVisionPrescriptionSchema } from './visionPrescription.js'
 
 export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
@@ -112,8 +121,13 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedBinarySchema,
     untypedBiologicallyDerivedProductSchema,
     untypedBodyStructureSchema,
+    untypedCarePlanSchema,
+    untypedCareTeamSchema,
     untypedCatalogEntrySchema,
+    untypedClinicalImpressionSchema,
     untypedCodeSystemSchema,
+    untypedCommunicationSchema,
+    untypedCommunicationRequestSchema,
     untypedCompositionSchema,
     untypedConceptMapSchema,
     untypedConditionSchema,
@@ -134,6 +148,8 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedEpisodeOfCareSchema,
     untypedEventDefinitionSchema,
     untypedFamilyMemberHistorySchema,
+    untypedFlagSchema,
+    untypedGoalSchema,
     untypedGroupSchema,
     untypedGuidanceResponseSchema,
     untypedHealthcareServiceSchema,
@@ -179,6 +195,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedQuestionnaireResponseSchema,
     untypedRegulatedAuthorizationSchema,
     untypedRelatedPersonSchema,
+    untypedRequestGroupSchema,
     untypedRiskAssessmentSchema,
     untypedScheduleSchema,
     untypedServiceRequestSchema,
@@ -191,5 +208,6 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedTerminologyCapabilitiesSchema,
     untypedValueSetSchema,
     untypedVerificationResultSchema,
+    untypedVisionPrescriptionSchema,
   ]),
 )

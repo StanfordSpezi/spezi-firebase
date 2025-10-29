@@ -1,0 +1,145 @@
+{
+  "0": {
+    "resourceType": "VisionPrescription",
+    "id": "visionprescription-example-0",
+    "status": "active",
+    "created": "2024-01-15T10:00:00Z",
+    "patient": {
+      "reference": "Patient/patient-example"
+    },
+    "dateWritten": "2024-01-15T10:00:00Z",
+    "prescriber": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "lensSpecification": [
+      {
+        "product": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/ex-visionprescriptionproduct",
+              "code": "lens"
+            }
+          ]
+        },
+        "eye": "right",
+        "sphere": -2.0,
+        "cylinder": -0.5,
+        "axis": 180,
+        "add": 2.0
+      },
+      {
+        "product": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/ex-visionprescriptionproduct",
+              "code": "lens"
+            }
+          ]
+        },
+        "eye": "left",
+        "sphere": -2.25,
+        "cylinder": -0.75,
+        "axis": 175,
+        "add": 2.0
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "VisionPrescription",
+    "id": "visionprescription-example-1",
+    "status": "draft",
+    "created": "2024-02-01T14:30:00Z",
+    "patient": {
+      "reference": "Patient/patient-example-2"
+    },
+    "dateWritten": "2024-02-01T14:30:00Z",
+    "prescriber": {
+      "reference": "Practitioner/practitioner-example-2"
+    },
+    "lensSpecification": [
+      {
+        "product": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/ex-visionprescriptionproduct",
+              "code": "contact"
+            }
+          ]
+        },
+        "eye": "right",
+        "sphere": -3.5,
+        "backCurve": 8.7,
+        "diameter": 14.0,
+        "duration": {
+          "value": 30,
+          "unit": "days",
+          "system": "http://unitsofmeasure.org",
+          "code": "d"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "VisionPrescription",
+    "id": "visionprescription-example-2",
+    "status": "cancelled",
+    "created": "2024-03-01T09:00:00Z",
+    "patient": {
+      "reference": "Patient/patient-example-3"
+    },
+    "dateWritten": "2024-03-01T09:00:00Z",
+    "prescriber": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    },
+    "lensSpecification": [
+      {
+        "product": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/ex-visionprescriptionproduct",
+              "code": "lens"
+            }
+          ]
+        },
+        "eye": "right",
+        "sphere": -1.5
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "VisionPrescription",
+    "id": "visionprescription-example-3",
+    "status": "entered-in-error",
+    "created": "2024-04-01T11:00:00Z",
+    "patient": {
+      "reference": "Patient/patient-example-4"
+    },
+    "dateWritten": "2024-04-01T11:00:00Z",
+    "prescriber": {
+      "reference": "Practitioner/practitioner-example-3"
+    },
+    "lensSpecification": [
+      {
+        "product": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/ex-visionprescriptionproduct",
+              "code": "lens"
+            }
+          ]
+        },
+        "eye": "left",
+        "power": -2.5,
+        "prism": [
+          {
+            "amount": 0.5,
+            "base": "out"
+          }
+        ]
+      }
+    ]
+  }
+}

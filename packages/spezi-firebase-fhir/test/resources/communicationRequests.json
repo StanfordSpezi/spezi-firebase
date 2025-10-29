@@ -1,0 +1,78 @@
+{
+  "0": {
+    "resourceType": "CommunicationRequest",
+    "id": "communicationrequest-example-0",
+    "status": "active",
+    "priority": "routine",
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "authoredOn": "2024-01-15T10:00:00Z",
+    "requester": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "recipient": [
+      {
+        "reference": "Patient/patient-example"
+      }
+    ],
+    "payload": [
+      {
+        "contentString": "Please schedule your annual physical examination"
+      }
+    ],
+    "occurrenceDateTime": "2024-02-01T09:00:00Z"
+  },
+  "1": {
+    "resourceType": "CommunicationRequest",
+    "id": "communicationrequest-example-1",
+    "status": "draft",
+    "priority": "urgent",
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/communication-category",
+            "code": "alert"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "CommunicationRequest",
+    "id": "communicationrequest-example-2",
+    "status": "completed",
+    "priority": "stat",
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    },
+    "doNotPerform": false
+  },
+  "3": {
+    "resourceType": "CommunicationRequest",
+    "id": "communicationrequest-example-3",
+    "status": "revoked",
+    "priority": "asap",
+    "subject": {
+      "reference": "Patient/patient-example-4"
+    },
+    "medium": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationMode",
+            "code": "PHONE",
+            "display": "telephone"
+          }
+        ]
+      }
+    ]
+  }
+}
