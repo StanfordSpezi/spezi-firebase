@@ -1,0 +1,123 @@
+{
+  "0": {
+    "resourceType": "EvidenceVariable",
+    "id": "evidencevariable-example-0",
+    "status": "draft",
+    "title": "Example Evidence Variable"
+  },
+  "1": {
+    "resourceType": "EvidenceVariable",
+    "id": "evidencevariable-example-1",
+    "url": "http://example.org/fhir/EvidenceVariable/age-variable",
+    "identifier": [
+      {
+        "system": "http://example.org/evidence-variables",
+        "value": "EV-001"
+      }
+    ],
+    "version": "1.0.0",
+    "name": "AgeVariable",
+    "title": "Patient Age Variable",
+    "status": "active",
+    "description": "Definition of patient age as an evidence variable",
+    "handling": "continuous",
+    "characteristic": [
+      {
+        "description": "Patient age in years",
+        "definitionCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "30525-0",
+              "display": "Age"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "EvidenceVariable",
+    "id": "evidencevariable-example-2",
+    "status": "active",
+    "title": "Blood Pressure Variable",
+    "handling": "continuous",
+    "characteristic": [
+      {
+        "description": "Systolic blood pressure measurement",
+        "definitionCodeableConcept": {
+          "text": "Systolic Blood Pressure"
+        }
+      }
+    ],
+    "category": [
+      {
+        "name": "Normal",
+        "valueRange": {
+          "low": {
+            "value": 90,
+            "unit": "mmHg"
+          },
+          "high": {
+            "value": 120,
+            "unit": "mmHg"
+          }
+        }
+      },
+      {
+        "name": "Hypertension",
+        "valueRange": {
+          "low": {
+            "value": 140,
+            "unit": "mmHg"
+          }
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "EvidenceVariable",
+    "id": "evidencevariable-example-3",
+    "url": "http://example.org/fhir/EvidenceVariable/smoking-status",
+    "name": "SmokingStatusVariable",
+    "title": "Smoking Status Evidence Variable",
+    "status": "active",
+    "publisher": "Example Health Research Organization",
+    "contact": [
+      {
+        "name": "Research Data Team"
+      }
+    ],
+    "description": "Evidence variable for patient smoking status in clinical research",
+    "handling": "dichotomous",
+    "actual": true,
+    "characteristic": [
+      {
+        "description": "Current smoking status",
+        "definitionCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "77176002",
+              "display": "Smoker"
+            }
+          ]
+        }
+      }
+    ],
+    "category": [
+      {
+        "name": "Smoker",
+        "valueCodeableConcept": {
+          "text": "Current smoker"
+        }
+      },
+      {
+        "name": "Non-smoker",
+        "valueCodeableConcept": {
+          "text": "Non-smoker"
+        }
+      }
+    ]
+  }
+}

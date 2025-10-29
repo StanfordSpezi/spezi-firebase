@@ -1,0 +1,175 @@
+{
+  "0": {
+    "resourceType": "AdverseEvent",
+    "id": "example",
+    "identifier": {
+      "system": "http://acme.com/ids/patients/risks",
+      "value": "49476534"
+    },
+    "actuality": "actual",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/adverse-event-category",
+            "code": "medication-mishap",
+            "display": "Medication Mishap"
+          }
+        ]
+      }
+    ],
+    "event": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "304386008",
+          "display": "O/E - itchy rash"
+        }
+      ],
+      "text": "This was a mild rash on the left forearm"
+    },
+    "subject": {
+      "reference": "Patient/example"
+    },
+    "date": "2017-01-29T12:34:56+00:00",
+    "seriousness": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/adverse-event-seriousness",
+          "code": "non-serious",
+          "display": "Non-serious"
+        }
+      ]
+    },
+    "recorder": {
+      "reference": "Practitioner/example"
+    },
+    "suspectEntity": [
+      {
+        "instance": {
+          "reference": "Medication/example"
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "AdverseEvent",
+    "id": "example2",
+    "actuality": "potential",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/adverse-event-category",
+            "code": "product-problem",
+            "display": "Product Problem"
+          }
+        ]
+      }
+    ],
+    "event": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "39579001",
+          "display": "Anaphylaxis"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example"
+    },
+    "encounter": {
+      "reference": "Encounter/example"
+    },
+    "detected": "2017-01-29",
+    "recordedDate": "2017-01-29",
+    "severity": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/adverse-event-severity",
+          "code": "severe",
+          "display": "Severe"
+        }
+      ]
+    },
+    "outcome": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/adverse-event-outcome",
+          "code": "recovering",
+          "display": "Recovering"
+        }
+      ]
+    }
+  },
+  "2": {
+    "resourceType": "AdverseEvent",
+    "id": "example3",
+    "actuality": "actual",
+    "subject": {
+      "reference": "Patient/example"
+    },
+    "date": "2017-02-15T10:00:00+00:00",
+    "resultingCondition": [
+      {
+        "reference": "Condition/example"
+      }
+    ],
+    "location": {
+      "reference": "Location/example"
+    },
+    "contributor": [
+      {
+        "reference": "Practitioner/example"
+      }
+    ],
+    "suspectEntity": [
+      {
+        "instance": {
+          "reference": "Medication/example"
+        },
+        "causality": [
+          {
+            "assessment": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/adverse-event-causality-assess",
+                  "code": "certain",
+                  "display": "Certain"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "AdverseEvent",
+    "id": "example4",
+    "actuality": "actual",
+    "subject": {
+      "reference": "Patient/example"
+    },
+    "date": "2017-03-20",
+    "recorder": {
+      "reference": "Patient/example"
+    },
+    "subjectMedicalHistory": [
+      {
+        "reference": "Condition/example"
+      }
+    ],
+    "referenceDocument": [
+      {
+        "reference": "DocumentReference/example"
+      }
+    ],
+    "study": [
+      {
+        "reference": "ResearchStudy/example"
+      }
+    ]
+  }
+}

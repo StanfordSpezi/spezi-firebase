@@ -1,0 +1,103 @@
+{
+  "0": {
+    "resourceType": "ResearchElementDefinition",
+    "id": "researchelementdefinition-example-0",
+    "status": "draft",
+    "type": "population",
+    "characteristic": [
+      {
+        "definitionCodeableConcept": {
+          "text": "Adult patients"
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "ResearchElementDefinition",
+    "id": "researchelementdefinition-example-1",
+    "url": "http://example.org/fhir/ResearchElementDefinition/diabetes-exposure",
+    "identifier": [
+      {
+        "system": "http://example.org/research-elements",
+        "value": "RED-001"
+      }
+    ],
+    "version": "1.0.0",
+    "name": "DiabetesExposure",
+    "title": "Diabetes Exposure Definition",
+    "status": "active",
+    "type": "exposure",
+    "variableType": "dichotomous",
+    "description": "Definition for diabetes mellitus exposure in clinical studies",
+    "characteristic": [
+      {
+        "definitionCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "73211009",
+              "display": "Diabetes mellitus"
+            }
+          ]
+        },
+        "studyEffectiveDescription": "Diagnosed during study period"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ResearchElementDefinition",
+    "id": "researchelementdefinition-example-2",
+    "status": "active",
+    "type": "outcome",
+    "variableType": "continuous",
+    "title": "Blood Pressure Outcome",
+    "characteristic": [
+      {
+        "definitionCodeableConcept": {
+          "text": "Systolic blood pressure measurement"
+        },
+        "unitOfMeasure": {
+          "coding": [
+            {
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ResearchElementDefinition",
+    "id": "researchelementdefinition-example-3",
+    "url": "http://example.org/fhir/ResearchElementDefinition/cardiac-population",
+    "name": "CardiacPatientPopulation",
+    "title": "Cardiac Patient Population",
+    "status": "active",
+    "experimental": false,
+    "publisher": "Example Research Organization",
+    "contact": [
+      {
+        "name": "Research Team"
+      }
+    ],
+    "description": "Definition of the cardiac patient population for clinical research",
+    "type": "population",
+    "characteristic": [
+      {
+        "definitionCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "49601007",
+              "display": "Disorder of cardiovascular system"
+            }
+          ]
+        },
+        "studyEffectivePeriod": {
+          "start": "2024-01-01"
+        }
+      }
+    ]
+  }
+}

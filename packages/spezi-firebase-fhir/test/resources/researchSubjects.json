@@ -1,0 +1,72 @@
+{
+  "0": {
+    "resourceType": "ResearchSubject",
+    "id": "researchsubject-example-0",
+    "status": "on-study",
+    "study": {
+      "reference": "ResearchStudy/study-001"
+    },
+    "individual": {
+      "reference": "Patient/patient-001"
+    }
+  },
+  "1": {
+    "resourceType": "ResearchSubject",
+    "id": "researchsubject-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/research-subjects",
+        "value": "RS-12345"
+      }
+    ],
+    "status": "on-study-intervention",
+    "study": {
+      "reference": "ResearchStudy/cancer-trial"
+    },
+    "individual": {
+      "reference": "Patient/patient-002"
+    },
+    "assignedArm": "Treatment Arm A",
+    "actualArm": "Treatment Arm A",
+    "consent": {
+      "reference": "Consent/consent-001"
+    }
+  },
+  "2": {
+    "resourceType": "ResearchSubject",
+    "id": "researchsubject-example-2",
+    "status": "screening",
+    "period": {
+      "start": "2024-01-10"
+    },
+    "study": {
+      "reference": "ResearchStudy/diabetes-study"
+    },
+    "individual": {
+      "reference": "Patient/patient-003"
+    }
+  },
+  "3": {
+    "resourceType": "ResearchSubject",
+    "id": "researchsubject-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/research-subjects",
+        "value": "RS-67890"
+      }
+    ],
+    "status": "off-study",
+    "period": {
+      "start": "2023-06-01",
+      "end": "2024-01-15"
+    },
+    "study": {
+      "reference": "ResearchStudy/cardio-study"
+    },
+    "individual": {
+      "reference": "Patient/patient-004"
+    },
+    "assignedArm": "Control Group",
+    "actualArm": "Control Group"
+  }
+}

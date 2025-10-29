@@ -1,0 +1,95 @@
+{
+  "0": {
+    "resourceType": "ResearchDefinition",
+    "id": "researchdefinition-example-0",
+    "status": "draft",
+    "population": {
+      "reference": "ResearchElementDefinition/population-001"
+    }
+  },
+  "1": {
+    "resourceType": "ResearchDefinition",
+    "id": "researchdefinition-example-1",
+    "url": "http://example.org/fhir/ResearchDefinition/diabetes-study",
+    "identifier": [
+      {
+        "system": "http://example.org/research-definitions",
+        "value": "RD-001"
+      }
+    ],
+    "version": "1.0.0",
+    "name": "DiabetesResearchDefinition",
+    "title": "Diabetes Treatment Research Definition",
+    "status": "active",
+    "description": "Research definition for diabetes treatment effectiveness study",
+    "population": {
+      "reference": "ResearchElementDefinition/diabetes-population"
+    },
+    "exposure": {
+      "reference": "ResearchElementDefinition/diabetes-treatment"
+    },
+    "outcome": {
+      "reference": "ResearchElementDefinition/hba1c-outcome"
+    }
+  },
+  "2": {
+    "resourceType": "ResearchDefinition",
+    "id": "researchdefinition-example-2",
+    "status": "active",
+    "title": "Cardiovascular Risk Study Definition",
+    "publisher": "Example Research Institute",
+    "contact": [
+      {
+        "name": "Dr. Research Lead"
+      }
+    ],
+    "population": {
+      "reference": "ResearchElementDefinition/cardiac-population"
+    },
+    "exposure": {
+      "reference": "ResearchElementDefinition/smoking-exposure"
+    },
+    "exposureAlternative": {
+      "reference": "ResearchElementDefinition/non-smoking-exposure"
+    },
+    "outcome": {
+      "reference": "ResearchElementDefinition/cardiac-event-outcome"
+    }
+  },
+  "3": {
+    "resourceType": "ResearchDefinition",
+    "id": "researchdefinition-example-3",
+    "url": "http://example.org/fhir/ResearchDefinition/cancer-immunotherapy",
+    "name": "CancerImmunotherapyDefinition",
+    "title": "Cancer Immunotherapy Research Definition",
+    "status": "active",
+    "experimental": false,
+    "description": "Comprehensive research definition for cancer immunotherapy clinical trials",
+    "purpose": "To standardize the population, exposure, and outcome definitions for cancer immunotherapy research",
+    "effectivePeriod": {
+      "start": "2024-01-01"
+    },
+    "topic": [
+      {
+        "text": "Oncology"
+      },
+      {
+        "text": "Immunotherapy"
+      }
+    ],
+    "author": [
+      {
+        "name": "Oncology Research Group"
+      }
+    ],
+    "population": {
+      "reference": "ResearchElementDefinition/cancer-population"
+    },
+    "exposure": {
+      "reference": "ResearchElementDefinition/immunotherapy-exposure"
+    },
+    "outcome": {
+      "reference": "ResearchElementDefinition/survival-outcome"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "0": {
+    "resourceType": "Communication",
+    "id": "communication-example-0",
+    "status": "completed",
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "sent": "2024-01-15T14:30:00Z",
+    "received": "2024-01-15T14:35:00Z",
+    "sender": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "recipient": [
+      {
+        "reference": "Patient/patient-example"
+      }
+    ],
+    "payload": [
+      {
+        "contentString": "Your lab results are ready. Please call to schedule a follow-up appointment."
+      }
+    ],
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/communication-category",
+            "code": "notification"
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Communication",
+    "id": "communication-example-1",
+    "status": "in-progress",
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "topic": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/communication-topic",
+          "code": "prescription-refill"
+        }
+      ]
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    }
+  },
+  "2": {
+    "resourceType": "Communication",
+    "id": "communication-example-2",
+    "status": "not-done",
+    "statusReason": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/communication-not-done-reason",
+          "code": "invalid-phone-number"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    }
+  },
+  "3": {
+    "resourceType": "Communication",
+    "id": "communication-example-3",
+    "status": "stopped",
+    "subject": {
+      "reference": "Patient/patient-example-4"
+    },
+    "medium": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationMode",
+            "code": "WRITTEN",
+            "display": "written"
+          }
+        ]
+      }
+    ]
+  }
+}

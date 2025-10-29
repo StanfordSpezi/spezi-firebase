@@ -1,0 +1,140 @@
+{
+  "0": {
+    "resourceType": "ResearchStudy",
+    "id": "researchstudy-example-0",
+    "status": "active",
+    "title": "Diabetes Management Study"
+  },
+  "1": {
+    "resourceType": "ResearchStudy",
+    "id": "researchstudy-example-1",
+    "identifier": [
+      {
+        "system": "http://clinicaltrials.gov",
+        "value": "NCT12345678"
+      }
+    ],
+    "title": "Cancer Treatment Trial",
+    "status": "active",
+    "phase": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
+          "code": "phase-3"
+        }
+      ]
+    },
+    "primaryPurposeType": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/research-study-prim-purp-type",
+          "code": "treatment"
+        }
+      ]
+    },
+    "category": [
+      {
+        "text": "Interventional"
+      }
+    ],
+    "focus": [
+      {
+        "text": "Lung Cancer"
+      }
+    ],
+    "description": "A randomized controlled trial for advanced lung cancer treatment"
+  },
+  "2": {
+    "resourceType": "ResearchStudy",
+    "id": "researchstudy-example-2",
+    "status": "closed-to-accrual",
+    "title": "Cardiovascular Health Observation Study",
+    "period": {
+      "start": "2023-01-01",
+      "end": "2023-12-31"
+    },
+    "contact": [
+      {
+        "name": "Dr. Jane Smith"
+      }
+    ],
+    "sponsor": {
+      "reference": "Organization/sponsor-001"
+    }
+  },
+  "3": {
+    "resourceType": "ResearchStudy",
+    "id": "researchstudy-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/research-studies",
+        "value": "STUDY-2024-001"
+      }
+    ],
+    "title": "Multi-center Alzheimer's Disease Study",
+    "status": "active",
+    "phase": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
+          "code": "phase-2"
+        }
+      ]
+    },
+    "description": "A phase 2 study evaluating novel treatments for Alzheimer's disease",
+    "period": {
+      "start": "2024-01-01"
+    },
+    "principalInvestigator": {
+      "reference": "Practitioner/investigator-001"
+    },
+    "arm": [
+      {
+        "name": "Experimental Drug A",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-arm-type",
+              "code": "experimental"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Placebo",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-arm-type",
+              "code": "placebo-comparator"
+            }
+          ]
+        }
+      }
+    ],
+    "objective": [
+      {
+        "name": "Primary Outcome",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+              "code": "primary"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Secondary Outcome",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+              "code": "secondary"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

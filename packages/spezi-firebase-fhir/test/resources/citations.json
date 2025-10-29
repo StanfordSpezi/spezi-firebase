@@ -1,0 +1,123 @@
+{
+  "0": {
+    "resourceType": "Citation",
+    "id": "citation-example-0",
+    "status": "draft",
+    "title": "Example Citation"
+  },
+  "1": {
+    "resourceType": "Citation",
+    "id": "citation-example-1",
+    "url": "http://example.org/fhir/Citation/diabetes-treatment-2024",
+    "identifier": [
+      {
+        "system": "http://example.org/citations",
+        "value": "CIT-001"
+      }
+    ],
+    "version": "1.0.0",
+    "name": "DiabetesTreatmentCitation",
+    "title": "Diabetes Treatment Study 2024",
+    "status": "active",
+    "publisher": "Example Medical Journal",
+    "description": "Citation for a landmark diabetes treatment study",
+    "summary": [
+      {
+        "text": "A randomized controlled trial showing improved outcomes with new diabetes treatment."
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Citation",
+    "id": "citation-example-2",
+    "status": "active",
+    "title": "Cardiovascular Risk Factors Meta-Analysis",
+    "contact": [
+      {
+        "name": "Dr. Research Author"
+      }
+    ],
+    "summary": [
+      {
+        "text": "Meta-analysis of cardiovascular risk factors across 50 studies."
+      }
+    ],
+    "classification": [
+      {
+        "type": {
+          "text": "Publication Type"
+        },
+        "classifier": [
+          {
+            "text": "Meta-Analysis"
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Citation",
+    "id": "citation-example-3",
+    "url": "http://example.org/fhir/Citation/cancer-immunotherapy",
+    "identifier": [
+      {
+        "system": "http://doi.org",
+        "value": "10.1234/example.2024.001"
+      }
+    ],
+    "name": "CancerImmunotherapyCitation",
+    "title": "Efficacy of Immunotherapy in Advanced Cancer",
+    "status": "active",
+    "experimental": false,
+    "publisher": "Oncology Research Journal",
+    "contact": [
+      {
+        "name": "Oncology Research Group"
+      }
+    ],
+    "description": "Comprehensive citation for the landmark immunotherapy trial in advanced cancer patients",
+    "summary": [
+      {
+        "style": {
+          "text": "AMA"
+        },
+        "text": "Smith J, et al. Efficacy of Immunotherapy in Advanced Cancer. Oncology Research Journal. 2024;123(4):567-590."
+      }
+    ],
+    "classification": [
+      {
+        "type": {
+          "text": "Knowledge Artifact Type"
+        },
+        "classifier": [
+          {
+            "text": "Research Article"
+          }
+        ]
+      }
+    ],
+    "currentState": [
+      {
+        "text": "Published"
+      }
+    ],
+    "citedArtifact": {
+      "identifier": [
+        {
+          "system": "http://doi.org",
+          "value": "10.1234/example.2024.001"
+        }
+      ],
+      "title": [
+        {
+          "text": "Efficacy of Immunotherapy in Advanced Cancer: A Randomized Controlled Trial"
+        }
+      ],
+      "abstract": [
+        {
+          "text": "This randomized controlled trial evaluated the efficacy of a novel immunotherapy approach in patients with advanced cancer."
+        }
+      ]
+    }
+  }
+}
