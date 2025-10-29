@@ -12,14 +12,16 @@ import { z } from 'zod'
  * The status of a subscription.
  * http://hl7.org/fhir/valueset-subscription-status.html
  */
-export const subscriptionStatusSchema = z.enum([
+export const subscriptionResourceStatusSchema = z.enum([
   'requested',
   'active',
   'error',
   'off',
 ])
 
-export type SubscriptionStatus = z.infer<typeof subscriptionStatusSchema>
+export type SubscriptionResourceStatus = z.infer<
+  typeof subscriptionResourceStatusSchema
+>
 
 /**
  * The type of method used to execute a subscription.

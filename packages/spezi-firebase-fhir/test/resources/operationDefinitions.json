@@ -1,0 +1,176 @@
+{
+  "0": {
+    "resourceType": "OperationDefinition",
+    "id": "example",
+    "url": "http://example.org/fhir/OperationDefinition/example",
+    "name": "ExampleOperation",
+    "status": "draft",
+    "kind": "operation",
+    "code": "example",
+    "system": false,
+    "type": true,
+    "instance": false
+  },
+  "1": {
+    "resourceType": "OperationDefinition",
+    "id": "patient-everything",
+    "url": "http://hl7.org/fhir/OperationDefinition/Patient-everything",
+    "name": "PatientEverything",
+    "title": "Fetch Patient Record",
+    "status": "active",
+    "kind": "operation",
+    "code": "everything",
+    "description": "This operation is used to return all the information related to a patient",
+    "resource": ["Patient"],
+    "system": false,
+    "type": false,
+    "instance": true,
+    "parameter": [
+      {
+        "name": "start",
+        "use": "in",
+        "min": 0,
+        "max": "1",
+        "documentation": "The date range relates to care dates, not record currency dates",
+        "type": "date"
+      },
+      {
+        "name": "end",
+        "use": "in",
+        "min": 0,
+        "max": "1",
+        "type": "date"
+      },
+      {
+        "name": "return",
+        "use": "out",
+        "min": 1,
+        "max": "1",
+        "type": "Bundle"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "OperationDefinition",
+    "id": "observation-stats",
+    "url": "http://example.org/fhir/OperationDefinition/Observation-stats",
+    "name": "ObservationStats",
+    "status": "active",
+    "kind": "query",
+    "code": "stats",
+    "description": "Calculate statistics for observations",
+    "resource": ["Observation"],
+    "system": false,
+    "type": true,
+    "instance": false,
+    "affectsState": false,
+    "parameter": [
+      {
+        "name": "subject",
+        "use": "in",
+        "min": 1,
+        "max": "1",
+        "type": "Reference",
+        "targetProfile": ["http://hl7.org/fhir/StructureDefinition/Patient"]
+      },
+      {
+        "name": "code",
+        "use": "in",
+        "min": 1,
+        "max": "*",
+        "type": "string",
+        "searchType": "token"
+      },
+      {
+        "name": "result",
+        "use": "out",
+        "min": 1,
+        "max": "1",
+        "type": "Parameters",
+        "part": [
+          {
+            "name": "average",
+            "use": "out",
+            "min": 0,
+            "max": "1",
+            "type": "decimal"
+          },
+          {
+            "name": "min",
+            "use": "out",
+            "min": 0,
+            "max": "1",
+            "type": "decimal"
+          },
+          {
+            "name": "max",
+            "use": "out",
+            "min": 0,
+            "max": "1",
+            "type": "decimal"
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "OperationDefinition",
+    "id": "valueset-expand",
+    "url": "http://hl7.org/fhir/OperationDefinition/ValueSet-expand",
+    "name": "ValueSetExpand",
+    "title": "Value Set Expansion",
+    "status": "active",
+    "kind": "operation",
+    "code": "expand",
+    "description": "Expand a value set to return the list of codes",
+    "resource": ["ValueSet"],
+    "system": false,
+    "type": true,
+    "instance": true,
+    "affectsState": false,
+    "inputProfile": "http://hl7.org/fhir/StructureDefinition/Parameters",
+    "outputProfile": "http://hl7.org/fhir/StructureDefinition/ValueSet",
+    "parameter": [
+      {
+        "name": "url",
+        "use": "in",
+        "min": 0,
+        "max": "1",
+        "type": "uri"
+      },
+      {
+        "name": "filter",
+        "use": "in",
+        "min": 0,
+        "max": "1",
+        "type": "string"
+      },
+      {
+        "name": "return",
+        "use": "out",
+        "min": 1,
+        "max": "1",
+        "type": "ValueSet",
+        "binding": {
+          "strength": "example",
+          "valueSet": "http://hl7.org/fhir/ValueSet/example"
+        },
+        "referencedFrom": [
+          {
+            "source": "url",
+            "sourceId": "expansion"
+          }
+        ]
+      }
+    ],
+    "overload": [
+      {
+        "parameterName": ["url"]
+      },
+      {
+        "parameterName": ["url", "filter"],
+        "comment": "Expand with filter"
+      }
+    ]
+  }
+}

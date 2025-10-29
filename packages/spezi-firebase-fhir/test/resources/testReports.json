@@ -1,0 +1,145 @@
+{
+  "0": {
+    "resourceType": "TestReport",
+    "id": "example",
+    "status": "completed",
+    "testScript": {
+      "reference": "TestScript/example"
+    },
+    "result": "pass",
+    "score": 100.0,
+    "tester": "HL7 Execution Engine"
+  },
+  "1": {
+    "resourceType": "TestReport",
+    "id": "failed-test",
+    "identifier": {
+      "system": "urn:ietf:rfc:3986",
+      "value": "urn:uuid:12345678-1234-1234-1234-123456789abc"
+    },
+    "name": "PatientSearchTest",
+    "status": "completed",
+    "testScript": {
+      "reference": "TestScript/patient-search"
+    },
+    "result": "fail",
+    "score": 75.5,
+    "tester": "Test System v1.0",
+    "issued": "2023-06-15T14:30:00Z",
+    "participant": [
+      {
+        "type": "test-engine",
+        "uri": "http://example.org/test-engine",
+        "display": "FHIR Test Engine"
+      },
+      {
+        "type": "server",
+        "uri": "http://example.org/fhir",
+        "display": "Example FHIR Server"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "TestReport",
+    "id": "setup-test",
+    "status": "completed",
+    "testScript": {
+      "reference": "TestScript/setup-example"
+    },
+    "result": "pass",
+    "score": 100.0,
+    "setup": {
+      "action": [
+        {
+          "operation": {
+            "result": "pass",
+            "message": "Successfully created test patient"
+          }
+        },
+        {
+          "assert": {
+            "result": "pass",
+            "message": "Patient created with correct ID"
+          }
+        }
+      ]
+    },
+    "test": [
+      {
+        "name": "Read Patient Test",
+        "action": [
+          {
+            "operation": {
+              "result": "pass"
+            }
+          }
+        ]
+      }
+    ],
+    "teardown": {
+      "action": [
+        {
+          "operation": {
+            "result": "pass",
+            "message": "Successfully deleted test patient"
+          }
+        }
+      ]
+    }
+  },
+  "3": {
+    "resourceType": "TestReport",
+    "id": "complex-test",
+    "status": "in-progress",
+    "testScript": {
+      "reference": "TestScript/comprehensive-test"
+    },
+    "result": "pending",
+    "tester": "Automated Test Suite",
+    "issued": "2023-06-15T10:00:00Z",
+    "participant": [
+      {
+        "type": "test-engine",
+        "uri": "http://example.org/test-engine",
+        "display": "Test Engine"
+      },
+      {
+        "type": "client",
+        "uri": "http://example.org/test-client",
+        "display": "Test Client"
+      },
+      {
+        "type": "server",
+        "uri": "http://example.org/fhir-server",
+        "display": "FHIR Server Under Test"
+      }
+    ],
+    "test": [
+      {
+        "name": "Patient CRUD Operations",
+        "description": "Test create, read, update, delete operations",
+        "action": [
+          {
+            "operation": {
+              "result": "pass",
+              "message": "Create operation successful"
+            }
+          },
+          {
+            "assert": {
+              "result": "pass",
+              "message": "Patient ID matches expected value"
+            }
+          },
+          {
+            "operation": {
+              "result": "fail",
+              "message": "Update operation failed",
+              "detail": "http://example.org/fhir/OperationOutcome/12345"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
