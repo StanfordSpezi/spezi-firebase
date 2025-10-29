@@ -1,0 +1,94 @@
+{
+  "0": {
+    "resourceType": "EnrollmentRequest",
+    "id": "enrollmentrequest-minimal",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T10:00:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/EnrollmentRequest"]
+    }
+  },
+  "1": {
+    "resourceType": "EnrollmentRequest",
+    "id": "enrollmentrequest-comprehensive",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T11:00:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/EnrollmentRequest"]
+    },
+    "text": {
+      "status": "generated",
+      "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Enrollment request for new coverage</div>"
+    },
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/enrollment-requests",
+        "value": "ENR-REQ-001"
+      }
+    ],
+    "status": "active",
+    "created": "2025-01-15T09:00:00Z",
+    "insurer": {
+      "reference": "Organization/insurance-company-001",
+      "display": "Blue Cross Insurance"
+    },
+    "provider": {
+      "reference": "Organization/hospital-001",
+      "display": "General Hospital"
+    },
+    "candidate": {
+      "reference": "Patient/patient-001",
+      "display": "John Doe"
+    },
+    "coverage": {
+      "reference": "Coverage/coverage-001",
+      "display": "Primary Health Coverage"
+    }
+  },
+  "2": {
+    "resourceType": "EnrollmentRequest",
+    "id": "enrollmentrequest-draft",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T12:00:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/EnrollmentRequest"]
+    },
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/enrollment-requests",
+        "value": "ENR-REQ-002"
+      }
+    ],
+    "status": "draft",
+    "created": "2025-01-15T11:30:00Z",
+    "candidate": {
+      "reference": "Patient/patient-002",
+      "display": "Sarah Johnson"
+    }
+  },
+  "3": {
+    "resourceType": "EnrollmentRequest",
+    "id": "enrollmentrequest-cancelled",
+    "meta": {
+      "versionId": "2",
+      "lastUpdated": "2025-01-15T13:00:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/EnrollmentRequest"]
+    },
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/enrollment-requests",
+        "value": "ENR-REQ-003"
+      }
+    ],
+    "status": "cancelled",
+    "created": "2025-01-14T10:00:00Z",
+    "insurer": {
+      "reference": "Organization/insurance-company-002",
+      "display": "Aetna Insurance"
+    },
+    "candidate": {
+      "reference": "Patient/patient-003",
+      "display": "Robert Miller"
+    }
+  }
+}

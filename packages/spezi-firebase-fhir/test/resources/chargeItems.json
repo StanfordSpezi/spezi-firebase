@@ -1,0 +1,242 @@
+{
+  "0": {
+    "resourceType": "ChargeItem",
+    "id": "chargeitem-minimal",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T10:00:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/ChargeItem"]
+    },
+    "status": "billable",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.ama-assn.org/go/cpt",
+          "code": "99213",
+          "display": "Office/outpatient visit, established patient"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/patient-001",
+      "display": "John Doe"
+    }
+  },
+  "1": {
+    "resourceType": "ChargeItem",
+    "id": "chargeitem-comprehensive",
+    "meta": {
+      "versionId": "2",
+      "lastUpdated": "2025-01-15T11:30:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/ChargeItem"]
+    },
+    "text": {
+      "status": "generated",
+      "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Comprehensive charge for surgical procedure</div>"
+    },
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/charges",
+        "value": "CHG-123456"
+      }
+    ],
+    "definitionUri": [
+      "http://hospital.example.org/ChargeItemDefinition/surgical-procedure-001"
+    ],
+    "status": "billed",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.ama-assn.org/go/cpt",
+          "code": "27447",
+          "display": "Total knee arthroplasty"
+        }
+      ],
+      "text": "Total Knee Replacement Surgery"
+    },
+    "subject": {
+      "reference": "Patient/patient-002",
+      "display": "Sarah Johnson"
+    },
+    "context": {
+      "reference": "Encounter/encounter-001",
+      "display": "Inpatient Admission"
+    },
+    "occurrenceDateTime": "2025-01-10T09:30:00Z",
+    "performer": [
+      {
+        "function": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "304292004",
+              "display": "Surgeon"
+            }
+          ]
+        },
+        "actor": {
+          "reference": "Practitioner/practitioner-001",
+          "display": "Dr. Jane Smith"
+        }
+      },
+      {
+        "function": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "158965000",
+              "display": "Anesthesiologist"
+            }
+          ]
+        },
+        "actor": {
+          "reference": "Practitioner/practitioner-002",
+          "display": "Dr. Robert Brown"
+        }
+      }
+    ],
+    "performingOrganization": {
+      "reference": "Organization/hospital-001",
+      "display": "General Hospital"
+    },
+    "requestingOrganization": {
+      "reference": "Organization/hospital-001",
+      "display": "General Hospital"
+    },
+    "costCenter": {
+      "reference": "Organization/dept-surgery",
+      "display": "Surgery Department"
+    },
+    "quantity": {
+      "value": 1
+    },
+    "factorOverride": 1.15,
+    "priceOverride": {
+      "value": 25000.0,
+      "currency": "USD"
+    },
+    "overrideReason": "Complex surgical case with extended operative time",
+    "enterer": {
+      "reference": "Practitioner/billing-clerk-001",
+      "display": "Mary Johnson"
+    },
+    "enteredDate": "2025-01-11T14:00:00Z",
+    "reason": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "239873007",
+            "display": "Osteoarthritis of knee"
+          }
+        ]
+      }
+    ],
+    "service": [
+      {
+        "reference": "Procedure/procedure-001",
+        "display": "Total knee arthroplasty procedure"
+      }
+    ],
+    "account": [
+      {
+        "reference": "Account/account-002",
+        "display": "Sarah Johnson Medical Services Account"
+      }
+    ],
+    "note": [
+      {
+        "text": "Patient required extended post-operative monitoring"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ChargeItem",
+    "id": "chargeitem-medication",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T13:00:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/ChargeItem"]
+    },
+    "status": "billable",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.ama-assn.org/go/cpt",
+          "code": "J1100",
+          "display": "Injection, dexamethasone sodium phosphate"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/patient-003",
+      "display": "Robert Miller"
+    },
+    "context": {
+      "reference": "Encounter/encounter-002"
+    },
+    "occurrencePeriod": {
+      "start": "2025-01-12T08:00:00Z",
+      "end": "2025-01-12T08:15:00Z"
+    },
+    "quantity": {
+      "value": 8,
+      "unit": "mg",
+      "system": "http://unitsofmeasure.org",
+      "code": "mg"
+    },
+    "productCodeableConcept": {
+      "coding": [
+        {
+          "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code": "3264",
+          "display": "Dexamethasone"
+        }
+      ]
+    },
+    "performingOrganization": {
+      "reference": "Organization/pharmacy-001",
+      "display": "Hospital Pharmacy"
+    },
+    "account": [
+      {
+        "reference": "Account/account-003"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ChargeItem",
+    "id": "chargeitem-entered-in-error",
+    "meta": {
+      "versionId": "2",
+      "lastUpdated": "2025-01-15T14:30:00Z",
+      "profile": ["http://hl7.org/fhir/StructureDefinition/ChargeItem"]
+    },
+    "identifier": [
+      {
+        "system": "http://hospital.example.org/charges",
+        "value": "CHG-999999"
+      }
+    ],
+    "status": "entered-in-error",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.ama-assn.org/go/cpt",
+          "code": "99214",
+          "display": "Office/outpatient visit"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/patient-004",
+      "display": "Emily Chen"
+    },
+    "occurrenceDateTime": "2025-01-13T10:00:00Z",
+    "note": [
+      {
+        "text": "Charge entered in error - patient did not attend appointment"
+      }
+    ]
+  }
+}
