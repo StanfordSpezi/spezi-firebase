@@ -1,0 +1,231 @@
+{
+  "0": {
+    "resourceType": "NutritionProduct",
+    "id": "nutrition-product-example-0",
+    "status": "active"
+  },
+  "1": {
+    "resourceType": "NutritionProduct",
+    "id": "nutrition-product-example-1",
+    "status": "active",
+    "code": {
+      "coding": [
+        {
+          "system": "http://example.org/nutrition-products",
+          "code": "protein-shake",
+          "display": "Protein Shake"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://example.org/nutrition-category",
+            "code": "supplement",
+            "display": "Nutritional Supplement"
+          }
+        ]
+      }
+    ],
+    "manufacturer": [
+      {
+        "reference": "Organization/nutrition-company"
+      }
+    ],
+    "nutrient": [
+      {
+        "item": {
+          "concept": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "88878007",
+                "display": "Protein"
+              }
+            ]
+          }
+        },
+        "amount": [
+          {
+            "numerator": {
+              "value": 25,
+              "unit": "g"
+            },
+            "denominator": {
+              "value": 1,
+              "unit": "serving"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "NutritionProduct",
+    "id": "nutrition-product-example-2",
+    "status": "active",
+    "code": {
+      "coding": [
+        {
+          "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+          "code": "443735",
+          "display": "Enteral nutrition formula"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://example.org/nutrition-category",
+            "code": "enteral-formula",
+            "display": "Enteral Formula"
+          }
+        ]
+      }
+    ],
+    "ingredient": [
+      {
+        "item": {
+          "concept": {
+            "text": "Whey protein isolate"
+          }
+        },
+        "amount": [
+          {
+            "numerator": {
+              "value": 15,
+              "unit": "g"
+            },
+            "denominator": {
+              "value": 100,
+              "unit": "mL"
+            }
+          }
+        ]
+      },
+      {
+        "item": {
+          "concept": {
+            "text": "Maltodextrin"
+          }
+        }
+      }
+    ],
+    "nutrient": [
+      {
+        "item": {
+          "concept": {
+            "text": "Calories"
+          }
+        },
+        "amount": [
+          {
+            "numerator": {
+              "value": 150,
+              "unit": "kcal"
+            },
+            "denominator": {
+              "value": 100,
+              "unit": "mL"
+            }
+          }
+        ]
+      },
+      {
+        "item": {
+          "concept": {
+            "text": "Carbohydrates"
+          }
+        },
+        "amount": [
+          {
+            "numerator": {
+              "value": 20,
+              "unit": "g"
+            },
+            "denominator": {
+              "value": 100,
+              "unit": "mL"
+            }
+          }
+        ]
+      }
+    ],
+    "instance": {
+      "quantity": {
+        "value": 500,
+        "unit": "mL"
+      },
+      "lotNumber": "LOT-2024-001",
+      "expiry": "2025-12-31"
+    }
+  },
+  "3": {
+    "resourceType": "NutritionProduct",
+    "id": "nutrition-product-example-3",
+    "status": "active",
+    "code": {
+      "text": "Pediatric formula"
+    },
+    "category": [
+      {
+        "text": "Pediatric nutrition"
+      }
+    ],
+    "knownAllergen": [
+      {
+        "concept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "3718001",
+              "display": "Cow milk protein"
+            }
+          ]
+        }
+      }
+    ],
+    "productCharacteristic": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/characteristic-type",
+              "code": "flavor",
+              "display": "Flavor"
+            }
+          ]
+        },
+        "valueString": "Vanilla"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/characteristic-type",
+              "code": "osmolality",
+              "display": "Osmolality"
+            }
+          ]
+        },
+        "valueQuantity": {
+          "value": 300,
+          "unit": "mOsm/kg"
+        }
+      },
+      {
+        "type": {
+          "text": "Ready to use"
+        },
+        "valueBoolean": true
+      }
+    ],
+    "note": [
+      {
+        "text": "Suitable for children over 1 year of age"
+      }
+    ]
+  }
+}

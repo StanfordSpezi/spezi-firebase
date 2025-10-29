@@ -1,0 +1,221 @@
+{
+  "0": {
+    "resourceType": "RiskAssessment",
+    "id": "cardiac",
+    "status": "final",
+    "subject": {
+      "reference": "Patient/example"
+    },
+    "encounter": {
+      "reference": "Encounter/example"
+    },
+    "occurrenceDateTime": "2014-07-19T16:04:00Z",
+    "performer": {
+      "reference": "Practitioner/example"
+    },
+    "basis": [
+      {
+        "reference": "Observation/example"
+      }
+    ],
+    "prediction": [
+      {
+        "outcome": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "414545008",
+              "display": "Ischemic heart disease"
+            }
+          ],
+          "text": "Heart Attack"
+        },
+        "probabilityDecimal": 0.02,
+        "whenRange": {
+          "low": {
+            "value": 39,
+            "unit": "years",
+            "system": "http://unitsofmeasure.org",
+            "code": "a"
+          },
+          "high": {
+            "value": 49,
+            "unit": "years",
+            "system": "http://unitsofmeasure.org",
+            "code": "a"
+          }
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "RiskAssessment",
+    "id": "genetic",
+    "identifier": [
+      {
+        "use": "official",
+        "system": "http://example.org",
+        "value": "risk-123"
+      }
+    ],
+    "status": "final",
+    "method": {
+      "coding": [
+        {
+          "code": "BRCAPRO"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example"
+    },
+    "occurrenceDateTime": "2006-01-13T23:01:00Z",
+    "basis": [
+      {
+        "reference": "FamilyMemberHistory/mother"
+      }
+    ],
+    "prediction": [
+      {
+        "outcome": {
+          "text": "Breast Cancer"
+        },
+        "probabilityDecimal": 0.000168,
+        "whenRange": {
+          "high": {
+            "value": 53,
+            "unit": "years",
+            "system": "http://unitsofmeasure.org",
+            "code": "a"
+          }
+        }
+      },
+      {
+        "outcome": {
+          "text": "Breast Cancer"
+        },
+        "probabilityDecimal": 0.000368,
+        "whenRange": {
+          "low": {
+            "value": 54,
+            "unit": "years",
+            "system": "http://unitsofmeasure.org",
+            "code": "a"
+          },
+          "high": {
+            "value": 57,
+            "unit": "years",
+            "system": "http://unitsofmeasure.org",
+            "code": "a"
+          }
+        }
+      }
+    ],
+    "note": [
+      {
+        "text": "High degree of certainty"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "RiskAssessment",
+    "id": "population",
+    "status": "final",
+    "code": {
+      "coding": [
+        {
+          "system": "http://browser.ihtsdotools.org/",
+          "code": "709510002",
+          "display": "Assessment of risk for disease"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/example"
+    },
+    "occurrencePeriod": {
+      "start": "2014-07-19",
+      "end": "2014-07-20"
+    },
+    "condition": {
+      "reference": "Condition/example"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "444814009",
+            "display": "Viral sinusitis"
+          }
+        ]
+      }
+    ],
+    "prediction": [
+      {
+        "outcome": {
+          "text": "Complications"
+        },
+        "qualitativeRisk": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/risk-probability",
+              "code": "moderate",
+              "display": "Moderate likelihood"
+            }
+          ]
+        }
+      }
+    ],
+    "mitigation": "Careful monitoring and early intervention"
+  },
+  "3": {
+    "resourceType": "RiskAssessment",
+    "id": "prognosis",
+    "basedOn": {
+      "reference": "ServiceRequest/example"
+    },
+    "parent": {
+      "reference": "Procedure/example"
+    },
+    "status": "preliminary",
+    "subject": {
+      "reference": "Patient/example"
+    },
+    "occurrenceDateTime": "2014-08-15T09:00:00Z",
+    "performer": {
+      "reference": "Practitioner/example"
+    },
+    "reasonReference": [
+      {
+        "reference": "Observation/example"
+      }
+    ],
+    "prediction": [
+      {
+        "outcome": {
+          "text": "Complete Recovery"
+        },
+        "probabilityRange": {
+          "low": {
+            "value": 0.6,
+            "unit": "%",
+            "system": "http://unitsofmeasure.org",
+            "code": "%"
+          },
+          "high": {
+            "value": 0.8,
+            "unit": "%",
+            "system": "http://unitsofmeasure.org",
+            "code": "%"
+          }
+        },
+        "whenPeriod": {
+          "start": "2014-09-01",
+          "end": "2014-12-01"
+        },
+        "rationale": "Based on similar patient outcomes"
+      }
+    ]
+  }
+}

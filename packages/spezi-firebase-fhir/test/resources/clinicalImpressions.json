@@ -1,0 +1,93 @@
+{
+  "0": {
+    "resourceType": "ClinicalImpression",
+    "id": "clinicalimpression-example-0",
+    "status": "completed",
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "effectiveDateTime": "2024-01-15T10:00:00Z",
+    "date": "2024-01-15T10:30:00Z",
+    "assessor": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "description": "Patient presents with acute respiratory symptoms",
+    "summary": "Likely viral upper respiratory infection",
+    "finding": [
+      {
+        "itemCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "11833005",
+              "display": "Dry cough"
+            }
+          ]
+        }
+      },
+      {
+        "itemCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "49727002",
+              "display": "Cough"
+            }
+          ]
+        },
+        "basis": "Patient reported persistent cough for 3 days"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "ClinicalImpression",
+    "id": "clinicalimpression-example-1",
+    "status": "in-progress",
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    },
+    "effectivePeriod": {
+      "start": "2024-01-10",
+      "end": "2024-01-15"
+    }
+  },
+  "2": {
+    "resourceType": "ClinicalImpression",
+    "id": "clinicalimpression-example-2",
+    "status": "completed",
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    },
+    "effectiveDateTime": "2024-02-01T14:30:00Z",
+    "investigation": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "15220000",
+              "display": "Laboratory test"
+            }
+          ]
+        },
+        "item": [
+          {
+            "reference": "Observation/observation-example"
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ClinicalImpression",
+    "id": "clinicalimpression-example-3",
+    "status": "entered-in-error",
+    "subject": {
+      "reference": "Patient/patient-example-4"
+    },
+    "effectiveDateTime": "2024-03-01T09:00:00Z"
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "0": {
+    "resourceType": "AdministrableProductDefinition",
+    "id": "administrable-product-definition-example-0",
+    "status": "active",
+    "routeOfAdministration": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "26643006",
+              "display": "Oral route"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "AdministrableProductDefinition",
+    "id": "administrable-product-definition-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/administrable-products",
+        "value": "APD-001"
+      }
+    ],
+    "status": "active",
+    "formOf": [
+      {
+        "reference": "MedicinalProductDefinition/example"
+      }
+    ],
+    "administrableDoseForm": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/administrable-dose-form",
+          "code": "solution-for-injection",
+          "display": "Solution for Injection"
+        }
+      ]
+    },
+    "unitOfPresentation": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/unit-of-presentation",
+          "code": "syringe",
+          "display": "Syringe"
+        }
+      ]
+    },
+    "routeOfAdministration": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "47625008",
+              "display": "Intravenous route"
+            }
+          ]
+        },
+        "maxSingleDose": {
+          "value": 100,
+          "unit": "mg"
+        },
+        "maxDosePerDay": {
+          "value": 400,
+          "unit": "mg"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "AdministrableProductDefinition",
+    "id": "administrable-product-definition-example-2",
+    "status": "active",
+    "formOf": [
+      {
+        "reference": "MedicinalProductDefinition/tablet-product"
+      }
+    ],
+    "producedFrom": [
+      {
+        "reference": "ManufacturedItemDefinition/tablet-500mg"
+      }
+    ],
+    "administrableDoseForm": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/administrable-dose-form",
+          "code": "tablet",
+          "display": "Tablet"
+        }
+      ]
+    },
+    "routeOfAdministration": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "26643006",
+              "display": "Oral route"
+            }
+          ]
+        },
+        "firstDose": {
+          "value": 500,
+          "unit": "mg"
+        },
+        "maxDosePerTreatmentPeriod": {
+          "numerator": {
+            "value": 4000,
+            "unit": "mg"
+          },
+          "denominator": {
+            "value": 1,
+            "unit": "day"
+          }
+        }
+      }
+    ],
+    "property": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/characteristic-type",
+              "code": "dissolution-time",
+              "display": "Dissolution Time"
+            }
+          ]
+        },
+        "valueQuantity": {
+          "value": 30,
+          "unit": "min"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "AdministrableProductDefinition",
+    "id": "administrable-product-definition-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/administrable-products",
+        "value": "APD-VET-001"
+      }
+    ],
+    "status": "active",
+    "formOf": [
+      {
+        "reference": "MedicinalProductDefinition/veterinary-product"
+      }
+    ],
+    "administrableDoseForm": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/administrable-dose-form",
+          "code": "solution-for-injection",
+          "display": "Solution for Injection"
+        }
+      ]
+    },
+    "routeOfAdministration": [
+      {
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "78421000",
+              "display": "Intramuscular route"
+            }
+          ]
+        },
+        "targetSpecies": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "388445009",
+                  "display": "Bovine"
+                }
+              ]
+            },
+            "withdrawalPeriod": [
+              {
+                "tissue": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "226934003",
+                      "display": "Meat"
+                    }
+                  ]
+                },
+                "value": {
+                  "value": 28,
+                  "unit": "days",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "d"
+                },
+                "supportingInformation": "Do not use in animals producing milk for human consumption"
+              },
+              {
+                "tissue": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "3718001",
+                      "display": "Milk"
+                    }
+                  ]
+                },
+                "value": {
+                  "value": 96,
+                  "unit": "hours",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "h"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
