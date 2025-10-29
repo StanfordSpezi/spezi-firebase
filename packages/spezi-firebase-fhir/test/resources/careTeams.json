@@ -1,0 +1,81 @@
+{
+  "0": {
+    "resourceType": "CareTeam",
+    "id": "careteam-example-0",
+    "status": "active",
+    "name": "Diabetes Care Team",
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "period": {
+      "start": "2024-01-01"
+    },
+    "participant": [
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "17561000",
+                "display": "Cardiologist"
+              }
+            ]
+          }
+        ],
+        "member": {
+          "reference": "Practitioner/practitioner-example"
+        }
+      },
+      {
+        "role": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "46255001",
+                "display": "Pharmacist"
+              }
+            ]
+          }
+        ],
+        "member": {
+          "reference": "Practitioner/practitioner-example-2"
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "CareTeam",
+    "id": "careteam-example-1",
+    "status": "proposed",
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "managingOrganization": [
+      {
+        "reference": "Organization/organization-example"
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "CareTeam",
+    "id": "careteam-example-2",
+    "status": "inactive",
+    "name": "Post-Surgery Team",
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    }
+  },
+  "3": {
+    "resourceType": "CareTeam",
+    "id": "careteam-example-3",
+    "status": "suspended",
+    "subject": {
+      "reference": "Patient/patient-example-4"
+    }
+  }
+}

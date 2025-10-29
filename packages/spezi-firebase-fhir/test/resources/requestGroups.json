@@ -1,0 +1,97 @@
+{
+  "0": {
+    "resourceType": "RequestGroup",
+    "id": "requestgroup-example-0",
+    "status": "active",
+    "intent": "order",
+    "priority": "routine",
+    "subject": {
+      "reference": "Patient/patient-example"
+    },
+    "encounter": {
+      "reference": "Encounter/encounter-example"
+    },
+    "authoredOn": "2024-01-15T10:00:00Z",
+    "author": {
+      "reference": "Practitioner/practitioner-example"
+    },
+    "action": [
+      {
+        "title": "Order Lab Tests",
+        "description": "Complete metabolic panel and lipid panel",
+        "priority": "routine",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/action-type",
+              "code": "create"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "RequestGroup",
+    "id": "requestgroup-example-1",
+    "status": "draft",
+    "intent": "proposal",
+    "subject": {
+      "reference": "Patient/patient-example-2"
+    },
+    "action": [
+      {
+        "prefix": "1",
+        "title": "Administer medication",
+        "selectionBehavior": "exactly-one",
+        "action": [
+          {
+            "title": "Option A"
+          },
+          {
+            "title": "Option B"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "RequestGroup",
+    "id": "requestgroup-example-2",
+    "status": "completed",
+    "intent": "plan",
+    "priority": "urgent",
+    "subject": {
+      "reference": "Patient/patient-example-3"
+    },
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "386053000",
+          "display": "Evaluation procedure"
+        }
+      ]
+    }
+  },
+  "3": {
+    "resourceType": "RequestGroup",
+    "id": "requestgroup-example-3",
+    "status": "revoked",
+    "intent": "directive",
+    "subject": {
+      "reference": "Patient/patient-example-4"
+    },
+    "reasonCode": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "254837009",
+            "display": "Malignant neoplasm of breast"
+          }
+        ]
+      }
+    ]
+  }
+}
