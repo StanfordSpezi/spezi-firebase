@@ -1,0 +1,205 @@
+{
+  "0": {
+    "resourceType": "ManufacturedItemDefinition",
+    "id": "manufactured-item-example-0",
+    "status": "active",
+    "manufacturedDoseForm": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/manufactured-dose-form",
+          "code": "tablet",
+          "display": "Tablet"
+        }
+      ]
+    }
+  },
+  "1": {
+    "resourceType": "ManufacturedItemDefinition",
+    "id": "manufactured-item-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/manufactured-items",
+        "value": "MI-12345"
+      }
+    ],
+    "status": "active",
+    "manufacturedDoseForm": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/manufactured-dose-form",
+          "code": "capsule",
+          "display": "Capsule"
+        }
+      ]
+    },
+    "unitOfPresentation": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/unit-of-presentation",
+          "code": "capsule",
+          "display": "Capsule"
+        }
+      ]
+    },
+    "manufacturer": [
+      {
+        "reference": "Organization/pharma-manufacturer"
+      }
+    ],
+    "ingredient": [
+      {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "161",
+            "display": "Acetaminophen"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ManufacturedItemDefinition",
+    "id": "manufactured-item-example-2",
+    "status": "draft",
+    "manufacturedDoseForm": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/manufactured-dose-form",
+          "code": "solution-for-injection",
+          "display": "Solution for Injection"
+        }
+      ]
+    },
+    "unitOfPresentation": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/unit-of-presentation",
+          "code": "vial",
+          "display": "Vial"
+        }
+      ]
+    },
+    "property": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/property-type",
+              "code": "color",
+              "display": "Color"
+            }
+          ]
+        },
+        "valueCodeableConcept": {
+          "text": "Clear colorless"
+        }
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/property-type",
+              "code": "ph",
+              "display": "pH"
+            }
+          ]
+        },
+        "valueQuantity": {
+          "value": 7.4,
+          "unit": "pH"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ManufacturedItemDefinition",
+    "id": "manufactured-item-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/manufactured-items",
+        "value": "MI-TABLET-500MG"
+      }
+    ],
+    "status": "active",
+    "manufacturedDoseForm": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/manufactured-dose-form",
+          "code": "film-coated-tablet",
+          "display": "Film-coated Tablet"
+        }
+      ]
+    },
+    "unitOfPresentation": {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/unit-of-presentation",
+          "code": "tablet",
+          "display": "Tablet"
+        }
+      ]
+    },
+    "manufacturer": [
+      {
+        "reference": "Organization/manufacturer1"
+      },
+      {
+        "reference": "Organization/manufacturer2"
+      }
+    ],
+    "ingredient": [
+      {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "1191",
+            "display": "Aspirin"
+          }
+        ]
+      }
+    ],
+    "property": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/property-type",
+              "code": "shape",
+              "display": "Shape"
+            }
+          ]
+        },
+        "valueCodeableConcept": {
+          "text": "Round"
+        }
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/property-type",
+              "code": "scoring",
+              "display": "Scoring"
+            }
+          ]
+        },
+        "valueBoolean": true
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://example.org/property-type",
+              "code": "release-profile",
+              "display": "Release Profile"
+            }
+          ]
+        },
+        "valueCodeableConcept": {
+          "text": "Immediate release"
+        }
+      }
+    ]
+  }
+}

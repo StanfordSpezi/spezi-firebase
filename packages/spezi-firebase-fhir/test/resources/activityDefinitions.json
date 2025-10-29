@@ -1,0 +1,195 @@
+{
+  "0": {
+    "resourceType": "ActivityDefinition",
+    "id": "activitydefinition-example-0",
+    "status": "draft",
+    "name": "BloodPressureMeasurement",
+    "title": "Blood Pressure Measurement Activity",
+    "description": "Activity definition for measuring blood pressure",
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "163020007",
+          "display": "Blood pressure taking"
+        }
+      ]
+    },
+    "kind": "ServiceRequest"
+  },
+  "1": {
+    "resourceType": "ActivityDefinition",
+    "id": "activitydefinition-example-1",
+    "url": "http://example.org/ActivityDefinition/medication-order",
+    "identifier": [
+      {
+        "system": "http://example.org/identifiers",
+        "value": "AD-001"
+      }
+    ],
+    "version": "1.0.0",
+    "name": "MedicationOrderActivity",
+    "title": "Medication Order Activity Definition",
+    "subtitle": "For prescribing medications",
+    "status": "active",
+    "experimental": false,
+    "date": "2024-01-15T10:00:00Z",
+    "publisher": "Example Healthcare Organization",
+    "contact": [
+      {
+        "name": "Clinical Operations",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "clinical@example.org"
+          }
+        ]
+      }
+    ],
+    "description": "This activity definition describes the process for ordering a medication",
+    "purpose": "To standardize medication ordering across the organization",
+    "copyright": "Copyright 2024 Example Healthcare Organization",
+    "kind": "MedicationRequest",
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "182817000",
+          "display": "Drug prescription"
+        }
+      ]
+    },
+    "intent": "order",
+    "priority": "routine",
+    "doNotPerform": false,
+    "participant": [
+      {
+        "type": "practitioner",
+        "role": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "158965000",
+              "display": "Medical practitioner"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ActivityDefinition",
+    "id": "activitydefinition-example-2",
+    "status": "active",
+    "name": "LabTestOrder",
+    "title": "Laboratory Test Order",
+    "description": "Activity for ordering laboratory tests",
+    "kind": "ServiceRequest",
+    "code": {
+      "text": "Laboratory test order"
+    },
+    "intent": "proposal",
+    "priority": "urgent",
+    "timingDateTime": "2024-11-20T09:00:00Z",
+    "participant": [
+      {
+        "type": "practitioner"
+      },
+      {
+        "type": "patient"
+      }
+    ],
+    "observationRequirement": [
+      {
+        "reference": "ObservationDefinition/lab-test-def"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ActivityDefinition",
+    "id": "activitydefinition-example-3",
+    "url": "http://example.org/ActivityDefinition/referral-cardiology",
+    "version": "2.1.0",
+    "name": "CardiologyReferral",
+    "title": "Referral to Cardiology",
+    "status": "active",
+    "date": "2024-06-01T14:30:00Z",
+    "publisher": "Cardiology Department",
+    "description": "Activity definition for referring patients to cardiology services",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "approvalDate": "2024-05-15",
+    "lastReviewDate": "2024-10-01",
+    "effectivePeriod": {
+      "start": "2024-06-01",
+      "end": "2025-06-01"
+    },
+    "topic": [
+      {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "394579002",
+            "display": "Cardiology"
+          }
+        ]
+      }
+    ],
+    "author": [
+      {
+        "name": "Dr. Smith",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "smith@example.org"
+          }
+        ]
+      }
+    ],
+    "kind": "ServiceRequest",
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "3457005",
+          "display": "Referral to cardiologist"
+        }
+      ]
+    },
+    "intent": "order",
+    "priority": "routine",
+    "timingTiming": {
+      "repeat": {
+        "boundsDuration": {
+          "value": 30,
+          "unit": "days",
+          "system": "http://unitsofmeasure.org",
+          "code": "d"
+        }
+      }
+    },
+    "participant": [
+      {
+        "type": "practitioner",
+        "role": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "17561000",
+              "display": "Cardiologist"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

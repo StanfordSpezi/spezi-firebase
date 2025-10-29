@@ -1,0 +1,111 @@
+{
+  "0": {
+    "resourceType": "CoverageEligibilityResponse",
+    "id": "coverageeligibilityresponse-minimal",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T10:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/CoverageEligibilityResponse"
+      ]
+    },
+    "status": "active",
+    "purpose": ["validation"],
+    "patient": {
+      "reference": "Patient/patient-001"
+    },
+    "created": "2025-01-15T10:00:00Z",
+    "request": {
+      "reference": "CoverageEligibilityRequest/coverageeligibilityrequest-minimal"
+    },
+    "outcome": "complete",
+    "insurer": {
+      "reference": "Organization/insurance-001"
+    }
+  },
+  "1": {
+    "resourceType": "CoverageEligibilityResponse",
+    "id": "coverageeligibilityresponse-comprehensive",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T11:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/CoverageEligibilityResponse"
+      ]
+    },
+    "identifier": [
+      {
+        "system": "http://insurance.example.org/eligibility-responses",
+        "value": "ER-RESP-001"
+      }
+    ],
+    "status": "active",
+    "purpose": ["benefits", "validation"],
+    "patient": {
+      "reference": "Patient/patient-002"
+    },
+    "servicedDate": "2025-01-20",
+    "created": "2025-01-15T11:00:00Z",
+    "requestor": {
+      "reference": "Organization/hospital-001"
+    },
+    "request": {
+      "reference": "CoverageEligibilityRequest/coverageeligibilityrequest-comprehensive"
+    },
+    "outcome": "complete",
+    "disposition": "Patient is eligible for services",
+    "insurer": {
+      "reference": "Organization/insurance-001"
+    }
+  },
+  "2": {
+    "resourceType": "CoverageEligibilityResponse",
+    "id": "coverageeligibilityresponse-error",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T12:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/CoverageEligibilityResponse"
+      ]
+    },
+    "status": "active",
+    "purpose": ["discovery"],
+    "patient": {
+      "reference": "Patient/patient-003"
+    },
+    "created": "2025-01-15T12:00:00Z",
+    "request": {
+      "reference": "CoverageEligibilityRequest/coverageeligibilityrequest-draft"
+    },
+    "outcome": "error",
+    "disposition": "Coverage not found",
+    "insurer": {
+      "reference": "Organization/insurance-002"
+    }
+  },
+  "3": {
+    "resourceType": "CoverageEligibilityResponse",
+    "id": "coverageeligibilityresponse-queued",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T13:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/CoverageEligibilityResponse"
+      ]
+    },
+    "status": "active",
+    "purpose": ["auth-requirements"],
+    "patient": {
+      "reference": "Patient/patient-004"
+    },
+    "created": "2025-01-15T13:00:00Z",
+    "request": {
+      "reference": "CoverageEligibilityRequest/coverageeligibilityrequest-auth"
+    },
+    "outcome": "queued",
+    "disposition": "Request is under review",
+    "insurer": {
+      "reference": "Organization/insurance-001"
+    }
+  }
+}

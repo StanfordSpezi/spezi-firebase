@@ -1,0 +1,101 @@
+{
+  "0": {
+    "resourceType": "PaymentReconciliation",
+    "id": "paymentreconciliation-minimal",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T10:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/PaymentReconciliation"
+      ]
+    },
+    "status": "active",
+    "created": "2025-01-15T10:00:00Z",
+    "paymentDate": "2025-01-14",
+    "paymentAmount": {
+      "value": 15000.0,
+      "currency": "USD"
+    }
+  },
+  "1": {
+    "resourceType": "PaymentReconciliation",
+    "id": "paymentreconciliation-complete",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T11:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/PaymentReconciliation"
+      ]
+    },
+    "identifier": [
+      {
+        "system": "http://insurance.example.org/payment-reconciliations",
+        "value": "PR-001"
+      }
+    ],
+    "status": "active",
+    "period": {
+      "start": "2025-01-01",
+      "end": "2025-01-31"
+    },
+    "created": "2025-01-15T11:00:00Z",
+    "paymentIssuer": {
+      "reference": "Organization/insurance-001"
+    },
+    "request": {
+      "reference": "Claim/claim-001"
+    },
+    "requestor": {
+      "reference": "Organization/hospital-001"
+    },
+    "outcome": "complete",
+    "disposition": "All claims processed successfully",
+    "paymentDate": "2025-01-14",
+    "paymentAmount": {
+      "value": 25000.0,
+      "currency": "USD"
+    },
+    "paymentIdentifier": {
+      "system": "http://insurance.example.org/payment-ids",
+      "value": "PAY-12345"
+    }
+  },
+  "2": {
+    "resourceType": "PaymentReconciliation",
+    "id": "paymentreconciliation-draft",
+    "meta": {
+      "versionId": "1",
+      "lastUpdated": "2025-01-15T12:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/PaymentReconciliation"
+      ]
+    },
+    "status": "draft",
+    "created": "2025-01-15T12:00:00Z",
+    "paymentDate": "2025-01-15",
+    "paymentAmount": {
+      "value": 8000.0,
+      "currency": "USD"
+    }
+  },
+  "3": {
+    "resourceType": "PaymentReconciliation",
+    "id": "paymentreconciliation-error",
+    "meta": {
+      "versionId": "2",
+      "lastUpdated": "2025-01-15T13:00:00Z",
+      "profile": [
+        "http://hl7.org/fhir/StructureDefinition/PaymentReconciliation"
+      ]
+    },
+    "status": "active",
+    "created": "2025-01-15T10:00:00Z",
+    "outcome": "error",
+    "disposition": "Payment processing failed - invalid account number",
+    "paymentDate": "2025-01-14",
+    "paymentAmount": {
+      "value": 12000.0,
+      "currency": "USD"
+    }
+  }
+}

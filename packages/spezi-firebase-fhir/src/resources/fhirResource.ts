@@ -8,14 +8,22 @@
 
 import { type FhirResource } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
+import { untypedAccountSchema } from './account.js'
+import { untypedActivityDefinitionSchema } from './activityDefinition.js'
+import { untypedAdministrableProductDefinitionSchema } from './administrableProductDefinition.js'
 import { untypedAllergyIntoleranceSchema } from './allergyIntolerance.js'
 import { untypedAppointmentSchema } from './appointment.js'
 import { untypedAppointmentResponseSchema } from './appointmentResponse.js'
 import { untypedAuditEventSchema } from './auditEvent.js'
 import { untypedBasicSchema } from './basic.js'
 import { untypedBinarySchema } from './binary.js'
+import { untypedBiologicallyDerivedProductSchema } from './biologicallyDerivedProduct.js'
 import { untypedBodyStructureSchema } from './bodyStructure.js'
 import { untypedCatalogEntrySchema } from './catalogEntry.js'
+import { untypedChargeItemSchema } from './chargeItem.js'
+import { untypedChargeItemDefinitionSchema } from './chargeItemDefinition.js'
+import { untypedClaimSchema } from './claim.js'
+import { untypedClaimResponseSchema } from './claimResponse.js'
 import { untypedCodeSystemSchema } from './codeSystem.js'
 import { untypedCompositionSchema } from './composition.js'
 import { untypedConceptMapSchema } from './conceptMap.js'
@@ -23,6 +31,8 @@ import { untypedConditionSchema } from './condition.js'
 import { untypedConsentSchema } from './consent.js'
 import { untypedContractSchema } from './contract.js'
 import { untypedCoverageSchema } from './coverage.js'
+import { untypedCoverageEligibilityRequestSchema } from './coverageEligibilityRequest.js'
+import { untypedCoverageEligibilityResponseSchema } from './coverageEligibilityResponse.js'
 import { untypedDeviceSchema } from './device.js'
 import { untypedDeviceDefinitionSchema } from './deviceDefinition.js'
 import { untypedDeviceMetricSchema } from './deviceMetric.js'
@@ -33,18 +43,29 @@ import { untypedDocumentManifestSchema } from './documentManifest.js'
 import { untypedDocumentReferenceSchema } from './documentReference.js'
 import { untypedEncounterSchema } from './encounter.js'
 import { untypedEndpointSchema } from './endpoint.js'
+import { untypedEnrollmentRequestSchema } from './enrollmentRequest.js'
+import { untypedEnrollmentResponseSchema } from './enrollmentResponse.js'
 import { untypedEpisodeOfCareSchema } from './episodeOfCare.js'
+import { untypedEventDefinitionSchema } from './eventDefinition.js'
+import { untypedExplanationOfBenefitSchema } from './explanationOfBenefit.js'
 import { untypedFamilyMemberHistorySchema } from './familyMemberHistory.js'
 import { untypedGroupSchema } from './group.js'
+import { untypedGuidanceResponseSchema } from './guidanceResponse.js'
 import { untypedHealthcareServiceSchema } from './healthcareService.js'
 import { untypedImagingStudySchema } from './imagingStudy.js'
 import { untypedImmunizationSchema } from './immunization.js'
 import { untypedImmunizationEvaluationSchema } from './immunizationEvaluation.js'
 import { untypedImmunizationRecommendationSchema } from './immunizationRecommendation.js'
+import { untypedIngredientSchema } from './ingredient.js'
+import { untypedInsurancePlanSchema } from './insurancePlan.js'
+import { untypedInvoiceSchema } from './invoice.js'
 import { untypedLibrarySchema } from './library.js'
 import { untypedLinkageSchema } from './linkage.js'
 import { untypedListSchema } from './list.js'
 import { untypedLocationSchema } from './location.js'
+import { untypedManufacturedItemDefinitionSchema } from './manufacturedItemDefinition.js'
+import { untypedMeasureSchema } from './measure.js'
+import { untypedMeasureReportSchema } from './measureReport.js'
 import { untypedMediaSchema } from './media.js'
 import { untypedMedicationSchema } from './medication.js'
 import { untypedMedicationAdministrationSchema } from './medicationAdministration.js'
@@ -55,20 +76,27 @@ import { untypedMedicationStatementSchema } from './medicationStatement.js'
 import { untypedMessageHeaderSchema } from './messageHeader.js'
 import { untypedMolecularSequenceSchema } from './molecularSequence.js'
 import { untypedNamingSystemSchema } from './namingSystem.js'
+import { untypedNutritionOrderSchema } from './nutritionOrder.js'
+import { untypedNutritionProductSchema } from './nutritionProduct.js'
 import { untypedObservationSchema } from './observation.js'
 import { untypedObservationDefinitionSchema } from './observationDefinition.js'
 import { untypedOperationOutcomeSchema } from './operationOutcome.js'
 import { untypedOrganizationSchema } from './organization.js'
 import { untypedOrganizationAffiliationSchema } from './organizationAffiliation.js'
+import { untypedPackagedProductDefinitionSchema } from './packagedProductDefinition.js'
 import { untypedParametersSchema } from './parameters.js'
 import { untypedPatientSchema } from './patient.js'
+import { untypedPaymentNoticeSchema } from './paymentNotice.js'
+import { untypedPaymentReconciliationSchema } from './paymentReconciliation.js'
 import { untypedPersonSchema } from './person.js'
+import { untypedPlanDefinitionSchema } from './planDefinition.js'
 import { untypedPractitionerSchema } from './practitioner.js'
 import { untypedPractitionerRoleSchema } from './practitionerRole.js'
 import { untypedProcedureSchema } from './procedure.js'
 import { untypedProvenanceSchema } from './provenance.js'
 import { untypedQuestionnaireSchema } from './questionnaire.js'
 import { untypedQuestionnaireResponseSchema } from './questionnaireResponse.js'
+import { untypedRegulatedAuthorizationSchema } from './regulatedAuthorization.js'
 import { untypedRelatedPersonSchema } from './relatedPerson.js'
 import { untypedScheduleSchema } from './schedule.js'
 import { untypedServiceRequestSchema } from './serviceRequest.js'
@@ -84,14 +112,22 @@ import { untypedVerificationResultSchema } from './verificationResult.js'
 
 export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
+    untypedAccountSchema,
+    untypedActivityDefinitionSchema,
+    untypedAdministrableProductDefinitionSchema,
     untypedAllergyIntoleranceSchema,
     untypedAppointmentSchema,
     untypedAppointmentResponseSchema,
     untypedAuditEventSchema,
     untypedBasicSchema,
     untypedBinarySchema,
+    untypedBiologicallyDerivedProductSchema,
     untypedBodyStructureSchema,
     untypedCatalogEntrySchema,
+    untypedChargeItemSchema,
+    untypedChargeItemDefinitionSchema,
+    untypedClaimSchema,
+    untypedClaimResponseSchema,
     untypedCodeSystemSchema,
     untypedCompositionSchema,
     untypedConceptMapSchema,
@@ -99,6 +135,8 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedConsentSchema,
     untypedContractSchema,
     untypedCoverageSchema,
+    untypedCoverageEligibilityRequestSchema,
+    untypedCoverageEligibilityResponseSchema,
     untypedDeviceSchema,
     untypedDeviceDefinitionSchema,
     untypedDeviceMetricSchema,
@@ -109,18 +147,29 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedDocumentReferenceSchema,
     untypedEncounterSchema,
     untypedEndpointSchema,
+    untypedEnrollmentRequestSchema,
+    untypedEnrollmentResponseSchema,
     untypedEpisodeOfCareSchema,
+    untypedEventDefinitionSchema,
+    untypedExplanationOfBenefitSchema,
     untypedFamilyMemberHistorySchema,
     untypedGroupSchema,
+    untypedGuidanceResponseSchema,
     untypedHealthcareServiceSchema,
     untypedImagingStudySchema,
     untypedImmunizationSchema,
     untypedImmunizationEvaluationSchema,
     untypedImmunizationRecommendationSchema,
+    untypedIngredientSchema,
+    untypedInsurancePlanSchema,
+    untypedInvoiceSchema,
     untypedLibrarySchema,
     untypedLinkageSchema,
     untypedListSchema,
     untypedLocationSchema,
+    untypedManufacturedItemDefinitionSchema,
+    untypedMeasureSchema,
+    untypedMeasureReportSchema,
     untypedMediaSchema,
     untypedMedicationSchema,
     untypedMedicationAdministrationSchema,
@@ -131,20 +180,27 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedMessageHeaderSchema,
     untypedMolecularSequenceSchema,
     untypedNamingSystemSchema,
+    untypedNutritionOrderSchema,
+    untypedNutritionProductSchema,
     untypedObservationSchema,
     untypedObservationDefinitionSchema,
     untypedOperationOutcomeSchema,
     untypedOrganizationSchema,
     untypedOrganizationAffiliationSchema,
+    untypedPackagedProductDefinitionSchema,
     untypedParametersSchema,
     untypedPatientSchema,
+    untypedPaymentNoticeSchema,
+    untypedPaymentReconciliationSchema,
     untypedPersonSchema,
+    untypedPlanDefinitionSchema,
     untypedPractitionerSchema,
     untypedPractitionerRoleSchema,
     untypedProcedureSchema,
     untypedProvenanceSchema,
     untypedQuestionnaireSchema,
     untypedQuestionnaireResponseSchema,
+    untypedRegulatedAuthorizationSchema,
     untypedRelatedPersonSchema,
     untypedScheduleSchema,
     untypedServiceRequestSchema,
