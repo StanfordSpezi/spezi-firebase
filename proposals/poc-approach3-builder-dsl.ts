@@ -320,13 +320,17 @@ export const FHIR_TEMPLATES = {
 
 /**
  * Example using templates
+ * Note: In a real implementation, you would add a pipe() method to the builder class
  */
-export const observationSchemaWithTemplates = defineResource('Observation')
-  .pipe(FHIR_TEMPLATES.withIdentifiers)
-  .pipe(FHIR_TEMPLATES.withPatientReference)
-  .field('status', z.enum(['registered', 'preliminary', 'final', 'amended']), { optional: false })
-  .field('code', codeableConceptSchema, { optional: false })
-  .build()
+export function buildObservationWithTemplates() {
+  const builder = defineResource('Observation')
+  FHIR_TEMPLATES.withIdentifiers(builder)
+  FHIR_TEMPLATES.withPatientReference(builder)
+  return builder
+    .field('status', z.enum(['registered', 'preliminary', 'final', 'amended']), { optional: false })
+    .field('code', codeableConceptSchema, { optional: false })
+    .build()
+}
 
 // ============================================================================
 // VALIDATION HELPERS: FHIR-Specific Rules
