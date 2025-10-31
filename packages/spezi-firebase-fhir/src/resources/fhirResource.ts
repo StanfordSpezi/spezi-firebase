@@ -31,6 +31,7 @@ import { untypedClinicalImpressionSchema } from './clinicalImpression.js'
 import { untypedCodeSystemSchema } from './codeSystem.js'
 import { untypedCommunicationSchema } from './communication.js'
 import { untypedCommunicationRequestSchema } from './communicationRequest.js'
+import { untypedCompartmentDefinitionSchema } from './compartmentDefinition.js'
 import { untypedCompositionSchema } from './composition.js'
 import { untypedConceptMapSchema } from './conceptMap.js'
 import { untypedConditionSchema } from './condition.js'
@@ -54,10 +55,12 @@ import { untypedEnrollmentRequestSchema } from './enrollmentRequest.js'
 import { untypedEnrollmentResponseSchema } from './enrollmentResponse.js'
 import { untypedEpisodeOfCareSchema } from './episodeOfCare.js'
 import { untypedEventDefinitionSchema } from './eventDefinition.js'
+import { untypedExampleScenarioSchema } from './exampleScenario.js'
 import { untypedExplanationOfBenefitSchema } from './explanationOfBenefit.js'
 import { untypedFamilyMemberHistorySchema } from './familyMemberHistory.js'
 import { untypedFlagSchema } from './flag.js'
 import { untypedGoalSchema } from './goal.js'
+import { untypedGraphDefinitionSchema } from './graphDefinition.js'
 import { untypedGroupSchema } from './group.js'
 import { untypedGuidanceResponseSchema } from './guidanceResponse.js'
 import { untypedHealthcareServiceSchema } from './healthcareService.js'
@@ -82,6 +85,7 @@ import { untypedMedicationDispenseSchema } from './medicationDispense.js'
 import { untypedMedicationKnowledgeSchema } from './medicationKnowledge.js'
 import { untypedMedicationRequestSchema } from './medicationRequest.js'
 import { untypedMedicationStatementSchema } from './medicationStatement.js'
+import { untypedMessageDefinitionSchema } from './messageDefinition.js'
 import { untypedMessageHeaderSchema } from './messageHeader.js'
 import { untypedMolecularSequenceSchema } from './molecularSequence.js'
 import { untypedNamingSystemSchema } from './namingSystem.js'
@@ -89,6 +93,7 @@ import { untypedNutritionOrderSchema } from './nutritionOrder.js'
 import { untypedNutritionProductSchema } from './nutritionProduct.js'
 import { untypedObservationSchema } from './observation.js'
 import { untypedObservationDefinitionSchema } from './observationDefinition.js'
+import { untypedOperationDefinitionSchema } from './operationDefinition.js'
 import { untypedOperationOutcomeSchema } from './operationOutcome.js'
 import { untypedOrganizationSchema } from './organization.js'
 import { untypedOrganizationAffiliationSchema } from './organizationAffiliation.js'
@@ -110,14 +115,19 @@ import { untypedRelatedPersonSchema } from './relatedPerson.js'
 import { untypedRequestGroupSchema } from './requestGroup.js'
 import { untypedRiskAssessmentSchema } from './riskAssessment.js'
 import { untypedScheduleSchema } from './schedule.js'
+import { untypedSearchParameterSchema } from './searchParameter.js'
 import { untypedServiceRequestSchema } from './serviceRequest.js'
 import { untypedSlotSchema } from './slot.js'
 import { untypedSpecimenSchema } from './specimen.js'
 import { untypedSpecimenDefinitionSchema } from './specimenDefinition.js'
+import { untypedStructureMapSchema } from './structureMap.js'
 import { untypedSubscriptionSchema } from './subscription.js'
+import { untypedSubscriptionStatusSchema } from './subscriptionStatus.js'
+import { untypedSubscriptionTopicSchema } from './subscriptionTopic.js'
 import { untypedSubstanceSchema } from './substance.js'
 import { untypedTaskSchema } from './task.js'
 import { untypedTerminologyCapabilitiesSchema } from './terminologyCapabilities.js'
+import { untypedTestReportSchema } from './testReport.js'
 import { untypedValueSetSchema } from './valueSet.js'
 import { untypedVerificationResultSchema } from './verificationResult.js'
 import { untypedVisionPrescriptionSchema } from './visionPrescription.js'
@@ -147,6 +157,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedCodeSystemSchema,
     untypedCommunicationSchema,
     untypedCommunicationRequestSchema,
+    untypedCompartmentDefinitionSchema,
     untypedCompositionSchema,
     untypedConceptMapSchema,
     untypedConditionSchema,
@@ -170,10 +181,12 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedEnrollmentResponseSchema,
     untypedEpisodeOfCareSchema,
     untypedEventDefinitionSchema,
+    untypedExampleScenarioSchema,
     untypedExplanationOfBenefitSchema,
     untypedFamilyMemberHistorySchema,
     untypedFlagSchema,
     untypedGoalSchema,
+    untypedGraphDefinitionSchema,
     untypedGroupSchema,
     untypedGuidanceResponseSchema,
     untypedHealthcareServiceSchema,
@@ -198,6 +211,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedMedicationKnowledgeSchema,
     untypedMedicationRequestSchema,
     untypedMedicationStatementSchema,
+    untypedMessageDefinitionSchema,
     untypedMessageHeaderSchema,
     untypedMolecularSequenceSchema,
     untypedNamingSystemSchema,
@@ -205,6 +219,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedNutritionProductSchema,
     untypedObservationSchema,
     untypedObservationDefinitionSchema,
+    untypedOperationDefinitionSchema,
     untypedOperationOutcomeSchema,
     untypedOrganizationSchema,
     untypedOrganizationAffiliationSchema,
@@ -226,14 +241,19 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedRequestGroupSchema,
     untypedRiskAssessmentSchema,
     untypedScheduleSchema,
+    untypedSearchParameterSchema,
     untypedServiceRequestSchema,
     untypedSlotSchema,
     untypedSpecimenSchema,
     untypedSpecimenDefinitionSchema,
+    untypedStructureMapSchema,
     untypedSubscriptionSchema,
+    untypedSubscriptionStatusSchema,
+    untypedSubscriptionTopicSchema,
     untypedSubstanceSchema,
     untypedTaskSchema,
     untypedTerminologyCapabilitiesSchema,
+    untypedTestReportSchema,
     untypedValueSetSchema,
     untypedVerificationResultSchema,
     untypedVisionPrescriptionSchema,

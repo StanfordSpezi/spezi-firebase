@@ -1,0 +1,241 @@
+{
+  "0": {
+    "resourceType": "StructureMap",
+    "id": "example",
+    "url": "http://example.org/fhir/StructureMap/example",
+    "name": "ExampleMap",
+    "status": "draft",
+    "group": [
+      {
+        "name": "main",
+        "typeMode": "none",
+        "input": [
+          {
+            "name": "source",
+            "mode": "source"
+          },
+          {
+            "name": "target",
+            "mode": "target"
+          }
+        ],
+        "rule": [
+          {
+            "name": "rule1",
+            "source": [
+              {
+                "context": "source"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "StructureMap",
+    "id": "patient-transform",
+    "url": "http://example.org/fhir/StructureMap/patient-transform",
+    "name": "PatientTransform",
+    "title": "Patient Data Transformation",
+    "status": "active",
+    "experimental": false,
+    "date": "2023-05-15T10:00:00Z",
+    "structure": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/Patient",
+        "mode": "source",
+        "alias": "PatientSource"
+      },
+      {
+        "url": "http://example.org/fhir/StructureDefinition/PatientTarget",
+        "mode": "target",
+        "alias": "PatientTarget"
+      }
+    ],
+    "group": [
+      {
+        "name": "patient",
+        "typeMode": "none",
+        "input": [
+          {
+            "name": "src",
+            "type": "Patient",
+            "mode": "source"
+          },
+          {
+            "name": "tgt",
+            "type": "Patient",
+            "mode": "target"
+          }
+        ],
+        "rule": [
+          {
+            "name": "name",
+            "source": [
+              {
+                "context": "src",
+                "element": "name",
+                "variable": "vname"
+              }
+            ],
+            "target": [
+              {
+                "context": "tgt",
+                "contextType": "variable",
+                "element": "name",
+                "transform": "copy"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "StructureMap",
+    "id": "nested-rules",
+    "url": "http://example.org/fhir/StructureMap/nested-rules",
+    "name": "NestedRulesMap",
+    "status": "active",
+    "group": [
+      {
+        "name": "main",
+        "typeMode": "types",
+        "input": [
+          {
+            "name": "source",
+            "mode": "source",
+            "documentation": "Source resource"
+          },
+          {
+            "name": "target",
+            "mode": "target",
+            "documentation": "Target resource"
+          }
+        ],
+        "rule": [
+          {
+            "name": "root",
+            "source": [
+              {
+                "context": "source",
+                "element": "identifier",
+                "variable": "id",
+                "defaultValueString": "default-id"
+              }
+            ],
+            "target": [
+              {
+                "context": "target",
+                "contextType": "variable",
+                "element": "id",
+                "transform": "copy",
+                "parameter": [
+                  {
+                    "valueId": "id"
+                  }
+                ]
+              }
+            ],
+            "rule": [
+              {
+                "name": "nested",
+                "source": [
+                  {
+                    "context": "id",
+                    "element": "system"
+                  }
+                ],
+                "target": [
+                  {
+                    "context": "target",
+                    "element": "system",
+                    "transform": "copy"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "StructureMap",
+    "id": "complex-transform",
+    "url": "http://example.org/fhir/StructureMap/complex-transform",
+    "name": "ComplexTransform",
+    "status": "active",
+    "publisher": "Example Organization",
+    "contact": [
+      {
+        "name": "Support Team"
+      }
+    ],
+    "import": ["http://example.org/fhir/StructureMap/base-transform"],
+    "structure": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/Observation",
+        "mode": "source"
+      },
+      {
+        "url": "http://example.org/fhir/StructureDefinition/CustomObs",
+        "mode": "target",
+        "documentation": "Custom observation format"
+      }
+    ],
+    "group": [
+      {
+        "name": "transform",
+        "typeMode": "type-and-types",
+        "input": [
+          {
+            "name": "src",
+            "type": "Observation",
+            "mode": "source"
+          },
+          {
+            "name": "tgt",
+            "mode": "target"
+          }
+        ],
+        "rule": [
+          {
+            "name": "value",
+            "source": [
+              {
+                "context": "src",
+                "element": "value",
+                "listMode": "first",
+                "variable": "val",
+                "condition": "value.exists()"
+              }
+            ],
+            "target": [
+              {
+                "context": "tgt",
+                "element": "result",
+                "variable": "result",
+                "listMode": ["share"],
+                "transform": "create",
+                "parameter": [
+                  {
+                    "valueString": "decimal"
+                  }
+                ]
+              }
+            ],
+            "dependent": [
+              {
+                "name": "processValue",
+                "variable": ["val", "result"]
+              }
+            ],
+            "documentation": "Transform observation value"
+          }
+        ]
+      }
+    ]
+  }
+}

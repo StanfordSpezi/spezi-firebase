@@ -1,0 +1,80 @@
+{
+  "0": {
+    "resourceType": "CompartmentDefinition",
+    "id": "patient",
+    "url": "http://hl7.org/fhir/CompartmentDefinition/patient",
+    "name": "PatientCompartment",
+    "status": "draft",
+    "code": "Patient",
+    "search": true,
+    "description": "Patient compartment definition",
+    "resource": [
+      {
+        "code": "Account",
+        "param": ["subject"]
+      },
+      {
+        "code": "Observation",
+        "param": ["subject", "performer"]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "CompartmentDefinition",
+    "id": "encounter",
+    "url": "http://hl7.org/fhir/CompartmentDefinition/encounter",
+    "name": "EncounterCompartment",
+    "status": "active",
+    "code": "Encounter",
+    "search": true,
+    "experimental": false,
+    "date": "2023-01-15T10:00:00Z",
+    "publisher": "HL7 International",
+    "resource": [
+      {
+        "code": "Procedure",
+        "param": ["encounter"]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "CompartmentDefinition",
+    "id": "practitioner",
+    "url": "http://hl7.org/fhir/CompartmentDefinition/practitioner",
+    "name": "PractitionerCompartment",
+    "status": "active",
+    "code": "Practitioner",
+    "search": true,
+    "version": "4.3.0",
+    "description": "Practitioner compartment includes resources linked to a specific practitioner",
+    "purpose": "Define resources accessible within a practitioner context"
+  },
+  "3": {
+    "resourceType": "CompartmentDefinition",
+    "id": "device",
+    "url": "http://example.org/fhir/CompartmentDefinition/device",
+    "name": "DeviceCompartment",
+    "status": "draft",
+    "code": "Device",
+    "search": false,
+    "experimental": true,
+    "contact": [
+      {
+        "name": "Device Management Team",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "device@example.org"
+          }
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "code": "DeviceMetric",
+        "param": ["source"],
+        "documentation": "Device metrics are part of the device compartment"
+      }
+    ]
+  }
+}
