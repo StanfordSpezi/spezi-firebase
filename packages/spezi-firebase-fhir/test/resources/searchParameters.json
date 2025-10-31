@@ -1,0 +1,62 @@
+{
+  "0": {
+    "resourceType": "SearchParameter",
+    "id": "patient-identifier",
+    "url": "http://example.org/fhir/SearchParameter/patient-identifier",
+    "name": "PatientIdentifier",
+    "status": "active",
+    "description": "Search for patients by identifier",
+    "code": "identifier",
+    "base": ["Patient"],
+    "type": "token",
+    "expression": "Patient.identifier"
+  },
+  "1": {
+    "resourceType": "SearchParameter",
+    "id": "observation-value-quantity",
+    "url": "http://hl7.org/fhir/SearchParameter/Observation-value-quantity",
+    "name": "ObservationValueQuantity",
+    "status": "active",
+    "description": "The value of the observation, if the value is a Quantity",
+    "code": "value-quantity",
+    "base": ["Observation"],
+    "type": "quantity",
+    "expression": "Observation.value.ofType(Quantity)",
+    "comparator": ["eq", "ne", "gt", "lt", "ge", "le"],
+    "modifier": ["missing"]
+  },
+  "2": {
+    "resourceType": "SearchParameter",
+    "id": "encounter-patient",
+    "url": "http://example.org/fhir/SearchParameter/encounter-patient",
+    "name": "EncounterPatient",
+    "status": "draft",
+    "description": "The patient present at the encounter",
+    "code": "patient",
+    "base": ["Encounter"],
+    "type": "reference",
+    "expression": "Encounter.subject.where(resolve() is Patient)",
+    "target": ["Patient"],
+    "multipleOr": true,
+    "multipleAnd": true
+  },
+  "3": {
+    "resourceType": "SearchParameter",
+    "id": "medication-ingredient",
+    "url": "http://example.org/fhir/SearchParameter/medication-ingredient",
+    "name": "MedicationIngredient",
+    "status": "active",
+    "description": "Reference to a resource that is a component of the medication",
+    "code": "ingredient",
+    "base": ["Medication"],
+    "type": "reference",
+    "expression": "Medication.ingredient.item.reference",
+    "target": ["Substance", "Medication"],
+    "component": [
+      {
+        "definition": "http://example.org/fhir/SearchParameter/substance-code",
+        "expression": "Medication.ingredient.item.resolve().ofType(Substance).code"
+      }
+    ]
+  }
+}

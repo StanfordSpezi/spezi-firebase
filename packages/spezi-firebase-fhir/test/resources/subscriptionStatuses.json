@@ -1,0 +1,78 @@
+{
+  "0": {
+    "resourceType": "SubscriptionStatus",
+    "id": "example",
+    "subscription": {
+      "reference": "Subscription/example"
+    },
+    "type": "event-notification",
+    "eventsSinceSubscriptionStart": "42"
+  },
+  "1": {
+    "resourceType": "SubscriptionStatus",
+    "id": "handshake",
+    "subscription": {
+      "reference": "Subscription/12345"
+    },
+    "type": "handshake",
+    "status": "requested",
+    "eventsSinceSubscriptionStart": "0",
+    "topic": "http://example.org/fhir/SubscriptionTopic/patient-admission"
+  },
+  "2": {
+    "resourceType": "SubscriptionStatus",
+    "id": "heartbeat",
+    "subscription": {
+      "reference": "Subscription/monitoring"
+    },
+    "type": "heartbeat",
+    "status": "active",
+    "eventsSinceSubscriptionStart": "125",
+    "topic": "http://example.org/fhir/SubscriptionTopic/vitals-monitoring",
+    "notificationEvent": [
+      {
+        "eventNumber": "125",
+        "timestamp": "2023-06-15T14:30:00Z",
+        "focus": {
+          "reference": "Observation/12345"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "SubscriptionStatus",
+    "id": "error-status",
+    "subscription": {
+      "reference": "Subscription/failed-sub"
+    },
+    "type": "query-status",
+    "status": "error",
+    "eventsSinceSubscriptionStart": "10",
+    "topic": "http://example.org/fhir/SubscriptionTopic/medication-dispense",
+    "error": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/subscription-error",
+            "code": "unreachable",
+            "display": "Endpoint unreachable"
+          }
+        ]
+      }
+    ],
+    "notificationEvent": [
+      {
+        "eventNumber": "10",
+        "timestamp": "2023-06-15T10:00:00Z",
+        "focus": {
+          "reference": "MedicationDispense/67890"
+        },
+        "additionalContext": [
+          {
+            "reference": "Patient/example"
+          }
+        ]
+      }
+    ]
+  }
+}

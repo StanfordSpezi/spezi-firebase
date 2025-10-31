@@ -1,0 +1,113 @@
+{
+  "0": {
+    "resourceType": "GraphDefinition",
+    "id": "example",
+    "url": "http://example.org/fhir/GraphDefinition/example",
+    "name": "ExampleGraphDefinition",
+    "status": "draft",
+    "start": "Patient",
+    "link": [
+      {
+        "path": "Patient.managingOrganization",
+        "target": [
+          {
+            "type": "Organization"
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "GraphDefinition",
+    "id": "patient-everything",
+    "url": "http://example.org/fhir/GraphDefinition/patient-everything",
+    "name": "PatientEverything",
+    "status": "active",
+    "start": "Patient",
+    "link": [
+      {
+        "path": "Patient.generalPractitioner",
+        "min": 0,
+        "max": "*",
+        "description": "Link to patient's general practitioners",
+        "target": [
+          {
+            "type": "Practitioner",
+            "compartment": [
+              {
+                "use": "requirement",
+                "code": "Patient",
+                "rule": "identical"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "Patient.link.other",
+        "target": [
+          {
+            "type": "Patient"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "GraphDefinition",
+    "id": "encounter-graph",
+    "url": "http://example.org/fhir/GraphDefinition/encounter-graph",
+    "name": "EncounterGraph",
+    "status": "active",
+    "start": "Encounter",
+    "link": [
+      {
+        "path": "Encounter.subject",
+        "target": [
+          {
+            "type": "Patient",
+            "link": [
+              {
+                "path": "Patient.managingOrganization",
+                "target": [
+                  {
+                    "type": "Organization"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "GraphDefinition",
+    "id": "medication-graph",
+    "url": "http://example.org/fhir/GraphDefinition/medication-graph",
+    "name": "MedicationGraph",
+    "status": "draft",
+    "experimental": true,
+    "start": "MedicationRequest",
+    "profile": "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+    "link": [
+      {
+        "path": "MedicationRequest.subject",
+        "description": "Link to the patient",
+        "target": [
+          {
+            "type": "Patient",
+            "compartment": [
+              {
+                "use": "condition",
+                "code": "Patient",
+                "rule": "matching",
+                "expression": "subject.resolve().id = %context.id"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

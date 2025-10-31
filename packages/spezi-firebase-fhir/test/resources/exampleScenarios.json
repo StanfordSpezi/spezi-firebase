@@ -1,0 +1,228 @@
+{
+  "0": {
+    "resourceType": "ExampleScenario",
+    "id": "example",
+    "status": "draft",
+    "actor": [
+      {
+        "actorId": "client",
+        "type": "entity",
+        "name": "Client Application"
+      },
+      {
+        "actorId": "server",
+        "type": "entity",
+        "name": "FHIR Server"
+      }
+    ],
+    "instance": [
+      {
+        "resourceId": "patient1",
+        "resourceType": "Patient",
+        "name": "Test Patient"
+      }
+    ],
+    "process": [
+      {
+        "title": "Patient Registration",
+        "step": [
+          {
+            "operation": {
+              "number": "1",
+              "name": "Create Patient",
+              "initiator": "client",
+              "receiver": "server"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "ExampleScenario",
+    "id": "medication-workflow",
+    "status": "active",
+    "name": "MedicationWorkflow",
+    "experimental": false,
+    "date": "2023-05-15T10:00:00Z",
+    "actor": [
+      {
+        "actorId": "prescriber",
+        "type": "person",
+        "name": "Prescribing Physician",
+        "description": "The physician who prescribes medication"
+      },
+      {
+        "actorId": "pharmacy",
+        "type": "entity",
+        "name": "Pharmacy System"
+      },
+      {
+        "actorId": "ehr",
+        "type": "entity",
+        "name": "Electronic Health Record"
+      }
+    ],
+    "instance": [
+      {
+        "resourceId": "med-request-1",
+        "resourceType": "MedicationRequest",
+        "name": "Prescription",
+        "description": "A prescription for antibiotics"
+      },
+      {
+        "resourceId": "patient-123",
+        "resourceType": "Patient",
+        "name": "John Doe"
+      }
+    ],
+    "process": [
+      {
+        "title": "Prescribe and Dispense Medication",
+        "preConditions": "Patient has been diagnosed",
+        "postConditions": "Medication has been dispensed",
+        "step": [
+          {
+            "operation": {
+              "number": "1.0",
+              "name": "Create Prescription",
+              "initiator": "prescriber",
+              "receiver": "ehr",
+              "initiatorActive": true,
+              "receiverActive": true
+            }
+          },
+          {
+            "operation": {
+              "number": "2.0",
+              "name": "Send to Pharmacy",
+              "initiator": "ehr",
+              "receiver": "pharmacy"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "ExampleScenario",
+    "id": "nested-workflow",
+    "status": "draft",
+    "actor": [
+      {
+        "actorId": "app",
+        "type": "entity",
+        "name": "Mobile App"
+      }
+    ],
+    "instance": [
+      {
+        "resourceId": "obs-1",
+        "resourceType": "Observation",
+        "name": "Blood Pressure",
+        "version": [
+          {
+            "versionId": "v1",
+            "description": "Initial reading"
+          }
+        ],
+        "containedInstance": [
+          {
+            "resourceId": "patient-1"
+          }
+        ]
+      }
+    ],
+    "process": [
+      {
+        "title": "Main Process",
+        "step": [
+          {
+            "process": [
+              {
+                "title": "Sub-Process",
+                "step": [
+                  {
+                    "operation": {
+                      "number": "1.1",
+                      "name": "Sub-operation",
+                      "initiator": "app",
+                      "receiver": "app"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "ExampleScenario",
+    "id": "alternative-paths",
+    "status": "active",
+    "actor": [
+      {
+        "actorId": "system",
+        "type": "entity",
+        "name": "Healthcare System"
+      }
+    ],
+    "instance": [
+      {
+        "resourceId": "appointment-1",
+        "resourceType": "Appointment",
+        "name": "Scheduled Appointment"
+      }
+    ],
+    "process": [
+      {
+        "title": "Appointment Scheduling",
+        "step": [
+          {
+            "operation": {
+              "number": "1",
+              "name": "Check Availability",
+              "initiator": "system",
+              "receiver": "system"
+            }
+          },
+          {
+            "alternative": [
+              {
+                "title": "Slot Available",
+                "description": "When a time slot is available",
+                "step": [
+                  {
+                    "operation": {
+                      "number": "2a",
+                      "name": "Book Appointment",
+                      "initiator": "system",
+                      "receiver": "system"
+                    }
+                  }
+                ]
+              },
+              {
+                "title": "Slot Not Available",
+                "description": "When no time slot is available",
+                "step": [
+                  {
+                    "operation": {
+                      "number": "2b",
+                      "name": "Suggest Alternative",
+                      "initiator": "system",
+                      "receiver": "system"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "workflow": ["http://example.org/fhir/ExampleScenario/related-workflow"]
+  }
+}
