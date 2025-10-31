@@ -1,0 +1,193 @@
+{
+  "0": {
+    "resourceType": "Evidence",
+    "id": "evidence-example-0",
+    "status": "draft",
+    "variableDefinition": [
+      {
+        "variableRole": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/variable-role",
+              "code": "population"
+            }
+          ]
+        },
+        "observed": {
+          "reference": "EvidenceVariable/population-001"
+        }
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "Evidence",
+    "id": "evidence-example-1",
+    "url": "http://example.org/fhir/Evidence/diabetes-treatment-evidence",
+    "identifier": [
+      {
+        "system": "http://example.org/evidence",
+        "value": "EVD-001"
+      }
+    ],
+    "version": "1.0.0",
+    "title": "Evidence for Diabetes Treatment Effectiveness",
+    "status": "active",
+    "description": "Evidence supporting the effectiveness of new diabetes treatment",
+    "variableDefinition": [
+      {
+        "variableRole": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/variable-role",
+              "code": "population"
+            }
+          ]
+        },
+        "observed": {
+          "reference": "EvidenceVariable/diabetes-population"
+        }
+      },
+      {
+        "variableRole": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/variable-role",
+              "code": "exposure"
+            }
+          ]
+        },
+        "observed": {
+          "reference": "EvidenceVariable/diabetes-treatment"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "Evidence",
+    "id": "evidence-example-2",
+    "status": "active",
+    "title": "Blood Pressure Reduction Evidence",
+    "publisher": "Example Research Organization",
+    "description": "Evidence showing blood pressure reduction with intervention",
+    "variableDefinition": [
+      {
+        "variableRole": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/variable-role",
+              "code": "population"
+            }
+          ]
+        },
+        "observed": {
+          "reference": "EvidenceVariable/hypertensive-population"
+        }
+      },
+      {
+        "variableRole": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/variable-role",
+              "code": "outcome"
+            }
+          ]
+        },
+        "observed": {
+          "reference": "EvidenceVariable/blood-pressure-outcome"
+        }
+      }
+    ],
+    "statistic": [
+      {
+        "description": "Mean blood pressure reduction",
+        "statisticType": {
+          "text": "Mean Difference"
+        },
+        "quantity": {
+          "value": -10.5,
+          "unit": "mmHg"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "Evidence",
+    "id": "evidence-example-3",
+    "url": "http://example.org/fhir/Evidence/cancer-survival",
+    "title": "Cancer Treatment Survival Evidence",
+    "status": "active",
+    "publisher": "Oncology Research Institute",
+    "contact": [
+      {
+        "name": "Research Team"
+      }
+    ],
+    "description": "Evidence for improved survival with new cancer treatment",
+    "assertion": "The new treatment improves 5-year survival by 15%",
+    "variableDefinition": [
+      {
+        "description": "Cancer patient population",
+        "variableRole": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/variable-role",
+              "code": "population"
+            }
+          ]
+        },
+        "observed": {
+          "reference": "EvidenceVariable/cancer-population"
+        }
+      },
+      {
+        "description": "New treatment intervention",
+        "variableRole": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/variable-role",
+              "code": "exposure"
+            }
+          ]
+        },
+        "observed": {
+          "reference": "EvidenceVariable/new-treatment"
+        }
+      },
+      {
+        "description": "5-year survival outcome",
+        "variableRole": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/variable-role",
+              "code": "outcome"
+            }
+          ]
+        },
+        "observed": {
+          "reference": "EvidenceVariable/survival-outcome"
+        }
+      }
+    ],
+    "synthesisType": {
+      "text": "Meta-analysis"
+    },
+    "studyType": {
+      "text": "Randomized Controlled Trial"
+    },
+    "statistic": [
+      {
+        "description": "Overall survival improvement",
+        "statisticType": {
+          "text": "Hazard Ratio"
+        },
+        "quantity": {
+          "value": 0.75
+        },
+        "sampleSize": {
+          "numberOfStudies": 5,
+          "numberOfParticipants": 1250
+        }
+      }
+    ]
+  }
+}

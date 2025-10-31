@@ -1,0 +1,207 @@
+{
+  "0": {
+    "resourceType": "EvidenceReport",
+    "id": "evidencereport-example-0",
+    "status": "draft",
+    "subject": {
+      "note": [
+        {
+          "text": "Example evidence report subject"
+        }
+      ]
+    }
+  },
+  "1": {
+    "resourceType": "EvidenceReport",
+    "id": "evidencereport-example-1",
+    "url": "http://example.org/fhir/EvidenceReport/diabetes-evidence-summary",
+    "identifier": [
+      {
+        "system": "http://example.org/evidence-reports",
+        "value": "ER-001"
+      }
+    ],
+    "status": "active",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/evidence-report-type",
+          "code": "classification"
+        }
+      ]
+    },
+    "publisher": "Example Evidence Research Group",
+    "subject": {
+      "characteristic": [
+        {
+          "code": {
+            "text": "Population"
+          },
+          "valueCodeableConcept": {
+            "text": "Adult patients with Type 2 Diabetes"
+          }
+        }
+      ]
+    },
+    "section": [
+      {
+        "title": "Summary",
+        "focus": {
+          "text": "Evidence Summary"
+        }
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "EvidenceReport",
+    "id": "evidencereport-example-2",
+    "status": "active",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/evidence-report-type",
+          "code": "search-results"
+        }
+      ]
+    },
+    "publisher": "Research Institute",
+    "contact": [
+      {
+        "name": "Evidence Team"
+      }
+    ],
+    "subject": {
+      "characteristic": [
+        {
+          "code": {
+            "text": "Search Criteria"
+          },
+          "valueCodeableConcept": {
+            "text": "Cardiovascular disease treatment"
+          }
+        }
+      ],
+      "note": [
+        {
+          "text": "Systematic review search results"
+        }
+      ]
+    },
+    "section": [
+      {
+        "title": "Included Studies",
+        "focus": {
+          "text": "Study Selection"
+        }
+      },
+      {
+        "title": "Results",
+        "focus": {
+          "text": "Evidence Synthesis"
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "EvidenceReport",
+    "id": "evidencereport-example-3",
+    "url": "http://example.org/fhir/EvidenceReport/cancer-treatment-evidence",
+    "identifier": [
+      {
+        "system": "http://example.org/evidence-reports",
+        "value": "ER-CANCER-2024"
+      }
+    ],
+    "status": "active",
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/evidence-report-type",
+          "code": "resources-compiled"
+        }
+      ]
+    },
+    "publisher": "Oncology Evidence Network",
+    "contact": [
+      {
+        "name": "Dr. Evidence Lead"
+      }
+    ],
+    "author": [
+      {
+        "name": "Research Committee"
+      }
+    ],
+    "subject": {
+      "characteristic": [
+        {
+          "code": {
+            "text": "Condition"
+          },
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "363346000",
+                "display": "Malignant neoplastic disease"
+              }
+            ]
+          }
+        },
+        {
+          "code": {
+            "text": "Intervention"
+          },
+          "valueCodeableConcept": {
+            "text": "Immunotherapy"
+          }
+        }
+      ],
+      "note": [
+        {
+          "text": "Comprehensive evidence report on cancer immunotherapy effectiveness"
+        }
+      ]
+    },
+    "relatedArtifact": [
+      {
+        "type": "citation",
+        "citation": "Key study reference"
+      }
+    ],
+    "section": [
+      {
+        "title": "Background",
+        "focus": {
+          "text": "Clinical Context"
+        }
+      },
+      {
+        "title": "Evidence Synthesis",
+        "focus": {
+          "text": "Main Findings"
+        },
+        "section": [
+          {
+            "title": "Efficacy",
+            "focus": {
+              "text": "Treatment Efficacy"
+            }
+          },
+          {
+            "title": "Safety",
+            "focus": {
+              "text": "Adverse Events"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Conclusions",
+        "focus": {
+          "text": "Summary and Recommendations"
+        }
+      }
+    ]
+  }
+}

@@ -25,6 +25,7 @@ import { untypedCareTeamSchema } from './careTeam.js'
 import { untypedCatalogEntrySchema } from './catalogEntry.js'
 import { untypedChargeItemSchema } from './chargeItem.js'
 import { untypedChargeItemDefinitionSchema } from './chargeItemDefinition.js'
+import { untypedCitationSchema } from './citation.js'
 import { untypedClaimSchema } from './claim.js'
 import { untypedClaimResponseSchema } from './claimResponse.js'
 import { untypedClinicalImpressionSchema } from './clinicalImpression.js'
@@ -55,6 +56,9 @@ import { untypedEnrollmentRequestSchema } from './enrollmentRequest.js'
 import { untypedEnrollmentResponseSchema } from './enrollmentResponse.js'
 import { untypedEpisodeOfCareSchema } from './episodeOfCare.js'
 import { untypedEventDefinitionSchema } from './eventDefinition.js'
+import { untypedEvidenceSchema } from './evidence.js'
+import { untypedEvidenceReportSchema } from './evidenceReport.js'
+import { untypedEvidenceVariableSchema } from './evidenceVariable.js'
 import { untypedExampleScenarioSchema } from './exampleScenario.js'
 import { untypedExplanationOfBenefitSchema } from './explanationOfBenefit.js'
 import { untypedFamilyMemberHistorySchema } from './familyMemberHistory.js'
@@ -113,6 +117,10 @@ import { untypedQuestionnaireResponseSchema } from './questionnaireResponse.js'
 import { untypedRegulatedAuthorizationSchema } from './regulatedAuthorization.js'
 import { untypedRelatedPersonSchema } from './relatedPerson.js'
 import { untypedRequestGroupSchema } from './requestGroup.js'
+import { untypedResearchDefinitionSchema } from './researchDefinition.js'
+import { untypedResearchElementDefinitionSchema } from './researchElementDefinition.js'
+import { untypedResearchStudySchema } from './researchStudy.js'
+import { untypedResearchSubjectSchema } from './researchSubject.js'
 import { untypedRiskAssessmentSchema } from './riskAssessment.js'
 import { untypedScheduleSchema } from './schedule.js'
 import { untypedSearchParameterSchema } from './searchParameter.js'
@@ -151,6 +159,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedCatalogEntrySchema,
     untypedChargeItemSchema,
     untypedChargeItemDefinitionSchema,
+    untypedCitationSchema,
     untypedClaimSchema,
     untypedClaimResponseSchema,
     untypedClinicalImpressionSchema,
@@ -181,6 +190,9 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedEnrollmentResponseSchema,
     untypedEpisodeOfCareSchema,
     untypedEventDefinitionSchema,
+    untypedEvidenceSchema,
+    untypedEvidenceReportSchema,
+    untypedEvidenceVariableSchema,
     untypedExampleScenarioSchema,
     untypedExplanationOfBenefitSchema,
     untypedFamilyMemberHistorySchema,
@@ -239,6 +251,10 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedRegulatedAuthorizationSchema,
     untypedRelatedPersonSchema,
     untypedRequestGroupSchema,
+    untypedResearchDefinitionSchema,
+    untypedResearchElementDefinitionSchema,
+    untypedResearchStudySchema,
+    untypedResearchSubjectSchema,
     untypedRiskAssessmentSchema,
     untypedScheduleSchema,
     untypedSearchParameterSchema,
