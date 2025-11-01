@@ -285,7 +285,7 @@ export const untypedCapabilityStatementSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-)
+) satisfies ZodType<CapabilityStatement>
 
 export const capabilityStatementSchema: ZodType<CapabilityStatement> =
   untypedCapabilityStatementSchema

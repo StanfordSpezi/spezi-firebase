@@ -147,7 +147,7 @@ export const untypedCodeSystemSchema = z.lazy(() =>
       .optional(),
     concept: codeSystemConceptSchema.array().optional(),
   }),
-)
+) satisfies ZodType<CodeSystem>
 
 export const codeSystemSchema: ZodType<CodeSystem> = untypedCodeSystemSchema
 
