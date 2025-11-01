@@ -150,7 +150,7 @@ export const untypedTerminologyCapabilitiesSchema = z.lazy(() =>
       })
       .optional(),
   }),
-)
+) satisfies ZodType<TerminologyCapabilities>
 
 export const terminologyCapabilitiesSchema: ZodType<TerminologyCapabilities> =
   untypedTerminologyCapabilitiesSchema

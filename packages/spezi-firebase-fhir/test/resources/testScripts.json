@@ -1,0 +1,65 @@
+{
+  "0": {
+    "resourceType": "TestScript",
+    "url": "http://example.org/fhir/TestScript/example",
+    "name": "ExampleTestScript",
+    "status": "draft"
+  },
+  "1": {
+    "resourceType": "TestScript",
+    "url": "http://example.org/fhir/TestScript/patient-read",
+    "name": "PatientReadTest",
+    "title": "Patient Read Test Script",
+    "status": "active",
+    "date": "2023-01-15T10:00:00Z",
+    "publisher": "Example Organization",
+    "description": "Test script for reading patient resources"
+  },
+  "2": {
+    "resourceType": "TestScript",
+    "url": "http://example.org/fhir/TestScript/comprehensive",
+    "version": "1.0.0",
+    "name": "ComprehensiveTest",
+    "title": "Comprehensive FHIR Test Suite",
+    "status": "active",
+    "experimental": false,
+    "date": "2023-06-01T14:30:00Z",
+    "publisher": "Healthcare Standards Body",
+    "contact": [
+      {
+        "name": "Testing Team",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "testing@example.org"
+          }
+        ]
+      }
+    ],
+    "description": "Comprehensive test suite for FHIR server",
+    "purpose": "Validate FHIR server implementation"
+  },
+  "3": {
+    "resourceType": "TestScript",
+    "url": "http://example.org/fhir/TestScript/medication-test",
+    "version": "2.0.0",
+    "name": "MedicationTest",
+    "title": "Medication Management Test",
+    "status": "active",
+    "date": "2023-09-20T08:00:00Z",
+    "publisher": "Pharmacy Systems",
+    "description": "Test medication resource operations",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "copyright": "Copyright 2023 Pharmacy Systems"
+  }
+}

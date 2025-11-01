@@ -1,0 +1,153 @@
+{
+  "0": {
+    "resourceType": "SubstanceDefinition",
+    "id": "substance-example-0",
+    "name": [
+      {
+        "name": "Aspirin"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "SubstanceDefinition",
+    "id": "substance-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/substances",
+        "value": "SUB-12345"
+      }
+    ],
+    "status": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/substance-status",
+          "code": "active",
+          "display": "Active"
+        }
+      ]
+    },
+    "name": [
+      {
+        "name": "Acetylsalicylic acid",
+        "type": {
+          "coding": [
+            {
+              "code": "scientific",
+              "display": "Scientific Name"
+            }
+          ]
+        },
+        "preferred": true
+      }
+    ],
+    "structure": {
+      "molecularFormula": "C9H8O4"
+    }
+  },
+  "2": {
+    "resourceType": "SubstanceDefinition",
+    "id": "substance-example-2",
+    "identifier": [
+      {
+        "system": "http://example.org/substances",
+        "value": "SUB-67890"
+      }
+    ],
+    "description": "An anticoagulant substance",
+    "name": [
+      {
+        "name": "Warfarin",
+        "preferred": true
+      },
+      {
+        "name": "Coumadin",
+        "type": {
+          "coding": [
+            {
+              "code": "brand",
+              "display": "Brand Name"
+            }
+          ]
+        }
+      }
+    ],
+    "classification": [
+      {
+        "coding": [
+          {
+            "system": "http://www.whocc.no/atc",
+            "code": "B01AA03",
+            "display": "warfarin"
+          }
+        ]
+      }
+    ],
+    "property": [
+      {
+        "type": {
+          "coding": [
+            {
+              "code": "molecular-weight",
+              "display": "Molecular Weight"
+            }
+          ]
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "308.33",
+              "display": "308.33 g/mol"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "SubstanceDefinition",
+    "id": "substance-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/substances",
+        "value": "SUB-54321"
+      }
+    ],
+    "version": "1.0",
+    "status": {
+      "coding": [
+        {
+          "code": "active"
+        }
+      ]
+    },
+    "name": [
+      {
+        "name": "Insulin Human",
+        "type": {
+          "coding": [
+            {
+              "code": "INN",
+              "display": "International Nonproprietary Name"
+            }
+          ]
+        },
+        "preferred": true
+      }
+    ],
+    "manufacturer": [
+      {
+        "reference": "Organization/pharma-manufacturer"
+      }
+    ],
+    "sourceMaterial": {
+      "type": {
+        "coding": [
+          {
+            "code": "human",
+            "display": "Human derived"
+          }
+        ]
+      }
+    }
+  }
+}

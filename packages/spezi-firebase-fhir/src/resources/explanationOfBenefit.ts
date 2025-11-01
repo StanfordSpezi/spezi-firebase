@@ -31,9 +31,9 @@ import {
 import {
   financialResourceStatusSchema,
   remittanceOutcomeSchema,
+  claimUseSchema,
+  noteTypeSchema,
 } from '../valueSets/index.js'
-
-const eobUseSchema = z.enum(['claim', 'preauthorization', 'predetermination'])
 
 export const untypedExplanationOfBenefitSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -43,7 +43,7 @@ export const untypedExplanationOfBenefitSchema = z.lazy(() =>
     _status: elementSchema.optional(),
     type: codeableConceptSchema,
     subType: codeableConceptSchema.optional(),
-    use: eobUseSchema,
+    use: claimUseSchema,
     _use: elementSchema.optional(),
     patient: referenceSchema,
     billablePeriod: periodSchema.optional(),
@@ -284,7 +284,7 @@ export const untypedExplanationOfBenefitSchema = z.lazy(() =>
     processNote: backboneElementSchema
       .extend({
         number: positiveIntSchema.optional(),
-        type: z.enum(['display', 'print', 'printoper']).optional(),
+        type: noteTypeSchema.optional(),
         _type: elementSchema.optional(),
         text: stringSchema.optional(),
         _text: elementSchema.optional(),

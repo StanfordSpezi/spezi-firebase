@@ -1,0 +1,159 @@
+{
+  "0": {
+    "resourceType": "MedicinalProductDefinition",
+    "id": "medicinal-product-example-0",
+    "name": [
+      {
+        "productName": "Aspirin 100mg Tablets"
+      }
+    ]
+  },
+  "1": {
+    "resourceType": "MedicinalProductDefinition",
+    "id": "medicinal-product-example-1",
+    "identifier": [
+      {
+        "system": "http://example.org/medicinal-products",
+        "value": "MP-12345"
+      }
+    ],
+    "type": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/medicinal-product-type",
+          "code": "MedicinalProduct",
+          "display": "Medicinal Product"
+        }
+      ]
+    },
+    "name": [
+      {
+        "productName": "Paracetamol 500mg Tablets",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/medicinal-product-name-type",
+              "code": "full",
+              "display": "Full name"
+            }
+          ]
+        }
+      }
+    ],
+    "classification": [
+      {
+        "coding": [
+          {
+            "system": "http://www.whocc.no/atc",
+            "code": "N02BE01",
+            "display": "paracetamol"
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "resourceType": "MedicinalProductDefinition",
+    "id": "medicinal-product-example-2",
+    "identifier": [
+      {
+        "system": "http://example.org/medicinal-products",
+        "value": "MP-67890"
+      }
+    ],
+    "domain": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/medicinal-product-domain",
+          "code": "Human",
+          "display": "Human use"
+        }
+      ]
+    },
+    "description": "Insulin injection for diabetes management",
+    "combinedPharmaceuticalDoseForm": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/dose-form",
+          "code": "385219001",
+          "display": "Injection solution"
+        }
+      ]
+    },
+    "name": [
+      {
+        "productName": "Insulin Human 100 IU/ml Solution for Injection"
+      }
+    ],
+    "code": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "325072002",
+        "display": "Insulin preparation"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "MedicinalProductDefinition",
+    "id": "medicinal-product-example-3",
+    "identifier": [
+      {
+        "system": "http://example.org/medicinal-products",
+        "value": "MP-54321"
+      }
+    ],
+    "status": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/medicinal-product-status",
+          "code": "active",
+          "display": "Active"
+        }
+      ]
+    },
+    "name": [
+      {
+        "productName": "Amoxicillin 250mg/5ml Oral Suspension",
+        "namePart": [
+          {
+            "part": "Amoxicillin",
+            "type": {
+              "coding": [
+                {
+                  "code": "INN",
+                  "display": "International Nonproprietary Name"
+                }
+              ]
+            }
+          },
+          {
+            "part": "250mg/5ml",
+            "type": {
+              "coding": [
+                {
+                  "code": "STR",
+                  "display": "Strength"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "contact": [
+      {
+        "type": {
+          "coding": [
+            {
+              "code": "manufacturer",
+              "display": "Manufacturer"
+            }
+          ]
+        },
+        "contact": {
+          "reference": "Organization/pharma-co"
+        }
+      }
+    ]
+  }
+}

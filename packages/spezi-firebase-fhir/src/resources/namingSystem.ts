@@ -64,7 +64,7 @@ export const untypedNamingSystemSchema = z.lazy(() =>
       })
       .array(),
   }),
-)
+) satisfies ZodType<NamingSystem>
 
 export const namingSystemSchema: ZodType<NamingSystem> =
   untypedNamingSystemSchema

@@ -138,7 +138,7 @@ export const untypedConceptMapSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-)
+) satisfies ZodType<ConceptMap>
 
 export const conceptMapSchema: ZodType<ConceptMap> = untypedConceptMapSchema
 

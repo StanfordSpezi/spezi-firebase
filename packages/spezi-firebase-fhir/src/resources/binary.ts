@@ -10,7 +10,11 @@ import { type Binary } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { referenceSchema } from '../elements/dataTypes/reference.js'
-import { codeSchema, elementSchema, stringSchema } from '../elements/index.js'
+import {
+  base64BinarySchema,
+  codeSchema,
+  elementSchema,
+} from '../elements/index.js'
 import { resourceSchema } from '../elements/resource.js'
 
 export const untypedBinarySchema = z.lazy(() =>
@@ -19,7 +23,7 @@ export const untypedBinarySchema = z.lazy(() =>
     contentType: codeSchema,
     _contentType: elementSchema.optional(),
     securityContext: referenceSchema.optional(),
-    data: stringSchema.optional(),
+    data: base64BinarySchema.optional(),
     _data: elementSchema.optional(),
   }),
 ) satisfies ZodType<Binary>
