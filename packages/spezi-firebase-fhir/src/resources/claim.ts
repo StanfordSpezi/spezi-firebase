@@ -28,7 +28,10 @@ import {
   dateSchema,
   attachmentSchema,
 } from '../elements/index.js'
-import { financialResourceStatusSchema, claimUseSchema } from '../valueSets/index.js'
+import {
+  financialResourceStatusSchema,
+  claimUseSchema,
+} from '../valueSets/index.js'
 
 export const untypedClaimSchema = z.lazy(() =>
   domainResourceSchema.extend({
