@@ -1,0 +1,11 @@
+# Schema Generator Output
+generated/
+*.log
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Temporary files
+temp-*.ts
+tsconfig.json
