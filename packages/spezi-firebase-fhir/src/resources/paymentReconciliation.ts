@@ -25,9 +25,8 @@ import {
 import {
   financialResourceStatusSchema,
   remittanceOutcomeSchema,
+  noteTypeSchema,
 } from '../valueSets/index.js'
-
-const processNoteTypeSchema = z.enum(['display', 'print', 'printoper'])
 
 export const untypedPaymentReconciliationSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -68,7 +67,7 @@ export const untypedPaymentReconciliationSchema = z.lazy(() =>
     formCode: codeableConceptSchema.optional(),
     processNote: backboneElementSchema
       .extend({
-        type: processNoteTypeSchema.optional(),
+        type: noteTypeSchema.optional(),
         _type: elementSchema.optional(),
         text: stringSchema.optional(),
         _text: elementSchema.optional(),

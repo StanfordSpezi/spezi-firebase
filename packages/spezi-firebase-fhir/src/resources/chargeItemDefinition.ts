@@ -27,16 +27,10 @@ import {
   usageContextSchema,
   contactDetailSchema,
 } from '../elements/index.js'
-import { chargeItemDefinitionStatusSchema } from '../valueSets/index.js'
-
-const priceComponentTypeSchema = z.enum([
-  'base',
-  'surcharge',
-  'deduction',
-  'discount',
-  'tax',
-  'informational',
-])
+import {
+  chargeItemDefinitionStatusSchema,
+  priceComponentTypeSchema,
+} from '../valueSets/index.js'
 
 export const untypedChargeItemDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({

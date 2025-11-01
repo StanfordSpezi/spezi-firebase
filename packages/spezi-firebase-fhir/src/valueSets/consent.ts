@@ -35,3 +35,11 @@ export const consentDataMeaningSchema = z.enum([
 ])
 
 export type ConsentDataMeaning = z.infer<typeof consentDataMeaningSchema>
+
+/**
+ * How a rule statement is applied, such as adding additional consent or removing consent.
+ * http://hl7.org/fhir/valueset-consent-provision-type.html
+ */
+export const consentProvisionTypeSchema = z.enum(['deny', 'permit'])
+
+export type ConsentProvisionType = z.infer<typeof consentProvisionTypeSchema>

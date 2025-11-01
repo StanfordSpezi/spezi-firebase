@@ -29,9 +29,9 @@ import {
 import {
   financialResourceStatusSchema,
   remittanceOutcomeSchema,
+  claimUseSchema,
+  noteTypeSchema,
 } from '../valueSets/index.js'
-
-const claimUseSchema = z.enum(['claim', 'preauthorization', 'predetermination'])
 
 export const untypedClaimResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -164,7 +164,7 @@ export const untypedClaimResponseSchema = z.lazy(() =>
     processNote: backboneElementSchema
       .extend({
         number: positiveIntSchema.optional(),
-        type: z.enum(['display', 'print', 'printoper']).optional(),
+        type: noteTypeSchema.optional(),
         _type: elementSchema.optional(),
         text: stringSchema,
         _text: elementSchema.optional(),

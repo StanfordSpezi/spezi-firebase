@@ -890,7 +890,7 @@ export const untypedStructureDefinitionSchema = z.lazy(() =>
       })
       .optional(),
   }),
-)
+) satisfies ZodType<StructureDefinition>
 
 export const structureDefinitionSchema: ZodType<StructureDefinition> =
   untypedStructureDefinitionSchema

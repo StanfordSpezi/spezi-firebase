@@ -25,6 +25,7 @@ import {
 import {
   consentDataMeaningSchema,
   consentStatusSchema,
+  consentProvisionTypeSchema,
 } from '../valueSets/index.js'
 
 export const untypedConsentSchema = z.lazy(() =>
@@ -65,7 +66,7 @@ export const untypedConsentSchema = z.lazy(() =>
     provision: z
       .lazy(() =>
         backboneElementSchema.extend({
-          type: z.enum(['deny', 'permit']).optional(),
+          type: consentProvisionTypeSchema.optional(),
           _type: elementSchema.optional(),
           period: periodSchema.optional(),
           actor: backboneElementSchema

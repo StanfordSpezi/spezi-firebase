@@ -211,7 +211,7 @@ export const untypedValueSetSchema = z.lazy(() =>
       })
       .optional(),
   }),
-)
+) satisfies ZodType<ValueSet>
 
 export const valueSetSchema: ZodType<ValueSet> = untypedValueSetSchema
 
