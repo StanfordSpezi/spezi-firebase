@@ -20,20 +20,26 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
-import { molecularSequenceTypeSchema } from '../valueSets/index.js'
+import {
+  molecularSequenceTypeSchema,
+  orientationTypeSchema,
+  strandTypeSchema,
+  qualityTypeSchema,
+  repositoryTypeSchema,
+} from '../valueSets/index.js'
 
 const molecularSequenceReferenceSeqSchema = z.lazy(() =>
   backboneElementSchema.extend({
     chromosome: codeableConceptSchema.optional(),
     genomeBuild: stringSchema.optional(),
     _genomeBuild: elementSchema.optional(),
-    orientation: z.enum(['sense', 'antisense']).optional(),
+    orientation: orientationTypeSchema.optional(),
     _orientation: elementSchema.optional(),
     referenceSeqId: codeableConceptSchema.optional(),
     referenceSeqPointer: referenceSchema.optional(),
     referenceSeqString: stringSchema.optional(),
     _referenceSeqString: elementSchema.optional(),
-    strand: z.enum(['watson', 'crick']).optional(),
+    strand: strandTypeSchema.optional(),
     _strand: elementSchema.optional(),
     windowStart: intSchema.optional(),
     windowEnd: intSchema.optional(),
@@ -68,7 +74,7 @@ const molecularSequenceQualityRocSchema = z.lazy(() =>
 
 const molecularSequenceQualitySchema = z.lazy(() =>
   backboneElementSchema.extend({
-    type: z.enum(['indel', 'snp', 'unknown']),
+    type: qualityTypeSchema,
     _type: elementSchema.optional(),
     standardSequence: codeableConceptSchema.optional(),
     start: intSchema.optional(),
@@ -89,7 +95,7 @@ const molecularSequenceQualitySchema = z.lazy(() =>
 
 const molecularSequenceRepositorySchema = z.lazy(() =>
   backboneElementSchema.extend({
-    type: z.enum(['directlink', 'openapi', 'login', 'oauth']),
+    type: repositoryTypeSchema,
     _type: elementSchema.optional(),
     url: stringSchema.optional(),
     _url: elementSchema.optional(),

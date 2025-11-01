@@ -23,16 +23,10 @@ import {
   dateTimeSchema,
   positiveIntSchema,
 } from '../elements/index.js'
-import { invoiceStatusSchema } from '../valueSets/index.js'
-
-const priceComponentTypeSchema = z.enum([
-  'base',
-  'surcharge',
-  'deduction',
-  'discount',
-  'tax',
-  'informational',
-])
+import {
+  invoiceStatusSchema,
+  priceComponentTypeSchema,
+} from '../valueSets/index.js'
 
 export const untypedInvoiceSchema = z.lazy(() =>
   domainResourceSchema.extend({
