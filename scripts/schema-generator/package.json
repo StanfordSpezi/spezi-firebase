@@ -4,7 +4,8 @@
   "description": "Script to generate Zod schemas from FHIR TypeScript definitions using ts-to-zod",
   "type": "module",
   "scripts": {
-    "generate": "node generate-schemas.js",
+    "generate": "node generate-schemas-direct.js",
+    "generate:ts-to-zod": "node generate-schemas.js",
     "generate:patient": "node generate-schemas.js --resource Patient",
     "generate:observation": "node generate-schemas.js --resource Observation"
   },

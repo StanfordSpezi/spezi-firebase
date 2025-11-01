@@ -85,10 +85,24 @@ if (!fs.existsSync(outputDir)) {
 // Step 1: Create a temporary TypeScript file with the interfaces we want to convert
 console.log('\n📝 Step 1: Extracting FHIR type definitions...');
 
-const fhirTypesPath = path.join(__dirname, '../../node_modules/@types/fhir/r4b.d.ts');
+// Try multiple possible locations for @types/fhir
+const possiblePaths = [
+  path.join(__dirname, 'node_modules/@types/fhir/r4b.d.ts'),
+  path.join(__dirname, '../../node_modules/@types/fhir/r4b.d.ts'),
+];
 
-if (!fs.existsSync(fhirTypesPath)) {
+let fhirTypesPath = null;
+for (const p of possiblePaths) {
+  if (fs.existsSync(p)) {
+    fhirTypesPath = p;
+    break;
+  }
+}
+
+if (!fhirTypesPath) {
   console.error('❌ Error: @types/fhir not found. Please run npm install first.');
+  console.error('   Searched in:');
+  possiblePaths.forEach(p => console.error(`   - ${p}`));
   process.exit(1);
 }
 
@@ -97,13 +111,31 @@ const fhirTypes = fs.readFileSync(fhirTypesPath, 'utf-8');
 
 // Extract interfaces for our resources
 function extractInterface(content, interfaceName) {
-  // Match interface declaration with proper nesting handling
-  const regex = new RegExp(
-    `export interface ${interfaceName}[^{]*\\{[\\s\\S]*?\\n\\}(?=\\n(?:export|$))`,
-    'g'
-  );
-  const match = content.match(regex);
-  return match ? match[0] : null;
+  // Find the start of the interface
+  const startRegex = new RegExp(`export interface ${interfaceName}(\\s+extends\\s+\\w+)?\\s*\\{`);
+  const startMatch = content.match(startRegex);
+  
+  if (!startMatch) {
+    return null;
+  }
+  
+  const startIndex = content.indexOf(startMatch[0]);
+  let braceCount = 1;
+  let currentIndex = startIndex + startMatch[0].length;
+  
+  // Count braces to find the matching closing brace
+  while (braceCount > 0 && currentIndex < content.length) {
+    const char = content[currentIndex];
+    if (char === '{') braceCount++;
+    if (char === '}') braceCount--;
+    currentIndex++;
+  }
+  
+  if (braceCount === 0) {
+    return content.substring(startIndex, currentIndex);
+  }
+  
+  return null;
 }
 
 // Create a temporary file with selected interfaces
