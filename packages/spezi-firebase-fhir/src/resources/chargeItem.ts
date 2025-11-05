@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { ChargeItemPerformer, type ChargeItem } from 'fhir/r4b.js'
+import { type ChargeItemPerformer, type ChargeItem } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { domainResourceSchema } from '../elements/domainResource.js'

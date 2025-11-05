@@ -7,7 +7,7 @@
 //
 
 import {
-  CompartmentDefinitionResource,
+  type CompartmentDefinitionResource,
   type CompartmentDefinition,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

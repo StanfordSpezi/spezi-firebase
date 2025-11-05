@@ -7,11 +7,11 @@
 //
 
 import {
-  ConsentPolicy,
-  ConsentProvision,
-  ConsentProvisionActor,
-  ConsentProvisionData,
-  ConsentVerification,
+  type ConsentPolicy,
+  type ConsentProvision,
+  type ConsentProvisionActor,
+  type ConsentProvisionData,
+  type ConsentVerification,
   type Consent,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

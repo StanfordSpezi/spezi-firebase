@@ -7,16 +7,16 @@
 //
 
 import {
-  ClaimAccident,
-  ClaimCareTeam,
-  ClaimDiagnosis,
-  ClaimInsurance,
-  ClaimItem,
-  ClaimItemDetail,
-  ClaimPayee,
-  ClaimProcedure,
-  ClaimRelated,
-  ClaimSupportingInfo,
+  type ClaimAccident,
+  type ClaimCareTeam,
+  type ClaimDiagnosis,
+  type ClaimInsurance,
+  type ClaimItem,
+  type ClaimItemDetail,
+  type ClaimPayee,
+  type ClaimProcedure,
+  type ClaimRelated,
+  type ClaimSupportingInfo,
   type Claim,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

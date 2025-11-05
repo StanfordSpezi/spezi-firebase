@@ -7,19 +7,19 @@
 //
 
 import {
-  ElementDefinition,
-  ElementDefinitionBase,
-  ElementDefinitionBinding,
-  ElementDefinitionConstraint,
-  ElementDefinitionExample,
-  ElementDefinitionMapping,
-  ElementDefinitionSlicing,
-  ElementDefinitionSlicingDiscriminator,
-  ElementDefinitionType,
-  StructureDefinitionContext,
-  StructureDefinitionDifferential,
-  StructureDefinitionMapping,
-  StructureDefinitionSnapshot,
+  type ElementDefinition,
+  type ElementDefinitionBase,
+  type ElementDefinitionBinding,
+  type ElementDefinitionConstraint,
+  type ElementDefinitionExample,
+  type ElementDefinitionMapping,
+  type ElementDefinitionSlicing,
+  type ElementDefinitionSlicingDiscriminator,
+  type ElementDefinitionType,
+  type StructureDefinitionContext,
+  type StructureDefinitionDifferential,
+  type StructureDefinitionMapping,
+  type StructureDefinitionSnapshot,
   type StructureDefinition,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

@@ -7,7 +7,7 @@
 //
 
 import {
-  SubscriptionStatusNotificationEvent,
+  type SubscriptionStatusNotificationEvent,
   type SubscriptionStatus,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

@@ -7,7 +7,7 @@
 //
 
 import {
-  ValueSetComposeIncludeConceptDesignation,
+  type ValueSetComposeIncludeConceptDesignation,
   type ValueSet,
   type ValueSetExpansionContains,
 } from 'fhir/r4b.js'

@@ -7,9 +7,9 @@
 //
 
 import {
-  CoverageClass,
-  CoverageCostToBeneficiary,
-  CoverageCostToBeneficiaryException,
+  type CoverageClass,
+  type CoverageCostToBeneficiary,
+  type CoverageCostToBeneficiaryException,
   type Coverage,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

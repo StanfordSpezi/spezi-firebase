@@ -7,13 +7,13 @@
 //
 
 import {
-  StructureMapGroup,
-  StructureMapGroupInput,
-  StructureMapGroupRuleDependent,
-  StructureMapGroupRuleSource,
-  StructureMapGroupRuleTarget,
-  StructureMapGroupRuleTargetParameter,
-  StructureMapStructure,
+  type StructureMapGroup,
+  type StructureMapGroupInput,
+  type StructureMapGroupRuleDependent,
+  type StructureMapGroupRuleSource,
+  type StructureMapGroupRuleTarget,
+  type StructureMapGroupRuleTargetParameter,
+  type StructureMapStructure,
   type StructureMap,
   type StructureMapGroupRule,
 } from 'fhir/r4b.js'

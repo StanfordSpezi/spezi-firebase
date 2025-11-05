@@ -7,9 +7,9 @@
 //
 
 import {
-  TestScriptDestination,
-  TestScriptMetadata,
-  TestScriptOrigin,
+  type TestScriptDestination,
+  type TestScriptMetadata,
+  type TestScriptOrigin,
   type TestScript,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

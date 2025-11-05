@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { RiskAssessmentPrediction, type RiskAssessment } from 'fhir/r4b.js'
+import { type RiskAssessmentPrediction, type RiskAssessment } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {

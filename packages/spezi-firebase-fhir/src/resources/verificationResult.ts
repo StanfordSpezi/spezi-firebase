@@ -7,9 +7,9 @@
 //
 
 import {
-  VerificationResultAttestation,
-  VerificationResultPrimarySource,
-  VerificationResultValidator,
+  type VerificationResultAttestation,
+  type VerificationResultPrimarySource,
+  type VerificationResultValidator,
   type VerificationResult,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

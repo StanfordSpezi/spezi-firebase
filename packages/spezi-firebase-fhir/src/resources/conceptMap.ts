@@ -7,11 +7,11 @@
 //
 
 import {
-  ConceptMapGroup,
-  ConceptMapGroupElement,
-  ConceptMapGroupElementTarget,
-  ConceptMapGroupElementTargetDependsOn,
-  ConceptMapGroupUnmapped,
+  type ConceptMapGroup,
+  type ConceptMapGroupElement,
+  type ConceptMapGroupElementTarget,
+  type ConceptMapGroupElementTargetDependsOn,
+  type ConceptMapGroupUnmapped,
   type ConceptMap,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

@@ -10,8 +10,8 @@ import {
   type Evidence,
   type EvidenceVariableDefinition,
   type EvidenceStatistic,
-  EvidenceStatisticAttributeEstimate,
-  EvidenceCertainty,
+  type EvidenceStatisticAttributeEstimate,
+  type EvidenceCertainty,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'

@@ -13,11 +13,11 @@ import {
   type SubstanceDefinitionProperty,
   type SubstanceDefinitionRelationship,
   type SubstanceDefinitionSourceMaterial,
-  SubstanceDefinitionMolecularWeight,
-  SubstanceDefinitionStructure,
-  SubstanceDefinitionStructureRepresentation,
-  SubstanceDefinitionNameOfficial,
-  SubstanceDefinitionCode,
+  type SubstanceDefinitionMolecularWeight,
+  type SubstanceDefinitionStructure,
+  type SubstanceDefinitionStructureRepresentation,
+  type SubstanceDefinitionNameOfficial,
+  type SubstanceDefinitionCode,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'

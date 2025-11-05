@@ -7,10 +7,10 @@
 //
 
 import {
-  SpecimenDefinitionTypeTested,
-  SpecimenDefinitionTypeTestedContainer,
-  SpecimenDefinitionTypeTestedContainerAdditive,
-  SpecimenDefinitionTypeTestedHandling,
+  type SpecimenDefinitionTypeTested,
+  type SpecimenDefinitionTypeTestedContainer,
+  type SpecimenDefinitionTypeTestedContainerAdditive,
+  type SpecimenDefinitionTypeTestedHandling,
   type SpecimenDefinition,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

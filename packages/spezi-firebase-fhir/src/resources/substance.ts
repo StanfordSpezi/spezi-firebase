@@ -7,8 +7,8 @@
 //
 
 import {
-  SubstanceIngredient,
-  SubstanceInstance,
+  type SubstanceIngredient,
+  type SubstanceInstance,
   type Substance,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

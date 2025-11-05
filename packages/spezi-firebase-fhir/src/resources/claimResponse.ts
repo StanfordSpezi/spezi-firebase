@@ -7,9 +7,9 @@
 //
 
 import {
-  ClaimResponseItem,
-  ClaimResponseItemAdjudication,
-  ClaimResponseItemDetail,
+  type ClaimResponseItem,
+  type ClaimResponseItemAdjudication,
+  type ClaimResponseItemDetail,
   type ClaimResponse,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

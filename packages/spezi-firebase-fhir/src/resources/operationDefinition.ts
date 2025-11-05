@@ -7,9 +7,9 @@
 //
 
 import {
-  OperationDefinitionOverload,
-  OperationDefinitionParameterBinding,
-  OperationDefinitionParameterReferencedFrom,
+  type OperationDefinitionOverload,
+  type OperationDefinitionParameterBinding,
+  type OperationDefinitionParameterReferencedFrom,
   type OperationDefinition,
   type OperationDefinitionParameter,
 } from 'fhir/r4b.js'

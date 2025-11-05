@@ -6,7 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { ConditionEvidence, ConditionStage, type Condition } from 'fhir/r4b.js'
+import {
+  type ConditionEvidence,
+  type ConditionStage,
+  type Condition,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {

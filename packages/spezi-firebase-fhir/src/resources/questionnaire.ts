@@ -7,9 +7,9 @@
 //
 
 import {
-  QuestionnaireItemAnswerOption,
-  QuestionnaireItemEnableWhen,
-  QuestionnaireItemInitial,
+  type QuestionnaireItemAnswerOption,
+  type QuestionnaireItemEnableWhen,
+  type QuestionnaireItemInitial,
   type Questionnaire,
   type QuestionnaireItem,
 } from 'fhir/r4b.js'

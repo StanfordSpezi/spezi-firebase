@@ -7,11 +7,11 @@
 //
 
 import {
-  AuditEventAgent,
-  AuditEventAgentNetwork,
-  AuditEventEntity,
-  AuditEventEntityDetail,
-  AuditEventSource,
+  type AuditEventAgent,
+  type AuditEventAgentNetwork,
+  type AuditEventEntity,
+  type AuditEventEntityDetail,
+  type AuditEventSource,
   type AuditEvent,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

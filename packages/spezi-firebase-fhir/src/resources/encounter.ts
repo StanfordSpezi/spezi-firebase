@@ -7,12 +7,12 @@
 //
 
 import {
-  EncounterClassHistory,
-  EncounterDiagnosis,
-  EncounterHospitalization,
-  EncounterLocation,
-  EncounterParticipant,
-  EncounterStatusHistory,
+  type EncounterClassHistory,
+  type EncounterDiagnosis,
+  type EncounterHospitalization,
+  type EncounterLocation,
+  type EncounterParticipant,
+  type EncounterStatusHistory,
   type Encounter,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

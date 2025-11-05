@@ -7,19 +7,19 @@
 //
 
 import {
-  CapabilityStatementDocument,
-  CapabilityStatementImplementation,
-  CapabilityStatementMessaging,
-  CapabilityStatementMessagingEndpoint,
-  CapabilityStatementMessagingSupportedMessage,
-  CapabilityStatementRest,
-  CapabilityStatementRestInteraction,
-  CapabilityStatementRestResource,
-  CapabilityStatementRestResourceInteraction,
-  CapabilityStatementRestResourceOperation,
-  CapabilityStatementRestResourceSearchParam,
-  CapabilityStatementRestSecurity,
-  CapabilityStatementSoftware,
+  type CapabilityStatementDocument,
+  type CapabilityStatementImplementation,
+  type CapabilityStatementMessaging,
+  type CapabilityStatementMessagingEndpoint,
+  type CapabilityStatementMessagingSupportedMessage,
+  type CapabilityStatementRest,
+  type CapabilityStatementRestInteraction,
+  type CapabilityStatementRestResource,
+  type CapabilityStatementRestResourceInteraction,
+  type CapabilityStatementRestResourceOperation,
+  type CapabilityStatementRestResourceSearchParam,
+  type CapabilityStatementRestSecurity,
+  type CapabilityStatementSoftware,
   type CapabilityStatement,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

@@ -7,9 +7,9 @@
 //
 
 import {
-  ChargeItemDefinitionApplicability,
-  ChargeItemDefinitionPropertyGroup,
-  ChargeItemDefinitionPropertyGroupPriceComponent,
+  type ChargeItemDefinitionApplicability,
+  type ChargeItemDefinitionPropertyGroup,
+  type ChargeItemDefinitionPropertyGroupPriceComponent,
   type ChargeItemDefinition,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

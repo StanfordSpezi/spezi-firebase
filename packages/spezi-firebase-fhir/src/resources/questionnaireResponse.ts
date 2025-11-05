@@ -7,7 +7,7 @@
 //
 
 import {
-  QuestionnaireResponseItemAnswer,
+  type QuestionnaireResponseItemAnswer,
   type QuestionnaireResponse,
   type QuestionnaireResponseItem,
 } from 'fhir/r4b.js'

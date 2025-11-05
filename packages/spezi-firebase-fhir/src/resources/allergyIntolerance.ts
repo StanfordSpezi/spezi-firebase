@@ -7,7 +7,7 @@
 //
 
 import {
-  AllergyIntoleranceReaction,
+  type AllergyIntoleranceReaction,
   type AllergyIntolerance,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

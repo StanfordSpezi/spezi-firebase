@@ -7,10 +7,10 @@
 //
 
 import {
-  PlanDefinitionActionCondition,
-  PlanDefinitionActionDynamicValue,
-  PlanDefinitionActionParticipant,
-  PlanDefinitionActionRelatedAction,
+  type PlanDefinitionActionCondition,
+  type PlanDefinitionActionDynamicValue,
+  type PlanDefinitionActionParticipant,
+  type PlanDefinitionActionRelatedAction,
   type PlanDefinition,
   type PlanDefinitionAction,
   type PlanDefinitionGoal,

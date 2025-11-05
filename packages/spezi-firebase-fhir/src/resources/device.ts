@@ -7,11 +7,11 @@
 //
 
 import {
-  DeviceDeviceName,
-  DeviceProperty,
-  DeviceSpecialization,
-  DeviceUdiCarrier,
-  DeviceVersion,
+  type DeviceDeviceName,
+  type DeviceProperty,
+  type DeviceSpecialization,
+  type DeviceUdiCarrier,
+  type DeviceVersion,
   type Device,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

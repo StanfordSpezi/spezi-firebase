@@ -7,16 +7,16 @@
 //
 
 import {
-  TerminologyCapabilitiesClosure,
-  TerminologyCapabilitiesCodeSystem,
-  TerminologyCapabilitiesCodeSystemVersion,
-  TerminologyCapabilitiesCodeSystemVersionFilter,
-  TerminologyCapabilitiesExpansion,
-  TerminologyCapabilitiesExpansionParameter,
-  TerminologyCapabilitiesImplementation,
-  TerminologyCapabilitiesSoftware,
-  TerminologyCapabilitiesTranslation,
-  TerminologyCapabilitiesValidateCode,
+  type TerminologyCapabilitiesClosure,
+  type TerminologyCapabilitiesCodeSystem,
+  type TerminologyCapabilitiesCodeSystemVersion,
+  type TerminologyCapabilitiesCodeSystemVersionFilter,
+  type TerminologyCapabilitiesExpansion,
+  type TerminologyCapabilitiesExpansionParameter,
+  type TerminologyCapabilitiesImplementation,
+  type TerminologyCapabilitiesSoftware,
+  type TerminologyCapabilitiesTranslation,
+  type TerminologyCapabilitiesValidateCode,
   type TerminologyCapabilities,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

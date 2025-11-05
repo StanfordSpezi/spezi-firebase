@@ -7,11 +7,11 @@
 //
 
 import {
-  BundleEntry,
-  BundleEntryRequest,
-  BundleEntryResponse,
-  BundleEntrySearch,
-  BundleLink,
+  type BundleEntry,
+  type BundleEntryRequest,
+  type BundleEntryResponse,
+  type BundleEntrySearch,
+  type BundleLink,
   type Bundle,
   type DomainResource,
 } from 'fhir/r4b.js'

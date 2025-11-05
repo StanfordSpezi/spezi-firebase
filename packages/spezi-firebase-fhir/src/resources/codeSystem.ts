@@ -7,10 +7,10 @@
 //
 
 import {
-  CodeSystemConceptDesignation,
-  CodeSystemConceptProperty,
-  CodeSystemFilter,
-  CodeSystemProperty,
+  type CodeSystemConceptDesignation,
+  type CodeSystemConceptProperty,
+  type CodeSystemFilter,
+  type CodeSystemProperty,
   type CodeSystem,
   type CodeSystemConcept,
 } from 'fhir/r4b.js'

@@ -7,15 +7,15 @@
 //
 
 import {
-  TestReportParticipant,
-  TestReportSetup,
-  TestReportSetupAction,
-  TestReportSetupActionAssert,
-  TestReportSetupActionOperation,
-  TestReportTeardown,
-  TestReportTeardownAction,
-  TestReportTest,
-  TestReportTestAction,
+  type TestReportParticipant,
+  type TestReportSetup,
+  type TestReportSetupAction,
+  type TestReportSetupActionAssert,
+  type TestReportSetupActionOperation,
+  type TestReportTeardown,
+  type TestReportTeardownAction,
+  type TestReportTest,
+  type TestReportTestAction,
   type TestReport,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

@@ -7,12 +7,11 @@
 //
 
 import {
-  Subscription,
-  SubscriptionTopicCanFilterBy,
-  SubscriptionTopicEventTrigger,
-  SubscriptionTopicNotificationShape,
-  SubscriptionTopicResourceTrigger,
-  SubscriptionTopicResourceTriggerQueryCriteria,
+  type SubscriptionTopicCanFilterBy,
+  type SubscriptionTopicEventTrigger,
+  type SubscriptionTopicNotificationShape,
+  type SubscriptionTopicResourceTrigger,
+  type SubscriptionTopicResourceTriggerQueryCriteria,
   type SubscriptionTopic,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

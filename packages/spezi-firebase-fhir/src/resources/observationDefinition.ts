@@ -7,8 +7,8 @@
 //
 
 import {
-  ObservationDefinitionQualifiedInterval,
-  ObservationDefinitionQuantitativeDetails,
+  type ObservationDefinitionQualifiedInterval,
+  type ObservationDefinitionQuantitativeDetails,
   type ObservationDefinition,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
