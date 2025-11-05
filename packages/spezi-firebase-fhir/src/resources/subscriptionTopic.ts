@@ -6,7 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type SubscriptionTopic } from 'fhir/r4b.js'
+import {
+  Subscription,
+  SubscriptionTopicCanFilterBy,
+  SubscriptionTopicEventTrigger,
+  SubscriptionTopicNotificationShape,
+  SubscriptionTopicResourceTrigger,
+  SubscriptionTopicResourceTriggerQueryCriteria,
+  type SubscriptionTopic,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -32,26 +40,77 @@ import {
   subscriptionTopicResourceTriggerQueryCriteriaResultSchema,
 } from '../valueSets/index.js'
 
+const subscriptionTopicCanFilterBySchema: ZodType<SubscriptionTopicCanFilterBy> =
+  backboneElementSchema.extend({
+    description: markdownSchema.optional(),
+    _description: elementSchema.optional(),
+    filterDefinition: urlSchema.optional(),
+    _filterDefinition: elementSchema.optional(),
+    filterParameter: stringSchema,
+    _filterParameter: elementSchema.optional(),
+    modifier: subscriptionTopicCanFilterByModifierSchema.array().optional(),
+    _modifier: elementSchema.array().optional(),
+    resource: urlSchema.optional(),
+    _resource: elementSchema.optional(),
+  })
+
+const subscriptionTopicEventTriggerSchema: ZodType<SubscriptionTopicEventTrigger> =
+  backboneElementSchema.extend({
+    description: markdownSchema.optional(),
+    _description: elementSchema.optional(),
+    event: codeableConceptSchema,
+    resource: urlSchema,
+    _resource: elementSchema.optional(),
+  })
+
+const subscriptionTopicNotificationShapeSchema: ZodType<SubscriptionTopicNotificationShape> =
+  backboneElementSchema.extend({
+    include: stringSchema.array().optional(),
+    _include: elementSchema.array().optional(),
+    resource: urlSchema,
+    _resource: elementSchema.optional(),
+    revInclude: stringSchema.array().optional(),
+    _revInclude: elementSchema.array().optional(),
+  })
+
+const subscriptionTopicResourceTriggerQueryCriteriaSchema: ZodType<SubscriptionTopicResourceTriggerQueryCriteria> =
+  backboneElementSchema.extend({
+    current: stringSchema.optional(),
+    _current: elementSchema.optional(),
+    previous: stringSchema.optional(),
+    _previous: elementSchema.optional(),
+    requireBoth: booleanSchema.optional(),
+    _requireBoth: elementSchema.optional(),
+    resultForCreate:
+      subscriptionTopicResourceTriggerQueryCriteriaResultSchema.optional(),
+    _resultForCreate: elementSchema.optional(),
+    resultForDelete:
+      subscriptionTopicResourceTriggerQueryCriteriaResultSchema.optional(),
+    _resultForDelete: elementSchema.optional(),
+  })
+
+const subscriptionTopicResourceTriggerSchema: ZodType<SubscriptionTopicResourceTrigger> =
+  backboneElementSchema.extend({
+    description: markdownSchema.optional(),
+    _description: elementSchema.optional(),
+    fhirPathCriteria: stringSchema.optional(),
+    _fhirPathCriteria: elementSchema.optional(),
+    queryCriteria:
+      subscriptionTopicResourceTriggerQueryCriteriaSchema.optional(),
+    resource: urlSchema,
+    _resource: elementSchema.optional(),
+    supportedInteraction: subscriptionTopicResourceTriggerInteractionSchema
+      .array()
+      .optional(),
+    _supportedInteraction: elementSchema.array().optional(),
+  })
+
 export const untypedSubscriptionTopicSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('SubscriptionTopic').readonly(),
     approvalDate: dateSchema.optional(),
     _approvalDate: elementSchema.optional(),
-    canFilterBy: backboneElementSchema
-      .extend({
-        description: markdownSchema.optional(),
-        _description: elementSchema.optional(),
-        filterDefinition: urlSchema.optional(),
-        _filterDefinition: elementSchema.optional(),
-        filterParameter: stringSchema,
-        _filterParameter: elementSchema.optional(),
-        modifier: subscriptionTopicCanFilterByModifierSchema.array().optional(),
-        _modifier: elementSchema.array().optional(),
-        resource: urlSchema.optional(),
-        _resource: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    canFilterBy: subscriptionTopicCanFilterBySchema.array().optional(),
     contact: contactDetailSchema.array().optional(),
     copyright: markdownSchema.optional(),
     _copyright: elementSchema.optional(),
@@ -62,68 +121,21 @@ export const untypedSubscriptionTopicSchema = z.lazy(() =>
     description: markdownSchema.optional(),
     _description: elementSchema.optional(),
     effectivePeriod: periodSchema.optional(),
-    eventTrigger: backboneElementSchema
-      .extend({
-        description: markdownSchema.optional(),
-        _description: elementSchema.optional(),
-        event: codeableConceptSchema,
-        resource: urlSchema,
-        _resource: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    eventTrigger: subscriptionTopicEventTriggerSchema.array().optional(),
     experimental: booleanSchema.optional(),
     _experimental: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
     jurisdiction: codeableConceptSchema.array().optional(),
     lastReviewDate: dateSchema.optional(),
     _lastReviewDate: elementSchema.optional(),
-    notificationShape: backboneElementSchema
-      .extend({
-        include: stringSchema.array().optional(),
-        _include: elementSchema.array().optional(),
-        resource: urlSchema,
-        _resource: elementSchema.optional(),
-        revInclude: stringSchema.array().optional(),
-        _revInclude: elementSchema.array().optional(),
-      })
+    notificationShape: subscriptionTopicNotificationShapeSchema
       .array()
       .optional(),
     publisher: stringSchema.optional(),
     _publisher: elementSchema.optional(),
     purpose: markdownSchema.optional(),
     _purpose: elementSchema.optional(),
-    resourceTrigger: backboneElementSchema
-      .extend({
-        description: markdownSchema.optional(),
-        _description: elementSchema.optional(),
-        fhirPathCriteria: stringSchema.optional(),
-        _fhirPathCriteria: elementSchema.optional(),
-        queryCriteria: backboneElementSchema
-          .extend({
-            current: stringSchema.optional(),
-            _current: elementSchema.optional(),
-            previous: stringSchema.optional(),
-            _previous: elementSchema.optional(),
-            requireBoth: booleanSchema.optional(),
-            _requireBoth: elementSchema.optional(),
-            resultForCreate:
-              subscriptionTopicResourceTriggerQueryCriteriaResultSchema.optional(),
-            _resultForCreate: elementSchema.optional(),
-            resultForDelete:
-              subscriptionTopicResourceTriggerQueryCriteriaResultSchema.optional(),
-            _resultForDelete: elementSchema.optional(),
-          })
-          .optional(),
-        resource: urlSchema,
-        _resource: elementSchema.optional(),
-        supportedInteraction: subscriptionTopicResourceTriggerInteractionSchema
-          .array()
-          .optional(),
-        _supportedInteraction: elementSchema.array().optional(),
-      })
-      .array()
-      .optional(),
+    resourceTrigger: subscriptionTopicResourceTriggerSchema.array().optional(),
     status: publicationStatusSchema,
     _status: elementSchema.optional(),
     title: stringSchema.optional(),

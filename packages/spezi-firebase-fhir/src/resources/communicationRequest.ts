@@ -32,14 +32,12 @@ import {
 } from '../valueSets/index.js'
 
 const communicationRequestPayloadSchema: ZodType<CommunicationRequestPayload> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      contentString: stringSchema.optional(),
-      _contentString: elementSchema.optional(),
-      contentAttachment: attachmentSchema.optional(),
-      contentReference: referenceSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    contentString: stringSchema.optional(),
+    _contentString: elementSchema.optional(),
+    contentAttachment: attachmentSchema.optional(),
+    contentReference: referenceSchema.optional(),
+  })
 
 export const untypedCommunicationRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({

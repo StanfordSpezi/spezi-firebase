@@ -7,6 +7,7 @@
 //
 
 import {
+  QuestionnaireResponseItemAnswer,
   type QuestionnaireResponse,
   type QuestionnaireResponseItem,
 } from 'fhir/r4b.js'
@@ -32,48 +33,46 @@ import {
 } from '../elements/index.js'
 import { questionnaireResponseStatusSchema } from '../valueSets/index.js'
 
+const questionnaireResponseItemAnswerSchema: ZodType<QuestionnaireResponseItemAnswer> =
+  backboneElementSchema.extend({
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueDecimal: decimalSchema.optional(),
+    _valueDecimal: elementSchema.optional(),
+    valueInteger: intSchema.optional(),
+    _valueInteger: elementSchema.optional(),
+    valueDate: dateSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueDateTime: dateTimeSchema.optional(),
+    _valueDateTime: elementSchema.optional(),
+    valueTime: timeSchema.optional(),
+    _valueTime: elementSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueUri: uriSchema.optional(),
+    _valueUri: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+    valueCoding: codingSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueReference: referenceSchema.optional(),
+    get item() {
+      return questionnaireResponseItemSchema.array().optional()
+    },
+  })
+
 const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      linkId: stringSchema,
-      _linkId: elementSchema.optional(),
-      definition: uriSchema.optional(),
-      _definition: elementSchema.optional(),
-      text: stringSchema.optional(),
-      _text: elementSchema.optional(),
-      answer: backboneElementSchema
-        .extend({
-          valueBoolean: booleanSchema.optional(),
-          _valueBoolean: elementSchema.optional(),
-          valueDecimal: decimalSchema.optional(),
-          _valueDecimal: elementSchema.optional(),
-          valueInteger: intSchema.optional(),
-          _valueInteger: elementSchema.optional(),
-          valueDate: dateSchema.optional(),
-          _valueDate: elementSchema.optional(),
-          valueDateTime: dateTimeSchema.optional(),
-          _valueDateTime: elementSchema.optional(),
-          valueTime: timeSchema.optional(),
-          _valueTime: elementSchema.optional(),
-          valueString: stringSchema.optional(),
-          _valueString: elementSchema.optional(),
-          valueUri: uriSchema.optional(),
-          _valueUri: elementSchema.optional(),
-          valueAttachment: attachmentSchema.optional(),
-          valueCoding: codingSchema.optional(),
-          valueQuantity: quantitySchema.optional(),
-          valueReference: referenceSchema.optional(),
-          get item() {
-            return questionnaireResponseItemSchema.array().optional()
-          },
-        })
-        .array()
-        .optional(),
-      get item() {
-        return questionnaireResponseItemSchema.array().optional()
-      },
-    }),
-  )
+  backboneElementSchema.extend({
+    linkId: stringSchema,
+    _linkId: elementSchema.optional(),
+    definition: uriSchema.optional(),
+    _definition: elementSchema.optional(),
+    text: stringSchema.optional(),
+    _text: elementSchema.optional(),
+    answer: questionnaireResponseItemAnswerSchema.array().optional(),
+    get item() {
+      return questionnaireResponseItemSchema.array().optional()
+    },
+  })
 
 export const untypedQuestionnaireResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({

@@ -6,10 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Subscription } from 'fhir/r4b.js'
+import { SubscriptionChannel, type Subscription } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
+  backboneElementSchema,
   contactPointSchema,
   domainResourceSchema,
   elementSchema,
@@ -21,6 +22,18 @@ import {
   subscriptionResourceStatusSchema,
   subscriptionChannelTypeSchema,
 } from '../valueSets/index.js'
+
+const subscriptionChannelSchema: ZodType<SubscriptionChannel> =
+  backboneElementSchema.extend({
+    type: subscriptionChannelTypeSchema,
+    _type: elementSchema.optional(),
+    endpoint: urlSchema.optional(),
+    _endpoint: elementSchema.optional(),
+    payload: stringSchema.optional(),
+    _payload: elementSchema.optional(),
+    header: stringSchema.array().optional(),
+    _header: elementSchema.array().optional(),
+  })
 
 export const untypedSubscriptionSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -36,16 +49,7 @@ export const untypedSubscriptionSchema = z.lazy(() =>
     _criteria: elementSchema.optional(),
     error: stringSchema.optional(),
     _error: elementSchema.optional(),
-    channel: z.object({
-      type: subscriptionChannelTypeSchema,
-      _type: elementSchema.optional(),
-      endpoint: urlSchema.optional(),
-      _endpoint: elementSchema.optional(),
-      payload: stringSchema.optional(),
-      _payload: elementSchema.optional(),
-      header: stringSchema.array().optional(),
-      _header: elementSchema.array().optional(),
-    }),
+    channel: subscriptionChannelSchema,
   }),
 ) satisfies ZodType<Subscription>
 

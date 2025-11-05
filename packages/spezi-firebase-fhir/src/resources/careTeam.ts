@@ -23,14 +23,13 @@ import {
 } from '../elements/index.js'
 import { careTeamStatusSchema } from '../valueSets/index.js'
 
-const careTeamParticipantSchema: ZodType<CareTeamParticipant> = z.lazy(() =>
+const careTeamParticipantSchema: ZodType<CareTeamParticipant> =
   backboneElementSchema.extend({
     role: codeableConceptSchema.array().optional(),
     member: referenceSchema.optional(),
     onBehalfOf: referenceSchema.optional(),
     period: periodSchema.optional(),
-  }),
-)
+  })
 
 export const untypedCareTeamSchema = z.lazy(() =>
   domainResourceSchema.extend({

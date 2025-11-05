@@ -6,7 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coverage } from 'fhir/r4b.js'
+import {
+  CoverageClass,
+  CoverageCostToBeneficiary,
+  CoverageCostToBeneficiaryException,
+  type Coverage,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
@@ -25,6 +30,29 @@ import {
 } from '../elements/index.js'
 import { coverageStatusSchema } from '../valueSets/index.js'
 
+const coverageClassSchema: ZodType<CoverageClass> =
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    value: stringSchema,
+    _value: elementSchema.optional(),
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+  })
+
+const coverageCostToBeneficiaryExceptionSchema: ZodType<CoverageCostToBeneficiaryException> =
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    period: periodSchema.optional(),
+  })
+
+const coverageCostToBeneficiarySchema: ZodType<CoverageCostToBeneficiary> =
+  backboneElementSchema.extend({
+    type: codeableConceptSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueMoney: moneySchema.optional(),
+    exception: coverageCostToBeneficiaryExceptionSchema.array().optional(),
+  })
+
 export const untypedCoverageSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Coverage').readonly(),
@@ -42,34 +70,11 @@ export const untypedCoverageSchema = z.lazy(() =>
     relationship: codeableConceptSchema.optional(),
     period: periodSchema.optional(),
     payor: referenceSchema.array(),
-    class: backboneElementSchema
-      .extend({
-        type: codeableConceptSchema,
-        value: stringSchema,
-        _value: elementSchema.optional(),
-        name: stringSchema.optional(),
-        _name: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    class: coverageClassSchema.array().optional(),
     order: positiveIntSchema.optional(),
     network: stringSchema.optional(),
     _network: elementSchema.optional(),
-    costToBeneficiary: backboneElementSchema
-      .extend({
-        type: codeableConceptSchema.optional(),
-        valueQuantity: quantitySchema.optional(),
-        valueMoney: moneySchema.optional(),
-        exception: backboneElementSchema
-          .extend({
-            type: codeableConceptSchema,
-            period: periodSchema.optional(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
+    costToBeneficiary: coverageCostToBeneficiarySchema.array().optional(),
     subrogation: booleanSchema.optional(),
     _subrogation: elementSchema.optional(),
     contract: referenceSchema.array().optional(),

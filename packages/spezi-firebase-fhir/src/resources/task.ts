@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Task } from 'fhir/r4b.js'
+import { TaskInput, TaskOutput, TaskRestriction, type Task } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { anyValueSchema } from '../elements/anyValueSchema.js'
@@ -29,6 +29,21 @@ import {
   taskIntentSchema,
   taskStatusSchema,
 } from '../valueSets/index.js'
+
+const taskRestrictionSchema: ZodType<TaskRestriction> =
+  backboneElementSchema.extend({
+    repetitions: positiveIntSchema.optional(),
+    period: periodSchema.optional(),
+    recipient: referenceSchema.array().optional(),
+  })
+
+const taskInputSchema: ZodType<TaskInput> = anyValueSchema.extend({
+  type: codeableConceptSchema,
+})
+
+const taskOutputSchema: ZodType<TaskOutput> = anyValueSchema.extend({
+  type: codeableConceptSchema,
+})
 
 export const untypedTaskSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -67,25 +82,9 @@ export const untypedTaskSchema = z.lazy(() =>
     insurance: referenceSchema.array().optional(),
     note: annotationSchema.array().optional(),
     relevantHistory: referenceSchema.array().optional(),
-    restriction: backboneElementSchema
-      .extend({
-        repetitions: positiveIntSchema.optional(),
-        period: periodSchema.optional(),
-        recipient: referenceSchema.array().optional(),
-      })
-      .optional(),
-    input: anyValueSchema
-      .extend({
-        type: codeableConceptSchema,
-      })
-      .array()
-      .optional(),
-    output: anyValueSchema
-      .extend({
-        type: codeableConceptSchema,
-      })
-      .array()
-      .optional(),
+    restriction: taskRestrictionSchema.optional(),
+    input: taskInputSchema.array().optional(),
+    output: taskOutputSchema.array().optional(),
   }),
 ) satisfies ZodType<Task>
 

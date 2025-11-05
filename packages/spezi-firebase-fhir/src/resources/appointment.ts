@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Appointment } from 'fhir/r4b.js'
+import { AppointmentParticipant, type Appointment } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -28,6 +28,16 @@ import {
   appointmentParticipantRequiredSchema,
   appointmentParticipantStatusSchema,
 } from '../valueSets/index.js'
+
+const appointmentParticipantSchema: ZodType<AppointmentParticipant> =
+  backboneElementSchema.extend({
+    type: codeableConceptSchema.array().optional(),
+    period: periodSchema.optional(),
+    actor: referenceSchema.optional(),
+    required: appointmentParticipantRequiredSchema.optional(),
+    status: appointmentParticipantStatusSchema,
+    _status: elementSchema.optional(),
+  })
 
 export const untypedAppointmentSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -60,17 +70,7 @@ export const untypedAppointmentSchema = z.lazy(() =>
     patientInstruction: stringSchema.optional(),
     _patientInstruction: elementSchema.optional(),
     basedOn: referenceSchema.array().optional(),
-    participant: backboneElementSchema
-      .extend({
-        type: codeableConceptSchema.array().optional(),
-        period: periodSchema.optional(),
-        actor: referenceSchema.optional(),
-        required: appointmentParticipantRequiredSchema.optional(),
-        status: appointmentParticipantStatusSchema,
-        _status: elementSchema.optional(),
-      })
-      .array()
-      .min(1),
+    participant: appointmentParticipantSchema.array().min(1),
     requestPeriod: periodSchema.array().optional(),
   }),
 ) satisfies ZodType<Appointment>

@@ -35,50 +35,42 @@ import {
 import { nutritionProductStatusSchema } from '../valueSets/index.js'
 
 const nutritionProductNutrientSchema: ZodType<NutritionProductNutrient> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      amount: ratioSchema.array().optional(),
-      item: codeableReferenceSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    amount: ratioSchema.array().optional(),
+    item: codeableReferenceSchema.optional(),
+  })
 
 const nutritionProductIngredientSchema: ZodType<NutritionProductIngredient> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      amount: ratioSchema.array().optional(),
-      item: codeableReferenceSchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    amount: ratioSchema.array().optional(),
+    item: codeableReferenceSchema,
+  })
 
 const nutritionProductProductCharacteristicSchema: ZodType<NutritionProductProductCharacteristic> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema,
-      valueCodeableConcept: codeableConceptSchema.optional(),
-      valueString: stringSchema.optional(),
-      _valueString: elementSchema.optional(),
-      valueQuantity: quantitySchema.optional(),
-      valueBase64Binary: base64BinarySchema.optional(),
-      _valueBase64Binary: elementSchema.optional(),
-      valueAttachment: attachmentSchema.optional(),
-      valueBoolean: booleanSchema.optional(),
-      _valueBoolean: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueBase64Binary: base64BinarySchema.optional(),
+    _valueBase64Binary: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+  })
 
 const nutritionProductInstanceSchema: ZodType<NutritionProductInstance> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      expiry: dateTimeSchema.optional(),
-      _expiry: elementSchema.optional(),
-      identifier: identifierSchema.array().optional(),
-      lotNumber: stringSchema.optional(),
-      _lotNumber: elementSchema.optional(),
-      quantity: quantitySchema.optional(),
-      useBy: dateTimeSchema.optional(),
-      _useBy: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    expiry: dateTimeSchema.optional(),
+    _expiry: elementSchema.optional(),
+    identifier: identifierSchema.array().optional(),
+    lotNumber: stringSchema.optional(),
+    _lotNumber: elementSchema.optional(),
+    quantity: quantitySchema.optional(),
+    useBy: dateTimeSchema.optional(),
+    _useBy: elementSchema.optional(),
+  })
 
 export const untypedNutritionProductSchema = z.lazy(() =>
   domainResourceSchema.extend({

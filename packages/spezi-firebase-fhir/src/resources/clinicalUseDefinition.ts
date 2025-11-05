@@ -30,79 +30,67 @@ import {
 import { clinicalUseDefinitionTypeSchema } from '../valueSets/index.js'
 
 const clinicalUseDefinitionContraindicationSchema: ZodType<ClinicalUseDefinitionContraindication> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      diseaseSymptomProcedure: codeableReferenceSchema.optional(),
-      diseaseStatus: codeableReferenceSchema.optional(),
-      comorbidity: codeableReferenceSchema.array().optional(),
-      indication: referenceSchema.array().optional(),
-      otherTherapy: backboneElementSchema
-        .extend({
-          relationshipType: codeableConceptSchema,
-          therapy: codeableReferenceSchema,
-        })
-        .array()
-        .optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    diseaseSymptomProcedure: codeableReferenceSchema.optional(),
+    diseaseStatus: codeableReferenceSchema.optional(),
+    comorbidity: codeableReferenceSchema.array().optional(),
+    indication: referenceSchema.array().optional(),
+    otherTherapy: backboneElementSchema
+      .extend({
+        relationshipType: codeableConceptSchema,
+        therapy: codeableReferenceSchema,
+      })
+      .array()
+      .optional(),
+  })
 
 const clinicalUseDefinitionIndicationSchema: ZodType<ClinicalUseDefinitionIndication> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      diseaseSymptomProcedure: codeableReferenceSchema.optional(),
-      diseaseStatus: codeableReferenceSchema.optional(),
-      comorbidity: codeableReferenceSchema.array().optional(),
-      intendedEffect: codeableReferenceSchema.optional(),
-      duration: elementSchema.optional(),
-      undesirableEffect: referenceSchema.array().optional(),
-      otherTherapy: backboneElementSchema
-        .extend({
-          relationshipType: codeableConceptSchema,
-          therapy: codeableReferenceSchema,
-        })
-        .array()
-        .optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    diseaseSymptomProcedure: codeableReferenceSchema.optional(),
+    diseaseStatus: codeableReferenceSchema.optional(),
+    comorbidity: codeableReferenceSchema.array().optional(),
+    intendedEffect: codeableReferenceSchema.optional(),
+    duration: elementSchema.optional(),
+    undesirableEffect: referenceSchema.array().optional(),
+    otherTherapy: backboneElementSchema
+      .extend({
+        relationshipType: codeableConceptSchema,
+        therapy: codeableReferenceSchema,
+      })
+      .array()
+      .optional(),
+  })
 
 const clinicalUseDefinitionInteractionInteractantSchema: ZodType<ClinicalUseDefinitionInteractionInteractant> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      itemReference: referenceSchema.optional(),
-      itemCodeableConcept: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    itemReference: referenceSchema.optional(),
+    itemCodeableConcept: codeableConceptSchema.optional(),
+  })
 
 const clinicalUseDefinitionInteractionSchema: ZodType<ClinicalUseDefinitionInteraction> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      interactant: clinicalUseDefinitionInteractionInteractantSchema
-        .array()
-        .optional(),
-      type: codeableConceptSchema.optional(),
-      effect: codeableReferenceSchema.optional(),
-      incidence: codeableConceptSchema.optional(),
-      management: codeableConceptSchema.array().optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    interactant: clinicalUseDefinitionInteractionInteractantSchema
+      .array()
+      .optional(),
+    type: codeableConceptSchema.optional(),
+    effect: codeableReferenceSchema.optional(),
+    incidence: codeableConceptSchema.optional(),
+    management: codeableConceptSchema.array().optional(),
+  })
 
 const clinicalUseDefinitionUndesirableEffectSchema: ZodType<ClinicalUseDefinitionUndesirableEffect> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      symptomConditionEffect: codeableReferenceSchema.optional(),
-      classification: codeableConceptSchema.optional(),
-      frequencyOfOccurrence: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    symptomConditionEffect: codeableReferenceSchema.optional(),
+    classification: codeableConceptSchema.optional(),
+    frequencyOfOccurrence: codeableConceptSchema.optional(),
+  })
 
 const clinicalUseDefinitionWarningSchema: ZodType<ClinicalUseDefinitionWarning> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      description: stringSchema.optional(),
-      _description: elementSchema.optional(),
-      code: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    code: codeableConceptSchema.optional(),
+  })
 
 export const untypedClinicalUseDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({

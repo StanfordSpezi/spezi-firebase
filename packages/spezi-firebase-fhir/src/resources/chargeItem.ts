@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ChargeItem } from 'fhir/r4b.js'
+import { ChargeItemPerformer, type ChargeItem } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
@@ -29,6 +29,12 @@ import {
 } from '../elements/index.js'
 import { chargeItemStatusSchema } from '../valueSets/index.js'
 
+const chargeItemPerformerSchema: ZodType<ChargeItemPerformer> =
+  backboneElementSchema.extend({
+    function: codeableConceptSchema.optional(),
+    actor: referenceSchema,
+  })
+
 export const untypedChargeItemSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ChargeItem').readonly(),
@@ -47,13 +53,7 @@ export const untypedChargeItemSchema = z.lazy(() =>
     _occurrenceDateTime: elementSchema.optional(),
     occurrencePeriod: periodSchema.optional(),
     occurrenceTiming: timingSchema.optional(),
-    performer: backboneElementSchema
-      .extend({
-        function: codeableConceptSchema.optional(),
-        actor: referenceSchema,
-      })
-      .array()
-      .optional(),
+    performer: chargeItemPerformerSchema.array().optional(),
     performingOrganization: referenceSchema.optional(),
     requestingOrganization: referenceSchema.optional(),
     costCenter: referenceSchema.optional(),

@@ -39,56 +39,46 @@ import {
 import { publicationStatusSchema } from '../valueSets/index.js'
 
 const measureGroupStratifierComponentSchema: ZodType<MeasureGroupStratifierComponent> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema.optional(),
-      description: stringSchema.optional(),
-      _description: elementSchema.optional(),
-      criteria: expressionSchema,
-    }),
-  )
-
-const measureGroupStratifierSchema: ZodType<MeasureGroupStratifier> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema.optional(),
-      description: stringSchema.optional(),
-      _description: elementSchema.optional(),
-      criteria: expressionSchema.optional(),
-      component: measureGroupStratifierComponentSchema.array().optional(),
-    }),
-)
-
-const measureGroupPopulationSchema: ZodType<MeasureGroupPopulation> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema.optional(),
-      description: stringSchema.optional(),
-      _description: elementSchema.optional(),
-      criteria: expressionSchema,
-    }),
-)
-
-const measureGroupSchema: ZodType<MeasureGroup> = z.lazy(() =>
   backboneElementSchema.extend({
     code: codeableConceptSchema.optional(),
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
-    population: measureGroupPopulationSchema.array().optional(),
-    stratifier: measureGroupStratifierSchema.array().optional(),
-  }),
-)
+    criteria: expressionSchema,
+  })
 
-const measureSupplementalDataSchema: ZodType<MeasureSupplementalData> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema.optional(),
-      usage: codeableConceptSchema.array().optional(),
-      description: stringSchema.optional(),
-      _description: elementSchema.optional(),
-      criteria: expressionSchema,
-    }),
-)
+const measureGroupStratifierSchema: ZodType<MeasureGroupStratifier> =
+  backboneElementSchema.extend({
+    code: codeableConceptSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    criteria: expressionSchema.optional(),
+    component: measureGroupStratifierComponentSchema.array().optional(),
+  })
+
+const measureGroupPopulationSchema: ZodType<MeasureGroupPopulation> =
+  backboneElementSchema.extend({
+    code: codeableConceptSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    criteria: expressionSchema,
+  })
+
+const measureGroupSchema: ZodType<MeasureGroup> = backboneElementSchema.extend({
+  code: codeableConceptSchema.optional(),
+  description: stringSchema.optional(),
+  _description: elementSchema.optional(),
+  population: measureGroupPopulationSchema.array().optional(),
+  stratifier: measureGroupStratifierSchema.array().optional(),
+})
+
+const measureSupplementalDataSchema: ZodType<MeasureSupplementalData> =
+  backboneElementSchema.extend({
+    code: codeableConceptSchema.optional(),
+    usage: codeableConceptSchema.array().optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    criteria: expressionSchema,
+  })
 
 export const untypedMeasureSchema = z.lazy(() =>
   domainResourceSchema.extend({

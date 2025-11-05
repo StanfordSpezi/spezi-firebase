@@ -26,19 +26,17 @@ import {
 } from '../elements/index.js'
 
 const regulatedAuthorizationCaseSchema: ZodType<RegulatedAuthorizationCase> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      application: z
-        .array(z.lazy(() => regulatedAuthorizationCaseSchema))
-        .optional(),
-      datePeriod: periodSchema.optional(),
-      dateDateTime: dateTimeSchema.optional(),
-      _dateDateTime: elementSchema.optional(),
-      identifier: identifierSchema.optional(),
-      status: codeableConceptSchema.optional(),
-      type: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    get application() {
+      return regulatedAuthorizationCaseSchema.array().optional()
+    },
+    datePeriod: periodSchema.optional(),
+    dateDateTime: dateTimeSchema.optional(),
+    _dateDateTime: elementSchema.optional(),
+    identifier: identifierSchema.optional(),
+    status: codeableConceptSchema.optional(),
+    type: codeableConceptSchema.optional(),
+  })
 
 export const untypedRegulatedAuthorizationSchema = z.lazy(() =>
   domainResourceSchema.extend({

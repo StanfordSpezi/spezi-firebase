@@ -13,12 +13,18 @@ import {
   type SubstanceDefinitionProperty,
   type SubstanceDefinitionRelationship,
   type SubstanceDefinitionSourceMaterial,
+  SubstanceDefinitionMolecularWeight,
+  SubstanceDefinitionStructure,
+  SubstanceDefinitionStructureRepresentation,
+  SubstanceDefinitionNameOfficial,
+  SubstanceDefinitionCode,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   annotationSchema,
   backboneElementSchema,
+  booleanSchema,
   codeableConceptSchema,
   domainResourceSchema,
   elementSchema,
@@ -28,7 +34,7 @@ import {
   stringSchema,
 } from '../elements/index.js'
 
-const substanceDefinitionCodeSchema = z.lazy(() =>
+const substanceDefinitionCodeSchema: ZodType<SubstanceDefinitionCode> =
   backboneElementSchema.extend({
     code: codeableConceptSchema.optional(),
     status: codeableConceptSchema.optional(),
@@ -36,108 +42,107 @@ const substanceDefinitionCodeSchema = z.lazy(() =>
     _statusDate: elementSchema.optional(),
     note: annotationSchema.array().optional(),
     source: referenceSchema.array().optional(),
-  }),
-)
+  })
 
-const substanceDefinitionNameSchema: ZodType<SubstanceDefinitionName> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      name: stringSchema,
-      _name: elementSchema.optional(),
-      type: codeableConceptSchema.optional(),
-      status: codeableConceptSchema.optional(),
-      preferred: z.boolean().optional(),
-      _preferred: elementSchema.optional(),
-      language: codeableConceptSchema.array().optional(),
-      domain: codeableConceptSchema.array().optional(),
-      jurisdiction: codeableConceptSchema.array().optional(),
-      synonym: z.lazy(() => substanceDefinitionNameSchema.array()).optional(),
-      translation: z
-        .lazy(() => substanceDefinitionNameSchema.array())
-        .optional(),
-      official: backboneElementSchema
-        .extend({
-          authority: codeableConceptSchema.optional(),
-          status: codeableConceptSchema.optional(),
-          date: stringSchema.optional(),
-          _date: elementSchema.optional(),
-        })
-        .array()
-        .optional(),
-      source: referenceSchema.array().optional(),
-    }),
-)
+const substanceDefinitionNameOfficialSchema: ZodType<SubstanceDefinitionNameOfficial> =
+  backboneElementSchema.extend({
+    authority: codeableConceptSchema.optional(),
+    status: codeableConceptSchema.optional(),
+    date: stringSchema.optional(),
+    _date: elementSchema.optional(),
+  })
+
+const substanceDefinitionNameSchema: ZodType<SubstanceDefinitionName> =
+  backboneElementSchema.extend({
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    type: codeableConceptSchema.optional(),
+    status: codeableConceptSchema.optional(),
+    preferred: z.boolean().optional(),
+    _preferred: elementSchema.optional(),
+    language: codeableConceptSchema.array().optional(),
+    domain: codeableConceptSchema.array().optional(),
+    jurisdiction: codeableConceptSchema.array().optional(),
+    get synonym() {
+      return substanceDefinitionNameSchema.array().optional()
+    },
+    get translation() {
+      return substanceDefinitionNameSchema.array().optional()
+    },
+    official: substanceDefinitionNameOfficialSchema.array().optional(),
+    source: referenceSchema.array().optional(),
+  })
 
 const substanceDefinitionMoietySchema: ZodType<SubstanceDefinitionMoiety> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      role: codeableConceptSchema.optional(),
-      identifier: identifierSchema.optional(),
-      name: stringSchema.optional(),
-      _name: elementSchema.optional(),
-      stereochemistry: codeableConceptSchema.optional(),
-      opticalActivity: codeableConceptSchema.optional(),
-      molecularFormula: stringSchema.optional(),
-      _molecularFormula: elementSchema.optional(),
-      amountQuantity: elementSchema.optional(),
-      amountString: stringSchema.optional(),
-      _amountString: elementSchema.optional(),
-      measurementType: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    role: codeableConceptSchema.optional(),
+    identifier: identifierSchema.optional(),
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+    stereochemistry: codeableConceptSchema.optional(),
+    opticalActivity: codeableConceptSchema.optional(),
+    molecularFormula: stringSchema.optional(),
+    _molecularFormula: elementSchema.optional(),
+    amountQuantity: elementSchema.optional(),
+    amountString: stringSchema.optional(),
+    _amountString: elementSchema.optional(),
+    measurementType: codeableConceptSchema.optional(),
+  })
 
 const substanceDefinitionPropertySchema: ZodType<SubstanceDefinitionProperty> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema,
-      valueCodeableConcept: codeableConceptSchema.optional(),
-      valueQuantity: elementSchema.optional(),
-      valueDate: stringSchema.optional(),
-      _valueDate: elementSchema.optional(),
-      valueBoolean: z.boolean().optional(),
-      _valueBoolean: elementSchema.optional(),
-      valueAttachment: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueQuantity: elementSchema.optional(),
+    valueDate: stringSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueBoolean: z.boolean().optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueAttachment: elementSchema.optional(),
+  })
 
 const substanceDefinitionRelationshipSchema: ZodType<SubstanceDefinitionRelationship> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      substanceDefinitionReference: referenceSchema.optional(),
-      substanceDefinitionCodeableConcept: codeableConceptSchema.optional(),
-      type: codeableConceptSchema,
-      isDefining: z.boolean().optional(),
-      _isDefining: elementSchema.optional(),
-      amountQuantity: elementSchema.optional(),
-      amountRatio: elementSchema.optional(),
-      amountString: stringSchema.optional(),
-      _amountString: elementSchema.optional(),
-      ratioHighLimitAmount: elementSchema.optional(),
-      comparator: codeableConceptSchema.optional(),
-      source: referenceSchema.array().optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    substanceDefinitionReference: referenceSchema.optional(),
+    substanceDefinitionCodeableConcept: codeableConceptSchema.optional(),
+    type: codeableConceptSchema,
+    isDefining: booleanSchema.optional(),
+    _isDefining: elementSchema.optional(),
+    amountQuantity: elementSchema.optional(),
+    amountRatio: elementSchema.optional(),
+    amountString: stringSchema.optional(),
+    _amountString: elementSchema.optional(),
+    ratioHighLimitAmount: elementSchema.optional(),
+    comparator: codeableConceptSchema.optional(),
+    source: referenceSchema.array().optional(),
+  })
 
 const substanceDefinitionSourceMaterialSchema: ZodType<SubstanceDefinitionSourceMaterial> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema.optional(),
-      genus: codeableConceptSchema.optional(),
-      species: codeableConceptSchema.optional(),
-      part: codeableConceptSchema.optional(),
-      countryOfOrigin: codeableConceptSchema.array().optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema.optional(),
+    genus: codeableConceptSchema.optional(),
+    species: codeableConceptSchema.optional(),
+    part: codeableConceptSchema.optional(),
+    countryOfOrigin: codeableConceptSchema.array().optional(),
+  })
 
-const substanceDefinitionMolecularWeightSchema = z.lazy(() =>
+const substanceDefinitionMolecularWeightSchema: ZodType<SubstanceDefinitionMolecularWeight> =
   backboneElementSchema.extend({
     method: codeableConceptSchema.optional(),
     type: codeableConceptSchema.optional(),
     amount: quantitySchema,
-  }),
-)
+  })
 
-const substanceDefinitionStructureSchema = z.lazy(() =>
+const substanceDefinitionStructureRepresentationSchema: ZodType<SubstanceDefinitionStructureRepresentation> =
+  backboneElementSchema.extend({
+    type: codeableConceptSchema.optional(),
+    representation: stringSchema.optional(),
+    _representation: elementSchema.optional(),
+    format: codeableConceptSchema.optional(),
+    document: referenceSchema.optional(),
+  })
+
+const substanceDefinitionStructureSchema: ZodType<SubstanceDefinitionStructure> =
   backboneElementSchema.extend({
     stereochemistry: codeableConceptSchema.optional(),
     opticalActivity: codeableConceptSchema.optional(),
@@ -148,18 +153,10 @@ const substanceDefinitionStructureSchema = z.lazy(() =>
     molecularWeight: substanceDefinitionMolecularWeightSchema.optional(),
     technique: codeableConceptSchema.array().optional(),
     sourceDocument: referenceSchema.array().optional(),
-    representation: backboneElementSchema
-      .extend({
-        type: codeableConceptSchema.optional(),
-        representation: stringSchema.optional(),
-        _representation: elementSchema.optional(),
-        format: codeableConceptSchema.optional(),
-        document: referenceSchema.optional(),
-      })
+    representation: substanceDefinitionStructureRepresentationSchema
       .array()
       .optional(),
-  }),
-)
+  })
 
 export const untypedSubstanceDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({

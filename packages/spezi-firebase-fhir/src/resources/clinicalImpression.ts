@@ -28,22 +28,18 @@ import {
 import { clinicalImpressionStatusSchema } from '../valueSets/index.js'
 
 const clinicalImpressionFindingSchema: ZodType<ClinicalImpressionFinding> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      itemCodeableConcept: codeableConceptSchema.optional(),
-      itemReference: referenceSchema.optional(),
-      basis: stringSchema.optional(),
-      _basis: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    itemCodeableConcept: codeableConceptSchema.optional(),
+    itemReference: referenceSchema.optional(),
+    basis: stringSchema.optional(),
+    _basis: elementSchema.optional(),
+  })
 
 const clinicalImpressionInvestigationSchema: ZodType<ClinicalImpressionInvestigation> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema,
-      item: referenceSchema.array().optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    code: codeableConceptSchema,
+    item: referenceSchema.array().optional(),
+  })
 
 export const untypedClinicalImpressionSchema = z.lazy(() =>
   domainResourceSchema.extend({

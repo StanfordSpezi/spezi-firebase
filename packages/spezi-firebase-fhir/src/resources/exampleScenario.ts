@@ -41,64 +41,60 @@ const exampleScenarioInstanceContainedInstanceSchema =
   })
 
 const exampleScenarioProcessStepSchema: ZodType<ExampleScenarioProcessStep> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      alternative: backboneElementSchema
-        .extend({
-          description: markdownSchema.optional(),
-          _description: elementSchema.optional(),
-          get step() {
-            return exampleScenarioProcessStepSchema.array().optional()
-          },
-          title: stringSchema,
-          _title: elementSchema.optional(),
-        })
-        .array()
-        .optional(),
-      operation: backboneElementSchema
-        .extend({
-          description: markdownSchema.optional(),
-          _description: elementSchema.optional(),
-          initiator: stringSchema.optional(),
-          _initiator: elementSchema.optional(),
-          initiatorActive: booleanSchema.optional(),
-          _initiatorActive: elementSchema.optional(),
-          name: stringSchema.optional(),
-          _name: elementSchema.optional(),
-          number: stringSchema,
-          _number: elementSchema.optional(),
-          receiver: stringSchema.optional(),
-          _receiver: elementSchema.optional(),
-          receiverActive: booleanSchema.optional(),
-          _receiverActive: elementSchema.optional(),
-          request: exampleScenarioInstanceContainedInstanceSchema.optional(),
-          response: exampleScenarioInstanceContainedInstanceSchema.optional(),
-          type: stringSchema.optional(),
-          _type: elementSchema.optional(),
-        })
-        .optional(),
-      pause: booleanSchema.optional(),
-      _pause: elementSchema.optional(),
-      get process() {
-        return exampleScenarioProcessSchema.array().optional()
-      },
-    }),
-  )
+  backboneElementSchema.extend({
+    alternative: backboneElementSchema
+      .extend({
+        description: markdownSchema.optional(),
+        _description: elementSchema.optional(),
+        get step() {
+          return exampleScenarioProcessStepSchema.array().optional()
+        },
+        title: stringSchema,
+        _title: elementSchema.optional(),
+      })
+      .array()
+      .optional(),
+    operation: backboneElementSchema
+      .extend({
+        description: markdownSchema.optional(),
+        _description: elementSchema.optional(),
+        initiator: stringSchema.optional(),
+        _initiator: elementSchema.optional(),
+        initiatorActive: booleanSchema.optional(),
+        _initiatorActive: elementSchema.optional(),
+        name: stringSchema.optional(),
+        _name: elementSchema.optional(),
+        number: stringSchema,
+        _number: elementSchema.optional(),
+        receiver: stringSchema.optional(),
+        _receiver: elementSchema.optional(),
+        receiverActive: booleanSchema.optional(),
+        _receiverActive: elementSchema.optional(),
+        request: exampleScenarioInstanceContainedInstanceSchema.optional(),
+        response: exampleScenarioInstanceContainedInstanceSchema.optional(),
+        type: stringSchema.optional(),
+        _type: elementSchema.optional(),
+      })
+      .optional(),
+    pause: booleanSchema.optional(),
+    _pause: elementSchema.optional(),
+    get process() {
+      return exampleScenarioProcessSchema.array().optional()
+    },
+  })
 
-const exampleScenarioProcessSchema: ZodType<ExampleScenarioProcess> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      description: markdownSchema.optional(),
-      _description: elementSchema.optional(),
-      postConditions: markdownSchema.optional(),
-      _postConditions: elementSchema.optional(),
-      preConditions: markdownSchema.optional(),
-      _preConditions: elementSchema.optional(),
-      step: exampleScenarioProcessStepSchema.array().optional(),
-      title: stringSchema,
-      _title: elementSchema.optional(),
-    }),
-)
+const exampleScenarioProcessSchema: ZodType<ExampleScenarioProcess> =
+  backboneElementSchema.extend({
+    description: markdownSchema.optional(),
+    _description: elementSchema.optional(),
+    postConditions: markdownSchema.optional(),
+    _postConditions: elementSchema.optional(),
+    preConditions: markdownSchema.optional(),
+    _preConditions: elementSchema.optional(),
+    step: exampleScenarioProcessStepSchema.array().optional(),
+    title: stringSchema,
+    _title: elementSchema.optional(),
+  })
 
 export const untypedExampleScenarioSchema = z.lazy(() =>
   domainResourceSchema.extend({

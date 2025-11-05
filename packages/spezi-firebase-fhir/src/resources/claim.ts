@@ -6,7 +6,19 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Claim } from 'fhir/r4b.js'
+import {
+  ClaimAccident,
+  ClaimCareTeam,
+  ClaimDiagnosis,
+  ClaimInsurance,
+  ClaimItem,
+  ClaimItemDetail,
+  ClaimPayee,
+  ClaimProcedure,
+  ClaimRelated,
+  ClaimSupportingInfo,
+  type Claim,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
@@ -33,6 +45,132 @@ import {
   claimUseSchema,
 } from '../valueSets/index.js'
 
+const claimRelatedSchema: ZodType<ClaimRelated> = backboneElementSchema.extend({
+  claim: referenceSchema.optional(),
+  relationship: codeableConceptSchema.optional(),
+  reference: identifierSchema.optional(),
+})
+
+const claimPayeeSchema: ZodType<ClaimPayee> = backboneElementSchema.extend({
+  type: codeableConceptSchema,
+  party: referenceSchema.optional(),
+})
+
+const claimCareTeamSchema: ZodType<ClaimCareTeam> =
+  backboneElementSchema.extend({
+    sequence: positiveIntSchema,
+    provider: referenceSchema,
+    responsible: booleanSchema.optional(),
+    _responsible: elementSchema.optional(),
+    role: codeableConceptSchema.optional(),
+    qualification: codeableConceptSchema.optional(),
+  })
+
+const claimSupportingInfoSchema: ZodType<ClaimSupportingInfo> =
+  backboneElementSchema.extend({
+    sequence: positiveIntSchema,
+    category: codeableConceptSchema,
+    code: codeableConceptSchema.optional(),
+    timingDate: dateSchema.optional(),
+    _timingDate: elementSchema.optional(),
+    timingPeriod: periodSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+    valueReference: referenceSchema.optional(),
+    reason: codeableConceptSchema.optional(),
+  })
+
+const claimDiagnosisSchema: ZodType<ClaimDiagnosis> =
+  backboneElementSchema.extend({
+    sequence: positiveIntSchema,
+    diagnosisCodeableConcept: codeableConceptSchema.optional(),
+    diagnosisReference: referenceSchema.optional(),
+    type: codeableConceptSchema.array().optional(),
+    onAdmission: codeableConceptSchema.optional(),
+    packageCode: codeableConceptSchema.optional(),
+  })
+
+const claimProcedureSchema: ZodType<ClaimProcedure> =
+  backboneElementSchema.extend({
+    sequence: positiveIntSchema,
+    type: codeableConceptSchema.array().optional(),
+    date: dateTimeSchema.optional(),
+    _date: elementSchema.optional(),
+    procedureCodeableConcept: codeableConceptSchema.optional(),
+    procedureReference: referenceSchema.optional(),
+    udi: referenceSchema.array().optional(),
+  })
+
+const claimInsuranceSchema: ZodType<ClaimInsurance> =
+  backboneElementSchema.extend({
+    sequence: positiveIntSchema,
+    focal: booleanSchema,
+    _focal: elementSchema.optional(),
+    identifier: identifierSchema.optional(),
+    coverage: referenceSchema,
+    businessArrangement: stringSchema.optional(),
+    _businessArrangement: elementSchema.optional(),
+    preAuthRef: stringSchema.array().optional(),
+    _preAuthRef: elementSchema.array().optional(),
+    claimResponse: referenceSchema.optional(),
+  })
+
+const claimAccidentSchema: ZodType<ClaimAccident> =
+  backboneElementSchema.extend({
+    date: dateSchema,
+    _date: elementSchema.optional(),
+    type: codeableConceptSchema.optional(),
+    locationAddress: addressSchema.optional(),
+    locationReference: referenceSchema.optional(),
+  })
+
+const claimItemDetailSchema: ZodType<ClaimItemDetail> =
+  backboneElementSchema.extend({
+    sequence: positiveIntSchema,
+    revenue: codeableConceptSchema.optional(),
+    category: codeableConceptSchema.optional(),
+    productOrService: codeableConceptSchema,
+    modifier: codeableConceptSchema.array().optional(),
+    programCode: codeableConceptSchema.array().optional(),
+    quantity: quantitySchema.optional(),
+    unitPrice: moneySchema.optional(),
+    factor: decimalSchema.optional(),
+    net: moneySchema.optional(),
+    udi: referenceSchema.array().optional(),
+  })
+
+const claimItemSchema: ZodType<ClaimItem> = backboneElementSchema.extend({
+  sequence: positiveIntSchema,
+  careTeamSequence: positiveIntSchema.array().optional(),
+  diagnosisSequence: positiveIntSchema.array().optional(),
+  procedureSequence: positiveIntSchema.array().optional(),
+  informationSequence: positiveIntSchema.array().optional(),
+  revenue: codeableConceptSchema.optional(),
+  category: codeableConceptSchema.optional(),
+  productOrService: codeableConceptSchema,
+  modifier: codeableConceptSchema.array().optional(),
+  programCode: codeableConceptSchema.array().optional(),
+  servicedDate: dateSchema.optional(),
+  _servicedDate: elementSchema.optional(),
+  servicedPeriod: periodSchema.optional(),
+  locationCodeableConcept: codeableConceptSchema.optional(),
+  locationAddress: addressSchema.optional(),
+  locationReference: referenceSchema.optional(),
+  quantity: quantitySchema.optional(),
+  unitPrice: moneySchema.optional(),
+  factor: decimalSchema.optional(),
+  net: moneySchema.optional(),
+  udi: referenceSchema.array().optional(),
+  bodySite: codeableConceptSchema.optional(),
+  subSite: codeableConceptSchema.array().optional(),
+  encounter: referenceSchema.array().optional(),
+  detail: claimItemDetailSchema.array().optional(),
+})
+
 export const untypedClaimSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Claim').readonly(),
@@ -52,145 +190,19 @@ export const untypedClaimSchema = z.lazy(() =>
     provider: referenceSchema,
     priority: codeableConceptSchema,
     fundsReserve: codeableConceptSchema.optional(),
-    related: backboneElementSchema
-      .extend({
-        claim: referenceSchema.optional(),
-        relationship: codeableConceptSchema.optional(),
-        reference: identifierSchema.optional(),
-      })
-      .array()
-      .optional(),
+    related: claimRelatedSchema.array().optional(),
     prescription: referenceSchema.optional(),
     originalPrescription: referenceSchema.optional(),
-    payee: backboneElementSchema
-      .extend({
-        type: codeableConceptSchema,
-        party: referenceSchema.optional(),
-      })
-      .optional(),
+    payee: claimPayeeSchema.optional(),
     referral: referenceSchema.optional(),
     facility: referenceSchema.optional(),
-    careTeam: backboneElementSchema
-      .extend({
-        sequence: positiveIntSchema,
-        provider: referenceSchema,
-        responsible: booleanSchema.optional(),
-        _responsible: elementSchema.optional(),
-        role: codeableConceptSchema.optional(),
-        qualification: codeableConceptSchema.optional(),
-      })
-      .array()
-      .optional(),
-    supportingInfo: backboneElementSchema
-      .extend({
-        sequence: positiveIntSchema,
-        category: codeableConceptSchema,
-        code: codeableConceptSchema.optional(),
-        timingDate: dateSchema.optional(),
-        _timingDate: elementSchema.optional(),
-        timingPeriod: periodSchema.optional(),
-        valueBoolean: booleanSchema.optional(),
-        _valueBoolean: elementSchema.optional(),
-        valueString: stringSchema.optional(),
-        _valueString: elementSchema.optional(),
-        valueQuantity: quantitySchema.optional(),
-        valueAttachment: attachmentSchema.optional(),
-        valueReference: referenceSchema.optional(),
-        reason: codeableConceptSchema.optional(),
-      })
-      .array()
-      .optional(),
-    diagnosis: backboneElementSchema
-      .extend({
-        sequence: positiveIntSchema,
-        diagnosisCodeableConcept: codeableConceptSchema.optional(),
-        diagnosisReference: referenceSchema.optional(),
-        type: codeableConceptSchema.array().optional(),
-        onAdmission: codeableConceptSchema.optional(),
-        packageCode: codeableConceptSchema.optional(),
-      })
-      .array()
-      .optional(),
-    procedure: backboneElementSchema
-      .extend({
-        sequence: positiveIntSchema,
-        type: codeableConceptSchema.array().optional(),
-        date: dateTimeSchema.optional(),
-        _date: elementSchema.optional(),
-        procedureCodeableConcept: codeableConceptSchema.optional(),
-        procedureReference: referenceSchema.optional(),
-        udi: referenceSchema.array().optional(),
-      })
-      .array()
-      .optional(),
-    insurance: backboneElementSchema
-      .extend({
-        sequence: positiveIntSchema,
-        focal: booleanSchema,
-        _focal: elementSchema.optional(),
-        identifier: identifierSchema.optional(),
-        coverage: referenceSchema,
-        businessArrangement: stringSchema.optional(),
-        _businessArrangement: elementSchema.optional(),
-        preAuthRef: stringSchema.array().optional(),
-        _preAuthRef: elementSchema.array().optional(),
-        claimResponse: referenceSchema.optional(),
-      })
-      .array(),
-    accident: backboneElementSchema
-      .extend({
-        date: dateSchema,
-        _date: elementSchema.optional(),
-        type: codeableConceptSchema.optional(),
-        locationAddress: addressSchema.optional(),
-        locationReference: referenceSchema.optional(),
-      })
-      .optional(),
-    item: backboneElementSchema
-      .extend({
-        sequence: positiveIntSchema,
-        careTeamSequence: positiveIntSchema.array().optional(),
-        diagnosisSequence: positiveIntSchema.array().optional(),
-        procedureSequence: positiveIntSchema.array().optional(),
-        informationSequence: positiveIntSchema.array().optional(),
-        revenue: codeableConceptSchema.optional(),
-        category: codeableConceptSchema.optional(),
-        productOrService: codeableConceptSchema,
-        modifier: codeableConceptSchema.array().optional(),
-        programCode: codeableConceptSchema.array().optional(),
-        servicedDate: dateSchema.optional(),
-        _servicedDate: elementSchema.optional(),
-        servicedPeriod: periodSchema.optional(),
-        locationCodeableConcept: codeableConceptSchema.optional(),
-        locationAddress: addressSchema.optional(),
-        locationReference: referenceSchema.optional(),
-        quantity: quantitySchema.optional(),
-        unitPrice: moneySchema.optional(),
-        factor: decimalSchema.optional(),
-        net: moneySchema.optional(),
-        udi: referenceSchema.array().optional(),
-        bodySite: codeableConceptSchema.optional(),
-        subSite: codeableConceptSchema.array().optional(),
-        encounter: referenceSchema.array().optional(),
-        detail: backboneElementSchema
-          .extend({
-            sequence: positiveIntSchema,
-            revenue: codeableConceptSchema.optional(),
-            category: codeableConceptSchema.optional(),
-            productOrService: codeableConceptSchema,
-            modifier: codeableConceptSchema.array().optional(),
-            programCode: codeableConceptSchema.array().optional(),
-            quantity: quantitySchema.optional(),
-            unitPrice: moneySchema.optional(),
-            factor: decimalSchema.optional(),
-            net: moneySchema.optional(),
-            udi: referenceSchema.array().optional(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
+    careTeam: claimCareTeamSchema.array().optional(),
+    supportingInfo: claimSupportingInfoSchema.array().optional(),
+    diagnosis: claimDiagnosisSchema.array().optional(),
+    procedure: claimProcedureSchema.array().optional(),
+    insurance: claimInsuranceSchema.array(),
+    accident: claimAccidentSchema.optional(),
+    item: claimItemSchema.array().optional(),
     total: moneySchema.optional(),
   }),
 ) satisfies ZodType<Claim>

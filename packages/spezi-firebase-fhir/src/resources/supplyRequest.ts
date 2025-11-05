@@ -28,17 +28,15 @@ import {
   supplyRequestStatusSchema,
 } from '../valueSets/index.js'
 
-const supplyRequestParameterSchema: ZodType<SupplyRequestParameter> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema.optional(),
-      valueCodeableConcept: codeableConceptSchema.optional(),
-      valueQuantity: quantitySchema.optional(),
-      valueRange: rangeSchema.optional(),
-      valueBoolean: booleanSchema.optional(),
-      _valueBoolean: elementSchema.optional(),
-    }),
-)
+const supplyRequestParameterSchema: ZodType<SupplyRequestParameter> =
+  backboneElementSchema.extend({
+    code: codeableConceptSchema.optional(),
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueRange: rangeSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+  })
 
 export const untypedSupplyRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({

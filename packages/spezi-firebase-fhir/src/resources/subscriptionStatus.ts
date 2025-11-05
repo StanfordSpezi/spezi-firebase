@@ -6,7 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type SubscriptionStatus } from 'fhir/r4b.js'
+import {
+  SubscriptionStatusNotificationEvent,
+  type SubscriptionStatus,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -24,21 +27,23 @@ import {
   subscriptionStatusTypeSchema,
 } from '../valueSets/index.js'
 
+const subscriptionStatusNotificationEventSchema: ZodType<SubscriptionStatusNotificationEvent> =
+  backboneElementSchema.extend({
+    additionalContext: referenceSchema.array().optional(),
+    eventNumber: stringSchema,
+    _eventNumber: elementSchema.optional(),
+    focus: referenceSchema.optional(),
+    timestamp: instantSchema.optional(),
+    _timestamp: elementSchema.optional(),
+  })
+
 export const untypedSubscriptionStatusSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('SubscriptionStatus').readonly(),
     error: codeableConceptSchema.array().optional(),
     eventsSinceSubscriptionStart: stringSchema.optional(),
     _eventsSinceSubscriptionStart: elementSchema.optional(),
-    notificationEvent: backboneElementSchema
-      .extend({
-        additionalContext: referenceSchema.array().optional(),
-        eventNumber: stringSchema,
-        _eventNumber: elementSchema.optional(),
-        focus: referenceSchema.optional(),
-        timestamp: instantSchema.optional(),
-        _timestamp: elementSchema.optional(),
-      })
+    notificationEvent: subscriptionStatusNotificationEventSchema
       .array()
       .optional(),
     status: subscriptionStatusStatusSchema.optional(),

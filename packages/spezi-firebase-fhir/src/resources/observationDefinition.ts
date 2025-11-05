@@ -6,7 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ObservationDefinition } from 'fhir/r4b.js'
+import {
+  ObservationDefinitionQualifiedInterval,
+  ObservationDefinitionQuantitativeDetails,
+  type ObservationDefinition,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -28,16 +32,15 @@ import {
   observationDefinitionRangeCategorySchema,
 } from '../valueSets/index.js'
 
-const observationDefinitionQuantitativeDetailsSchema = z.lazy(() =>
+const observationDefinitionQuantitativeDetailsSchema: ZodType<ObservationDefinitionQuantitativeDetails> =
   backboneElementSchema.extend({
     conversionFactor: decimalSchema.optional(),
     decimalPrecision: intSchema.optional(),
     unit: codeableConceptSchema.optional(),
     customaryUnit: codeableConceptSchema.optional(),
-  }),
-)
+  })
 
-const observationDefinitionQualifiedIntervalSchema = z.lazy(() =>
+const observationDefinitionQualifiedIntervalSchema: ZodType<ObservationDefinitionQualifiedInterval> =
   backboneElementSchema.extend({
     category: observationDefinitionRangeCategorySchema.optional(),
     _category: elementSchema.optional(),
@@ -50,8 +53,7 @@ const observationDefinitionQualifiedIntervalSchema = z.lazy(() =>
     gestationalAge: rangeSchema.optional(),
     condition: stringSchema.optional(),
     _condition: elementSchema.optional(),
-  }),
-)
+  })
 
 export const untypedObservationDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({

@@ -10,6 +10,8 @@ import {
   type Evidence,
   type EvidenceVariableDefinition,
   type EvidenceStatistic,
+  EvidenceStatisticAttributeEstimate,
+  EvidenceCertainty,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
@@ -40,19 +42,17 @@ import {
 } from '../valueSets/index.js'
 
 const evidenceVariableDefinitionSchema: ZodType<EvidenceVariableDefinition> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      description: markdownSchema.optional(),
-      _description: elementSchema.optional(),
-      note: annotationSchema.array().optional(),
-      variableRole: codeableConceptSchema,
-      observed: referenceSchema.optional(),
-      intended: referenceSchema.optional(),
-      directnessMatch: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    description: markdownSchema.optional(),
+    _description: elementSchema.optional(),
+    note: annotationSchema.array().optional(),
+    variableRole: codeableConceptSchema,
+    observed: referenceSchema.optional(),
+    intended: referenceSchema.optional(),
+    directnessMatch: codeableConceptSchema.optional(),
+  })
 
-const evidenceStatisticAttributeEstimateSchema = z.lazy(() =>
+const evidenceStatisticAttributeEstimateSchema: ZodType<EvidenceStatisticAttributeEstimate> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -65,8 +65,7 @@ const evidenceStatisticAttributeEstimateSchema = z.lazy(() =>
     get attributeEstimate() {
       return evidenceStatisticAttributeEstimateSchema.array().optional()
     },
-  }),
-)
+  })
 
 const evidenceStatisticSchema: ZodType<EvidenceStatistic> = z.lazy(() =>
   backboneElementSchema.extend({
@@ -130,7 +129,7 @@ const evidenceStatisticSchema: ZodType<EvidenceStatistic> = z.lazy(() =>
   }),
 )
 
-const evidenceCertaintySchema = z.lazy(() =>
+const evidenceCertaintySchema: ZodType<EvidenceCertainty> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -142,8 +141,7 @@ const evidenceCertaintySchema = z.lazy(() =>
     get subcomponent() {
       return evidenceCertaintySchema.array().optional()
     },
-  }),
-)
+  })
 
 export const untypedEvidenceSchema = z.lazy(() =>
   domainResourceSchema.extend({

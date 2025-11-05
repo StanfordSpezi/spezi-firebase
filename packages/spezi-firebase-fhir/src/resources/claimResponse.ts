@@ -6,7 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ClaimResponse } from 'fhir/r4b.js'
+import {
+  ClaimResponseItem,
+  ClaimResponseItemAdjudication,
+  ClaimResponseItemDetail,
+  type ClaimResponse,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
@@ -33,6 +38,29 @@ import {
   noteTypeSchema,
 } from '../valueSets/index.js'
 
+const claimResponseItemAdjudicationSchema: ZodType<ClaimResponseItemAdjudication> =
+  backboneElementSchema.extend({
+    category: codeableConceptSchema,
+    reason: codeableConceptSchema.optional(),
+    amount: moneySchema.optional(),
+    value: decimalSchema.optional(),
+  })
+
+const claimResponseItemDetailSchema: ZodType<ClaimResponseItemDetail> =
+  backboneElementSchema.extend({
+    detailSequence: positiveIntSchema,
+    noteNumber: positiveIntSchema.array().optional(),
+    adjudication: claimResponseItemAdjudicationSchema.array(),
+  })
+
+const claimResponseItemSchema: ZodType<ClaimResponseItem> =
+  backboneElementSchema.extend({
+    itemSequence: positiveIntSchema,
+    noteNumber: positiveIntSchema.array().optional(),
+    adjudication: claimResponseItemAdjudicationSchema.array(),
+    detail: claimResponseItemDetailSchema.array().optional(),
+  })
+
 export const untypedClaimResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ClaimResponse').readonly(),
@@ -57,36 +85,7 @@ export const untypedClaimResponseSchema = z.lazy(() =>
     _preAuthRef: elementSchema.optional(),
     preAuthPeriod: periodSchema.optional(),
     payeeType: codeableConceptSchema.optional(),
-    item: backboneElementSchema
-      .extend({
-        itemSequence: positiveIntSchema,
-        noteNumber: positiveIntSchema.array().optional(),
-        adjudication: backboneElementSchema
-          .extend({
-            category: codeableConceptSchema,
-            reason: codeableConceptSchema.optional(),
-            amount: moneySchema.optional(),
-            value: decimalSchema.optional(),
-          })
-          .array(),
-        detail: backboneElementSchema
-          .extend({
-            detailSequence: positiveIntSchema,
-            noteNumber: positiveIntSchema.array().optional(),
-            adjudication: backboneElementSchema
-              .extend({
-                category: codeableConceptSchema,
-                reason: codeableConceptSchema.optional(),
-                amount: moneySchema.optional(),
-                value: decimalSchema.optional(),
-              })
-              .array(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
+    item: claimResponseItemSchema.array().optional(),
     addItem: backboneElementSchema
       .extend({
         itemSequence: positiveIntSchema.array().optional(),

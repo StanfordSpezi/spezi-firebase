@@ -27,13 +27,11 @@ import {
 import { supplyDeliveryStatusSchema } from '../valueSets/index.js'
 
 const supplyDeliverySuppliedItemSchema: ZodType<SupplyDeliverySuppliedItem> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      quantity: quantitySchema.optional(),
-      itemCodeableConcept: codeableConceptSchema.optional(),
-      itemReference: referenceSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    quantity: quantitySchema.optional(),
+    itemCodeableConcept: codeableConceptSchema.optional(),
+    itemReference: referenceSchema.optional(),
+  })
 
 export const untypedSupplyDeliverySchema = z.lazy(() =>
   domainResourceSchema.extend({

@@ -23,6 +23,7 @@ import {
   moneySchema,
   stringSchema,
   quantitySchema,
+  booleanSchema,
 } from '../elements/index.js'
 import {
   financialResourceStatusSchema,
@@ -52,7 +53,7 @@ export const untypedCoverageEligibilityRequestSchema = z.lazy(() =>
       .extend({
         sequence: positiveIntSchema,
         information: referenceSchema,
-        appliesToAll: z.boolean().optional(),
+        appliesToAll: booleanSchema.optional(),
         _appliesToAll: elementSchema.optional(),
       })
       .array()

@@ -31,78 +31,64 @@ import {
 } from '../elements/index.js'
 
 const medicinalProductDefinitionCharacteristicSchema: ZodType<MedicinalProductDefinitionCharacteristic> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema,
-      valueCodeableConcept: codeableConceptSchema.optional(),
-      valueString: stringSchema.optional(),
-      _valueString: elementSchema.optional(),
-      valueQuantity: elementSchema.optional(),
-      valueInteger: z.number().optional(),
-      valueDate: stringSchema.optional(),
-      _valueDate: elementSchema.optional(),
-      valueBoolean: z.boolean().optional(),
-      _valueBoolean: elementSchema.optional(),
-      valueAttachment: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueQuantity: elementSchema.optional(),
+    valueInteger: z.number().optional(),
+    valueDate: stringSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueBoolean: z.boolean().optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueAttachment: elementSchema.optional(),
+  })
 
 const medicinalProductDefinitionContactSchema: ZodType<MedicinalProductDefinitionContact> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema.optional(),
-      contact: referenceSchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema.optional(),
+    contact: referenceSchema,
+  })
 
 const medicinalProductDefinitionCrossReferenceSchema: ZodType<MedicinalProductDefinitionCrossReference> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      product: codeableReferenceSchema,
-      type: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    product: codeableReferenceSchema,
+    type: codeableConceptSchema.optional(),
+  })
 
 const medicinalProductDefinitionNameNamePartSchema: ZodType<MedicinalProductDefinitionNameNamePart> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      part: stringSchema,
-      _part: elementSchema.optional(),
-      type: codeableConceptSchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    part: stringSchema,
+    _part: elementSchema.optional(),
+    type: codeableConceptSchema,
+  })
 
 const medicinalProductDefinitionNameCountryLanguageSchema: ZodType<MedicinalProductDefinitionNameCountryLanguage> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      country: codeableConceptSchema,
-      jurisdiction: codeableConceptSchema.optional(),
-      language: codeableConceptSchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    country: codeableConceptSchema,
+    jurisdiction: codeableConceptSchema.optional(),
+    language: codeableConceptSchema,
+  })
 
 const medicinalProductDefinitionNameSchema: ZodType<MedicinalProductDefinitionName> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      productName: stringSchema,
-      _productName: elementSchema.optional(),
-      type: codeableConceptSchema.optional(),
-      namePart: medicinalProductDefinitionNameNamePartSchema.array().optional(),
-      countryLanguage: medicinalProductDefinitionNameCountryLanguageSchema
-        .array()
-        .optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    productName: stringSchema,
+    _productName: elementSchema.optional(),
+    type: codeableConceptSchema.optional(),
+    namePart: medicinalProductDefinitionNameNamePartSchema.array().optional(),
+    countryLanguage: medicinalProductDefinitionNameCountryLanguageSchema
+      .array()
+      .optional(),
+  })
 
 const medicinalProductDefinitionOperationSchema: ZodType<MedicinalProductDefinitionOperation> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableReferenceSchema.optional(),
-      effectiveDate: elementSchema.optional(),
-      organization: referenceSchema.array().optional(),
-      confidentialityIndicator: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableReferenceSchema.optional(),
+    effectiveDate: elementSchema.optional(),
+    organization: referenceSchema.array().optional(),
+    confidentialityIndicator: codeableConceptSchema.optional(),
+  })
 
 export const untypedMedicinalProductDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -149,6 +135,8 @@ export const medicinalProductDefinitionSchema: ZodType<MedicinalProductDefinitio
   untypedMedicinalProductDefinitionSchema
 
 export class FhirMedicinalProductDefinition extends FhirDomainResource<MedicinalProductDefinition> {
+  // Static Functions
+
   public static parse(value: unknown): FhirMedicinalProductDefinition {
     return new FhirMedicinalProductDefinition(
       medicinalProductDefinitionSchema.parse(value),

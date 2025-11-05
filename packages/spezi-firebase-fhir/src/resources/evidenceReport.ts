@@ -39,7 +39,7 @@ import {
   sectionModeSchema,
 } from '../valueSets/index.js'
 
-const evidenceReportSubjectSchema: ZodType<EvidenceReportSubject> = z.lazy(() =>
+const evidenceReportSubjectSchema: ZodType<EvidenceReportSubject> =
   backboneElementSchema.extend({
     characteristic: backboneElementSchema
       .extend({
@@ -57,10 +57,9 @@ const evidenceReportSubjectSchema: ZodType<EvidenceReportSubject> = z.lazy(() =>
       .array()
       .optional(),
     note: annotationSchema.array().optional(),
-  }),
-)
+  })
 
-const evidenceReportSectionSchema: ZodType<EvidenceReportSection> = z.lazy(() =>
+const evidenceReportSectionSchema: ZodType<EvidenceReportSection> =
   backboneElementSchema.extend({
     title: stringSchema.optional(),
     _title: elementSchema.optional(),
@@ -78,8 +77,7 @@ const evidenceReportSectionSchema: ZodType<EvidenceReportSection> = z.lazy(() =>
     get section() {
       return evidenceReportSectionSchema.array().optional()
     },
-  }),
-)
+  })
 
 export const untypedEvidenceReportSchema = z.lazy(() =>
   domainResourceSchema.extend({

@@ -7,7 +7,7 @@
 //
 
 export * from './account.js'
-export * from './activityDefinition.js'
+export * from './actionParticipantType.js'
 export * from './administrativeGender.js'
 export * from './administrableProductDefinition.js'
 export * from './adverseEvent.js'
@@ -94,7 +94,9 @@ export * from './publicationStatus.js'
 export * from './questionnaire.js'
 export * from './questionnaireResponse.js'
 export * from './requestGroup.js'
+export * from './requestIntent.js'
 export * from './requestPriority.js'
+export * from './requestResourceType.js'
 export * from './researchElementDefinition.js'
 export * from './researchStudy.js'
 export * from './researchSubject.js'

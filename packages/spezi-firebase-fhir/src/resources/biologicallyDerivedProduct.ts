@@ -35,51 +35,43 @@ import {
 } from '../valueSets/index.js'
 
 const biologicallyDerivedProductCollectionSchema: ZodType<BiologicallyDerivedProductCollection> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      collectedDateTime: dateTimeSchema.optional(),
-      _collectedDateTime: elementSchema.optional(),
-      collectedPeriod: periodSchema.optional(),
-      collector: referenceSchema.optional(),
-      source: referenceSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    collectedDateTime: dateTimeSchema.optional(),
+    _collectedDateTime: elementSchema.optional(),
+    collectedPeriod: periodSchema.optional(),
+    collector: referenceSchema.optional(),
+    source: referenceSchema.optional(),
+  })
 
 const biologicallyDerivedProductProcessingSchema: ZodType<BiologicallyDerivedProductProcessing> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      additive: referenceSchema.optional(),
-      description: stringSchema.optional(),
-      _description: elementSchema.optional(),
-      procedure: codeableConceptSchema.optional(),
-      timeDateTime: dateTimeSchema.optional(),
-      _timeDateTime: elementSchema.optional(),
-      timePeriod: periodSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    additive: referenceSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    procedure: codeableConceptSchema.optional(),
+    timeDateTime: dateTimeSchema.optional(),
+    _timeDateTime: elementSchema.optional(),
+    timePeriod: periodSchema.optional(),
+  })
 
 const biologicallyDerivedProductManipulationSchema: ZodType<BiologicallyDerivedProductManipulation> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      description: stringSchema.optional(),
-      _description: elementSchema.optional(),
-      timeDateTime: dateTimeSchema.optional(),
-      _timeDateTime: elementSchema.optional(),
-      timePeriod: periodSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    timeDateTime: dateTimeSchema.optional(),
+    _timeDateTime: elementSchema.optional(),
+    timePeriod: periodSchema.optional(),
+  })
 
 const biologicallyDerivedProductStorageSchema: ZodType<BiologicallyDerivedProductStorage> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      description: stringSchema.optional(),
-      _description: elementSchema.optional(),
-      duration: periodSchema.optional(),
-      scale: biologicallyDerivedProductStorageScaleSchema.optional(),
-      _scale: elementSchema.optional(),
-      temperature: decimalSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    duration: periodSchema.optional(),
+    scale: biologicallyDerivedProductStorageScaleSchema.optional(),
+    _scale: elementSchema.optional(),
+    temperature: decimalSchema.optional(),
+  })
 
 export const untypedBiologicallyDerivedProductSchema = z.lazy(() =>
   domainResourceSchema.extend({

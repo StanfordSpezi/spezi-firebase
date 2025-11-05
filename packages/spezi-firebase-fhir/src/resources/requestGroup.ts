@@ -46,27 +46,23 @@ import {
 } from '../valueSets/index.js'
 
 const requestGroupActionConditionSchema: ZodType<RequestGroupActionCondition> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      kind: requestGroupActionConditionKindSchema,
-      _kind: elementSchema.optional(),
-      expression: expressionSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    kind: requestGroupActionConditionKindSchema,
+    _kind: elementSchema.optional(),
+    expression: expressionSchema.optional(),
+  })
 
 const requestGroupActionRelatedActionSchema: ZodType<RequestGroupActionRelatedAction> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      actionId: z.string(),
-      _actionId: elementSchema.optional(),
-      relationship: requestGroupActionRelationshipTypeSchema,
-      _relationship: elementSchema.optional(),
-      offsetDuration: quantitySchema.optional(),
-      offsetRange: rangeSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    actionId: z.string(),
+    _actionId: elementSchema.optional(),
+    relationship: requestGroupActionRelationshipTypeSchema,
+    _relationship: elementSchema.optional(),
+    offsetDuration: quantitySchema.optional(),
+    offsetRange: rangeSchema.optional(),
+  })
 
-const requestGroupActionSchema: ZodType<RequestGroupAction> = z.lazy(() =>
+const requestGroupActionSchema: ZodType<RequestGroupAction> =
   backboneElementSchema.extend({
     prefix: stringSchema.optional(),
     _prefix: elementSchema.optional(),
@@ -102,11 +98,10 @@ const requestGroupActionSchema: ZodType<RequestGroupAction> = z.lazy(() =>
     cardinalityBehavior: requestGroupActionCardinalityBehaviorSchema.optional(),
     _cardinalityBehavior: elementSchema.optional(),
     resource: referenceSchema.optional(),
-    get action(): z.ZodOptional<z.ZodArray<typeof requestGroupActionSchema>> {
+    get action() {
       return requestGroupActionSchema.array().optional()
     },
-  }),
-)
+  })
 
 export const untypedRequestGroupSchema = z.lazy(() =>
   domainResourceSchema.extend({

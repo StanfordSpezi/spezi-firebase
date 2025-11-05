@@ -6,7 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type VerificationResult } from 'fhir/r4b.js'
+import {
+  VerificationResultAttestation,
+  VerificationResultPrimarySource,
+  VerificationResultValidator,
+  type VerificationResult,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -22,6 +27,41 @@ import {
   timingSchema,
 } from '../elements/index.js'
 import { verificationResultStatusSchema } from '../valueSets/index.js'
+
+const verificationResultPrimarySourceSchema: ZodType<VerificationResultPrimarySource> =
+  backboneElementSchema.extend({
+    who: referenceSchema.optional(),
+    type: codeableConceptSchema.array().optional(),
+    communicationMethod: codeableConceptSchema.array().optional(),
+    validationStatus: codeableConceptSchema.optional(),
+    validationDate: dateTimeSchema.optional(),
+    _validationDate: elementSchema.optional(),
+    canPushUpdates: codeableConceptSchema.optional(),
+    pushTypeAvailable: codeableConceptSchema.array().optional(),
+  })
+
+const verificationResultAttestationSchema: ZodType<VerificationResultAttestation> =
+  backboneElementSchema.extend({
+    who: referenceSchema.optional(),
+    onBehalfOf: referenceSchema.optional(),
+    communicationMethod: codeableConceptSchema.optional(),
+    date: dateSchema.optional(),
+    _date: elementSchema.optional(),
+    sourceIdentityCertificate: stringSchema.optional(),
+    _sourceIdentityCertificate: elementSchema.optional(),
+    proxyIdentityCertificate: stringSchema.optional(),
+    _proxyIdentityCertificate: elementSchema.optional(),
+    proxySignature: signatureSchema.optional(),
+    sourceSignature: signatureSchema.optional(),
+  })
+
+const verificationResultValidatorSchema: ZodType<VerificationResultValidator> =
+  backboneElementSchema.extend({
+    organization: referenceSchema,
+    identityCertificate: stringSchema.optional(),
+    _identityCertificate: elementSchema.optional(),
+    attestationSignature: signatureSchema.optional(),
+  })
 
 export const untypedVerificationResultSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -42,43 +82,9 @@ export const untypedVerificationResultSchema = z.lazy(() =>
     nextScheduled: dateSchema.optional(),
     _nextScheduled: elementSchema.optional(),
     failureAction: codeableConceptSchema.optional(),
-    primarySource: backboneElementSchema
-      .extend({
-        who: referenceSchema.optional(),
-        type: codeableConceptSchema.array().optional(),
-        communicationMethod: codeableConceptSchema.array().optional(),
-        validationStatus: codeableConceptSchema.optional(),
-        validationDate: dateTimeSchema.optional(),
-        _validationDate: elementSchema.optional(),
-        canPushUpdates: codeableConceptSchema.optional(),
-        pushTypeAvailable: codeableConceptSchema.array().optional(),
-      })
-      .array()
-      .optional(),
-    attestation: backboneElementSchema
-      .extend({
-        who: referenceSchema.optional(),
-        onBehalfOf: referenceSchema.optional(),
-        communicationMethod: codeableConceptSchema.optional(),
-        date: dateSchema.optional(),
-        _date: elementSchema.optional(),
-        sourceIdentityCertificate: stringSchema.optional(),
-        _sourceIdentityCertificate: elementSchema.optional(),
-        proxyIdentityCertificate: stringSchema.optional(),
-        _proxyIdentityCertificate: elementSchema.optional(),
-        proxySignature: signatureSchema.optional(),
-        sourceSignature: signatureSchema.optional(),
-      })
-      .optional(),
-    validator: backboneElementSchema
-      .extend({
-        organization: referenceSchema,
-        identityCertificate: stringSchema.optional(),
-        _identityCertificate: elementSchema.optional(),
-        attestationSignature: signatureSchema.optional(),
-      })
-      .array()
-      .optional(),
+    primarySource: verificationResultPrimarySourceSchema.array().optional(),
+    attestation: verificationResultAttestationSchema.optional(),
+    validator: verificationResultValidatorSchema.array().optional(),
   }),
 ) satisfies ZodType<VerificationResult>
 

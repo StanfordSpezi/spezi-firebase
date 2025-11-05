@@ -6,7 +6,22 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type CapabilityStatement } from 'fhir/r4b.js'
+import {
+  CapabilityStatementDocument,
+  CapabilityStatementImplementation,
+  CapabilityStatementMessaging,
+  CapabilityStatementMessagingEndpoint,
+  CapabilityStatementMessagingSupportedMessage,
+  CapabilityStatementRest,
+  CapabilityStatementRestInteraction,
+  CapabilityStatementRestResource,
+  CapabilityStatementRestResourceInteraction,
+  CapabilityStatementRestResourceOperation,
+  CapabilityStatementRestResourceSearchParam,
+  CapabilityStatementRestSecurity,
+  CapabilityStatementSoftware,
+  type CapabilityStatement,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -38,6 +53,168 @@ import {
   typeRestfulInteractionSchema,
   searchParameterTypeSchema,
 } from '../valueSets/index.js'
+
+const capabilityStatementSoftwareSchema: ZodType<CapabilityStatementSoftware> =
+  backboneElementSchema.extend({
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    version: stringSchema.optional(),
+    _version: elementSchema.optional(),
+    releaseDate: dateTimeSchema.optional(),
+    _releaseDate: elementSchema.optional(),
+  })
+
+const capabilityStatementImplementationSchema: ZodType<CapabilityStatementImplementation> =
+  backboneElementSchema.extend({
+    description: stringSchema,
+    _description: elementSchema.optional(),
+    url: urlSchema.optional(),
+    _url: elementSchema.optional(),
+    custodian: referenceSchema.optional(),
+  })
+
+const capabilityStatementRestSecuritySchema: ZodType<CapabilityStatementRestSecurity> =
+  backboneElementSchema.extend({
+    cors: booleanSchema.optional(),
+    _cors: elementSchema.optional(),
+    service: codeableConceptSchema.array().optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+  })
+
+const capabilityStatementRestResourceInteractionSchema: ZodType<CapabilityStatementRestResourceInteraction> =
+  backboneElementSchema.extend({
+    code: typeRestfulInteractionSchema,
+    _code: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+  })
+
+const capabilityStatementRestResourceSearchParamSchema: ZodType<CapabilityStatementRestResourceSearchParam> =
+  backboneElementSchema.extend({
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    definition: urlSchema.optional(),
+    _definition: elementSchema.optional(),
+    type: searchParameterTypeSchema,
+    _type: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+  })
+
+const capabilityStatementRestResourceOperationSchema: ZodType<CapabilityStatementRestResourceOperation> =
+  backboneElementSchema.extend({
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    definition: urlSchema,
+    _definition: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+  })
+
+const capabilityStatementRestResourceSchema: ZodType<CapabilityStatementRestResource> =
+  backboneElementSchema.extend({
+    type: searchParameterTypeSchema,
+    _type: elementSchema.optional(),
+    profile: urlSchema.optional(),
+    _profile: elementSchema.optional(),
+    supportedProfile: urlSchema.array().optional(),
+    _supportedProfile: elementSchema.array().optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+    interaction: capabilityStatementRestResourceInteractionSchema
+      .array()
+      .optional(),
+    versioning: resourceVersionPolicySchema.optional(),
+    _versioning: elementSchema.optional(),
+    readHistory: booleanSchema.optional(),
+    _readHistory: elementSchema.optional(),
+    updateCreate: booleanSchema.optional(),
+    _updateCreate: elementSchema.optional(),
+    conditionalCreate: booleanSchema.optional(),
+    _conditionalCreate: elementSchema.optional(),
+    conditionalRead: conditionalReadStatusSchema.optional(),
+    _conditionalRead: elementSchema.optional(),
+    conditionalUpdate: booleanSchema.optional(),
+    _conditionalUpdate: elementSchema.optional(),
+    conditionalDelete: conditionalDeleteStatusSchema.optional(),
+    _conditionalDelete: elementSchema.optional(),
+    referencePolicy: referencePolicySchema.array().optional(),
+    _referencePolicy: elementSchema.array().optional(),
+    searchInclude: stringSchema.array().optional(),
+    _searchInclude: elementSchema.array().optional(),
+    searchRevInclude: stringSchema.array().optional(),
+    _searchRevInclude: elementSchema.array().optional(),
+    searchParam: capabilityStatementRestResourceSearchParamSchema
+      .array()
+      .optional(),
+    operation: capabilityStatementRestResourceOperationSchema
+      .array()
+      .optional(),
+  })
+
+const capabilityStatementRestInteractionSchema: ZodType<CapabilityStatementRestInteraction> =
+  backboneElementSchema.extend({
+    code: systemRestfulInteractionSchema,
+    _code: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+  })
+
+const capabilityStatementRestSchema: ZodType<CapabilityStatementRest> =
+  backboneElementSchema.extend({
+    mode: restfulCapabilityModeSchema,
+    _mode: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+    security: capabilityStatementRestSecuritySchema.optional(),
+    resource: capabilityStatementRestResourceSchema.array().optional(),
+    interaction: capabilityStatementRestInteractionSchema.array().optional(),
+    searchParam: capabilityStatementRestResourceSearchParamSchema
+      .array()
+      .optional(),
+    operation: capabilityStatementRestResourceOperationSchema
+      .array()
+      .optional(),
+    compartment: urlSchema.array().optional(),
+    _compartment: elementSchema.array().optional(),
+  })
+
+const capabilityStatementMessagingEndpointSchema: ZodType<CapabilityStatementMessagingEndpoint> =
+  backboneElementSchema.extend({
+    protocol: codingSchema,
+    address: urlSchema,
+    _address: elementSchema.optional(),
+  })
+
+const capabilityStatementMessagingSupportedMessageSchema: ZodType<CapabilityStatementMessagingSupportedMessage> =
+  backboneElementSchema.extend({
+    mode: eventCapabilityModeSchema,
+    _mode: elementSchema.optional(),
+    definition: urlSchema,
+    _definition: elementSchema.optional(),
+  })
+
+const capabilityStatementMessagingSchema: ZodType<CapabilityStatementMessaging> =
+  backboneElementSchema.extend({
+    endpoint: capabilityStatementMessagingEndpointSchema.array().optional(),
+    reliableCache: unsignedIntSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+    supportedMessage: capabilityStatementMessagingSupportedMessageSchema
+      .array()
+      .optional(),
+  })
+
+const capabilityStatementDocumentSchema: ZodType<CapabilityStatementDocument> =
+  backboneElementSchema.extend({
+    mode: documentModeSchema,
+    _mode: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+    profile: urlSchema,
+    _profile: elementSchema.optional(),
+  })
 
 export const untypedCapabilityStatementSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -73,25 +250,8 @@ export const untypedCapabilityStatementSchema = z.lazy(() =>
     _instantiates: elementSchema.array().optional(),
     imports: urlSchema.array().optional(),
     _imports: elementSchema.array().optional(),
-    software: backboneElementSchema
-      .extend({
-        name: stringSchema,
-        _name: elementSchema.optional(),
-        version: stringSchema.optional(),
-        _version: elementSchema.optional(),
-        releaseDate: dateTimeSchema.optional(),
-        _releaseDate: elementSchema.optional(),
-      })
-      .optional(),
-    implementation: backboneElementSchema
-      .extend({
-        description: stringSchema,
-        _description: elementSchema.optional(),
-        url: urlSchema.optional(),
-        _url: elementSchema.optional(),
-        custodian: referenceSchema.optional(),
-      })
-      .optional(),
+    software: capabilityStatementSoftwareSchema.optional(),
+    implementation: capabilityStatementImplementationSchema.optional(),
     fhirVersion: stringSchema,
     _fhirVersion: elementSchema.optional(),
     format: stringSchema.array(),
@@ -100,161 +260,9 @@ export const untypedCapabilityStatementSchema = z.lazy(() =>
     _patchFormat: elementSchema.array().optional(),
     implementationGuide: urlSchema.array().optional(),
     _implementationGuide: elementSchema.array().optional(),
-    rest: backboneElementSchema
-      .extend({
-        mode: restfulCapabilityModeSchema,
-        _mode: elementSchema.optional(),
-        documentation: stringSchema.optional(),
-        _documentation: elementSchema.optional(),
-        security: backboneElementSchema
-          .extend({
-            cors: booleanSchema.optional(),
-            _cors: elementSchema.optional(),
-            service: codeableConceptSchema.array().optional(),
-            description: stringSchema.optional(),
-            _description: elementSchema.optional(),
-          })
-          .optional(),
-        resource: backboneElementSchema
-          .extend({
-            type: searchParameterTypeSchema,
-            _type: elementSchema.optional(),
-            profile: urlSchema.optional(),
-            _profile: elementSchema.optional(),
-            supportedProfile: urlSchema.array().optional(),
-            _supportedProfile: elementSchema.array().optional(),
-            documentation: stringSchema.optional(),
-            _documentation: elementSchema.optional(),
-            interaction: backboneElementSchema
-              .extend({
-                code: typeRestfulInteractionSchema,
-                _code: elementSchema.optional(),
-                documentation: stringSchema.optional(),
-                _documentation: elementSchema.optional(),
-              })
-              .array()
-              .optional(),
-            versioning: resourceVersionPolicySchema.optional(),
-            _versioning: elementSchema.optional(),
-            readHistory: booleanSchema.optional(),
-            _readHistory: elementSchema.optional(),
-            updateCreate: booleanSchema.optional(),
-            _updateCreate: elementSchema.optional(),
-            conditionalCreate: booleanSchema.optional(),
-            _conditionalCreate: elementSchema.optional(),
-            conditionalRead: conditionalReadStatusSchema.optional(),
-            _conditionalRead: elementSchema.optional(),
-            conditionalUpdate: booleanSchema.optional(),
-            _conditionalUpdate: elementSchema.optional(),
-            conditionalDelete: conditionalDeleteStatusSchema.optional(),
-            _conditionalDelete: elementSchema.optional(),
-            referencePolicy: referencePolicySchema.array().optional(),
-            _referencePolicy: elementSchema.array().optional(),
-            searchInclude: stringSchema.array().optional(),
-            _searchInclude: elementSchema.array().optional(),
-            searchRevInclude: stringSchema.array().optional(),
-            _searchRevInclude: elementSchema.array().optional(),
-            searchParam: backboneElementSchema
-              .extend({
-                name: stringSchema,
-                _name: elementSchema.optional(),
-                definition: urlSchema.optional(),
-                _definition: elementSchema.optional(),
-                type: searchParameterTypeSchema,
-                _type: elementSchema.optional(),
-                documentation: stringSchema.optional(),
-                _documentation: elementSchema.optional(),
-              })
-              .array()
-              .optional(),
-            operation: backboneElementSchema
-              .extend({
-                name: stringSchema,
-                _name: elementSchema.optional(),
-                definition: urlSchema,
-                _definition: elementSchema.optional(),
-                documentation: stringSchema.optional(),
-                _documentation: elementSchema.optional(),
-              })
-              .array()
-              .optional(),
-          })
-          .array()
-          .optional(),
-        interaction: backboneElementSchema
-          .extend({
-            code: systemRestfulInteractionSchema,
-            _code: elementSchema.optional(),
-            documentation: stringSchema.optional(),
-            _documentation: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        searchParam: backboneElementSchema
-          .extend({
-            name: stringSchema,
-            _name: elementSchema.optional(),
-            definition: urlSchema.optional(),
-            _definition: elementSchema.optional(),
-            type: searchParameterTypeSchema,
-            _type: elementSchema.optional(),
-            documentation: stringSchema.optional(),
-            _documentation: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        operation: backboneElementSchema
-          .extend({
-            name: stringSchema,
-            _name: elementSchema.optional(),
-            definition: urlSchema,
-            _definition: elementSchema.optional(),
-            documentation: stringSchema.optional(),
-            _documentation: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        compartment: urlSchema.array().optional(),
-        _compartment: elementSchema.array().optional(),
-      })
-      .array()
-      .optional(),
-    messaging: backboneElementSchema
-      .extend({
-        endpoint: backboneElementSchema
-          .extend({
-            protocol: codingSchema,
-            address: urlSchema,
-            _address: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        reliableCache: unsignedIntSchema.optional(),
-        documentation: stringSchema.optional(),
-        _documentation: elementSchema.optional(),
-        supportedMessage: backboneElementSchema
-          .extend({
-            mode: eventCapabilityModeSchema,
-            _mode: elementSchema.optional(),
-            definition: urlSchema,
-            _definition: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
-    document: backboneElementSchema
-      .extend({
-        mode: documentModeSchema,
-        _mode: elementSchema.optional(),
-        documentation: stringSchema.optional(),
-        _documentation: elementSchema.optional(),
-        profile: urlSchema,
-        _profile: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    rest: capabilityStatementRestSchema.array().optional(),
+    messaging: capabilityStatementMessagingSchema.array().optional(),
+    document: capabilityStatementDocumentSchema.array().optional(),
   }),
 ) satisfies ZodType<CapabilityStatement>
 

@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Condition } from 'fhir/r4b.js'
+import { ConditionEvidence, ConditionStage, type Condition } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -23,6 +23,19 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
+
+const conditionStageSchema: ZodType<ConditionStage> =
+  backboneElementSchema.extend({
+    summary: codeableConceptSchema.optional(),
+    assessment: referenceSchema.array().optional(),
+    type: codeableConceptSchema.optional(),
+  })
+
+const conditionEvidenceSchema: ZodType<ConditionEvidence> =
+  backboneElementSchema.extend({
+    code: codeableConceptSchema.array().optional(),
+    detail: referenceSchema.array().optional(),
+  })
 
 export const untypedConditionSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -54,21 +67,8 @@ export const untypedConditionSchema = z.lazy(() =>
     _recordedDate: elementSchema.optional(),
     recorder: referenceSchema.optional(),
     asserter: referenceSchema.optional(),
-    stage: backboneElementSchema
-      .extend({
-        summary: codeableConceptSchema.optional(),
-        assessment: referenceSchema.array().optional(),
-        type: codeableConceptSchema.optional(),
-      })
-      .array()
-      .optional(),
-    evidence: backboneElementSchema
-      .extend({
-        code: codeableConceptSchema.array().optional(),
-        detail: referenceSchema.array().optional(),
-      })
-      .array()
-      .optional(),
+    stage: conditionStageSchema.array().optional(),
+    evidence: conditionEvidenceSchema.array().optional(),
     note: annotationSchema.array().optional(),
   }),
 ) satisfies ZodType<Condition>

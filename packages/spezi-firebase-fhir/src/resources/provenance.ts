@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Provenance } from 'fhir/r4b.js'
+import { ProvenanceAgent, ProvenanceEntity, type Provenance } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -23,6 +23,22 @@ import {
 } from '../elements/index.js'
 import { provenanceEntityRoleSchema } from '../valueSets/index.js'
 
+const provenanceAgentSchema: ZodType<ProvenanceAgent> =
+  backboneElementSchema.extend({
+    type: codeableConceptSchema.optional(),
+    role: codeableConceptSchema.array().optional(),
+    who: referenceSchema,
+    onBehalfOf: referenceSchema.optional(),
+  })
+
+const provenanceEntitySchema: ZodType<ProvenanceEntity> =
+  backboneElementSchema.extend({
+    role: provenanceEntityRoleSchema,
+    _role: elementSchema.optional(),
+    what: referenceSchema,
+    agent: provenanceAgentSchema.array().optional(),
+  })
+
 export const untypedProvenanceSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Provenance').readonly(),
@@ -37,35 +53,8 @@ export const untypedProvenanceSchema = z.lazy(() =>
     location: referenceSchema.optional(),
     reason: codeableConceptSchema.array().optional(),
     activity: codeableConceptSchema.optional(),
-    agent: backboneElementSchema
-      .extend({
-        type: codeableConceptSchema.optional(),
-        role: codeableConceptSchema.array().optional(),
-        who: referenceSchema,
-        onBehalfOf: referenceSchema.optional(),
-      })
-      .array()
-      .min(1),
-    entity: backboneElementSchema
-      .extend({
-        role: provenanceEntityRoleSchema,
-        _role: elementSchema.optional(),
-        what: referenceSchema,
-        agent: z
-          .array(
-            z.lazy(() =>
-              backboneElementSchema.extend({
-                type: codeableConceptSchema.optional(),
-                role: codeableConceptSchema.array().optional(),
-                who: referenceSchema,
-                onBehalfOf: referenceSchema.optional(),
-              }),
-            ),
-          )
-          .optional(),
-      })
-      .array()
-      .optional(),
+    agent: provenanceAgentSchema.array().min(1),
+    entity: provenanceEntitySchema.array().optional(),
     signature: signatureSchema.array().optional(),
   }),
 ) satisfies ZodType<Provenance>

@@ -6,7 +6,19 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type TerminologyCapabilities } from 'fhir/r4b.js'
+import {
+  TerminologyCapabilitiesClosure,
+  TerminologyCapabilitiesCodeSystem,
+  TerminologyCapabilitiesCodeSystemVersion,
+  TerminologyCapabilitiesCodeSystemVersionFilter,
+  TerminologyCapabilitiesExpansion,
+  TerminologyCapabilitiesExpansionParameter,
+  TerminologyCapabilitiesImplementation,
+  TerminologyCapabilitiesSoftware,
+  TerminologyCapabilitiesTranslation,
+  TerminologyCapabilitiesValidateCode,
+  type TerminologyCapabilities,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -26,6 +38,97 @@ import {
   codeSearchSupportSchema,
   publicationStatusSchema,
 } from '../valueSets/index.js'
+
+const terminologyCapabilitiesSoftwareSchema: ZodType<TerminologyCapabilitiesSoftware> =
+  backboneElementSchema.extend({
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    version: stringSchema.optional(),
+    _version: elementSchema.optional(),
+  })
+
+const terminologyCapabilitiesImplementationSchema: ZodType<TerminologyCapabilitiesImplementation> =
+  backboneElementSchema.extend({
+    description: stringSchema,
+    _description: elementSchema.optional(),
+    url: urlSchema.optional(),
+    _url: elementSchema.optional(),
+  })
+
+const terminologyCapabilitiesCodeSystemVersionFilterSchema: ZodType<TerminologyCapabilitiesCodeSystemVersionFilter> =
+  backboneElementSchema.extend({
+    code: stringSchema,
+    _code: elementSchema.optional(),
+    op: stringSchema.array(),
+    _op: elementSchema.array().optional(),
+  })
+
+const terminologyCapabilitiesCodeSystemVersionSchema: ZodType<TerminologyCapabilitiesCodeSystemVersion> =
+  backboneElementSchema.extend({
+    code: stringSchema.optional(),
+    _code: elementSchema.optional(),
+    isDefault: booleanSchema.optional(),
+    _isDefault: elementSchema.optional(),
+    compositional: booleanSchema.optional(),
+    _compositional: elementSchema.optional(),
+    language: stringSchema.array().optional(),
+    _language: elementSchema.array().optional(),
+    filter: terminologyCapabilitiesCodeSystemVersionFilterSchema
+      .array()
+      .optional(),
+    property: stringSchema.array().optional(),
+    _property: elementSchema.array().optional(),
+  })
+
+const terminologyCapabilitiesCodeSystemSchema: ZodType<TerminologyCapabilitiesCodeSystem> =
+  backboneElementSchema.extend({
+    uri: urlSchema.optional(),
+    _uri: elementSchema.optional(),
+    version: terminologyCapabilitiesCodeSystemVersionSchema.array().optional(),
+    subsumption: booleanSchema.optional(),
+    _subsumption: elementSchema.optional(),
+  })
+
+const terminologyCapabilitiesExpansionParameterSchema: ZodType<TerminologyCapabilitiesExpansionParameter> =
+  backboneElementSchema.extend({
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+  })
+
+const terminologyCapabilitiesExpansionSchema: ZodType<TerminologyCapabilitiesExpansion> =
+  backboneElementSchema.extend({
+    hierarchical: booleanSchema.optional(),
+    _hierarchical: elementSchema.optional(),
+    paging: booleanSchema.optional(),
+    _paging: elementSchema.optional(),
+    incomplete: booleanSchema.optional(),
+    _incomplete: elementSchema.optional(),
+    parameter: terminologyCapabilitiesExpansionParameterSchema
+      .array()
+      .optional(),
+    textFilter: stringSchema.optional(),
+    _textFilter: elementSchema.optional(),
+  })
+
+const terminologyCapabilitiesValidateCodeSchema: ZodType<TerminologyCapabilitiesValidateCode> =
+  backboneElementSchema.extend({
+    translations: booleanSchema,
+    _translations: elementSchema.optional(),
+  })
+
+const terminologyCapabilitiesTranslationSchema: ZodType<TerminologyCapabilitiesTranslation> =
+  backboneElementSchema.extend({
+    needsMap: booleanSchema,
+    _needsMap: elementSchema.optional(),
+  })
+
+const terminologyCapabilitiesClosureSchema: ZodType<TerminologyCapabilitiesClosure> =
+  backboneElementSchema.extend({
+    translation: booleanSchema.optional(),
+    _translation: elementSchema.optional(),
+  })
 
 export const untypedTerminologyCapabilitiesSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -57,98 +160,17 @@ export const untypedTerminologyCapabilitiesSchema = z.lazy(() =>
     _copyright: elementSchema.optional(),
     kind: capabilityStatementKindSchema,
     _kind: elementSchema.optional(),
-    software: backboneElementSchema
-      .extend({
-        name: stringSchema,
-        _name: elementSchema.optional(),
-        version: stringSchema.optional(),
-        _version: elementSchema.optional(),
-      })
-      .optional(),
-    implementation: backboneElementSchema
-      .extend({
-        description: stringSchema,
-        _description: elementSchema.optional(),
-        url: urlSchema.optional(),
-        _url: elementSchema.optional(),
-      })
-      .optional(),
+    software: terminologyCapabilitiesSoftwareSchema.optional(),
+    implementation: terminologyCapabilitiesImplementationSchema.optional(),
     lockedDate: booleanSchema.optional(),
     _lockedDate: elementSchema.optional(),
-    codeSystem: backboneElementSchema
-      .extend({
-        uri: urlSchema.optional(),
-        _uri: elementSchema.optional(),
-        version: backboneElementSchema
-          .extend({
-            code: stringSchema.optional(),
-            _code: elementSchema.optional(),
-            isDefault: booleanSchema.optional(),
-            _isDefault: elementSchema.optional(),
-            compositional: booleanSchema.optional(),
-            _compositional: elementSchema.optional(),
-            language: stringSchema.array().optional(),
-            _language: elementSchema.array().optional(),
-            filter: backboneElementSchema
-              .extend({
-                code: stringSchema,
-                _code: elementSchema.optional(),
-                op: stringSchema.array(),
-                _op: elementSchema.array().optional(),
-              })
-              .array()
-              .optional(),
-            property: stringSchema.array().optional(),
-            _property: elementSchema.array().optional(),
-          })
-          .array()
-          .optional(),
-        subsumption: booleanSchema.optional(),
-        _subsumption: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-    expansion: backboneElementSchema
-      .extend({
-        hierarchical: booleanSchema.optional(),
-        _hierarchical: elementSchema.optional(),
-        paging: booleanSchema.optional(),
-        _paging: elementSchema.optional(),
-        incomplete: booleanSchema.optional(),
-        _incomplete: elementSchema.optional(),
-        parameter: backboneElementSchema
-          .extend({
-            name: stringSchema,
-            _name: elementSchema.optional(),
-            documentation: stringSchema.optional(),
-            _documentation: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        textFilter: stringSchema.optional(),
-        _textFilter: elementSchema.optional(),
-      })
-      .optional(),
+    codeSystem: terminologyCapabilitiesCodeSystemSchema.array().optional(),
+    expansion: terminologyCapabilitiesExpansionSchema.optional(),
     codeSearch: codeSearchSupportSchema.optional(),
     _codeSearch: elementSchema.optional(),
-    validateCode: backboneElementSchema
-      .extend({
-        translations: booleanSchema,
-        _translations: elementSchema.optional(),
-      })
-      .optional(),
-    translation: backboneElementSchema
-      .extend({
-        needsMap: booleanSchema,
-        _needsMap: elementSchema.optional(),
-      })
-      .optional(),
-    closure: backboneElementSchema
-      .extend({
-        translation: booleanSchema.optional(),
-        _translation: elementSchema.optional(),
-      })
-      .optional(),
+    validateCode: terminologyCapabilitiesValidateCodeSchema.optional(),
+    translation: terminologyCapabilitiesTranslationSchema.optional(),
+    closure: terminologyCapabilitiesClosureSchema.optional(),
   }),
 ) satisfies ZodType<TerminologyCapabilities>
 

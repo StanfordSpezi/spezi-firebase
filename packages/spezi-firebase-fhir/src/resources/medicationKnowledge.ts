@@ -39,101 +39,87 @@ import {
 import { medicationStatusSchema } from '../valueSets/index.js'
 
 const relatedMedicationKnowledgeSchema: ZodType<MedicationKnowledgeRelatedMedicationKnowledge> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema,
-      _type: elementSchema.optional(),
-      reference: referenceSchema.array(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    _type: elementSchema.optional(),
+    reference: referenceSchema.array(),
+  })
 
-const monographSchema: ZodType<MedicationKnowledgeMonograph> = z.lazy(() =>
+const monographSchema: ZodType<MedicationKnowledgeMonograph> =
   backboneElementSchema.extend({
     source: referenceSchema.optional(),
     type: codeableConceptSchema.optional(),
-  }),
-)
+  })
 
-const ingredientSchema: ZodType<MedicationKnowledgeIngredient> = z.lazy(() =>
+const ingredientSchema: ZodType<MedicationKnowledgeIngredient> =
   backboneElementSchema.extend({
     itemCodeableConcept: codeableConceptSchema.optional(),
     itemReference: referenceSchema.optional(),
     isActive: booleanSchema.optional(),
     _isActive: elementSchema.optional(),
     strength: ratioSchema.optional(),
-  }),
-)
+  })
 
-const costSchema: ZodType<MedicationKnowledgeCost> = z.lazy(() =>
+const costSchema: ZodType<MedicationKnowledgeCost> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     source: stringSchema.optional(),
     _source: elementSchema.optional(),
     cost: quantitySchema,
-  }),
-)
+  })
 
 const monitoringProgramSchema: ZodType<MedicationKnowledgeMonitoringProgram> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema.optional(),
-      name: stringSchema.optional(),
-      _name: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema.optional(),
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+  })
 
 const administrationGuidelinesSchema: ZodType<MedicationKnowledgeAdministrationGuidelines> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      dosage: backboneElementSchema
-        .extend({
-          type: codeableConceptSchema,
-          dosage: dosageSchema.array(),
-        })
-        .array()
-        .optional(),
-      indicationCodeableConcept: codeableConceptSchema.optional(),
-      indicationReference: referenceSchema.optional(),
-      patientCharacteristics: backboneElementSchema
-        .extend({
-          characteristicCodeableConcept: codeableConceptSchema.optional(),
-          characteristicQuantity: quantitySchema.optional(),
-          value: stringSchema.array().optional(),
-        })
-        .array()
-        .optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    dosage: backboneElementSchema
+      .extend({
+        type: codeableConceptSchema,
+        dosage: dosageSchema.array(),
+      })
+      .array()
+      .optional(),
+    indicationCodeableConcept: codeableConceptSchema.optional(),
+    indicationReference: referenceSchema.optional(),
+    patientCharacteristics: backboneElementSchema
+      .extend({
+        characteristicCodeableConcept: codeableConceptSchema.optional(),
+        characteristicQuantity: quantitySchema.optional(),
+        value: stringSchema.array().optional(),
+      })
+      .array()
+      .optional(),
+  })
 
 const medicineClassificationSchema: ZodType<MedicationKnowledgeMedicineClassification> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema,
-      classification: codeableConceptSchema.array(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    classification: codeableConceptSchema.array(),
+  })
 
-const packagingSchema: ZodType<MedicationKnowledgePackaging> = z.lazy(() =>
+const packagingSchema: ZodType<MedicationKnowledgePackaging> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     quantity: quantitySchema,
-  }),
-)
+  })
 
 const drugCharacteristicSchema: ZodType<MedicationKnowledgeDrugCharacteristic> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema,
-      valueCodeableConcept: codeableConceptSchema.optional(),
-      valueString: stringSchema.optional(),
-      _valueString: elementSchema.optional(),
-      valueQuantity: quantitySchema.optional(),
-      valueBase64Binary: base64BinarySchema.optional(),
-      _valueBase64Binary: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueBase64Binary: base64BinarySchema.optional(),
+    _valueBase64Binary: elementSchema.optional(),
+  })
 
-const regulatorySchema: ZodType<MedicationKnowledgeRegulatory> = z.lazy(() =>
+const regulatorySchema: ZodType<MedicationKnowledgeRegulatory> =
   backboneElementSchema.extend({
     regulatoryAuthority: referenceSchema,
     substitution: backboneElementSchema
@@ -157,16 +143,14 @@ const regulatorySchema: ZodType<MedicationKnowledgeRegulatory> = z.lazy(() =>
         period: quantitySchema.optional(),
       })
       .optional(),
-  }),
-)
+  })
 
-const kineticsSchema: ZodType<MedicationKnowledgeKinetics> = z.lazy(() =>
+const kineticsSchema: ZodType<MedicationKnowledgeKinetics> =
   backboneElementSchema.extend({
     areaUnderCurve: quantitySchema.array().optional(),
     lethalDose50: quantitySchema.array().optional(),
     halfLifePeriod: quantitySchema.optional(),
-  }),
-)
+  })
 
 export const untypedMedicationKnowledgeSchema = z.lazy(() =>
   domainResourceSchema.extend({

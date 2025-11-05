@@ -26,13 +26,11 @@ import {
 } from '../valueSets/index.js'
 
 const catalogEntryRelatedEntrySchema: ZodType<CatalogEntryRelatedEntry> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      relationtype: catalogEntryRelationtypeSchema,
-      _relationtype: elementSchema.optional(),
-      item: referenceSchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    relationtype: catalogEntryRelationtypeSchema,
+    _relationtype: elementSchema.optional(),
+    item: referenceSchema,
+  })
 
 export const untypedCatalogEntrySchema = z.lazy(() =>
   domainResourceSchema.extend({

@@ -38,30 +38,26 @@ import {
   usageContextSchema,
 } from '../elements/index.js'
 import {
-  activityDefinitionIntentSchema,
-  activityDefinitionKindSchema,
-  activityDefinitionParticipantTypeSchema,
+  actionParticipantTypeSchema,
   publicationStatusSchema,
+  requestIntentSchema,
   requestPrioritySchema,
+  requestResourceTypeSchema,
 } from '../valueSets/index.js'
 
 const activityDefinitionParticipantSchema: ZodType<ActivityDefinitionParticipant> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: activityDefinitionParticipantTypeSchema,
-      _type: elementSchema.optional(),
-      role: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: actionParticipantTypeSchema,
+    _type: elementSchema.optional(),
+    role: codeableConceptSchema.optional(),
+  })
 
 const activityDefinitionDynamicValueSchema: ZodType<ActivityDefinitionDynamicValue> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      path: stringSchema,
-      _path: elementSchema.optional(),
-      expression: expressionSchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    path: stringSchema,
+    _path: elementSchema.optional(),
+    expression: expressionSchema,
+  })
 
 export const untypedActivityDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -113,12 +109,12 @@ export const untypedActivityDefinitionSchema = z.lazy(() =>
     relatedArtifact: relatedArtifactSchema.array().optional(),
     library: canonicalSchema.array().optional(),
     _library: elementSchema.array().optional(),
-    kind: activityDefinitionKindSchema.optional(),
+    kind: requestResourceTypeSchema.optional(),
     _kind: elementSchema.optional(),
     profile: canonicalSchema.optional(),
     _profile: elementSchema.optional(),
     code: codeableConceptSchema.optional(),
-    intent: activityDefinitionIntentSchema.optional(),
+    intent: requestIntentSchema.optional(),
     _intent: elementSchema.optional(),
     priority: requestPrioritySchema.optional(),
     _priority: elementSchema.optional(),

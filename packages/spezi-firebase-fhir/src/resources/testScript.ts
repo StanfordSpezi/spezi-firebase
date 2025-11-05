@@ -6,7 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type TestScript } from 'fhir/r4b.js'
+import {
+  TestScriptDestination,
+  TestScriptMetadata,
+  TestScriptOrigin,
+  type TestScript,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -34,6 +39,49 @@ import {
   mimeTypeSchema,
   testScriptRequestMethodSchema,
 } from '../valueSets/index.js'
+
+const testScriptOriginSchema: ZodType<TestScriptOrigin> =
+  backboneElementSchema.extend({
+    index: intSchema,
+    profile: codingSchema,
+  })
+
+const testScriptDestinationSchema: ZodType<TestScriptDestination> =
+  backboneElementSchema.extend({
+    index: intSchema,
+    profile: codingSchema,
+  })
+
+const testScriptMetadataSchema: ZodType<TestScriptMetadata> =
+  backboneElementSchema.extend({
+    link: backboneElementSchema
+      .extend({
+        url: uriSchema,
+        _url: elementSchema.optional(),
+        description: stringSchema.optional(),
+        _description: elementSchema.optional(),
+      })
+      .array()
+      .optional(),
+    capability: backboneElementSchema
+      .extend({
+        required: booleanSchema,
+        _required: elementSchema.optional(),
+        validated: booleanSchema,
+        _validated: elementSchema.optional(),
+        description: stringSchema.optional(),
+        _description: elementSchema.optional(),
+        origin: intSchema.array().optional(),
+        _origin: elementSchema.array().optional(),
+        destination: intSchema.optional(),
+        _destination: elementSchema.optional(),
+        link: uriSchema.array().optional(),
+        _link: elementSchema.array().optional(),
+        capabilities: urlSchema,
+        _capabilities: elementSchema.optional(),
+      })
+      .array(),
+  })
 
 export const untypedTestScriptSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -64,53 +112,9 @@ export const untypedTestScriptSchema = z.lazy(() =>
     _purpose: elementSchema.optional(),
     copyright: stringSchema.optional(),
     _copyright: elementSchema.optional(),
-    origin: backboneElementSchema
-      .extend({
-        index: intSchema,
-        _index: elementSchema.optional(),
-        profile: codingSchema,
-      })
-      .array()
-      .optional(),
-    destination: backboneElementSchema
-      .extend({
-        index: intSchema,
-        _index: elementSchema.optional(),
-        profile: codingSchema,
-      })
-      .array()
-      .optional(),
-    metadata: backboneElementSchema
-      .extend({
-        link: backboneElementSchema
-          .extend({
-            url: uriSchema,
-            _url: elementSchema.optional(),
-            description: stringSchema.optional(),
-            _description: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        capability: backboneElementSchema
-          .extend({
-            required: booleanSchema,
-            _required: elementSchema.optional(),
-            validated: booleanSchema,
-            _validated: elementSchema.optional(),
-            description: stringSchema.optional(),
-            _description: elementSchema.optional(),
-            origin: intSchema.array().optional(),
-            _origin: elementSchema.array().optional(),
-            destination: intSchema.optional(),
-            _destination: elementSchema.optional(),
-            link: uriSchema.array().optional(),
-            _link: elementSchema.array().optional(),
-            capabilities: urlSchema,
-            _capabilities: elementSchema.optional(),
-          })
-          .array(),
-      })
-      .optional(),
+    origin: testScriptOriginSchema.array().optional(),
+    destination: testScriptDestinationSchema.array().optional(),
+    metadata: testScriptMetadataSchema.optional(),
     fixture: backboneElementSchema
       .extend({
         autocreate: booleanSchema,

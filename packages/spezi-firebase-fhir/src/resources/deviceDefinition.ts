@@ -6,7 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type DeviceDefinition } from 'fhir/r4b.js'
+import {
+  DeviceDefinitionCapability,
+  DeviceDefinitionDeviceName,
+  DeviceDefinitionMaterial,
+  DeviceDefinitionProperty,
+  DeviceDefinitionSpecialization,
+  DeviceDefinitionUdiDeviceIdentifier,
+  ProdCharacteristic,
+  ProductShelfLife,
+  type DeviceDefinition,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -25,7 +35,7 @@ import {
 } from '../elements/index.js'
 import { deviceDefinitionNameTypeSchema } from '../valueSets/index.js'
 
-const prodCharacteristicSchema = z.lazy(() =>
+const prodCharacteristicSchema: ZodType<ProdCharacteristic> =
   backboneElementSchema.extend({
     height: quantitySchema.optional(),
     width: quantitySchema.optional(),
@@ -41,19 +51,17 @@ const prodCharacteristicSchema = z.lazy(() =>
     _imprint: elementSchema.array().optional(),
     image: attachmentSchema.array().optional(),
     scoring: codeableConceptSchema.optional(),
-  }),
-)
+  })
 
-const productShelfLifeSchema = z.lazy(() =>
+const productShelfLifeSchema: ZodType<ProductShelfLife> =
   backboneElementSchema.extend({
     identifier: identifierSchema.optional(),
     type: codeableConceptSchema,
     period: quantitySchema,
     specialPrecautionsForStorage: codeableConceptSchema.array().optional(),
-  }),
-)
+  })
 
-const deviceDefinitionUdiDeviceIdentifierSchema = z.lazy(() =>
+const deviceDefinitionUdiDeviceIdentifierSchema: ZodType<DeviceDefinitionUdiDeviceIdentifier> =
   backboneElementSchema.extend({
     deviceIdentifier: stringSchema,
     _deviceIdentifier: elementSchema.optional(),
@@ -61,51 +69,45 @@ const deviceDefinitionUdiDeviceIdentifierSchema = z.lazy(() =>
     _issuer: elementSchema.optional(),
     jurisdiction: stringSchema,
     _jurisdiction: elementSchema.optional(),
-  }),
-)
+  })
 
-const deviceDefinitionDeviceNameSchema = z.lazy(() =>
+const deviceDefinitionDeviceNameSchema: ZodType<DeviceDefinitionDeviceName> =
   backboneElementSchema.extend({
     name: stringSchema,
     _name: elementSchema.optional(),
     type: deviceDefinitionNameTypeSchema,
     _type: elementSchema.optional(),
-  }),
-)
+  })
 
-const deviceDefinitionSpecializationSchema = z.lazy(() =>
+const deviceDefinitionSpecializationSchema: ZodType<DeviceDefinitionSpecialization> =
   backboneElementSchema.extend({
     systemType: stringSchema,
     _systemType: elementSchema.optional(),
     version: stringSchema.optional(),
     _version: elementSchema.optional(),
-  }),
-)
+  })
 
-const deviceDefinitionCapabilitySchema = z.lazy(() =>
+const deviceDefinitionCapabilitySchema: ZodType<DeviceDefinitionCapability> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     description: codeableConceptSchema.array().optional(),
-  }),
-)
+  })
 
-const deviceDefinitionPropertySchema = z.lazy(() =>
+const deviceDefinitionPropertySchema: ZodType<DeviceDefinitionProperty> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     valueCode: codeableConceptSchema.array().optional(),
     valueQuantity: quantitySchema.array().optional(),
-  }),
-)
+  })
 
-const deviceDefinitionMaterialSchema = z.lazy(() =>
+const deviceDefinitionMaterialSchema: ZodType<DeviceDefinitionMaterial> =
   backboneElementSchema.extend({
     substance: codeableConceptSchema,
     alternate: booleanSchema.optional(),
     _alternate: elementSchema.optional(),
     allergenicIndicator: booleanSchema.optional(),
     _allergenicIndicator: elementSchema.optional(),
-  }),
-)
+  })
 
 export const untypedDeviceDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
