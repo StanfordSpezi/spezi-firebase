@@ -210,6 +210,8 @@ export const untypedClaimSchema = z.lazy(() =>
 export const claimSchema: ZodType<Claim> = untypedClaimSchema
 
 export class FhirClaim extends FhirDomainResource<Claim> {
+  // Static Functions
+
   public static parse(value: unknown): FhirClaim {
     return new FhirClaim(claimSchema.parse(value))
   }

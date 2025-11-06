@@ -270,6 +270,8 @@ export const capabilityStatementSchema: ZodType<CapabilityStatement> =
   untypedCapabilityStatementSchema
 
 export class FhirCapabilityStatement extends FhirDomainResource<CapabilityStatement> {
+  // Static Functions
+
   public static parse(value: unknown): FhirCapabilityStatement {
     return new FhirCapabilityStatement(capabilityStatementSchema.parse(value))
   }

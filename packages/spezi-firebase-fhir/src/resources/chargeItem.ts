@@ -79,6 +79,8 @@ export const untypedChargeItemSchema = z.lazy(() =>
 export const chargeItemSchema: ZodType<ChargeItem> = untypedChargeItemSchema
 
 export class FhirChargeItem extends FhirDomainResource<ChargeItem> {
+  // Static Functions
+
   public static parse(value: unknown): FhirChargeItem {
     return new FhirChargeItem(chargeItemSchema.parse(value))
   }

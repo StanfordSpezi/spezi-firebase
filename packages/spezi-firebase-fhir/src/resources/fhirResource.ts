@@ -20,7 +20,6 @@ import { untypedBasicSchema } from './basic.js'
 import { untypedBinarySchema } from './binary.js'
 import { untypedBiologicallyDerivedProductSchema } from './biologicallyDerivedProduct.js'
 import { untypedBodyStructureSchema } from './bodyStructure.js'
-import { untypedGenericBundleSchema } from './bundle.js'
 import { untypedCapabilityStatementSchema } from './capabilityStatement.js'
 import { untypedCarePlanSchema } from './carePlan.js'
 import { untypedCareTeamSchema } from './careTeam.js'
@@ -209,7 +208,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedExplanationOfBenefitSchema,
     untypedFamilyMemberHistorySchema,
     untypedFlagSchema,
-    untypedGenericBundleSchema,
+    // TODO: untypedGenericBundleSchema,
     untypedGoalSchema,
     untypedGraphDefinitionSchema,
     untypedGroupSchema,

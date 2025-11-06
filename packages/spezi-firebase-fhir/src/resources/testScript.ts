@@ -11,6 +11,10 @@ import {
   type TestScriptMetadata,
   type TestScriptOrigin,
   type TestScript,
+  type TestScriptMetadataLink,
+  type TestScriptMetadataCapability,
+  type TestScriptFixture,
+  type TestScriptVariable,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
@@ -52,35 +56,65 @@ const testScriptDestinationSchema: ZodType<TestScriptDestination> =
     profile: codingSchema,
   })
 
+const testScriptMetadataLinkSchema: ZodType<TestScriptMetadataLink> =
+  backboneElementSchema.extend({
+    url: uriSchema,
+    _url: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+  })
+
+const testScriptMetadataCapabilitySchema: ZodType<TestScriptMetadataCapability> =
+  backboneElementSchema.extend({
+    required: booleanSchema,
+    _required: elementSchema.optional(),
+    validated: booleanSchema,
+    _validated: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    origin: intSchema.array().optional(),
+    _origin: elementSchema.array().optional(),
+    destination: intSchema.optional(),
+    _destination: elementSchema.optional(),
+    link: uriSchema.array().optional(),
+    _link: elementSchema.array().optional(),
+    capabilities: urlSchema,
+    _capabilities: elementSchema.optional(),
+  })
+
 const testScriptMetadataSchema: ZodType<TestScriptMetadata> =
   backboneElementSchema.extend({
-    link: backboneElementSchema
-      .extend({
-        url: uriSchema,
-        _url: elementSchema.optional(),
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-    capability: backboneElementSchema
-      .extend({
-        required: booleanSchema,
-        _required: elementSchema.optional(),
-        validated: booleanSchema,
-        _validated: elementSchema.optional(),
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        origin: intSchema.array().optional(),
-        _origin: elementSchema.array().optional(),
-        destination: intSchema.optional(),
-        _destination: elementSchema.optional(),
-        link: uriSchema.array().optional(),
-        _link: elementSchema.array().optional(),
-        capabilities: urlSchema,
-        _capabilities: elementSchema.optional(),
-      })
-      .array(),
+    link: testScriptMetadataLinkSchema.array().optional(),
+    capability: testScriptMetadataCapabilitySchema.array(),
+  })
+
+const testScriptFixtureSchema: ZodType<TestScriptFixture> =
+  backboneElementSchema.extend({
+    autocreate: booleanSchema,
+    _autocreate: elementSchema.optional(),
+    autodelete: booleanSchema,
+    _autodelete: elementSchema.optional(),
+    resource: referenceSchema.optional(),
+  })
+
+const testScriptVariableSchema: ZodType<TestScriptVariable> =
+  backboneElementSchema.extend({
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    defaultValue: stringSchema.optional(),
+    _defaultValue: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    expression: stringSchema.optional(),
+    _expression: elementSchema.optional(),
+    headerField: stringSchema.optional(),
+    _headerField: elementSchema.optional(),
+    hint: stringSchema.optional(),
+    _hint: elementSchema.optional(),
+    path: stringSchema.optional(),
+    _path: elementSchema.optional(),
+    sourceId: stringSchema.optional(),
+    _sourceId: elementSchema.optional(),
   })
 
 export const untypedTestScriptSchema = z.lazy(() =>
@@ -115,38 +149,9 @@ export const untypedTestScriptSchema = z.lazy(() =>
     origin: testScriptOriginSchema.array().optional(),
     destination: testScriptDestinationSchema.array().optional(),
     metadata: testScriptMetadataSchema.optional(),
-    fixture: backboneElementSchema
-      .extend({
-        autocreate: booleanSchema,
-        _autocreate: elementSchema.optional(),
-        autodelete: booleanSchema,
-        _autodelete: elementSchema.optional(),
-        resource: referenceSchema.optional(),
-      })
-      .array()
-      .optional(),
+    fixture: testScriptFixtureSchema.array().optional(),
     profile: referenceSchema.array().optional(),
-    variable: backboneElementSchema
-      .extend({
-        name: stringSchema,
-        _name: elementSchema.optional(),
-        defaultValue: stringSchema.optional(),
-        _defaultValue: elementSchema.optional(),
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        expression: stringSchema.optional(),
-        _expression: elementSchema.optional(),
-        headerField: stringSchema.optional(),
-        _headerField: elementSchema.optional(),
-        hint: stringSchema.optional(),
-        _hint: elementSchema.optional(),
-        path: stringSchema.optional(),
-        _path: elementSchema.optional(),
-        sourceId: stringSchema.optional(),
-        _sourceId: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    variable: testScriptVariableSchema.array().optional(),
     setup: backboneElementSchema
       .extend({
         action: backboneElementSchema
@@ -412,6 +417,8 @@ export const untypedTestScriptSchema = z.lazy(() =>
 export const testScriptSchema: ZodType<TestScript> = untypedTestScriptSchema
 
 export class FhirTestScript extends FhirDomainResource<TestScript> {
+  // Static Functions
+
   public static parse(value: unknown): FhirTestScript {
     return new FhirTestScript(testScriptSchema.parse(value))
   }

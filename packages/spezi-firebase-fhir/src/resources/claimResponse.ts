@@ -200,6 +200,8 @@ export const claimResponseSchema: ZodType<ClaimResponse> =
   untypedClaimResponseSchema
 
 export class FhirClaimResponse extends FhirDomainResource<ClaimResponse> {
+  // Static Functions
+
   public static parse(value: unknown): FhirClaimResponse {
     return new FhirClaimResponse(claimResponseSchema.parse(value))
   }

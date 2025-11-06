@@ -6,7 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ImmunizationRecommendation } from 'fhir/r4b.js'
+import {
+  ImmunizationRecommendationRecommendation,
+  ImmunizationRecommendationRecommendationDateCriterion,
+  type ImmunizationRecommendation,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -21,19 +25,21 @@ import {
   stringSchema,
 } from '../elements/index.js'
 
-const immunizationRecommendationRecommendationSchema = z.lazy(() =>
+const immunizationRecommendationRecommendationDateCriterionSchema: ZodType<ImmunizationRecommendationRecommendationDateCriterion> =
+  backboneElementSchema.extend({
+    code: codeableConceptSchema,
+    value: dateTimeSchema,
+    _value: elementSchema.optional(),
+  })
+
+const immunizationRecommendationRecommendationSchema: ZodType<ImmunizationRecommendationRecommendation> =
   backboneElementSchema.extend({
     vaccineCode: codeableConceptSchema.array().optional(),
     targetDisease: codeableConceptSchema.optional(),
     contraindicatedVaccineCode: codeableConceptSchema.array().optional(),
     forecastStatus: codeableConceptSchema,
     forecastReason: codeableConceptSchema.array().optional(),
-    dateCriterion: backboneElementSchema
-      .extend({
-        code: codeableConceptSchema,
-        value: dateTimeSchema,
-        _value: elementSchema.optional(),
-      })
+    dateCriterion: immunizationRecommendationRecommendationDateCriterionSchema
       .array()
       .optional(),
     description: stringSchema.optional(),
@@ -48,8 +54,7 @@ const immunizationRecommendationRecommendationSchema = z.lazy(() =>
     _seriesDosesString: elementSchema.optional(),
     supportingImmunization: referenceSchema.array().optional(),
     supportingPatientInformation: referenceSchema.array().optional(),
-  }),
-)
+  })
 
 export const untypedImmunizationRecommendationSchema = z.lazy(() =>
   domainResourceSchema.extend({

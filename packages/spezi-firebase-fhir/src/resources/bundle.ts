@@ -21,10 +21,10 @@ import { fhirResourceSchema } from './fhirResource.js'
 import {
   backboneElementSchema,
   decimalSchema,
+  domainResourceSchema,
   elementSchema,
   identifierSchema,
   instantSchema,
-  resourceSchema,
   signatureSchema,
   stringSchema,
   unsignedIntSchema,
@@ -96,18 +96,20 @@ function bundleEntrySchema<R extends DomainResource>(
 export function untypedBundleSchema<R extends DomainResource>(
   schema: ZodType<R>,
 ) {
-  return resourceSchema.extend({
-    resourceType: z.literal('Bundle').readonly(),
-    identifier: identifierSchema.optional(),
-    type: bundleTypeSchema,
-    _type: elementSchema.optional(),
-    timestamp: instantSchema.optional(),
-    _timestamp: elementSchema.optional(),
-    total: unsignedIntSchema.optional(),
-    link: bundleLinkSchema.array().optional(),
-    entry: bundleEntrySchema(schema).array().optional(),
-    signature: signatureSchema.optional(),
-  }) satisfies ZodType<Bundle<R>>
+  return z.lazy(() =>
+    domainResourceSchema.extend({
+      resourceType: z.literal('Bundle').readonly(),
+      identifier: identifierSchema.optional(),
+      type: bundleTypeSchema,
+      _type: elementSchema.optional(),
+      timestamp: instantSchema.optional(),
+      _timestamp: elementSchema.optional(),
+      total: unsignedIntSchema.optional(),
+      link: bundleLinkSchema.array().optional(),
+      entry: bundleEntrySchema(schema).array().optional(),
+      signature: signatureSchema.optional(),
+    }),
+  ) satisfies ZodType<Bundle<R>>
 }
 
 export function bundleSchema<R extends DomainResource>(

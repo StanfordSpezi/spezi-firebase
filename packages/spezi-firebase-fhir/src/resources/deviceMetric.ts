@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type DeviceMetric } from 'fhir/r4b.js'
+import { DeviceMetricCalibration, type DeviceMetric } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -27,7 +27,7 @@ import {
   deviceMetricOperationalStatusSchema,
 } from '../valueSets/index.js'
 
-const deviceMetricCalibrationSchema = z.lazy(() =>
+const deviceMetricCalibrationSchema: ZodType<DeviceMetricCalibration> =
   backboneElementSchema.extend({
     type: deviceMetricCalibrationTypeSchema.optional(),
     _type: elementSchema.optional(),
@@ -35,8 +35,7 @@ const deviceMetricCalibrationSchema = z.lazy(() =>
     _state: elementSchema.optional(),
     time: instantSchema.optional(),
     _time: elementSchema.optional(),
-  }),
-)
+  })
 
 export const untypedDeviceMetricSchema = z.lazy(() =>
   domainResourceSchema.extend({

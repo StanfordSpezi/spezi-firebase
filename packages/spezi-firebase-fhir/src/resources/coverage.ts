@@ -84,6 +84,8 @@ export const untypedCoverageSchema = z.lazy(() =>
 export const coverageSchema: ZodType<Coverage> = untypedCoverageSchema
 
 export class FhirCoverage extends FhirDomainResource<Coverage> {
+  // Static Functions
+
   public static parse(value: unknown): FhirCoverage {
     return new FhirCoverage(coverageSchema.parse(value))
   }

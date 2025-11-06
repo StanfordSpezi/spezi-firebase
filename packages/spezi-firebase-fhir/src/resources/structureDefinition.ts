@@ -521,6 +521,8 @@ export const structureDefinitionSchema: ZodType<StructureDefinition> =
   untypedStructureDefinitionSchema
 
 export class FhirStructureDefinition extends FhirDomainResource<StructureDefinition> {
+  // Static Functions
+
   public static parse(value: unknown): FhirStructureDefinition {
     return new FhirStructureDefinition(structureDefinitionSchema.parse(value))
   }

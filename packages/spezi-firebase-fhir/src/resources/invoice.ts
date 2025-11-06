@@ -89,6 +89,8 @@ export const untypedInvoiceSchema = z.lazy(() =>
 export const invoiceSchema: ZodType<Invoice> = untypedInvoiceSchema
 
 export class FhirInvoice extends FhirDomainResource<Invoice> {
+  // Static Functions
+
   public static parse(value: unknown): FhirInvoice {
     return new FhirInvoice(invoiceSchema.parse(value))
   }

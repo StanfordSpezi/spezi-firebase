@@ -26,24 +26,22 @@ import {
 } from '../elements/index.js'
 import { goalLifecycleStatusSchema } from '../valueSets/index.js'
 
-const goalTargetSchema: ZodType<GoalTarget> = z.lazy(() =>
-  backboneElementSchema.extend({
-    measure: codeableConceptSchema.optional(),
-    detailQuantity: quantitySchema.optional(),
-    detailRange: rangeSchema.optional(),
-    detailCodeableConcept: codeableConceptSchema.optional(),
-    detailString: stringSchema.optional(),
-    _detailString: elementSchema.optional(),
-    detailBoolean: booleanSchema.optional(),
-    _detailBoolean: elementSchema.optional(),
-    detailInteger: z.number().optional(),
-    _detailInteger: elementSchema.optional(),
-    detailRatio: ratioSchema.optional(),
-    dueDate: dateSchema.optional(),
-    _dueDate: elementSchema.optional(),
-    dueDuration: quantitySchema.optional(),
-  }),
-)
+const goalTargetSchema: ZodType<GoalTarget> = backboneElementSchema.extend({
+  measure: codeableConceptSchema.optional(),
+  detailQuantity: quantitySchema.optional(),
+  detailRange: rangeSchema.optional(),
+  detailCodeableConcept: codeableConceptSchema.optional(),
+  detailString: stringSchema.optional(),
+  _detailString: elementSchema.optional(),
+  detailBoolean: booleanSchema.optional(),
+  _detailBoolean: elementSchema.optional(),
+  detailInteger: z.number().optional(),
+  _detailInteger: elementSchema.optional(),
+  detailRatio: ratioSchema.optional(),
+  dueDate: dateSchema.optional(),
+  _dueDate: elementSchema.optional(),
+  dueDuration: quantitySchema.optional(),
+})
 
 export const untypedGoalSchema = z.lazy(() =>
   domainResourceSchema.extend({

@@ -6,7 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type GraphDefinition, type GraphDefinitionLink } from 'fhir/r4b.js'
+import {
+  GraphDefinitionLinkTarget,
+  GraphDefinitionLinkTargetCompartment,
+  type GraphDefinition,
+  type GraphDefinitionLink,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -29,7 +34,35 @@ import {
   publicationStatusSchema,
 } from '../valueSets/index.js'
 
-const graphDefinitionLinkSchema: ZodType<GraphDefinitionLink> = z.lazy(() =>
+const graphDefinitionLinkTargetCompartmentSchema: ZodType<GraphDefinitionLinkTargetCompartment> =
+  backboneElementSchema.extend({
+    code: compartmentDefinitionCodeSchema,
+    _code: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    expression: stringSchema.optional(),
+    _expression: elementSchema.optional(),
+    rule: graphDefinitionLinkTargetCompartmentRuleSchema,
+    _rule: elementSchema.optional(),
+    use: graphDefinitionLinkTargetCompartmentUseSchema,
+    _use: elementSchema.optional(),
+  })
+
+const graphDefinitionLinkTargetSchema: ZodType<GraphDefinitionLinkTarget> =
+  backboneElementSchema.extend({
+    compartment: graphDefinitionLinkTargetCompartmentSchema.array().optional(),
+    get link() {
+      return graphDefinitionLinkSchema.array().optional()
+    },
+    params: stringSchema.optional(),
+    _params: elementSchema.optional(),
+    profile: urlSchema.optional(),
+    _profile: elementSchema.optional(),
+    type: stringSchema,
+    _type: elementSchema.optional(),
+  })
+
+const graphDefinitionLinkSchema: ZodType<GraphDefinitionLink> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -40,37 +73,8 @@ const graphDefinitionLinkSchema: ZodType<GraphDefinitionLink> = z.lazy(() =>
     _path: elementSchema.optional(),
     sliceName: stringSchema.optional(),
     _sliceName: elementSchema.optional(),
-    target: backboneElementSchema
-      .extend({
-        compartment: backboneElementSchema
-          .extend({
-            code: compartmentDefinitionCodeSchema,
-            _code: elementSchema.optional(),
-            description: stringSchema.optional(),
-            _description: elementSchema.optional(),
-            expression: stringSchema.optional(),
-            _expression: elementSchema.optional(),
-            rule: graphDefinitionLinkTargetCompartmentRuleSchema,
-            _rule: elementSchema.optional(),
-            use: graphDefinitionLinkTargetCompartmentUseSchema,
-            _use: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        get link() {
-          return graphDefinitionLinkSchema.array().optional()
-        },
-        params: stringSchema.optional(),
-        _params: elementSchema.optional(),
-        profile: urlSchema.optional(),
-        _profile: elementSchema.optional(),
-        type: stringSchema,
-        _type: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-  }),
-)
+    target: graphDefinitionLinkTargetSchema.array().optional(),
+  })
 
 export const untypedGraphDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({

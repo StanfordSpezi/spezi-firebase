@@ -85,9 +85,9 @@ const implementationGuideDefinitionPageSchema: ZodType<ImplementationGuideDefini
     _title: elementSchema.optional(),
     generation: guidePageGenerationSchema,
     _generation: elementSchema.optional(),
-    page: z
-      .lazy(() => implementationGuideDefinitionPageSchema.array())
-      .optional(),
+    get page() {
+      return implementationGuideDefinitionPageSchema.array().optional()
+    },
   })
 
 const implementationGuideDefinitionParameterSchema: ZodType<ImplementationGuideDefinitionParameter> =

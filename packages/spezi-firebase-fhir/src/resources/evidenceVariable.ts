@@ -7,6 +7,8 @@
 //
 
 import {
+  EvidenceVariableCategory,
+  EvidenceVariableCharacteristicTimeFromStart,
   type EvidenceVariable,
   type EvidenceVariableCharacteristic,
 } from 'fhir/r4b.js'
@@ -43,6 +45,15 @@ import {
   publicationStatusSchema,
 } from '../valueSets/index.js'
 
+const evidenceVariableCharacteristicTimeFromStartSchema: ZodType<EvidenceVariableCharacteristicTimeFromStart> =
+  backboneElementSchema.extend({
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    quantity: quantitySchema.optional(),
+    range: rangeSchema.optional(),
+    note: annotationSchema.array().optional(),
+  })
+
 const evidenceVariableCharacteristicSchema: ZodType<EvidenceVariableCharacteristic> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
@@ -58,17 +69,18 @@ const evidenceVariableCharacteristicSchema: ZodType<EvidenceVariableCharacterist
     device: referenceSchema.optional(),
     exclude: booleanSchema.optional(),
     _exclude: elementSchema.optional(),
-    timeFromStart: backboneElementSchema
-      .extend({
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        quantity: quantitySchema.optional(),
-        range: rangeSchema.optional(),
-        note: annotationSchema.array().optional(),
-      })
-      .optional(),
+    timeFromStart: evidenceVariableCharacteristicTimeFromStartSchema.optional(),
     groupMeasure: groupMeasureSchema.optional(),
     _groupMeasure: elementSchema.optional(),
+  })
+
+const evidenceVariableCategorySchema: ZodType<EvidenceVariableCategory> =
+  backboneElementSchema.extend({
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueRange: rangeSchema.optional(),
   })
 
 export const untypedEvidenceVariableSchema = z.lazy(() =>
@@ -115,16 +127,7 @@ export const untypedEvidenceVariableSchema = z.lazy(() =>
     characteristic: evidenceVariableCharacteristicSchema.array().optional(),
     handling: evidenceVariableHandlingSchema.optional(),
     _handling: elementSchema.optional(),
-    category: backboneElementSchema
-      .extend({
-        name: stringSchema.optional(),
-        _name: elementSchema.optional(),
-        valueCodeableConcept: codeableConceptSchema.optional(),
-        valueQuantity: quantitySchema.optional(),
-        valueRange: rangeSchema.optional(),
-      })
-      .array()
-      .optional(),
+    category: evidenceVariableCategorySchema.array().optional(),
   }),
 ) satisfies ZodType<EvidenceVariable>
 

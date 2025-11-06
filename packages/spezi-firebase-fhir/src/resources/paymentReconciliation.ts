@@ -81,6 +81,8 @@ export const paymentReconciliationSchema: ZodType<PaymentReconciliation> =
   untypedPaymentReconciliationSchema
 
 export class FhirPaymentReconciliation extends FhirDomainResource<PaymentReconciliation> {
+  // Static Functions
+
   public static parse(value: unknown): FhirPaymentReconciliation {
     return new FhirPaymentReconciliation(
       paymentReconciliationSchema.parse(value),

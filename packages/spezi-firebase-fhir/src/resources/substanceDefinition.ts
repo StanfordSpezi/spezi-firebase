@@ -195,6 +195,8 @@ export const substanceDefinitionSchema: ZodType<SubstanceDefinition> =
   untypedSubstanceDefinitionSchema
 
 export class FhirSubstanceDefinition extends FhirDomainResource<SubstanceDefinition> {
+  // Static Functions
+
   public static parse(value: unknown): FhirSubstanceDefinition {
     return new FhirSubstanceDefinition(substanceDefinitionSchema.parse(value))
   }

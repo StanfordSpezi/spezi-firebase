@@ -96,6 +96,8 @@ export const coverageEligibilityRequestSchema: ZodType<CoverageEligibilityReques
   untypedCoverageEligibilityRequestSchema
 
 export class FhirCoverageEligibilityRequest extends FhirDomainResource<CoverageEligibilityRequest> {
+  // Static Functions
+
   public static parse(value: unknown): FhirCoverageEligibilityRequest {
     return new FhirCoverageEligibilityRequest(
       coverageEligibilityRequestSchema.parse(value),

@@ -17,17 +17,15 @@ import {
   stringSchema,
 } from '../elements/index.js'
 
-const parametersParameterSchema: ZodType<ParametersParameter> = z.lazy(() =>
+const parametersParameterSchema: ZodType<ParametersParameter> =
   anyValueSchema.extend({
     name: stringSchema,
     _name: elementSchema.optional(),
     resource: fhirResourceSchema.optional(),
-    part: z
-      .lazy(() => parametersParameterSchema)
-      .array()
-      .optional(),
-  }),
-)
+    get part() {
+      return parametersParameterSchema.array().optional()
+    },
+  })
 
 export const untypedParametersSchema = z.lazy(() =>
   domainResourceSchema.extend({
