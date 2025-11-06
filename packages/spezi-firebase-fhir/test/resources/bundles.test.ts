@@ -12,7 +12,6 @@ import {
   bundleSchema,
   FhirBundle,
   fhirResourceSchema,
-  genericBundleSchema,
 } from '../../src/index.js'
 
 describe('Bundle Resource', () => {
