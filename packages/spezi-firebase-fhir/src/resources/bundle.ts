@@ -98,22 +98,20 @@ function bundleEntrySchema<R extends DomainResource>(
 export function untypedBundleSchema<R extends DomainResource>(
   schema: ZodType<R>,
 ) {
-  return z.lazy(() =>
-    domainResourceSchema.extend({
-      resourceType: z.literal('Bundle').readonly(),
-      identifier: identifierSchema.optional(),
-      type: bundleTypeSchema,
-      _type: elementSchema.optional(),
-      timestamp: instantSchema.optional(),
-      _timestamp: elementSchema.optional(),
-      total: unsignedIntSchema.optional(),
-      link: bundleLinkSchema.array().optional(),
-      get entry() {
-        return bundleEntrySchema(schema).array().optional()
-      },
-      signature: signatureSchema.optional(),
-    }),
-  ) satisfies ZodType<Bundle<R>>
+  return domainResourceSchema.extend({
+    resourceType: z.literal('Bundle').readonly(),
+    identifier: identifierSchema.optional(),
+    type: bundleTypeSchema,
+    _type: elementSchema.optional(),
+    timestamp: instantSchema.optional(),
+    _timestamp: elementSchema.optional(),
+    total: unsignedIntSchema.optional(),
+    link: bundleLinkSchema.array().optional(),
+    get entry() {
+      return bundleEntrySchema(schema).array().optional()
+    },
+    signature: signatureSchema.optional(),
+  }) satisfies ZodType<Bundle<R>>
 }
 
 export function bundleSchema<R extends DomainResource>(
@@ -122,13 +120,11 @@ export function bundleSchema<R extends DomainResource>(
   return untypedBundleSchema(schema)
 }
 
-export const untypedGenericBundleSchema = untypedBundleSchema(
-  z.lazy(() => fhirResourceSchema),
+export const untypedGenericBundleSchema = z.lazy(() =>
+  untypedBundleSchema(fhirResourceSchema),
 )
 
-export const genericBundleSchema = bundleSchema(
-  z.lazy(() => fhirResourceSchema),
-)
+export const genericBundleSchema: ZodType<Bundle> = untypedGenericBundleSchema
 
 export class FhirBundle<R extends DomainResource> extends FhirDomainResource<
   Bundle<R>
