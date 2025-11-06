@@ -7,8 +7,8 @@
 //
 
 import {
-  EpisodeOfCareDiagnosis,
-  EpisodeOfCareStatusHistory,
+  type EpisodeOfCareDiagnosis,
+  type EpisodeOfCareStatusHistory,
   type EpisodeOfCare,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

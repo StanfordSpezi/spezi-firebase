@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { DiagnosticReportMedia, type DiagnosticReport } from 'fhir/r4b.js'
+import { type DiagnosticReportMedia, type DiagnosticReport } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {

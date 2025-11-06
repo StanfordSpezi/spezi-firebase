@@ -7,8 +7,8 @@
 //
 
 import {
-  ImmunizationRecommendationRecommendation,
-  ImmunizationRecommendationRecommendationDateCriterion,
+  type ImmunizationRecommendationRecommendation,
+  type ImmunizationRecommendationRecommendationDateCriterion,
   type ImmunizationRecommendation,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'

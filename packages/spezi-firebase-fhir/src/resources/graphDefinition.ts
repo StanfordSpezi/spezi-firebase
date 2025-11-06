@@ -7,8 +7,8 @@
 //
 
 import {
-  GraphDefinitionLinkTarget,
-  GraphDefinitionLinkTargetCompartment,
+  type GraphDefinitionLinkTarget,
+  type GraphDefinitionLinkTargetCompartment,
   type GraphDefinition,
   type GraphDefinitionLink,
 } from 'fhir/r4b.js'

@@ -21,7 +21,9 @@ const parametersParameterSchema: ZodType<ParametersParameter> =
   anyValueSchema.extend({
     name: stringSchema,
     _name: elementSchema.optional(),
-    resource: fhirResourceSchema.optional(),
+    get resource() {
+      return fhirResourceSchema.optional()
+    },
     get part() {
       return parametersParameterSchema.array().optional()
     },

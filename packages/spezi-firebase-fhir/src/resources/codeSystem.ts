@@ -29,6 +29,7 @@ import {
   identifierSchema,
   intSchema,
   stringSchema,
+  uriSchema,
   urlSchema,
   usageContextSchema,
 } from '../elements/index.js'
@@ -99,12 +100,10 @@ const codeSystemPropertySchema: ZodType<CodeSystemProperty> =
     _code: elementSchema.optional(),
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
-    operator: filterOperatorSchema.array(),
-    _operator: elementSchema.array().optional(),
     type: codeSystemPropertyTypeSchema,
     _type: elementSchema.optional(),
-    value: stringSchema,
-    _value: elementSchema.optional(),
+    uri: uriSchema.optional(),
+    _uri: elementSchema.optional(),
   })
 
 export const untypedCodeSystemSchema = z.lazy(() =>

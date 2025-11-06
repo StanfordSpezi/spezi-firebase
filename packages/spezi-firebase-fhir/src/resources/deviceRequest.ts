@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { DeviceRequestParameter, type DeviceRequest } from 'fhir/r4b.js'
+import { type DeviceRequestParameter, type DeviceRequest } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {

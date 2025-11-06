@@ -7,12 +7,12 @@
 //
 
 import {
-  ExampleScenarioActor,
-  ExampleScenarioInstance,
-  ExampleScenarioInstanceContainedInstance,
-  ExampleScenarioInstanceVersion,
-  ExampleScenarioProcessStepAlternative,
-  ExampleScenarioProcessStepOperation,
+  type ExampleScenarioActor,
+  type ExampleScenarioInstance,
+  type ExampleScenarioInstanceContainedInstance,
+  type ExampleScenarioInstanceVersion,
+  type ExampleScenarioProcessStepAlternative,
+  type ExampleScenarioProcessStepOperation,
   type ExampleScenario,
   type ExampleScenarioProcess,
   type ExampleScenarioProcessStep,

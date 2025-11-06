@@ -10,8 +10,8 @@ import {
   type EvidenceReport,
   type EvidenceReportSubject,
   type EvidenceReportSection,
-  EvidenceReportSubjectCharacteristic,
-  EvidenceReportRelatesTo,
+  type EvidenceReportSubjectCharacteristic,
+  type EvidenceReportRelatesTo,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'

@@ -7,8 +7,8 @@
 //
 
 import {
-  EvidenceVariableCategory,
-  EvidenceVariableCharacteristicTimeFromStart,
+  type EvidenceVariableCategory,
+  type EvidenceVariableCharacteristicTimeFromStart,
   type EvidenceVariable,
   type EvidenceVariableCharacteristic,
 } from 'fhir/r4b.js'

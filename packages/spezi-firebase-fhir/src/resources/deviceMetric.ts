@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { DeviceMetricCalibration, type DeviceMetric } from 'fhir/r4b.js'
+import { type DeviceMetricCalibration, type DeviceMetric } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {

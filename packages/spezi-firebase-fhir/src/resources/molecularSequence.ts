@@ -7,14 +7,14 @@
 //
 
 import {
-  MolecularSequenceQuality,
-  MolecularSequenceQualityRoc,
-  MolecularSequenceReferenceSeq,
-  MolecularSequenceRepository,
-  MolecularSequenceStructureVariant,
-  MolecularSequenceStructureVariantInner,
-  MolecularSequenceStructureVariantOuter,
-  MolecularSequenceVariant,
+  type MolecularSequenceQuality,
+  type MolecularSequenceQualityRoc,
+  type MolecularSequenceReferenceSeq,
+  type MolecularSequenceRepository,
+  type MolecularSequenceStructureVariant,
+  type MolecularSequenceStructureVariantInner,
+  type MolecularSequenceStructureVariantOuter,
+  type MolecularSequenceVariant,
   type MolecularSequence,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
