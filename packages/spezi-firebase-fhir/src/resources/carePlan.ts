@@ -31,6 +31,7 @@ import {
   uriSchema,
 } from '../elements/index.js'
 import {
+  carePlanActivityKindSchema,
   carePlanActivityStatusSchema,
   carePlanIntentSchema,
   carePlanStatusSchema,
@@ -38,18 +39,7 @@ import {
 
 const carePlanActivityDetailSchema: ZodType<CarePlanActivityDetail> =
   backboneElementSchema.extend({
-    kind: z // TODO: Extract value set
-      .enum([
-        'Appointment',
-        'CommunicationRequest',
-        'DeviceRequest',
-        'MedicationRequest',
-        'NutritionOrder',
-        'Task',
-        'ServiceRequest',
-        'VisionPrescription',
-      ])
-      .optional(),
+    kind: carePlanActivityKindSchema.optional(),
     _kind: elementSchema.optional(),
     instantiatesCanonical: canonicalSchema.array().optional(),
     _instantiatesCanonical: elementSchema.array().optional(),

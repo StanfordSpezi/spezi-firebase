@@ -71,6 +71,7 @@ import {
   extensionContextTypeSchema,
   propertyRepresentationSchema,
   publicationStatusSchema,
+  referenceVersionRulesSchema,
   slicingRulesSchema,
   structureDefinitionDerivationSchema,
   structureDefinitionKindSchema,
@@ -136,7 +137,7 @@ const elementDefinitionTypeSchema: ZodType<ElementDefinitionType> =
     _targetProfile: elementSchema.array().optional(),
     aggregation: aggregationModeSchema.array().optional(),
     _aggregation: elementSchema.array().optional(),
-    versioning: z.enum(['either', 'independent', 'specific']).optional(),
+    versioning: referenceVersionRulesSchema.optional(),
     _versioning: elementSchema.optional(),
   })
 

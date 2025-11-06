@@ -56,3 +56,18 @@ export const carePlanActivityStatusSchema = z.enum([
 export type CarePlanActivityStatus = z.infer<
   typeof carePlanActivityStatusSchema
 >
+
+/**
+ * Resource types defined as part of FHIR that can be represented as in-line definitions of a care plan activity.
+ * http://hl7.org/fhir/ValueSet/care-plan-activity-kind.html
+ */
+export const carePlanActivityKindSchema = z.enum([
+  'Appointment',
+  'CommunicationRequest',
+  'DeviceRequest',
+  'MedicationRequest',
+  'NutritionOrder',
+  'Task',
+  'ServiceRequest',
+  'VisionPrescription',
+])
