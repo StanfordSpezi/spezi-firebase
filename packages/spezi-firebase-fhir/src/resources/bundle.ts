@@ -76,7 +76,9 @@ const bundleEntryResponseSchema: ZodType<BundleEntryResponse> =
     _etag: elementSchema.optional(),
     lastModified: instantSchema.optional(),
     _lastModified: elementSchema.optional(),
-    outcome: fhirResourceSchema.optional(),
+    get outcome() {
+      return fhirResourceSchema.optional()
+    },
   })
 
 function bundleEntrySchema<R extends DomainResource>(
@@ -106,7 +108,9 @@ export function untypedBundleSchema<R extends DomainResource>(
       _timestamp: elementSchema.optional(),
       total: unsignedIntSchema.optional(),
       link: bundleLinkSchema.array().optional(),
-      entry: bundleEntrySchema(schema).array().optional(),
+      get entry() {
+        return bundleEntrySchema(schema).array().optional()
+      },
       signature: signatureSchema.optional(),
     }),
   ) satisfies ZodType<Bundle<R>>
@@ -118,10 +122,13 @@ export function bundleSchema<R extends DomainResource>(
   return untypedBundleSchema(schema)
 }
 
-export const untypedGenericBundleSchema =
-  untypedBundleSchema(fhirResourceSchema)
+export const untypedGenericBundleSchema = untypedBundleSchema(
+  z.lazy(() => fhirResourceSchema),
+)
 
-export const genericBundleSchema = bundleSchema(fhirResourceSchema)
+export const genericBundleSchema = bundleSchema(
+  z.lazy(() => fhirResourceSchema),
+)
 
 export class FhirBundle<R extends DomainResource> extends FhirDomainResource<
   Bundle<R>
