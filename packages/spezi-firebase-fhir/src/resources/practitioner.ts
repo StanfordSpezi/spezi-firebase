@@ -57,6 +57,8 @@ export const practitionerSchema: ZodType<Practitioner> =
   untypedPractitionerSchema
 
 export class FhirPractitioner extends FhirDomainResource<Practitioner> {
+  // Static Functions
+
   public static parse(value: unknown): FhirPractitioner {
     return new FhirPractitioner(practitionerSchema.parse(value))
   }

@@ -26,14 +26,8 @@ import {
 import {
   financialResourceStatusSchema,
   remittanceOutcomeSchema,
+  eligibilityResponsePurposeSchema,
 } from '../valueSets/index.js'
-
-const eligibilityPurposeSchema = z.enum([
-  'auth-requirements',
-  'benefits',
-  'discovery',
-  'validation',
-])
 
 export const untypedCoverageEligibilityResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -41,7 +35,7 @@ export const untypedCoverageEligibilityResponseSchema = z.lazy(() =>
     identifier: identifierSchema.array().optional(),
     status: financialResourceStatusSchema,
     _status: elementSchema.optional(),
-    purpose: eligibilityPurposeSchema.array(),
+    purpose: eligibilityResponsePurposeSchema.array(),
     _purpose: elementSchema.array().optional(),
     patient: referenceSchema,
     servicedDate: dateSchema.optional(),
@@ -118,6 +112,8 @@ export const coverageEligibilityResponseSchema: ZodType<CoverageEligibilityRespo
   untypedCoverageEligibilityResponseSchema
 
 export class FhirCoverageEligibilityResponse extends FhirDomainResource<CoverageEligibilityResponse> {
+  // Static Functions
+
   public static parse(value: unknown): FhirCoverageEligibilityResponse {
     return new FhirCoverageEligibilityResponse(
       coverageEligibilityResponseSchema.parse(value),

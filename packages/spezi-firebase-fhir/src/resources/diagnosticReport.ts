@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type DiagnosticReport } from 'fhir/r4b.js'
+import { type DiagnosticReportMedia, type DiagnosticReport } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -22,13 +22,12 @@ import {
 } from '../elements/index.js'
 import { diagnosticReportStatusSchema } from '../valueSets/index.js'
 
-const diagnosticReportMediaSchema = z.lazy(() =>
+const diagnosticReportMediaSchema: ZodType<DiagnosticReportMedia> =
   backboneElementSchema.extend({
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
     link: referenceSchema,
-  }),
-)
+  })
 
 export const untypedDiagnosticReportSchema = z.lazy(() =>
   domainResourceSchema.extend({

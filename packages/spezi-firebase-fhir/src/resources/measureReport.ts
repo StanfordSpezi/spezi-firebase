@@ -36,61 +36,50 @@ import {
 } from '../valueSets/index.js'
 
 const measureReportGroupStratifierStratumComponentSchema: ZodType<MeasureReportGroupStratifierStratumComponent> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema,
-      value: codeableConceptSchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    code: codeableConceptSchema,
+    value: codeableConceptSchema,
+  })
 
 const measureReportGroupStratifierStratumPopulationSchema: ZodType<MeasureReportGroupStratifierStratumPopulation> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema.optional(),
-      count: intSchema.optional(),
-      subjectResults: referenceSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    code: codeableConceptSchema.optional(),
+    count: intSchema.optional(),
+    subjectResults: referenceSchema.optional(),
+  })
 
 const measureReportGroupStratifierStratumSchema: ZodType<MeasureReportGroupStratifierStratum> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      value: codeableConceptSchema.optional(),
-      component: measureReportGroupStratifierStratumComponentSchema
-        .array()
-        .optional(),
-      population: measureReportGroupStratifierStratumPopulationSchema
-        .array()
-        .optional(),
-      measureScore: quantitySchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    value: codeableConceptSchema.optional(),
+    component: measureReportGroupStratifierStratumComponentSchema
+      .array()
+      .optional(),
+    population: measureReportGroupStratifierStratumPopulationSchema
+      .array()
+      .optional(),
+    measureScore: quantitySchema.optional(),
+  })
 
 const measureReportGroupStratifierSchema: ZodType<MeasureReportGroupStratifier> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema.array().optional(),
-      stratum: measureReportGroupStratifierStratumSchema.array().optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    code: codeableConceptSchema.array().optional(),
+    stratum: measureReportGroupStratifierStratumSchema.array().optional(),
+  })
 
 const measureReportGroupPopulationSchema: ZodType<MeasureReportGroupPopulation> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema.optional(),
-      count: intSchema.optional(),
-      subjectResults: referenceSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    code: codeableConceptSchema.optional(),
+    count: intSchema.optional(),
+    subjectResults: referenceSchema.optional(),
+  })
 
-const measureReportGroupSchema: ZodType<MeasureReportGroup> = z.lazy(() =>
+const measureReportGroupSchema: ZodType<MeasureReportGroup> =
   backboneElementSchema.extend({
     code: codeableConceptSchema.optional(),
     population: measureReportGroupPopulationSchema.array().optional(),
     measureScore: quantitySchema.optional(),
     stratifier: measureReportGroupStratifierSchema.array().optional(),
-  }),
-)
+  })
 
 export const untypedMeasureReportSchema = z.lazy(() =>
   domainResourceSchema.extend({

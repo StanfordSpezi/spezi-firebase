@@ -47,4 +47,32 @@ export class FhirAppointmentResponse extends FhirDomainResource<AppointmentRespo
   public static parse(value: unknown): FhirAppointmentResponse {
     return new FhirAppointmentResponse(appointmentResponseSchema.parse(value))
   }
+
+  // Properties
+
+  public get startDate(): Date | undefined {
+    return this.value.start !== undefined ?
+        new Date(this.value.start)
+      : undefined
+  }
+
+  public set startDate(date: Date | undefined) {
+    if (date !== undefined) {
+      this.value.start = date.toISOString()
+    } else {
+      delete this.value.start
+    }
+  }
+
+  public get endDate(): Date | undefined {
+    return this.value.end !== undefined ? new Date(this.value.end) : undefined
+  }
+
+  public set endDate(date: Date | undefined) {
+    if (date !== undefined) {
+      this.value.end = date.toISOString()
+    } else {
+      delete this.value.end
+    }
+  }
 }

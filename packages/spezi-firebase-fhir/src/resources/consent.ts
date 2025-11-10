@@ -6,7 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Consent } from 'fhir/r4b.js'
+import {
+  type ConsentPolicy,
+  type ConsentProvision,
+  type ConsentProvisionActor,
+  type ConsentProvisionData,
+  type ConsentVerification,
+  type Consent,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -21,11 +28,62 @@ import {
   identifierSchema,
   periodSchema,
   referenceSchema,
+  stringSchema,
+  uriSchema,
 } from '../elements/index.js'
 import {
   consentDataMeaningSchema,
   consentStatusSchema,
+  consentProvisionTypeSchema,
 } from '../valueSets/index.js'
+
+const consentPolicySchema: ZodType<ConsentPolicy> =
+  backboneElementSchema.extend({
+    authority: stringSchema.optional(),
+    _authority: elementSchema.optional(),
+    uri: uriSchema.optional(),
+    _uri: elementSchema.optional(),
+  })
+
+const consentVerificationSchema: ZodType<ConsentVerification> =
+  backboneElementSchema.extend({
+    verified: booleanSchema,
+    _verified: elementSchema.optional(),
+    verificationDate: dateTimeSchema.optional(),
+    _verificationDate: elementSchema.optional(),
+    verifiedWith: referenceSchema.optional(),
+  })
+
+const consentProvisionActorSchema: ZodType<ConsentProvisionActor> =
+  backboneElementSchema.extend({
+    role: codeableConceptSchema,
+    reference: referenceSchema,
+  })
+
+const consentProvisionDataSchema: ZodType<ConsentProvisionData> =
+  backboneElementSchema.extend({
+    meaning: consentDataMeaningSchema,
+    _meaning: elementSchema.optional(),
+    reference: referenceSchema,
+  })
+
+const consentProvisionSchema: ZodType<ConsentProvision> =
+  backboneElementSchema.extend({
+    type: consentProvisionTypeSchema.optional(),
+    _type: elementSchema.optional(),
+    period: periodSchema.optional(),
+    actor: consentProvisionActorSchema.array().optional(),
+    action: codeableConceptSchema.array().optional(),
+    securityLabel: codingSchema.array().optional(),
+    purpose: codingSchema.array().optional(),
+    class: codingSchema.array().optional(),
+    code: codeableConceptSchema.array().optional(),
+    dataPeriod: periodSchema.optional(),
+    data: consentProvisionDataSchema.array().optional(),
+    get provision() {
+      return consentProvisionSchema.array().optional()
+    },
+  })
 
 export const untypedConsentSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -42,57 +100,10 @@ export const untypedConsentSchema = z.lazy(() =>
     organization: referenceSchema.array().optional(),
     sourceAttachment: attachmentSchema.optional(),
     sourceReference: referenceSchema.optional(),
-    policy: backboneElementSchema
-      .extend({
-        authority: z.string().optional(),
-        _authority: elementSchema.optional(),
-        uri: z.string().optional(),
-        _uri: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    policy: consentPolicySchema.array().optional(),
     policyRule: codeableConceptSchema.optional(),
-    verification: backboneElementSchema
-      .extend({
-        verified: booleanSchema,
-        _verified: elementSchema.optional(),
-        verificationDate: dateTimeSchema.optional(),
-        _verificationDate: elementSchema.optional(),
-        verifiedWith: referenceSchema.optional(),
-      })
-      .array()
-      .optional(),
-    provision: z
-      .lazy(() =>
-        backboneElementSchema.extend({
-          type: z.enum(['deny', 'permit']).optional(),
-          _type: elementSchema.optional(),
-          period: periodSchema.optional(),
-          actor: backboneElementSchema
-            .extend({
-              role: codeableConceptSchema,
-              reference: referenceSchema,
-            })
-            .array()
-            .optional(),
-          action: codeableConceptSchema.array().optional(),
-          securityLabel: codingSchema.array().optional(),
-          purpose: codingSchema.array().optional(),
-          class: codingSchema.array().optional(),
-          code: codeableConceptSchema.array().optional(),
-          dataPeriod: periodSchema.optional(),
-          data: backboneElementSchema
-            .extend({
-              meaning: consentDataMeaningSchema,
-              _meaning: elementSchema.optional(),
-              reference: referenceSchema,
-            })
-            .array()
-            .optional(),
-          provision: z.array(z.lazy(() => backboneElementSchema)).optional(),
-        }),
-      )
-      .optional(),
+    verification: consentVerificationSchema.array().optional(),
+    provision: consentProvisionSchema.optional(),
   }),
 ) satisfies ZodType<Consent>
 

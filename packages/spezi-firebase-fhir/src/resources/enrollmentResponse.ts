@@ -44,6 +44,8 @@ export const enrollmentResponseSchema: ZodType<EnrollmentResponse> =
   untypedEnrollmentResponseSchema
 
 export class FhirEnrollmentResponse extends FhirDomainResource<EnrollmentResponse> {
+  // Static Functions
+
   public static parse(value: unknown): FhirEnrollmentResponse {
     return new FhirEnrollmentResponse(enrollmentResponseSchema.parse(value))
   }

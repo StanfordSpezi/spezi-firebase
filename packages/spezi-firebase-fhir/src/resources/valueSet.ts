@@ -6,7 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ValueSet, type ValueSetExpansionContains } from 'fhir/r4b.js'
+import {
+  type ValueSetComposeIncludeConceptDesignation,
+  type ValueSet,
+  type ValueSetExpansionContains,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -29,36 +33,36 @@ import {
   publicationStatusSchema,
 } from '../valueSets/index.js'
 
+const valueSetComposeIncludeConceptDesignationSchema: ZodType<ValueSetComposeIncludeConceptDesignation> =
+  backboneElementSchema.extend({
+    language: stringSchema.optional(),
+    _language: elementSchema.optional(),
+    use: codingSchema.optional(),
+    value: stringSchema,
+    _value: elementSchema.optional(),
+  })
+
 const valueSetExpansionContainsSchema: ZodType<ValueSetExpansionContains> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      system: urlSchema.optional(),
-      _system: elementSchema.optional(),
-      abstract: booleanSchema.optional(),
-      _abstract: elementSchema.optional(),
-      inactive: booleanSchema.optional(),
-      _inactive: elementSchema.optional(),
-      version: stringSchema.optional(),
-      _version: elementSchema.optional(),
-      code: stringSchema.optional(),
-      _code: elementSchema.optional(),
-      display: stringSchema.optional(),
-      _display: elementSchema.optional(),
-      designation: backboneElementSchema
-        .extend({
-          language: stringSchema.optional(),
-          _language: elementSchema.optional(),
-          use: codingSchema.optional(),
-          value: stringSchema,
-          _value: elementSchema.optional(),
-        })
-        .array()
-        .optional(),
-      get contains() {
-        return valueSetExpansionContainsSchema.array().optional()
-      },
-    }),
-  )
+  backboneElementSchema.extend({
+    system: urlSchema.optional(),
+    _system: elementSchema.optional(),
+    abstract: booleanSchema.optional(),
+    _abstract: elementSchema.optional(),
+    inactive: booleanSchema.optional(),
+    _inactive: elementSchema.optional(),
+    version: stringSchema.optional(),
+    _version: elementSchema.optional(),
+    code: stringSchema.optional(),
+    _code: elementSchema.optional(),
+    display: stringSchema.optional(),
+    _display: elementSchema.optional(),
+    designation: valueSetComposeIncludeConceptDesignationSchema
+      .array()
+      .optional(),
+    get contains() {
+      return valueSetExpansionContainsSchema.array().optional()
+    },
+  })
 
 export const untypedValueSetSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -211,7 +215,7 @@ export const untypedValueSetSchema = z.lazy(() =>
       })
       .optional(),
   }),
-)
+) satisfies ZodType<ValueSet>
 
 export const valueSetSchema: ZodType<ValueSet> = untypedValueSetSchema
 

@@ -6,11 +6,22 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type MolecularSequence } from 'fhir/r4b.js'
+import {
+  type MolecularSequenceQuality,
+  type MolecularSequenceQualityRoc,
+  type MolecularSequenceReferenceSeq,
+  type MolecularSequenceRepository,
+  type MolecularSequenceStructureVariant,
+  type MolecularSequenceStructureVariantInner,
+  type MolecularSequenceStructureVariantOuter,
+  type MolecularSequenceVariant,
+  type MolecularSequence,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
   backboneElementSchema,
+  booleanSchema,
   codeableConceptSchema,
   domainResourceSchema,
   elementSchema,
@@ -20,27 +31,32 @@ import {
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
-import { molecularSequenceTypeSchema } from '../valueSets/index.js'
+import {
+  molecularSequenceTypeSchema,
+  orientationTypeSchema,
+  strandTypeSchema,
+  qualityTypeSchema,
+  repositoryTypeSchema,
+} from '../valueSets/index.js'
 
-const molecularSequenceReferenceSeqSchema = z.lazy(() =>
+const molecularSequenceReferenceSeqSchema: ZodType<MolecularSequenceReferenceSeq> =
   backboneElementSchema.extend({
     chromosome: codeableConceptSchema.optional(),
     genomeBuild: stringSchema.optional(),
     _genomeBuild: elementSchema.optional(),
-    orientation: z.enum(['sense', 'antisense']).optional(),
+    orientation: orientationTypeSchema.optional(),
     _orientation: elementSchema.optional(),
     referenceSeqId: codeableConceptSchema.optional(),
     referenceSeqPointer: referenceSchema.optional(),
     referenceSeqString: stringSchema.optional(),
     _referenceSeqString: elementSchema.optional(),
-    strand: z.enum(['watson', 'crick']).optional(),
+    strand: strandTypeSchema.optional(),
     _strand: elementSchema.optional(),
     windowStart: intSchema.optional(),
     windowEnd: intSchema.optional(),
-  }),
-)
+  })
 
-const molecularSequenceVariantSchema = z.lazy(() =>
+const molecularSequenceVariantSchema: ZodType<MolecularSequenceVariant> =
   backboneElementSchema.extend({
     start: intSchema.optional(),
     end: intSchema.optional(),
@@ -51,10 +67,9 @@ const molecularSequenceVariantSchema = z.lazy(() =>
     cigar: stringSchema.optional(),
     _cigar: elementSchema.optional(),
     variantPointer: referenceSchema.optional(),
-  }),
-)
+  })
 
-const molecularSequenceQualityRocSchema = z.lazy(() =>
+const molecularSequenceQualityRocSchema: ZodType<MolecularSequenceQualityRoc> =
   backboneElementSchema.extend({
     score: intSchema.array().optional(),
     numTP: intSchema.array().optional(),
@@ -63,12 +78,11 @@ const molecularSequenceQualityRocSchema = z.lazy(() =>
     precision: intSchema.array().optional(),
     sensitivity: intSchema.array().optional(),
     fMeasure: intSchema.array().optional(),
-  }),
-)
+  })
 
-const molecularSequenceQualitySchema = z.lazy(() =>
+const molecularSequenceQualitySchema: ZodType<MolecularSequenceQuality> =
   backboneElementSchema.extend({
-    type: z.enum(['indel', 'snp', 'unknown']),
+    type: qualityTypeSchema,
     _type: elementSchema.optional(),
     standardSequence: codeableConceptSchema.optional(),
     start: intSchema.optional(),
@@ -84,12 +98,11 @@ const molecularSequenceQualitySchema = z.lazy(() =>
     recall: intSchema.optional(),
     fScore: intSchema.optional(),
     roc: molecularSequenceQualityRocSchema.optional(),
-  }),
-)
+  })
 
-const molecularSequenceRepositorySchema = z.lazy(() =>
+const molecularSequenceRepositorySchema: ZodType<MolecularSequenceRepository> =
   backboneElementSchema.extend({
-    type: z.enum(['directlink', 'openapi', 'login', 'oauth']),
+    type: repositoryTypeSchema,
     _type: elementSchema.optional(),
     url: stringSchema.optional(),
     _url: elementSchema.optional(),
@@ -101,33 +114,29 @@ const molecularSequenceRepositorySchema = z.lazy(() =>
     _variantsetId: elementSchema.optional(),
     readsetId: stringSchema.optional(),
     _readsetId: elementSchema.optional(),
-  }),
-)
+  })
 
-const molecularSequenceStructureVariantInnerSchema = z.lazy(() =>
+const molecularSequenceStructureVariantInnerSchema: ZodType<MolecularSequenceStructureVariantInner> =
   backboneElementSchema.extend({
     start: intSchema.optional(),
     end: intSchema.optional(),
-  }),
-)
+  })
 
-const molecularSequenceStructureVariantOuterSchema = z.lazy(() =>
+const molecularSequenceStructureVariantOuterSchema: ZodType<MolecularSequenceStructureVariantOuter> =
   backboneElementSchema.extend({
     start: intSchema.optional(),
     end: intSchema.optional(),
-  }),
-)
+  })
 
-const molecularSequenceStructureVariantSchema = z.lazy(() =>
+const molecularSequenceStructureVariantSchema: ZodType<MolecularSequenceStructureVariant> =
   backboneElementSchema.extend({
     variantType: codeableConceptSchema.optional(),
-    exact: z.boolean().optional(),
+    exact: booleanSchema.optional(),
     _exact: elementSchema.optional(),
     length: intSchema.optional(),
     outer: molecularSequenceStructureVariantOuterSchema.optional(),
     inner: molecularSequenceStructureVariantInnerSchema.optional(),
-  }),
-)
+  })
 
 export const untypedMolecularSequenceSchema = z.lazy(() =>
   domainResourceSchema.extend({

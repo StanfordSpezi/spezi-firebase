@@ -6,7 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type EpisodeOfCare } from 'fhir/r4b.js'
+import {
+  type EpisodeOfCareDiagnosis,
+  type EpisodeOfCareStatusHistory,
+  type EpisodeOfCare,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -20,27 +24,27 @@ import {
 } from '../elements/index.js'
 import { episodeOfCareStatusSchema } from '../valueSets/index.js'
 
+const episodeOfCareStatusHistorySchema: ZodType<EpisodeOfCareStatusHistory> =
+  backboneElementSchema.extend({
+    status: episodeOfCareStatusSchema,
+    period: periodSchema,
+  })
+
+const episodeOfCareDiagnosisSchema: ZodType<EpisodeOfCareDiagnosis> =
+  backboneElementSchema.extend({
+    condition: referenceSchema,
+    role: codeableConceptSchema.optional(),
+    rank: positiveIntSchema.optional(),
+  })
+
 export const untypedEpisodeOfCareSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('EpisodeOfCare').readonly(),
     identifier: identifierSchema.array().optional(),
     status: episodeOfCareStatusSchema,
-    statusHistory: backboneElementSchema
-      .extend({
-        status: episodeOfCareStatusSchema,
-        period: periodSchema,
-      })
-      .array()
-      .optional(),
+    statusHistory: episodeOfCareStatusHistorySchema.array().optional(),
     type: codeableConceptSchema.array().optional(),
-    diagnosis: backboneElementSchema
-      .extend({
-        condition: referenceSchema,
-        role: codeableConceptSchema.optional(),
-        rank: positiveIntSchema.optional(),
-      })
-      .array()
-      .optional(),
+    diagnosis: episodeOfCareDiagnosisSchema.array().optional(),
     patient: referenceSchema,
     managingOrganization: referenceSchema.optional(),
     period: periodSchema.optional(),

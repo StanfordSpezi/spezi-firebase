@@ -34,44 +34,40 @@ import {
 } from '../valueSets/index.js'
 
 const visionPrescriptionLensSpecificationPrismSchema: ZodType<VisionPrescriptionLensSpecificationPrism> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      amount: decimalSchema,
-      _amount: elementSchema.optional(),
-      base: visionBaseSchema,
-      _base: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    amount: decimalSchema,
+    _amount: elementSchema.optional(),
+    base: visionBaseSchema,
+    _base: elementSchema.optional(),
+  })
 
 const visionPrescriptionLensSpecificationSchema: ZodType<VisionPrescriptionLensSpecification> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      product: codeableConceptSchema,
-      eye: visionEyesSchema,
-      _eye: elementSchema.optional(),
-      sphere: decimalSchema.optional(),
-      _sphere: elementSchema.optional(),
-      cylinder: decimalSchema.optional(),
-      _cylinder: elementSchema.optional(),
-      axis: intSchema.optional(),
-      _axis: elementSchema.optional(),
-      prism: visionPrescriptionLensSpecificationPrismSchema.array().optional(),
-      add: decimalSchema.optional(),
-      _add: elementSchema.optional(),
-      power: decimalSchema.optional(),
-      _power: elementSchema.optional(),
-      backCurve: decimalSchema.optional(),
-      _backCurve: elementSchema.optional(),
-      diameter: decimalSchema.optional(),
-      _diameter: elementSchema.optional(),
-      duration: quantitySchema.optional(),
-      color: stringSchema.optional(),
-      _color: elementSchema.optional(),
-      brand: stringSchema.optional(),
-      _brand: elementSchema.optional(),
-      note: annotationSchema.array().optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    product: codeableConceptSchema,
+    eye: visionEyesSchema,
+    _eye: elementSchema.optional(),
+    sphere: decimalSchema.optional(),
+    _sphere: elementSchema.optional(),
+    cylinder: decimalSchema.optional(),
+    _cylinder: elementSchema.optional(),
+    axis: intSchema.optional(),
+    _axis: elementSchema.optional(),
+    prism: visionPrescriptionLensSpecificationPrismSchema.array().optional(),
+    add: decimalSchema.optional(),
+    _add: elementSchema.optional(),
+    power: decimalSchema.optional(),
+    _power: elementSchema.optional(),
+    backCurve: decimalSchema.optional(),
+    _backCurve: elementSchema.optional(),
+    diameter: decimalSchema.optional(),
+    _diameter: elementSchema.optional(),
+    duration: quantitySchema.optional(),
+    color: stringSchema.optional(),
+    _color: elementSchema.optional(),
+    brand: stringSchema.optional(),
+    _brand: elementSchema.optional(),
+    note: annotationSchema.array().optional(),
+  })
 
 export const untypedVisionPrescriptionSchema = z.lazy(() =>
   domainResourceSchema.extend({

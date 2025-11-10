@@ -34,34 +34,28 @@ import {
 } from '../valueSets/index.js'
 
 const documentReferenceRelatesToSchema: ZodType<DocumentReferenceRelatesTo> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      code: documentReferenceRelatesToCodeSchema,
-      _code: elementSchema.optional(),
-      target: referenceSchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    code: documentReferenceRelatesToCodeSchema,
+    _code: elementSchema.optional(),
+    target: referenceSchema,
+  })
 
 const documentReferenceContentSchema: ZodType<DocumentReferenceContent> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      attachment: attachmentSchema,
-      format: codingSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    attachment: attachmentSchema,
+    format: codingSchema.optional(),
+  })
 
 const documentReferenceContextSchema: ZodType<DocumentReferenceContext> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      encounter: referenceSchema.array().optional(),
-      event: codeableConceptSchema.array().optional(),
-      period: periodSchema.optional(),
-      facilityType: codeableConceptSchema.optional(),
-      practiceSetting: codeableConceptSchema.optional(),
-      sourcePatientInfo: referenceSchema.optional(),
-      related: referenceSchema.array().optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    encounter: referenceSchema.array().optional(),
+    event: codeableConceptSchema.array().optional(),
+    period: periodSchema.optional(),
+    facilityType: codeableConceptSchema.optional(),
+    practiceSetting: codeableConceptSchema.optional(),
+    sourcePatientInfo: referenceSchema.optional(),
+    related: referenceSchema.array().optional(),
+  })
 
 export const untypedDocumentReferenceSchema = z.lazy(() =>
   domainResourceSchema.extend({

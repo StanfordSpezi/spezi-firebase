@@ -6,7 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type AuditEvent } from 'fhir/r4b.js'
+import {
+  type AuditEventAgent,
+  type AuditEventAgentNetwork,
+  type AuditEventEntity,
+  type AuditEventEntityDetail,
+  type AuditEventSource,
+  type AuditEvent,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -25,6 +32,67 @@ import {
   uriSchema,
 } from '../elements/index.js'
 
+const auditEventAgentNetworkSchema: ZodType<AuditEventAgentNetwork> =
+  backboneElementSchema.extend({
+    address: stringSchema.optional(),
+    _address: elementSchema.optional(),
+    type: codeSchema.optional(),
+    _type: elementSchema.optional(),
+  })
+
+const auditEventAgentSchema: ZodType<AuditEventAgent> =
+  backboneElementSchema.extend({
+    type: codeableConceptSchema.optional(),
+    role: codeableConceptSchema.array().optional(),
+    who: referenceSchema.optional(),
+    altId: stringSchema.optional(),
+    _altId: elementSchema.optional(),
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+    requestor: booleanSchema,
+    _requestor: elementSchema.optional(),
+    location: referenceSchema.optional(),
+    policy: uriSchema.array().optional(),
+    _policy: elementSchema.array().optional(),
+    media: codingSchema.optional(),
+    network: auditEventAgentNetworkSchema.optional(),
+    purposeOfUse: codeableConceptSchema.array().optional(),
+  })
+
+const auditEventSourceSchema: ZodType<AuditEventSource> =
+  backboneElementSchema.extend({
+    site: stringSchema.optional(),
+    _site: elementSchema.optional(),
+    observer: referenceSchema,
+    type: codingSchema.array().optional(),
+  })
+
+const auditEventEntityDetailSchema: ZodType<AuditEventEntityDetail> =
+  backboneElementSchema.extend({
+    type: stringSchema,
+    _type: elementSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueBase64Binary: base64BinarySchema.optional(),
+    _valueBase64Binary: elementSchema.optional(),
+  })
+
+const auditEventEntitySchema: ZodType<AuditEventEntity> =
+  backboneElementSchema.extend({
+    what: referenceSchema.optional(),
+    type: codingSchema.optional(),
+    role: codingSchema.optional(),
+    lifecycle: codingSchema.optional(),
+    securityLabel: codingSchema.array().optional(),
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    query: base64BinarySchema.optional(),
+    _query: elementSchema.optional(),
+    detail: auditEventEntityDetailSchema.array().optional(),
+  })
+
 export const untypedAuditEventSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('AuditEvent').readonly(),
@@ -40,66 +108,9 @@ export const untypedAuditEventSchema = z.lazy(() =>
     outcomeDesc: stringSchema.optional(),
     _outcomeDesc: elementSchema.optional(),
     purposeOfEvent: codeableConceptSchema.array().optional(),
-    agent: backboneElementSchema
-      .extend({
-        type: codeableConceptSchema.optional(),
-        role: codeableConceptSchema.array().optional(),
-        who: referenceSchema.optional(),
-        altId: stringSchema.optional(),
-        _altId: elementSchema.optional(),
-        name: stringSchema.optional(),
-        _name: elementSchema.optional(),
-        requestor: booleanSchema,
-        _requestor: elementSchema.optional(),
-        location: referenceSchema.optional(),
-        policy: uriSchema.array().optional(),
-        _policy: elementSchema.array().optional(),
-        media: codingSchema.optional(),
-        network: backboneElementSchema
-          .extend({
-            address: stringSchema.optional(),
-            _address: elementSchema.optional(),
-            type: codeSchema.optional(),
-            _type: elementSchema.optional(),
-          })
-          .optional(),
-        purposeOfUse: codeableConceptSchema.array().optional(),
-      })
-      .array()
-      .min(1),
-    source: backboneElementSchema.extend({
-      site: stringSchema.optional(),
-      _site: elementSchema.optional(),
-      observer: referenceSchema,
-      type: codingSchema.array().optional(),
-    }),
-    entity: backboneElementSchema
-      .extend({
-        what: referenceSchema.optional(),
-        type: codingSchema.optional(),
-        role: codingSchema.optional(),
-        lifecycle: codingSchema.optional(),
-        securityLabel: codingSchema.array().optional(),
-        name: stringSchema.optional(),
-        _name: elementSchema.optional(),
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        query: base64BinarySchema.optional(),
-        _query: elementSchema.optional(),
-        detail: backboneElementSchema
-          .extend({
-            type: stringSchema,
-            _type: elementSchema.optional(),
-            valueString: stringSchema.optional(),
-            _valueString: elementSchema.optional(),
-            valueBase64Binary: base64BinarySchema.optional(),
-            _valueBase64Binary: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
+    agent: auditEventAgentSchema.array().min(1),
+    source: auditEventSourceSchema,
+    entity: auditEventEntitySchema.array().optional(),
   }),
 ) satisfies ZodType<AuditEvent>
 

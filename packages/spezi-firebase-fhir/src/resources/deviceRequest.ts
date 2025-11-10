@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type DeviceRequest } from 'fhir/r4b.js'
+import { type DeviceRequestParameter, type DeviceRequest } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -31,7 +31,7 @@ import {
   requestPrioritySchema,
 } from '../valueSets/index.js'
 
-const deviceRequestParameterSchema = z.lazy(() =>
+const deviceRequestParameterSchema: ZodType<DeviceRequestParameter> =
   backboneElementSchema.extend({
     code: codeableConceptSchema.optional(),
     valueCodeableConcept: codeableConceptSchema.optional(),
@@ -39,8 +39,7 @@ const deviceRequestParameterSchema = z.lazy(() =>
     valueRange: rangeSchema.optional(),
     valueBoolean: booleanSchema.optional(),
     _valueBoolean: elementSchema.optional(),
-  }),
-)
+  })
 
 export const untypedDeviceRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({

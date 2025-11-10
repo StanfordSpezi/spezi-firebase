@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type RiskAssessment } from 'fhir/r4b.js'
+import { type RiskAssessmentPrediction, type RiskAssessment } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -24,6 +24,19 @@ import {
   stringSchema,
 } from '../elements/index.js'
 import { riskAssessmentStatusSchema } from '../valueSets/index.js'
+
+const riskAssessmentPredictionSchema: ZodType<RiskAssessmentPrediction> =
+  backboneElementSchema.extend({
+    outcome: codeableConceptSchema.optional(),
+    probabilityDecimal: decimalSchema.optional(),
+    probabilityRange: rangeSchema.optional(),
+    qualitativeRisk: codeableConceptSchema.optional(),
+    relativeRisk: decimalSchema.optional(),
+    whenPeriod: periodSchema.optional(),
+    whenRange: rangeSchema.optional(),
+    rationale: stringSchema.optional(),
+    _rationale: elementSchema.optional(),
+  })
 
 export const untypedRiskAssessmentSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -45,20 +58,7 @@ export const untypedRiskAssessmentSchema = z.lazy(() =>
     reasonCode: codeableConceptSchema.array().optional(),
     reasonReference: referenceSchema.array().optional(),
     basis: referenceSchema.array().optional(),
-    prediction: backboneElementSchema
-      .extend({
-        outcome: codeableConceptSchema.optional(),
-        probabilityDecimal: decimalSchema.optional(),
-        probabilityRange: rangeSchema.optional(),
-        qualitativeRisk: codeableConceptSchema.optional(),
-        relativeRisk: decimalSchema.optional(),
-        whenPeriod: periodSchema.optional(),
-        whenRange: rangeSchema.optional(),
-        rationale: stringSchema.optional(),
-        _rationale: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    prediction: riskAssessmentPredictionSchema.array().optional(),
     mitigation: stringSchema.optional(),
     _mitigation: elementSchema.optional(),
     note: annotationSchema.array().optional(),

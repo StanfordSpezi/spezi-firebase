@@ -7,6 +7,8 @@
 //
 
 import {
+  type EvidenceVariableCategory,
+  type EvidenceVariableCharacteristicTimeFromStart,
   type EvidenceVariable,
   type EvidenceVariableCharacteristic,
 } from 'fhir/r4b.js'
@@ -43,35 +45,43 @@ import {
   publicationStatusSchema,
 } from '../valueSets/index.js'
 
+const evidenceVariableCharacteristicTimeFromStartSchema: ZodType<EvidenceVariableCharacteristicTimeFromStart> =
+  backboneElementSchema.extend({
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    quantity: quantitySchema.optional(),
+    range: rangeSchema.optional(),
+    note: annotationSchema.array().optional(),
+  })
+
 const evidenceVariableCharacteristicSchema: ZodType<EvidenceVariableCharacteristic> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      description: stringSchema.optional(),
-      _description: elementSchema.optional(),
-      definitionReference: referenceSchema.optional(),
-      definitionCanonical: canonicalSchema.optional(),
-      _definitionCanonical: elementSchema.optional(),
-      definitionCodeableConcept: codeableConceptSchema.optional(),
-      definitionExpression: expressionSchema.optional(),
-      definitionDataRequirement: dataRequirementSchema.optional(),
-      definitionTriggerDefinition: triggerDefinitionSchema.optional(),
-      method: codeableConceptSchema.optional(),
-      device: referenceSchema.optional(),
-      exclude: booleanSchema.optional(),
-      _exclude: elementSchema.optional(),
-      timeFromStart: backboneElementSchema
-        .extend({
-          description: stringSchema.optional(),
-          _description: elementSchema.optional(),
-          quantity: quantitySchema.optional(),
-          range: rangeSchema.optional(),
-          note: annotationSchema.array().optional(),
-        })
-        .optional(),
-      groupMeasure: groupMeasureSchema.optional(),
-      _groupMeasure: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    definitionReference: referenceSchema.optional(),
+    definitionCanonical: canonicalSchema.optional(),
+    _definitionCanonical: elementSchema.optional(),
+    definitionCodeableConcept: codeableConceptSchema.optional(),
+    definitionExpression: expressionSchema.optional(),
+    definitionDataRequirement: dataRequirementSchema.optional(),
+    definitionTriggerDefinition: triggerDefinitionSchema.optional(),
+    method: codeableConceptSchema.optional(),
+    device: referenceSchema.optional(),
+    exclude: booleanSchema.optional(),
+    _exclude: elementSchema.optional(),
+    timeFromStart: evidenceVariableCharacteristicTimeFromStartSchema.optional(),
+    groupMeasure: groupMeasureSchema.optional(),
+    _groupMeasure: elementSchema.optional(),
+  })
+
+const evidenceVariableCategorySchema: ZodType<EvidenceVariableCategory> =
+  backboneElementSchema.extend({
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueRange: rangeSchema.optional(),
+  })
 
 export const untypedEvidenceVariableSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -117,16 +127,7 @@ export const untypedEvidenceVariableSchema = z.lazy(() =>
     characteristic: evidenceVariableCharacteristicSchema.array().optional(),
     handling: evidenceVariableHandlingSchema.optional(),
     _handling: elementSchema.optional(),
-    category: backboneElementSchema
-      .extend({
-        name: stringSchema.optional(),
-        _name: elementSchema.optional(),
-        valueCodeableConcept: codeableConceptSchema.optional(),
-        valueQuantity: quantitySchema.optional(),
-        valueRange: rangeSchema.optional(),
-      })
-      .array()
-      .optional(),
+    category: evidenceVariableCategorySchema.array().optional(),
   }),
 ) satisfies ZodType<EvidenceVariable>
 

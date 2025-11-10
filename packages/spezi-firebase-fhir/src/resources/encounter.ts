@@ -6,7 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Encounter } from 'fhir/r4b.js'
+import {
+  type EncounterClassHistory,
+  type EncounterDiagnosis,
+  type EncounterHospitalization,
+  type EncounterLocation,
+  type EncounterParticipant,
+  type EncounterStatusHistory,
+  type Encounter,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -26,22 +34,20 @@ import {
   encounterLocationStatusSchema,
 } from '../valueSets/index.js'
 
-const encounterClassHistorySchema = z.lazy(() =>
+const encounterClassHistorySchema: ZodType<EncounterClassHistory> =
   backboneElementSchema.extend({
     class: codingSchema,
     period: periodSchema,
-  }),
-)
+  })
 
-const encounterDiagnosisSchema = z.lazy(() =>
+const encounterDiagnosisSchema: ZodType<EncounterDiagnosis> =
   backboneElementSchema.extend({
     condition: referenceSchema,
     use: codeableConceptSchema.optional(),
     rank: intSchema.optional(),
-  }),
-)
+  })
 
-const encounterHospitalizationSchema = z.lazy(() =>
+const encounterHospitalizationSchema: ZodType<EncounterHospitalization> =
   backboneElementSchema.extend({
     preAdmissionIdentifier: identifierSchema.optional(),
     origin: referenceSchema.optional(),
@@ -52,33 +58,29 @@ const encounterHospitalizationSchema = z.lazy(() =>
     specialArrangement: codeableConceptSchema.array().optional(),
     destination: referenceSchema.optional(),
     dischargeDisposition: codeableConceptSchema.optional(),
-  }),
-)
+  })
 
-const encounterLocationSchema = z.lazy(() =>
+const encounterLocationSchema: ZodType<EncounterLocation> =
   backboneElementSchema.extend({
     location: referenceSchema,
     status: encounterLocationStatusSchema.optional(),
     _status: elementSchema.optional(),
     physicalType: codeableConceptSchema.optional(),
     period: periodSchema.optional(),
-  }),
-)
+  })
 
-const encounterParticipantSchema = z.lazy(() =>
+const encounterParticipantSchema: ZodType<EncounterParticipant> =
   backboneElementSchema.extend({
     type: codeableConceptSchema.array().optional(),
     period: periodSchema.optional(),
     individual: referenceSchema.optional(),
-  }),
-)
+  })
 
-const encounterStatusHistorySchema = z.lazy(() =>
+const encounterStatusHistorySchema: ZodType<EncounterStatusHistory> =
   backboneElementSchema.extend({
     status: encounterStatusSchema,
     period: periodSchema,
-  }),
-)
+  })
 
 export const untypedEncounterSchema = z.lazy(
   () =>

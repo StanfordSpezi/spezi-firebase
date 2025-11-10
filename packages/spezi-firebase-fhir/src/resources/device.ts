@@ -6,7 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Device } from 'fhir/r4b.js'
+import {
+  type DeviceDeviceName,
+  type DeviceProperty,
+  type DeviceSpecialization,
+  type DeviceUdiCarrier,
+  type DeviceVersion,
+  type Device,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -23,32 +30,29 @@ import {
 } from '../elements/index.js'
 import { deviceNameTypeSchema, deviceStatusSchema } from '../valueSets/index.js'
 
-const deviceDefinitionDeviceName = z.lazy(() =>
+const deviceDeviceNameSchema: ZodType<DeviceDeviceName> =
   backboneElementSchema.extend({
     name: stringSchema,
     type: deviceNameTypeSchema,
     _type: elementSchema.optional(),
-  }),
-)
+  })
 
-const devicePropertySchema = z.lazy(() =>
+const devicePropertySchema: ZodType<DeviceProperty> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     valueCode: codeableConceptSchema.array().optional(),
     valueQuantity: quantitySchema.array().optional(),
-  }),
-)
+  })
 
-const deviceDefinitionSpecializationSchema = z.lazy(() =>
+const deviceDefinitionSpecializationSchema: ZodType<DeviceSpecialization> =
   backboneElementSchema.extend({
     systemType: codeableConceptSchema,
     _systemType: elementSchema.optional(),
     version: stringSchema.optional(),
     _version: elementSchema.optional(),
-  }),
-)
+  })
 
-const deviceUdiCarrierSchema = z.lazy(() =>
+const deviceUdiCarrierSchema: ZodType<DeviceUdiCarrier> =
   backboneElementSchema.extend({
     deviceIdentifier: stringSchema,
     _deviceIdentifier: elementSchema.optional(),
@@ -60,24 +64,22 @@ const deviceUdiCarrierSchema = z.lazy(() =>
     _carrierHRF: elementSchema.optional(),
     carrierAIDC: stringSchema.optional(),
     _carrierAIDC: elementSchema.optional(),
-  }),
-)
+  })
 
-const deviceVersionSchema = z.lazy(() =>
+const deviceVersionSchema: ZodType<DeviceVersion> =
   backboneElementSchema.extend({
     type: codeableConceptSchema.optional(),
     component: codeableConceptSchema.optional(),
     value: stringSchema,
     _value: elementSchema.optional(),
-  }),
-)
+  })
 
 export const untypedDeviceSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Device').readonly(),
     contact: contactPointSchema.array().optional(),
     definition: referenceSchema.optional(),
-    deviceName: deviceDefinitionDeviceName.array().optional(),
+    deviceName: deviceDeviceNameSchema.array().optional(),
     distinctIdentifier: stringSchema.optional(),
     _distinctIdentifier: elementSchema.optional(),
     expirationDate: stringSchema.optional(),

@@ -6,7 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type CompartmentDefinition } from 'fhir/r4b.js'
+import {
+  type CompartmentDefinitionResource,
+  type CompartmentDefinition,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -24,6 +27,16 @@ import {
   compartmentDefinitionCodeSchema,
   publicationStatusSchema,
 } from '../valueSets/index.js'
+
+const compartmentDefinitionResourceSchema: ZodType<CompartmentDefinitionResource> =
+  backboneElementSchema.extend({
+    code: stringSchema,
+    _code: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+    param: stringSchema.array().optional(),
+    _param: elementSchema.array().optional(),
+  })
 
 export const untypedCompartmentDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -43,17 +56,7 @@ export const untypedCompartmentDefinitionSchema = z.lazy(() =>
     _publisher: elementSchema.optional(),
     purpose: stringSchema.optional(),
     _purpose: elementSchema.optional(),
-    resource: backboneElementSchema
-      .extend({
-        code: stringSchema,
-        _code: elementSchema.optional(),
-        documentation: stringSchema.optional(),
-        _documentation: elementSchema.optional(),
-        param: stringSchema.array().optional(),
-        _param: elementSchema.array().optional(),
-      })
-      .array()
-      .optional(),
+    resource: compartmentDefinitionResourceSchema.array().optional(),
     search: booleanSchema,
     _search: elementSchema.optional(),
     status: publicationStatusSchema,

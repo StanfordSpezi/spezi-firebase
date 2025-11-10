@@ -34,52 +34,45 @@ import {
 } from '../valueSets/index.js'
 
 const ingredientSubstanceStrengthReferenceStrengthSchema: ZodType<IngredientSubstanceStrengthReferenceStrength> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      country: codeableConceptSchema.array().optional(),
-      measurementPoint: stringSchema.optional(),
-      _measurementPoint: elementSchema.optional(),
-      strengthRatio: ratioSchema.optional(),
-      strengthRatioRange: ratioRangeSchema.optional(),
-      substance: codeableReferenceSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    country: codeableConceptSchema.array().optional(),
+    measurementPoint: stringSchema.optional(),
+    _measurementPoint: elementSchema.optional(),
+    strengthRatio: ratioSchema.optional(),
+    strengthRatioRange: ratioRangeSchema.optional(),
+    substance: codeableReferenceSchema.optional(),
+  })
 
 const ingredientSubstanceStrengthSchema: ZodType<IngredientSubstanceStrength> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      concentrationRatio: ratioSchema.optional(),
-      concentrationRatioRange: ratioRangeSchema.optional(),
-      country: codeableConceptSchema.array().optional(),
-      measurementPoint: stringSchema.optional(),
-      _measurementPoint: elementSchema.optional(),
-      presentationRatio: ratioSchema.optional(),
-      presentationRatioRange: ratioRangeSchema.optional(),
-      referenceStrength: ingredientSubstanceStrengthReferenceStrengthSchema
-        .array()
-        .optional(),
-      textConcentration: stringSchema.optional(),
-      _textConcentration: elementSchema.optional(),
-      textPresentation: stringSchema.optional(),
-      _textPresentation: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    concentrationRatio: ratioSchema.optional(),
+    concentrationRatioRange: ratioRangeSchema.optional(),
+    country: codeableConceptSchema.array().optional(),
+    measurementPoint: stringSchema.optional(),
+    _measurementPoint: elementSchema.optional(),
+    presentationRatio: ratioSchema.optional(),
+    presentationRatioRange: ratioRangeSchema.optional(),
+    referenceStrength: ingredientSubstanceStrengthReferenceStrengthSchema
+      .array()
+      .optional(),
+    textConcentration: stringSchema.optional(),
+    _textConcentration: elementSchema.optional(),
+    textPresentation: stringSchema.optional(),
+    _textPresentation: elementSchema.optional(),
+  })
 
-const ingredientSubstanceSchema: ZodType<IngredientSubstance> = z.lazy(() =>
+const ingredientSubstanceSchema: ZodType<IngredientSubstance> =
   backboneElementSchema.extend({
     code: codeableReferenceSchema,
     strength: ingredientSubstanceStrengthSchema.array().optional(),
-  }),
-)
+  })
 
-const ingredientManufacturerSchema: ZodType<IngredientManufacturer> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      manufacturer: referenceSchema,
-      role: ingredientManufacturerRoleSchema.optional(),
-      _role: elementSchema.optional(),
-    }),
-)
+const ingredientManufacturerSchema: ZodType<IngredientManufacturer> =
+  backboneElementSchema.extend({
+    manufacturer: referenceSchema,
+    role: ingredientManufacturerRoleSchema.optional(),
+    _role: elementSchema.optional(),
+  })
 
 export const untypedIngredientSchema = z.lazy(() =>
   domainResourceSchema.extend({

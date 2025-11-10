@@ -7,6 +7,9 @@
 //
 
 import {
+  type OperationDefinitionOverload,
+  type OperationDefinitionParameterBinding,
+  type OperationDefinitionParameterReferencedFrom,
   type OperationDefinition,
   type OperationDefinitionParameter,
 } from 'fhir/r4b.js'
@@ -34,46 +37,55 @@ import {
   searchParameterTypeSchema,
 } from '../valueSets/index.js'
 
+const operationDefinitionParameterBindingSchema: ZodType<OperationDefinitionParameterBinding> =
+  backboneElementSchema.extend({
+    strength: bindingStrengthSchema,
+    _strength: elementSchema.optional(),
+    valueSet: urlSchema,
+    _valueSet: elementSchema.optional(),
+  })
+
+const operationDefinitionParameterReferencedFromSchema: ZodType<OperationDefinitionParameterReferencedFrom> =
+  backboneElementSchema.extend({
+    source: stringSchema,
+    _source: elementSchema.optional(),
+    sourceId: stringSchema.optional(),
+    _sourceId: elementSchema.optional(),
+  })
+
 const operationDefinitionParameterSchema: ZodType<OperationDefinitionParameter> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      binding: backboneElementSchema
-        .extend({
-          strength: bindingStrengthSchema,
-          _strength: elementSchema.optional(),
-          valueSet: urlSchema,
-          _valueSet: elementSchema.optional(),
-        })
-        .optional(),
-      documentation: markdownSchema.optional(),
-      _documentation: elementSchema.optional(),
-      max: stringSchema,
-      _max: elementSchema.optional(),
-      min: intSchema,
-      name: stringSchema,
-      _name: elementSchema.optional(),
-      get part() {
-        return operationDefinitionParameterSchema.array().optional()
-      },
-      referencedFrom: backboneElementSchema
-        .extend({
-          source: stringSchema,
-          _source: elementSchema.optional(),
-          sourceId: stringSchema.optional(),
-          _sourceId: elementSchema.optional(),
-        })
-        .array()
-        .optional(),
-      searchType: searchParameterTypeSchema.optional(),
-      _searchType: elementSchema.optional(),
-      targetProfile: urlSchema.array().optional(),
-      _targetProfile: elementSchema.array().optional(),
-      type: stringSchema.optional(),
-      _type: elementSchema.optional(),
-      use: operationDefinitionParameterUseSchema,
-      _use: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    binding: operationDefinitionParameterBindingSchema.optional(),
+    documentation: markdownSchema.optional(),
+    _documentation: elementSchema.optional(),
+    max: stringSchema,
+    _max: elementSchema.optional(),
+    min: intSchema,
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    get part() {
+      return operationDefinitionParameterSchema.array().optional()
+    },
+    referencedFrom: operationDefinitionParameterReferencedFromSchema
+      .array()
+      .optional(),
+    searchType: searchParameterTypeSchema.optional(),
+    _searchType: elementSchema.optional(),
+    targetProfile: urlSchema.array().optional(),
+    _targetProfile: elementSchema.array().optional(),
+    type: stringSchema.optional(),
+    _type: elementSchema.optional(),
+    use: operationDefinitionParameterUseSchema,
+    _use: elementSchema.optional(),
+  })
+
+const operationDefinitionOverloadSchema: ZodType<OperationDefinitionOverload> =
+  backboneElementSchema.extend({
+    comment: stringSchema.optional(),
+    _comment: elementSchema.optional(),
+    parameterName: stringSchema.array().optional(),
+    _parameterName: elementSchema.array().optional(),
+  })
 
 export const untypedOperationDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -104,15 +116,7 @@ export const untypedOperationDefinitionSchema = z.lazy(() =>
     _name: elementSchema.optional(),
     outputProfile: urlSchema.optional(),
     _outputProfile: elementSchema.optional(),
-    overload: backboneElementSchema
-      .extend({
-        comment: stringSchema.optional(),
-        _comment: elementSchema.optional(),
-        parameterName: stringSchema.array().optional(),
-        _parameterName: elementSchema.array().optional(),
-      })
-      .array()
-      .optional(),
+    overload: operationDefinitionOverloadSchema.array().optional(),
     parameter: operationDefinitionParameterSchema.array().optional(),
     publisher: stringSchema.optional(),
     _publisher: elementSchema.optional(),

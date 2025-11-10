@@ -29,24 +29,21 @@ import {
 } from '../elements/index.js'
 import { researchStudyStatusSchema } from '../valueSets/index.js'
 
-const researchStudyArmSchema: ZodType<ResearchStudyArm> = z.lazy(() =>
+const researchStudyArmSchema: ZodType<ResearchStudyArm> =
   backboneElementSchema.extend({
     name: stringSchema,
     _name: elementSchema.optional(),
     type: codeableConceptSchema.optional(),
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
-  }),
-)
+  })
 
-const researchStudyObjectiveSchema: ZodType<ResearchStudyObjective> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      name: stringSchema.optional(),
-      _name: elementSchema.optional(),
-      type: codeableConceptSchema.optional(),
-    }),
-)
+const researchStudyObjectiveSchema: ZodType<ResearchStudyObjective> =
+  backboneElementSchema.extend({
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+    type: codeableConceptSchema.optional(),
+  })
 
 export const untypedResearchStudySchema = z.lazy(() =>
   domainResourceSchema.extend({

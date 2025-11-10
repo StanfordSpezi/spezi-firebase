@@ -23,15 +23,12 @@ import {
   moneySchema,
   stringSchema,
   quantitySchema,
+  booleanSchema,
 } from '../elements/index.js'
-import { financialResourceStatusSchema } from '../valueSets/index.js'
-
-const eligibilityPurposeSchema = z.enum([
-  'auth-requirements',
-  'benefits',
-  'discovery',
-  'validation',
-])
+import {
+  financialResourceStatusSchema,
+  eligibilityRequestPurposeSchema,
+} from '../valueSets/index.js'
 
 export const untypedCoverageEligibilityRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -40,7 +37,7 @@ export const untypedCoverageEligibilityRequestSchema = z.lazy(() =>
     status: financialResourceStatusSchema,
     _status: elementSchema.optional(),
     priority: codeableConceptSchema.optional(),
-    purpose: eligibilityPurposeSchema.array(),
+    purpose: eligibilityRequestPurposeSchema.array(),
     _purpose: elementSchema.array().optional(),
     patient: referenceSchema,
     servicedDate: dateSchema.optional(),
@@ -56,7 +53,7 @@ export const untypedCoverageEligibilityRequestSchema = z.lazy(() =>
       .extend({
         sequence: positiveIntSchema,
         information: referenceSchema,
-        appliesToAll: z.boolean().optional(),
+        appliesToAll: booleanSchema.optional(),
         _appliesToAll: elementSchema.optional(),
       })
       .array()
@@ -99,6 +96,8 @@ export const coverageEligibilityRequestSchema: ZodType<CoverageEligibilityReques
   untypedCoverageEligibilityRequestSchema
 
 export class FhirCoverageEligibilityRequest extends FhirDomainResource<CoverageEligibilityRequest> {
+  // Static Functions
+
   public static parse(value: unknown): FhirCoverageEligibilityRequest {
     return new FhirCoverageEligibilityRequest(
       coverageEligibilityRequestSchema.parse(value),

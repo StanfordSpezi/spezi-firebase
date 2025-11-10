@@ -27,18 +27,16 @@ import {
 import { manufacturedItemDefinitionStatusSchema } from '../valueSets/index.js'
 
 const manufacturedItemDefinitionPropertySchema: ZodType<ManufacturedItemDefinitionProperty> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema,
-      valueCodeableConcept: codeableConceptSchema.optional(),
-      valueQuantity: quantitySchema.optional(),
-      valueDate: dateSchema.optional(),
-      _valueDate: elementSchema.optional(),
-      valueBoolean: booleanSchema.optional(),
-      _valueBoolean: elementSchema.optional(),
-      valueAttachment: attachmentSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueDate: dateSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+  })
 
 export const untypedManufacturedItemDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({

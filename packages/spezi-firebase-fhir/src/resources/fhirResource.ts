@@ -20,6 +20,8 @@ import { untypedBasicSchema } from './basic.js'
 import { untypedBinarySchema } from './binary.js'
 import { untypedBiologicallyDerivedProductSchema } from './biologicallyDerivedProduct.js'
 import { untypedBodyStructureSchema } from './bodyStructure.js'
+import { untypedGenericBundleSchema } from './bundle.js'
+import { untypedCapabilityStatementSchema } from './capabilityStatement.js'
 import { untypedCarePlanSchema } from './carePlan.js'
 import { untypedCareTeamSchema } from './careTeam.js'
 import { untypedCatalogEntrySchema } from './catalogEntry.js'
@@ -29,6 +31,7 @@ import { untypedCitationSchema } from './citation.js'
 import { untypedClaimSchema } from './claim.js'
 import { untypedClaimResponseSchema } from './claimResponse.js'
 import { untypedClinicalImpressionSchema } from './clinicalImpression.js'
+import { untypedClinicalUseDefinitionSchema } from './clinicalUseDefinition.js'
 import { untypedCodeSystemSchema } from './codeSystem.js'
 import { untypedCommunicationSchema } from './communication.js'
 import { untypedCommunicationRequestSchema } from './communicationRequest.js'
@@ -72,6 +75,7 @@ import { untypedImagingStudySchema } from './imagingStudy.js'
 import { untypedImmunizationSchema } from './immunization.js'
 import { untypedImmunizationEvaluationSchema } from './immunizationEvaluation.js'
 import { untypedImmunizationRecommendationSchema } from './immunizationRecommendation.js'
+import { untypedImplementationGuideSchema } from './implementationGuide.js'
 import { untypedIngredientSchema } from './ingredient.js'
 import { untypedInsurancePlanSchema } from './insurancePlan.js'
 import { untypedInvoiceSchema } from './invoice.js'
@@ -89,6 +93,7 @@ import { untypedMedicationDispenseSchema } from './medicationDispense.js'
 import { untypedMedicationKnowledgeSchema } from './medicationKnowledge.js'
 import { untypedMedicationRequestSchema } from './medicationRequest.js'
 import { untypedMedicationStatementSchema } from './medicationStatement.js'
+import { untypedMedicinalProductDefinitionSchema } from './medicinalProductDefinition.js'
 import { untypedMessageDefinitionSchema } from './messageDefinition.js'
 import { untypedMessageHeaderSchema } from './messageHeader.js'
 import { untypedMolecularSequenceSchema } from './molecularSequence.js'
@@ -128,14 +133,19 @@ import { untypedServiceRequestSchema } from './serviceRequest.js'
 import { untypedSlotSchema } from './slot.js'
 import { untypedSpecimenSchema } from './specimen.js'
 import { untypedSpecimenDefinitionSchema } from './specimenDefinition.js'
+import { untypedStructureDefinitionSchema } from './structureDefinition.js'
 import { untypedStructureMapSchema } from './structureMap.js'
 import { untypedSubscriptionSchema } from './subscription.js'
 import { untypedSubscriptionStatusSchema } from './subscriptionStatus.js'
 import { untypedSubscriptionTopicSchema } from './subscriptionTopic.js'
 import { untypedSubstanceSchema } from './substance.js'
+import { untypedSubstanceDefinitionSchema } from './substanceDefinition.js'
+import { untypedSupplyDeliverySchema } from './supplyDelivery.js'
+import { untypedSupplyRequestSchema } from './supplyRequest.js'
 import { untypedTaskSchema } from './task.js'
 import { untypedTerminologyCapabilitiesSchema } from './terminologyCapabilities.js'
 import { untypedTestReportSchema } from './testReport.js'
+import { untypedTestScriptSchema } from './testScript.js'
 import { untypedValueSetSchema } from './valueSet.js'
 import { untypedVerificationResultSchema } from './verificationResult.js'
 import { untypedVisionPrescriptionSchema } from './visionPrescription.js'
@@ -154,6 +164,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedBinarySchema,
     untypedBiologicallyDerivedProductSchema,
     untypedBodyStructureSchema,
+    untypedCapabilityStatementSchema,
     untypedCarePlanSchema,
     untypedCareTeamSchema,
     untypedCatalogEntrySchema,
@@ -163,6 +174,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedClaimSchema,
     untypedClaimResponseSchema,
     untypedClinicalImpressionSchema,
+    untypedClinicalUseDefinitionSchema,
     untypedCodeSystemSchema,
     untypedCommunicationSchema,
     untypedCommunicationRequestSchema,
@@ -197,12 +209,14 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedExplanationOfBenefitSchema,
     untypedFamilyMemberHistorySchema,
     untypedFlagSchema,
+    untypedGenericBundleSchema,
     untypedGoalSchema,
     untypedGraphDefinitionSchema,
     untypedGroupSchema,
     untypedGuidanceResponseSchema,
     untypedHealthcareServiceSchema,
     untypedImagingStudySchema,
+    untypedImplementationGuideSchema,
     untypedImmunizationSchema,
     untypedImmunizationEvaluationSchema,
     untypedImmunizationRecommendationSchema,
@@ -223,6 +237,7 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedMedicationKnowledgeSchema,
     untypedMedicationRequestSchema,
     untypedMedicationStatementSchema,
+    untypedMedicinalProductDefinitionSchema,
     untypedMessageDefinitionSchema,
     untypedMessageHeaderSchema,
     untypedMolecularSequenceSchema,
@@ -262,14 +277,19 @@ export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
     untypedSlotSchema,
     untypedSpecimenSchema,
     untypedSpecimenDefinitionSchema,
+    untypedStructureDefinitionSchema,
     untypedStructureMapSchema,
     untypedSubscriptionSchema,
     untypedSubscriptionStatusSchema,
     untypedSubscriptionTopicSchema,
     untypedSubstanceSchema,
+    untypedSubstanceDefinitionSchema,
+    untypedSupplyDeliverySchema,
+    untypedSupplyRequestSchema,
     untypedTaskSchema,
     untypedTerminologyCapabilitiesSchema,
     untypedTestReportSchema,
+    untypedTestScriptSchema,
     untypedValueSetSchema,
     untypedVerificationResultSchema,
     untypedVisionPrescriptionSchema,

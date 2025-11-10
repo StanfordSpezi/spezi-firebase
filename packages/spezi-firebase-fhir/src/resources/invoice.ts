@@ -23,16 +23,10 @@ import {
   dateTimeSchema,
   positiveIntSchema,
 } from '../elements/index.js'
-import { invoiceStatusSchema } from '../valueSets/index.js'
-
-const priceComponentTypeSchema = z.enum([
-  'base',
-  'surcharge',
-  'deduction',
-  'discount',
-  'tax',
-  'informational',
-])
+import {
+  invoiceStatusSchema,
+  priceComponentTypeSchema,
+} from '../valueSets/index.js'
 
 export const untypedInvoiceSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -95,6 +89,8 @@ export const untypedInvoiceSchema = z.lazy(() =>
 export const invoiceSchema: ZodType<Invoice> = untypedInvoiceSchema
 
 export class FhirInvoice extends FhirDomainResource<Invoice> {
+  // Static Functions
+
   public static parse(value: unknown): FhirInvoice {
     return new FhirInvoice(invoiceSchema.parse(value))
   }

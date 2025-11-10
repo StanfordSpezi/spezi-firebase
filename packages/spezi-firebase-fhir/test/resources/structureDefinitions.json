@@ -1,0 +1,103 @@
+{
+  "0": {
+    "resourceType": "StructureDefinition",
+    "url": "http://example.org/fhir/StructureDefinition/custom-patient",
+    "name": "CustomPatient",
+    "status": "draft",
+    "kind": "resource",
+    "abstract": false,
+    "type": "http://hl7.org/fhir/StructureDefinition/Patient"
+  },
+  "1": {
+    "resourceType": "StructureDefinition",
+    "url": "http://example.org/fhir/StructureDefinition/patient-birthPlace",
+    "name": "PatientBirthPlace",
+    "title": "Patient Birth Place Extension",
+    "status": "active",
+    "date": "2023-01-15T10:00:00Z",
+    "publisher": "Example Organization",
+    "description": "An extension to capture the place of birth for a patient",
+    "kind": "complex-type",
+    "abstract": false,
+    "context": [
+      {
+        "type": "element",
+        "expression": "Patient"
+      }
+    ],
+    "type": "http://hl7.org/fhir/StructureDefinition/Extension",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+    "derivation": "constraint"
+  },
+  "2": {
+    "resourceType": "StructureDefinition",
+    "url": "http://example.org/fhir/StructureDefinition/observation-profile",
+    "name": "ObservationProfile",
+    "title": "Custom Observation Profile",
+    "status": "active",
+    "experimental": true,
+    "date": "2023-06-01T14:30:00Z",
+    "publisher": "Health Data Standards Organization",
+    "contact": [
+      {
+        "name": "Standards Team",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "standards@example.org"
+          }
+        ]
+      }
+    ],
+    "description": "A profile for laboratory observations",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "purpose": "To constrain Observation resources for laboratory use cases",
+    "copyright": "Copyright 2023 Example Organization",
+    "kind": "resource",
+    "abstract": false,
+    "type": "http://hl7.org/fhir/StructureDefinition/Observation",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+    "derivation": "constraint",
+    "mapping": [
+      {
+        "identity": "v2",
+        "uri": "http://hl7.org/v2",
+        "name": "HL7 v2 Mapping"
+      }
+    ]
+  },
+  "3": {
+    "resourceType": "StructureDefinition",
+    "url": "http://example.org/fhir/StructureDefinition/medication-extended",
+    "name": "MedicationExtended",
+    "title": "Extended Medication Resource",
+    "status": "draft",
+    "experimental": false,
+    "date": "2023-09-20T08:00:00Z",
+    "publisher": "Pharmacy Standards Body",
+    "description": "Extended medication resource with additional constraints",
+    "fhirVersion": "4.3.0",
+    "kind": "resource",
+    "abstract": false,
+    "type": "http://hl7.org/fhir/StructureDefinition/Medication",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Medication",
+    "derivation": "constraint",
+    "keyword": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "410942007",
+        "display": "Drug or medicament"
+      }
+    ]
+  }
+}

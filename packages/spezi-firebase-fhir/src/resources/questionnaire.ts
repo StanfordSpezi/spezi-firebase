@@ -6,7 +6,13 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Questionnaire, type QuestionnaireItem } from 'fhir/r4b.js'
+import {
+  type QuestionnaireItemAnswerOption,
+  type QuestionnaireItemEnableWhen,
+  type QuestionnaireItemInitial,
+  type Questionnaire,
+  type QuestionnaireItem,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -39,7 +45,78 @@ import {
   questionnaireStatusSchema,
 } from '../valueSets/index.js'
 
-const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
+const questionnaireItemEnableWhenSchema: ZodType<QuestionnaireItemEnableWhen> =
+  backboneElementSchema.extend({
+    question: stringSchema,
+    _question: elementSchema.optional(),
+    operator: questionnaireItemEnableWhenOperatorSchema,
+    _operator: elementSchema.optional(),
+    answerBoolean: booleanSchema.optional(),
+    _answerBoolean: elementSchema.optional(),
+    answerDecimal: decimalSchema.optional(),
+    answerInteger: intSchema.optional(),
+    _answerInteger: elementSchema.optional(),
+    answerDate: dateSchema.optional(),
+    _answerDate: elementSchema.optional(),
+    answerDateTime: dateTimeSchema.optional(),
+    _answerDateTime: elementSchema.optional(),
+    answerTime: timeSchema.optional(),
+    _answerTime: elementSchema.optional(),
+    answerString: stringSchema.optional(),
+    _answerString: elementSchema.optional(),
+    answerUri: urlSchema.optional(),
+    _answerUri: elementSchema.optional(),
+    answerAttachment: attachmentSchema.optional(),
+    answerCoding: codingSchema.optional(),
+    answerQuantity: quantitySchema.optional(),
+    answerReference: referenceSchema.optional(),
+  })
+
+const questionnaireItemAnswerOptionSchema: ZodType<QuestionnaireItemAnswerOption> =
+  backboneElementSchema.extend({
+    valueInteger: intSchema.optional(),
+    valueDecimal: decimalSchema.optional(),
+    valueDate: dateSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueDateTime: dateTimeSchema.optional(),
+    _valueDateTime: elementSchema.optional(),
+    valueTime: timeSchema.optional(),
+    _valueTime: elementSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueUri: urlSchema.optional(),
+    _valueUri: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+    valueCoding: codingSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueReference: referenceSchema.optional(),
+    initialSelected: booleanSchema.optional(),
+    _initialSelected: elementSchema.optional(),
+  })
+
+const questionnaireItemInitialSchema: ZodType<QuestionnaireItemInitial> =
+  backboneElementSchema.extend({
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueDecimal: decimalSchema.optional(),
+    valueInteger: intSchema.optional(),
+    valueDate: dateSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueDateTime: dateTimeSchema.optional(),
+    _valueDateTime: elementSchema.optional(),
+    valueTime: timeSchema.optional(),
+    _valueTime: elementSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueUri: urlSchema.optional(),
+    _valueUri: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+    valueCoding: codingSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueReference: referenceSchema.optional(),
+  })
+
+const questionnaireItemSchema: ZodType<QuestionnaireItem> =
   backboneElementSchema.extend({
     linkId: stringSchema,
     _linkId: elementSchema.optional(),
@@ -51,34 +128,7 @@ const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
     text: stringSchema.optional(),
     _text: elementSchema.optional(),
     type: questionnaireItemTypeSchema,
-    enableWhen: elementSchema
-      .extend({
-        question: stringSchema,
-        _question: elementSchema.optional(),
-        operator: questionnaireItemEnableWhenOperatorSchema,
-        _operator: elementSchema.optional(),
-        answerBoolean: booleanSchema.optional(),
-        _answerBoolean: elementSchema.optional(),
-        answerDecimal: decimalSchema.optional(),
-        answerInteger: intSchema.optional(),
-        _answerInteger: elementSchema.optional(),
-        answerDate: dateSchema.optional(),
-        _answerDate: elementSchema.optional(),
-        answerDateTime: dateTimeSchema.optional(),
-        _answerDateTime: elementSchema.optional(),
-        answerTime: timeSchema.optional(),
-        _answerTime: elementSchema.optional(),
-        answerString: stringSchema.optional(),
-        _answerString: elementSchema.optional(),
-        answerUri: urlSchema.optional(),
-        _answerUri: elementSchema.optional(),
-        answerAttachment: attachmentSchema.optional(),
-        answerCoding: codingSchema.optional(),
-        answerQuantity: quantitySchema.optional(),
-        answerReference: referenceSchema.optional(),
-      })
-      .array()
-      .optional(),
+    enableWhen: questionnaireItemEnableWhenSchema.array().optional(),
     enableBehavior: questionnaireItemEnableBehaviorSchema.optional(),
     required: booleanSchema.optional(),
     _required: elementSchema.optional(),
@@ -88,57 +138,12 @@ const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
     _readOnly: elementSchema.optional(),
     maxLength: intSchema.optional(),
     _maxLength: elementSchema.optional(),
-    answerOption: elementSchema
-      .extend({
-        valueInteger: intSchema.optional(),
-        valueDecimal: decimalSchema.optional(),
-        valueDate: dateSchema.optional(),
-        _valueDate: elementSchema.optional(),
-        valueDateTime: dateTimeSchema.optional(),
-        _valueDateTime: elementSchema.optional(),
-        valueTime: timeSchema.optional(),
-        _valueTime: elementSchema.optional(),
-        valueString: stringSchema.optional(),
-        _valueString: elementSchema.optional(),
-        valueUri: urlSchema.optional(),
-        _valueUri: elementSchema.optional(),
-        valueAttachment: attachmentSchema.optional(),
-        valueCoding: codingSchema.optional(),
-        valueQuantity: quantitySchema.optional(),
-        valueReference: referenceSchema.optional(),
-        initialSelected: booleanSchema.optional(),
-        _initialSelected: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-    initial: elementSchema
-      .extend({
-        valueBoolean: booleanSchema.optional(),
-        _valueBoolean: elementSchema.optional(),
-        valueDecimal: decimalSchema.optional(),
-        valueInteger: intSchema.optional(),
-        valueDate: dateSchema.optional(),
-        _valueDate: elementSchema.optional(),
-        valueDateTime: dateTimeSchema.optional(),
-        _valueDateTime: elementSchema.optional(),
-        valueTime: timeSchema.optional(),
-        _valueTime: elementSchema.optional(),
-        valueString: stringSchema.optional(),
-        _valueString: elementSchema.optional(),
-        valueUri: urlSchema.optional(),
-        _valueUri: elementSchema.optional(),
-        valueAttachment: attachmentSchema.optional(),
-        valueCoding: codingSchema.optional(),
-        valueQuantity: quantitySchema.optional(),
-        valueReference: referenceSchema.optional(),
-      })
-      .array()
-      .optional(),
+    answerOption: questionnaireItemAnswerOptionSchema.array().optional(),
+    initial: questionnaireItemInitialSchema.array().optional(),
     get item() {
       return questionnaireItemSchema.array().optional()
     },
-  }),
-)
+  })
 
 export const untypedQuestionnaireSchema = z.lazy(() =>
   domainResourceSchema.extend({

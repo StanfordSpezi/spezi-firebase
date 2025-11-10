@@ -39,76 +39,64 @@ import {
 } from '../valueSets/index.js'
 
 const nutritionOrderOralDietNutrientSchema: ZodType<NutritionOrderOralDietNutrient> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      amount: quantitySchema.optional(),
-      modifier: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    amount: quantitySchema.optional(),
+    modifier: codeableConceptSchema.optional(),
+  })
 
 const nutritionOrderOralDietTextureSchema: ZodType<NutritionOrderOralDietTexture> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      foodType: codeableConceptSchema.optional(),
-      modifier: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    foodType: codeableConceptSchema.optional(),
+    modifier: codeableConceptSchema.optional(),
+  })
 
-const nutritionOrderOralDietSchema: ZodType<NutritionOrderOralDiet> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      fluidConsistencyType: codeableConceptSchema.array().optional(),
-      instruction: stringSchema.optional(),
-      _instruction: elementSchema.optional(),
-      nutrient: nutritionOrderOralDietNutrientSchema.array().optional(),
-      schedule: timingSchema.array().optional(),
-      texture: nutritionOrderOralDietTextureSchema.array().optional(),
-      type: codeableConceptSchema.array().optional(),
-    }),
-)
+const nutritionOrderOralDietSchema: ZodType<NutritionOrderOralDiet> =
+  backboneElementSchema.extend({
+    fluidConsistencyType: codeableConceptSchema.array().optional(),
+    instruction: stringSchema.optional(),
+    _instruction: elementSchema.optional(),
+    nutrient: nutritionOrderOralDietNutrientSchema.array().optional(),
+    schedule: timingSchema.array().optional(),
+    texture: nutritionOrderOralDietTextureSchema.array().optional(),
+    type: codeableConceptSchema.array().optional(),
+  })
 
 const nutritionOrderSupplementSchema: ZodType<NutritionOrderSupplement> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      instruction: stringSchema.optional(),
-      _instruction: elementSchema.optional(),
-      productName: stringSchema.optional(),
-      _productName: elementSchema.optional(),
-      quantity: quantitySchema.optional(),
-      schedule: timingSchema.array().optional(),
-      type: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    instruction: stringSchema.optional(),
+    _instruction: elementSchema.optional(),
+    productName: stringSchema.optional(),
+    _productName: elementSchema.optional(),
+    quantity: quantitySchema.optional(),
+    schedule: timingSchema.array().optional(),
+    type: codeableConceptSchema.optional(),
+  })
 
 const nutritionOrderEnteralFormulaAdministrationSchema: ZodType<NutritionOrderEnteralFormulaAdministration> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      quantity: quantitySchema.optional(),
-      rateQuantity: quantitySchema.optional(),
-      rateRatio: ratioSchema.optional(),
-      schedule: timingSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    quantity: quantitySchema.optional(),
+    rateQuantity: quantitySchema.optional(),
+    rateRatio: ratioSchema.optional(),
+    schedule: timingSchema.optional(),
+  })
 
 const nutritionOrderEnteralFormulaSchema: ZodType<NutritionOrderEnteralFormula> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      additiveProductName: stringSchema.optional(),
-      _additiveProductName: elementSchema.optional(),
-      additiveType: codeableConceptSchema.optional(),
-      administrationInstruction: stringSchema.optional(),
-      _administrationInstruction: elementSchema.optional(),
-      administration: nutritionOrderEnteralFormulaAdministrationSchema
-        .array()
-        .optional(),
-      baseFormulaProductName: stringSchema.optional(),
-      _baseFormulaProductName: elementSchema.optional(),
-      baseFormulaType: codeableConceptSchema.optional(),
-      caloricDensity: quantitySchema.optional(),
-      maxVolumeToDeliver: quantitySchema.optional(),
-      routeofAdministration: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    additiveProductName: stringSchema.optional(),
+    _additiveProductName: elementSchema.optional(),
+    additiveType: codeableConceptSchema.optional(),
+    administrationInstruction: stringSchema.optional(),
+    _administrationInstruction: elementSchema.optional(),
+    administration: nutritionOrderEnteralFormulaAdministrationSchema
+      .array()
+      .optional(),
+    baseFormulaProductName: stringSchema.optional(),
+    _baseFormulaProductName: elementSchema.optional(),
+    baseFormulaType: codeableConceptSchema.optional(),
+    caloricDensity: quantitySchema.optional(),
+    maxVolumeToDeliver: quantitySchema.optional(),
+    routeofAdministration: codeableConceptSchema.optional(),
+  })
 
 export const untypedNutritionOrderSchema = z.lazy(() =>
   domainResourceSchema.extend({

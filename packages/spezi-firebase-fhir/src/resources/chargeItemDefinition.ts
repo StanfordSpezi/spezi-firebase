@@ -6,7 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ChargeItemDefinition } from 'fhir/r4b.js'
+import {
+  type ChargeItemDefinitionApplicability,
+  type ChargeItemDefinitionPropertyGroup,
+  type ChargeItemDefinitionPropertyGroupPriceComponent,
+  type ChargeItemDefinition,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
@@ -27,16 +32,37 @@ import {
   usageContextSchema,
   contactDetailSchema,
 } from '../elements/index.js'
-import { chargeItemDefinitionStatusSchema } from '../valueSets/index.js'
+import {
+  chargeItemDefinitionStatusSchema,
+  priceComponentTypeSchema,
+} from '../valueSets/index.js'
 
-const priceComponentTypeSchema = z.enum([
-  'base',
-  'surcharge',
-  'deduction',
-  'discount',
-  'tax',
-  'informational',
-])
+const chargeItemDefinitionApplicabilitySchema: ZodType<ChargeItemDefinitionApplicability> =
+  backboneElementSchema.extend({
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    language: stringSchema.optional(),
+    _language: elementSchema.optional(),
+    expression: stringSchema.optional(),
+    _expression: elementSchema.optional(),
+  })
+
+const chargeItemDefinitionPropertyGroupPriceComponentSchema: ZodType<ChargeItemDefinitionPropertyGroupPriceComponent> =
+  backboneElementSchema.extend({
+    type: priceComponentTypeSchema,
+    _type: elementSchema.optional(),
+    code: codeableConceptSchema.optional(),
+    factor: decimalSchema.optional(),
+    amount: moneySchema.optional(),
+  })
+
+const chargeItemDefinitionPropertyGroupSchema: ZodType<ChargeItemDefinitionPropertyGroup> =
+  backboneElementSchema.extend({
+    applicability: chargeItemDefinitionApplicabilitySchema.array().optional(),
+    priceComponent: chargeItemDefinitionPropertyGroupPriceComponentSchema
+      .array()
+      .optional(),
+  })
 
 export const untypedChargeItemDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -76,43 +102,8 @@ export const untypedChargeItemDefinitionSchema = z.lazy(() =>
     effectivePeriod: periodSchema.optional(),
     code: codeableConceptSchema.optional(),
     instance: referenceSchema.array().optional(),
-    applicability: backboneElementSchema
-      .extend({
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        language: stringSchema.optional(),
-        _language: elementSchema.optional(),
-        expression: stringSchema.optional(),
-        _expression: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-    propertyGroup: backboneElementSchema
-      .extend({
-        applicability: backboneElementSchema
-          .extend({
-            description: stringSchema.optional(),
-            _description: elementSchema.optional(),
-            language: stringSchema.optional(),
-            _language: elementSchema.optional(),
-            expression: stringSchema.optional(),
-            _expression: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        priceComponent: backboneElementSchema
-          .extend({
-            type: priceComponentTypeSchema,
-            _type: elementSchema.optional(),
-            code: codeableConceptSchema.optional(),
-            factor: decimalSchema.optional(),
-            amount: moneySchema.optional(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
+    applicability: chargeItemDefinitionApplicabilitySchema.array().optional(),
+    propertyGroup: chargeItemDefinitionPropertyGroupSchema.array().optional(),
   }),
 ) satisfies ZodType<ChargeItemDefinition>
 
@@ -120,6 +111,8 @@ export const chargeItemDefinitionSchema: ZodType<ChargeItemDefinition> =
   untypedChargeItemDefinitionSchema
 
 export class FhirChargeItemDefinition extends FhirDomainResource<ChargeItemDefinition> {
+  // Static Functions
+
   public static parse(value: unknown): FhirChargeItemDefinition {
     return new FhirChargeItemDefinition(chargeItemDefinitionSchema.parse(value))
   }

@@ -25,13 +25,11 @@ import {
 } from '../elements/index.js'
 import { documentManifestStatusSchema } from '../valueSets/index.js'
 
-const documentManifestRelatedSchema: ZodType<DocumentManifestRelated> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      identifier: identifierSchema.optional(),
-      ref: referenceSchema.optional(),
-    }),
-)
+const documentManifestRelatedSchema: ZodType<DocumentManifestRelated> =
+  backboneElementSchema.extend({
+    identifier: identifierSchema.optional(),
+    ref: referenceSchema.optional(),
+  })
 
 export const untypedDocumentManifestSchema = z.lazy(() =>
   domainResourceSchema.extend({

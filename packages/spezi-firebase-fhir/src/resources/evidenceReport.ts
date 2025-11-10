@@ -10,6 +10,8 @@ import {
   type EvidenceReport,
   type EvidenceReportSubject,
   type EvidenceReportSection,
+  type EvidenceReportSubjectCharacteristic,
+  type EvidenceReportRelatesTo,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
@@ -39,28 +41,29 @@ import {
   sectionModeSchema,
 } from '../valueSets/index.js'
 
-const evidenceReportSubjectSchema: ZodType<EvidenceReportSubject> = z.lazy(() =>
+const evidenceReportSubjectCharacteristicSchema: ZodType<EvidenceReportSubjectCharacteristic> =
   backboneElementSchema.extend({
-    characteristic: backboneElementSchema
-      .extend({
-        code: codeableConceptSchema,
-        valueReference: referenceSchema.optional(),
-        valueCodeableConcept: codeableConceptSchema.optional(),
-        valueBoolean: booleanSchema.optional(),
-        _valueBoolean: elementSchema.optional(),
-        valueQuantity: quantitySchema.optional(),
-        valueRange: rangeSchema.optional(),
-        exclude: booleanSchema.optional(),
-        _exclude: elementSchema.optional(),
-        period: periodSchema.optional(),
-      })
+    code: codeableConceptSchema,
+    valueReference: referenceSchema.optional(),
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueRange: rangeSchema.optional(),
+    exclude: booleanSchema.optional(),
+    _exclude: elementSchema.optional(),
+    period: periodSchema.optional(),
+  })
+
+const evidenceReportSubjectSchema: ZodType<EvidenceReportSubject> =
+  backboneElementSchema.extend({
+    characteristic: evidenceReportSubjectCharacteristicSchema
       .array()
       .optional(),
     note: annotationSchema.array().optional(),
-  }),
-)
+  })
 
-const evidenceReportSectionSchema: ZodType<EvidenceReportSection> = z.lazy(() =>
+const evidenceReportSectionSchema: ZodType<EvidenceReportSection> =
   backboneElementSchema.extend({
     title: stringSchema.optional(),
     _title: elementSchema.optional(),
@@ -78,8 +81,15 @@ const evidenceReportSectionSchema: ZodType<EvidenceReportSection> = z.lazy(() =>
     get section() {
       return evidenceReportSectionSchema.array().optional()
     },
-  }),
-)
+  })
+
+const evidenceReportRelatesToSchema: ZodType<EvidenceReportRelatesTo> =
+  backboneElementSchema.extend({
+    code: evidenceReportRelatesToCodeSchema,
+    _code: elementSchema.optional(),
+    targetIdentifier: identifierSchema.optional(),
+    targetReference: referenceSchema.optional(),
+  })
 
 export const untypedEvidenceReportSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -105,15 +115,7 @@ export const untypedEvidenceReportSchema = z.lazy(() =>
     editor: contactDetailSchema.array().optional(),
     reviewer: contactDetailSchema.array().optional(),
     endorser: contactDetailSchema.array().optional(),
-    relatesTo: backboneElementSchema
-      .extend({
-        code: evidenceReportRelatesToCodeSchema,
-        _code: elementSchema.optional(),
-        targetIdentifier: identifierSchema.optional(),
-        targetReference: referenceSchema.optional(),
-      })
-      .array()
-      .optional(),
+    relatesTo: evidenceReportRelatesToSchema.array().optional(),
     section: evidenceReportSectionSchema.array().optional(),
   }),
 ) satisfies ZodType<EvidenceReport>

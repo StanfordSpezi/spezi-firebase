@@ -33,170 +33,170 @@ import {
   contractStatusSchema,
 } from '../valueSets/index.js'
 
-const contractTermSchema: ZodType<ContractTerm> = z.lazy(() =>
-  backboneElementSchema.extend({
-    identifier: identifierSchema.optional(),
-    issued: dateTimeSchema.optional(),
-    _issued: elementSchema.optional(),
-    applies: periodSchema.optional(),
-    topicCodeableConcept: codeableConceptSchema.optional(),
-    topicReference: referenceSchema.optional(),
-    type: codeableConceptSchema.optional(),
-    subType: codeableConceptSchema.optional(),
-    text: stringSchema.optional(),
-    _text: elementSchema.optional(),
-    securityLabel: backboneElementSchema
+// TODO: Separate schemas
+
+const contractTermSchema: ZodType<ContractTerm> = backboneElementSchema.extend({
+  identifier: identifierSchema.optional(),
+  issued: dateTimeSchema.optional(),
+  _issued: elementSchema.optional(),
+  applies: periodSchema.optional(),
+  topicCodeableConcept: codeableConceptSchema.optional(),
+  topicReference: referenceSchema.optional(),
+  type: codeableConceptSchema.optional(),
+  subType: codeableConceptSchema.optional(),
+  text: stringSchema.optional(),
+  _text: elementSchema.optional(),
+  securityLabel: backboneElementSchema
+    .extend({
+      number: z.number().array().optional(),
+      classification: codingSchema,
+      category: codingSchema.array().optional(),
+      control: codingSchema.array().optional(),
+    })
+    .array()
+    .optional(),
+  offer: backboneElementSchema.extend({
+    identifier: identifierSchema.array().optional(),
+    party: backboneElementSchema
       .extend({
-        number: z.number().array().optional(),
-        classification: codingSchema,
-        category: codingSchema.array().optional(),
-        control: codingSchema.array().optional(),
+        reference: referenceSchema.array().min(1),
+        role: codeableConceptSchema,
       })
       .array()
       .optional(),
-    offer: backboneElementSchema.extend({
-      identifier: identifierSchema.array().optional(),
-      party: backboneElementSchema
+    topic: referenceSchema.optional(),
+    type: codeableConceptSchema.optional(),
+    decision: codeableConceptSchema.optional(),
+    decisionMode: codeableConceptSchema.array().optional(),
+    answer: backboneElementSchema
+      .extend({
+        valueBoolean: z.boolean().optional(),
+        _valueBoolean: elementSchema.optional(),
+        valueDecimal: z.number().optional(),
+        valueInteger: z.number().optional(),
+        valueDate: z.string().optional(),
+        _valueDate: elementSchema.optional(),
+        valueDateTime: dateTimeSchema.optional(),
+        _valueDateTime: elementSchema.optional(),
+        valueTime: z.string().optional(),
+        _valueTime: elementSchema.optional(),
+        valueString: stringSchema.optional(),
+        _valueString: elementSchema.optional(),
+        valueUri: uriSchema.optional(),
+        _valueUri: elementSchema.optional(),
+        valueAttachment: attachmentSchema.optional(),
+        valueCoding: codingSchema.optional(),
+        valueQuantity: quantitySchema.optional(),
+        valueReference: referenceSchema.optional(),
+      })
+      .array()
+      .optional(),
+    text: stringSchema.optional(),
+    _text: elementSchema.optional(),
+    linkId: stringSchema.array().optional(),
+    _linkId: elementSchema.array().optional(),
+    securityLabelNumber: z.number().array().optional(),
+  }),
+  asset: backboneElementSchema
+    .extend({
+      scope: codeableConceptSchema.optional(),
+      type: codeableConceptSchema.array().optional(),
+      typeReference: referenceSchema.array().optional(),
+      subtype: codeableConceptSchema.array().optional(),
+      relationship: codingSchema.optional(),
+      context: backboneElementSchema
         .extend({
-          reference: referenceSchema.array().min(1),
-          role: codeableConceptSchema,
+          reference: referenceSchema.optional(),
+          code: codeableConceptSchema.array().optional(),
+          text: stringSchema.optional(),
+          _text: elementSchema.optional(),
         })
         .array()
         .optional(),
-      topic: referenceSchema.optional(),
-      type: codeableConceptSchema.optional(),
-      decision: codeableConceptSchema.optional(),
-      decisionMode: codeableConceptSchema.array().optional(),
-      answer: backboneElementSchema
-        .extend({
-          valueBoolean: z.boolean().optional(),
-          _valueBoolean: elementSchema.optional(),
-          valueDecimal: z.number().optional(),
-          valueInteger: z.number().optional(),
-          valueDate: z.string().optional(),
-          _valueDate: elementSchema.optional(),
-          valueDateTime: dateTimeSchema.optional(),
-          _valueDateTime: elementSchema.optional(),
-          valueTime: z.string().optional(),
-          _valueTime: elementSchema.optional(),
-          valueString: stringSchema.optional(),
-          _valueString: elementSchema.optional(),
-          valueUri: uriSchema.optional(),
-          _valueUri: elementSchema.optional(),
-          valueAttachment: attachmentSchema.optional(),
-          valueCoding: codingSchema.optional(),
-          valueQuantity: quantitySchema.optional(),
-          valueReference: referenceSchema.optional(),
-        })
-        .array()
-        .optional(),
+      condition: stringSchema.optional(),
+      _condition: elementSchema.optional(),
+      periodType: codeableConceptSchema.array().optional(),
+      period: periodSchema.array().optional(),
+      usePeriod: periodSchema.array().optional(),
       text: stringSchema.optional(),
       _text: elementSchema.optional(),
       linkId: stringSchema.array().optional(),
       _linkId: elementSchema.array().optional(),
+      answer: backboneElementSchema.array().optional(),
       securityLabelNumber: z.number().array().optional(),
-    }),
-    asset: backboneElementSchema
-      .extend({
-        scope: codeableConceptSchema.optional(),
-        type: codeableConceptSchema.array().optional(),
-        typeReference: referenceSchema.array().optional(),
-        subtype: codeableConceptSchema.array().optional(),
-        relationship: codingSchema.optional(),
-        context: backboneElementSchema
-          .extend({
-            reference: referenceSchema.optional(),
-            code: codeableConceptSchema.array().optional(),
-            text: stringSchema.optional(),
-            _text: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        condition: stringSchema.optional(),
-        _condition: elementSchema.optional(),
-        periodType: codeableConceptSchema.array().optional(),
-        period: periodSchema.array().optional(),
-        usePeriod: periodSchema.array().optional(),
-        text: stringSchema.optional(),
-        _text: elementSchema.optional(),
-        linkId: stringSchema.array().optional(),
-        _linkId: elementSchema.array().optional(),
-        answer: backboneElementSchema.array().optional(),
-        securityLabelNumber: z.number().array().optional(),
-        valuedItem: backboneElementSchema
-          .extend({
-            entityCodeableConcept: codeableConceptSchema.optional(),
-            entityReference: referenceSchema.optional(),
-            identifier: identifierSchema.optional(),
-            effectiveTime: dateTimeSchema.optional(),
-            _effectiveTime: elementSchema.optional(),
-            quantity: quantitySchema.optional(),
-            unitPrice: moneySchema.optional(),
-            factor: z.number().optional(),
-            points: z.number().optional(),
-            net: moneySchema.optional(),
-            payment: stringSchema.optional(),
-            _payment: elementSchema.optional(),
-            paymentDate: dateTimeSchema.optional(),
-            _paymentDate: elementSchema.optional(),
-            responsible: referenceSchema.optional(),
-            recipient: referenceSchema.optional(),
-            linkId: stringSchema.array().optional(),
-            _linkId: elementSchema.array().optional(),
-            securityLabelNumber: z.number().array().optional(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
-    action: backboneElementSchema
-      .extend({
-        doNotPerform: z.boolean().optional(),
-        _doNotPerform: elementSchema.optional(),
-        type: codeableConceptSchema,
-        subject: backboneElementSchema
-          .extend({
-            reference: referenceSchema.array().min(1),
-            role: codeableConceptSchema.optional(),
-          })
-          .array()
-          .optional(),
-        intent: codeableConceptSchema,
-        linkId: stringSchema.array().optional(),
-        _linkId: elementSchema.array().optional(),
-        status: codeableConceptSchema,
-        context: referenceSchema.optional(),
-        contextLinkId: stringSchema.array().optional(),
-        _contextLinkId: elementSchema.array().optional(),
-        occurrenceDateTime: dateTimeSchema.optional(),
-        _occurrenceDateTime: elementSchema.optional(),
-        occurrencePeriod: periodSchema.optional(),
-        occurrenceTiming: timingSchema.optional(),
-        requester: referenceSchema.array().optional(),
-        requesterLinkId: stringSchema.array().optional(),
-        _requesterLinkId: elementSchema.array().optional(),
-        performerType: codeableConceptSchema.array().optional(),
-        performerRole: codeableConceptSchema.optional(),
-        performer: referenceSchema.optional(),
-        performerLinkId: stringSchema.array().optional(),
-        _performerLinkId: elementSchema.array().optional(),
-        reasonCode: codeableConceptSchema.array().optional(),
-        reasonReference: referenceSchema.array().optional(),
-        reason: stringSchema.array().optional(),
-        _reason: elementSchema.array().optional(),
-        reasonLinkId: stringSchema.array().optional(),
-        _reasonLinkId: elementSchema.array().optional(),
-        note: annotationSchema.array().optional(),
-        securityLabelNumber: z.number().array().optional(),
-      })
-      .array()
-      .optional(),
-    get group() {
-      return contractTermSchema.array().optional()
-    },
-  }),
-)
+      valuedItem: backboneElementSchema
+        .extend({
+          entityCodeableConcept: codeableConceptSchema.optional(),
+          entityReference: referenceSchema.optional(),
+          identifier: identifierSchema.optional(),
+          effectiveTime: dateTimeSchema.optional(),
+          _effectiveTime: elementSchema.optional(),
+          quantity: quantitySchema.optional(),
+          unitPrice: moneySchema.optional(),
+          factor: z.number().optional(),
+          points: z.number().optional(),
+          net: moneySchema.optional(),
+          payment: stringSchema.optional(),
+          _payment: elementSchema.optional(),
+          paymentDate: dateTimeSchema.optional(),
+          _paymentDate: elementSchema.optional(),
+          responsible: referenceSchema.optional(),
+          recipient: referenceSchema.optional(),
+          linkId: stringSchema.array().optional(),
+          _linkId: elementSchema.array().optional(),
+          securityLabelNumber: z.number().array().optional(),
+        })
+        .array()
+        .optional(),
+    })
+    .array()
+    .optional(),
+  action: backboneElementSchema
+    .extend({
+      doNotPerform: z.boolean().optional(),
+      _doNotPerform: elementSchema.optional(),
+      type: codeableConceptSchema,
+      subject: backboneElementSchema
+        .extend({
+          reference: referenceSchema.array().min(1),
+          role: codeableConceptSchema.optional(),
+        })
+        .array()
+        .optional(),
+      intent: codeableConceptSchema,
+      linkId: stringSchema.array().optional(),
+      _linkId: elementSchema.array().optional(),
+      status: codeableConceptSchema,
+      context: referenceSchema.optional(),
+      contextLinkId: stringSchema.array().optional(),
+      _contextLinkId: elementSchema.array().optional(),
+      occurrenceDateTime: dateTimeSchema.optional(),
+      _occurrenceDateTime: elementSchema.optional(),
+      occurrencePeriod: periodSchema.optional(),
+      occurrenceTiming: timingSchema.optional(),
+      requester: referenceSchema.array().optional(),
+      requesterLinkId: stringSchema.array().optional(),
+      _requesterLinkId: elementSchema.array().optional(),
+      performerType: codeableConceptSchema.array().optional(),
+      performerRole: codeableConceptSchema.optional(),
+      performer: referenceSchema.optional(),
+      performerLinkId: stringSchema.array().optional(),
+      _performerLinkId: elementSchema.array().optional(),
+      reasonCode: codeableConceptSchema.array().optional(),
+      reasonReference: referenceSchema.array().optional(),
+      reason: stringSchema.array().optional(),
+      _reason: elementSchema.array().optional(),
+      reasonLinkId: stringSchema.array().optional(),
+      _reasonLinkId: elementSchema.array().optional(),
+      note: annotationSchema.array().optional(),
+      securityLabelNumber: z.number().array().optional(),
+    })
+    .array()
+    .optional(),
+  get group() {
+    return contractTermSchema.array().optional()
+  },
+})
 
 export const untypedContractSchema = z.lazy(() =>
   domainResourceSchema.extend({

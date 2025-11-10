@@ -121,6 +121,8 @@ export const insurancePlanSchema: ZodType<InsurancePlan> =
   untypedInsurancePlanSchema
 
 export class FhirInsurancePlan extends FhirDomainResource<InsurancePlan> {
+  // Static Functions
+
   public static parse(value: unknown): FhirInsurancePlan {
     return new FhirInsurancePlan(insurancePlanSchema.parse(value))
   }

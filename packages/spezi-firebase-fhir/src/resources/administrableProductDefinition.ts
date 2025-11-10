@@ -32,56 +32,48 @@ import {
 import { administrableProductDefinitionStatusSchema } from '../valueSets/index.js'
 
 const administrableProductDefinitionPropertySchema: ZodType<AdministrableProductDefinitionProperty> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      status: codeableConceptSchema.optional(),
-      type: codeableConceptSchema,
-      valueCodeableConcept: codeableConceptSchema.optional(),
-      valueQuantity: quantitySchema.optional(),
-      valueDate: dateSchema.optional(),
-      _valueDate: elementSchema.optional(),
-      valueBoolean: booleanSchema.optional(),
-      _valueBoolean: elementSchema.optional(),
-      valueAttachment: attachmentSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    status: codeableConceptSchema.optional(),
+    type: codeableConceptSchema,
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueDate: dateSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+  })
 
 const administrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSchema: ZodType<AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      supportingInformation: stringSchema.optional(),
-      _supportingInformation: elementSchema.optional(),
-      tissue: codeableConceptSchema,
-      value: quantitySchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    supportingInformation: stringSchema.optional(),
+    _supportingInformation: elementSchema.optional(),
+    tissue: codeableConceptSchema,
+    value: quantitySchema,
+  })
 
 const administrableProductDefinitionRouteOfAdministrationTargetSpeciesSchema: ZodType<AdministrableProductDefinitionRouteOfAdministrationTargetSpecies> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema,
-      withdrawalPeriod:
-        administrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSchema
-          .array()
-          .optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    code: codeableConceptSchema,
+    withdrawalPeriod:
+      administrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSchema
+        .array()
+        .optional(),
+  })
 
 const administrableProductDefinitionRouteOfAdministrationSchema: ZodType<AdministrableProductDefinitionRouteOfAdministration> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema,
-      firstDose: quantitySchema.optional(),
-      maxDosePerDay: quantitySchema.optional(),
-      maxDosePerTreatmentPeriod: ratioSchema.optional(),
-      maxSingleDose: quantitySchema.optional(),
-      maxTreatmentPeriod: quantitySchema.optional(),
-      targetSpecies:
-        administrableProductDefinitionRouteOfAdministrationTargetSpeciesSchema
-          .array()
-          .optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    code: codeableConceptSchema,
+    firstDose: quantitySchema.optional(),
+    maxDosePerDay: quantitySchema.optional(),
+    maxDosePerTreatmentPeriod: ratioSchema.optional(),
+    maxSingleDose: quantitySchema.optional(),
+    maxTreatmentPeriod: quantitySchema.optional(),
+    targetSpecies:
+      administrableProductDefinitionRouteOfAdministrationTargetSpeciesSchema
+        .array()
+        .optional(),
+  })
 
 export const untypedAdministrableProductDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({

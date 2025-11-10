@@ -46,6 +46,8 @@ export const paymentNoticeSchema: ZodType<PaymentNotice> =
   untypedPaymentNoticeSchema
 
 export class FhirPaymentNotice extends FhirDomainResource<PaymentNotice> {
+  // Static Functions
+
   public static parse(value: unknown): FhirPaymentNotice {
     return new FhirPaymentNotice(paymentNoticeSchema.parse(value))
   }

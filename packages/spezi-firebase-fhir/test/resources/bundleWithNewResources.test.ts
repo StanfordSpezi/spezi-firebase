@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { FhirBundle } from '../../src/index.js'
+import { consentSchema, FhirBundle } from '../../src/index.js'
 
 describe('Bundle with new resource types', () => {
   it('should validate a Bundle containing Consent resources', () => {
@@ -42,8 +42,15 @@ describe('Bundle with new resource types', () => {
       ],
     }
 
-    const bundle = FhirBundle.parseGeneric(bundleData)
-    expect(bundle.value.entry?.[0]?.resource?.resourceType).toBe('Consent')
+    const consentBundle = FhirBundle.parse(bundleData, consentSchema)
+    expect(consentBundle.value.entry?.[0]?.resource?.resourceType).toBe(
+      'Consent',
+    )
+
+    const genericBundle = FhirBundle.parseGeneric(bundleData)
+    expect(genericBundle.value.entry?.[0]?.resource?.resourceType).toBe(
+      'Consent',
+    )
   })
 
   it('should validate a Bundle containing Provenance resources', () => {

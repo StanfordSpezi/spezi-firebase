@@ -6,7 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ClaimResponse } from 'fhir/r4b.js'
+import {
+  type ClaimResponseItem,
+  type ClaimResponseItemAdjudication,
+  type ClaimResponseItemDetail,
+  type ClaimResponse,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
@@ -29,9 +34,32 @@ import {
 import {
   financialResourceStatusSchema,
   remittanceOutcomeSchema,
+  claimUseSchema,
+  noteTypeSchema,
 } from '../valueSets/index.js'
 
-const claimUseSchema = z.enum(['claim', 'preauthorization', 'predetermination'])
+const claimResponseItemAdjudicationSchema: ZodType<ClaimResponseItemAdjudication> =
+  backboneElementSchema.extend({
+    category: codeableConceptSchema,
+    reason: codeableConceptSchema.optional(),
+    amount: moneySchema.optional(),
+    value: decimalSchema.optional(),
+  })
+
+const claimResponseItemDetailSchema: ZodType<ClaimResponseItemDetail> =
+  backboneElementSchema.extend({
+    detailSequence: positiveIntSchema,
+    noteNumber: positiveIntSchema.array().optional(),
+    adjudication: claimResponseItemAdjudicationSchema.array(),
+  })
+
+const claimResponseItemSchema: ZodType<ClaimResponseItem> =
+  backboneElementSchema.extend({
+    itemSequence: positiveIntSchema,
+    noteNumber: positiveIntSchema.array().optional(),
+    adjudication: claimResponseItemAdjudicationSchema.array(),
+    detail: claimResponseItemDetailSchema.array().optional(),
+  })
 
 export const untypedClaimResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -57,36 +85,7 @@ export const untypedClaimResponseSchema = z.lazy(() =>
     _preAuthRef: elementSchema.optional(),
     preAuthPeriod: periodSchema.optional(),
     payeeType: codeableConceptSchema.optional(),
-    item: backboneElementSchema
-      .extend({
-        itemSequence: positiveIntSchema,
-        noteNumber: positiveIntSchema.array().optional(),
-        adjudication: backboneElementSchema
-          .extend({
-            category: codeableConceptSchema,
-            reason: codeableConceptSchema.optional(),
-            amount: moneySchema.optional(),
-            value: decimalSchema.optional(),
-          })
-          .array(),
-        detail: backboneElementSchema
-          .extend({
-            detailSequence: positiveIntSchema,
-            noteNumber: positiveIntSchema.array().optional(),
-            adjudication: backboneElementSchema
-              .extend({
-                category: codeableConceptSchema,
-                reason: codeableConceptSchema.optional(),
-                amount: moneySchema.optional(),
-                value: decimalSchema.optional(),
-              })
-              .array(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
+    item: claimResponseItemSchema.array().optional(),
     addItem: backboneElementSchema
       .extend({
         itemSequence: positiveIntSchema.array().optional(),
@@ -164,7 +163,7 @@ export const untypedClaimResponseSchema = z.lazy(() =>
     processNote: backboneElementSchema
       .extend({
         number: positiveIntSchema.optional(),
-        type: z.enum(['display', 'print', 'printoper']).optional(),
+        type: noteTypeSchema.optional(),
         _type: elementSchema.optional(),
         text: stringSchema,
         _text: elementSchema.optional(),
@@ -201,6 +200,8 @@ export const claimResponseSchema: ZodType<ClaimResponse> =
   untypedClaimResponseSchema
 
 export class FhirClaimResponse extends FhirDomainResource<ClaimResponse> {
+  // Static Functions
+
   public static parse(value: unknown): FhirClaimResponse {
     return new FhirClaimResponse(claimResponseSchema.parse(value))
   }

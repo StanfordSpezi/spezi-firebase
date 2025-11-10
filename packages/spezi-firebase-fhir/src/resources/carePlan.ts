@@ -16,6 +16,7 @@ import { FhirDomainResource } from './domainResourceClass.js'
 import {
   annotationSchema,
   backboneElementSchema,
+  booleanSchema,
   canonicalSchema,
   codeableConceptSchema,
   dateTimeSchema,
@@ -30,64 +31,51 @@ import {
   uriSchema,
 } from '../elements/index.js'
 import {
+  carePlanActivityKindSchema,
   carePlanActivityStatusSchema,
   carePlanIntentSchema,
   carePlanStatusSchema,
 } from '../valueSets/index.js'
 
-const carePlanActivityDetailSchema: ZodType<CarePlanActivityDetail> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      kind: z
-        .enum([
-          'Appointment',
-          'CommunicationRequest',
-          'DeviceRequest',
-          'MedicationRequest',
-          'NutritionOrder',
-          'Task',
-          'ServiceRequest',
-          'VisionPrescription',
-        ])
-        .optional(),
-      _kind: elementSchema.optional(),
-      instantiatesCanonical: canonicalSchema.array().optional(),
-      _instantiatesCanonical: elementSchema.array().optional(),
-      instantiatesUri: uriSchema.array().optional(),
-      _instantiatesUri: elementSchema.array().optional(),
-      code: codeableConceptSchema.optional(),
-      reasonCode: codeableConceptSchema.array().optional(),
-      reasonReference: referenceSchema.array().optional(),
-      goal: referenceSchema.array().optional(),
-      status: carePlanActivityStatusSchema,
-      _status: elementSchema.optional(),
-      statusReason: codeableConceptSchema.optional(),
-      doNotPerform: z.boolean().optional(),
-      _doNotPerform: elementSchema.optional(),
-      scheduledTiming: timingSchema.optional(),
-      scheduledPeriod: periodSchema.optional(),
-      scheduledString: stringSchema.optional(),
-      _scheduledString: elementSchema.optional(),
-      location: referenceSchema.optional(),
-      performer: referenceSchema.array().optional(),
-      productCodeableConcept: codeableConceptSchema.optional(),
-      productReference: referenceSchema.optional(),
-      dailyAmount: quantitySchema.optional(),
-      quantity: quantitySchema.optional(),
-      description: stringSchema.optional(),
-      _description: elementSchema.optional(),
-    }),
-)
+const carePlanActivityDetailSchema: ZodType<CarePlanActivityDetail> =
+  backboneElementSchema.extend({
+    kind: carePlanActivityKindSchema.optional(),
+    _kind: elementSchema.optional(),
+    instantiatesCanonical: canonicalSchema.array().optional(),
+    _instantiatesCanonical: elementSchema.array().optional(),
+    instantiatesUri: uriSchema.array().optional(),
+    _instantiatesUri: elementSchema.array().optional(),
+    code: codeableConceptSchema.optional(),
+    reasonCode: codeableConceptSchema.array().optional(),
+    reasonReference: referenceSchema.array().optional(),
+    goal: referenceSchema.array().optional(),
+    status: carePlanActivityStatusSchema,
+    _status: elementSchema.optional(),
+    statusReason: codeableConceptSchema.optional(),
+    doNotPerform: booleanSchema.optional(),
+    _doNotPerform: elementSchema.optional(),
+    scheduledTiming: timingSchema.optional(),
+    scheduledPeriod: periodSchema.optional(),
+    scheduledString: stringSchema.optional(),
+    _scheduledString: elementSchema.optional(),
+    location: referenceSchema.optional(),
+    performer: referenceSchema.array().optional(),
+    productCodeableConcept: codeableConceptSchema.optional(),
+    productReference: referenceSchema.optional(),
+    dailyAmount: quantitySchema.optional(),
+    quantity: quantitySchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+  })
 
-const carePlanActivitySchema: ZodType<CarePlanActivity> = z.lazy(() =>
+const carePlanActivitySchema: ZodType<CarePlanActivity> =
   backboneElementSchema.extend({
     outcomeCodeableConcept: codeableConceptSchema.array().optional(),
     outcomeReference: referenceSchema.array().optional(),
     progress: annotationSchema.array().optional(),
     reference: referenceSchema.optional(),
     detail: carePlanActivityDetailSchema.optional(),
-  }),
-)
+  })
 
 export const untypedCarePlanSchema = z.lazy(() =>
   domainResourceSchema.extend({

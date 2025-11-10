@@ -33,33 +33,29 @@ import {
   listModeSchema,
 } from '../valueSets/index.js'
 
-const attesterSchema: ZodType<CompositionAttester> = z.lazy(() =>
+const attesterSchema: ZodType<CompositionAttester> =
   backboneElementSchema.extend({
     mode: compositionAttestationModeSchema,
     time: stringSchema.optional(),
     _time: elementSchema.optional(),
     party: referenceSchema.optional(),
-  }),
-)
+  })
 
-const relatesToSchema: ZodType<CompositionRelatesTo> = z.lazy(() =>
+const relatesToSchema: ZodType<CompositionRelatesTo> =
   backboneElementSchema.extend({
     code: compositionRelatestoCodeSchema,
     targetIdentifier: identifierSchema.optional(),
     targetReference: referenceSchema.optional(),
-  }),
-)
+  })
 
-const eventSchema: ZodType<CompositionEvent> = z.lazy(() =>
-  backboneElementSchema.extend({
-    code: codeableConceptSchema.array().optional(),
-    period: periodSchema.optional(),
-    detail: referenceSchema.array().optional(),
-  }),
-)
+const eventSchema: ZodType<CompositionEvent> = backboneElementSchema.extend({
+  code: codeableConceptSchema.array().optional(),
+  period: periodSchema.optional(),
+  detail: referenceSchema.array().optional(),
+})
 
-const sectionSchema: ZodType<CompositionSection> = z.lazy(() =>
-  backboneElementSchema.extend({
+const sectionSchema: ZodType<CompositionSection> = backboneElementSchema.extend(
+  {
     title: stringSchema.optional(),
     _title: elementSchema.optional(),
     code: codeableConceptSchema.optional(),
@@ -71,7 +67,7 @@ const sectionSchema: ZodType<CompositionSection> = z.lazy(() =>
     get section() {
       return sectionSchema.array().optional()
     },
-  }),
+  },
 )
 
 export const untypedCompositionSchema = z.lazy(() =>

@@ -10,6 +10,11 @@ import {
   type Evidence,
   type EvidenceVariableDefinition,
   type EvidenceStatistic,
+  type EvidenceStatisticAttributeEstimate,
+  type EvidenceCertainty,
+  type EvidenceStatisticSampleSize,
+  type EvidenceStatisticModelCharacteristic,
+  type EvidenceStatisticModelCharacteristicVariable,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
@@ -40,19 +45,17 @@ import {
 } from '../valueSets/index.js'
 
 const evidenceVariableDefinitionSchema: ZodType<EvidenceVariableDefinition> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      description: markdownSchema.optional(),
-      _description: elementSchema.optional(),
-      note: annotationSchema.array().optional(),
-      variableRole: codeableConceptSchema,
-      observed: referenceSchema.optional(),
-      intended: referenceSchema.optional(),
-      directnessMatch: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    description: markdownSchema.optional(),
+    _description: elementSchema.optional(),
+    note: annotationSchema.array().optional(),
+    variableRole: codeableConceptSchema,
+    observed: referenceSchema.optional(),
+    intended: referenceSchema.optional(),
+    directnessMatch: codeableConceptSchema.optional(),
+  })
 
-const evidenceStatisticAttributeEstimateSchema = z.lazy(() =>
+const evidenceStatisticAttributeEstimateSchema: ZodType<EvidenceStatisticAttributeEstimate> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -65,10 +68,44 @@ const evidenceStatisticAttributeEstimateSchema = z.lazy(() =>
     get attributeEstimate() {
       return evidenceStatisticAttributeEstimateSchema.array().optional()
     },
-  }),
-)
+  })
 
-const evidenceStatisticSchema: ZodType<EvidenceStatistic> = z.lazy(() =>
+const evidenceStatisticSampleSizeSchema: ZodType<EvidenceStatisticSampleSize> =
+  backboneElementSchema.extend({
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    note: annotationSchema.array().optional(),
+    numberOfStudies: unsignedIntSchema.optional(),
+    _numberOfStudies: elementSchema.optional(),
+    numberOfParticipants: unsignedIntSchema.optional(),
+    _numberOfParticipants: elementSchema.optional(),
+    knownDataCount: unsignedIntSchema.optional(),
+    _knownDataCount: elementSchema.optional(),
+  })
+
+const evidenceStatisticModelCharacteristicVariableSchema: ZodType<EvidenceStatisticModelCharacteristicVariable> =
+  backboneElementSchema.extend({
+    variableDefinition: referenceSchema,
+    handling: evidenceVariableHandlingSchema.optional(),
+    _handling: elementSchema.optional(),
+    valueCategory: codeableConceptSchema.array().optional(),
+    valueQuantity: quantitySchema.array().optional(),
+    valueRange: rangeSchema.array().optional(),
+  })
+
+const evidenceStatisticModelCharacteristicSchema: ZodType<EvidenceStatisticModelCharacteristic> =
+  backboneElementSchema.extend({
+    code: codeableConceptSchema,
+    value: quantitySchema.optional(),
+    variable: evidenceStatisticModelCharacteristicVariableSchema
+      .array()
+      .optional(),
+    attributeEstimate: evidenceStatisticAttributeEstimateSchema
+      .array()
+      .optional(),
+  })
+
+const evidenceStatisticSchema: ZodType<EvidenceStatistic> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -80,57 +117,16 @@ const evidenceStatisticSchema: ZodType<EvidenceStatistic> = z.lazy(() =>
     _numberOfEvents: elementSchema.optional(),
     numberAffected: unsignedIntSchema.optional(),
     _numberAffected: elementSchema.optional(),
-    sampleSize: backboneElementSchema
-      .extend({
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        note: annotationSchema.array().optional(),
-        numberOfStudies: unsignedIntSchema.optional(),
-        _numberOfStudies: elementSchema.optional(),
-        numberOfParticipants: unsignedIntSchema.optional(),
-        _numberOfParticipants: elementSchema.optional(),
-        knownDataCount: unsignedIntSchema.optional(),
-        _knownDataCount: elementSchema.optional(),
-      })
-      .optional(),
+    sampleSize: evidenceStatisticSampleSizeSchema.optional(),
     attributeEstimate: evidenceStatisticAttributeEstimateSchema
       .array()
       .optional(),
-    modelCharacteristic: backboneElementSchema
-      .extend({
-        code: codeableConceptSchema,
-        value: quantitySchema.optional(),
-        variable: backboneElementSchema
-          .extend({
-            variableDefinition: referenceSchema,
-            handling: evidenceVariableHandlingSchema.optional(),
-            _handling: elementSchema.optional(),
-            valueCategory: codeableConceptSchema.array().optional(),
-            valueQuantity: quantitySchema.array().optional(),
-            valueRange: rangeSchema.array().optional(),
-          })
-          .array()
-          .optional(),
-        attributeEstimate: backboneElementSchema
-          .extend({
-            description: stringSchema.optional(),
-            _description: elementSchema.optional(),
-            note: annotationSchema.array().optional(),
-            type: codeableConceptSchema.optional(),
-            quantity: quantitySchema.optional(),
-            level: decimalSchema.optional(),
-            _level: elementSchema.optional(),
-            range: rangeSchema.optional(),
-          })
-          .array()
-          .optional(),
-      })
+    modelCharacteristic: evidenceStatisticModelCharacteristicSchema
       .array()
       .optional(),
-  }),
-)
+  })
 
-const evidenceCertaintySchema = z.lazy(() =>
+const evidenceCertaintySchema: ZodType<EvidenceCertainty> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -142,8 +138,7 @@ const evidenceCertaintySchema = z.lazy(() =>
     get subcomponent() {
       return evidenceCertaintySchema.array().optional()
     },
-  }),
-)
+  })
 
 export const untypedEvidenceSchema = z.lazy(() =>
   domainResourceSchema.extend({

@@ -6,7 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type StructureMap, type StructureMapGroupRule } from 'fhir/r4b.js'
+import {
+  type StructureMapGroup,
+  type StructureMapGroupInput,
+  type StructureMapGroupRuleDependent,
+  type StructureMapGroupRuleSource,
+  type StructureMapGroupRuleTarget,
+  type StructureMapGroupRuleTargetParameter,
+  type StructureMapStructure,
+  type StructureMap,
+  type StructureMapGroupRule,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -21,6 +31,7 @@ import {
   domainResourceSchema,
   elementSchema,
   identifierSchema,
+  idSchema,
   instantSchema,
   intSchema,
   markdownSchema,
@@ -41,115 +52,152 @@ import {
   structureMapTransformSchema,
 } from '../valueSets/index.js'
 
-const structureMapGroupRuleSchema: ZodType<StructureMapGroupRule> = z.lazy(() =>
+const structureMapGroupRuleSourceSchema: ZodType<StructureMapGroupRuleSource> =
+  backboneElementSchema.extend({
+    context: stringSchema,
+    _context: elementSchema.optional(),
+    min: intSchema.optional(),
+    max: stringSchema.optional(),
+    _max: elementSchema.optional(),
+    type: stringSchema.optional(),
+    _type: elementSchema.optional(),
+    defaultValueBase64Binary: base64BinarySchema.optional(),
+    _defaultValueBase64Binary: elementSchema.optional(),
+    defaultValueBoolean: booleanSchema.optional(),
+    _defaultValueBoolean: elementSchema.optional(),
+    defaultValueCanonical: urlSchema.optional(),
+    _defaultValueCanonical: elementSchema.optional(),
+    defaultValueCode: stringSchema.optional(),
+    _defaultValueCode: elementSchema.optional(),
+    defaultValueDate: dateSchema.optional(),
+    _defaultValueDate: elementSchema.optional(),
+    defaultValueDateTime: dateTimeSchema.optional(),
+    _defaultValueDateTime: elementSchema.optional(),
+    defaultValueDecimal: decimalSchema.optional(),
+    defaultValueId: stringSchema.optional(),
+    _defaultValueId: elementSchema.optional(),
+    defaultValueInstant: instantSchema.optional(),
+    _defaultValueInstant: elementSchema.optional(),
+    defaultValueInteger: intSchema.optional(),
+    defaultValueMarkdown: markdownSchema.optional(),
+    _defaultValueMarkdown: elementSchema.optional(),
+    defaultValueOid: stringSchema.optional(),
+    _defaultValueOid: elementSchema.optional(),
+    defaultValuePositiveInt: positiveIntSchema.optional(),
+    defaultValueString: stringSchema.optional(),
+    _defaultValueString: elementSchema.optional(),
+    defaultValueTime: timeSchema.optional(),
+    _defaultValueTime: elementSchema.optional(),
+    defaultValueUnsignedInt: intSchema.optional(),
+    defaultValueUri: urlSchema.optional(),
+    _defaultValueUri: elementSchema.optional(),
+    defaultValueUrl: urlSchema.optional(),
+    _defaultValueUrl: elementSchema.optional(),
+    defaultValueUuid: stringSchema.optional(),
+    _defaultValueUuid: elementSchema.optional(),
+    element: stringSchema.optional(),
+    _element: elementSchema.optional(),
+    listMode: structureMapSourceListModeSchema.optional(),
+    _listMode: elementSchema.optional(),
+    variable: stringSchema.optional(),
+    _variable: elementSchema.optional(),
+    condition: stringSchema.optional(),
+    _condition: elementSchema.optional(),
+    check: stringSchema.optional(),
+    _check: elementSchema.optional(),
+    logMessage: stringSchema.optional(),
+    _logMessage: elementSchema.optional(),
+  })
+
+const structureMapGroupRuleTargetParameterSchema: ZodType<StructureMapGroupRuleTargetParameter> =
+  backboneElementSchema.extend({
+    valueId: idSchema.optional(),
+    _valueId: elementSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueInteger: intSchema.optional(),
+    valueDecimal: decimalSchema.optional(),
+  })
+const structureMapGroupRuleTargetSchema: ZodType<StructureMapGroupRuleTarget> =
+  backboneElementSchema.extend({
+    context: stringSchema.optional(),
+    _context: elementSchema.optional(),
+    contextType: structureMapTargetContextTypeSchema.optional(),
+    _contextType: elementSchema.optional(),
+    element: stringSchema.optional(),
+    _element: elementSchema.optional(),
+    variable: stringSchema.optional(),
+    _variable: elementSchema.optional(),
+    listMode: structureMapTargetListModeSchema.array().optional(),
+    _listMode: elementSchema.array().optional(),
+    listRuleId: stringSchema.optional(),
+    _listRuleId: elementSchema.optional(),
+    transform: structureMapTransformSchema.optional(),
+    _transform: elementSchema.optional(),
+    parameter: structureMapGroupRuleTargetParameterSchema.array().optional(),
+  })
+
+const structureMapGroupRuleDependentSchema: ZodType<StructureMapGroupRuleDependent> =
   backboneElementSchema.extend({
     name: stringSchema,
     _name: elementSchema.optional(),
-    source: backboneElementSchema
-      .extend({
-        context: stringSchema,
-        _context: elementSchema.optional(),
-        min: intSchema.optional(),
-        max: stringSchema.optional(),
-        _max: elementSchema.optional(),
-        type: stringSchema.optional(),
-        _type: elementSchema.optional(),
-        defaultValueBase64Binary: base64BinarySchema.optional(),
-        _defaultValueBase64Binary: elementSchema.optional(),
-        defaultValueBoolean: booleanSchema.optional(),
-        _defaultValueBoolean: elementSchema.optional(),
-        defaultValueCanonical: urlSchema.optional(),
-        _defaultValueCanonical: elementSchema.optional(),
-        defaultValueCode: stringSchema.optional(),
-        _defaultValueCode: elementSchema.optional(),
-        defaultValueDate: dateSchema.optional(),
-        _defaultValueDate: elementSchema.optional(),
-        defaultValueDateTime: dateTimeSchema.optional(),
-        _defaultValueDateTime: elementSchema.optional(),
-        defaultValueDecimal: decimalSchema.optional(),
-        defaultValueId: stringSchema.optional(),
-        _defaultValueId: elementSchema.optional(),
-        defaultValueInstant: instantSchema.optional(),
-        _defaultValueInstant: elementSchema.optional(),
-        defaultValueInteger: intSchema.optional(),
-        defaultValueMarkdown: markdownSchema.optional(),
-        _defaultValueMarkdown: elementSchema.optional(),
-        defaultValueOid: stringSchema.optional(),
-        _defaultValueOid: elementSchema.optional(),
-        defaultValuePositiveInt: positiveIntSchema.optional(),
-        defaultValueString: stringSchema.optional(),
-        _defaultValueString: elementSchema.optional(),
-        defaultValueTime: timeSchema.optional(),
-        _defaultValueTime: elementSchema.optional(),
-        defaultValueUnsignedInt: intSchema.optional(),
-        defaultValueUri: urlSchema.optional(),
-        _defaultValueUri: elementSchema.optional(),
-        defaultValueUrl: urlSchema.optional(),
-        _defaultValueUrl: elementSchema.optional(),
-        defaultValueUuid: stringSchema.optional(),
-        _defaultValueUuid: elementSchema.optional(),
-        element: stringSchema.optional(),
-        _element: elementSchema.optional(),
-        listMode: structureMapSourceListModeSchema.optional(),
-        _listMode: elementSchema.optional(),
-        variable: stringSchema.optional(),
-        _variable: elementSchema.optional(),
-        condition: stringSchema.optional(),
-        _condition: elementSchema.optional(),
-        check: stringSchema.optional(),
-        _check: elementSchema.optional(),
-        logMessage: stringSchema.optional(),
-        _logMessage: elementSchema.optional(),
-      })
-      .array(),
-    target: backboneElementSchema
-      .extend({
-        context: stringSchema.optional(),
-        _context: elementSchema.optional(),
-        contextType: structureMapTargetContextTypeSchema.optional(),
-        _contextType: elementSchema.optional(),
-        element: stringSchema.optional(),
-        _element: elementSchema.optional(),
-        variable: stringSchema.optional(),
-        _variable: elementSchema.optional(),
-        listMode: structureMapTargetListModeSchema.array().optional(),
-        _listMode: elementSchema.array().optional(),
-        listRuleId: stringSchema.optional(),
-        _listRuleId: elementSchema.optional(),
-        transform: structureMapTransformSchema.optional(),
-        _transform: elementSchema.optional(),
-        parameter: backboneElementSchema
-          .extend({
-            valueId: stringSchema.optional(),
-            _valueId: elementSchema.optional(),
-            valueString: stringSchema.optional(),
-            _valueString: elementSchema.optional(),
-            valueBoolean: booleanSchema.optional(),
-            _valueBoolean: elementSchema.optional(),
-            valueInteger: intSchema.optional(),
-            valueDecimal: decimalSchema.optional(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
+    variable: stringSchema.array(),
+    _variable: elementSchema.array().optional(),
+  })
+
+const structureMapGroupRuleSchema: ZodType<StructureMapGroupRule> =
+  backboneElementSchema.extend({
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    source: structureMapGroupRuleSourceSchema.array(),
+    target: structureMapGroupRuleTargetSchema.array().optional(),
     get rule() {
       return structureMapGroupRuleSchema.array().optional()
     },
-    dependent: backboneElementSchema
-      .extend({
-        name: stringSchema,
-        _name: elementSchema.optional(),
-        variable: stringSchema.array(),
-        _variable: elementSchema.array().optional(),
-      })
-      .array()
-      .optional(),
+    dependent: structureMapGroupRuleDependentSchema.array().optional(),
     documentation: stringSchema.optional(),
     _documentation: elementSchema.optional(),
-  }),
-)
+  })
+
+const structureMapStructureSchema: ZodType<StructureMapStructure> =
+  backboneElementSchema.extend({
+    url: urlSchema,
+    _url: elementSchema.optional(),
+    mode: structureMapModelModeSchema,
+    _mode: elementSchema.optional(),
+    alias: stringSchema.optional(),
+    _alias: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+  })
+
+const structureMapGroupInputSchema: ZodType<StructureMapGroupInput> =
+  backboneElementSchema.extend({
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    type: stringSchema.optional(),
+    _type: elementSchema.optional(),
+    mode: structureMapGroupInputModeSchema,
+    _mode: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+  })
+
+const structureMapGroupSchema: ZodType<StructureMapGroup> =
+  backboneElementSchema.extend({
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    extends: stringSchema.optional(),
+    _extends: elementSchema.optional(),
+    typeMode: structureMapGroupTypeModeSchema,
+    _typeMode: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+    input: structureMapGroupInputSchema.array(),
+    rule: structureMapGroupRuleSchema.array(),
+  })
 
 export const untypedStructureMapSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -180,46 +228,10 @@ export const untypedStructureMapSchema = z.lazy(() =>
     _purpose: elementSchema.optional(),
     copyright: markdownSchema.optional(),
     _copyright: elementSchema.optional(),
-    structure: backboneElementSchema
-      .extend({
-        url: urlSchema,
-        _url: elementSchema.optional(),
-        mode: structureMapModelModeSchema,
-        _mode: elementSchema.optional(),
-        alias: stringSchema.optional(),
-        _alias: elementSchema.optional(),
-        documentation: stringSchema.optional(),
-        _documentation: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    structure: structureMapStructureSchema.array().optional(),
     import: urlSchema.array().optional(),
     _import: elementSchema.array().optional(),
-    group: backboneElementSchema
-      .extend({
-        name: stringSchema,
-        _name: elementSchema.optional(),
-        extends: stringSchema.optional(),
-        _extends: elementSchema.optional(),
-        typeMode: structureMapGroupTypeModeSchema,
-        _typeMode: elementSchema.optional(),
-        documentation: stringSchema.optional(),
-        _documentation: elementSchema.optional(),
-        input: backboneElementSchema
-          .extend({
-            name: stringSchema,
-            _name: elementSchema.optional(),
-            type: stringSchema.optional(),
-            _type: elementSchema.optional(),
-            mode: structureMapGroupInputModeSchema,
-            _mode: elementSchema.optional(),
-            documentation: stringSchema.optional(),
-            _documentation: elementSchema.optional(),
-          })
-          .array(),
-        rule: structureMapGroupRuleSchema.array(),
-      })
-      .array(),
+    group: structureMapGroupSchema.array(),
   }),
 ) satisfies ZodType<StructureMap>
 

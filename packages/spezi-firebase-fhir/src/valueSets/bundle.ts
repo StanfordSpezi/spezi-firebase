@@ -44,6 +44,7 @@ export type BundleEntrySearchMode = z.infer<typeof bundleEntrySearchModeSchema>
  */
 export const bundleEntryRequestMethodSchema = z.enum([
   'GET',
+  'HEAD',
   'POST',
   'PUT',
   'DELETE',

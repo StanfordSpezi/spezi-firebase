@@ -6,7 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type AllergyIntolerance } from 'fhir/r4b.js'
+import {
+  type AllergyIntoleranceReaction,
+  type AllergyIntolerance,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -29,6 +32,18 @@ import {
   allergyIntoleranceReactionSeveritySchema,
   allergyIntoleranceTypeSchema,
 } from '../valueSets/index.js'
+
+const allergyIntoleranceReactionSchema: ZodType<AllergyIntoleranceReaction> =
+  backboneElementSchema.extend({
+    substance: codeableConceptSchema.optional(),
+    manifestation: codeableConceptSchema.array().min(1),
+    onset: dateTimeSchema.optional(),
+    _onset: elementSchema.optional(),
+    severity: allergyIntoleranceReactionSeveritySchema.optional(),
+    _severity: elementSchema.optional(),
+    exposureRoute: codeableConceptSchema.optional(),
+    note: annotationSchema.array().optional(),
+  })
 
 export const untypedAllergyIntoleranceSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -58,19 +73,7 @@ export const untypedAllergyIntoleranceSchema = z.lazy(() =>
     lastOccurrence: dateTimeSchema.optional(),
     _lastOccurrence: elementSchema.optional(),
     note: annotationSchema.array().optional(),
-    reaction: backboneElementSchema
-      .extend({
-        substance: codeableConceptSchema.optional(),
-        manifestation: codeableConceptSchema.array().min(1),
-        onset: dateTimeSchema.optional(),
-        _onset: elementSchema.optional(),
-        severity: allergyIntoleranceReactionSeveritySchema.optional(),
-        _severity: elementSchema.optional(),
-        exposureRoute: codeableConceptSchema.optional(),
-        note: annotationSchema.array().optional(),
-      })
-      .array()
-      .optional(),
+    reaction: allergyIntoleranceReactionSchema.array().optional(),
   }),
 ) satisfies ZodType<AllergyIntolerance>
 

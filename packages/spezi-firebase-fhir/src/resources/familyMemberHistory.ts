@@ -6,7 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type FamilyMemberHistory } from 'fhir/r4b.js'
+import {
+  type FamilyMemberHistoryCondition,
+  type FamilyMemberHistory,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -27,6 +30,20 @@ import {
   uriSchema,
 } from '../elements/index.js'
 import { familyMemberHistoryStatusSchema } from '../valueSets/index.js'
+
+const familyMemberHistoryConditionSchema: ZodType<FamilyMemberHistoryCondition> =
+  backboneElementSchema.extend({
+    code: codeableConceptSchema,
+    outcome: codeableConceptSchema.optional(),
+    contributedToDeath: booleanSchema.optional(),
+    _contributedToDeath: elementSchema.optional(),
+    onsetAge: quantitySchema.optional(),
+    onsetRange: rangeSchema.optional(),
+    onsetPeriod: periodSchema.optional(),
+    onsetString: stringSchema.optional(),
+    _onsetString: elementSchema.optional(),
+    note: annotationSchema.array().optional(),
+  })
 
 export const untypedFamilyMemberHistorySchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -68,21 +85,7 @@ export const untypedFamilyMemberHistorySchema = z.lazy(() =>
     reasonCode: codeableConceptSchema.array().optional(),
     reasonReference: referenceSchema.array().optional(),
     note: annotationSchema.array().optional(),
-    condition: backboneElementSchema
-      .extend({
-        code: codeableConceptSchema,
-        outcome: codeableConceptSchema.optional(),
-        contributedToDeath: booleanSchema.optional(),
-        _contributedToDeath: elementSchema.optional(),
-        onsetAge: quantitySchema.optional(),
-        onsetRange: rangeSchema.optional(),
-        onsetPeriod: periodSchema.optional(),
-        onsetString: stringSchema.optional(),
-        _onsetString: elementSchema.optional(),
-        note: annotationSchema.array().optional(),
-      })
-      .array()
-      .optional(),
+    condition: familyMemberHistoryConditionSchema.array().optional(),
   }),
 ) satisfies ZodType<FamilyMemberHistory>
 

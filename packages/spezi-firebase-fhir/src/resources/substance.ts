@@ -6,7 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Substance } from 'fhir/r4b.js'
+import {
+  type SubstanceIngredient,
+  type SubstanceInstance,
+  type Substance,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -23,6 +27,21 @@ import {
 } from '../elements/index.js'
 import { substanceStatusSchema } from '../valueSets/index.js'
 
+const substanceInstanceSchema: ZodType<SubstanceInstance> =
+  backboneElementSchema.extend({
+    identifier: identifierSchema.optional(),
+    expiry: dateTimeSchema.optional(),
+    _expiry: elementSchema.optional(),
+    quantity: quantitySchema.optional(),
+  })
+
+const substanceIngredientSchema: ZodType<SubstanceIngredient> =
+  backboneElementSchema.extend({
+    quantity: ratioSchema.optional(),
+    substanceCodeableConcept: codeableConceptSchema.optional(),
+    substanceReference: referenceSchema.optional(),
+  })
+
 export const untypedSubstanceSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Substance').readonly(),
@@ -33,23 +52,8 @@ export const untypedSubstanceSchema = z.lazy(() =>
     code: codeableConceptSchema,
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
-    instance: backboneElementSchema
-      .extend({
-        identifier: identifierSchema.optional(),
-        expiry: dateTimeSchema.optional(),
-        _expiry: elementSchema.optional(),
-        quantity: quantitySchema.optional(),
-      })
-      .array()
-      .optional(),
-    ingredient: backboneElementSchema
-      .extend({
-        quantity: ratioSchema.optional(),
-        substanceCodeableConcept: codeableConceptSchema.optional(),
-        substanceReference: referenceSchema.optional(),
-      })
-      .array()
-      .optional(),
+    instance: substanceInstanceSchema.array().optional(),
+    ingredient: substanceIngredientSchema.array().optional(),
   }),
 ) satisfies ZodType<Substance>
 

@@ -26,14 +26,13 @@ import {
   requestPrioritySchema,
 } from '../valueSets/index.js'
 
-const communicationPayloadSchema: ZodType<CommunicationPayload> = z.lazy(() =>
+const communicationPayloadSchema: ZodType<CommunicationPayload> =
   backboneElementSchema.extend({
     contentString: stringSchema.optional(),
     _contentString: elementSchema.optional(),
     contentAttachment: attachmentSchema.optional(),
     contentReference: referenceSchema.optional(),
-  }),
-)
+  })
 
 export const untypedCommunicationSchema = z.lazy(() =>
   domainResourceSchema.extend({

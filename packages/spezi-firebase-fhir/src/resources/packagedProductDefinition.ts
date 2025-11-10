@@ -35,69 +35,57 @@ import {
 } from '../elements/index.js'
 
 const packagedProductDefinitionLegalStatusOfSupplySchema: ZodType<PackagedProductDefinitionLegalStatusOfSupply> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      code: codeableConceptSchema.optional(),
-      jurisdiction: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    code: codeableConceptSchema.optional(),
+    jurisdiction: codeableConceptSchema.optional(),
+  })
 
 const packagedProductDefinitionPackageShelfLifeStorageSchema: ZodType<PackagedProductDefinitionPackageShelfLifeStorage> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      periodDuration: quantitySchema.optional(),
-      periodString: stringSchema.optional(),
-      _periodString: elementSchema.optional(),
-      specialPrecautionsForStorage: codeableConceptSchema.array().optional(),
-      type: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    periodDuration: quantitySchema.optional(),
+    periodString: stringSchema.optional(),
+    _periodString: elementSchema.optional(),
+    specialPrecautionsForStorage: codeableConceptSchema.array().optional(),
+    type: codeableConceptSchema.optional(),
+  })
 
 const packagedProductDefinitionPackagePropertySchema: ZodType<PackagedProductDefinitionPackageProperty> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema,
-      valueCodeableConcept: codeableConceptSchema.optional(),
-      valueQuantity: quantitySchema.optional(),
-      valueDate: dateSchema.optional(),
-      _valueDate: elementSchema.optional(),
-      valueBoolean: booleanSchema.optional(),
-      _valueBoolean: elementSchema.optional(),
-      valueAttachment: attachmentSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueDate: dateSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+  })
 
 const packagedProductDefinitionPackageContainedItemSchema: ZodType<PackagedProductDefinitionPackageContainedItem> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      amount: quantitySchema.optional(),
-      item: codeableReferenceSchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    amount: quantitySchema.optional(),
+    item: codeableReferenceSchema,
+  })
 
 const packagedProductDefinitionPackageSchema: ZodType<PackagedProductDefinitionPackage> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      alternateMaterial: codeableConceptSchema.array().optional(),
-      containedItem: packagedProductDefinitionPackageContainedItemSchema
-        .array()
-        .optional(),
-      identifier: identifierSchema.array().optional(),
-      manufacturer: referenceSchema.array().optional(),
-      material: codeableConceptSchema.array().optional(),
-      package: z
-        .array(z.lazy(() => packagedProductDefinitionPackageSchema))
-        .optional(),
-      property: packagedProductDefinitionPackagePropertySchema
-        .array()
-        .optional(),
-      quantity: intSchema.optional(),
-      shelfLifeStorage: packagedProductDefinitionPackageShelfLifeStorageSchema
-        .array()
-        .optional(),
-      type: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    alternateMaterial: codeableConceptSchema.array().optional(),
+    containedItem: packagedProductDefinitionPackageContainedItemSchema
+      .array()
+      .optional(),
+    identifier: identifierSchema.array().optional(),
+    manufacturer: referenceSchema.array().optional(),
+    material: codeableConceptSchema.array().optional(),
+    get package() {
+      return packagedProductDefinitionPackageSchema.array().optional()
+    },
+    property: packagedProductDefinitionPackagePropertySchema.array().optional(),
+    quantity: intSchema.optional(),
+    shelfLifeStorage: packagedProductDefinitionPackageShelfLifeStorageSchema
+      .array()
+      .optional(),
+    type: codeableConceptSchema.optional(),
+  })
 
 export const untypedPackagedProductDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({

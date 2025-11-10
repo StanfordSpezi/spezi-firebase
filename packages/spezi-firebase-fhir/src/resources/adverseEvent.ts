@@ -6,7 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type AdverseEvent } from 'fhir/r4b.js'
+import {
+  type AdverseEventSuspectEntity,
+  type AdverseEventSuspectEntityCausality,
+  type AdverseEvent,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './domainResourceClass.js'
 import {
@@ -20,6 +24,21 @@ import {
   stringSchema,
 } from '../elements/index.js'
 import { adverseEventActualitySchema } from '../valueSets/index.js'
+
+const adverseEventSuspectEntityCausalitySchema: ZodType<AdverseEventSuspectEntityCausality> =
+  backboneElementSchema.extend({
+    assessment: codeableConceptSchema.optional(),
+    productRelatedness: stringSchema.optional(),
+    _productRelatedness: elementSchema.optional(),
+    author: referenceSchema.optional(),
+    method: codeableConceptSchema.optional(),
+  })
+
+const adverseEventSuspectEntitySchema: ZodType<AdverseEventSuspectEntity> =
+  backboneElementSchema.extend({
+    instance: referenceSchema,
+    causality: adverseEventSuspectEntityCausalitySchema.array().optional(),
+  })
 
 export const untypedAdverseEventSchema = z.lazy(() =>
   domainResourceSchema.extend({
@@ -44,22 +63,7 @@ export const untypedAdverseEventSchema = z.lazy(() =>
     outcome: codeableConceptSchema.optional(),
     recorder: referenceSchema.optional(),
     contributor: referenceSchema.array().optional(),
-    suspectEntity: backboneElementSchema
-      .extend({
-        instance: referenceSchema,
-        causality: backboneElementSchema
-          .extend({
-            assessment: codeableConceptSchema.optional(),
-            productRelatedness: stringSchema.optional(),
-            _productRelatedness: elementSchema.optional(),
-            author: referenceSchema.optional(),
-            method: codeableConceptSchema.optional(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
+    suspectEntity: adverseEventSuspectEntitySchema.array().optional(),
     subjectMedicalHistory: referenceSchema.array().optional(),
     referenceDocument: referenceSchema.array().optional(),
     study: referenceSchema.array().optional(),
