@@ -1,0 +1,11 @@
+# Schema Generator Output (excluding generated/ for this PR we include it)
+# generated/
+*.log
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Temporary files from ts-to-zod approach
+temp-*.ts
+tsconfig.json
