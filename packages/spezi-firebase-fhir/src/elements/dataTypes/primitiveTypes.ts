@@ -16,7 +16,7 @@ import { z } from 'zod'
 export const dateTimeSchema = z
   .string()
   .regex(
-    /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?/,
+    /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?$/,
   )
 
 /**
@@ -25,7 +25,7 @@ export const dateTimeSchema = z
 export const dateSchema = z
   .string()
   .regex(
-    /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?/,
+    /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?$/,
   )
 
 /**
@@ -37,19 +37,19 @@ export const urlSchema = z.url()
 /**
  * Zod schema for FHIR uri primitive type.
  */
-export const uriSchema = z.string().regex(/\S*/)
+export const uriSchema = z.string().regex(/^\S*$/)
 
 /**
  * Zod schema for FHIR time primitive type.
  */
 export const timeSchema = z
   .string()
-  .regex(/([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?/)
+  .regex(/^([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?$/)
 
 /**
  * Zod schema for FHIR code primitive type.
  */
-export const codeSchema = z.string().regex(/[^\s]+(\s[^\s]+)*/)
+export const codeSchema = z.string().regex(/^[^\s]+(\s[^\s]+)*$/)
 
 /**
  * Zod schema for FHIR positiveDecimal primitive type (not in FHIR spec).
@@ -64,12 +64,12 @@ export const decimalSchema = z.number()
 /**
  * Zod schema for FHIR oid primitive type.
  */
-export const oidSchema = z.string().regex(/urn:oid:[0-2](\.(0|[1-9][0-9]*))+/)
+export const oidSchema = z.string().regex(/^urn:oid:[0-2](\.(0|[1-9][0-9]*))+$/)
 
 /**
  * Zod schema for FHIR id primitive type.
  */
-export const idSchema = z.string().regex(/[A-Za-z0-9\-\.]{1,64}/)
+export const idSchema = z.string().regex(/^[A-Za-z0-9\-\.]{1,64}$/)
 
 /**
  * Zod schema for FHIR instant primitive type.
@@ -77,13 +77,13 @@ export const idSchema = z.string().regex(/[A-Za-z0-9\-\.]{1,64}/)
 export const instantSchema = z
   .string()
   .regex(
-    /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))/,
+    /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))$/,
   )
 
 /**
  * Zod schema for FHIR markdown primitive type.
  */
-export const markdownSchema = z.string().regex(/\s*(\S|\s)*/)
+export const markdownSchema = z.string().regex(/^\s*(\S|\s)*$/)
 
 /**
  * Zod schema for FHIR integer primitive type.
@@ -130,4 +130,4 @@ export const canonicalSchema = z.url()
  */
 export const base64BinarySchema = z
   .string()
-  .regex(/(\s*([0-9a-zA-Z\+\=]){4}\s*)+/)
+  .regex(/^(\s*([0-9a-zA-Z\+\/\=]){4}\s*)+$/)

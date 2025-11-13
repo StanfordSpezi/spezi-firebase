@@ -225,6 +225,14 @@ const patient = FhirPatient.parse(data)
 const name: string | undefined = patient.value.name?.[0]?.family
 ```
 
+## Schema Validation
+
+This package includes comprehensive compile-time and runtime validation to ensure all schemas exactly match FHIR R4B specifications. See [SCHEMA_VALIDATION.md](./SCHEMA_VALIDATION.md) for details on:
+
+- Compile-time type checking with bidirectional validation
+- Primitive type regex pattern validation
+- How to add new schemas with type safety guarantees
+
 ## License
 
 This project is licensed under the MIT License. See [Licenses](https://github.com/StanfordSpezi/spezi-firebase/tree/main/LICENSES) for more information.
