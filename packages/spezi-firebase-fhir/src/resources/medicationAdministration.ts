@@ -10,7 +10,7 @@ import {
   type MedicationAdministrationPerformer,
   type Coding,
   type MedicationAdministration,
-  MedicationAdministrationDosage,
+  type MedicationAdministrationDosage,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
 import { FhirDomainResource } from './fhirDomainResource.js'
