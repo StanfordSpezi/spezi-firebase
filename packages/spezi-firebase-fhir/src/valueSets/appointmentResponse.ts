@@ -19,6 +19,10 @@ export const appointmentResponseParticipantStatusSchema = z.enum([
   'needs-action',
 ])
 
+/**
+ * Participation status of the appointment.
+ * http://hl7.org/fhir/valueset-participationstatus.html
+ */
 export type AppointmentResponseParticipantStatus = z.infer<
   typeof appointmentResponseParticipantStatusSchema
 >

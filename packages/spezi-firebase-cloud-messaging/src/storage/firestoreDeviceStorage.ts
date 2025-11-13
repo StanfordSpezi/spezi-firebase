@@ -27,6 +27,13 @@ export class FirestoreDeviceStorage implements DeviceStorage {
   private readonly devicesCollection: string
   private readonly userDevicesPathTemplate: string
 
+  /**
+   * Creates a new FirestoreDeviceStorage instance
+   * @param firestore Firestore instance
+   * @param options Configuration options
+   * @param options.devicesCollection Name of the devices collection (default: 'devices')
+   * @param options.userDevicesPathTemplate Path template for user devices (default: 'users/{userId}/devices')
+   */
   constructor(
     firestore: Firestore,
     options: {
@@ -42,6 +49,7 @@ export class FirestoreDeviceStorage implements DeviceStorage {
 
   /**
    * Get devices collection reference
+   * @returns Query for all devices across users
    */
   private get devices(): Query {
     // Need to use type assertion due to FirebaseFirestore's complex types
@@ -56,6 +64,7 @@ export class FirestoreDeviceStorage implements DeviceStorage {
   /**
    * Get user devices collection reference
    * @param userId The user ID
+   * @returns Collection reference for the user's devices
    */
   private userDevices(userId: string) {
     const path = this.userDevicesPathTemplate.replace('{userId}', userId)
@@ -65,6 +74,7 @@ export class FirestoreDeviceStorage implements DeviceStorage {
   /**
    * Create a Firestore converter for a specific type
    * @param encoder Function to encode the type to Firestore
+   * @returns Firestore converter object
    */
   private converter<T>(encoder: (data: T) => Record<string, unknown>) {
     return {
@@ -91,6 +101,7 @@ export class FirestoreDeviceStorage implements DeviceStorage {
   /**
    * Run a transaction in Firestore
    * @param callback Transaction callback
+   * @returns Promise resolving to the callback result
    */
   private async runTransaction<T>(
     callback: (deviceQuery: Query, transaction: Transaction) => Promise<T>,
@@ -140,7 +151,7 @@ export class FirestoreDeviceStorage implements DeviceStorage {
 
   /**
    * Remove a device
-   * @param userId The user ID (ignored in this implementation as we search all devices)
+   * @param _ The user ID (ignored in this implementation as we search all devices)
    * @param notificationToken The notification token to remove
    * @param platform The device platform
    */
@@ -165,6 +176,7 @@ export class FirestoreDeviceStorage implements DeviceStorage {
   /**
    * Get all devices for a user
    * @param userId The user ID
+   * @returns Promise resolving to array of device documents
    */
   async getUserDevices(userId: string): Promise<Array<Document<Device>>> {
     // Get the devices collection and apply the converter

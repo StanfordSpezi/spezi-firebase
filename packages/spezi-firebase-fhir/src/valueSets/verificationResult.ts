@@ -21,6 +21,10 @@ export const verificationResultStatusSchema = z.enum([
   'reval-fail',
 ])
 
+/**
+ * The validation status of the target.
+ * http://hl7.org/fhir/valueset-verificationresult-status.html
+ */
 export type VerificationResultStatus = z.infer<
   typeof verificationResultStatusSchema
 >

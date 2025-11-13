@@ -22,6 +22,9 @@ import { elementSchema } from '../element.js'
 
 const dataRequirementSortDirectionSchema = z.enum(['ascending', 'descending'])
 
+/**
+ * Zod schema for FHIR DataRequirement data type.
+ */
 export const dataRequirementSchema: ZodType<DataRequirement> = z.lazy(() =>
   elementSchema.extend({
     type: codeSchema,

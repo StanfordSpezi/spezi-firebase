@@ -18,6 +18,9 @@ const narrativeStatusSchema = z.enum([
   'empty',
 ])
 
+/**
+ * Zod schema for FHIR Narrative data type.
+ */
 export const narrativeSchema: ZodType<Narrative> = z.lazy(() =>
   elementSchema.extend({
     status: narrativeStatusSchema,

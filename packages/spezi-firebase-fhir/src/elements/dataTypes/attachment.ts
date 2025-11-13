@@ -18,6 +18,9 @@ import {
 } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR Attachment data type.
+ */
 export const attachmentSchema: ZodType<Attachment> = z.lazy(() =>
   elementSchema.extend({
     contentType: codeSchema.optional(),

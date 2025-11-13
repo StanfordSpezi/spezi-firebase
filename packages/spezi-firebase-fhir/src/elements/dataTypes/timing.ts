@@ -41,6 +41,9 @@ const timingRepeatTimeUnitSchema = z.enum([
   'a',
 ])
 
+/**
+ * Zod schema for FHIR Timing data type.
+ */
 export const timingSchema: ZodType<Timing> = z.lazy(() =>
   elementSchema.extend({
     event: dateTimeSchema.array().optional(),

@@ -7,11 +7,14 @@
 //
 
 import {
+  type OperationDefinitionOverload,
+  type OperationDefinitionParameterBinding,
+  type OperationDefinitionParameterReferencedFrom,
   type OperationDefinition,
   type OperationDefinitionParameter,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -34,47 +37,59 @@ import {
   searchParameterTypeSchema,
 } from '../valueSets/index.js'
 
-const operationDefinitionParameterSchema: ZodType<OperationDefinitionParameter> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      binding: backboneElementSchema
-        .extend({
-          strength: bindingStrengthSchema,
-          _strength: elementSchema.optional(),
-          valueSet: urlSchema,
-          _valueSet: elementSchema.optional(),
-        })
-        .optional(),
-      documentation: markdownSchema.optional(),
-      _documentation: elementSchema.optional(),
-      max: stringSchema,
-      _max: elementSchema.optional(),
-      min: intSchema,
-      name: stringSchema,
-      _name: elementSchema.optional(),
-      get part() {
-        return operationDefinitionParameterSchema.array().optional()
-      },
-      referencedFrom: backboneElementSchema
-        .extend({
-          source: stringSchema,
-          _source: elementSchema.optional(),
-          sourceId: stringSchema.optional(),
-          _sourceId: elementSchema.optional(),
-        })
-        .array()
-        .optional(),
-      searchType: searchParameterTypeSchema.optional(),
-      _searchType: elementSchema.optional(),
-      targetProfile: urlSchema.array().optional(),
-      _targetProfile: elementSchema.array().optional(),
-      type: stringSchema.optional(),
-      _type: elementSchema.optional(),
-      use: operationDefinitionParameterUseSchema,
-      _use: elementSchema.optional(),
-    }),
-  )
+const operationDefinitionParameterBindingSchema: ZodType<OperationDefinitionParameterBinding> =
+  backboneElementSchema.extend({
+    strength: bindingStrengthSchema,
+    _strength: elementSchema.optional(),
+    valueSet: urlSchema,
+    _valueSet: elementSchema.optional(),
+  })
 
+const operationDefinitionParameterReferencedFromSchema: ZodType<OperationDefinitionParameterReferencedFrom> =
+  backboneElementSchema.extend({
+    source: stringSchema,
+    _source: elementSchema.optional(),
+    sourceId: stringSchema.optional(),
+    _sourceId: elementSchema.optional(),
+  })
+
+const operationDefinitionParameterSchema: ZodType<OperationDefinitionParameter> =
+  backboneElementSchema.extend({
+    binding: operationDefinitionParameterBindingSchema.optional(),
+    documentation: markdownSchema.optional(),
+    _documentation: elementSchema.optional(),
+    max: stringSchema,
+    _max: elementSchema.optional(),
+    min: intSchema,
+    name: stringSchema,
+    _name: elementSchema.optional(),
+    get part() {
+      return operationDefinitionParameterSchema.array().optional()
+    },
+    referencedFrom: operationDefinitionParameterReferencedFromSchema
+      .array()
+      .optional(),
+    searchType: searchParameterTypeSchema.optional(),
+    _searchType: elementSchema.optional(),
+    targetProfile: urlSchema.array().optional(),
+    _targetProfile: elementSchema.array().optional(),
+    type: stringSchema.optional(),
+    _type: elementSchema.optional(),
+    use: operationDefinitionParameterUseSchema,
+    _use: elementSchema.optional(),
+  })
+
+const operationDefinitionOverloadSchema: ZodType<OperationDefinitionOverload> =
+  backboneElementSchema.extend({
+    comment: stringSchema.optional(),
+    _comment: elementSchema.optional(),
+    parameterName: stringSchema.array().optional(),
+    _parameterName: elementSchema.array().optional(),
+  })
+
+/**
+ * Zod schema for FHIR OperationDefinition resource (untyped version).
+ */
 export const untypedOperationDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('OperationDefinition').readonly(),
@@ -104,15 +119,7 @@ export const untypedOperationDefinitionSchema = z.lazy(() =>
     _name: elementSchema.optional(),
     outputProfile: urlSchema.optional(),
     _outputProfile: elementSchema.optional(),
-    overload: backboneElementSchema
-      .extend({
-        comment: stringSchema.optional(),
-        _comment: elementSchema.optional(),
-        parameterName: stringSchema.array().optional(),
-        _parameterName: elementSchema.array().optional(),
-      })
-      .array()
-      .optional(),
+    overload: operationDefinitionOverloadSchema.array().optional(),
     parameter: operationDefinitionParameterSchema.array().optional(),
     publisher: stringSchema.optional(),
     _publisher: elementSchema.optional(),
@@ -136,12 +143,25 @@ export const untypedOperationDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<OperationDefinition>
 
+/**
+ * Zod schema for FHIR OperationDefinition resource.
+ */
 export const operationDefinitionSchema: ZodType<OperationDefinition> =
   untypedOperationDefinitionSchema
 
+/**
+ * Wrapper class for FHIR OperationDefinition resources.
+ * Provides utility methods for working with operation definitions and custom FHIR operations.
+ */
 export class FhirOperationDefinition extends FhirDomainResource<OperationDefinition> {
   // Static Functions
 
+  /**
+   * Parses an OperationDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the OperationDefinition schema
+   * @returns A FhirOperationDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirOperationDefinition {
     return new FhirOperationDefinition(operationDefinitionSchema.parse(value))
   }

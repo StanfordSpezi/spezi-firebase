@@ -6,9 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type GraphDefinition, type GraphDefinitionLink } from 'fhir/r4b.js'
+import {
+  type GraphDefinitionLinkTarget,
+  type GraphDefinitionLinkTargetCompartment,
+  type GraphDefinition,
+  type GraphDefinitionLink,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -29,7 +34,35 @@ import {
   publicationStatusSchema,
 } from '../valueSets/index.js'
 
-const graphDefinitionLinkSchema: ZodType<GraphDefinitionLink> = z.lazy(() =>
+const graphDefinitionLinkTargetCompartmentSchema: ZodType<GraphDefinitionLinkTargetCompartment> =
+  backboneElementSchema.extend({
+    code: compartmentDefinitionCodeSchema,
+    _code: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    expression: stringSchema.optional(),
+    _expression: elementSchema.optional(),
+    rule: graphDefinitionLinkTargetCompartmentRuleSchema,
+    _rule: elementSchema.optional(),
+    use: graphDefinitionLinkTargetCompartmentUseSchema,
+    _use: elementSchema.optional(),
+  })
+
+const graphDefinitionLinkTargetSchema: ZodType<GraphDefinitionLinkTarget> =
+  backboneElementSchema.extend({
+    compartment: graphDefinitionLinkTargetCompartmentSchema.array().optional(),
+    get link() {
+      return graphDefinitionLinkSchema.array().optional()
+    },
+    params: stringSchema.optional(),
+    _params: elementSchema.optional(),
+    profile: urlSchema.optional(),
+    _profile: elementSchema.optional(),
+    type: stringSchema,
+    _type: elementSchema.optional(),
+  })
+
+const graphDefinitionLinkSchema: ZodType<GraphDefinitionLink> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -40,38 +73,12 @@ const graphDefinitionLinkSchema: ZodType<GraphDefinitionLink> = z.lazy(() =>
     _path: elementSchema.optional(),
     sliceName: stringSchema.optional(),
     _sliceName: elementSchema.optional(),
-    target: backboneElementSchema
-      .extend({
-        compartment: backboneElementSchema
-          .extend({
-            code: compartmentDefinitionCodeSchema,
-            _code: elementSchema.optional(),
-            description: stringSchema.optional(),
-            _description: elementSchema.optional(),
-            expression: stringSchema.optional(),
-            _expression: elementSchema.optional(),
-            rule: graphDefinitionLinkTargetCompartmentRuleSchema,
-            _rule: elementSchema.optional(),
-            use: graphDefinitionLinkTargetCompartmentUseSchema,
-            _use: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        get link() {
-          return graphDefinitionLinkSchema.array().optional()
-        },
-        params: stringSchema.optional(),
-        _params: elementSchema.optional(),
-        profile: urlSchema.optional(),
-        _profile: elementSchema.optional(),
-        type: stringSchema,
-        _type: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-  }),
-)
+    target: graphDefinitionLinkTargetSchema.array().optional(),
+  })
 
+/**
+ * Zod schema for FHIR GraphDefinition resource (untyped version).
+ */
 export const untypedGraphDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('GraphDefinition').readonly(),
@@ -104,12 +111,25 @@ export const untypedGraphDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<GraphDefinition>
 
+/**
+ * Zod schema for FHIR GraphDefinition resource.
+ */
 export const graphDefinitionSchema: ZodType<GraphDefinition> =
   untypedGraphDefinitionSchema
 
+/**
+ * Wrapper class for FHIR GraphDefinition resources.
+ * Provides utility methods for working with graph definitions that specify resource relationships.
+ */
 export class FhirGraphDefinition extends FhirDomainResource<GraphDefinition> {
   // Static Functions
 
+  /**
+   * Parses a GraphDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the GraphDefinition schema
+   * @returns A FhirGraphDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirGraphDefinition {
     return new FhirGraphDefinition(graphDefinitionSchema.parse(value))
   }

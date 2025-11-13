@@ -12,6 +12,9 @@ import { codingSchema } from './coding.js'
 import { stringSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR CodeableConcept data type.
+ */
 export const codeableConceptSchema: ZodType<CodeableConcept> = z.lazy(() =>
   elementSchema.extend({
     coding: codingSchema.array().optional(),

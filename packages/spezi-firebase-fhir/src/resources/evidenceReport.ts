@@ -10,9 +10,11 @@ import {
   type EvidenceReport,
   type EvidenceReportSubject,
   type EvidenceReportSection,
+  type EvidenceReportSubjectCharacteristic,
+  type EvidenceReportRelatesTo,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -39,28 +41,29 @@ import {
   sectionModeSchema,
 } from '../valueSets/index.js'
 
-const evidenceReportSubjectSchema: ZodType<EvidenceReportSubject> = z.lazy(() =>
+const evidenceReportSubjectCharacteristicSchema: ZodType<EvidenceReportSubjectCharacteristic> =
   backboneElementSchema.extend({
-    characteristic: backboneElementSchema
-      .extend({
-        code: codeableConceptSchema,
-        valueReference: referenceSchema.optional(),
-        valueCodeableConcept: codeableConceptSchema.optional(),
-        valueBoolean: booleanSchema.optional(),
-        _valueBoolean: elementSchema.optional(),
-        valueQuantity: quantitySchema.optional(),
-        valueRange: rangeSchema.optional(),
-        exclude: booleanSchema.optional(),
-        _exclude: elementSchema.optional(),
-        period: periodSchema.optional(),
-      })
+    code: codeableConceptSchema,
+    valueReference: referenceSchema.optional(),
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueRange: rangeSchema.optional(),
+    exclude: booleanSchema.optional(),
+    _exclude: elementSchema.optional(),
+    period: periodSchema.optional(),
+  })
+
+const evidenceReportSubjectSchema: ZodType<EvidenceReportSubject> =
+  backboneElementSchema.extend({
+    characteristic: evidenceReportSubjectCharacteristicSchema
       .array()
       .optional(),
     note: annotationSchema.array().optional(),
-  }),
-)
+  })
 
-const evidenceReportSectionSchema: ZodType<EvidenceReportSection> = z.lazy(() =>
+const evidenceReportSectionSchema: ZodType<EvidenceReportSection> =
   backboneElementSchema.extend({
     title: stringSchema.optional(),
     _title: elementSchema.optional(),
@@ -78,9 +81,19 @@ const evidenceReportSectionSchema: ZodType<EvidenceReportSection> = z.lazy(() =>
     get section() {
       return evidenceReportSectionSchema.array().optional()
     },
-  }),
-)
+  })
 
+const evidenceReportRelatesToSchema: ZodType<EvidenceReportRelatesTo> =
+  backboneElementSchema.extend({
+    code: evidenceReportRelatesToCodeSchema,
+    _code: elementSchema.optional(),
+    targetIdentifier: identifierSchema.optional(),
+    targetReference: referenceSchema.optional(),
+  })
+
+/**
+ * Zod schema for FHIR EvidenceReport resource (untyped version).
+ */
 export const untypedEvidenceReportSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('EvidenceReport').readonly(),
@@ -105,25 +118,30 @@ export const untypedEvidenceReportSchema = z.lazy(() =>
     editor: contactDetailSchema.array().optional(),
     reviewer: contactDetailSchema.array().optional(),
     endorser: contactDetailSchema.array().optional(),
-    relatesTo: backboneElementSchema
-      .extend({
-        code: evidenceReportRelatesToCodeSchema,
-        _code: elementSchema.optional(),
-        targetIdentifier: identifierSchema.optional(),
-        targetReference: referenceSchema.optional(),
-      })
-      .array()
-      .optional(),
+    relatesTo: evidenceReportRelatesToSchema.array().optional(),
     section: evidenceReportSectionSchema.array().optional(),
   }),
 ) satisfies ZodType<EvidenceReport>
 
+/**
+ * Zod schema for FHIR EvidenceReport resource.
+ */
 export const evidenceReportSchema: ZodType<EvidenceReport> =
   untypedEvidenceReportSchema
 
+/**
+ * Wrapper class for FHIR EvidenceReport resources.
+ * Provides utility methods for working with evidence reports that compile and present research findings.
+ */
 export class FhirEvidenceReport extends FhirDomainResource<EvidenceReport> {
   // Static Functions
 
+  /**
+   * Parses an EvidenceReport resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the EvidenceReport schema
+   * @returns A FhirEvidenceReport instance containing the validated resource
+   */
   public static parse(value: unknown): FhirEvidenceReport {
     return new FhirEvidenceReport(evidenceReportSchema.parse(value))
   }

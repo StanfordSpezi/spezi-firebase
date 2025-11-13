@@ -6,9 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type CodeSystem, type CodeSystemConcept } from 'fhir/r4b.js'
+import {
+  type CodeSystemConceptDesignation,
+  type CodeSystemConceptProperty,
+  type CodeSystemFilter,
+  type CodeSystemProperty,
+  type CodeSystem,
+  type CodeSystemConcept,
+  type Coding,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -22,6 +30,7 @@ import {
   identifierSchema,
   intSchema,
   stringSchema,
+  uriSchema,
   urlSchema,
   usageContextSchema,
 } from '../elements/index.js'
@@ -33,7 +42,33 @@ import {
   publicationStatusSchema,
 } from '../valueSets/index.js'
 
-const codeSystemConceptSchema: ZodType<CodeSystemConcept> = z.lazy(() =>
+const codeSystemConceptDesignationSchema: ZodType<CodeSystemConceptDesignation> =
+  backboneElementSchema.extend({
+    language: stringSchema.optional(),
+    _language: elementSchema.optional(),
+    use: codingSchema.optional(),
+    value: stringSchema,
+    _value: elementSchema.optional(),
+  })
+
+const codeSystemConceptPropertySchema: ZodType<CodeSystemConceptProperty> =
+  backboneElementSchema.extend({
+    code: stringSchema,
+    _code: elementSchema.optional(),
+    valueCode: stringSchema.optional(),
+    _valueCode: elementSchema.optional(),
+    valueCoding: codingSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueInteger: intSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueDateTime: dateTimeSchema.optional(),
+    _valueDateTime: elementSchema.optional(),
+    valueDecimal: decimalSchema.optional(),
+  })
+
+const codeSystemConceptSchema: ZodType<CodeSystemConcept> =
   backboneElementSchema.extend({
     code: stringSchema,
     _code: elementSchema.optional(),
@@ -41,40 +76,40 @@ const codeSystemConceptSchema: ZodType<CodeSystemConcept> = z.lazy(() =>
     _display: elementSchema.optional(),
     definition: stringSchema.optional(),
     _definition: elementSchema.optional(),
-    designation: backboneElementSchema
-      .extend({
-        language: stringSchema.optional(),
-        _language: elementSchema.optional(),
-        use: codingSchema.optional(),
-        value: stringSchema,
-        _value: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-    property: backboneElementSchema
-      .extend({
-        code: stringSchema,
-        _code: elementSchema.optional(),
-        valueCode: stringSchema.optional(),
-        _valueCode: elementSchema.optional(),
-        valueCoding: codingSchema.optional(),
-        valueString: stringSchema.optional(),
-        _valueString: elementSchema.optional(),
-        valueInteger: intSchema.optional(),
-        valueBoolean: booleanSchema.optional(),
-        _valueBoolean: elementSchema.optional(),
-        valueDateTime: dateTimeSchema.optional(),
-        _valueDateTime: elementSchema.optional(),
-        valueDecimal: decimalSchema.optional(),
-      })
-      .array()
-      .optional(),
+    designation: codeSystemConceptDesignationSchema.array().optional(),
+    property: codeSystemConceptPropertySchema.array().optional(),
     get concept() {
       return codeSystemConceptSchema.array().optional()
     },
-  }),
-)
+  })
 
+const codeSystemFilterSchema: ZodType<CodeSystemFilter> =
+  backboneElementSchema.extend({
+    code: stringSchema,
+    _code: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    operator: filterOperatorSchema.array(),
+    _operator: elementSchema.array().optional(),
+    value: stringSchema,
+    _value: elementSchema.optional(),
+  })
+
+const codeSystemPropertySchema: ZodType<CodeSystemProperty> =
+  backboneElementSchema.extend({
+    code: stringSchema,
+    _code: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    type: codeSystemPropertyTypeSchema,
+    _type: elementSchema.optional(),
+    uri: uriSchema.optional(),
+    _uri: elementSchema.optional(),
+  })
+
+/**
+ * Zod schema for FHIR CodeSystem resource (untyped version).
+ */
 export const untypedCodeSystemSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('CodeSystem').readonly(),
@@ -119,42 +154,77 @@ export const untypedCodeSystemSchema = z.lazy(() =>
     supplements: urlSchema.optional(),
     _supplements: elementSchema.optional(),
     count: intSchema.optional(),
-    filter: backboneElementSchema
-      .extend({
-        code: stringSchema,
-        _code: elementSchema.optional(),
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        operator: filterOperatorSchema.array(),
-        _operator: elementSchema.array().optional(),
-        value: stringSchema,
-        _value: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-    property: backboneElementSchema
-      .extend({
-        code: stringSchema,
-        _code: elementSchema.optional(),
-        uri: urlSchema.optional(),
-        _uri: elementSchema.optional(),
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        type: codeSystemPropertyTypeSchema,
-        _type: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    filter: codeSystemFilterSchema.array().optional(),
+    property: codeSystemPropertySchema.array().optional(),
     concept: codeSystemConceptSchema.array().optional(),
   }),
-)
+) satisfies ZodType<CodeSystem>
 
+/**
+ * Zod schema for FHIR CodeSystem resource.
+ */
 export const codeSystemSchema: ZodType<CodeSystem> = untypedCodeSystemSchema
 
+/**
+ * Wrapper class for FHIR CodeSystem resources.
+ * Provides utility methods for working with code systems and terminology definitions.
+ */
 export class FhirCodeSystem extends FhirDomainResource<CodeSystem> {
   // Static Functions
 
+  /**
+   * Parses a CodeSystem resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the CodeSystem schema
+   * @returns A FhirCodeSystem instance containing the validated resource
+   */
   public static parse(value: unknown): FhirCodeSystem {
     return new FhirCodeSystem(codeSystemSchema.parse(value))
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

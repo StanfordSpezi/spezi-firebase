@@ -25,6 +25,10 @@ export const appointmentStatusSchema = z.enum([
   'waitlist',
 ])
 
+/**
+ * The free/busy status of an appointment.
+ * http://hl7.org/fhir/valueset-appointmentstatus.html
+ */
 export type AppointmentStatus = z.infer<typeof appointmentStatusSchema>
 
 /**
@@ -37,6 +41,10 @@ export const appointmentParticipantRequiredSchema = z.enum([
   'information-only',
 ])
 
+/**
+ * Is the Participant required to attend the appointment.
+ * http://hl7.org/fhir/valueset-participantrequired.html
+ */
 export type AppointmentParticipantRequired = z.infer<
   typeof appointmentParticipantRequiredSchema
 >
@@ -52,6 +60,10 @@ export const appointmentParticipantStatusSchema = z.enum([
   'needs-action',
 ])
 
+/**
+ * Participation status of the appointment.
+ * http://hl7.org/fhir/valueset-participationstatus.html
+ */
 export type AppointmentParticipantStatus = z.infer<
   typeof appointmentParticipantStatusSchema
 >

@@ -6,9 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type VerificationResult } from 'fhir/r4b.js'
+import {
+  type VerificationResultAttestation,
+  type VerificationResultPrimarySource,
+  type VerificationResultValidator,
+  type VerificationResult,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -23,6 +28,44 @@ import {
 } from '../elements/index.js'
 import { verificationResultStatusSchema } from '../valueSets/index.js'
 
+const verificationResultPrimarySourceSchema: ZodType<VerificationResultPrimarySource> =
+  backboneElementSchema.extend({
+    who: referenceSchema.optional(),
+    type: codeableConceptSchema.array().optional(),
+    communicationMethod: codeableConceptSchema.array().optional(),
+    validationStatus: codeableConceptSchema.optional(),
+    validationDate: dateTimeSchema.optional(),
+    _validationDate: elementSchema.optional(),
+    canPushUpdates: codeableConceptSchema.optional(),
+    pushTypeAvailable: codeableConceptSchema.array().optional(),
+  })
+
+const verificationResultAttestationSchema: ZodType<VerificationResultAttestation> =
+  backboneElementSchema.extend({
+    who: referenceSchema.optional(),
+    onBehalfOf: referenceSchema.optional(),
+    communicationMethod: codeableConceptSchema.optional(),
+    date: dateSchema.optional(),
+    _date: elementSchema.optional(),
+    sourceIdentityCertificate: stringSchema.optional(),
+    _sourceIdentityCertificate: elementSchema.optional(),
+    proxyIdentityCertificate: stringSchema.optional(),
+    _proxyIdentityCertificate: elementSchema.optional(),
+    proxySignature: signatureSchema.optional(),
+    sourceSignature: signatureSchema.optional(),
+  })
+
+const verificationResultValidatorSchema: ZodType<VerificationResultValidator> =
+  backboneElementSchema.extend({
+    organization: referenceSchema,
+    identityCertificate: stringSchema.optional(),
+    _identityCertificate: elementSchema.optional(),
+    attestationSignature: signatureSchema.optional(),
+  })
+
+/**
+ * Zod schema for FHIR VerificationResult resource (untyped version).
+ */
 export const untypedVerificationResultSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('VerificationResult').readonly(),
@@ -42,52 +85,31 @@ export const untypedVerificationResultSchema = z.lazy(() =>
     nextScheduled: dateSchema.optional(),
     _nextScheduled: elementSchema.optional(),
     failureAction: codeableConceptSchema.optional(),
-    primarySource: backboneElementSchema
-      .extend({
-        who: referenceSchema.optional(),
-        type: codeableConceptSchema.array().optional(),
-        communicationMethod: codeableConceptSchema.array().optional(),
-        validationStatus: codeableConceptSchema.optional(),
-        validationDate: dateTimeSchema.optional(),
-        _validationDate: elementSchema.optional(),
-        canPushUpdates: codeableConceptSchema.optional(),
-        pushTypeAvailable: codeableConceptSchema.array().optional(),
-      })
-      .array()
-      .optional(),
-    attestation: backboneElementSchema
-      .extend({
-        who: referenceSchema.optional(),
-        onBehalfOf: referenceSchema.optional(),
-        communicationMethod: codeableConceptSchema.optional(),
-        date: dateSchema.optional(),
-        _date: elementSchema.optional(),
-        sourceIdentityCertificate: stringSchema.optional(),
-        _sourceIdentityCertificate: elementSchema.optional(),
-        proxyIdentityCertificate: stringSchema.optional(),
-        _proxyIdentityCertificate: elementSchema.optional(),
-        proxySignature: signatureSchema.optional(),
-        sourceSignature: signatureSchema.optional(),
-      })
-      .optional(),
-    validator: backboneElementSchema
-      .extend({
-        organization: referenceSchema,
-        identityCertificate: stringSchema.optional(),
-        _identityCertificate: elementSchema.optional(),
-        attestationSignature: signatureSchema.optional(),
-      })
-      .array()
-      .optional(),
+    primarySource: verificationResultPrimarySourceSchema.array().optional(),
+    attestation: verificationResultAttestationSchema.optional(),
+    validator: verificationResultValidatorSchema.array().optional(),
   }),
 ) satisfies ZodType<VerificationResult>
 
+/**
+ * Zod schema for FHIR VerificationResult resource.
+ */
 export const verificationResultSchema: ZodType<VerificationResult> =
   untypedVerificationResultSchema
 
+/**
+ * Wrapper class for FHIR VerificationResult resources.
+ * Provides utility methods for working with verification results that describe validation/verification of information.
+ */
 export class FhirVerificationResult extends FhirDomainResource<VerificationResult> {
   // Static Functions
 
+  /**
+   * Parses a VerificationResult resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the VerificationResult schema
+   * @returns A FhirVerificationResult instance containing the validated resource
+   */
   public static parse(value: unknown): FhirVerificationResult {
     return new FhirVerificationResult(verificationResultSchema.parse(value))
   }

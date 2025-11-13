@@ -14,4 +14,8 @@ import { z } from 'zod'
  */
 export const adverseEventActualitySchema = z.enum(['actual', 'potential'])
 
+/**
+ * Overall nature of the adverse event, e.g. real or potential.
+ * http://hl7.org/fhir/valueset-adverse-event-actuality.html
+ */
 export type AdverseEventActuality = z.infer<typeof adverseEventActualitySchema>

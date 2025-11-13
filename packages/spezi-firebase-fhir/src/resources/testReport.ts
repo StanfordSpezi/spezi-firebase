@@ -6,9 +6,20 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type TestReport } from 'fhir/r4b.js'
+import {
+  type TestReportParticipant,
+  type TestReportSetup,
+  type TestReportSetupAction,
+  type TestReportSetupActionAssert,
+  type TestReportSetupActionOperation,
+  type TestReportTeardown,
+  type TestReportTeardownAction,
+  type TestReportTest,
+  type TestReportTestAction,
+  type TestReport,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   decimalSchema,
@@ -27,24 +38,75 @@ import {
   testReportStatusSchema,
 } from '../valueSets/index.js'
 
-const testReportSetupActionOperationSchema = backboneElementSchema.extend({
-  detail: urlSchema.optional(),
-  _detail: elementSchema.optional(),
-  message: stringSchema.optional(),
-  _message: elementSchema.optional(),
-  result: testReportActionResultSchema,
-  _result: elementSchema.optional(),
-})
+const testReportSetupActionOperationSchema: ZodType<TestReportSetupActionOperation> =
+  backboneElementSchema.extend({
+    detail: urlSchema.optional(),
+    _detail: elementSchema.optional(),
+    message: stringSchema.optional(),
+    _message: elementSchema.optional(),
+    result: testReportActionResultSchema,
+    _result: elementSchema.optional(),
+  })
 
-const testReportSetupActionAssertSchema = backboneElementSchema.extend({
-  detail: urlSchema.optional(),
-  _detail: elementSchema.optional(),
-  message: stringSchema.optional(),
-  _message: elementSchema.optional(),
-  result: testReportActionResultSchema,
-  _result: elementSchema.optional(),
-})
+const testReportSetupActionAssertSchema: ZodType<TestReportSetupActionAssert> =
+  backboneElementSchema.extend({
+    detail: urlSchema.optional(),
+    _detail: elementSchema.optional(),
+    message: stringSchema.optional(),
+    _message: elementSchema.optional(),
+    result: testReportActionResultSchema,
+    _result: elementSchema.optional(),
+  })
 
+const testReportParticipantSchema: ZodType<TestReportParticipant> =
+  backboneElementSchema.extend({
+    display: stringSchema.optional(),
+    _display: elementSchema.optional(),
+    type: testReportParticipantTypeSchema,
+    _type: elementSchema.optional(),
+    uri: urlSchema,
+    _uri: elementSchema.optional(),
+  })
+
+const testReportSetupActionSchema: ZodType<TestReportSetupAction> =
+  backboneElementSchema.extend({
+    assert: testReportSetupActionAssertSchema.optional(),
+    operation: testReportSetupActionOperationSchema.optional(),
+  })
+
+const testReportSetupSchema: ZodType<TestReportSetup> =
+  backboneElementSchema.extend({
+    action: testReportSetupActionSchema.array(),
+  })
+
+const testReportTeardownActionSchema: ZodType<TestReportTeardownAction> =
+  backboneElementSchema.extend({
+    operation: testReportSetupActionOperationSchema,
+  })
+
+const testReportTeardownSchema: ZodType<TestReportTeardown> =
+  backboneElementSchema.extend({
+    action: testReportTeardownActionSchema.array(),
+  })
+
+const testReportTestActionSchema: ZodType<TestReportTestAction> =
+  backboneElementSchema.extend({
+    assert: testReportSetupActionAssertSchema.optional(),
+    operation: testReportSetupActionOperationSchema.optional(),
+  })
+
+const testReportTestSchema: ZodType<TestReportTest> =
+  backboneElementSchema.extend({
+    action: testReportTestActionSchema.array(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+  })
+
+/**
+ * Zod schema for FHIR TestReport resource (untyped version).
+ */
 export const untypedTestReportSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('TestReport').readonly(),
@@ -53,67 +115,39 @@ export const untypedTestReportSchema = z.lazy(() =>
     _issued: elementSchema.optional(),
     name: stringSchema.optional(),
     _name: elementSchema.optional(),
-    participant: backboneElementSchema
-      .extend({
-        display: stringSchema.optional(),
-        _display: elementSchema.optional(),
-        type: testReportParticipantTypeSchema,
-        _type: elementSchema.optional(),
-        uri: urlSchema,
-        _uri: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    participant: testReportParticipantSchema.array().optional(),
     result: testReportResultSchema,
     _result: elementSchema.optional(),
     score: decimalSchema.optional(),
-    setup: backboneElementSchema
-      .extend({
-        action: backboneElementSchema
-          .extend({
-            assert: testReportSetupActionAssertSchema.optional(),
-            operation: testReportSetupActionOperationSchema.optional(),
-          })
-          .array(),
-      })
-      .optional(),
+    setup: testReportSetupSchema.optional(),
     status: testReportStatusSchema,
     _status: elementSchema.optional(),
-    teardown: backboneElementSchema
-      .extend({
-        action: backboneElementSchema
-          .extend({
-            operation: testReportSetupActionOperationSchema,
-          })
-          .array(),
-      })
-      .optional(),
-    test: backboneElementSchema
-      .extend({
-        action: backboneElementSchema
-          .extend({
-            assert: testReportSetupActionAssertSchema.optional(),
-            operation: testReportSetupActionOperationSchema.optional(),
-          })
-          .array(),
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        name: stringSchema.optional(),
-        _name: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    teardown: testReportTeardownSchema.optional(),
+    test: testReportTestSchema.array().optional(),
     tester: stringSchema.optional(),
     _tester: elementSchema.optional(),
     testScript: referenceSchema,
   }),
 ) satisfies ZodType<TestReport>
 
+/**
+ * Zod schema for FHIR TestReport resource.
+ */
 export const testReportSchema: ZodType<TestReport> = untypedTestReportSchema
 
+/**
+ * Wrapper class for FHIR TestReport resources.
+ * Provides utility methods for working with test reports that describe the results of executing a TestScript.
+ */
 export class FhirTestReport extends FhirDomainResource<TestReport> {
   // Static Functions
 
+  /**
+   * Parses a TestReport resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the TestReport schema
+   * @returns A FhirTestReport instance containing the validated resource
+   */
   public static parse(value: unknown): FhirTestReport {
     return new FhirTestReport(testReportSchema.parse(value))
   }

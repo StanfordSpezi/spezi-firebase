@@ -27,6 +27,10 @@ export const taskStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The current status of the task.
+ * http://hl7.org/fhir/valueset-task-status.html
+ */
 export type TaskStatus = z.infer<typeof taskStatusSchema>
 
 /**
@@ -45,4 +49,8 @@ export const taskIntentSchema = z.enum([
   'option',
 ])
 
+/**
+ * Distinguishes whether the task is a proposal, plan or full order.
+ * http://hl7.org/fhir/valueset-task-intent.html
+ */
 export type TaskIntent = z.infer<typeof taskIntentSchema>

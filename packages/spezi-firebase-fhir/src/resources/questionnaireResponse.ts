@@ -7,11 +7,12 @@
 //
 
 import {
+  type QuestionnaireResponseItemAnswer,
   type QuestionnaireResponse,
   type QuestionnaireResponseItem,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -32,49 +33,50 @@ import {
 } from '../elements/index.js'
 import { questionnaireResponseStatusSchema } from '../valueSets/index.js'
 
-const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      linkId: stringSchema,
-      _linkId: elementSchema.optional(),
-      definition: uriSchema.optional(),
-      _definition: elementSchema.optional(),
-      text: stringSchema.optional(),
-      _text: elementSchema.optional(),
-      answer: backboneElementSchema
-        .extend({
-          valueBoolean: booleanSchema.optional(),
-          _valueBoolean: elementSchema.optional(),
-          valueDecimal: decimalSchema.optional(),
-          _valueDecimal: elementSchema.optional(),
-          valueInteger: intSchema.optional(),
-          _valueInteger: elementSchema.optional(),
-          valueDate: dateSchema.optional(),
-          _valueDate: elementSchema.optional(),
-          valueDateTime: dateTimeSchema.optional(),
-          _valueDateTime: elementSchema.optional(),
-          valueTime: timeSchema.optional(),
-          _valueTime: elementSchema.optional(),
-          valueString: stringSchema.optional(),
-          _valueString: elementSchema.optional(),
-          valueUri: uriSchema.optional(),
-          _valueUri: elementSchema.optional(),
-          valueAttachment: attachmentSchema.optional(),
-          valueCoding: codingSchema.optional(),
-          valueQuantity: quantitySchema.optional(),
-          valueReference: referenceSchema.optional(),
-          get item() {
-            return questionnaireResponseItemSchema.array().optional()
-          },
-        })
-        .array()
-        .optional(),
-      get item() {
-        return questionnaireResponseItemSchema.array().optional()
-      },
-    }),
-  )
+const questionnaireResponseItemAnswerSchema: ZodType<QuestionnaireResponseItemAnswer> =
+  backboneElementSchema.extend({
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueDecimal: decimalSchema.optional(),
+    _valueDecimal: elementSchema.optional(),
+    valueInteger: intSchema.optional(),
+    _valueInteger: elementSchema.optional(),
+    valueDate: dateSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueDateTime: dateTimeSchema.optional(),
+    _valueDateTime: elementSchema.optional(),
+    valueTime: timeSchema.optional(),
+    _valueTime: elementSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueUri: uriSchema.optional(),
+    _valueUri: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+    valueCoding: codingSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueReference: referenceSchema.optional(),
+    get item() {
+      return questionnaireResponseItemSchema.array().optional()
+    },
+  })
 
+const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
+  backboneElementSchema.extend({
+    linkId: stringSchema,
+    _linkId: elementSchema.optional(),
+    definition: uriSchema.optional(),
+    _definition: elementSchema.optional(),
+    text: stringSchema.optional(),
+    _text: elementSchema.optional(),
+    answer: questionnaireResponseItemAnswerSchema.array().optional(),
+    get item() {
+      return questionnaireResponseItemSchema.array().optional()
+    },
+  })
+
+/**
+ * Zod schema for FHIR QuestionnaireResponse resource (untyped version).
+ */
 export const untypedQuestionnaireResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('QuestionnaireResponse').readonly(),
@@ -95,12 +97,25 @@ export const untypedQuestionnaireResponseSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<QuestionnaireResponse>
 
+/**
+ * Zod schema for FHIR QuestionnaireResponse resource.
+ */
 export const questionnaireResponseSchema: ZodType<QuestionnaireResponse> =
   untypedQuestionnaireResponseSchema
 
+/**
+ * Wrapper class for FHIR QuestionnaireResponse resources.
+ * Provides utility methods for retrieving questionnaire response items.
+ */
 export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireResponse> {
   // Static Functions
 
+  /**
+   * Parses a QuestionnaireResponse resource from unknown data.
+   *
+   * @param value - The data to parse
+   * @returns A FhirQuestionnaireResponse instance
+   */
   public static parse(value: unknown): FhirQuestionnaireResponse {
     return new FhirQuestionnaireResponse(
       questionnaireResponseSchema.parse(value),
@@ -109,23 +124,40 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
 
   // Properties
 
+  /**
+   * Gets the authored date/time as a JavaScript Date object.
+   *
+   * @returns The authored date if available, undefined otherwise
+   *
+   * @example
+   * ```typescript
+   * const authoredDate = response.authoredDate
+   * if (authoredDate) {
+   *   console.log(`Response created on: ${authoredDate.toLocaleDateString()}`)
+   * }
+   * ```
+   */
   public get authoredDate(): Date | undefined {
-    return this.value.authored !== undefined ?
-        new Date(this.value.authored)
-      : undefined
-  }
-
-  public set authoredDate(date: Date | undefined) {
-    if (date !== undefined) {
-      this.value.authored = date.toISOString()
-    } else {
-      delete this.value.authored
-    }
+    return FhirDomainResource.parseDateTime(this.value.authored)
   }
 
   // Methods
 
-  uniqueResponseItem(
+  /**
+   * Retrieves a single response item by its linkId path.
+   * Throws an error if multiple items are found.
+   *
+   * @param linkIdPath - Array of linkId strings forming the path to the item
+   * @returns The matching item, or undefined if not found
+   * @throws {Error} If multiple items match the path
+   *
+   * @example
+   * ```typescript
+   * // Get a nested item by path
+   * const item = response.uniqueResponseItem(['section1', 'question1'])
+   * ```
+   */
+  public uniqueResponseItem(
     linkIdPath: string[],
   ): QuestionnaireResponseItem | undefined {
     const items = this.responseItems(linkIdPath)
@@ -139,7 +171,21 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
     }
   }
 
-  responseItems(linkIdPath: string[]): QuestionnaireResponseItem[] {
+  /**
+   * Retrieves all response items matching a linkId path.
+   * Searches recursively through the item hierarchy.
+   *
+   * @param linkIdPath - Array of linkId strings forming the path to the items
+   * @returns Array of matching response items
+   *
+   * @example
+   * ```typescript
+   * // Get all items matching a path
+   * const items = response.responseItems(['section1', 'question1'])
+   * items.forEach(item => console.log(item.answer))
+   * ```
+   */
+  public responseItems(linkIdPath: string[]): QuestionnaireResponseItem[] {
     const resultValue: QuestionnaireResponseItem[] = []
     for (const child of this.value.item ?? []) {
       resultValue.push(...this.responseItemsRecursive(linkIdPath, child))
@@ -147,6 +193,13 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
     return resultValue
   }
 
+  /**
+   * Recursively searches for questionnaire response items matching the given linkId path.
+   *
+   * @param linkIdPath - The path of linkIds to match
+   * @param item - The current item to search within
+   * @returns Array of matching questionnaire response items
+   */
   private responseItemsRecursive(
     linkIdPath: string[],
     item: QuestionnaireResponseItem,
@@ -177,7 +230,24 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
 
   // Methods - Response items from leaf link id
 
-  uniqueLeafResponseItem(
+  /**
+   * Retrieves a single leaf response item by its linkId.
+   * A leaf item is one with no nested items.
+   * Throws an error if multiple items are found.
+   *
+   * @param linkId - The linkId of the leaf item
+   * @returns The matching leaf item, or undefined if not found
+   * @throws {Error} If multiple leaf items match
+   *
+   * @example
+   * ```typescript
+   * const leafItem = response.uniqueLeafResponseItem('question1')
+   * if (leafItem?.answer) {
+   *   console.log(leafItem.answer[0].valueString)
+   * }
+   * ```
+   */
+  public uniqueLeafResponseItem(
     linkId: string,
   ): QuestionnaireResponseItem | undefined {
     const items = this.leafResponseItems(linkId)
@@ -191,7 +261,21 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
     }
   }
 
-  leafResponseItems(linkId: string): QuestionnaireResponseItem[] {
+  /**
+   * Retrieves all leaf response items with a specific linkId.
+   * A leaf item is one with no nested items.
+   * Searches recursively through the entire item hierarchy.
+   *
+   * @param linkId - The linkId to search for
+   * @returns Array of matching leaf response items
+   *
+   * @example
+   * ```typescript
+   * // Find all leaf items with a specific linkId
+   * const items = response.leafResponseItems('question1')
+   * ```
+   */
+  public leafResponseItems(linkId: string): QuestionnaireResponseItem[] {
     const items: QuestionnaireResponseItem[] = []
     for (const item of this.value.item ?? []) {
       items.push(...this.leafResponseItemsRecursive(linkId, item))
@@ -199,6 +283,13 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
     return items
   }
 
+  /**
+   * Recursively searches for leaf questionnaire response items matching the given linkId.
+   *
+   * @param linkId - The linkId to match
+   * @param item - The current item to search within
+   * @returns Array of matching leaf questionnaire response items
+   */
   private leafResponseItemsRecursive(
     linkId: string,
     item: QuestionnaireResponseItem,

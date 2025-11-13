@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ServiceRequest } from 'fhir/r4b.js'
+import { type Coding, type ServiceRequest } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   booleanSchema,
@@ -30,6 +30,9 @@ import {
   serviceRequestStatusSchema,
 } from '../valueSets/index.js'
 
+/**
+ * Zod schema for FHIR ServiceRequest resource (untyped version).
+ */
 export const untypedServiceRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ServiceRequest').readonly(),
@@ -84,13 +87,119 @@ export const untypedServiceRequestSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<ServiceRequest>
 
+/**
+ * Zod schema for FHIR ServiceRequest resource.
+ */
 export const serviceRequestSchema: ZodType<ServiceRequest> =
   untypedServiceRequestSchema
 
+/**
+ * Wrapper class for FHIR ServiceRequest resources.
+ * Provides utility methods for working with service requests.
+ */
 export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
   // Static Functions
 
+  /**
+   * Parses a ServiceRequest resource from unknown data.
+   *
+   * @param value - The data to parse
+   * @returns A FhirServiceRequest instance
+   */
   public static parse(value: unknown): FhirServiceRequest {
     return new FhirServiceRequest(serviceRequestSchema.parse(value))
+  }
+
+  // Properties
+
+  /**
+   * Gets the authored date as a JavaScript Date object.
+   *
+   * @returns The authored date if available
+   */
+  public get authoredDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.authoredOn)
+  }
+
+  /**
+   * Gets the occurrence date as a JavaScript Date object.
+   *
+   * @returns The occurrence date if available
+   */
+  public get occurrenceDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime)
+  }
+
+  /**
+   * Gets the code display text (what is being requested).
+   *
+   * @returns The code display
+   */
+  public get codeDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+  }
+
+  /**
+   * Gets all category displays.
+   *
+   * @returns Array of category display texts
+   */
+  public getCategoryDisplays(): string[] {
+    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+  }
+
+  /**
+   * Gets note texts from the service request.
+   *
+   * @returns Array of note texts
+   */
+  public get noteTexts(): string[] {
+    return FhirDomainResource.annotationTexts(this.value.note)
+  }
+
+  /**
+   * Gets all identifier values whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns Array of identifier values matching any provided system
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns Array of identifier values matching any provided type
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

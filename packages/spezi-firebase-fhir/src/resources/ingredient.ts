@@ -14,7 +14,7 @@ import {
   type IngredientSubstanceStrengthReferenceStrength,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -34,53 +34,49 @@ import {
 } from '../valueSets/index.js'
 
 const ingredientSubstanceStrengthReferenceStrengthSchema: ZodType<IngredientSubstanceStrengthReferenceStrength> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      country: codeableConceptSchema.array().optional(),
-      measurementPoint: stringSchema.optional(),
-      _measurementPoint: elementSchema.optional(),
-      strengthRatio: ratioSchema.optional(),
-      strengthRatioRange: ratioRangeSchema.optional(),
-      substance: codeableReferenceSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    country: codeableConceptSchema.array().optional(),
+    measurementPoint: stringSchema.optional(),
+    _measurementPoint: elementSchema.optional(),
+    strengthRatio: ratioSchema.optional(),
+    strengthRatioRange: ratioRangeSchema.optional(),
+    substance: codeableReferenceSchema.optional(),
+  })
 
 const ingredientSubstanceStrengthSchema: ZodType<IngredientSubstanceStrength> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      concentrationRatio: ratioSchema.optional(),
-      concentrationRatioRange: ratioRangeSchema.optional(),
-      country: codeableConceptSchema.array().optional(),
-      measurementPoint: stringSchema.optional(),
-      _measurementPoint: elementSchema.optional(),
-      presentationRatio: ratioSchema.optional(),
-      presentationRatioRange: ratioRangeSchema.optional(),
-      referenceStrength: ingredientSubstanceStrengthReferenceStrengthSchema
-        .array()
-        .optional(),
-      textConcentration: stringSchema.optional(),
-      _textConcentration: elementSchema.optional(),
-      textPresentation: stringSchema.optional(),
-      _textPresentation: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    concentrationRatio: ratioSchema.optional(),
+    concentrationRatioRange: ratioRangeSchema.optional(),
+    country: codeableConceptSchema.array().optional(),
+    measurementPoint: stringSchema.optional(),
+    _measurementPoint: elementSchema.optional(),
+    presentationRatio: ratioSchema.optional(),
+    presentationRatioRange: ratioRangeSchema.optional(),
+    referenceStrength: ingredientSubstanceStrengthReferenceStrengthSchema
+      .array()
+      .optional(),
+    textConcentration: stringSchema.optional(),
+    _textConcentration: elementSchema.optional(),
+    textPresentation: stringSchema.optional(),
+    _textPresentation: elementSchema.optional(),
+  })
 
-const ingredientSubstanceSchema: ZodType<IngredientSubstance> = z.lazy(() =>
+const ingredientSubstanceSchema: ZodType<IngredientSubstance> =
   backboneElementSchema.extend({
     code: codeableReferenceSchema,
     strength: ingredientSubstanceStrengthSchema.array().optional(),
-  }),
-)
+  })
 
-const ingredientManufacturerSchema: ZodType<IngredientManufacturer> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      manufacturer: referenceSchema,
-      role: ingredientManufacturerRoleSchema.optional(),
-      _role: elementSchema.optional(),
-    }),
-)
+const ingredientManufacturerSchema: ZodType<IngredientManufacturer> =
+  backboneElementSchema.extend({
+    manufacturer: referenceSchema,
+    role: ingredientManufacturerRoleSchema.optional(),
+    _role: elementSchema.optional(),
+  })
 
+/**
+ * Zod schema for FHIR Ingredient resource (untyped version).
+ */
 export const untypedIngredientSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Ingredient').readonly(),
@@ -97,11 +93,24 @@ export const untypedIngredientSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Ingredient>
 
+/**
+ * Zod schema for FHIR Ingredient resource.
+ */
 export const ingredientSchema: ZodType<Ingredient> = untypedIngredientSchema
 
+/**
+ * Wrapper class for FHIR Ingredient resources.
+ * Provides utility methods for working with medication and product ingredients.
+ */
 export class FhirIngredient extends FhirDomainResource<Ingredient> {
   // Static Functions
 
+  /**
+   * Parses an Ingredient resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the Ingredient schema
+   * @returns A FhirIngredient instance containing the validated resource
+   */
   public static parse(value: unknown): FhirIngredient {
     return new FhirIngredient(ingredientSchema.parse(value))
   }

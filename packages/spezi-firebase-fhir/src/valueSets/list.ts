@@ -18,6 +18,10 @@ export const listStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The current state of the list.
+ * http://hl7.org/fhir/valueset-list-status.html
+ */
 export type ListStatus = z.infer<typeof listStatusSchema>
 
 /**
@@ -26,4 +30,8 @@ export type ListStatus = z.infer<typeof listStatusSchema>
  */
 export const listModeSchema = z.enum(['working', 'snapshot', 'changes'])
 
+/**
+ * The processing mode that applies to this list.
+ * http://hl7.org/fhir/valueset-list-mode.html
+ */
 export type ListMode = z.infer<typeof listModeSchema>

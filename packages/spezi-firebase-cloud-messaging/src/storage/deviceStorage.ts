@@ -12,6 +12,9 @@
 
 import { type Device } from '../models/device.js'
 
+/**
+ * Represents a document with metadata
+ */
 export interface Document<T> {
   id: string
   path: string
@@ -19,6 +22,9 @@ export interface Document<T> {
   content: T
 }
 
+/**
+ * Interface for device storage operations
+ */
 export interface DeviceStorage {
   /**
    * Store a device

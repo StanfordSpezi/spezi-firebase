@@ -24,8 +24,15 @@ export const localizedTextConverter = new SchemaConverter({
  * A class for handling multi-language text with fallbacks.
  */
 export class LocalizedText {
+  /**
+   * The text content, either a single string or a record of language codes to strings
+   */
   readonly content: string | Record<string, string>
 
+  /**
+   * Creates a new LocalizedText instance
+   * @param input Either a string or a record of language codes to strings
+   */
   constructor(input: string | Record<string, string>) {
     this.content = input
   }

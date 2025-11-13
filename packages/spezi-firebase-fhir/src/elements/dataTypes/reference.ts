@@ -12,6 +12,9 @@ import { identifierSchema } from './identifier.js'
 import { stringSchema, uriSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR Reference data type.
+ */
 export const referenceSchema: ZodType<Reference> = z.lazy(() =>
   elementSchema.extend({
     reference: stringSchema.optional(),

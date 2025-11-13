@@ -1,5 +1,5 @@
 {
-  "plugins": ["prettier", "@typescript-eslint", "import"],
+  "plugins": ["prettier", "@typescript-eslint", "import", "jsdoc"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
@@ -9,6 +9,7 @@
     "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:import/recommended",
     "plugin:import/typescript",
+    "plugin:jsdoc/recommended-typescript-error",
     "prettier"
   ],
   "ignorePatterns": [
@@ -22,11 +23,42 @@
     "**/examples/**"
   ],
   "rules": {
-    "@typescript-eslint/no-unnecessary-condition": "warn",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    "jsdoc/require-jsdoc": [
+      "error",
+      {
+        "publicOnly": true,
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true,
+          "ArrowFunctionExpression": true,
+          "FunctionExpression": true
+        },
+        "contexts": [
+          "ArrowFunctionExpression",
+          "ClassDeclaration",
+          "ClassExpression",
+          "ClassProperty",
+          "FunctionDeclaration",
+          "FunctionExpression",
+          "MethodDefinition",
+          "TSDeclareFunction",
+          "TSEnumDeclaration",
+          "TSInterfaceDeclaration",
+          "TSMethodSignature",
+          "TSModuleDeclaration",
+          "TSTypeAliasDeclaration",
+          "VariableDeclaration"
+        ],
+        "exemptEmptyConstructors": true,
+        "exemptEmptyFunctions": false,
+        "checkConstructors": true,
+        "checkGetters": true,
+        "checkSetters": true
+      }
     ],
+    "jsdoc/tag-lines": "off",
+    "@typescript-eslint/no-unnecessary-condition": "warn",
     "@typescript-eslint/require-await": "warn",
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-unsafe-assignment": "error",

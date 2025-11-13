@@ -19,6 +19,10 @@ export const subscriptionResourceStatusSchema = z.enum([
   'off',
 ])
 
+/**
+ * The status of a subscription.
+ * http://hl7.org/fhir/valueset-subscription-status.html
+ */
 export type SubscriptionResourceStatus = z.infer<
   typeof subscriptionResourceStatusSchema
 >
@@ -35,6 +39,10 @@ export const subscriptionChannelTypeSchema = z.enum([
   'message',
 ])
 
+/**
+ * The type of method used to execute a subscription.
+ * http://hl7.org/fhir/valueset-subscription-channel-type.html
+ */
 export type SubscriptionChannelType = z.infer<
   typeof subscriptionChannelTypeSchema
 >

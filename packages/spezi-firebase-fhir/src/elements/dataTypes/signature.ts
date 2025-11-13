@@ -17,6 +17,9 @@ import {
 import { referenceSchema } from './reference.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR Signature data type.
+ */
 export const signatureSchema: ZodType<Signature> = z.lazy(() =>
   elementSchema.extend({
     type: codingSchema.array().min(1),

@@ -18,4 +18,8 @@ export const medicationStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * A coded concept defining if the medication is in active use.
+ * http://hl7.org/fhir/valueset-medication-status.html
+ */
 export type MedicationStatus = z.infer<typeof medicationStatusSchema>

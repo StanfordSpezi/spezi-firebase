@@ -11,6 +11,9 @@ import { z, type ZodType } from 'zod'
 import { dateTimeSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR Period data type.
+ */
 export const periodSchema: ZodType<Period> = z.lazy(() =>
   elementSchema.extend({
     start: dateTimeSchema.optional(),

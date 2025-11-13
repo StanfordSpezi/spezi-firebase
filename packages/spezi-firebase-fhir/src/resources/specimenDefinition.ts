@@ -6,9 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type SpecimenDefinition } from 'fhir/r4b.js'
+import {
+  type SpecimenDefinitionTypeTested,
+  type SpecimenDefinitionTypeTestedContainer,
+  type SpecimenDefinitionTypeTestedContainerAdditive,
+  type SpecimenDefinitionTypeTestedHandling,
+  type SpecimenDefinition,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -23,17 +29,13 @@ import {
 } from '../elements/index.js'
 import { specimenDefinitionTypeTestedPreferenceSchema } from '../valueSets/index.js'
 
-// Duration extends Quantity in FHIR
-const durationSchema = quantitySchema
-
-const specimenDefinitionTypeTestedContainerAdditiveSchema = z.lazy(() =>
+const specimenDefinitionTypeTestedContainerAdditiveSchema: ZodType<SpecimenDefinitionTypeTestedContainerAdditive> =
   backboneElementSchema.extend({
     additiveCodeableConcept: codeableConceptSchema.optional(),
     additiveReference: referenceSchema.optional(),
-  }),
-)
+  })
 
-const specimenDefinitionTypeTestedContainerSchema = z.lazy(() =>
+const specimenDefinitionTypeTestedContainerSchema: ZodType<SpecimenDefinitionTypeTestedContainer> =
   backboneElementSchema.extend({
     material: codeableConceptSchema.optional(),
     type: codeableConceptSchema.optional(),
@@ -49,20 +51,18 @@ const specimenDefinitionTypeTestedContainerSchema = z.lazy(() =>
       .optional(),
     preparation: stringSchema.optional(),
     _preparation: elementSchema.optional(),
-  }),
-)
+  })
 
-const specimenDefinitionTypeTestedHandlingSchema = z.lazy(() =>
+const specimenDefinitionTypeTestedHandlingSchema: ZodType<SpecimenDefinitionTypeTestedHandling> =
   backboneElementSchema.extend({
     temperatureQualifier: codeableConceptSchema.optional(),
     temperatureRange: rangeSchema.optional(),
-    maxDuration: durationSchema.optional(),
+    maxDuration: quantitySchema.optional(),
     instruction: stringSchema.optional(),
     _instruction: elementSchema.optional(),
-  }),
-)
+  })
 
-const specimenDefinitionTypeTestedSchema = z.lazy(() =>
+const specimenDefinitionTypeTestedSchema: ZodType<SpecimenDefinitionTypeTested> =
   backboneElementSchema.extend({
     isDerived: booleanSchema.optional(),
     _isDerived: elementSchema.optional(),
@@ -72,12 +72,14 @@ const specimenDefinitionTypeTestedSchema = z.lazy(() =>
     container: specimenDefinitionTypeTestedContainerSchema.optional(),
     requirement: stringSchema.optional(),
     _requirement: elementSchema.optional(),
-    retentionTime: durationSchema.optional(),
+    retentionTime: quantitySchema.optional(),
     rejectionCriterion: codeableConceptSchema.array().optional(),
     handling: specimenDefinitionTypeTestedHandlingSchema.array().optional(),
-  }),
-)
+  })
 
+/**
+ * Zod schema for FHIR SpecimenDefinition resource (untyped version).
+ */
 export const untypedSpecimenDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('SpecimenDefinition').readonly(),
@@ -91,12 +93,25 @@ export const untypedSpecimenDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<SpecimenDefinition>
 
+/**
+ * Zod schema for FHIR SpecimenDefinition resource.
+ */
 export const specimenDefinitionSchema: ZodType<SpecimenDefinition> =
   untypedSpecimenDefinitionSchema
 
+/**
+ * Wrapper class for FHIR SpecimenDefinition resources.
+ * Provides utility methods for working with specimen definitions and collection protocols.
+ */
 export class FhirSpecimenDefinition extends FhirDomainResource<SpecimenDefinition> {
   // Static Functions
 
+  /**
+   * Parses a SpecimenDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the SpecimenDefinition schema
+   * @returns A FhirSpecimenDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirSpecimenDefinition {
     return new FhirSpecimenDefinition(specimenDefinitionSchema.parse(value))
   }

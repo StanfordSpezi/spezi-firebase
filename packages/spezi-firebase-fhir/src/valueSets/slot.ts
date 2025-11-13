@@ -20,4 +20,8 @@ export const slotStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The status of a slot.
+ * http://hl7.org/fhir/valueset-slotstatus.html
+ */
 export type SlotStatus = z.infer<typeof slotStatusSchema>

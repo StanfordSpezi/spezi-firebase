@@ -20,4 +20,8 @@ export const imagingStudyStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The status of the ImagingStudy.
+ * http://hl7.org/fhir/valueset-imagingstudy-status.html
+ */
 export type ImagingStudyStatus = z.infer<typeof imagingStudyStatusSchema>

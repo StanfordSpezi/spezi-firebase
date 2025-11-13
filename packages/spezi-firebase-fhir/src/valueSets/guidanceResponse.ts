@@ -21,6 +21,10 @@ export const guidanceResponseStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The status of the guidance response.
+ * http://hl7.org/fhir/valueset-guidance-response-status.html
+ */
 export type GuidanceResponseStatus = z.infer<
   typeof guidanceResponseStatusSchema
 >

@@ -14,6 +14,9 @@ import { dateTimeSchema } from './primitiveTypes.js'
 import { backboneElementSchema } from '../backBoneElement.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR MarketingStatus data type.
+ */
 export const marketingStatusSchema: ZodType<MarketingStatus> = z.lazy(() =>
   backboneElementSchema.extend({
     country: codeableConceptSchema.optional(),

@@ -18,4 +18,8 @@ export const linkageItemTypeSchema = z.enum([
   'historical',
 ])
 
+/**
+ * Distinguishes which item is "source of truth" (if any) and which items are no longer considered to be current representations.
+ * http://hl7.org/fhir/valueset-linkage-type.html
+ */
 export type LinkageItemType = z.infer<typeof linkageItemTypeSchema>

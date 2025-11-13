@@ -18,6 +18,9 @@ import { elementSchema } from '../element.js'
 
 const quantityComparatorSchema = z.enum(['<', '<=', '>=', '>'])
 
+/**
+ * Zod schema for FHIR Quantity data type.
+ */
 export const quantitySchema: ZodType<Quantity> = z.lazy(() =>
   elementSchema.extend({
     value: decimalSchema.optional(),

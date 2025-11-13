@@ -24,6 +24,10 @@ export const bundleTypeSchema = z.enum([
   'collection',
 ])
 
+/**
+ * The type of a bundle.
+ * http://hl7.org/fhir/valueset-bundle-type.html
+ */
 export type BundleType = z.infer<typeof bundleTypeSchema>
 
 /**
@@ -36,6 +40,10 @@ export const bundleEntrySearchModeSchema = z.enum([
   'outcome',
 ])
 
+/**
+ * The search mode of an entry in a bundle.
+ * http://hl7.org/fhir/valueset-search-entry-mode.html
+ */
 export type BundleEntrySearchMode = z.infer<typeof bundleEntrySearchModeSchema>
 
 /**
@@ -44,12 +52,17 @@ export type BundleEntrySearchMode = z.infer<typeof bundleEntrySearchModeSchema>
  */
 export const bundleEntryRequestMethodSchema = z.enum([
   'GET',
+  'HEAD',
   'POST',
   'PUT',
   'DELETE',
   'PATCH',
 ])
 
+/**
+ * HTTP verbs (in the HTTP command line).
+ * http://hl7.org/fhir/valueset-http-verb.html
+ */
 export type BundleEntryRequestMethod = z.infer<
   typeof bundleEntryRequestMethodSchema
 >

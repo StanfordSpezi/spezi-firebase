@@ -8,6 +8,10 @@
 
 import { z } from 'zod'
 
+/**
+ * Zod schema for FHIR SearchParameterComparator value set.
+ * Comparators supported for search parameters.
+ */
 export const searchParameterComparatorSchema = z.enum([
   'eq',
   'ne',
@@ -20,6 +24,17 @@ export const searchParameterComparatorSchema = z.enum([
   'ap',
 ])
 
+/**
+ * TypeScript type for FHIR SearchParameterComparator value set.
+ */
+export type SearchParameterComparator = z.infer<
+  typeof searchParameterComparatorSchema
+>
+
+/**
+ * Zod schema for FHIR SearchParameterModifier value set.
+ * Modifiers supported for search parameters.
+ */
 export const searchParameterModifierSchema = z.enum([
   'missing',
   'exact',
@@ -35,6 +50,17 @@ export const searchParameterModifierSchema = z.enum([
   'ofType',
 ])
 
+/**
+ * TypeScript type for FHIR SearchParameterModifier value set.
+ */
+export type SearchParameterModifier = z.infer<
+  typeof searchParameterModifierSchema
+>
+
+/**
+ * Zod schema for FHIR SearchParameterType value set.
+ * Data types allowed to be used for search parameters.
+ */
 export const searchParameterTypeSchema = z.enum([
   'number',
   'date',
@@ -47,6 +73,15 @@ export const searchParameterTypeSchema = z.enum([
   'special',
 ])
 
+/**
+ * TypeScript type for FHIR SearchParameterType value set.
+ */
+export type SearchParameterType = z.infer<typeof searchParameterTypeSchema>
+
+/**
+ * Zod schema for FHIR SearchParameterXpathUsage value set.
+ * How XPath is used in search parameter evaluation.
+ */
 export const searchParameterXpathUsageSchema = z.enum([
   'normal',
   'phonetic',
@@ -54,3 +89,10 @@ export const searchParameterXpathUsageSchema = z.enum([
   'distance',
   'other',
 ])
+
+/**
+ * TypeScript type for FHIR SearchParameterXpathUsage value set.
+ */
+export type SearchParameterXpathUsage = z.infer<
+  typeof searchParameterXpathUsageSchema
+>

@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Immunization } from 'fhir/r4b.js'
+import { type Coding, type Immunization } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -26,6 +26,9 @@ import {
 } from '../elements/index.js'
 import { immunizationStatusSchema } from '../valueSets/index.js'
 
+/**
+ * Zod schema for FHIR Immunization resource (untyped version).
+ */
 export const untypedImmunizationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Immunization').readonly(),
@@ -110,13 +113,162 @@ export const untypedImmunizationSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Immunization>
 
+/**
+ * Zod schema for FHIR Immunization resource.
+ */
 export const immunizationSchema: ZodType<Immunization> =
   untypedImmunizationSchema
 
+/**
+ * Wrapper class for FHIR Immunization resources.
+ * Provides utility methods for working with immunizations.
+ */
 export class FhirImmunization extends FhirDomainResource<Immunization> {
   // Static Functions
 
+  /**
+   * Parses an Immunization resource from unknown data.
+   *
+   * @param value - The data to parse
+   * @returns A FhirImmunization instance
+   */
   public static parse(value: unknown): FhirImmunization {
     return new FhirImmunization(immunizationSchema.parse(value))
+  }
+
+  // Properties
+
+  /**
+   * Gets the occurrence date as a JavaScript Date object.
+   *
+   * @returns The occurrence date if available
+   */
+  public get occurrenceDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime)
+  }
+
+  /**
+   * Gets the recorded date as a JavaScript Date object.
+   *
+   * @returns The recorded date if available
+   */
+  public get recordedDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.recorded)
+  }
+
+  /**
+   * Gets the expiration date as a JavaScript Date object.
+   *
+   * @returns The expiration date if available
+   */
+  public get expirationDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.expirationDate)
+  }
+
+  /**
+   * Gets the vaccine code display text.
+   *
+   * @returns The vaccine code display
+   */
+  public get vaccineDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.vaccineCode)
+  }
+
+  /**
+   * Gets the site display text (anatomical location).
+   *
+   * @returns The site display
+   */
+  public get siteDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.site)
+  }
+
+  /**
+   * Gets the route display text (how administered).
+   *
+   * @returns The route display
+   */
+  public get routeDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.route)
+  }
+
+  /**
+   * Checks if the vaccine is expired based on expiration date.
+   *
+   * @param asOfDate - Date to check against (defaults to now)
+   * @returns true if expired
+   */
+  public isExpired(asOfDate: Date = new Date()): boolean {
+    const expDate = this.expirationDate
+    if (!expDate) return false
+    return asOfDate > expDate
+  }
+
+  /**
+   * Gets note texts from the immunization.
+   *
+   * @returns Array of note texts
+   */
+  public get noteTexts(): string[] {
+    return FhirDomainResource.annotationTexts(this.value.note)
+  }
+
+  /**
+   * Gets all reaction displays.
+   *
+   * @returns Array of reaction display texts
+   */
+  public get reactionDisplays(): string[] {
+    return FhirDomainResource.codeableConceptDisplays(
+      this.value.reaction?.flatMap((reaction) =>
+        reaction.detail ? [reaction.detail] : [],
+      ),
+    )
+  }
+
+  /**
+   * Gets all identifier values whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns Array of identifier values matching any provided system
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns Array of identifier values matching any provided Coding
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

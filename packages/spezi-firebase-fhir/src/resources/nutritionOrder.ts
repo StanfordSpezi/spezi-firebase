@@ -16,7 +16,7 @@ import {
   type NutritionOrderSupplement,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -39,77 +39,68 @@ import {
 } from '../valueSets/index.js'
 
 const nutritionOrderOralDietNutrientSchema: ZodType<NutritionOrderOralDietNutrient> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      amount: quantitySchema.optional(),
-      modifier: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    amount: quantitySchema.optional(),
+    modifier: codeableConceptSchema.optional(),
+  })
 
 const nutritionOrderOralDietTextureSchema: ZodType<NutritionOrderOralDietTexture> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      foodType: codeableConceptSchema.optional(),
-      modifier: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    foodType: codeableConceptSchema.optional(),
+    modifier: codeableConceptSchema.optional(),
+  })
 
-const nutritionOrderOralDietSchema: ZodType<NutritionOrderOralDiet> = z.lazy(
-  () =>
-    backboneElementSchema.extend({
-      fluidConsistencyType: codeableConceptSchema.array().optional(),
-      instruction: stringSchema.optional(),
-      _instruction: elementSchema.optional(),
-      nutrient: nutritionOrderOralDietNutrientSchema.array().optional(),
-      schedule: timingSchema.array().optional(),
-      texture: nutritionOrderOralDietTextureSchema.array().optional(),
-      type: codeableConceptSchema.array().optional(),
-    }),
-)
+const nutritionOrderOralDietSchema: ZodType<NutritionOrderOralDiet> =
+  backboneElementSchema.extend({
+    fluidConsistencyType: codeableConceptSchema.array().optional(),
+    instruction: stringSchema.optional(),
+    _instruction: elementSchema.optional(),
+    nutrient: nutritionOrderOralDietNutrientSchema.array().optional(),
+    schedule: timingSchema.array().optional(),
+    texture: nutritionOrderOralDietTextureSchema.array().optional(),
+    type: codeableConceptSchema.array().optional(),
+  })
 
 const nutritionOrderSupplementSchema: ZodType<NutritionOrderSupplement> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      instruction: stringSchema.optional(),
-      _instruction: elementSchema.optional(),
-      productName: stringSchema.optional(),
-      _productName: elementSchema.optional(),
-      quantity: quantitySchema.optional(),
-      schedule: timingSchema.array().optional(),
-      type: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    instruction: stringSchema.optional(),
+    _instruction: elementSchema.optional(),
+    productName: stringSchema.optional(),
+    _productName: elementSchema.optional(),
+    quantity: quantitySchema.optional(),
+    schedule: timingSchema.array().optional(),
+    type: codeableConceptSchema.optional(),
+  })
 
 const nutritionOrderEnteralFormulaAdministrationSchema: ZodType<NutritionOrderEnteralFormulaAdministration> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      quantity: quantitySchema.optional(),
-      rateQuantity: quantitySchema.optional(),
-      rateRatio: ratioSchema.optional(),
-      schedule: timingSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    quantity: quantitySchema.optional(),
+    rateQuantity: quantitySchema.optional(),
+    rateRatio: ratioSchema.optional(),
+    schedule: timingSchema.optional(),
+  })
 
 const nutritionOrderEnteralFormulaSchema: ZodType<NutritionOrderEnteralFormula> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      additiveProductName: stringSchema.optional(),
-      _additiveProductName: elementSchema.optional(),
-      additiveType: codeableConceptSchema.optional(),
-      administrationInstruction: stringSchema.optional(),
-      _administrationInstruction: elementSchema.optional(),
-      administration: nutritionOrderEnteralFormulaAdministrationSchema
-        .array()
-        .optional(),
-      baseFormulaProductName: stringSchema.optional(),
-      _baseFormulaProductName: elementSchema.optional(),
-      baseFormulaType: codeableConceptSchema.optional(),
-      caloricDensity: quantitySchema.optional(),
-      maxVolumeToDeliver: quantitySchema.optional(),
-      routeofAdministration: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    additiveProductName: stringSchema.optional(),
+    _additiveProductName: elementSchema.optional(),
+    additiveType: codeableConceptSchema.optional(),
+    administrationInstruction: stringSchema.optional(),
+    _administrationInstruction: elementSchema.optional(),
+    administration: nutritionOrderEnteralFormulaAdministrationSchema
+      .array()
+      .optional(),
+    baseFormulaProductName: stringSchema.optional(),
+    _baseFormulaProductName: elementSchema.optional(),
+    baseFormulaType: codeableConceptSchema.optional(),
+    caloricDensity: quantitySchema.optional(),
+    maxVolumeToDeliver: quantitySchema.optional(),
+    routeofAdministration: codeableConceptSchema.optional(),
+  })
 
+/**
+ * Zod schema for FHIR NutritionOrder resource (untyped version).
+ */
 export const untypedNutritionOrderSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('NutritionOrder').readonly(),
@@ -139,13 +130,33 @@ export const untypedNutritionOrderSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<NutritionOrder>
 
+/**
+ * Zod schema for FHIR NutritionOrder resource.
+ */
 export const nutritionOrderSchema: ZodType<NutritionOrder> =
   untypedNutritionOrderSchema
 
+/**
+ * Wrapper class for FHIR NutritionOrder resources.
+ * Provides utility methods for working with nutrition orders and dietary requests.
+ */
 export class FhirNutritionOrder extends FhirDomainResource<NutritionOrder> {
-  // Static Functions
-
+  /**
+   * Parses a NutritionOrder resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the NutritionOrder schema
+   * @returns A FhirNutritionOrder instance containing the validated resource
+   */
   public static parse(value: unknown): FhirNutritionOrder {
     return new FhirNutritionOrder(nutritionOrderSchema.parse(value))
+  }
+
+  /**
+   * Get the date/time the order was made.
+   *
+   * @returns The dateTime the order was made, or undefined if not set
+   */
+  public get dateTime(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.dateTime)
   }
 }

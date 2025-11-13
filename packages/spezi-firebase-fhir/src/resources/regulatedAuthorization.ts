@@ -11,7 +11,7 @@ import {
   type RegulatedAuthorizationCase,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -26,20 +26,21 @@ import {
 } from '../elements/index.js'
 
 const regulatedAuthorizationCaseSchema: ZodType<RegulatedAuthorizationCase> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      application: z
-        .array(z.lazy(() => regulatedAuthorizationCaseSchema))
-        .optional(),
-      datePeriod: periodSchema.optional(),
-      dateDateTime: dateTimeSchema.optional(),
-      _dateDateTime: elementSchema.optional(),
-      identifier: identifierSchema.optional(),
-      status: codeableConceptSchema.optional(),
-      type: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    get application() {
+      return regulatedAuthorizationCaseSchema.array().optional()
+    },
+    datePeriod: periodSchema.optional(),
+    dateDateTime: dateTimeSchema.optional(),
+    _dateDateTime: elementSchema.optional(),
+    identifier: identifierSchema.optional(),
+    status: codeableConceptSchema.optional(),
+    type: codeableConceptSchema.optional(),
+  })
 
+/**
+ * Zod schema for FHIR RegulatedAuthorization resource (untyped version).
+ */
 export const untypedRegulatedAuthorizationSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('RegulatedAuthorization').readonly(),
@@ -62,12 +63,25 @@ export const untypedRegulatedAuthorizationSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<RegulatedAuthorization>
 
+/**
+ * Zod schema for FHIR RegulatedAuthorization resource.
+ */
 export const regulatedAuthorizationSchema: ZodType<RegulatedAuthorization> =
   untypedRegulatedAuthorizationSchema
 
+/**
+ * Wrapper class for FHIR RegulatedAuthorization resources.
+ * Provides utility methods for working with regulated authorizations and product approvals.
+ */
 export class FhirRegulatedAuthorization extends FhirDomainResource<RegulatedAuthorization> {
   // Static Functions
 
+  /**
+   * Parses a RegulatedAuthorization resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the RegulatedAuthorization schema
+   * @returns A FhirRegulatedAuthorization instance containing the validated resource
+   */
   public static parse(value: unknown): FhirRegulatedAuthorization {
     return new FhirRegulatedAuthorization(
       regulatedAuthorizationSchema.parse(value),

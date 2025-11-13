@@ -22,6 +22,9 @@ const humanNameUseSchema = z.enum([
   'maiden',
 ])
 
+/**
+ * Zod schema for FHIR HumanName data type.
+ */
 export const humanNameSchema: ZodType<HumanName> = z.lazy(() =>
   elementSchema.extend({
     use: humanNameUseSchema.optional(),

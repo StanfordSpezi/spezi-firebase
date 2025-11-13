@@ -19,6 +19,10 @@ export const allergyIntoleranceCategorySchema = z.enum([
   'biologic',
 ])
 
+/**
+ * Category of an identified substance associated with allergies or intolerances.
+ * http://hl7.org/fhir/valueset-allergy-intolerance-category.html
+ */
 export type AllergyIntoleranceCategory = z.infer<
   typeof allergyIntoleranceCategorySchema
 >
@@ -33,6 +37,10 @@ export const allergyIntoleranceCriticalitySchema = z.enum([
   'unable-to-assess',
 ])
 
+/**
+ * Estimate of the potential clinical harm, or seriousness, of a reaction to an identified substance.
+ * http://hl7.org/fhir/valueset-allergy-intolerance-criticality.html
+ */
 export type AllergyIntoleranceCriticality = z.infer<
   typeof allergyIntoleranceCriticalitySchema
 >
@@ -47,6 +55,10 @@ export const allergyIntoleranceReactionSeveritySchema = z.enum([
   'severe',
 ])
 
+/**
+ * Clinical assessment of the severity of a reaction event as a whole.
+ * http://hl7.org/fhir/valueset-reaction-event-severity.html
+ */
 export type AllergyIntoleranceReactionSeverity = z.infer<
   typeof allergyIntoleranceReactionSeveritySchema
 >
@@ -57,6 +69,10 @@ export type AllergyIntoleranceReactionSeverity = z.infer<
  */
 export const allergyIntoleranceTypeSchema = z.enum(['allergy', 'intolerance'])
 
+/**
+ * Identification of the underlying physiological mechanism for a Reaction Risk.
+ * http://hl7.org/fhir/valueset-allergy-intolerance-type.html
+ */
 export type AllergyIntoleranceType = z.infer<
   typeof allergyIntoleranceTypeSchema
 >

@@ -12,6 +12,9 @@ import { contactPointSchema } from '../dataTypes/contactPoint.js'
 import { stringSchema } from '../dataTypes/primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR ContactDetail data type.
+ */
 export const contactDetailSchema: ZodType<ContactDetail> = z.lazy(() =>
   elementSchema.extend({
     name: stringSchema.optional(),

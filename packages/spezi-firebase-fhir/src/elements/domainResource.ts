@@ -13,6 +13,9 @@ import { extensionSchema } from './extension.js'
 import { resourceSchema } from './resource.js'
 import { fhirResourceSchema } from '../resources/fhirResource.js'
 
+/**
+ * Zod schema for FHIR DomainResource data type.
+ */
 export const domainResourceSchema = resourceSchema.extend({
   text: narrativeSchema.optional(),
   get contained() {

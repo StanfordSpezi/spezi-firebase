@@ -22,6 +22,10 @@ export const carePlanStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * Indicates whether the plan is currently being acted upon, represents future intentions or is now a historical record.
+ * http://hl7.org/fhir/valueset-care-plan-status.html
+ */
 export type CarePlanStatus = z.infer<typeof carePlanStatusSchema>
 
 /**
@@ -35,6 +39,10 @@ export const carePlanIntentSchema = z.enum([
   'option',
 ])
 
+/**
+ * Codes indicating the degree of authority/intentionality associated with a care plan.
+ * http://hl7.org/fhir/valueset-care-plan-intent.html
+ */
 export type CarePlanIntent = z.infer<typeof carePlanIntentSchema>
 
 /**
@@ -53,6 +61,31 @@ export const carePlanActivityStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * Codes that reflect the current state of a care plan activity within its overall life cycle.
+ * http://hl7.org/fhir/valueset-care-plan-activity-status.html
+ */
 export type CarePlanActivityStatus = z.infer<
   typeof carePlanActivityStatusSchema
 >
+
+/**
+ * Resource types defined as part of FHIR that can be represented as in-line definitions of a care plan activity.
+ * http://hl7.org/fhir/ValueSet/care-plan-activity-kind.html
+ */
+export const carePlanActivityKindSchema = z.enum([
+  'Appointment',
+  'CommunicationRequest',
+  'DeviceRequest',
+  'MedicationRequest',
+  'NutritionOrder',
+  'Task',
+  'ServiceRequest',
+  'VisionPrescription',
+])
+
+/**
+ * Resource types defined as part of FHIR that can be represented as in-line definitions of a care plan activity.
+ * http://hl7.org/fhir/ValueSet/care-plan-activity-kind.html
+ */
+export type CarePlanActivityKind = z.infer<typeof carePlanActivityKindSchema>

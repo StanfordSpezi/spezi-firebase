@@ -25,6 +25,10 @@ export const conceptMapEquivalenceSchema = z.enum([
   'disjoint',
 ])
 
+/**
+ * The degree of equivalence between concepts.
+ * http://hl7.org/fhir/valueset-concept-map-equivalence.html
+ */
 export type ConceptMapEquivalence = z.infer<typeof conceptMapEquivalenceSchema>
 
 /**
@@ -37,6 +41,10 @@ export const conceptMapUnmappedModeSchema = z.enum([
   'other-map',
 ])
 
+/**
+ * Defines which action to take if there is no match in the group.
+ * http://hl7.org/fhir/valueset-conceptmap-unmapped-mode.html
+ */
 export type ConceptMapUnmappedMode = z.infer<
   typeof conceptMapUnmappedModeSchema
 >

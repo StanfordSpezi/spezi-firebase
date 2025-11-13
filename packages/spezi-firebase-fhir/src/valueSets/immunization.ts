@@ -18,4 +18,8 @@ export const immunizationStatusSchema = z.enum([
   'not-done',
 ])
 
+/**
+ * The status of the immunization event.
+ * http://hl7.org/fhir/valueset-immunization-status.html
+ */
 export type ImmunizationStatus = z.infer<typeof immunizationStatusSchema>

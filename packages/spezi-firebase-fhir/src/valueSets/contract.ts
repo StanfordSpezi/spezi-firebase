@@ -30,6 +30,10 @@ export const contractStatusSchema = z.enum([
   'terminated',
 ])
 
+/**
+ * The status of the contract.
+ * http://hl7.org/fhir/valueset-contract-status.html
+ */
 export type ContractStatus = z.infer<typeof contractStatusSchema>
 
 /**
@@ -54,6 +58,10 @@ export const contractPublicationStatusSchema = z.enum([
   'terminated',
 ])
 
+/**
+ * The publication status of the contract content definition.
+ * http://hl7.org/fhir/valueset-contract-publicationstatus.html
+ */
 export type ContractPublicationStatus = z.infer<
   typeof contractPublicationStatusSchema
 >

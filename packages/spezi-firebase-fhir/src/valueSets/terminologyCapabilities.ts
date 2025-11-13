@@ -7,20 +7,7 @@
 //
 
 import { z } from 'zod'
-
-/**
- * How a capability statement is intended to be used.
- * http://hl7.org/fhir/valueset-capability-statement-kind.html
- */
-export const capabilityStatementKindSchema = z.enum([
-  'instance',
-  'capability',
-  'requirements',
-])
-
-export type CapabilityStatementKind = z.infer<
-  typeof capabilityStatementKindSchema
->
+import { capabilityStatementKindSchema } from './capabilityStatement.js'
 
 /**
  * The type of search supported.
@@ -28,4 +15,11 @@ export type CapabilityStatementKind = z.infer<
  */
 export const codeSearchSupportSchema = z.enum(['explicit', 'all'])
 
+/**
+ * The type of search supported.
+ * http://hl7.org/fhir/valueset-code-search-support.html
+ */
 export type CodeSearchSupport = z.infer<typeof codeSearchSupportSchema>
+
+// Re-export from capabilityStatement.ts for backwards compatibility
+export { capabilityStatementKindSchema }

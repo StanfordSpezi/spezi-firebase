@@ -16,6 +16,9 @@ import {
 } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR Coding data type.
+ */
 export const codingSchema: ZodType<Coding> = z.lazy(() =>
   elementSchema.extend({
     system: uriSchema.optional(),

@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type DiagnosticReport } from 'fhir/r4b.js'
+import { type DiagnosticReportMedia, type DiagnosticReport } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -22,14 +22,16 @@ import {
 } from '../elements/index.js'
 import { diagnosticReportStatusSchema } from '../valueSets/index.js'
 
-const diagnosticReportMediaSchema = z.lazy(() =>
+const diagnosticReportMediaSchema: ZodType<DiagnosticReportMedia> =
   backboneElementSchema.extend({
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
     link: referenceSchema,
-  }),
-)
+  })
 
+/**
+ * Zod schema for FHIR DiagnosticReport resource (untyped version).
+ */
 export const untypedDiagnosticReportSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('DiagnosticReport').readonly(),
@@ -59,13 +61,73 @@ export const untypedDiagnosticReportSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<DiagnosticReport>
 
+/**
+ * Zod schema for FHIR DiagnosticReport resource.
+ */
 export const diagnosticReportSchema: ZodType<DiagnosticReport> =
   untypedDiagnosticReportSchema
 
+/**
+ * Wrapper class for FHIR DiagnosticReport resources.
+ * Provides utility methods for working with diagnostic reports.
+ */
 export class FhirDiagnosticReport extends FhirDomainResource<DiagnosticReport> {
   // Static Functions
 
+  /**
+   * Parses a DiagnosticReport resource from unknown data.
+   *
+   * @param value - The data to parse
+   * @returns A FhirDiagnosticReport instance
+   */
   public static parse(value: unknown): FhirDiagnosticReport {
     return new FhirDiagnosticReport(diagnosticReportSchema.parse(value))
+  }
+
+  // Properties
+
+  /**
+   * Gets the effective date as a JavaScript Date object.
+   *
+   * @returns The effective date if available
+   */
+  public get effectiveDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.effectiveDateTime)
+  }
+
+  /**
+   * Gets the issued date as a JavaScript Date object.
+   *
+   * @returns The issued date if available
+   */
+  public get issuedDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.issued)
+  }
+
+  /**
+   * Gets the code display text (type of report).
+   *
+   * @returns The code display
+   */
+  public get codeDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+  }
+
+  /**
+   * Gets all conclusion code displays.
+   *
+   * @returns Array of conclusion code display texts
+   */
+  public get conclusionDisplays(): string[] {
+    return FhirDomainResource.codeableConceptDisplays(this.value.conclusionCode)
+  }
+
+  /**
+   * Gets all category displays.
+   *
+   * @returns Array of category display texts
+   */
+  public get categoryDisplays(): string[] {
+    return FhirDomainResource.codeableConceptDisplays(this.value.category)
   }
 }

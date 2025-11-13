@@ -22,4 +22,8 @@ export const chargeItemStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * Codes identifying the lifecycle stage of a ChargeItem.
+ * http://hl7.org/fhir/valueset-chargeitem-status.html
+ */
 export type ChargeItemStatus = z.infer<typeof chargeItemStatusSchema>

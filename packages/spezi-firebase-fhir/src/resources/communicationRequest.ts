@@ -7,11 +7,12 @@
 //
 
 import {
+  type Coding,
   type CommunicationRequest,
   type CommunicationRequestPayload,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   attachmentSchema,
@@ -32,15 +33,16 @@ import {
 } from '../valueSets/index.js'
 
 const communicationRequestPayloadSchema: ZodType<CommunicationRequestPayload> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      contentString: stringSchema.optional(),
-      _contentString: elementSchema.optional(),
-      contentAttachment: attachmentSchema.optional(),
-      contentReference: referenceSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    contentString: stringSchema.optional(),
+    _contentString: elementSchema.optional(),
+    contentAttachment: attachmentSchema.optional(),
+    contentReference: referenceSchema.optional(),
+  })
 
+/**
+ * Zod schema for FHIR CommunicationRequest resource (untyped version).
+ */
 export const untypedCommunicationRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('CommunicationRequest').readonly(),
@@ -75,13 +77,88 @@ export const untypedCommunicationRequestSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<CommunicationRequest>
 
+/**
+ * Zod schema for FHIR CommunicationRequest resource.
+ */
 export const communicationRequestSchema: ZodType<CommunicationRequest> =
   untypedCommunicationRequestSchema
 
+/**
+ * Wrapper class for FHIR CommunicationRequest resources.
+ * Provides utility methods for working with communication requests.
+ */
 export class FhirCommunicationRequest extends FhirDomainResource<CommunicationRequest> {
-  // Static Functions
-
+  /**
+   * Parses a CommunicationRequest resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the CommunicationRequest schema
+   * @returns A FhirCommunicationRequest instance containing the validated resource
+   */
   public static parse(value: unknown): FhirCommunicationRequest {
     return new FhirCommunicationRequest(communicationRequestSchema.parse(value))
+  }
+
+  /**
+   * Gets the authored date as a JavaScript Date object.
+   *
+   * @returns The authored date, if available
+   */
+  public get authoredDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.authoredOn)
+  }
+
+  /**
+   * Gets note texts from the communication request.
+   *
+   * @returns Array of note text strings
+   */
+  public get noteTexts(): string[] {
+    return FhirDomainResource.annotationTexts(this.value.note)
+  }
+
+  /**
+   * Gets all identifier values whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns Array of identifier values matching any provided system
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns Array of identifier values matching any provided Coding
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

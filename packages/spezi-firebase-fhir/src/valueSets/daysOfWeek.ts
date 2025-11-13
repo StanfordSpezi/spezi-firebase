@@ -22,4 +22,8 @@ export const daysOfWeekSchema = z.enum([
   'sun',
 ])
 
+/**
+ * The days of the week.
+ * http://hl7.org/fhir/valueset-days-of-week.html
+ */
 export type DaysOfWeek = z.infer<typeof daysOfWeekSchema>

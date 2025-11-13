@@ -23,4 +23,8 @@ export const observationStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * Codes providing the status of an observation.
+ * http://hl7.org/fhir/valueset-observation-status.html
+ */
 export type ObservationStatus = z.infer<typeof observationStatusSchema>

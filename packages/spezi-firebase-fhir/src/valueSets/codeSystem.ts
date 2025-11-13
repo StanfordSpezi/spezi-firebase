@@ -20,6 +20,10 @@ export const codeSystemContentSchema = z.enum([
   'supplement',
 ])
 
+/**
+ * The extent of the content of the code system.
+ * http://hl7.org/fhir/valueset-codesystem-content-mode.html
+ */
 export type CodeSystemContent = z.infer<typeof codeSystemContentSchema>
 
 /**
@@ -33,6 +37,10 @@ export const codeSystemHierarchyMeaningSchema = z.enum([
   'classified-with',
 ])
 
+/**
+ * The meaning of the hierarchy of concepts in a code system.
+ * http://hl7.org/fhir/valueset-codesystem-hierarchy-meaning.html
+ */
 export type CodeSystemHierarchyMeaning = z.infer<
   typeof codeSystemHierarchyMeaningSchema
 >
@@ -51,6 +59,10 @@ export const codeSystemPropertyTypeSchema = z.enum([
   'decimal',
 ])
 
+/**
+ * The type of a property value.
+ * http://hl7.org/fhir/valueset-concept-property-type.html
+ */
 export type CodeSystemPropertyType = z.infer<
   typeof codeSystemPropertyTypeSchema
 >
@@ -71,4 +83,8 @@ export const filterOperatorSchema = z.enum([
   'exists',
 ])
 
+/**
+ * Operations supported for $lookup and value set filters.
+ * http://hl7.org/fhir/valueset-filter-operator.html
+ */
 export type FilterOperator = z.infer<typeof filterOperatorSchema>

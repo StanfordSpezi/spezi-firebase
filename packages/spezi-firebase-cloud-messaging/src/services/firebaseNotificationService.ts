@@ -16,11 +16,19 @@ import { DevicePlatform, type Device } from '../models/device.js'
 import { type Message } from '../models/message.js'
 import { type DeviceStorage, type Document } from '../storage/deviceStorage.js'
 
+/**
+ * Firebase implementation of the NotificationService interface
+ */
 export class FirebaseNotificationService implements NotificationService {
   // Properties
   private readonly messaging: Messaging
   private readonly deviceStorage: DeviceStorage
 
+  /**
+   * Creates a new FirebaseNotificationService instance
+   * @param messaging Firebase messaging instance
+   * @param deviceStorage Device storage implementation
+   */
   // Constructor
   constructor(messaging: Messaging, deviceStorage: DeviceStorage) {
     this.messaging = messaging
@@ -54,7 +62,11 @@ export class FirebaseNotificationService implements NotificationService {
    * Send a notification to a user
    * @param userId The user ID
    * @param notification The notification content
+   * @param notification.title Localized titles
+   * @param notification.body Localized body text
+   * @param notification.data Optional custom data
    * @param options Additional options for the notification
+   * @param options.language Preferred language for the notification
    */
   async sendNotification(
     userId: string,
@@ -166,6 +178,8 @@ export class FirebaseNotificationService implements NotificationService {
    * @param userId The user ID to send to
    * @param message The message to send
    * @param options Additional options
+   * @param options.language Preferred language for the notification
+   * @returns Promise that resolves when notification is sent
    */
   async sendMessageNotification(
     userId: string,

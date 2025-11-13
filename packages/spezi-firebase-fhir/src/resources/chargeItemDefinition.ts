@@ -6,9 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ChargeItemDefinition } from 'fhir/r4b.js'
+import {
+  type ChargeItemDefinitionApplicability,
+  type ChargeItemDefinitionPropertyGroup,
+  type ChargeItemDefinitionPropertyGroupPriceComponent,
+  type ChargeItemDefinition,
+  type Coding,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   identifierSchema,
@@ -27,17 +33,41 @@ import {
   usageContextSchema,
   contactDetailSchema,
 } from '../elements/index.js'
-import { chargeItemDefinitionStatusSchema } from '../valueSets/index.js'
+import {
+  chargeItemDefinitionStatusSchema,
+  priceComponentTypeSchema,
+} from '../valueSets/index.js'
 
-const priceComponentTypeSchema = z.enum([
-  'base',
-  'surcharge',
-  'deduction',
-  'discount',
-  'tax',
-  'informational',
-])
+const chargeItemDefinitionApplicabilitySchema: ZodType<ChargeItemDefinitionApplicability> =
+  backboneElementSchema.extend({
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    language: stringSchema.optional(),
+    _language: elementSchema.optional(),
+    expression: stringSchema.optional(),
+    _expression: elementSchema.optional(),
+  })
 
+const chargeItemDefinitionPropertyGroupPriceComponentSchema: ZodType<ChargeItemDefinitionPropertyGroupPriceComponent> =
+  backboneElementSchema.extend({
+    type: priceComponentTypeSchema,
+    _type: elementSchema.optional(),
+    code: codeableConceptSchema.optional(),
+    factor: decimalSchema.optional(),
+    amount: moneySchema.optional(),
+  })
+
+const chargeItemDefinitionPropertyGroupSchema: ZodType<ChargeItemDefinitionPropertyGroup> =
+  backboneElementSchema.extend({
+    applicability: chargeItemDefinitionApplicabilitySchema.array().optional(),
+    priceComponent: chargeItemDefinitionPropertyGroupPriceComponentSchema
+      .array()
+      .optional(),
+  })
+
+/**
+ * Zod schema for FHIR ChargeItemDefinition resource (untyped version).
+ */
 export const untypedChargeItemDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ChargeItemDefinition').readonly(),
@@ -76,51 +106,77 @@ export const untypedChargeItemDefinitionSchema = z.lazy(() =>
     effectivePeriod: periodSchema.optional(),
     code: codeableConceptSchema.optional(),
     instance: referenceSchema.array().optional(),
-    applicability: backboneElementSchema
-      .extend({
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        language: stringSchema.optional(),
-        _language: elementSchema.optional(),
-        expression: stringSchema.optional(),
-        _expression: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-    propertyGroup: backboneElementSchema
-      .extend({
-        applicability: backboneElementSchema
-          .extend({
-            description: stringSchema.optional(),
-            _description: elementSchema.optional(),
-            language: stringSchema.optional(),
-            _language: elementSchema.optional(),
-            expression: stringSchema.optional(),
-            _expression: elementSchema.optional(),
-          })
-          .array()
-          .optional(),
-        priceComponent: backboneElementSchema
-          .extend({
-            type: priceComponentTypeSchema,
-            _type: elementSchema.optional(),
-            code: codeableConceptSchema.optional(),
-            factor: decimalSchema.optional(),
-            amount: moneySchema.optional(),
-          })
-          .array()
-          .optional(),
-      })
-      .array()
-      .optional(),
+    applicability: chargeItemDefinitionApplicabilitySchema.array().optional(),
+    propertyGroup: chargeItemDefinitionPropertyGroupSchema.array().optional(),
   }),
 ) satisfies ZodType<ChargeItemDefinition>
 
+/**
+ * Zod schema for FHIR ChargeItemDefinition resource.
+ */
 export const chargeItemDefinitionSchema: ZodType<ChargeItemDefinition> =
   untypedChargeItemDefinitionSchema
 
+/**
+ * Wrapper class for FHIR ChargeItemDefinition resources.
+ * Provides utility methods for working with charge item definitions and pricing rules.
+ */
 export class FhirChargeItemDefinition extends FhirDomainResource<ChargeItemDefinition> {
+  // Static Functions
+
+  /**
+   * Parses a ChargeItemDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the ChargeItemDefinition schema
+   * @returns A FhirChargeItemDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirChargeItemDefinition {
     return new FhirChargeItemDefinition(chargeItemDefinitionSchema.parse(value))
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

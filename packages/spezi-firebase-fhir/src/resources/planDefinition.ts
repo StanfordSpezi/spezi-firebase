@@ -7,13 +7,18 @@
 //
 
 import {
+  type PlanDefinitionActionCondition,
+  type PlanDefinitionActionDynamicValue,
+  type PlanDefinitionActionParticipant,
+  type PlanDefinitionActionRelatedAction,
   type PlanDefinition,
   type PlanDefinitionAction,
   type PlanDefinitionGoal,
   type PlanDefinitionGoalTarget,
+  type Coding,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -53,23 +58,21 @@ import {
 } from '../valueSets/index.js'
 
 const planDefinitionGoalTargetSchema: ZodType<PlanDefinitionGoalTarget> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      measure: codeableConceptSchema.optional(),
-      detailQuantity: quantitySchema.optional(),
-      detailRange: rangeSchema.optional(),
-      detailCodeableConcept: codeableConceptSchema.optional(),
-      detailString: stringSchema.optional(),
-      _detailString: elementSchema.optional(),
-      detailBoolean: booleanSchema.optional(),
-      _detailBoolean: elementSchema.optional(),
-      detailInteger: z.number().optional(),
-      detailRatio: elementSchema.optional(),
-      due: quantitySchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    measure: codeableConceptSchema.optional(),
+    detailQuantity: quantitySchema.optional(),
+    detailRange: rangeSchema.optional(),
+    detailCodeableConcept: codeableConceptSchema.optional(),
+    detailString: stringSchema.optional(),
+    _detailString: elementSchema.optional(),
+    detailBoolean: booleanSchema.optional(),
+    _detailBoolean: elementSchema.optional(),
+    detailInteger: z.number().optional(),
+    detailRatio: elementSchema.optional(),
+    due: quantitySchema.optional(),
+  })
 
-const planDefinitionGoalSchema: ZodType<PlanDefinitionGoal> = z.lazy(() =>
+const planDefinitionGoalSchema: ZodType<PlanDefinitionGoal> =
   backboneElementSchema.extend({
     category: codeableConceptSchema.optional(),
     description: codeableConceptSchema,
@@ -78,10 +81,40 @@ const planDefinitionGoalSchema: ZodType<PlanDefinitionGoal> = z.lazy(() =>
     addresses: codeableConceptSchema.array().optional(),
     documentation: relatedArtifactSchema.array().optional(),
     target: planDefinitionGoalTargetSchema.array().optional(),
-  }),
-)
+  })
 
-const planDefinitionActionSchema: ZodType<PlanDefinitionAction> = z.lazy(() =>
+const planDefinitionActionConditionSchema: ZodType<PlanDefinitionActionCondition> =
+  backboneElementSchema.extend({
+    kind: planDefinitionActionConditionKindSchema,
+    _kind: elementSchema.optional(),
+    expression: expressionSchema.optional(),
+  })
+
+const planDefinitionActionRelatedActionSchema: ZodType<PlanDefinitionActionRelatedAction> =
+  backboneElementSchema.extend({
+    actionId: stringSchema,
+    _actionId: elementSchema.optional(),
+    relationship: planDefinitionActionRelationshipTypeSchema,
+    _relationship: elementSchema.optional(),
+    offsetDuration: quantitySchema.optional(),
+    offsetRange: rangeSchema.optional(),
+  })
+
+const planDefinitionActionParticipantSchema: ZodType<PlanDefinitionActionParticipant> =
+  backboneElementSchema.extend({
+    type: planDefinitionActionParticipantTypeSchema,
+    _type: elementSchema.optional(),
+    role: codeableConceptSchema.optional(),
+  })
+
+const planDefinitionActionDynamicValueSchema: ZodType<PlanDefinitionActionDynamicValue> =
+  backboneElementSchema.extend({
+    path: stringSchema.optional(),
+    _path: elementSchema.optional(),
+    expression: expressionSchema.optional(),
+  })
+
+const planDefinitionActionSchema: ZodType<PlanDefinitionAction> =
   backboneElementSchema.extend({
     prefix: stringSchema.optional(),
     _prefix: elementSchema.optional(),
@@ -103,27 +136,10 @@ const planDefinitionActionSchema: ZodType<PlanDefinitionAction> = z.lazy(() =>
     subjectCanonical: canonicalSchema.optional(),
     _subjectCanonical: elementSchema.optional(),
     trigger: triggerDefinitionSchema.array().optional(),
-    condition: backboneElementSchema
-      .extend({
-        kind: planDefinitionActionConditionKindSchema,
-        _kind: elementSchema.optional(),
-        expression: expressionSchema.optional(),
-      })
-      .array()
-      .optional(),
+    condition: planDefinitionActionConditionSchema.array().optional(),
     input: dataRequirementSchema.array().optional(),
     output: dataRequirementSchema.array().optional(),
-    relatedAction: backboneElementSchema
-      .extend({
-        actionId: stringSchema,
-        _actionId: elementSchema.optional(),
-        relationship: planDefinitionActionRelationshipTypeSchema,
-        _relationship: elementSchema.optional(),
-        offsetDuration: quantitySchema.optional(),
-        offsetRange: rangeSchema.optional(),
-      })
-      .array()
-      .optional(),
+    relatedAction: planDefinitionActionRelatedActionSchema.array().optional(),
     timingDateTime: dateTimeSchema.optional(),
     _timingDateTime: elementSchema.optional(),
     timingAge: quantitySchema.optional(),
@@ -131,14 +147,7 @@ const planDefinitionActionSchema: ZodType<PlanDefinitionAction> = z.lazy(() =>
     timingDuration: quantitySchema.optional(),
     timingRange: rangeSchema.optional(),
     timingTiming: timingSchema.optional(),
-    participant: backboneElementSchema
-      .extend({
-        type: planDefinitionActionParticipantTypeSchema,
-        _type: elementSchema.optional(),
-        role: codeableConceptSchema.optional(),
-      })
-      .array()
-      .optional(),
+    participant: planDefinitionActionParticipantSchema.array().optional(),
     type: codeableConceptSchema.optional(),
     groupingBehavior: planDefinitionActionGroupingBehaviorSchema.optional(),
     _groupingBehavior: elementSchema.optional(),
@@ -157,21 +166,15 @@ const planDefinitionActionSchema: ZodType<PlanDefinitionAction> = z.lazy(() =>
     _definitionUri: elementSchema.optional(),
     transform: canonicalSchema.optional(),
     _transform: elementSchema.optional(),
-    dynamicValue: backboneElementSchema
-      .extend({
-        path: stringSchema.optional(),
-        _path: elementSchema.optional(),
-        expression: expressionSchema.optional(),
-      })
-      .array()
-      .optional(),
-    action: z
-      .lazy(() => planDefinitionActionSchema)
-      .array()
-      .optional(),
-  }),
-)
+    dynamicValue: planDefinitionActionDynamicValueSchema.array().optional(),
+    get action() {
+      return planDefinitionActionSchema.array().optional()
+    },
+  })
 
+/**
+ * Zod schema for FHIR PlanDefinition resource (untyped version).
+ */
 export const untypedPlanDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('PlanDefinition').readonly(),
@@ -228,13 +231,72 @@ export const untypedPlanDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<PlanDefinition>
 
+/**
+ * Zod schema for FHIR PlanDefinition resource.
+ */
 export const planDefinitionSchema: ZodType<PlanDefinition> =
   untypedPlanDefinitionSchema
 
+/**
+ * Wrapper class for FHIR PlanDefinition resources.
+ * Provides utility methods for working with plan definitions and clinical protocols.
+ */
 export class FhirPlanDefinition extends FhirDomainResource<PlanDefinition> {
   // Static Functions
 
+  /**
+   * Parses a PlanDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the PlanDefinition schema
+   * @returns A FhirPlanDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirPlanDefinition {
     return new FhirPlanDefinition(planDefinitionSchema.parse(value))
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

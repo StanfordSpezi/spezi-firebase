@@ -1,0 +1,82 @@
+{
+  "0": {
+    "resourceType": "CapabilityStatement",
+    "status": "active",
+    "date": "2023-01-15T10:00:00Z",
+    "kind": "instance",
+    "fhirVersion": "4.3.0",
+    "format": ["json", "xml"]
+  },
+  "1": {
+    "resourceType": "CapabilityStatement",
+    "url": "http://example.org/fhir/CapabilityStatement/example",
+    "version": "1.0.0",
+    "name": "ExampleCapabilityStatement",
+    "title": "Example FHIR Server Capability Statement",
+    "status": "active",
+    "experimental": false,
+    "date": "2023-06-01T14:30:00Z",
+    "publisher": "Example Health Organization",
+    "description": "Capability statement for example FHIR server",
+    "kind": "instance",
+    "software": {
+      "name": "Example FHIR Server",
+      "version": "1.0.0"
+    },
+    "fhirVersion": "4.3.0",
+    "format": ["json", "xml"]
+  },
+  "2": {
+    "resourceType": "CapabilityStatement",
+    "url": "http://example.org/fhir/CapabilityStatement/patient-server",
+    "version": "2.0.0",
+    "name": "PatientServerCapability",
+    "status": "active",
+    "date": "2023-09-20T08:00:00Z",
+    "publisher": "Healthcare Systems Inc",
+    "contact": [
+      {
+        "name": "System Administrator",
+        "telecom": [
+          {
+            "system": "email",
+            "value": "admin@example.org"
+          }
+        ]
+      }
+    ],
+    "description": "Capability statement for patient management server",
+    "kind": "capability",
+    "fhirVersion": "4.3.0",
+    "format": ["json"],
+    "patchFormat": ["application/json-patch+json"]
+  },
+  "3": {
+    "resourceType": "CapabilityStatement",
+    "url": "http://example.org/fhir/CapabilityStatement/requirements",
+    "name": "RequirementsStatement",
+    "title": "System Requirements",
+    "status": "draft",
+    "date": "2023-12-01T12:00:00Z",
+    "publisher": "Standards Body",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "purpose": "Define requirements for FHIR implementations",
+    "copyright": "Copyright 2023 Standards Body",
+    "kind": "requirements",
+    "fhirVersion": "4.3.0",
+    "format": ["json", "xml"],
+    "implementationGuide": [
+      "http://hl7.org/fhir/us/core/ImplementationGuide/hl7.fhir.us.core"
+    ]
+  }
+}

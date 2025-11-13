@@ -22,6 +22,10 @@ export const serviceRequestStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The status of a service request.
+ * http://hl7.org/fhir/valueset-request-status.html
+ */
 export type ServiceRequestStatus = z.infer<typeof serviceRequestStatusSchema>
 
 /**
@@ -40,4 +44,8 @@ export const serviceRequestIntentSchema = z.enum([
   'option',
 ])
 
+/**
+ * The kind of service request.
+ * http://hl7.org/fhir/valueset-request-intent.html
+ */
 export type ServiceRequestIntent = z.infer<typeof serviceRequestIntentSchema>

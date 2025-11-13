@@ -7,28 +7,29 @@
 //
 
 import { z } from 'zod'
-import { codeSchema } from '../elements/index.js'
 
 /**
  * ResearchSubject Status
  * http://hl7.org/fhir/ValueSet/research-subject-status
  */
-export const researchSubjectStatusSchema = z.lazy(() =>
-  codeSchema.pipe(
-    z.enum([
-      'candidate',
-      'eligible',
-      'follow-up',
-      'ineligible',
-      'not-registered',
-      'off-study',
-      'on-study',
-      'on-study-intervention',
-      'on-study-observation',
-      'pending-on-study',
-      'potential-candidate',
-      'screening',
-      'withdrawn',
-    ]),
-  ),
-)
+export const researchSubjectStatusSchema = z.enum([
+  'candidate',
+  'eligible',
+  'follow-up',
+  'ineligible',
+  'not-registered',
+  'off-study',
+  'on-study',
+  'on-study-intervention',
+  'on-study-observation',
+  'pending-on-study',
+  'potential-candidate',
+  'screening',
+  'withdrawn',
+])
+
+/**
+ * ResearchSubject Status
+ * http://hl7.org/fhir/ValueSet/research-subject-status
+ */
+export type ResearchSubjectStatus = z.infer<typeof researchSubjectStatusSchema>

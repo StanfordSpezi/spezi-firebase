@@ -24,6 +24,10 @@ export const encounterStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The status of an encounter.
+ * http://hl7.org/fhir/valueset-encounter-status.html
+ */
 export type EncounterStatus = z.infer<typeof encounterStatusSchema>
 
 /**
@@ -37,6 +41,10 @@ export const encounterLocationStatusSchema = z.enum([
   'completed',
 ])
 
+/**
+ * The status of the location.
+ * http://hl7.org/fhir/valueset-encounter-location-status.html
+ */
 export type EncounterLocationStatus = z.infer<
   typeof encounterLocationStatusSchema
 >

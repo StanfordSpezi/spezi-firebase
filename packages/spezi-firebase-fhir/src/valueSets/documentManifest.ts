@@ -18,6 +18,10 @@ export const documentManifestStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The status of the document manifest.
+ * http://hl7.org/fhir/valueset-document-reference-status.html
+ */
 export type DocumentManifestStatus = z.infer<
   typeof documentManifestStatusSchema
 >

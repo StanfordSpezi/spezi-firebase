@@ -20,4 +20,8 @@ export const accountStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * Indicates whether the account is available to be used.
+ * http://hl7.org/fhir/valueset-account-status.html
+ */
 export type AccountStatus = z.infer<typeof accountStatusSchema>

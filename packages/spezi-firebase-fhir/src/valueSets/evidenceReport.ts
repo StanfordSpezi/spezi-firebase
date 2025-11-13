@@ -7,41 +7,55 @@
 //
 
 import { z } from 'zod'
-import { codeSchema } from '../elements/index.js'
 
 /**
  * EvidenceReport Type
  * http://hl7.org/fhir/ValueSet/evidence-report-type
  */
-export const evidenceReportTypeSchema = z.lazy(() =>
-  codeSchema.pipe(
-    z.enum(['classification', 'search-results', 'text', 'resources-compiled']),
-  ),
-)
+export const evidenceReportTypeSchema = z.enum([
+  'classification',
+  'search-results',
+  'text',
+  'resources-compiled',
+])
+
+/**
+ * EvidenceReport Type
+ * http://hl7.org/fhir/ValueSet/evidence-report-type
+ */
+export type EvidenceReportType = z.infer<typeof evidenceReportTypeSchema>
 
 /**
  * Section Mode
  * http://hl7.org/fhir/ValueSet/list-mode
  */
-export const sectionModeSchema = z.lazy(() =>
-  codeSchema.pipe(z.enum(['working', 'snapshot', 'changes'])),
-)
+export const sectionModeSchema = z.enum(['working', 'snapshot', 'changes'])
+
+/**
+ * Section Mode
+ * http://hl7.org/fhir/ValueSet/list-mode
+ */
+export type SectionMode = z.infer<typeof sectionModeSchema>
 
 /**
  * EvidenceReport Relates To Code
  * http://hl7.org/fhir/ValueSet/evidence-report-relation-type
  */
-export const evidenceReportRelatesToCodeSchema = z.lazy(() =>
-  codeSchema.pipe(
-    z.enum([
-      'replaces',
-      'amends',
-      'appends',
-      'transforms',
-      'replacedWith',
-      'amendedWith',
-      'appendedWith',
-      'transformedWith',
-    ]),
-  ),
-)
+export const evidenceReportRelatesToCodeSchema = z.enum([
+  'replaces',
+  'amends',
+  'appends',
+  'transforms',
+  'replacedWith',
+  'amendedWith',
+  'appendedWith',
+  'transformedWith',
+])
+
+/**
+ * EvidenceReport Relates To Code
+ * http://hl7.org/fhir/ValueSet/evidence-report-relation-type
+ */
+export type EvidenceReportRelatesToCode = z.infer<
+  typeof evidenceReportRelatesToCodeSchema
+>

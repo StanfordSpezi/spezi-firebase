@@ -17,6 +17,10 @@ export const specimenDefinitionTypeTestedPreferenceSchema = z.enum([
   'alternate',
 ])
 
+/**
+ * Degree of preference of a type of conditioned specimen.
+ * http://hl7.org/fhir/valueset-specimen-contained-preference.html
+ */
 export type SpecimenDefinitionTypeTestedPreference = z.infer<
   typeof specimenDefinitionTypeTestedPreferenceSchema
 >

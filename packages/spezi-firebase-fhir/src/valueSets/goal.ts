@@ -24,4 +24,8 @@ export const goalLifecycleStatusSchema = z.enum([
   'rejected',
 ])
 
+/**
+ * Codes that reflect the current state of a goal and whether the goal is still being targeted.
+ * http://hl7.org/fhir/valueset-goal-status.html
+ */
 export type GoalLifecycleStatus = z.infer<typeof goalLifecycleStatusSchema>

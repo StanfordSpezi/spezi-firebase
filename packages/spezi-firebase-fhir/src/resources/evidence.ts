@@ -10,9 +10,15 @@ import {
   type Evidence,
   type EvidenceVariableDefinition,
   type EvidenceStatistic,
+  type EvidenceStatisticAttributeEstimate,
+  type EvidenceCertainty,
+  type EvidenceStatisticSampleSize,
+  type EvidenceStatisticModelCharacteristic,
+  type EvidenceStatisticModelCharacteristicVariable,
+  type Coding,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -40,19 +46,17 @@ import {
 } from '../valueSets/index.js'
 
 const evidenceVariableDefinitionSchema: ZodType<EvidenceVariableDefinition> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      description: markdownSchema.optional(),
-      _description: elementSchema.optional(),
-      note: annotationSchema.array().optional(),
-      variableRole: codeableConceptSchema,
-      observed: referenceSchema.optional(),
-      intended: referenceSchema.optional(),
-      directnessMatch: codeableConceptSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    description: markdownSchema.optional(),
+    _description: elementSchema.optional(),
+    note: annotationSchema.array().optional(),
+    variableRole: codeableConceptSchema,
+    observed: referenceSchema.optional(),
+    intended: referenceSchema.optional(),
+    directnessMatch: codeableConceptSchema.optional(),
+  })
 
-const evidenceStatisticAttributeEstimateSchema = z.lazy(() =>
+const evidenceStatisticAttributeEstimateSchema: ZodType<EvidenceStatisticAttributeEstimate> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -65,10 +69,44 @@ const evidenceStatisticAttributeEstimateSchema = z.lazy(() =>
     get attributeEstimate() {
       return evidenceStatisticAttributeEstimateSchema.array().optional()
     },
-  }),
-)
+  })
 
-const evidenceStatisticSchema: ZodType<EvidenceStatistic> = z.lazy(() =>
+const evidenceStatisticSampleSizeSchema: ZodType<EvidenceStatisticSampleSize> =
+  backboneElementSchema.extend({
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    note: annotationSchema.array().optional(),
+    numberOfStudies: unsignedIntSchema.optional(),
+    _numberOfStudies: elementSchema.optional(),
+    numberOfParticipants: unsignedIntSchema.optional(),
+    _numberOfParticipants: elementSchema.optional(),
+    knownDataCount: unsignedIntSchema.optional(),
+    _knownDataCount: elementSchema.optional(),
+  })
+
+const evidenceStatisticModelCharacteristicVariableSchema: ZodType<EvidenceStatisticModelCharacteristicVariable> =
+  backboneElementSchema.extend({
+    variableDefinition: referenceSchema,
+    handling: evidenceVariableHandlingSchema.optional(),
+    _handling: elementSchema.optional(),
+    valueCategory: codeableConceptSchema.array().optional(),
+    valueQuantity: quantitySchema.array().optional(),
+    valueRange: rangeSchema.array().optional(),
+  })
+
+const evidenceStatisticModelCharacteristicSchema: ZodType<EvidenceStatisticModelCharacteristic> =
+  backboneElementSchema.extend({
+    code: codeableConceptSchema,
+    value: quantitySchema.optional(),
+    variable: evidenceStatisticModelCharacteristicVariableSchema
+      .array()
+      .optional(),
+    attributeEstimate: evidenceStatisticAttributeEstimateSchema
+      .array()
+      .optional(),
+  })
+
+const evidenceStatisticSchema: ZodType<EvidenceStatistic> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -80,57 +118,16 @@ const evidenceStatisticSchema: ZodType<EvidenceStatistic> = z.lazy(() =>
     _numberOfEvents: elementSchema.optional(),
     numberAffected: unsignedIntSchema.optional(),
     _numberAffected: elementSchema.optional(),
-    sampleSize: backboneElementSchema
-      .extend({
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        note: annotationSchema.array().optional(),
-        numberOfStudies: unsignedIntSchema.optional(),
-        _numberOfStudies: elementSchema.optional(),
-        numberOfParticipants: unsignedIntSchema.optional(),
-        _numberOfParticipants: elementSchema.optional(),
-        knownDataCount: unsignedIntSchema.optional(),
-        _knownDataCount: elementSchema.optional(),
-      })
-      .optional(),
+    sampleSize: evidenceStatisticSampleSizeSchema.optional(),
     attributeEstimate: evidenceStatisticAttributeEstimateSchema
       .array()
       .optional(),
-    modelCharacteristic: backboneElementSchema
-      .extend({
-        code: codeableConceptSchema,
-        value: quantitySchema.optional(),
-        variable: backboneElementSchema
-          .extend({
-            variableDefinition: referenceSchema,
-            handling: evidenceVariableHandlingSchema.optional(),
-            _handling: elementSchema.optional(),
-            valueCategory: codeableConceptSchema.array().optional(),
-            valueQuantity: quantitySchema.array().optional(),
-            valueRange: rangeSchema.array().optional(),
-          })
-          .array()
-          .optional(),
-        attributeEstimate: backboneElementSchema
-          .extend({
-            description: stringSchema.optional(),
-            _description: elementSchema.optional(),
-            note: annotationSchema.array().optional(),
-            type: codeableConceptSchema.optional(),
-            quantity: quantitySchema.optional(),
-            level: decimalSchema.optional(),
-            _level: elementSchema.optional(),
-            range: rangeSchema.optional(),
-          })
-          .array()
-          .optional(),
-      })
+    modelCharacteristic: evidenceStatisticModelCharacteristicSchema
       .array()
       .optional(),
-  }),
-)
+  })
 
-const evidenceCertaintySchema = z.lazy(() =>
+const evidenceCertaintySchema: ZodType<EvidenceCertainty> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -142,9 +139,11 @@ const evidenceCertaintySchema = z.lazy(() =>
     get subcomponent() {
       return evidenceCertaintySchema.array().optional()
     },
-  }),
-)
+  })
 
+/**
+ * Zod schema for FHIR Evidence resource (untyped version).
+ */
 export const untypedEvidenceSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Evidence').readonly(),
@@ -188,12 +187,71 @@ export const untypedEvidenceSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Evidence>
 
+/**
+ * Zod schema for FHIR Evidence resource.
+ */
 export const evidenceSchema: ZodType<Evidence> = untypedEvidenceSchema
 
+/**
+ * Wrapper class for FHIR Evidence resources.
+ * Provides utility methods for working with evidence resources in evidence-based medicine.
+ */
 export class FhirEvidence extends FhirDomainResource<Evidence> {
   // Static Functions
 
+  /**
+   * Parses an Evidence resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the Evidence schema
+   * @returns A FhirEvidence instance containing the validated resource
+   */
   public static parse(value: unknown): FhirEvidence {
     return new FhirEvidence(evidenceSchema.parse(value))
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

@@ -6,9 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Device } from 'fhir/r4b.js'
+import {
+  type DeviceDeviceName,
+  type DeviceProperty,
+  type DeviceSpecialization,
+  type DeviceUdiCarrier,
+  type DeviceVersion,
+  type Device,
+  type Coding,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -23,32 +31,29 @@ import {
 } from '../elements/index.js'
 import { deviceNameTypeSchema, deviceStatusSchema } from '../valueSets/index.js'
 
-const deviceDefinitionDeviceName = z.lazy(() =>
+const deviceDeviceNameSchema: ZodType<DeviceDeviceName> =
   backboneElementSchema.extend({
     name: stringSchema,
     type: deviceNameTypeSchema,
     _type: elementSchema.optional(),
-  }),
-)
+  })
 
-const devicePropertySchema = z.lazy(() =>
+const devicePropertySchema: ZodType<DeviceProperty> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     valueCode: codeableConceptSchema.array().optional(),
     valueQuantity: quantitySchema.array().optional(),
-  }),
-)
+  })
 
-const deviceDefinitionSpecializationSchema = z.lazy(() =>
+const deviceDefinitionSpecializationSchema: ZodType<DeviceSpecialization> =
   backboneElementSchema.extend({
     systemType: codeableConceptSchema,
     _systemType: elementSchema.optional(),
     version: stringSchema.optional(),
     _version: elementSchema.optional(),
-  }),
-)
+  })
 
-const deviceUdiCarrierSchema = z.lazy(() =>
+const deviceUdiCarrierSchema: ZodType<DeviceUdiCarrier> =
   backboneElementSchema.extend({
     deviceIdentifier: stringSchema,
     _deviceIdentifier: elementSchema.optional(),
@@ -60,24 +65,25 @@ const deviceUdiCarrierSchema = z.lazy(() =>
     _carrierHRF: elementSchema.optional(),
     carrierAIDC: stringSchema.optional(),
     _carrierAIDC: elementSchema.optional(),
-  }),
-)
+  })
 
-const deviceVersionSchema = z.lazy(() =>
+const deviceVersionSchema: ZodType<DeviceVersion> =
   backboneElementSchema.extend({
     type: codeableConceptSchema.optional(),
     component: codeableConceptSchema.optional(),
     value: stringSchema,
     _value: elementSchema.optional(),
-  }),
-)
+  })
 
+/**
+ * Zod schema for FHIR Device resource (untyped version).
+ */
 export const untypedDeviceSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Device').readonly(),
     contact: contactPointSchema.array().optional(),
     definition: referenceSchema.optional(),
-    deviceName: deviceDefinitionDeviceName.array().optional(),
+    deviceName: deviceDeviceNameSchema.array().optional(),
     distinctIdentifier: stringSchema.optional(),
     _distinctIdentifier: elementSchema.optional(),
     expirationDate: stringSchema.optional(),
@@ -114,12 +120,78 @@ export const untypedDeviceSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Device>
 
+/**
+ * Zod schema for FHIR Device resource.
+ */
 export const deviceSchema: ZodType<Device> = untypedDeviceSchema
 
+/**
+ * Wrapper class for FHIR Device resources.
+ * Provides utility methods for working with device information.
+ */
 export class FhirDevice extends FhirDomainResource<Device> {
-  // Static Functions
-
+  /**
+   * Parses a Device resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the Device schema
+   * @returns A FhirDevice instance containing the validated resource
+   */
   public static parse(value: unknown): FhirDevice {
     return new FhirDevice(deviceSchema.parse(value))
+  }
+
+  /**
+   * Gets the device type as display text.
+   *
+   * @returns The type display text, if available
+   */
+  public get typeDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+  }
+
+  /**
+   * Gets all identifier values whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns Array of identifier values matching any provided system
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns Array of identifier values matching any provided Coding
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

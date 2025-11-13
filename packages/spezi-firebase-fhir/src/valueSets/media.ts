@@ -23,4 +23,8 @@ export const mediaStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The status of the media resource.
+ * http://hl7.org/fhir/valueset-event-status.html
+ */
 export type MediaStatus = z.infer<typeof mediaStatusSchema>

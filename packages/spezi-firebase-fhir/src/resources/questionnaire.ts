@@ -6,9 +6,16 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Questionnaire, type QuestionnaireItem } from 'fhir/r4b.js'
+import {
+  type QuestionnaireItemAnswerOption,
+  type QuestionnaireItemEnableWhen,
+  type QuestionnaireItemInitial,
+  type Questionnaire,
+  type QuestionnaireItem,
+  type Coding,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -39,7 +46,78 @@ import {
   questionnaireStatusSchema,
 } from '../valueSets/index.js'
 
-const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
+const questionnaireItemEnableWhenSchema: ZodType<QuestionnaireItemEnableWhen> =
+  backboneElementSchema.extend({
+    question: stringSchema,
+    _question: elementSchema.optional(),
+    operator: questionnaireItemEnableWhenOperatorSchema,
+    _operator: elementSchema.optional(),
+    answerBoolean: booleanSchema.optional(),
+    _answerBoolean: elementSchema.optional(),
+    answerDecimal: decimalSchema.optional(),
+    answerInteger: intSchema.optional(),
+    _answerInteger: elementSchema.optional(),
+    answerDate: dateSchema.optional(),
+    _answerDate: elementSchema.optional(),
+    answerDateTime: dateTimeSchema.optional(),
+    _answerDateTime: elementSchema.optional(),
+    answerTime: timeSchema.optional(),
+    _answerTime: elementSchema.optional(),
+    answerString: stringSchema.optional(),
+    _answerString: elementSchema.optional(),
+    answerUri: urlSchema.optional(),
+    _answerUri: elementSchema.optional(),
+    answerAttachment: attachmentSchema.optional(),
+    answerCoding: codingSchema.optional(),
+    answerQuantity: quantitySchema.optional(),
+    answerReference: referenceSchema.optional(),
+  })
+
+const questionnaireItemAnswerOptionSchema: ZodType<QuestionnaireItemAnswerOption> =
+  backboneElementSchema.extend({
+    valueInteger: intSchema.optional(),
+    valueDecimal: decimalSchema.optional(),
+    valueDate: dateSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueDateTime: dateTimeSchema.optional(),
+    _valueDateTime: elementSchema.optional(),
+    valueTime: timeSchema.optional(),
+    _valueTime: elementSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueUri: urlSchema.optional(),
+    _valueUri: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+    valueCoding: codingSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueReference: referenceSchema.optional(),
+    initialSelected: booleanSchema.optional(),
+    _initialSelected: elementSchema.optional(),
+  })
+
+const questionnaireItemInitialSchema: ZodType<QuestionnaireItemInitial> =
+  backboneElementSchema.extend({
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+    valueDecimal: decimalSchema.optional(),
+    valueInteger: intSchema.optional(),
+    valueDate: dateSchema.optional(),
+    _valueDate: elementSchema.optional(),
+    valueDateTime: dateTimeSchema.optional(),
+    _valueDateTime: elementSchema.optional(),
+    valueTime: timeSchema.optional(),
+    _valueTime: elementSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueUri: urlSchema.optional(),
+    _valueUri: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+    valueCoding: codingSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueReference: referenceSchema.optional(),
+  })
+
+const questionnaireItemSchema: ZodType<QuestionnaireItem> =
   backboneElementSchema.extend({
     linkId: stringSchema,
     _linkId: elementSchema.optional(),
@@ -51,34 +129,7 @@ const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
     text: stringSchema.optional(),
     _text: elementSchema.optional(),
     type: questionnaireItemTypeSchema,
-    enableWhen: elementSchema
-      .extend({
-        question: stringSchema,
-        _question: elementSchema.optional(),
-        operator: questionnaireItemEnableWhenOperatorSchema,
-        _operator: elementSchema.optional(),
-        answerBoolean: booleanSchema.optional(),
-        _answerBoolean: elementSchema.optional(),
-        answerDecimal: decimalSchema.optional(),
-        answerInteger: intSchema.optional(),
-        _answerInteger: elementSchema.optional(),
-        answerDate: dateSchema.optional(),
-        _answerDate: elementSchema.optional(),
-        answerDateTime: dateTimeSchema.optional(),
-        _answerDateTime: elementSchema.optional(),
-        answerTime: timeSchema.optional(),
-        _answerTime: elementSchema.optional(),
-        answerString: stringSchema.optional(),
-        _answerString: elementSchema.optional(),
-        answerUri: urlSchema.optional(),
-        _answerUri: elementSchema.optional(),
-        answerAttachment: attachmentSchema.optional(),
-        answerCoding: codingSchema.optional(),
-        answerQuantity: quantitySchema.optional(),
-        answerReference: referenceSchema.optional(),
-      })
-      .array()
-      .optional(),
+    enableWhen: questionnaireItemEnableWhenSchema.array().optional(),
     enableBehavior: questionnaireItemEnableBehaviorSchema.optional(),
     required: booleanSchema.optional(),
     _required: elementSchema.optional(),
@@ -88,58 +139,16 @@ const questionnaireItemSchema: ZodType<QuestionnaireItem> = z.lazy(() =>
     _readOnly: elementSchema.optional(),
     maxLength: intSchema.optional(),
     _maxLength: elementSchema.optional(),
-    answerOption: elementSchema
-      .extend({
-        valueInteger: intSchema.optional(),
-        valueDecimal: decimalSchema.optional(),
-        valueDate: dateSchema.optional(),
-        _valueDate: elementSchema.optional(),
-        valueDateTime: dateTimeSchema.optional(),
-        _valueDateTime: elementSchema.optional(),
-        valueTime: timeSchema.optional(),
-        _valueTime: elementSchema.optional(),
-        valueString: stringSchema.optional(),
-        _valueString: elementSchema.optional(),
-        valueUri: urlSchema.optional(),
-        _valueUri: elementSchema.optional(),
-        valueAttachment: attachmentSchema.optional(),
-        valueCoding: codingSchema.optional(),
-        valueQuantity: quantitySchema.optional(),
-        valueReference: referenceSchema.optional(),
-        initialSelected: booleanSchema.optional(),
-        _initialSelected: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-    initial: elementSchema
-      .extend({
-        valueBoolean: booleanSchema.optional(),
-        _valueBoolean: elementSchema.optional(),
-        valueDecimal: decimalSchema.optional(),
-        valueInteger: intSchema.optional(),
-        valueDate: dateSchema.optional(),
-        _valueDate: elementSchema.optional(),
-        valueDateTime: dateTimeSchema.optional(),
-        _valueDateTime: elementSchema.optional(),
-        valueTime: timeSchema.optional(),
-        _valueTime: elementSchema.optional(),
-        valueString: stringSchema.optional(),
-        _valueString: elementSchema.optional(),
-        valueUri: urlSchema.optional(),
-        _valueUri: elementSchema.optional(),
-        valueAttachment: attachmentSchema.optional(),
-        valueCoding: codingSchema.optional(),
-        valueQuantity: quantitySchema.optional(),
-        valueReference: referenceSchema.optional(),
-      })
-      .array()
-      .optional(),
+    answerOption: questionnaireItemAnswerOptionSchema.array().optional(),
+    initial: questionnaireItemInitialSchema.array().optional(),
     get item() {
       return questionnaireItemSchema.array().optional()
     },
-  }),
-)
+  })
 
+/**
+ * Zod schema for FHIR Questionnaire resource (untyped version).
+ */
 export const untypedQuestionnaireSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Questionnaire').readonly(),
@@ -181,13 +190,79 @@ export const untypedQuestionnaireSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Questionnaire>
 
+/**
+ * Zod schema for FHIR Questionnaire resource.
+ */
 export const questionnaireSchema: ZodType<Questionnaire> =
   untypedQuestionnaireSchema
 
+/**
+ * Wrapper class for FHIR Questionnaire resources.
+ * Provides utility methods for working with questionnaires and structured data capture forms.
+ */
 export class FhirQuestionnaire extends FhirDomainResource<Questionnaire> {
-  // Static Functions
-
+  /**
+   * Parses a Questionnaire resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the Questionnaire schema
+   * @returns A FhirQuestionnaire instance containing the validated resource
+   */
   public static parse(value: unknown): FhirQuestionnaire {
     return new FhirQuestionnaire(questionnaireSchema.parse(value))
+  }
+
+  /**
+   * Get the publication date of the questionnaire.
+   *
+   * @returns The publication date, or undefined if not set
+   */
+  public get date(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.date)
+  }
+
+  /**
+   * Gets all identifier values whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns Array of identifier values matching any provided system
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns Array of identifier values matching any provided type
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

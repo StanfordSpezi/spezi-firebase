@@ -18,6 +18,10 @@ export const documentReferenceStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The status of the document reference.
+ * http://hl7.org/fhir/valueset-document-reference-status.html
+ */
 export type DocumentReferenceStatus = z.infer<
   typeof documentReferenceStatusSchema
 >
@@ -33,6 +37,10 @@ export const documentReferenceDocStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The status of the underlying document.
+ * http://hl7.org/fhir/valueset-composition-status.html
+ */
 export type DocumentReferenceDocStatus = z.infer<
   typeof documentReferenceDocStatusSchema
 >
@@ -48,6 +56,10 @@ export const documentReferenceRelatesToCodeSchema = z.enum([
   'appends',
 ])
 
+/**
+ * The type of relationship between documents.
+ * http://hl7.org/fhir/valueset-document-relationship-type.html
+ */
 export type DocumentReferenceRelatesToCode = z.infer<
   typeof documentReferenceRelatesToCodeSchema
 >

@@ -8,7 +8,11 @@
 
 import fs from 'fs'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirBundle } from '../../src/index.js'
+import {
+  bundleSchema,
+  FhirBundle,
+  fhirResourceSchema,
+} from '../../src/index.js'
 
 describe('Bundle Resource', () => {
   it('should validate FHIR bundle from bundles.json', () => {
@@ -16,6 +20,11 @@ describe('Bundle Resource', () => {
     const decodedJson = JSON.parse(data)
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
+      const parsedResourceOwnSchemaBuild =
+        bundleSchema(fhirResourceSchema).parse(jsonValue)
+      expect(jsonStringifyDeterministically(jsonValue)).toBe(
+        jsonStringifyDeterministically(parsedResourceOwnSchemaBuild),
+      )
       const parsedResource = FhirBundle.parseGeneric(jsonValue).value
       expect(jsonStringifyDeterministically(jsonValue)).toBe(
         jsonStringifyDeterministically(parsedResource),

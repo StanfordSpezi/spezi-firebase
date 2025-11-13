@@ -21,4 +21,8 @@ export const groupTypeSchema = z.enum([
   'substance',
 ])
 
+/**
+ * Types of resources that are part of group.
+ * http://hl7.org/fhir/valueset-group-type.html
+ */
 export type GroupType = z.infer<typeof groupTypeSchema>

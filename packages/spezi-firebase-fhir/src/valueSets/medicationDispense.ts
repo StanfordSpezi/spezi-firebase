@@ -24,6 +24,10 @@ export const medicationDispenseStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * A code specifying the state of the dispense event.
+ * http://hl7.org/fhir/valueset-medicationdispense-status.html
+ */
 export type MedicationDispenseStatus = z.infer<
   typeof medicationDispenseStatusSchema
 >

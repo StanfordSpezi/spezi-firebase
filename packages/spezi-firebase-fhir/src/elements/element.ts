@@ -11,6 +11,9 @@ import { z, type ZodType } from 'zod'
 import { stringSchema } from './dataTypes/primitiveTypes.js'
 import { extensionSchema } from './extension.js'
 
+/**
+ * Zod schema for FHIR Element data type (base type for all FHIR elements).
+ */
 export const elementSchema = z.object({
   id: stringSchema.optional(),
   get _id() {

@@ -14,7 +14,7 @@ import {
   type NutritionProductProductCharacteristic,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   attachmentSchema,
@@ -35,51 +35,46 @@ import {
 import { nutritionProductStatusSchema } from '../valueSets/index.js'
 
 const nutritionProductNutrientSchema: ZodType<NutritionProductNutrient> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      amount: ratioSchema.array().optional(),
-      item: codeableReferenceSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    amount: ratioSchema.array().optional(),
+    item: codeableReferenceSchema.optional(),
+  })
 
 const nutritionProductIngredientSchema: ZodType<NutritionProductIngredient> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      amount: ratioSchema.array().optional(),
-      item: codeableReferenceSchema,
-    }),
-  )
+  backboneElementSchema.extend({
+    amount: ratioSchema.array().optional(),
+    item: codeableReferenceSchema,
+  })
 
 const nutritionProductProductCharacteristicSchema: ZodType<NutritionProductProductCharacteristic> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      type: codeableConceptSchema,
-      valueCodeableConcept: codeableConceptSchema.optional(),
-      valueString: stringSchema.optional(),
-      _valueString: elementSchema.optional(),
-      valueQuantity: quantitySchema.optional(),
-      valueBase64Binary: base64BinarySchema.optional(),
-      _valueBase64Binary: elementSchema.optional(),
-      valueAttachment: attachmentSchema.optional(),
-      valueBoolean: booleanSchema.optional(),
-      _valueBoolean: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    type: codeableConceptSchema,
+    valueCodeableConcept: codeableConceptSchema.optional(),
+    valueString: stringSchema.optional(),
+    _valueString: elementSchema.optional(),
+    valueQuantity: quantitySchema.optional(),
+    valueBase64Binary: base64BinarySchema.optional(),
+    _valueBase64Binary: elementSchema.optional(),
+    valueAttachment: attachmentSchema.optional(),
+    valueBoolean: booleanSchema.optional(),
+    _valueBoolean: elementSchema.optional(),
+  })
 
 const nutritionProductInstanceSchema: ZodType<NutritionProductInstance> =
-  z.lazy(() =>
-    backboneElementSchema.extend({
-      expiry: dateTimeSchema.optional(),
-      _expiry: elementSchema.optional(),
-      identifier: identifierSchema.array().optional(),
-      lotNumber: stringSchema.optional(),
-      _lotNumber: elementSchema.optional(),
-      quantity: quantitySchema.optional(),
-      useBy: dateTimeSchema.optional(),
-      _useBy: elementSchema.optional(),
-    }),
-  )
+  backboneElementSchema.extend({
+    expiry: dateTimeSchema.optional(),
+    _expiry: elementSchema.optional(),
+    identifier: identifierSchema.array().optional(),
+    lotNumber: stringSchema.optional(),
+    _lotNumber: elementSchema.optional(),
+    quantity: quantitySchema.optional(),
+    useBy: dateTimeSchema.optional(),
+    _useBy: elementSchema.optional(),
+  })
 
+/**
+ * Zod schema for FHIR NutritionProduct resource (untyped version).
+ */
 export const untypedNutritionProductSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('NutritionProduct').readonly(),
@@ -99,12 +94,25 @@ export const untypedNutritionProductSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<NutritionProduct>
 
+/**
+ * Zod schema for FHIR NutritionProduct resource.
+ */
 export const nutritionProductSchema: ZodType<NutritionProduct> =
   untypedNutritionProductSchema
 
+/**
+ * Wrapper class for FHIR NutritionProduct resources.
+ * Provides utility methods for working with nutrition products and dietary supplements.
+ */
 export class FhirNutritionProduct extends FhirDomainResource<NutritionProduct> {
   // Static Functions
 
+  /**
+   * Parses a NutritionProduct resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the NutritionProduct schema
+   * @returns A FhirNutritionProduct instance containing the validated resource
+   */
   public static parse(value: unknown): FhirNutritionProduct {
     return new FhirNutritionProduct(nutritionProductSchema.parse(value))
   }

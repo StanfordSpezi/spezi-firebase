@@ -22,6 +22,10 @@ export const medicationAdministrationStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * A code specifying the state of the medication administration.
+ * http://hl7.org/fhir/valueset-medication-admin-status.html
+ */
 export type MedicationAdministrationStatus = z.infer<
   typeof medicationAdministrationStatusSchema
 >

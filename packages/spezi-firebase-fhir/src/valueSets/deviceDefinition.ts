@@ -21,6 +21,10 @@ export const deviceDefinitionNameTypeSchema = z.enum([
   'other',
 ])
 
+/**
+ * The type of name the device is referred by.
+ * http://hl7.org/fhir/valueset-device-nametype.html
+ */
 export type DeviceDefinitionNameType = z.infer<
   typeof deviceDefinitionNameTypeSchema
 >

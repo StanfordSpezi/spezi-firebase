@@ -14,6 +14,10 @@ import { z } from 'zod'
  */
 export const detectedIssueSeveritySchema = z.enum(['high', 'moderate', 'low'])
 
+/**
+ * Indicates the potential degree of impact of the identified issue on the patient.
+ * http://hl7.org/fhir/valueset-detectedissue-severity.html
+ */
 export type DetectedIssueSeverity = z.infer<typeof detectedIssueSeveritySchema>
 
 /**
@@ -31,4 +35,8 @@ export const detectedIssueStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * Codes providing the status of a detected issue.
+ * http://hl7.org/fhir/valueset-observation-status.html
+ */
 export type DetectedIssueStatus = z.infer<typeof detectedIssueStatusSchema>

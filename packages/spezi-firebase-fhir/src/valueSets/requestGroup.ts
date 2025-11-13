@@ -22,6 +22,10 @@ export const requestGroupStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The status of the request group.
+ * http://hl7.org/fhir/valueset-request-status.html
+ */
 export type RequestGroupStatus = z.infer<typeof requestGroupStatusSchema>
 
 /**
@@ -40,6 +44,10 @@ export const requestGroupIntentSchema = z.enum([
   'option',
 ])
 
+/**
+ * Codes indicating the intent of the request group.
+ * http://hl7.org/fhir/valueset-request-intent.html
+ */
 export type RequestGroupIntent = z.infer<typeof requestGroupIntentSchema>
 
 /**
@@ -52,6 +60,10 @@ export const requestGroupActionConditionKindSchema = z.enum([
   'stop',
 ])
 
+/**
+ * Defines the kinds of conditions that can appear on actions.
+ * http://hl7.org/fhir/valueset-action-condition-kind.html
+ */
 export type RequestGroupActionConditionKind = z.infer<
   typeof requestGroupActionConditionKindSchema
 >
@@ -72,6 +84,10 @@ export const requestGroupActionRelationshipTypeSchema = z.enum([
   'after-end',
 ])
 
+/**
+ * Defines the types of relationships between actions.
+ * http://hl7.org/fhir/valueset-action-relationship-type.html
+ */
 export type RequestGroupActionRelationshipType = z.infer<
   typeof requestGroupActionRelationshipTypeSchema
 >
@@ -86,6 +102,10 @@ export const requestGroupActionGroupingBehaviorSchema = z.enum([
   'sentence-group',
 ])
 
+/**
+ * Defines organization behavior of a group.
+ * http://hl7.org/fhir/valueset-action-grouping-behavior.html
+ */
 export type RequestGroupActionGroupingBehavior = z.infer<
   typeof requestGroupActionGroupingBehaviorSchema
 >
@@ -103,6 +123,10 @@ export const requestGroupActionSelectionBehaviorSchema = z.enum([
   'one-or-more',
 ])
 
+/**
+ * Defines selection behavior of a group.
+ * http://hl7.org/fhir/valueset-action-selection-behavior.html
+ */
 export type RequestGroupActionSelectionBehavior = z.infer<
   typeof requestGroupActionSelectionBehaviorSchema
 >
@@ -117,6 +141,10 @@ export const requestGroupActionRequiredBehaviorSchema = z.enum([
   'must-unless-documented',
 ])
 
+/**
+ * Defines expectations around whether an action or action group is required.
+ * http://hl7.org/fhir/valueset-action-required-behavior.html
+ */
 export type RequestGroupActionRequiredBehavior = z.infer<
   typeof requestGroupActionRequiredBehaviorSchema
 >
@@ -127,6 +155,10 @@ export type RequestGroupActionRequiredBehavior = z.infer<
  */
 export const requestGroupActionPrecheckBehaviorSchema = z.enum(['yes', 'no'])
 
+/**
+ * Defines selection frequency behavior for an action or group.
+ * http://hl7.org/fhir/valueset-action-precheck-behavior.html
+ */
 export type RequestGroupActionPrecheckBehavior = z.infer<
   typeof requestGroupActionPrecheckBehaviorSchema
 >
@@ -140,6 +172,10 @@ export const requestGroupActionCardinalityBehaviorSchema = z.enum([
   'multiple',
 ])
 
+/**
+ * Defines behavior for an action or a group for how many times that item may be repeated.
+ * http://hl7.org/fhir/valueset-action-cardinality-behavior.html
+ */
 export type RequestGroupActionCardinalityBehavior = z.infer<
   typeof requestGroupActionCardinalityBehaviorSchema
 >

@@ -16,6 +16,9 @@ import {
 } from '../dataTypes/primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR Expression data type.
+ */
 export const expressionSchema: ZodType<Expression> = z.lazy(() =>
   elementSchema.extend({
     description: stringSchema.optional(),

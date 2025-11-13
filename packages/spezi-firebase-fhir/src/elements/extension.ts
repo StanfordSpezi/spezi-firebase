@@ -57,6 +57,9 @@ import { relatedArtifactSchema } from './metaDataTypes/relatedArtifact.js'
 import { triggerDefinitionSchema } from './metaDataTypes/triggerDefinition.js'
 import { usageContextSchema } from './metaDataTypes/usageContext.js'
 
+/**
+ * Zod schema for FHIR Extension data type.
+ */
 export const extensionSchema: ZodType<Extension> = z.lazy(() =>
   elementSchema.extend({
     url: urlSchema,

@@ -18,6 +18,10 @@ export const namingSystemKindSchema = z.enum([
   'root',
 ])
 
+/**
+ * Identifies the purpose of a naming system.
+ * http://hl7.org/fhir/valueset-namingsystem-type.html
+ */
 export type NamingSystemKind = z.infer<typeof namingSystemKindSchema>
 
 /**
@@ -31,6 +35,10 @@ export const namingSystemUniqueIdTypeSchema = z.enum([
   'other',
 ])
 
+/**
+ * Identifies the style of unique identifier used to identify a namespace.
+ * http://hl7.org/fhir/valueset-namingsystem-identifier-type.html
+ */
 export type NamingSystemUniqueIdType = z.infer<
   typeof namingSystemUniqueIdTypeSchema
 >
