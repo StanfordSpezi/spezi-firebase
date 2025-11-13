@@ -23,7 +23,7 @@ import type { z } from 'zod'
 import {
   patientSchema,
   observationSchema,
-  bundleSchema,
+  type bundleSchema,
   practitionerSchema,
   organizationSchema,
 } from '../src/index.js'
@@ -32,9 +32,10 @@ import {
  * Type-level test: Ensures the schema output exactly matches the FHIR type.
  * Both directions must be assignable.
  */
-type AssertExactType<T, U> = [T] extends [U]
-  ? [U] extends [T]
-    ? true
+type AssertExactType<T, U> =
+  [T] extends [U] ?
+    [U] extends [T] ?
+      true
     : never
   : never
 

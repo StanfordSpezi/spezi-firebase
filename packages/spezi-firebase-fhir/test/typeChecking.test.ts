@@ -13,11 +13,10 @@ import { z } from 'zod'
  * This enforces bidirectional compatibility - the schema must match the FHIR type exactly,
  * not allowing extra properties or missing any required/optional properties.
  */
-type ExactZodMatch<Schema extends z.ZodTypeAny, FhirType> = [
-  z.infer<Schema>,
-] extends [FhirType]
-  ? [FhirType] extends [z.infer<Schema>]
-    ? true
+type ExactZodMatch<Schema extends z.ZodTypeAny, FhirType> =
+  [z.infer<Schema>] extends [FhirType] ?
+    [FhirType] extends [z.infer<Schema>] ?
+      true
     : {
         error: 'Schema type is too restrictive - FHIR type has properties not in schema'
         schemaType: z.infer<Schema>

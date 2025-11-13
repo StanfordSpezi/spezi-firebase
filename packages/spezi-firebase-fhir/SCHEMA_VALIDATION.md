@@ -15,28 +15,32 @@ Every schema definition uses TypeScript's type system to enforce exact matches w
 1. **Type Annotations**: Each schema is annotated with `satisfies ZodType<FhirType>` to ensure the schema can produce the correct type.
 
 2. **Bidirectional Type Tests**: The test file `test/schemaTypeValidation.test.ts` contains type-level assertions that verify bidirectional type compatibility:
+
    ```typescript
-   type AssertExactType<T, U> = [T] extends [U]
-     ? [U] extends [T]
-       ? true
+   type AssertExactType<T, U> =
+     [T] extends [U] ?
+       [U] extends [T] ?
+         true
        : never
      : never
    ```
-   
+
    This ensures that:
+
    - The schema output type is assignable to the FHIR type (no extra properties)
    - The FHIR type is assignable to the schema output type (no missing properties)
 
 3. **Example Usage**:
+
    ```typescript
    // In patient.ts
    export const patientSchema = z.lazy(() =>
      domainResourceSchema.extend({
        resourceType: z.literal('Patient').readonly(),
        // ... all Patient fields
-     })
+     }),
    ) satisfies ZodType<Patient>
-   
+
    // In schemaTypeValidation.test.ts
    type _PatientSchemaOutput = z.infer<typeof patientSchema>
    type _PatientTest = AssertExactType<_PatientSchemaOutput, Patient>
@@ -58,24 +62,28 @@ The test file `test/primitiveTypeRegex.test.ts` validates that:
 ### Primitive Type Examples
 
 #### dateTime
+
 - Pattern: `^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?$`
 - Valid: `2023`, `2023-11-13`, `2023-11-13T10:30:00Z`, `2023-11-13T10:30:00+05:30`
 - Invalid: `23-11-13`, `2023-13-01`, `2023-11-13T25:00:00Z`
 
 #### date
+
 - Pattern: `^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?$`
 - Valid: `2023`, `2023-11`, `2023-11-13`
 - Invalid: `23-11-13`, `2023-13-01`, `2023-11-32`
 
 #### base64Binary
+
 - Pattern: `^(\s*([0-9a-zA-Z\+\/\=]){4}\s*)+$`
 - Valid: `SGVsbG8gV29ybGQ=`, `iVBORw0KGgoAAAANSUhEUgAAAAUA`
 - Invalid: `abc` (not in groups of 4), `Hello World` (invalid characters)
 
 #### code
+
 - Pattern: `^[^\s]+(\s[^\s]+)*$`
 - Valid: `active`, `final`, `test-code`, `multi word code`
-- Invalid: `` (empty), `  ` (only whitespace), `double  space`
+- Invalid: ``(empty),` `(only whitespace),`double space`
 
 ## Validation Process
 
@@ -117,6 +125,7 @@ When adding a new FHIR resource schema:
 5. Add runtime tests with valid FHIR data
 
 Example:
+
 ```typescript
 import type { MyResource } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
