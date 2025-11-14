@@ -175,7 +175,7 @@
     "width": 512,
     "content": {
       "contentType": "image/dicom",
-      "data": "BASE64_ENCODED_DICOM_DATA_HERE",
+      "data": "iVBORw0KGgoAAAANSUhEUgAAAAUA",
       "title": "Abdominal Ultrasound"
     }
   },
