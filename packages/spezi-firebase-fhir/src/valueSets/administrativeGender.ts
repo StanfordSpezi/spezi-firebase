@@ -19,4 +19,8 @@ export const administrativeGenderSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The gender of a person used for administrative purposes.
+ * http://hl7.org/fhir/valueset-administrative-gender.html
+ */
 export type AdministrativeGender = z.infer<typeof administrativeGenderSchema>

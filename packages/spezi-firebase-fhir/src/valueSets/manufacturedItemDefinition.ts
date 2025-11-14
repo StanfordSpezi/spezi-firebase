@@ -19,6 +19,10 @@ export const manufacturedItemDefinitionStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * Allows filtering of manufactured items that are appropriate for use versus not.
+ * http://hl7.org/fhir/valueset-publication-status.html
+ */
 export type ManufacturedItemDefinitionStatus = z.infer<
   typeof manufacturedItemDefinitionStatusSchema
 >

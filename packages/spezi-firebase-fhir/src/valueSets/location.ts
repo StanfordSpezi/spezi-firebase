@@ -14,6 +14,10 @@ import { z } from 'zod'
  */
 export const locationStatusSchema = z.enum(['active', 'suspended', 'inactive'])
 
+/**
+ * The status of a location.
+ * http://hl7.org/fhir/valueset-location-status.html
+ */
 export type LocationStatus = z.infer<typeof locationStatusSchema>
 
 /**
@@ -22,4 +26,8 @@ export type LocationStatus = z.infer<typeof locationStatusSchema>
  */
 export const locationModeSchema = z.enum(['instance', 'kind'])
 
+/**
+ * Indicates whether a resource instance represents a specific location or a class of locations.
+ * http://hl7.org/fhir/valueset-location-mode.html
+ */
 export type LocationMode = z.infer<typeof locationModeSchema>

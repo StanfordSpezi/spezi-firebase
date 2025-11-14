@@ -18,6 +18,10 @@ export const observationDefinitionRangeCategorySchema = z.enum([
   'absolute',
 ])
 
+/**
+ * The category of interval of values for continuous or ordinal observations.
+ * http://hl7.org/fhir/valueset-observation-range-category.html
+ */
 export type ObservationDefinitionRangeCategory = z.infer<
   typeof observationDefinitionRangeCategorySchema
 >
@@ -40,6 +44,10 @@ export const observationDefinitionPermittedDataTypeSchema = z.enum([
   'Period',
 ])
 
+/**
+ * Permitted data type for observation value.
+ * http://hl7.org/fhir/valueset-permitted-data-type.html
+ */
 export type ObservationDefinitionPermittedDataType = z.infer<
   typeof observationDefinitionPermittedDataTypeSchema
 >

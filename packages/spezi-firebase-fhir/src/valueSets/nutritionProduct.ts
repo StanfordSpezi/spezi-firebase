@@ -18,6 +18,10 @@ export const nutritionProductStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The status of the nutrition product.
+ * http://hl7.org/fhir/valueset-nutrition-product-status.html
+ */
 export type NutritionProductStatus = z.infer<
   typeof nutritionProductStatusSchema
 >

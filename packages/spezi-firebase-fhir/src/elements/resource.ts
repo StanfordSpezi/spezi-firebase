@@ -15,6 +15,9 @@ import {
 } from './dataTypes/primitiveTypes.js'
 import { metaSchema } from './meta.js'
 
+/**
+ * Zod schema for FHIR Resource data type (base type for all FHIR resources).
+ */
 export const resourceSchema = z.object({
   resourceType: stringSchema,
   id: stringSchema.optional(),

@@ -23,7 +23,7 @@ import {
   type CapabilityStatement,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -216,6 +216,9 @@ const capabilityStatementDocumentSchema: ZodType<CapabilityStatementDocument> =
     _profile: elementSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR CapabilityStatement resource (untyped version).
+ */
 export const untypedCapabilityStatementSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('CapabilityStatement').readonly(),
@@ -266,12 +269,25 @@ export const untypedCapabilityStatementSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<CapabilityStatement>
 
+/**
+ * Zod schema for FHIR CapabilityStatement resource.
+ */
 export const capabilityStatementSchema: ZodType<CapabilityStatement> =
   untypedCapabilityStatementSchema
 
+/**
+ * Wrapper class for FHIR CapabilityStatement resources.
+ * Provides utility methods for working with capability statements that describe system capabilities.
+ */
 export class FhirCapabilityStatement extends FhirDomainResource<CapabilityStatement> {
   // Static Functions
 
+  /**
+   * Parses a CapabilityStatement resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the CapabilityStatement schema
+   * @returns A FhirCapabilityStatement instance containing the validated resource
+   */
   public static parse(value: unknown): FhirCapabilityStatement {
     return new FhirCapabilityStatement(capabilityStatementSchema.parse(value))
   }

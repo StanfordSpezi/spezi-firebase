@@ -19,6 +19,10 @@ export const guidePageGenerationSchema = z.enum([
   'generated',
 ])
 
+/**
+ * A code that indicates how the page is generated
+ * http://hl7.org/fhir/valueset-guide-page-generation.html
+ */
 export type GuidePageGeneration = z.infer<typeof guidePageGenerationSchema>
 
 /**
@@ -38,4 +42,8 @@ export const guideParameterCodeSchema = z.enum([
   'html-template',
 ])
 
+/**
+ * Code of parameter that is input to the guide
+ * http://hl7.org/fhir/valueset-guide-parameter-code.html
+ */
 export type GuideParameterCode = z.infer<typeof guideParameterCodeSchema>

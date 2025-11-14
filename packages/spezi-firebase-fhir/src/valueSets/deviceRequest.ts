@@ -22,6 +22,10 @@ export const deviceRequestStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The status of the device request.
+ * http://hl7.org/fhir/valueset-request-status.html
+ */
 export type DeviceRequestStatus = z.infer<typeof deviceRequestStatusSchema>
 
 /**
@@ -40,4 +44,8 @@ export const deviceRequestIntentSchema = z.enum([
   'option',
 ])
 
+/**
+ * The kind of device request.
+ * http://hl7.org/fhir/valueset-request-intent.html
+ */
 export type DeviceRequestIntent = z.infer<typeof deviceRequestIntentSchema>

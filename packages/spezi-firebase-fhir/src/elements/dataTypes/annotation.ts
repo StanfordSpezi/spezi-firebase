@@ -16,6 +16,9 @@ import {
 import { referenceSchema } from './reference.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR Annotation data type.
+ */
 export const annotationSchema: ZodType<Annotation> = z.lazy(() =>
   elementSchema.extend({
     authorReference: referenceSchema.optional(),

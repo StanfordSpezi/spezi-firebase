@@ -17,6 +17,9 @@ import {
 import { quantitySchema } from './quantity.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR SampledData data type.
+ */
 export const sampledDataSchema: ZodType<SampledData> = z.lazy(() =>
   elementSchema.extend({
     origin: quantitySchema,

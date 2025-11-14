@@ -16,6 +16,9 @@ import {
 } from './dataTypes/primitiveTypes.js'
 import { elementSchema } from './element.js'
 
+/**
+ * Zod schema for FHIR Meta data type.
+ */
 export const metaSchema: ZodType<Meta> = z.lazy(() =>
   elementSchema.extend({
     versionId: idSchema.optional(),

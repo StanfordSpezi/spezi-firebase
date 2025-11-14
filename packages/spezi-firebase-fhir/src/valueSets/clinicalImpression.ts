@@ -18,6 +18,10 @@ export const clinicalImpressionStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The workflow state of a clinical impression.
+ * http://hl7.org/fhir/valueset-clinicalimpression-status.html
+ */
 export type ClinicalImpressionStatus = z.infer<
   typeof clinicalImpressionStatusSchema
 >

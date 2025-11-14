@@ -21,4 +21,8 @@ export const priceComponentTypeSchema = z.enum([
   'informational',
 ])
 
+/**
+ * Type of price component for charge items.
+ * http://hl7.org/fhir/valueset-invoice-priceComponentType.html
+ */
 export type PriceComponentType = z.infer<typeof priceComponentTypeSchema>

@@ -16,9 +16,10 @@ import {
   type ExampleScenario,
   type ExampleScenarioProcess,
   type ExampleScenarioProcessStep,
+  type Coding,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -139,6 +140,9 @@ const exampleScenarioInstanceSchema: ZodType<ExampleScenarioInstance> =
     version: exampleScenarioInstanceVersionSchema.array().optional(),
   })
 
+/**
+ * Zod schema for FHIR ExampleScenario resource (untyped version).
+ */
 export const untypedExampleScenarioSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ExampleScenario').readonly(),
@@ -172,13 +176,72 @@ export const untypedExampleScenarioSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<ExampleScenario>
 
+/**
+ * Zod schema for FHIR ExampleScenario resource.
+ */
 export const exampleScenarioSchema: ZodType<ExampleScenario> =
   untypedExampleScenarioSchema
 
+/**
+ * Wrapper class for FHIR ExampleScenario resources.
+ * Provides utility methods for working with example scenarios that demonstrate workflow patterns.
+ */
 export class FhirExampleScenario extends FhirDomainResource<ExampleScenario> {
   // Static Functions
 
+  /**
+   * Parses an ExampleScenario resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the ExampleScenario schema
+   * @returns A FhirExampleScenario instance containing the validated resource
+   */
   public static parse(value: unknown): FhirExampleScenario {
     return new FhirExampleScenario(exampleScenarioSchema.parse(value))
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

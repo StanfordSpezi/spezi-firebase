@@ -30,4 +30,8 @@ export const requestResourceTypeSchema = z.enum([
   'VisionPrescription',
 ])
 
+/**
+ * A list of all the request resource types defined in this version of the FHIR specification.
+ * http://hl7.org/fhir/valueset-request-resource-types
+ */
 export type RequestResourceType = z.infer<typeof requestResourceTypeSchema>

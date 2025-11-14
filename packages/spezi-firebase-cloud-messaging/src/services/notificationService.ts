@@ -14,6 +14,9 @@ import { type Device } from '../models/device.js'
 import { type Message } from '../models/message.js'
 import { type Document } from '../storage/deviceStorage.js'
 
+/**
+ * Service interface for managing device notifications
+ */
 export interface NotificationService {
   /**
    * Register a device for notifications
@@ -38,7 +41,11 @@ export interface NotificationService {
    * Send a notification to a user
    * @param userId The user ID
    * @param notification The notification content
+   * @param notification.title Localized titles
+   * @param notification.body Localized body text
+   * @param notification.data Optional custom data
    * @param options Additional options for the notification
+   * @param options.language Preferred language for the notification
    */
   sendNotification(
     userId: string,
@@ -57,6 +64,7 @@ export interface NotificationService {
    * @param userId The user ID to send to
    * @param message The message to send
    * @param options Additional options
+   * @param options.language Preferred language for the notification
    */
   sendMessageNotification(
     userId: string,

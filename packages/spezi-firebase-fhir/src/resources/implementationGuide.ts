@@ -21,7 +21,7 @@ import {
   type ImplementationGuideManifestResource,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -158,6 +158,9 @@ const implementationGuideManifestSchema: ZodType<ImplementationGuideManifest> =
     _other: elementSchema.array().optional(),
   })
 
+/**
+ * Zod schema for FHIR ImplementationGuide resource (untyped version).
+ */
 export const untypedImplementationGuideSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ImplementationGuide').readonly(),
@@ -197,12 +200,25 @@ export const untypedImplementationGuideSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<ImplementationGuide>
 
+/**
+ * Zod schema for FHIR ImplementationGuide resource.
+ */
 export const implementationGuideSchema: ZodType<ImplementationGuide> =
   untypedImplementationGuideSchema
 
+/**
+ * Wrapper class for FHIR ImplementationGuide resources.
+ * Provides utility methods for working with implementation guides that define FHIR specifications.
+ */
 export class FhirImplementationGuide extends FhirDomainResource<ImplementationGuide> {
   // Static Functions
 
+  /**
+   * Parses an ImplementationGuide resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the ImplementationGuide schema
+   * @returns A FhirImplementationGuide instance containing the validated resource
+   */
   public static parse(value: unknown): FhirImplementationGuide {
     return new FhirImplementationGuide(implementationGuideSchema.parse(value))
   }

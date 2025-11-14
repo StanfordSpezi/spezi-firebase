@@ -20,6 +20,10 @@ export const biologicallyDerivedProductCategorySchema = z.enum([
   'biologicalAgent',
 ])
 
+/**
+ * Broad category of biologically derived product.
+ * http://hl7.org/fhir/valueset-product-category.html
+ */
 export type BiologicallyDerivedProductCategory = z.infer<
   typeof biologicallyDerivedProductCategorySchema
 >
@@ -33,6 +37,10 @@ export const biologicallyDerivedProductStatusSchema = z.enum([
   'unavailable',
 ])
 
+/**
+ * Status of biologically derived product.
+ * http://hl7.org/fhir/valueset-product-status.html
+ */
 export type BiologicallyDerivedProductStatus = z.infer<
   typeof biologicallyDerivedProductStatusSchema
 >
@@ -47,6 +55,10 @@ export const biologicallyDerivedProductStorageScaleSchema = z.enum([
   'kelvin',
 ])
 
+/**
+ * Temperature scale used for storage.
+ * http://hl7.org/fhir/valueset-product-storage-scale.html
+ */
 export type BiologicallyDerivedProductStorageScale = z.infer<
   typeof biologicallyDerivedProductStorageScaleSchema
 >

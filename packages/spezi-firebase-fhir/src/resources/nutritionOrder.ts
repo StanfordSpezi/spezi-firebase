@@ -16,7 +16,7 @@ import {
   type NutritionOrderSupplement,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -98,6 +98,9 @@ const nutritionOrderEnteralFormulaSchema: ZodType<NutritionOrderEnteralFormula> 
     routeofAdministration: codeableConceptSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR NutritionOrder resource (untyped version).
+ */
 export const untypedNutritionOrderSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('NutritionOrder').readonly(),
@@ -127,13 +130,33 @@ export const untypedNutritionOrderSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<NutritionOrder>
 
+/**
+ * Zod schema for FHIR NutritionOrder resource.
+ */
 export const nutritionOrderSchema: ZodType<NutritionOrder> =
   untypedNutritionOrderSchema
 
+/**
+ * Wrapper class for FHIR NutritionOrder resources.
+ * Provides utility methods for working with nutrition orders and dietary requests.
+ */
 export class FhirNutritionOrder extends FhirDomainResource<NutritionOrder> {
-  // Static Functions
-
+  /**
+   * Parses a NutritionOrder resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the NutritionOrder schema
+   * @returns A FhirNutritionOrder instance containing the validated resource
+   */
   public static parse(value: unknown): FhirNutritionOrder {
     return new FhirNutritionOrder(nutritionOrderSchema.parse(value))
+  }
+
+  /**
+   * Get the date/time the order was made.
+   *
+   * @returns The dateTime the order was made, or undefined if not set
+   */
+  public get dateTime(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.dateTime)
   }
 }

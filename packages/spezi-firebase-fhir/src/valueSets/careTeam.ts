@@ -20,4 +20,8 @@ export const careTeamStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * Indicates the status of the care team.
+ * http://hl7.org/fhir/valueset-care-team-status.html
+ */
 export type CareTeamStatus = z.infer<typeof careTeamStatusSchema>

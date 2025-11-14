@@ -22,4 +22,8 @@ export const episodeOfCareStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The status of an episode of care.
+ * http://hl7.org/fhir/valueset-episode-of-care-status.html
+ */
 export type EpisodeOfCareStatus = z.infer<typeof episodeOfCareStatusSchema>

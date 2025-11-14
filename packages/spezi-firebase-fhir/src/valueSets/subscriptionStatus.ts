@@ -8,6 +8,10 @@
 
 import { z } from 'zod'
 
+/**
+ * Zod schema for FHIR SubscriptionStatusStatus value set.
+ * The status of a subscription notification.
+ */
 export const subscriptionStatusStatusSchema = z.enum([
   'requested',
   'active',
@@ -15,6 +19,17 @@ export const subscriptionStatusStatusSchema = z.enum([
   'off',
 ])
 
+/**
+ * TypeScript type for FHIR SubscriptionStatusStatus value set.
+ */
+export type SubscriptionStatusStatus = z.infer<
+  typeof subscriptionStatusStatusSchema
+>
+
+/**
+ * Zod schema for FHIR SubscriptionStatusType value set.
+ * The type of notification being sent in a subscription status.
+ */
 export const subscriptionStatusTypeSchema = z.enum([
   'handshake',
   'heartbeat',
@@ -22,3 +37,10 @@ export const subscriptionStatusTypeSchema = z.enum([
   'query-status',
   'query-event',
 ])
+
+/**
+ * TypeScript type for FHIR SubscriptionStatusType value set.
+ */
+export type SubscriptionStatusType = z.infer<
+  typeof subscriptionStatusTypeSchema
+>

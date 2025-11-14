@@ -22,4 +22,8 @@ export const supplyRequestStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * Status of the supply request
+ * http://hl7.org/fhir/valueset-supplyrequest-status.html
+ */
 export type SupplyRequestStatus = z.infer<typeof supplyRequestStatusSchema>

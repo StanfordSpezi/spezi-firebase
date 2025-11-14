@@ -17,6 +17,10 @@ export const immunizationEvaluationStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The status of the immunization evaluation.
+ * http://hl7.org/fhir/valueset-immunization-evaluation-status.html
+ */
 export type ImmunizationEvaluationStatus = z.infer<
   typeof immunizationEvaluationStatusSchema
 >

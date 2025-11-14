@@ -15,6 +15,9 @@ import { rangeSchema } from '../dataTypes/range.js'
 import { referenceSchema } from '../dataTypes/reference.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR UsageContext data type.
+ */
 export const usageContextSchema: ZodType<UsageContext> = z.lazy(() =>
   elementSchema.extend({
     code: codingSchema,

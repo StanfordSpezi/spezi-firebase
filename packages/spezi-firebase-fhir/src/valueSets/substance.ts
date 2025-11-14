@@ -18,4 +18,8 @@ export const substanceStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * A coded concept defining if the substance is active or inactive.
+ * http://hl7.org/fhir/valueset-substance-status.html
+ */
 export type SubstanceStatus = z.infer<typeof substanceStatusSchema>

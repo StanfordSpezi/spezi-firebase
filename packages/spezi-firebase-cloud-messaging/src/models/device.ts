@@ -27,6 +27,9 @@ export const DevicePlatform = {
   Linux: 'Linux',
 } as const
 
+/**
+ * Schema converter for Device objects, providing validation and encoding
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const deviceConverter = new SchemaConverter<Device, any>({
   schema: z
@@ -56,6 +59,9 @@ export const deviceConverter = new SchemaConverter<Device, any>({
   }),
 })
 
+/**
+ * Represents a device registered for push notifications
+ */
 export class Device {
   // Properties
   readonly notificationToken: string
@@ -66,6 +72,17 @@ export class Device {
   readonly language?: string
   readonly timeZone?: string
 
+  /**
+   * Creates a new Device instance
+   * @param input Device properties
+   * @param input.notificationToken The notification token for push notifications
+   * @param input.platform The device platform (e.g., iOS, Android)
+   * @param input.osVersion The operating system version
+   * @param input.appVersion The application version
+   * @param input.appBuild The application build number
+   * @param input.language The preferred language code
+   * @param input.timeZone The device time zone
+   */
   // Constructor
   constructor(input: {
     notificationToken: string

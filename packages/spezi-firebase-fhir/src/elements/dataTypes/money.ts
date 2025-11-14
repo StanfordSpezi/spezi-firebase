@@ -11,6 +11,9 @@ import { z, type ZodType } from 'zod'
 import { codeSchema, decimalSchema } from './primitiveTypes.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR Money data type.
+ */
 export const moneySchema: ZodType<Money> = z.lazy(() =>
   elementSchema.extend({
     value: decimalSchema.optional(),

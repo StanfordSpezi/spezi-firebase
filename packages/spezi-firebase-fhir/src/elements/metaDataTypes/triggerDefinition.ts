@@ -31,6 +31,9 @@ const triggerDefinitionTypeSchema = z.enum([
   'data-access-ended',
 ])
 
+/**
+ * Zod schema for FHIR TriggerDefinition data type.
+ */
 export const triggerDefinitionSchema: ZodType<TriggerDefinition> = z.lazy(() =>
   elementSchema.extend({
     type: triggerDefinitionTypeSchema,

@@ -19,6 +19,9 @@ const contributorTypeSchema = z.enum([
   'endorser',
 ])
 
+/**
+ * Zod schema for FHIR Contributor data type.
+ */
 export const contributorSchema: ZodType<Contributor> = z.lazy(() =>
   elementSchema.extend({
     type: contributorTypeSchema,

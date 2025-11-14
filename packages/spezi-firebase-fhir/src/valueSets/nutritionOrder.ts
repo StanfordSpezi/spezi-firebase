@@ -22,6 +22,10 @@ export const nutritionOrderStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The workflow status of the nutrition order/request.
+ * http://hl7.org/fhir/valueset-request-status.html
+ */
 export type NutritionOrderStatus = z.infer<typeof nutritionOrderStatusSchema>
 
 /**
@@ -40,4 +44,8 @@ export const nutritionOrderIntentSchema = z.enum([
   'option',
 ])
 
+/**
+ * Indicates the level of authority/intentionality associated with the nutrition order.
+ * http://hl7.org/fhir/valueset-request-intent.html
+ */
 export type NutritionOrderIntent = z.infer<typeof nutritionOrderIntentSchema>

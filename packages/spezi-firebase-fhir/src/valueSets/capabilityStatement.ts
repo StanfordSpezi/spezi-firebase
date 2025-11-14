@@ -18,6 +18,10 @@ export const capabilityStatementKindSchema = z.enum([
   'requirements',
 ])
 
+/**
+ * The type of CapabilityStatement
+ * http://hl7.org/fhir/valueset-capability-statement-kind.html
+ */
 export type CapabilityStatementKind = z.infer<
   typeof capabilityStatementKindSchema
 >
@@ -28,6 +32,10 @@ export type CapabilityStatementKind = z.infer<
  */
 export const restfulCapabilityModeSchema = z.enum(['client', 'server'])
 
+/**
+ * The mode of a RESTful capability statement
+ * http://hl7.org/fhir/valueset-restful-capability-mode.html
+ */
 export type RestfulCapabilityMode = z.infer<typeof restfulCapabilityModeSchema>
 
 /**
@@ -36,6 +44,10 @@ export type RestfulCapabilityMode = z.infer<typeof restfulCapabilityModeSchema>
  */
 export const documentModeSchema = z.enum(['producer', 'consumer'])
 
+/**
+ * Whether the application produces or consumes documents
+ * http://hl7.org/fhir/valueset-document-mode.html
+ */
 export type DocumentMode = z.infer<typeof documentModeSchema>
 
 /**
@@ -44,6 +56,10 @@ export type DocumentMode = z.infer<typeof documentModeSchema>
  */
 export const eventCapabilityModeSchema = z.enum(['sender', 'receiver'])
 
+/**
+ * The mode of a message capability statement
+ * http://hl7.org/fhir/valueset-event-capability-mode.html
+ */
 export type EventCapabilityMode = z.infer<typeof eventCapabilityModeSchema>
 
 /**
@@ -57,6 +73,10 @@ export const systemRestfulInteractionSchema = z.enum([
   'history-system',
 ])
 
+/**
+ * Operations supported by REST at the system level
+ * http://hl7.org/fhir/valueset-system-restful-interaction.html
+ */
 export type SystemRestfulInteraction = z.infer<
   typeof systemRestfulInteractionSchema
 >
@@ -71,6 +91,10 @@ export const resourceVersionPolicySchema = z.enum([
   'versioned-update',
 ])
 
+/**
+ * How the system supports versioning for a resource
+ * http://hl7.org/fhir/valueset-versioning-policy.html
+ */
 export type ResourceVersionPolicy = z.infer<typeof resourceVersionPolicySchema>
 
 /**
@@ -84,6 +108,10 @@ export const conditionalReadStatusSchema = z.enum([
   'full-support',
 ])
 
+/**
+ * Code that indicates how the server supports conditional read
+ * http://hl7.org/fhir/valueset-conditional-read-status.html
+ */
 export type ConditionalReadStatus = z.infer<typeof conditionalReadStatusSchema>
 
 /**
@@ -96,6 +124,10 @@ export const conditionalDeleteStatusSchema = z.enum([
   'multiple',
 ])
 
+/**
+ * Code that indicates how the server supports conditional delete
+ * http://hl7.org/fhir/valueset-conditional-delete-status.html
+ */
 export type ConditionalDeleteStatus = z.infer<
   typeof conditionalDeleteStatusSchema
 >
@@ -116,6 +148,10 @@ export const typeRestfulInteractionSchema = z.enum([
   'search-type',
 ])
 
+/**
+ * Operations supported by REST at the resource instance level
+ * http://hl7.org/fhir/valueset-type-restful-interaction.html
+ */
 export type TypeRestfulInteraction = z.infer<
   typeof typeRestfulInteractionSchema
 >
@@ -132,4 +168,8 @@ export const referencePolicySchema = z.enum([
   'local',
 ])
 
+/**
+ * How aggregated references are handled when matching
+ * http://hl7.org/fhir/valueset-reference-handling-policy.html
+ */
 export type ReferencePolicy = z.infer<typeof referencePolicySchema>

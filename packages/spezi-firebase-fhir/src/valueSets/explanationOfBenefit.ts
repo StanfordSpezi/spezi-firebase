@@ -8,8 +8,19 @@
 
 import { z } from 'zod'
 
-export const eobUseSchema = z.enum([
+/**
+ * Zod schema for FHIR ExplanationOfBenefitUse value set.
+ * Indicates whether the claim is for costs already incurred or a preauthorization/predetermination.
+ */
+export const explanationOfBenefitUseSchema = z.enum([
   'claim',
   'preauthorization',
   'predetermination',
 ])
+
+/**
+ * TypeScript type for FHIR ExplanationOfBenefitUse value set.
+ */
+export type ExplanationOfBenefitUse = z.infer<
+  typeof explanationOfBenefitUseSchema
+>

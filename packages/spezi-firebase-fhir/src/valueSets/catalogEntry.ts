@@ -19,6 +19,10 @@ export const catalogEntryStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The workflow/clinical status of the catalog entry.
+ * http://hl7.org/fhir/valueset-publication-status.html
+ */
 export type CatalogEntryStatus = z.infer<typeof catalogEntryStatusSchema>
 
 /**
@@ -30,6 +34,10 @@ export const catalogEntryRelationtypeSchema = z.enum([
   'is-replaced-by',
 ])
 
+/**
+ * The type of relation between catalog entries.
+ * http://hl7.org/fhir/valueset-relation-type.html
+ */
 export type CatalogEntryRelationtype = z.infer<
   typeof catalogEntryRelationtypeSchema
 >

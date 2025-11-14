@@ -21,6 +21,10 @@ export const deviceNameTypeSchema = z.enum([
   'other',
 ])
 
+/**
+ * The type of name the device is referred by.
+ * http://hl7.org/fhir/valueset-device-nametype.html
+ */
 export type DeviceNameType = z.infer<typeof deviceNameTypeSchema>
 
 /**
@@ -33,4 +37,8 @@ export const deviceStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The availability status of the device.
+ * http://hl7.org/fhir/valueset-device-status.html
+ */
 export type DeviceStatus = z.infer<typeof deviceStatusSchema>

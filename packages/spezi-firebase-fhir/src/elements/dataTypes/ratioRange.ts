@@ -11,6 +11,9 @@ import { z, type ZodType } from 'zod'
 import { quantitySchema } from './quantity.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR RatioRange data type.
+ */
 export const ratioRangeSchema: ZodType<RatioRange> = z.lazy(() =>
   elementSchema.extend({
     lowNumerator: quantitySchema.optional(),

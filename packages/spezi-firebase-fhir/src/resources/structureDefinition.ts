@@ -21,9 +21,10 @@ import {
   type StructureDefinitionMapping,
   type StructureDefinitionSnapshot,
   type StructureDefinition,
+  type Coding,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   addressSchema,
   annotationSchema,
@@ -467,6 +468,9 @@ const structureDefinitionDifferentialSchema: ZodType<StructureDefinitionDifferen
     element: elementDefinitionSchema.array(),
   })
 
+/**
+ * Zod schema for FHIR StructureDefinition resource (untyped version).
+ */
 export const untypedStructureDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('StructureDefinition').readonly(),
@@ -518,13 +522,72 @@ export const untypedStructureDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<StructureDefinition>
 
+/**
+ * Zod schema for FHIR StructureDefinition resource.
+ */
 export const structureDefinitionSchema: ZodType<StructureDefinition> =
   untypedStructureDefinitionSchema
 
+/**
+ * Wrapper class for FHIR StructureDefinition resources.
+ * Provides utility methods for working with structure definitions that define the structure and constraints of FHIR resources, data types, and extensions.
+ */
 export class FhirStructureDefinition extends FhirDomainResource<StructureDefinition> {
   // Static Functions
 
+  /**
+   * Parses a StructureDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the StructureDefinition schema
+   * @returns A FhirStructureDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirStructureDefinition {
     return new FhirStructureDefinition(structureDefinitionSchema.parse(value))
+  }
+
+  /**
+   * Retrieves all identifier values matching any of the specified system URIs.
+   *
+   * @param system - One or more system URIs to filter identifiers by
+   * @returns Array of identifier values from matching systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Retrieves the first identifier value matching any of the specified system URIs.
+   *
+   * @param system - One or more system URIs to filter identifiers by
+   * @returns The first matching identifier value, or undefined if none found
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Retrieves all identifier values matching any of the specified type codings.
+   *
+   * @param type - One or more Coding objects representing identifier types
+   * @returns Array of identifier values from matching types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Retrieves the first identifier value matching any of the specified type codings.
+   *
+   * @param type - One or more Coding objects representing identifier types
+   * @returns The first matching identifier value, or undefined if none found
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

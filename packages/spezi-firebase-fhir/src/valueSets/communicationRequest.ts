@@ -22,6 +22,10 @@ export const communicationRequestStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The status of the communication request.
+ * http://hl7.org/fhir/valueset-request-status.html
+ */
 export type CommunicationRequestStatus = z.infer<
   typeof communicationRequestStatusSchema
 >

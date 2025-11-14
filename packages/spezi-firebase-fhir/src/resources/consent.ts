@@ -13,9 +13,10 @@ import {
   type ConsentProvisionData,
   type ConsentVerification,
   type Consent,
+  type Coding,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -85,6 +86,9 @@ const consentProvisionSchema: ZodType<ConsentProvision> =
     },
   })
 
+/**
+ * Zod schema for FHIR Consent resource (untyped version).
+ */
 export const untypedConsentSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Consent').readonly(),
@@ -107,12 +111,96 @@ export const untypedConsentSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Consent>
 
+/**
+ * Zod schema for FHIR Consent resource.
+ */
 export const consentSchema: ZodType<Consent> = untypedConsentSchema
 
+/**
+ * Wrapper class for FHIR Consent resources.
+ * Provides utility methods for working with patient consent records.
+ */
 export class FhirConsent extends FhirDomainResource<Consent> {
-  // Static Functions
-
+  /**
+   * Parses a Consent resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the Consent schema
+   * @returns A FhirConsent instance containing the validated resource
+   */
   public static parse(value: unknown): FhirConsent {
     return new FhirConsent(consentSchema.parse(value))
+  }
+
+  /**
+   * Gets the date/time when consent was agreed to as a JavaScript Date object.
+   *
+   * @returns The consent date/time, if available
+   */
+  public get dateTime(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.dateTime)
+  }
+
+  /**
+   * Gets the scope of the consent as display text.
+   *
+   * @returns The scope display text, if available
+   */
+  public get scopeDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.scope)
+  }
+
+  /**
+   * Gets human-readable display strings for all consent category CodeableConcepts.
+   *
+   * @returns Array of category display texts
+   */
+  public get categoryDisplays(): string[] {
+    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+  }
+
+  /**
+   * Gets all identifier values whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns Array of identifier values matching any provided system
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns Array of identifier values matching any provided Coding
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

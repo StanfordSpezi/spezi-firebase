@@ -7,13 +7,14 @@
 //
 
 import {
+  type Coding,
   type DocumentReference,
   type DocumentReferenceContent,
   type DocumentReferenceContext,
   type DocumentReferenceRelatesTo,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -57,6 +58,9 @@ const documentReferenceContextSchema: ZodType<DocumentReferenceContext> =
     related: referenceSchema.array().optional(),
   })
 
+/**
+ * Zod schema for FHIR DocumentReference resource (untyped version).
+ */
 export const untypedDocumentReferenceSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('DocumentReference').readonly(),
@@ -83,13 +87,101 @@ export const untypedDocumentReferenceSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<DocumentReference>
 
+/**
+ * Zod schema for FHIR DocumentReference resource.
+ */
 export const documentReferenceSchema: ZodType<DocumentReference> =
   untypedDocumentReferenceSchema
 
+/**
+ * Wrapper class for FHIR DocumentReference resources.
+ * Provides utility methods for working with document references.
+ */
 export class FhirDocumentReference extends FhirDomainResource<DocumentReference> {
   // Static Functions
 
+  /**
+   * Parses a DocumentReference resource from unknown data.
+   *
+   * @param value - The data to parse
+   * @returns A FhirDocumentReference instance
+   */
   public static parse(value: unknown): FhirDocumentReference {
     return new FhirDocumentReference(documentReferenceSchema.parse(value))
+  }
+
+  // Properties
+
+  /**
+   * Gets the date as a JavaScript Date object.
+   *
+   * @returns The date if available
+   */
+  public get date(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.date)
+  }
+
+  /**
+   * Gets the type display text.
+   *
+   * @returns The type display
+   */
+  public get typeDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+  }
+
+  /**
+   * Gets all category displays.
+   *
+   * @returns Array of category display texts
+   */
+  public get categoryDisplays(): string[] {
+    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+  }
+
+  /**
+   * Gets all identifier values whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns Array of identifier values matching any provided system
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns Array of identifier values matching any provided type
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

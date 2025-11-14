@@ -12,6 +12,9 @@ import { codeableConceptSchema } from './codeableConcept.js'
 import { referenceSchema } from './reference.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR CodeableReference data type.
+ */
 export const codeableReferenceSchema: ZodType<CodeableReference> = z.lazy(() =>
   elementSchema.extend({
     concept: codeableConceptSchema.optional(),

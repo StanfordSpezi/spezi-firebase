@@ -11,6 +11,9 @@ import { z, type ZodType } from 'zod'
 import { quantitySchema } from './quantity.js'
 import { elementSchema } from '../element.js'
 
+/**
+ * Zod schema for FHIR Range data type.
+ */
 export const rangeSchema: ZodType<Range> = z.lazy(() =>
   elementSchema.extend({
     low: quantitySchema.optional(),

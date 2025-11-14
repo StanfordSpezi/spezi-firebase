@@ -20,4 +20,8 @@ export const provenanceEntityRoleSchema = z.enum([
   'removal',
 ])
 
+/**
+ * How an entity was used in an activity.
+ * http://hl7.org/fhir/valueset-provenance-entity-role.html
+ */
 export type ProvenanceEntityRole = z.infer<typeof provenanceEntityRoleSchema>

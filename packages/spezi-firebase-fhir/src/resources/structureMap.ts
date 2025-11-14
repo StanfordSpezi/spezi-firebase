@@ -18,7 +18,7 @@ import {
   type StructureMapGroupRule,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   base64BinarySchema,
@@ -120,6 +120,7 @@ const structureMapGroupRuleTargetParameterSchema: ZodType<StructureMapGroupRuleT
     valueInteger: intSchema.optional(),
     valueDecimal: decimalSchema.optional(),
   })
+
 const structureMapGroupRuleTargetSchema: ZodType<StructureMapGroupRuleTarget> =
   backboneElementSchema.extend({
     context: stringSchema.optional(),
@@ -199,6 +200,9 @@ const structureMapGroupSchema: ZodType<StructureMapGroup> =
     rule: structureMapGroupRuleSchema.array(),
   })
 
+/**
+ * Zod schema for FHIR StructureMap resource (untyped version).
+ */
 export const untypedStructureMapSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('StructureMap').readonly(),
@@ -235,12 +239,25 @@ export const untypedStructureMapSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<StructureMap>
 
+/**
+ * Zod schema for FHIR StructureMap resource.
+ */
 export const structureMapSchema: ZodType<StructureMap> =
   untypedStructureMapSchema
 
+/**
+ * Wrapper class for FHIR StructureMap resources.
+ * Provides utility methods for working with structure maps that define transformations between data structures.
+ */
 export class FhirStructureMap extends FhirDomainResource<StructureMap> {
   // Static Functions
 
+  /**
+   * Parses a StructureMap resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the StructureMap schema
+   * @returns A FhirStructureMap instance containing the validated resource
+   */
   public static parse(value: unknown): FhirStructureMap {
     return new FhirStructureMap(structureMapSchema.parse(value))
   }

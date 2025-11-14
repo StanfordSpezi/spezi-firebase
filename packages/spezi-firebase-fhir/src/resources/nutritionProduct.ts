@@ -14,7 +14,7 @@ import {
   type NutritionProductProductCharacteristic,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   attachmentSchema,
@@ -72,6 +72,9 @@ const nutritionProductInstanceSchema: ZodType<NutritionProductInstance> =
     _useBy: elementSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR NutritionProduct resource (untyped version).
+ */
 export const untypedNutritionProductSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('NutritionProduct').readonly(),
@@ -91,12 +94,25 @@ export const untypedNutritionProductSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<NutritionProduct>
 
+/**
+ * Zod schema for FHIR NutritionProduct resource.
+ */
 export const nutritionProductSchema: ZodType<NutritionProduct> =
   untypedNutritionProductSchema
 
+/**
+ * Wrapper class for FHIR NutritionProduct resources.
+ * Provides utility methods for working with nutrition products and dietary supplements.
+ */
 export class FhirNutritionProduct extends FhirDomainResource<NutritionProduct> {
   // Static Functions
 
+  /**
+   * Parses a NutritionProduct resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the NutritionProduct schema
+   * @returns A FhirNutritionProduct instance containing the validated resource
+   */
   public static parse(value: unknown): FhirNutritionProduct {
     return new FhirNutritionProduct(nutritionProductSchema.parse(value))
   }

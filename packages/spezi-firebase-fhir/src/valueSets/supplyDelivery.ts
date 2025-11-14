@@ -19,4 +19,8 @@ export const supplyDeliveryStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * Status of the supply delivery
+ * http://hl7.org/fhir/valueset-supplydelivery-status.html
+ */
 export type SupplyDeliveryStatus = z.infer<typeof supplyDeliveryStatusSchema>

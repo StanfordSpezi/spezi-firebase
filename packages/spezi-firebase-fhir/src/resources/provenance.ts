@@ -12,7 +12,7 @@ import {
   type Provenance,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -43,6 +43,9 @@ const provenanceEntitySchema: ZodType<ProvenanceEntity> =
     agent: provenanceAgentSchema.array().optional(),
   })
 
+/**
+ * Zod schema for FHIR Provenance resource (untyped version).
+ */
 export const untypedProvenanceSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Provenance').readonly(),
@@ -63,12 +66,41 @@ export const untypedProvenanceSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Provenance>
 
+/**
+ * Zod schema for FHIR Provenance resource.
+ */
 export const provenanceSchema: ZodType<Provenance> = untypedProvenanceSchema
 
+/**
+ * Wrapper class for FHIR Provenance resources.
+ * Provides utility methods for working with provenance and audit trail information.
+ */
 export class FhirProvenance extends FhirDomainResource<Provenance> {
-  // Static Functions
-
+  /**
+   * Parses a Provenance resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the Provenance schema
+   * @returns A FhirProvenance instance containing the validated resource
+   */
   public static parse(value: unknown): FhirProvenance {
     return new FhirProvenance(provenanceSchema.parse(value))
+  }
+
+  /**
+   * Get the date/time the activity occurred.
+   *
+   * @returns The recorded date/time, or undefined if not set
+   */
+  public get recordedDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.recorded)
+  }
+
+  /**
+   * Get the date/time of the activity.
+   *
+   * @returns The occurred date/time, or undefined if not set
+   */
+  public get occurredDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.occurredDateTime)
   }
 }

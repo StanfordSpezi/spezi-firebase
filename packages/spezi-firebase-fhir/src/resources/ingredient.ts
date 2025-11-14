@@ -14,7 +14,7 @@ import {
   type IngredientSubstanceStrengthReferenceStrength,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -74,6 +74,9 @@ const ingredientManufacturerSchema: ZodType<IngredientManufacturer> =
     _role: elementSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR Ingredient resource (untyped version).
+ */
 export const untypedIngredientSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Ingredient').readonly(),
@@ -90,11 +93,24 @@ export const untypedIngredientSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Ingredient>
 
+/**
+ * Zod schema for FHIR Ingredient resource.
+ */
 export const ingredientSchema: ZodType<Ingredient> = untypedIngredientSchema
 
+/**
+ * Wrapper class for FHIR Ingredient resources.
+ * Provides utility methods for working with medication and product ingredients.
+ */
 export class FhirIngredient extends FhirDomainResource<Ingredient> {
   // Static Functions
 
+  /**
+   * Parses an Ingredient resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the Ingredient schema
+   * @returns A FhirIngredient instance containing the validated resource
+   */
   public static parse(value: unknown): FhirIngredient {
     return new FhirIngredient(ingredientSchema.parse(value))
   }

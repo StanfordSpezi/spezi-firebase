@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type CoverageEligibilityResponse } from 'fhir/r4b.js'
+import { type Coding, type CoverageEligibilityResponse } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   identifierSchema,
@@ -29,6 +29,9 @@ import {
   eligibilityResponsePurposeSchema,
 } from '../valueSets/index.js'
 
+/**
+ * Zod schema for FHIR CoverageEligibilityResponse resource (untyped version).
+ */
 export const untypedCoverageEligibilityResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('CoverageEligibilityResponse').readonly(),
@@ -108,15 +111,74 @@ export const untypedCoverageEligibilityResponseSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<CoverageEligibilityResponse>
 
+/**
+ * Zod schema for FHIR CoverageEligibilityResponse resource.
+ */
 export const coverageEligibilityResponseSchema: ZodType<CoverageEligibilityResponse> =
   untypedCoverageEligibilityResponseSchema
 
+/**
+ * Wrapper class for FHIR CoverageEligibilityResponse resources.
+ * Provides utility methods for working with insurance coverage eligibility responses.
+ */
 export class FhirCoverageEligibilityResponse extends FhirDomainResource<CoverageEligibilityResponse> {
   // Static Functions
 
+  /**
+   * Parses a CoverageEligibilityResponse resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the CoverageEligibilityResponse schema
+   * @returns A FhirCoverageEligibilityResponse instance containing the validated resource
+   */
   public static parse(value: unknown): FhirCoverageEligibilityResponse {
     return new FhirCoverageEligibilityResponse(
       coverageEligibilityResponseSchema.parse(value),
     )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

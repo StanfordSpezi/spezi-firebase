@@ -19,6 +19,10 @@ export const ingredientStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * Allows filtering of ingredient that are appropriate for use versus not.
+ * http://hl7.org/fhir/valueset-publication-status.html
+ */
 export type IngredientStatus = z.infer<typeof ingredientStatusSchema>
 
 /**
@@ -31,6 +35,10 @@ export const ingredientManufacturerRoleSchema = z.enum([
   'actual',
 ])
 
+/**
+ * The way in which a manufacturer is associated with the ingredient.
+ * http://hl7.org/fhir/valueset-ingredient-manufacturer-role.html
+ */
 export type IngredientManufacturerRole = z.infer<
   typeof ingredientManufacturerRoleSchema
 >

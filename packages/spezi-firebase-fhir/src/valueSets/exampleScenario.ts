@@ -8,4 +8,15 @@
 
 import { z } from 'zod'
 
+/**
+ * Zod schema for FHIR ExampleScenarioActorType value set.
+ * The type of actor in an example scenario.
+ */
 export const exampleScenarioActorTypeSchema = z.enum(['person', 'entity'])
+
+/**
+ * TypeScript type for FHIR ExampleScenarioActorType value set.
+ */
+export type ExampleScenarioActorType = z.infer<
+  typeof exampleScenarioActorTypeSchema
+>

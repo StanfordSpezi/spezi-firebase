@@ -18,9 +18,10 @@ import {
   type ClaimRelated,
   type ClaimSupportingInfo,
   type Claim,
+  type Coding,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   identifierSchema,
@@ -171,6 +172,9 @@ const claimItemSchema: ZodType<ClaimItem> = backboneElementSchema.extend({
   detail: claimItemDetailSchema.array().optional(),
 })
 
+/**
+ * Zod schema for FHIR Claim resource (untyped version).
+ */
 export const untypedClaimSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Claim').readonly(),
@@ -207,12 +211,101 @@ export const untypedClaimSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Claim>
 
+/**
+ * Zod schema for FHIR Claim resource.
+ */
 export const claimSchema: ZodType<Claim> = untypedClaimSchema
 
+/**
+ * Wrapper class for FHIR Claim resources.
+ * Provides utility methods for working with billing claims.
+ */
 export class FhirClaim extends FhirDomainResource<Claim> {
   // Static Functions
 
+  /**
+   * Parses a Claim resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the Claim schema
+   * @returns A FhirClaim instance containing the validated resource
+   */
   public static parse(value: unknown): FhirClaim {
     return new FhirClaim(claimSchema.parse(value))
+  }
+
+  /**
+   * Gets the created date as a JavaScript Date object.
+   *
+   * @returns The created date if available, undefined otherwise
+   *
+   * @example
+   * ```typescript
+   * const created = claim.createdDate
+   * console.log(`Claim created: ${created?.toLocaleDateString()}`)
+   * ```
+   */
+  public get createdDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.created)
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the claim type display text.
+   *
+   * @returns The type display text, or undefined if not available
+   *
+   * @example
+   * ```typescript
+   * const type = claim.typeDisplay
+   * console.log(`Claim type: ${type}`)
+   * ```
+   */
+  public get typeDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.type)
   }
 }

@@ -6,9 +6,13 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ChargeItemPerformer, type ChargeItem } from 'fhir/r4b.js'
+import {
+  type ChargeItemPerformer,
+  type ChargeItem,
+  type Coding,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   identifierSchema,
@@ -35,6 +39,9 @@ const chargeItemPerformerSchema: ZodType<ChargeItemPerformer> =
     actor: referenceSchema,
   })
 
+/**
+ * Zod schema for FHIR ChargeItem resource (untyped version).
+ */
 export const untypedChargeItemSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ChargeItem').readonly(),
@@ -76,12 +83,71 @@ export const untypedChargeItemSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<ChargeItem>
 
+/**
+ * Zod schema for FHIR ChargeItem resource.
+ */
 export const chargeItemSchema: ZodType<ChargeItem> = untypedChargeItemSchema
 
+/**
+ * Wrapper class for FHIR ChargeItem resources.
+ * Provides utility methods for working with billing/charge items.
+ */
 export class FhirChargeItem extends FhirDomainResource<ChargeItem> {
   // Static Functions
 
+  /**
+   * Parses a ChargeItem resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the ChargeItem schema
+   * @returns A FhirChargeItem instance containing the validated resource
+   */
   public static parse(value: unknown): FhirChargeItem {
     return new FhirChargeItem(chargeItemSchema.parse(value))
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

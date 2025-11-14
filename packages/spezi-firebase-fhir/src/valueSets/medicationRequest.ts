@@ -22,6 +22,10 @@ export const medicationRequestStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The status of a MedicationRequest.
+ * http://hl7.org/fhir/valueset-medicationrequest-status.html
+ */
 export type MedicationRequestStatus = z.infer<
   typeof medicationRequestStatusSchema
 >
@@ -40,6 +44,10 @@ export const medicationRequestIntentSchema = z.enum([
   'instance-order',
 ])
 
+/**
+ * The kind of medication order.
+ * http://hl7.org/fhir/valueset-medicationrequest-intent.html
+ */
 export type MedicationRequestIntent = z.infer<
   typeof medicationRequestIntentSchema
 >

@@ -19,6 +19,10 @@ export const structureDefinitionKindSchema = z.enum([
   'logical',
 ])
 
+/**
+ * Defines the kind of structure that this definition is describing
+ * http://hl7.org/fhir/valueset-structure-definition-kind.html
+ */
 export type StructureDefinitionKind = z.infer<
   typeof structureDefinitionKindSchema
 >
@@ -33,6 +37,10 @@ export const extensionContextTypeSchema = z.enum([
   'extension',
 ])
 
+/**
+ * How a structure is used in defining the extension
+ * http://hl7.org/fhir/valueset-extension-context-type.html
+ */
 export type ExtensionContextType = z.infer<typeof extensionContextTypeSchema>
 
 /**
@@ -44,6 +52,10 @@ export const structureDefinitionDerivationSchema = z.enum([
   'constraint',
 ])
 
+/**
+ * How a type relates to its base definition
+ * http://hl7.org/fhir/valueset-type-derivation-rule.html
+ */
 export type StructureDefinitionDerivation = z.infer<
   typeof structureDefinitionDerivationSchema
 >
@@ -54,6 +66,10 @@ export type StructureDefinitionDerivation = z.infer<
  */
 export const constraintSeveritySchema = z.enum(['error', 'warning'])
 
+/**
+ * SHALL applications comply with this constraint?
+ * http://hl7.org/fhir/valueset-constraint-severity.html
+ */
 export type ConstraintSeverity = z.infer<typeof constraintSeveritySchema>
 
 /**
@@ -68,6 +84,10 @@ export const propertyRepresentationSchema = z.enum([
   'xhtml',
 ])
 
+/**
+ * How a property is represented when serialized
+ * http://hl7.org/fhir/valueset-property-representation.html
+ */
 export type PropertyRepresentation = z.infer<
   typeof propertyRepresentationSchema
 >
@@ -84,6 +104,10 @@ export const discriminatorTypeSchema = z.enum([
   'profile',
 ])
 
+/**
+ * How slicing discriminators are interpreted
+ * http://hl7.org/fhir/valueset-discriminator-type.html
+ */
 export type DiscriminatorType = z.infer<typeof discriminatorTypeSchema>
 
 /**
@@ -92,6 +116,10 @@ export type DiscriminatorType = z.infer<typeof discriminatorTypeSchema>
  */
 export const slicingRulesSchema = z.enum(['closed', 'open', 'openAtEnd'])
 
+/**
+ * How slicing rules are applied when slicing is used
+ * http://hl7.org/fhir/valueset-slicing-rules.html
+ */
 export type SlicingRules = z.infer<typeof slicingRulesSchema>
 
 /**
@@ -104,4 +132,8 @@ export const aggregationModeSchema = z.enum([
   'bundled',
 ])
 
+/**
+ * How resource references can be aggregated
+ * http://hl7.org/fhir/valueset-resource-aggregation-mode.html
+ */
 export type AggregationMode = z.infer<typeof aggregationModeSchema>

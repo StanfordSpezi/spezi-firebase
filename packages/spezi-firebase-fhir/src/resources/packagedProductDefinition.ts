@@ -15,7 +15,7 @@ import {
   type PackagedProductDefinitionPackageShelfLifeStorage,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -87,6 +87,9 @@ const packagedProductDefinitionPackageSchema: ZodType<PackagedProductDefinitionP
     type: codeableConceptSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR PackagedProductDefinition resource (untyped version).
+ */
 export const untypedPackagedProductDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('PackagedProductDefinition').readonly(),
@@ -113,12 +116,25 @@ export const untypedPackagedProductDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<PackagedProductDefinition>
 
+/**
+ * Zod schema for FHIR PackagedProductDefinition resource.
+ */
 export const packagedProductDefinitionSchema: ZodType<PackagedProductDefinition> =
   untypedPackagedProductDefinitionSchema
 
+/**
+ * Wrapper class for FHIR PackagedProductDefinition resources.
+ * Provides utility methods for working with packaged product definitions and pharmaceutical packaging.
+ */
 export class FhirPackagedProductDefinition extends FhirDomainResource<PackagedProductDefinition> {
   // Static Functions
 
+  /**
+   * Parses a PackagedProductDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the PackagedProductDefinition schema
+   * @returns A FhirPackagedProductDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirPackagedProductDefinition {
     return new FhirPackagedProductDefinition(
       packagedProductDefinitionSchema.parse(value),

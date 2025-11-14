@@ -19,6 +19,10 @@ export const identityAssuranceLevelSchema = z.enum([
   'level4',
 ])
 
+/**
+ * The level of confidence that this link represents the same actual person.
+ * http://hl7.org/fhir/valueset-identity-assuranceLevel.html
+ */
 export type IdentityAssuranceLevel = z.infer<
   typeof identityAssuranceLevelSchema
 >

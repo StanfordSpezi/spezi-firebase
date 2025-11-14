@@ -22,6 +22,9 @@ const identifierUseSchema = z.enum([
   'old',
 ])
 
+/**
+ * Zod schema for FHIR Identifier data type.
+ */
 export const identifierSchema: ZodType<Identifier> = z.lazy(() =>
   elementSchema.extend({
     use: identifierUseSchema.optional(),

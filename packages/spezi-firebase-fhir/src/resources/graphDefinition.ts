@@ -13,7 +13,7 @@ import {
   type GraphDefinitionLink,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -76,6 +76,9 @@ const graphDefinitionLinkSchema: ZodType<GraphDefinitionLink> =
     target: graphDefinitionLinkTargetSchema.array().optional(),
   })
 
+/**
+ * Zod schema for FHIR GraphDefinition resource (untyped version).
+ */
 export const untypedGraphDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('GraphDefinition').readonly(),
@@ -108,12 +111,25 @@ export const untypedGraphDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<GraphDefinition>
 
+/**
+ * Zod schema for FHIR GraphDefinition resource.
+ */
 export const graphDefinitionSchema: ZodType<GraphDefinition> =
   untypedGraphDefinitionSchema
 
+/**
+ * Wrapper class for FHIR GraphDefinition resources.
+ * Provides utility methods for working with graph definitions that specify resource relationships.
+ */
 export class FhirGraphDefinition extends FhirDomainResource<GraphDefinition> {
   // Static Functions
 
+  /**
+   * Parses a GraphDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the GraphDefinition schema
+   * @returns A FhirGraphDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirGraphDefinition {
     return new FhirGraphDefinition(graphDefinitionSchema.parse(value))
   }

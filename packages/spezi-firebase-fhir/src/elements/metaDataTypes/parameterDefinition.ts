@@ -17,6 +17,9 @@ import { elementSchema } from '../element.js'
 
 const parameterDefinitionUseSchema = z.enum(['in', 'out'])
 
+/**
+ * Zod schema for FHIR ParameterDefinition data type.
+ */
 export const parameterDefinitionSchema: ZodType<ParameterDefinition> = z.lazy(
   () =>
     elementSchema.extend({

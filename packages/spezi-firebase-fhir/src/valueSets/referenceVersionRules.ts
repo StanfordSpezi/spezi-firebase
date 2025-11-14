@@ -18,4 +18,8 @@ export const referenceVersionRulesSchema = z.enum([
   'specific',
 ])
 
+/**
+ * Whether a reference needs to be version specific or version independent, or whether either can be used.
+ * http://hl7.org/fhir/valueset-reference-version-rules.html
+ */
 export type ReferenceVersionRules = z.infer<typeof referenceVersionRulesSchema>

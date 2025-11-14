@@ -19,6 +19,10 @@ export const issueSeveritySchema = z.enum([
   'information',
 ])
 
+/**
+ * How the issue affects the success of the action.
+ * http://hl7.org/fhir/valueset-issue-severity.html
+ */
 export type IssueSeverity = z.infer<typeof issueSeveritySchema>
 
 /**
@@ -58,4 +62,8 @@ export const issueTypeSchema = z.enum([
   'informational',
 ])
 
+/**
+ * A code that describes the type of issue.
+ * http://hl7.org/fhir/valueset-issue-type.html
+ */
 export type IssueType = z.infer<typeof issueTypeSchema>

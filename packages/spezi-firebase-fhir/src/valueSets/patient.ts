@@ -19,4 +19,8 @@ export const patientLinkTypeSchema = z.enum([
   'seealso',
 ])
 
+/**
+ * The type of link between this patient resource and another patient resource.
+ * http://hl7.org/fhir/valueset-link-type.html
+ */
 export type PatientLinkType = z.infer<typeof patientLinkTypeSchema>

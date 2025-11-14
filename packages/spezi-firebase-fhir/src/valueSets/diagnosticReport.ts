@@ -25,6 +25,10 @@ export const diagnosticReportStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The status of a diagnostic report.
+ * http://hl7.org/fhir/valueset-diagnostic-report-status.html
+ */
 export type DiagnosticReportStatus = z.infer<
   typeof diagnosticReportStatusSchema
 >

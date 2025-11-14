@@ -15,7 +15,7 @@ import {
   type ConceptMap,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -96,6 +96,9 @@ const conceptMapGroupSchema: ZodType<ConceptMapGroup> =
     unmapped: conceptMapGroupUnmappedSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR ConceptMap resource (untyped version).
+ */
 export const untypedConceptMapSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ConceptMap').readonly(),
@@ -137,11 +140,24 @@ export const untypedConceptMapSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<ConceptMap>
 
+/**
+ * Zod schema for FHIR ConceptMap resource.
+ */
 export const conceptMapSchema: ZodType<ConceptMap> = untypedConceptMapSchema
 
+/**
+ * Wrapper class for FHIR ConceptMap resources.
+ * Provides utility methods for working with concept maps that define mappings between code systems.
+ */
 export class FhirConceptMap extends FhirDomainResource<ConceptMap> {
   // Static Functions
 
+  /**
+   * Parses a ConceptMap resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the ConceptMap schema
+   * @returns A FhirConceptMap instance containing the validated resource
+   */
   public static parse(value: unknown): FhirConceptMap {
     return new FhirConceptMap(conceptMapSchema.parse(value))
   }

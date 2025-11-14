@@ -20,6 +20,10 @@ export const clinicalUseDefinitionTypeSchema = z.enum([
   'warning',
 ])
 
+/**
+ * Type of clinical use definition
+ * http://hl7.org/fhir/valueset-clinical-use-definition-type.html
+ */
 export type ClinicalUseDefinitionType = z.infer<
   typeof clinicalUseDefinitionTypeSchema
 >

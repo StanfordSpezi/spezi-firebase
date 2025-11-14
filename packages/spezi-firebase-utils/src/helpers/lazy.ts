@@ -18,12 +18,20 @@ export class Lazy<T> {
 
   // Constructor
 
+  /**
+   * Creates a new Lazy instance
+   * @param factory Function that produces the value when first accessed
+   */
   constructor(factory: () => T) {
     this._factory = factory
   }
 
   // Accessors
 
+  /**
+   * Gets the lazily-initialized value, computing it on first access
+   * @returns The computed or cached value
+   */
   get value(): T {
     if (this._value === undefined && this._factory) {
       this._value = this._factory()
@@ -38,6 +46,9 @@ export class Lazy<T> {
     return this._value
   }
 
+  /**
+   * Sets the value directly, bypassing the factory
+   */
   set value(value: T) {
     this._value = value
     this._factory = undefined

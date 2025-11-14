@@ -23,6 +23,9 @@ const relatedArtifactTypeSchema = z.enum([
   'composed-of',
 ])
 
+/**
+ * Zod schema for FHIR RelatedArtifact data type.
+ */
 export const relatedArtifactSchema: ZodType<RelatedArtifact> = z.lazy(() =>
   elementSchema.extend({
     type: relatedArtifactTypeSchema,

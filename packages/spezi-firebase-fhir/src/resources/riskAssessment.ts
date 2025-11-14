@@ -6,9 +6,13 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type RiskAssessmentPrediction, type RiskAssessment } from 'fhir/r4b.js'
+import {
+  type RiskAssessmentPrediction,
+  type RiskAssessment,
+  type Coding,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -38,6 +42,9 @@ const riskAssessmentPredictionSchema: ZodType<RiskAssessmentPrediction> =
     _rationale: elementSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR RiskAssessment resource (untyped version).
+ */
 export const untypedRiskAssessmentSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('RiskAssessment').readonly(),
@@ -65,13 +72,97 @@ export const untypedRiskAssessmentSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<RiskAssessment>
 
+/**
+ * Zod schema for FHIR RiskAssessment resource.
+ */
 export const riskAssessmentSchema: ZodType<RiskAssessment> =
   untypedRiskAssessmentSchema
 
+/**
+ * Wrapper class for FHIR RiskAssessment resources.
+ * Provides utility methods for working with risk assessments and clinical predictions.
+ */
 export class FhirRiskAssessment extends FhirDomainResource<RiskAssessment> {
-  // Static Functions
-
+  /**
+   * Parses a RiskAssessment resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the RiskAssessment schema
+   * @returns A FhirRiskAssessment instance containing the validated resource
+   */
   public static parse(value: unknown): FhirRiskAssessment {
     return new FhirRiskAssessment(riskAssessmentSchema.parse(value))
+  }
+
+  /**
+   * Get the date the risk assessment was performed.
+   *
+   * @returns The occurrence date, or undefined if not set
+   */
+  public get occurrenceDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime)
+  }
+
+  /**
+   * Get the note texts from the assessment.
+   *
+   * @returns Array of note texts
+   */
+  public get noteTexts(): string[] {
+    return FhirDomainResource.annotationTexts(this.value.note)
+  }
+
+  /**
+   * Get the code display for the risk assessment.
+   *
+   * @returns The code display text, or undefined if not set
+   */
+  public get codeDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+  }
+
+  /**
+   * Gets all identifier values whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns Array of identifier values matching any provided system
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns Array of identifier values matching any provided Coding
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

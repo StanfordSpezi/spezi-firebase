@@ -12,9 +12,10 @@ import {
   type QuestionnaireItemInitial,
   type Questionnaire,
   type QuestionnaireItem,
+  type Coding,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -145,6 +146,9 @@ const questionnaireItemSchema: ZodType<QuestionnaireItem> =
     },
   })
 
+/**
+ * Zod schema for FHIR Questionnaire resource (untyped version).
+ */
 export const untypedQuestionnaireSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Questionnaire').readonly(),
@@ -186,13 +190,79 @@ export const untypedQuestionnaireSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Questionnaire>
 
+/**
+ * Zod schema for FHIR Questionnaire resource.
+ */
 export const questionnaireSchema: ZodType<Questionnaire> =
   untypedQuestionnaireSchema
 
+/**
+ * Wrapper class for FHIR Questionnaire resources.
+ * Provides utility methods for working with questionnaires and structured data capture forms.
+ */
 export class FhirQuestionnaire extends FhirDomainResource<Questionnaire> {
-  // Static Functions
-
+  /**
+   * Parses a Questionnaire resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the Questionnaire schema
+   * @returns A FhirQuestionnaire instance containing the validated resource
+   */
   public static parse(value: unknown): FhirQuestionnaire {
     return new FhirQuestionnaire(questionnaireSchema.parse(value))
+  }
+
+  /**
+   * Get the publication date of the questionnaire.
+   *
+   * @returns The publication date, or undefined if not set
+   */
+  public get date(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.date)
+  }
+
+  /**
+   * Gets all identifier values whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns Array of identifier values matching any provided system
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns Array of identifier values matching any provided type
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

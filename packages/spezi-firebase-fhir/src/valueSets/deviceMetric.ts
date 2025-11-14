@@ -19,6 +19,10 @@ export const deviceMetricCalibrationTypeSchema = z.enum([
   'two-point',
 ])
 
+/**
+ * Describes the type of a metric calibration.
+ * http://hl7.org/fhir/valueset-metric-calibration-type.html
+ */
 export type DeviceMetricCalibrationType = z.infer<
   typeof deviceMetricCalibrationTypeSchema
 >
@@ -34,6 +38,10 @@ export const deviceMetricCalibrationStateSchema = z.enum([
   'unspecified',
 ])
 
+/**
+ * Describes the state of a metric calibration.
+ * http://hl7.org/fhir/valueset-metric-calibration-state.html
+ */
 export type DeviceMetricCalibrationState = z.infer<
   typeof deviceMetricCalibrationStateSchema
 >
@@ -49,6 +57,10 @@ export const deviceMetricOperationalStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * Describes the operational status of the DeviceMetric.
+ * http://hl7.org/fhir/valueset-metric-operational-status.html
+ */
 export type DeviceMetricOperationalStatus = z.infer<
   typeof deviceMetricOperationalStatusSchema
 >
@@ -68,6 +80,10 @@ export const deviceMetricColorSchema = z.enum([
   'white',
 ])
 
+/**
+ * Describes the typical color of representation.
+ * http://hl7.org/fhir/valueset-metric-color.html
+ */
 export type DeviceMetricColor = z.infer<typeof deviceMetricColorSchema>
 
 /**
@@ -81,4 +97,8 @@ export const deviceMetricCategorySchema = z.enum([
   'unspecified',
 ])
 
+/**
+ * Describes the category of the metric.
+ * http://hl7.org/fhir/valueset-metric-category.html
+ */
 export type DeviceMetricCategory = z.infer<typeof deviceMetricCategorySchema>

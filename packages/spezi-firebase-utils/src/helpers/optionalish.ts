@@ -10,6 +10,8 @@ import { z } from 'zod'
 
 /**
  * Create an optional schema that handles null values by transforming them to undefined.
+ * @param type The Zod schema type to make optionalish
+ * @returns A schema that transforms null to undefined and is optional
  */
 export function optionalish<T extends z.core.SomeType>(type: T) {
   return z.union([type, z.null().transform(() => undefined)]).optional()
@@ -17,6 +19,9 @@ export function optionalish<T extends z.core.SomeType>(type: T) {
 
 /**
  * Create an optional schema with a default value when the value is null or undefined.
+ * @param type The Zod schema type
+ * @param defaultValue The default value to use
+ * @returns A schema that uses the default value for null or undefined
  */
 export function optionalishDefault<T extends z.core.SomeType>(
   type: T,

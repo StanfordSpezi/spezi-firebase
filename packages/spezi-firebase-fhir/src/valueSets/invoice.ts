@@ -8,6 +8,10 @@
 
 import { z } from 'zod'
 
+/**
+ * Zod schema for FHIR InvoicePriceComponentType value set.
+ * The type of price component in an invoice.
+ */
 export const invoicePriceComponentTypeSchema = z.enum([
   'base',
   'surcharge',
@@ -16,3 +20,10 @@ export const invoicePriceComponentTypeSchema = z.enum([
   'tax',
   'informational',
 ])
+
+/**
+ * TypeScript type for FHIR InvoicePriceComponentType value set.
+ */
+export type InvoicePriceComponentType = z.infer<
+  typeof invoicePriceComponentTypeSchema
+>

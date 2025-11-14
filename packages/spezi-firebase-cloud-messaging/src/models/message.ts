@@ -19,6 +19,9 @@ import { dateConverter } from '../utils/dateConverter.js'
 import { optionalish } from '../utils/optionalish.js'
 import { SchemaConverter } from '../utils/schemaConverter.js'
 
+/**
+ * Enumeration of message types for categorizing notifications
+ */
 export enum MessageType {
   Information = 'Information',
   Alert = 'Alert',
@@ -27,6 +30,9 @@ export enum MessageType {
   System = 'System',
 }
 
+/**
+ * Schema converter for Message objects, providing validation and encoding
+ */
 export const messageConverter = new SchemaConverter<Message, z.ZodType>({
   schema: z
     .object({
@@ -75,6 +81,9 @@ export const messageConverter = new SchemaConverter<Message, z.ZodType>({
   },
 })
 
+/**
+ * Represents a notification message with localized content
+ */
 export class Message {
   // Properties
   readonly creationDate: Date
@@ -88,6 +97,20 @@ export class Message {
   readonly reference?: string
   readonly data?: Record<string, string>
 
+  /**
+   * Creates a new Message instance
+   * @param input Message properties
+   * @param input.creationDate When the message was created
+   * @param input.dueDate When the message is due (optional)
+   * @param input.completionDate When the message was completed (optional)
+   * @param input.type The type of message
+   * @param input.title Localized title text
+   * @param input.description Localized description text (optional)
+   * @param input.action Action identifier (optional)
+   * @param input.isDismissible Whether the message can be dismissed
+   * @param input.reference Reference identifier (optional)
+   * @param input.data Additional custom data (optional)
+   */
   // Constructor
   constructor(input: {
     creationDate: Date
@@ -113,6 +136,18 @@ export class Message {
     this.data = input.data
   }
 
+  /**
+   * Creates an information message
+   * @param input Message configuration
+   * @param input.title Localized title text (string or record)
+   * @param input.description Localized description text (optional)
+   * @param input.action Action identifier (optional)
+   * @param input.isDismissible Whether the message can be dismissed (default: true)
+   * @param input.reference Reference identifier (optional)
+   * @param input.data Additional custom data (optional)
+   * @param input.creationDate When the message was created (default: now)
+   * @returns A new Message instance of type Information
+   */
   // Factory methods for common message types
   static createInformation(input: {
     title: Record<string, string> | string
@@ -143,6 +178,18 @@ export class Message {
     })
   }
 
+  /**
+   * Creates an alert message
+   * @param input Message configuration
+   * @param input.title Localized title text (string or record)
+   * @param input.description Localized description text (optional)
+   * @param input.action Action identifier (optional)
+   * @param input.isDismissible Whether the message can be dismissed (default: true)
+   * @param input.reference Reference identifier (optional)
+   * @param input.data Additional custom data (optional)
+   * @param input.creationDate When the message was created (default: now)
+   * @returns A new Message instance of type Alert
+   */
   static createAlert(input: {
     title: Record<string, string> | string
     description?: Record<string, string> | string
@@ -172,6 +219,19 @@ export class Message {
     })
   }
 
+  /**
+   * Creates a reminder message
+   * @param input Message configuration including optional due date
+   * @param input.title Localized title text (string or record)
+   * @param input.description Localized description text (optional)
+   * @param input.action Action identifier (optional)
+   * @param input.dueDate When the reminder is due (optional)
+   * @param input.isDismissible Whether the message can be dismissed (default: false)
+   * @param input.reference Reference identifier (optional)
+   * @param input.data Additional custom data (optional)
+   * @param input.creationDate When the message was created (default: now)
+   * @returns A new Message instance of type Reminder
+   */
   static createReminder(input: {
     title: Record<string, string> | string
     description?: Record<string, string> | string
@@ -203,6 +263,18 @@ export class Message {
     })
   }
 
+  /**
+   * Creates an action message
+   * @param input Message configuration including required action
+   * @param input.title Localized title text (string or record)
+   * @param input.description Localized description text (optional)
+   * @param input.action Action identifier (required)
+   * @param input.isDismissible Whether the message can be dismissed (default: true)
+   * @param input.reference Reference identifier (optional)
+   * @param input.data Additional custom data (optional)
+   * @param input.creationDate When the message was created (default: now)
+   * @returns A new Message instance of type Action
+   */
   static createAction(input: {
     title: Record<string, string> | string
     description?: Record<string, string> | string

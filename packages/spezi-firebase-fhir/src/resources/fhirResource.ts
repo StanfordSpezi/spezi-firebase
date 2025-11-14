@@ -150,6 +150,9 @@ import { untypedValueSetSchema } from './valueSet.js'
 import { untypedVerificationResultSchema } from './verificationResult.js'
 import { untypedVisionPrescriptionSchema } from './visionPrescription.js'
 
+/**
+ * Zod schema for FHIR Resource (discriminated union of all resource types).
+ */
 export const fhirResourceSchema: ZodType<FhirResource> = z.lazy(() =>
   z.discriminatedUnion('resourceType', [
     untypedAccountSchema,

@@ -19,4 +19,8 @@ export const specimenStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The availability status of the specimen.
+ * http://hl7.org/fhir/valueset-specimen-status.html
+ */
 export type SpecimenStatus = z.infer<typeof specimenStatusSchema>

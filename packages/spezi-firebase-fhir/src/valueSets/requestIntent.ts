@@ -23,4 +23,8 @@ export const requestIntentSchema = z.enum([
   'option',
 ])
 
+/**
+ * Codes indicating the level of authority/intentionality associated with a request.
+ * http://hl7.org/fhir/ValueSet/request-intent
+ */
 export type RequestIntent = z.infer<typeof requestIntentSchema>

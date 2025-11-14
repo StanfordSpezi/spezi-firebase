@@ -13,9 +13,10 @@ import {
   type SubscriptionTopicResourceTrigger,
   type SubscriptionTopicResourceTriggerQueryCriteria,
   type SubscriptionTopic,
+  type Coding,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -104,6 +105,9 @@ const subscriptionTopicResourceTriggerSchema: ZodType<SubscriptionTopicResourceT
     _supportedInteraction: elementSchema.array().optional(),
   })
 
+/**
+ * Zod schema for FHIR SubscriptionTopic resource (untyped version).
+ */
 export const untypedSubscriptionTopicSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('SubscriptionTopic').readonly(),
@@ -147,13 +151,72 @@ export const untypedSubscriptionTopicSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<SubscriptionTopic>
 
+/**
+ * Zod schema for FHIR SubscriptionTopic resource.
+ */
 export const subscriptionTopicSchema: ZodType<SubscriptionTopic> =
   untypedSubscriptionTopicSchema
 
+/**
+ * Wrapper class for FHIR SubscriptionTopic resources.
+ * Provides utility methods for working with subscription topics that define events for pub/sub notification patterns.
+ */
 export class FhirSubscriptionTopic extends FhirDomainResource<SubscriptionTopic> {
   // Static Functions
 
+  /**
+   * Parses a SubscriptionTopic resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the SubscriptionTopic schema
+   * @returns A FhirSubscriptionTopic instance containing the validated resource
+   */
   public static parse(value: unknown): FhirSubscriptionTopic {
     return new FhirSubscriptionTopic(subscriptionTopicSchema.parse(value))
+  }
+
+  /**
+   * Retrieves all identifier values matching any of the specified system URIs.
+   *
+   * @param system - One or more system URIs to filter identifiers by
+   * @returns Array of identifier values from matching systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Retrieves the first identifier value matching any of the specified system URIs.
+   *
+   * @param system - One or more system URIs to filter identifiers by
+   * @returns The first matching identifier value, or undefined if none found
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Retrieves all identifier values matching any of the specified type codings.
+   *
+   * @param type - One or more Coding objects representing identifier types
+   * @returns Array of identifier values from matching types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Retrieves the first identifier value matching any of the specified type codings.
+   *
+   * @param type - One or more Coding objects representing identifier types
+   * @returns The first matching identifier value, or undefined if none found
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

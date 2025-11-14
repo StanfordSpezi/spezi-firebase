@@ -25,9 +25,10 @@ import {
   type ExplanationOfBenefitSupportingInfo,
   type ExplanationOfBenefitTotal,
   type ExplanationOfBenefit,
+  type Coding,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import { domainResourceSchema } from '../elements/domainResource.js'
 import {
   identifierSchema,
@@ -271,6 +272,9 @@ const explanationOfBenefitBenefitBalanceSchema: ZodType<ExplanationOfBenefitBene
       .optional(),
   })
 
+/**
+ * Zod schema for FHIR ExplanationOfBenefit resource (untyped version).
+ */
 export const untypedExplanationOfBenefitSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ExplanationOfBenefit').readonly(),
@@ -326,13 +330,144 @@ export const untypedExplanationOfBenefitSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<ExplanationOfBenefit>
 
+/**
+ * Zod schema for FHIR ExplanationOfBenefit resource.
+ */
 export const explanationOfBenefitSchema: ZodType<ExplanationOfBenefit> =
   untypedExplanationOfBenefitSchema
 
+/**
+ * Wrapper class for FHIR ExplanationOfBenefit resources.
+ * Provides utility methods for working with explanation of benefit claims and adjudications.
+ */
 export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBenefit> {
   // Static Functions
 
+  /**
+   * Parses an ExplanationOfBenefit resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the ExplanationOfBenefit schema
+   * @returns A FhirExplanationOfBenefit instance containing the validated resource
+   */
   public static parse(value: unknown): FhirExplanationOfBenefit {
     return new FhirExplanationOfBenefit(explanationOfBenefitSchema.parse(value))
+  }
+
+  /**
+   * Get the created date as a Date object.
+   * @returns The created date
+   */
+  public get createdDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.created)
+  }
+
+  /**
+   * Get the billable period start date.
+   * @returns The start date, or undefined if not set
+   */
+  public get billablePeriodStart(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.billablePeriod?.start)
+  }
+
+  /**
+   * Get the billable period end date.
+   * @returns The end date, or undefined if not set
+   */
+  public get billablePeriodEnd(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.billablePeriod?.end)
+  }
+
+  /**
+   * Get type display text.
+   * @returns Type display text
+   */
+  public get typeDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+  }
+
+  /**
+   * Get subtype display text.
+   * @returns Subtype display text
+   */
+  public get subTypeDisplay(): string | undefined {
+    return FhirDomainResource.codeableConceptDisplay(this.value.subType)
+  }
+
+  /**
+   * Get total amount for a specific category.
+   * @param categoryCode The category code to filter by
+   * @returns The money amount, or undefined if not found
+   */
+  public getTotalByCategory(categoryCode: string): number | undefined {
+    const total = this.value.total?.find((t) =>
+      t.category.coding?.some((c) => c.code === categoryCode),
+    )
+    return total?.amount.value
+  }
+
+  /**
+   * Get all diagnosis displays.
+   * @returns Array of diagnosis display texts
+   */
+  public get diagnosisDisplays(): string[] {
+    return FhirDomainResource.codeableConceptDisplays(this.value.diagnosis)
+  }
+
+  /**
+   * Get all procedure displays.
+   * @returns Array of procedure display texts
+   */
+  public get procedureDisplays(): string[] {
+    return FhirDomainResource.codeableConceptDisplays(
+      this.value.procedure?.flatMap((p) =>
+        p.procedureCodeableConcept ? [p.procedureCodeableConcept] : [],
+      ),
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

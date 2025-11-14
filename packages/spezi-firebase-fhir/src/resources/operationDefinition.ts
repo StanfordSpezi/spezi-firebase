@@ -14,7 +14,7 @@ import {
   type OperationDefinitionParameter,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -87,6 +87,9 @@ const operationDefinitionOverloadSchema: ZodType<OperationDefinitionOverload> =
     _parameterName: elementSchema.array().optional(),
   })
 
+/**
+ * Zod schema for FHIR OperationDefinition resource (untyped version).
+ */
 export const untypedOperationDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('OperationDefinition').readonly(),
@@ -140,12 +143,25 @@ export const untypedOperationDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<OperationDefinition>
 
+/**
+ * Zod schema for FHIR OperationDefinition resource.
+ */
 export const operationDefinitionSchema: ZodType<OperationDefinition> =
   untypedOperationDefinitionSchema
 
+/**
+ * Wrapper class for FHIR OperationDefinition resources.
+ * Provides utility methods for working with operation definitions and custom FHIR operations.
+ */
 export class FhirOperationDefinition extends FhirDomainResource<OperationDefinition> {
   // Static Functions
 
+  /**
+   * Parses an OperationDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the OperationDefinition schema
+   * @returns A FhirOperationDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirOperationDefinition {
     return new FhirOperationDefinition(operationDefinitionSchema.parse(value))
   }

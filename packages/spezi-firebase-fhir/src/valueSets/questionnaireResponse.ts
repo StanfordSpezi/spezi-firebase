@@ -19,6 +19,10 @@ export const questionnaireResponseStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The status of the questionnaire response.
+ * http://hl7.org/fhir/valueset-questionnaire-answers-status.html
+ */
 export type QuestionnaireResponseStatus = z.infer<
   typeof questionnaireResponseStatusSchema
 >

@@ -19,4 +19,8 @@ export const requestPrioritySchema = z.enum([
   'stat',
 ])
 
+/**
+ * Identifies the level of importance to be assigned to actioning the request.
+ * http://hl7.org/fhir/valueset-request-priority.html
+ */
 export type RequestPriority = z.infer<typeof requestPrioritySchema>

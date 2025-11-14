@@ -7,12 +7,13 @@
 //
 
 import {
+  type Coding,
   type CarePlan,
   type CarePlanActivity,
   type CarePlanActivityDetail,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -77,6 +78,9 @@ const carePlanActivitySchema: ZodType<CarePlanActivity> =
     detail: carePlanActivityDetailSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR CarePlan resource (untyped version).
+ */
 export const untypedCarePlanSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('CarePlan').readonly(),
@@ -113,12 +117,128 @@ export const untypedCarePlanSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<CarePlan>
 
+/**
+ * Zod schema for FHIR CarePlan resource.
+ */
 export const carePlanSchema: ZodType<CarePlan> = untypedCarePlanSchema
 
+/**
+ * Wrapper class for FHIR CarePlan resources.
+ * Provides utility methods for working with care plans.
+ */
 export class FhirCarePlan extends FhirDomainResource<CarePlan> {
   // Static Functions
 
+  /**
+   * Parses a CarePlan resource from unknown data.
+   *
+   * @param value - The data to parse
+   * @returns A FhirCarePlan instance
+   */
   public static parse(value: unknown): FhirCarePlan {
     return new FhirCarePlan(carePlanSchema.parse(value))
+  }
+
+  // Properties
+
+  /**
+   * Gets the created date as a JavaScript Date object.
+   *
+   * @returns The created date if available
+   */
+  public get createdDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.created)
+  }
+
+  /**
+   * Gets the period start date.
+   *
+   * @returns The start date if available
+   */
+  public get periodStart(): Date | undefined {
+    return FhirDomainResource.parseDate(this.value.period?.start)
+  }
+
+  /**
+   * Gets the period end date.
+   *
+   * @returns The end date if available
+   */
+  public get periodEnd(): Date | undefined {
+    return FhirDomainResource.parseDate(this.value.period?.end)
+  }
+
+  /**
+   * Checks if the care plan period is currently active.
+   *
+   * @param asOfDate - Date to check against (defaults to now)
+   * @returns true if the period is active
+   */
+  public periodIsActive(asOfDate: Date = new Date()): boolean {
+    return FhirDomainResource.periodIsActive(this.value.period, asOfDate)
+  }
+
+  /**
+   * Gets all category displays.
+   *
+   * @returns Array of category display texts
+   */
+  public get categoryDisplays(): string[] {
+    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+  }
+
+  /**
+   * Gets note texts from the care plan.
+   *
+   * @returns Array of note texts
+   */
+  public get noteTexts(): string[] {
+    return FhirDomainResource.annotationTexts(this.value.note)
+  }
+
+  /**
+   * Gets all identifier values whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns Array of identifier values matching any provided system
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value whose system matches any of the provided system URLs.
+   *
+   * @param system - One or more identifier system URLs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns Array of identifier values matching any provided Coding
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value whose type matches any of the provided Coding filters.
+   *
+   * @param type - One or more Coding filters to match against Identifier.type
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

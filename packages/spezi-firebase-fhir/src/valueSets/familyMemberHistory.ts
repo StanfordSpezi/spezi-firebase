@@ -19,6 +19,10 @@ export const familyMemberHistoryStatusSchema = z.enum([
   'health-unknown',
 ])
 
+/**
+ * A code that identifies the status of the family history record.
+ * http://hl7.org/fhir/valueset-history-status.html
+ */
 export type FamilyMemberHistoryStatus = z.infer<
   typeof familyMemberHistoryStatusSchema
 >

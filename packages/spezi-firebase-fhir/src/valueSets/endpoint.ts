@@ -21,4 +21,8 @@ export const endpointStatusSchema = z.enum([
   'test',
 ])
 
+/**
+ * The status of the endpoint.
+ * http://hl7.org/fhir/valueset-endpoint-status.html
+ */
 export type EndpointStatus = z.infer<typeof endpointStatusSchema>

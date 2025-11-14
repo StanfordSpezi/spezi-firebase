@@ -7,11 +7,12 @@
 //
 
 import {
+  type Coding,
   type ResearchElementDefinition,
   type ResearchElementDefinitionCharacteristic,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -75,6 +76,9 @@ const researchElementDefinitionCharacteristicSchema: ZodType<ResearchElementDefi
     _participantEffectiveGroupMeasure: elementSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR ResearchElementDefinition resource (untyped version).
+ */
 export const untypedResearchElementDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('ResearchElementDefinition').readonly(),
@@ -135,15 +139,74 @@ export const untypedResearchElementDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<ResearchElementDefinition>
 
+/**
+ * Zod schema for FHIR ResearchElementDefinition resource.
+ */
 export const researchElementDefinitionSchema: ZodType<ResearchElementDefinition> =
   untypedResearchElementDefinitionSchema
 
+/**
+ * Wrapper class for FHIR ResearchElementDefinition resources.
+ * Provides utility methods for working with research element definitions used in evidence-based medicine.
+ */
 export class FhirResearchElementDefinition extends FhirDomainResource<ResearchElementDefinition> {
   // Static Functions
 
+  /**
+   * Parses a ResearchElementDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the ResearchElementDefinition schema
+   * @returns A FhirResearchElementDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirResearchElementDefinition {
     return new FhirResearchElementDefinition(
       researchElementDefinitionSchema.parse(value),
     )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

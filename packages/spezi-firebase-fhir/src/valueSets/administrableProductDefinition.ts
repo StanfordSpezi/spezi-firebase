@@ -19,6 +19,10 @@ export const administrableProductDefinitionStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * Status of administrable product definition.
+ * http://hl7.org/fhir/valueset-publication-status.html
+ */
 export type AdministrableProductDefinitionStatus = z.infer<
   typeof administrableProductDefinitionStatusSchema
 >

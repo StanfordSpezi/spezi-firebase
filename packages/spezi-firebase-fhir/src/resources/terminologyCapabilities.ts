@@ -20,7 +20,7 @@ import {
   type TerminologyCapabilities,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -130,6 +130,9 @@ const terminologyCapabilitiesClosureSchema: ZodType<TerminologyCapabilitiesClosu
     _translation: elementSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR TerminologyCapabilities resource (untyped version).
+ */
 export const untypedTerminologyCapabilitiesSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('TerminologyCapabilities').readonly(),
@@ -174,12 +177,25 @@ export const untypedTerminologyCapabilitiesSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<TerminologyCapabilities>
 
+/**
+ * Zod schema for FHIR TerminologyCapabilities resource.
+ */
 export const terminologyCapabilitiesSchema: ZodType<TerminologyCapabilities> =
   untypedTerminologyCapabilitiesSchema
 
+/**
+ * Wrapper class for FHIR TerminologyCapabilities resources.
+ * Provides utility methods for working with terminology capabilities that describe the capabilities of a terminology service.
+ */
 export class FhirTerminologyCapabilities extends FhirDomainResource<TerminologyCapabilities> {
   // Static Functions
 
+  /**
+   * Parses a TerminologyCapabilities resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the TerminologyCapabilities schema
+   * @returns A FhirTerminologyCapabilities instance containing the validated resource
+   */
   public static parse(value: unknown): FhirTerminologyCapabilities {
     return new FhirTerminologyCapabilities(
       terminologyCapabilitiesSchema.parse(value),

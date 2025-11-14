@@ -19,7 +19,7 @@ import {
   type TestReport,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   decimalSchema,
@@ -104,6 +104,9 @@ const testReportTestSchema: ZodType<TestReportTest> =
     _name: elementSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR TestReport resource (untyped version).
+ */
 export const untypedTestReportSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('TestReport').readonly(),
@@ -127,11 +130,24 @@ export const untypedTestReportSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<TestReport>
 
+/**
+ * Zod schema for FHIR TestReport resource.
+ */
 export const testReportSchema: ZodType<TestReport> = untypedTestReportSchema
 
+/**
+ * Wrapper class for FHIR TestReport resources.
+ * Provides utility methods for working with test reports that describe the results of executing a TestScript.
+ */
 export class FhirTestReport extends FhirDomainResource<TestReport> {
   // Static Functions
 
+  /**
+   * Parses a TestReport resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the TestReport schema
+   * @returns A FhirTestReport instance containing the validated resource
+   */
   public static parse(value: unknown): FhirTestReport {
     return new FhirTestReport(testReportSchema.parse(value))
   }

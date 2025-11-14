@@ -19,6 +19,10 @@ export const questionnaireStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * The lifecycle status of an artifact.
+ * http://hl7.org/fhir/valueset-publication-status.html
+ */
 export type QuestionnaireStatus = z.infer<typeof questionnaireStatusSchema>
 
 /**
@@ -44,6 +48,10 @@ export const questionnaireItemTypeSchema = z.enum([
   'quantity',
 ])
 
+/**
+ * Distinguishes groups from questions and display text and indicates data type for questions.
+ * http://hl7.org/fhir/valueset-item-type.html
+ */
 export type QuestionnaireItemType = z.infer<typeof questionnaireItemTypeSchema>
 
 /**
@@ -52,6 +60,10 @@ export type QuestionnaireItemType = z.infer<typeof questionnaireItemTypeSchema>
  */
 export const questionnaireItemEnableBehaviorSchema = z.enum(['all', 'any'])
 
+/**
+ * Controls how multiple enableWhen values are interpreted - whether all or any must be true.
+ * http://hl7.org/fhir/valueset-questionnaire-enable-behavior.html
+ */
 export type QuestionnaireItemEnableBehavior = z.infer<
   typeof questionnaireItemEnableBehaviorSchema
 >
@@ -70,6 +82,10 @@ export const questionnaireItemEnableWhenOperatorSchema = z.enum([
   '>=',
 ])
 
+/**
+ * The criteria by which a question is enabled.
+ * http://hl7.org/fhir/valueset-questionnaire-enable-operator.html
+ */
 export type QuestionnaireItemEnableWhenOperator = z.infer<
   typeof questionnaireItemEnableWhenOperatorSchema
 >

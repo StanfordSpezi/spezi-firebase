@@ -57,6 +57,9 @@ import {
   uuidSchema,
 } from './index.js'
 
+/**
+ * Zod schema for FHIR elements with value[x] fields supporting any FHIR data type.
+ */
 export const anyValueSchema = backboneElementSchema.extend({
   valueBase64Binary: base64BinarySchema.optional(),
   _valueBase64Binary: elementSchema.optional(),

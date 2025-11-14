@@ -14,6 +14,10 @@ import { z } from 'zod'
  */
 export const assertDirectionSchema = z.enum(['request', 'response'])
 
+/**
+ * The type of direction to use for assertion
+ * http://hl7.org/fhir/valueset-assert-direction-codes.html
+ */
 export type AssertDirection = z.infer<typeof assertDirectionSchema>
 
 /**
@@ -34,6 +38,10 @@ export const assertOperatorSchema = z.enum([
   'eval',
 ])
 
+/**
+ * The operator type defines the conditional operator
+ * http://hl7.org/fhir/valueset-assert-operator-codes.html
+ */
 export type AssertOperator = z.infer<typeof assertOperatorSchema>
 
 /**
@@ -49,6 +57,10 @@ export const httpVerbSchema = z.enum([
   'PATCH',
 ])
 
+/**
+ * HTTP request method codes
+ * http://hl7.org/fhir/valueset-http-verb.html
+ */
 export type HttpVerb = z.infer<typeof httpVerbSchema>
 
 /**
@@ -65,6 +77,10 @@ export const testScriptRequestMethodSchema = z.enum([
   'head',
 ])
 
+/**
+ * Test script request method codes (lowercase)
+ * http://hl7.org/fhir/valueset-http-operations.html
+ */
 export type TestScriptRequestMethod = z.infer<
   typeof testScriptRequestMethodSchema
 >
@@ -88,6 +104,10 @@ export const assertResponseCodeSchema = z.enum([
   'unprocessable',
 ])
 
+/**
+ * assertion response code(s) for the operation
+ * http://hl7.org/fhir/valueset-assert-response-code-types.html
+ */
 export type AssertResponseCode = z.infer<typeof assertResponseCodeSchema>
 
 /**
@@ -104,4 +124,8 @@ export const mimeTypeSchema = z.enum([
   'text/xml',
 ])
 
+/**
+ * MIME content types
+ * http://hl7.org/fhir/valueset-mimetypes.html
+ */
 export type MimeType = z.infer<typeof mimeTypeSchema>

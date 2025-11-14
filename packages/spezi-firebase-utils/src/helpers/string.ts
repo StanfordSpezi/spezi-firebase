@@ -8,6 +8,8 @@
 
 /**
  * Capitalize each word in a string.
+ * @param text The text to capitalize
+ * @returns Text with each word capitalized
  */
 export function capitalize(text: string): string {
   return text

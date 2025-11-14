@@ -6,9 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type SearchParameter } from 'fhir/r4b.js'
+import {
+  type SearchParameterComponent,
+  type SearchParameter,
+} from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -29,6 +32,17 @@ import {
   searchParameterXpathUsageSchema,
 } from '../valueSets/index.js'
 
+const searchParameterComponentSchema: ZodType<SearchParameterComponent> =
+  backboneElementSchema.extend({
+    definition: urlSchema,
+    _definition: elementSchema.optional(),
+    expression: stringSchema,
+    _expression: elementSchema.optional(),
+  })
+
+/**
+ * Zod schema for FHIR SearchParameter resource (untyped version).
+ */
 export const untypedSearchParameterSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('SearchParameter').readonly(),
@@ -40,15 +54,7 @@ export const untypedSearchParameterSchema = z.lazy(() =>
     _code: elementSchema.optional(),
     comparator: searchParameterComparatorSchema.array().optional(),
     _comparator: elementSchema.array().optional(),
-    component: backboneElementSchema
-      .extend({
-        definition: urlSchema,
-        _definition: elementSchema.optional(),
-        expression: stringSchema,
-        _expression: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    component: searchParameterComponentSchema.array().optional(),
     contact: contactDetailSchema.array().optional(),
     date: dateTimeSchema.optional(),
     _date: elementSchema.optional(),
@@ -91,12 +97,25 @@ export const untypedSearchParameterSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<SearchParameter>
 
+/**
+ * Zod schema for FHIR SearchParameter resource.
+ */
 export const searchParameterSchema: ZodType<SearchParameter> =
   untypedSearchParameterSchema
 
+/**
+ * Wrapper class for FHIR SearchParameter resources.
+ * Provides utility methods for working with search parameters and custom search definitions.
+ */
 export class FhirSearchParameter extends FhirDomainResource<SearchParameter> {
   // Static Functions
 
+  /**
+   * Parses a SearchParameter resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the SearchParameter schema
+   * @returns A FhirSearchParameter instance containing the validated resource
+   */
   public static parse(value: unknown): FhirSearchParameter {
     return new FhirSearchParameter(searchParameterSchema.parse(value))
   }

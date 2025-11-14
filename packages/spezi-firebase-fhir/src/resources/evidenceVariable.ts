@@ -11,9 +11,10 @@ import {
   type EvidenceVariableCharacteristicTimeFromStart,
   type EvidenceVariable,
   type EvidenceVariableCharacteristic,
+  type Coding,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   annotationSchema,
   backboneElementSchema,
@@ -83,6 +84,9 @@ const evidenceVariableCategorySchema: ZodType<EvidenceVariableCategory> =
     valueRange: rangeSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR EvidenceVariable resource (untyped version).
+ */
 export const untypedEvidenceVariableSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('EvidenceVariable').readonly(),
@@ -131,13 +135,72 @@ export const untypedEvidenceVariableSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<EvidenceVariable>
 
+/**
+ * Zod schema for FHIR EvidenceVariable resource.
+ */
 export const evidenceVariableSchema: ZodType<EvidenceVariable> =
   untypedEvidenceVariableSchema
 
+/**
+ * Wrapper class for FHIR EvidenceVariable resources.
+ * Provides utility methods for working with evidence variables used in research and clinical studies.
+ */
 export class FhirEvidenceVariable extends FhirDomainResource<EvidenceVariable> {
   // Static Functions
 
+  /**
+   * Parses an EvidenceVariable resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the EvidenceVariable schema
+   * @returns A FhirEvidenceVariable instance containing the validated resource
+   */
   public static parse(value: unknown): FhirEvidenceVariable {
     return new FhirEvidenceVariable(evidenceVariableSchema.parse(value))
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

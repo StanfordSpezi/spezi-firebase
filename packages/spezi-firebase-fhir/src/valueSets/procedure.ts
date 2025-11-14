@@ -23,4 +23,8 @@ export const procedureStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * A code specifying the state of the procedure.
+ * http://hl7.org/fhir/valueset-event-status.html
+ */
 export type ProcedureStatus = z.infer<typeof procedureStatusSchema>

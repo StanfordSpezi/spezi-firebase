@@ -19,4 +19,8 @@ export const coverageStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The status of the coverage.
+ * http://hl7.org/fhir/valueset-fm-status.html
+ */
 export type CoverageStatus = z.infer<typeof coverageStatusSchema>

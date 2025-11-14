@@ -7,6 +7,7 @@
 //
 
 import {
+  type Coding,
   type Measure,
   type MeasureGroup,
   type MeasureGroupPopulation,
@@ -15,7 +16,7 @@ import {
   type MeasureSupplementalData,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -80,6 +81,9 @@ const measureSupplementalDataSchema: ZodType<MeasureSupplementalData> =
     criteria: expressionSchema,
   })
 
+/**
+ * Zod schema for FHIR Measure resource (untyped version).
+ */
 export const untypedMeasureSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Measure').readonly(),
@@ -151,12 +155,71 @@ export const untypedMeasureSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<Measure>
 
+/**
+ * Zod schema for FHIR Measure resource.
+ */
 export const measureSchema: ZodType<Measure> = untypedMeasureSchema
 
+/**
+ * Wrapper class for FHIR Measure resources.
+ * Provides utility methods for working with quality measures and clinical decision support.
+ */
 export class FhirMeasure extends FhirDomainResource<Measure> {
   // Static Functions
 
+  /**
+   * Parses a Measure resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the Measure schema
+   * @returns A FhirMeasure instance containing the validated resource
+   */
   public static parse(value: unknown): FhirMeasure {
     return new FhirMeasure(measureSchema.parse(value))
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

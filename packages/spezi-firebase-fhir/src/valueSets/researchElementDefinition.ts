@@ -7,20 +7,37 @@
 //
 
 import { z } from 'zod'
-import { codeSchema } from '../elements/index.js'
 
 /**
  * ResearchElementDefinition Type
  * http://hl7.org/fhir/ValueSet/research-element-type
  */
-export const researchElementDefinitionTypeSchema = z.lazy(() =>
-  codeSchema.pipe(z.enum(['population', 'exposure', 'outcome'])),
-)
+export const researchElementDefinitionTypeSchema = z.enum([
+  'population',
+  'exposure',
+  'outcome',
+])
+
+/**
+ * ResearchElementDefinition Type
+ * http://hl7.org/fhir/ValueSet/research-element-type
+ */
+export type ResearchElementDefinitionType = z.infer<
+  typeof researchElementDefinitionTypeSchema
+>
 
 /**
  * Variable Type
  * http://hl7.org/fhir/ValueSet/variable-type
  */
-export const variableTypeSchema = z.lazy(() =>
-  codeSchema.pipe(z.enum(['dichotomous', 'continuous', 'descriptive'])),
-)
+export const variableTypeSchema = z.enum([
+  'dichotomous',
+  'continuous',
+  'descriptive',
+])
+
+/**
+ * Variable Type
+ * http://hl7.org/fhir/ValueSet/variable-type
+ */
+export type VariableType = z.infer<typeof variableTypeSchema>

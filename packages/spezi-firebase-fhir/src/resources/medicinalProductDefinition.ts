@@ -7,6 +7,7 @@
 //
 
 import {
+  type Coding,
   type MedicinalProductDefinition,
   type MedicinalProductDefinitionCharacteristic,
   type MedicinalProductDefinitionContact,
@@ -17,15 +18,17 @@ import {
   type MedicinalProductDefinitionOperation,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
+  booleanSchema,
   codeableConceptSchema,
   codeableReferenceSchema,
   codingSchema,
   domainResourceSchema,
   elementSchema,
   identifierSchema,
+  intSchema,
   referenceSchema,
   stringSchema,
 } from '../elements/index.js'
@@ -37,10 +40,10 @@ const medicinalProductDefinitionCharacteristicSchema: ZodType<MedicinalProductDe
     valueString: stringSchema.optional(),
     _valueString: elementSchema.optional(),
     valueQuantity: elementSchema.optional(),
-    valueInteger: z.number().optional(),
+    valueInteger: intSchema.optional(),
     valueDate: stringSchema.optional(),
     _valueDate: elementSchema.optional(),
-    valueBoolean: z.boolean().optional(),
+    valueBoolean: booleanSchema.optional(),
     _valueBoolean: elementSchema.optional(),
     valueAttachment: elementSchema.optional(),
   })
@@ -90,6 +93,9 @@ const medicinalProductDefinitionOperationSchema: ZodType<MedicinalProductDefinit
     confidentialityIndicator: codeableConceptSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR MedicinalProductDefinition resource (untyped version).
+ */
 export const untypedMedicinalProductDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('MedicinalProductDefinition').readonly(),
@@ -131,15 +137,74 @@ export const untypedMedicinalProductDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<MedicinalProductDefinition>
 
+/**
+ * Zod schema for FHIR MedicinalProductDefinition resource.
+ */
 export const medicinalProductDefinitionSchema: ZodType<MedicinalProductDefinition> =
   untypedMedicinalProductDefinitionSchema
 
+/**
+ * Wrapper class for FHIR MedicinalProductDefinition resources.
+ * Provides utility methods for working with medicinal product definitions and regulatory information.
+ */
 export class FhirMedicinalProductDefinition extends FhirDomainResource<MedicinalProductDefinition> {
   // Static Functions
 
+  /**
+   * Parses a MedicinalProductDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the MedicinalProductDefinition schema
+   * @returns A FhirMedicinalProductDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirMedicinalProductDefinition {
     return new FhirMedicinalProductDefinition(
       medicinalProductDefinitionSchema.parse(value),
     )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns Array of identifier values matching the specified systems
+   */
+  public identifiersBySystem(...system: string[]): string[] {
+    return FhirDomainResource.identifiersBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided systems.
+   *
+   * @param system - One or more system URIs to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierBySystem(...system: string[]): string | undefined {
+    return FhirDomainResource.identifierBySystem(
+      this.value.identifier,
+      ...system,
+    )
+  }
+
+  /**
+   * Gets all identifier values that match any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns Array of identifier values matching the specified types
+   */
+  public identifiersByType(...type: Coding[]): string[] {
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+  }
+
+  /**
+   * Gets the first identifier value that matches any of the provided types.
+   *
+   * @param type - One or more type codings to match
+   * @returns The first matching identifier value, or undefined if none match
+   */
+  public identifierByType(...type: Coding[]): string | undefined {
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
   }
 }

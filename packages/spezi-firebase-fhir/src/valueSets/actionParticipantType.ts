@@ -19,4 +19,8 @@ export const actionParticipantTypeSchema = z.enum([
   'device',
 ])
 
+/**
+ * The type of participant for the action.
+ * http://hl7.org/fhir/ValueSet/action-participant-type
+ */
 export type ActionParticipantType = z.infer<typeof actionParticipantTypeSchema>

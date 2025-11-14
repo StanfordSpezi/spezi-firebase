@@ -13,7 +13,7 @@ import {
   type VerificationResult,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -63,6 +63,9 @@ const verificationResultValidatorSchema: ZodType<VerificationResultValidator> =
     attestationSignature: signatureSchema.optional(),
   })
 
+/**
+ * Zod schema for FHIR VerificationResult resource (untyped version).
+ */
 export const untypedVerificationResultSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('VerificationResult').readonly(),
@@ -88,12 +91,25 @@ export const untypedVerificationResultSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<VerificationResult>
 
+/**
+ * Zod schema for FHIR VerificationResult resource.
+ */
 export const verificationResultSchema: ZodType<VerificationResult> =
   untypedVerificationResultSchema
 
+/**
+ * Wrapper class for FHIR VerificationResult resources.
+ * Provides utility methods for working with verification results that describe validation/verification of information.
+ */
 export class FhirVerificationResult extends FhirDomainResource<VerificationResult> {
   // Static Functions
 
+  /**
+   * Parses a VerificationResult resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the VerificationResult schema
+   * @returns A FhirVerificationResult instance containing the validated resource
+   */
   public static parse(value: unknown): FhirVerificationResult {
     return new FhirVerificationResult(verificationResultSchema.parse(value))
   }

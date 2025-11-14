@@ -14,14 +14,26 @@ import { type z } from 'zod'
 import { deviceConverter } from '../models/device.js'
 import { type NotificationService } from '../services/notificationService.js'
 
+/**
+ * Zod schema for register device input validation
+ */
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 export const registerDeviceInputSchema = deviceConverter.schema
+
+/**
+ * Type for register device input data
+ */
 export type RegisterDeviceInput = z.input<typeof registerDeviceInputSchema>
+
+/**
+ * Type for register device output (undefined)
+ */
 export type RegisterDeviceOutput = undefined
 
 /**
  * Create a register device function handler
  * @param notificationService The notification service
+ * @returns A function that handles device registration
  */
 export function createRegisterDeviceHandler(
   notificationService: NotificationService,

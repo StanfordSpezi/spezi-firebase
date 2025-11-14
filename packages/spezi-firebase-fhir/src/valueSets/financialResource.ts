@@ -19,6 +19,10 @@ export const financialResourceStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * A code specifying the state of the resource instance.
+ * http://hl7.org/fhir/valueset-fm-status.html
+ */
 export type FinancialResourceStatus = z.infer<
   typeof financialResourceStatusSchema
 >
@@ -34,6 +38,10 @@ export const chargeItemDefinitionStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * A code specifying the state of a ChargeItemDefinition.
+ * http://hl7.org/fhir/valueset-publication-status.html
+ */
 export type ChargeItemDefinitionStatus = z.infer<
   typeof chargeItemDefinitionStatusSchema
 >
@@ -50,6 +58,10 @@ export const invoiceStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * Codes identifying the lifecycle stage of an Invoice.
+ * http://hl7.org/fhir/valueset-invoice-status.html
+ */
 export type InvoiceStatus = z.infer<typeof invoiceStatusSchema>
 
 /**
@@ -63,6 +75,10 @@ export const insurancePlanStatusSchema = z.enum([
   'unknown',
 ])
 
+/**
+ * Codes identifying the lifecycle stage of an InsurancePlan.
+ * http://hl7.org/fhir/valueset-publication-status.html
+ */
 export type InsurancePlanStatus = z.infer<typeof insurancePlanStatusSchema>
 
 /**
@@ -76,4 +92,8 @@ export const remittanceOutcomeSchema = z.enum([
   'partial',
 ])
 
+/**
+ * The processing outcome for the request.
+ * http://hl7.org/fhir/valueset-remittance-outcome.html
+ */
 export type RemittanceOutcome = z.infer<typeof remittanceOutcomeSchema>

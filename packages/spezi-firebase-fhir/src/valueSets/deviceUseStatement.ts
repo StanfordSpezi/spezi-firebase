@@ -21,6 +21,10 @@ export const deviceUseStatementStatusSchema = z.enum([
   'on-hold',
 ])
 
+/**
+ * A coded concept indicating the current status of the Device Usage.
+ * http://hl7.org/fhir/valueset-device-statement-status.html
+ */
 export type DeviceUseStatementStatus = z.infer<
   typeof deviceUseStatementStatusSchema
 >

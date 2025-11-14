@@ -18,6 +18,10 @@ export const messageHeaderResponseCodeSchema = z.enum([
   'fatal-error',
 ])
 
+/**
+ * The status of the response to an individual message header.
+ * http://hl7.org/fhir/valueset-response-code.html
+ */
 export type MessageHeaderResponseCode = z.infer<
   typeof messageHeaderResponseCodeSchema
 >

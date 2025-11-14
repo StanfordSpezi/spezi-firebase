@@ -6,6 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
+/**
+ * Stringify an object with deterministically sorted keys
+ * @param object The object to stringify
+ * @returns JSON string with sorted keys
+ */
 export function jsonStringifyDeterministically(object: unknown): string {
   return JSON.stringify(
     object,

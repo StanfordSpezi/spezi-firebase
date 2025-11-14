@@ -11,7 +11,7 @@ import {
   type CompartmentDefinition,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -38,6 +38,9 @@ const compartmentDefinitionResourceSchema: ZodType<CompartmentDefinitionResource
     _param: elementSchema.array().optional(),
   })
 
+/**
+ * Zod schema for FHIR CompartmentDefinition resource (untyped version).
+ */
 export const untypedCompartmentDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('CompartmentDefinition').readonly(),
@@ -69,12 +72,25 @@ export const untypedCompartmentDefinitionSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<CompartmentDefinition>
 
+/**
+ * Zod schema for FHIR CompartmentDefinition resource.
+ */
 export const compartmentDefinitionSchema: ZodType<CompartmentDefinition> =
   untypedCompartmentDefinitionSchema
 
+/**
+ * Wrapper class for FHIR CompartmentDefinition resources.
+ * Provides utility methods for working with compartment definitions that organize resources by access contexts.
+ */
 export class FhirCompartmentDefinition extends FhirDomainResource<CompartmentDefinition> {
   // Static Functions
 
+  /**
+   * Parses a CompartmentDefinition resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the CompartmentDefinition schema
+   * @returns A FhirCompartmentDefinition instance containing the validated resource
+   */
   public static parse(value: unknown): FhirCompartmentDefinition {
     return new FhirCompartmentDefinition(
       compartmentDefinitionSchema.parse(value),

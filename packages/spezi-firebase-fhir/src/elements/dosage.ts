@@ -19,6 +19,9 @@ import { ratioSchema } from './dataTypes/ratio.js'
 import { timingSchema } from './dataTypes/timing.js'
 import { elementSchema } from './element.js'
 
+/**
+ * Zod schema for FHIR Dosage data type.
+ */
 export const dosageSchema: ZodType<Dosage> = z.lazy(() =>
   elementSchema.extend({
     sequence: intSchema.optional(),

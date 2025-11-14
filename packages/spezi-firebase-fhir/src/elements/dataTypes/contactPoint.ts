@@ -24,6 +24,9 @@ const contactPointSystemSchema = z.enum([
 
 const contactPointUseSchema = z.enum(['home', 'work', 'temp', 'old', 'mobile'])
 
+/**
+ * Zod schema for FHIR ContactPoint data type.
+ */
 export const contactPointSchema: ZodType<ContactPoint> = z.lazy(() =>
   elementSchema.extend({
     system: contactPointSystemSchema.optional(),

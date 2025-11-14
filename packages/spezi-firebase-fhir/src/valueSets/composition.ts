@@ -19,6 +19,10 @@ export const compositionAttestationModeSchema = z.enum([
   'official',
 ])
 
+/**
+ * The mode of a composition.
+ * http://hl7.org/fhir/valueset-composition-attestation-mode.html
+ */
 export type CompositionAttestationMode = z.infer<
   typeof compositionAttestationModeSchema
 >
@@ -34,6 +38,10 @@ export const compositionRelatestoCodeSchema = z.enum([
   'appends',
 ])
 
+/**
+ * The way in which this related composition is related.
+ * http://hl7.org/fhir/valueset-document-relationship-type.html
+ */
 export type CompositionRelatesToCode = z.infer<
   typeof compositionRelatestoCodeSchema
 >
@@ -49,4 +57,8 @@ export const compositionStatusSchema = z.enum([
   'entered-in-error',
 ])
 
+/**
+ * The workflow/clinical status of the composition.
+ * http://hl7.org/fhir/valueset-composition-status.html
+ */
 export type CompositionStatus = z.infer<typeof compositionStatusSchema>

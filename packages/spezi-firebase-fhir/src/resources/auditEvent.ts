@@ -15,7 +15,7 @@ import {
   type AuditEvent,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   base64BinarySchema,
@@ -93,6 +93,9 @@ const auditEventEntitySchema: ZodType<AuditEventEntity> =
     detail: auditEventEntityDetailSchema.array().optional(),
   })
 
+/**
+ * Zod schema for FHIR AuditEvent resource (untyped version).
+ */
 export const untypedAuditEventSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('AuditEvent').readonly(),
@@ -114,12 +117,38 @@ export const untypedAuditEventSchema = z.lazy(() =>
   }),
 ) satisfies ZodType<AuditEvent>
 
+/**
+ * Zod schema for FHIR AuditEvent resource.
+ */
 export const auditEventSchema: ZodType<AuditEvent> = untypedAuditEventSchema
 
+/**
+ * Wrapper class for FHIR AuditEvent resources.
+ * Provides utility methods for working with audit events and their recorded times.
+ */
 export class FhirAuditEvent extends FhirDomainResource<AuditEvent> {
-  // Static Functions
-
+  /**
+   * Parses an AuditEvent resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the AuditEvent schema
+   * @returns A FhirAuditEvent instance containing the validated resource
+   */
   public static parse(value: unknown): FhirAuditEvent {
     return new FhirAuditEvent(auditEventSchema.parse(value))
+  }
+
+  /**
+   * Gets the date/time when the auditable event was recorded.
+   *
+   * @returns The recorded date if available, undefined otherwise
+   *
+   * @example
+   * ```typescript
+   * const recordedDate = auditEvent.recordedDate
+   * console.log(`Event recorded: ${recordedDate?.toISOString()}`)
+   * ```
+   */
+  public get recordedDate(): Date | undefined {
+    return FhirDomainResource.parseDateTime(this.value.recorded)
   }
 }

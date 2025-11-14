@@ -15,9 +15,18 @@ import {
   type TestScriptMetadataCapability,
   type TestScriptFixture,
   type TestScriptVariable,
+  type TestScriptSetup,
+  type TestScriptSetupAction,
+  type TestScriptSetupActionOperation,
+  type TestScriptSetupActionAssert,
+  type TestScriptSetupActionOperationRequestHeader,
+  type TestScriptTest,
+  type TestScriptTeardown,
+  type TestScriptTeardownAction,
+  type TestScriptTestAction,
 } from 'fhir/r4b.js'
 import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './domainResourceClass.js'
+import { FhirDomainResource } from './fhirDomainResource.js'
 import {
   backboneElementSchema,
   booleanSchema,
@@ -117,6 +126,141 @@ const testScriptVariableSchema: ZodType<TestScriptVariable> =
     _sourceId: elementSchema.optional(),
   })
 
+const testScriptSetupActionOperationRequestHeader: ZodType<TestScriptSetupActionOperationRequestHeader> =
+  backboneElementSchema.extend({
+    field: stringSchema,
+    _field: elementSchema.optional(),
+    value: stringSchema,
+    _value: elementSchema.optional(),
+  })
+
+const testScriptSetupActionOperationSchema: ZodType<TestScriptSetupActionOperation> =
+  backboneElementSchema.extend({
+    type: codingSchema.optional(),
+    resource: urlSchema.optional(),
+    _resource: elementSchema.optional(),
+    label: stringSchema.optional(),
+    _label: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    accept: stringSchema.optional(),
+    _accept: elementSchema.optional(),
+    contentType: mimeTypeSchema.optional(),
+    _contentType: elementSchema.optional(),
+    destination: intSchema.optional(),
+    _destination: elementSchema.optional(),
+    encodeRequestUrl: booleanSchema,
+    _encodeRequestUrl: elementSchema.optional(),
+    method: testScriptRequestMethodSchema.optional(),
+    _method: elementSchema.optional(),
+    origin: intSchema.optional(),
+    _origin: elementSchema.optional(),
+    params: stringSchema.optional(),
+    _params: elementSchema.optional(),
+    requestHeader: testScriptSetupActionOperationRequestHeader
+      .array()
+      .optional(),
+    requestId: stringSchema.optional(),
+    _requestId: elementSchema.optional(),
+    responseId: stringSchema.optional(),
+    _responseId: elementSchema.optional(),
+    sourceId: stringSchema.optional(),
+    _sourceId: elementSchema.optional(),
+    targetId: stringSchema.optional(),
+    _targetId: elementSchema.optional(),
+    url: stringSchema.optional(),
+    _url: elementSchema.optional(),
+  })
+
+const testScriptSetupActionAssertSchema: ZodType<TestScriptSetupActionAssert> =
+  backboneElementSchema.extend({
+    label: stringSchema.optional(),
+    _label: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    direction: assertDirectionSchema.optional(),
+    _direction: elementSchema.optional(),
+    compareToSourceId: stringSchema.optional(),
+    _compareToSourceId: elementSchema.optional(),
+    compareToSourceExpression: stringSchema.optional(),
+    _compareToSourceExpression: elementSchema.optional(),
+    compareToSourcePath: stringSchema.optional(),
+    _compareToSourcePath: elementSchema.optional(),
+    contentType: mimeTypeSchema.optional(),
+    _contentType: elementSchema.optional(),
+    expression: stringSchema.optional(),
+    _expression: elementSchema.optional(),
+    headerField: stringSchema.optional(),
+    _headerField: elementSchema.optional(),
+    minimumId: stringSchema.optional(),
+    _minimumId: elementSchema.optional(),
+    navigationLinks: booleanSchema.optional(),
+    _navigationLinks: elementSchema.optional(),
+    operator: assertOperatorSchema.optional(),
+    _operator: elementSchema.optional(),
+    path: stringSchema.optional(),
+    _path: elementSchema.optional(),
+    requestMethod: testScriptRequestMethodSchema.optional(),
+    _requestMethod: elementSchema.optional(),
+    requestURL: stringSchema.optional(),
+    _requestURL: elementSchema.optional(),
+    resource: urlSchema.optional(),
+    _resource: elementSchema.optional(),
+    response: assertResponseCodeSchema.optional(),
+    _response: elementSchema.optional(),
+    responseCode: stringSchema.optional(),
+    _responseCode: elementSchema.optional(),
+    sourceId: stringSchema.optional(),
+    _sourceId: elementSchema.optional(),
+    stopTestOnFail: booleanSchema,
+    _stopTestOnFail: elementSchema.optional(),
+    validateProfileId: stringSchema.optional(),
+    _validateProfileId: elementSchema.optional(),
+    value: stringSchema.optional(),
+    _value: elementSchema.optional(),
+    warningOnly: booleanSchema,
+    _warningOnly: elementSchema.optional(),
+  })
+
+const testScriptSetupActionSchema: ZodType<TestScriptSetupAction> =
+  backboneElementSchema.extend({
+    operation: testScriptSetupActionOperationSchema.optional(),
+    assert: testScriptSetupActionAssertSchema.optional(),
+  })
+
+const testScriptSetupSchema: ZodType<TestScriptSetup> =
+  backboneElementSchema.extend({
+    action: testScriptSetupActionSchema.array(),
+  })
+
+const testScriptTestActionSchema: ZodType<TestScriptTestAction> =
+  backboneElementSchema.extend({
+    operation: testScriptSetupActionOperationSchema.optional(),
+    assert: testScriptSetupActionAssertSchema.optional(),
+  })
+
+const testScriptTestSchema: ZodType<TestScriptTest> =
+  backboneElementSchema.extend({
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+    description: stringSchema.optional(),
+    _description: elementSchema.optional(),
+    action: testScriptTestActionSchema.array(),
+  })
+
+const testScriptTeardownActionSchema: ZodType<TestScriptTeardownAction> =
+  backboneElementSchema.extend({
+    operation: testScriptSetupActionOperationSchema,
+  })
+
+const testScriptTeardownSchema: ZodType<TestScriptTeardown> =
+  backboneElementSchema.extend({
+    action: testScriptTeardownActionSchema.array(),
+  })
+
+/**
+ * Zod schema for FHIR TestScript resource (untyped version).
+ */
 export const untypedTestScriptSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('TestScript').readonly(),
@@ -152,273 +296,30 @@ export const untypedTestScriptSchema = z.lazy(() =>
     fixture: testScriptFixtureSchema.array().optional(),
     profile: referenceSchema.array().optional(),
     variable: testScriptVariableSchema.array().optional(),
-    setup: backboneElementSchema
-      .extend({
-        action: backboneElementSchema
-          .extend({
-            operation: backboneElementSchema
-              .extend({
-                type: codingSchema.optional(),
-                resource: urlSchema.optional(),
-                _resource: elementSchema.optional(),
-                label: stringSchema.optional(),
-                _label: elementSchema.optional(),
-                description: stringSchema.optional(),
-                _description: elementSchema.optional(),
-                accept: stringSchema.optional(),
-                _accept: elementSchema.optional(),
-                contentType: mimeTypeSchema.optional(),
-                _contentType: elementSchema.optional(),
-                destination: intSchema.optional(),
-                _destination: elementSchema.optional(),
-                encodeRequestUrl: booleanSchema,
-                _encodeRequestUrl: elementSchema.optional(),
-                method: testScriptRequestMethodSchema.optional(),
-                _method: elementSchema.optional(),
-                origin: intSchema.optional(),
-                _origin: elementSchema.optional(),
-                params: stringSchema.optional(),
-                _params: elementSchema.optional(),
-                requestHeader: backboneElementSchema
-                  .extend({
-                    field: stringSchema,
-                    _field: elementSchema.optional(),
-                    value: stringSchema,
-                    _value: elementSchema.optional(),
-                  })
-                  .array()
-                  .optional(),
-                requestId: stringSchema.optional(),
-                _requestId: elementSchema.optional(),
-                responseId: stringSchema.optional(),
-                _responseId: elementSchema.optional(),
-                sourceId: stringSchema.optional(),
-                _sourceId: elementSchema.optional(),
-                targetId: stringSchema.optional(),
-                _targetId: elementSchema.optional(),
-                url: stringSchema.optional(),
-                _url: elementSchema.optional(),
-              })
-              .optional(),
-            assert: backboneElementSchema
-              .extend({
-                label: stringSchema.optional(),
-                _label: elementSchema.optional(),
-                description: stringSchema.optional(),
-                _description: elementSchema.optional(),
-                direction: assertDirectionSchema.optional(),
-                _direction: elementSchema.optional(),
-                compareToSourceId: stringSchema.optional(),
-                _compareToSourceId: elementSchema.optional(),
-                compareToSourceExpression: stringSchema.optional(),
-                _compareToSourceExpression: elementSchema.optional(),
-                compareToSourcePath: stringSchema.optional(),
-                _compareToSourcePath: elementSchema.optional(),
-                contentType: mimeTypeSchema.optional(),
-                _contentType: elementSchema.optional(),
-                expression: stringSchema.optional(),
-                _expression: elementSchema.optional(),
-                headerField: stringSchema.optional(),
-                _headerField: elementSchema.optional(),
-                minimumId: stringSchema.optional(),
-                _minimumId: elementSchema.optional(),
-                navigationLinks: booleanSchema.optional(),
-                _navigationLinks: elementSchema.optional(),
-                operator: assertOperatorSchema.optional(),
-                _operator: elementSchema.optional(),
-                path: stringSchema.optional(),
-                _path: elementSchema.optional(),
-                requestMethod: testScriptRequestMethodSchema.optional(),
-                _requestMethod: elementSchema.optional(),
-                requestURL: stringSchema.optional(),
-                _requestURL: elementSchema.optional(),
-                resource: urlSchema.optional(),
-                _resource: elementSchema.optional(),
-                response: assertResponseCodeSchema.optional(),
-                _response: elementSchema.optional(),
-                responseCode: stringSchema.optional(),
-                _responseCode: elementSchema.optional(),
-                sourceId: stringSchema.optional(),
-                _sourceId: elementSchema.optional(),
-                stopTestOnFail: booleanSchema,
-                _stopTestOnFail: elementSchema.optional(),
-                validateProfileId: stringSchema.optional(),
-                _validateProfileId: elementSchema.optional(),
-                value: stringSchema.optional(),
-                _value: elementSchema.optional(),
-                warningOnly: booleanSchema,
-                _warningOnly: elementSchema.optional(),
-              })
-              .optional(),
-          })
-          .array(),
-      })
-      .optional(),
-    test: backboneElementSchema
-      .extend({
-        name: stringSchema.optional(),
-        _name: elementSchema.optional(),
-        description: stringSchema.optional(),
-        _description: elementSchema.optional(),
-        action: backboneElementSchema
-          .extend({
-            operation: backboneElementSchema
-              .extend({
-                type: codingSchema.optional(),
-                resource: urlSchema.optional(),
-                _resource: elementSchema.optional(),
-                label: stringSchema.optional(),
-                _label: elementSchema.optional(),
-                description: stringSchema.optional(),
-                _description: elementSchema.optional(),
-                accept: stringSchema.optional(),
-                _accept: elementSchema.optional(),
-                contentType: mimeTypeSchema.optional(),
-                _contentType: elementSchema.optional(),
-                destination: intSchema.optional(),
-                _destination: elementSchema.optional(),
-                encodeRequestUrl: booleanSchema,
-                _encodeRequestUrl: elementSchema.optional(),
-                method: testScriptRequestMethodSchema.optional(),
-                _method: elementSchema.optional(),
-                origin: intSchema.optional(),
-                _origin: elementSchema.optional(),
-                params: stringSchema.optional(),
-                _params: elementSchema.optional(),
-                requestHeader: backboneElementSchema
-                  .extend({
-                    field: stringSchema,
-                    _field: elementSchema.optional(),
-                    value: stringSchema,
-                    _value: elementSchema.optional(),
-                  })
-                  .array()
-                  .optional(),
-                requestId: stringSchema.optional(),
-                _requestId: elementSchema.optional(),
-                responseId: stringSchema.optional(),
-                _responseId: elementSchema.optional(),
-                sourceId: stringSchema.optional(),
-                _sourceId: elementSchema.optional(),
-                targetId: stringSchema.optional(),
-                _targetId: elementSchema.optional(),
-                url: stringSchema.optional(),
-                _url: elementSchema.optional(),
-              })
-              .optional(),
-            assert: backboneElementSchema
-              .extend({
-                label: stringSchema.optional(),
-                _label: elementSchema.optional(),
-                description: stringSchema.optional(),
-                _description: elementSchema.optional(),
-                direction: assertDirectionSchema.optional(),
-                _direction: elementSchema.optional(),
-                compareToSourceId: stringSchema.optional(),
-                _compareToSourceId: elementSchema.optional(),
-                compareToSourceExpression: stringSchema.optional(),
-                _compareToSourceExpression: elementSchema.optional(),
-                compareToSourcePath: stringSchema.optional(),
-                _compareToSourcePath: elementSchema.optional(),
-                contentType: mimeTypeSchema.optional(),
-                _contentType: elementSchema.optional(),
-                expression: stringSchema.optional(),
-                _expression: elementSchema.optional(),
-                headerField: stringSchema.optional(),
-                _headerField: elementSchema.optional(),
-                minimumId: stringSchema.optional(),
-                _minimumId: elementSchema.optional(),
-                navigationLinks: booleanSchema.optional(),
-                _navigationLinks: elementSchema.optional(),
-                operator: assertOperatorSchema.optional(),
-                _operator: elementSchema.optional(),
-                path: stringSchema.optional(),
-                _path: elementSchema.optional(),
-                requestMethod: testScriptRequestMethodSchema.optional(),
-                _requestMethod: elementSchema.optional(),
-                requestURL: stringSchema.optional(),
-                _requestURL: elementSchema.optional(),
-                resource: urlSchema.optional(),
-                _resource: elementSchema.optional(),
-                response: assertResponseCodeSchema.optional(),
-                _response: elementSchema.optional(),
-                responseCode: stringSchema.optional(),
-                _responseCode: elementSchema.optional(),
-                sourceId: stringSchema.optional(),
-                _sourceId: elementSchema.optional(),
-                stopTestOnFail: booleanSchema,
-                _stopTestOnFail: elementSchema.optional(),
-                validateProfileId: stringSchema.optional(),
-                _validateProfileId: elementSchema.optional(),
-                value: stringSchema.optional(),
-                _value: elementSchema.optional(),
-                warningOnly: booleanSchema,
-                _warningOnly: elementSchema.optional(),
-              })
-              .optional(),
-          })
-          .array(),
-      })
-      .array()
-      .optional(),
-    teardown: backboneElementSchema
-      .extend({
-        action: backboneElementSchema
-          .extend({
-            operation: backboneElementSchema.extend({
-              type: codingSchema.optional(),
-              resource: urlSchema.optional(),
-              _resource: elementSchema.optional(),
-              label: stringSchema.optional(),
-              _label: elementSchema.optional(),
-              description: stringSchema.optional(),
-              _description: elementSchema.optional(),
-              accept: stringSchema.optional(),
-              _accept: elementSchema.optional(),
-              contentType: mimeTypeSchema.optional(),
-              _contentType: elementSchema.optional(),
-              destination: intSchema.optional(),
-              _destination: elementSchema.optional(),
-              encodeRequestUrl: booleanSchema,
-              _encodeRequestUrl: elementSchema.optional(),
-              method: testScriptRequestMethodSchema.optional(),
-              _method: elementSchema.optional(),
-              origin: intSchema.optional(),
-              _origin: elementSchema.optional(),
-              params: stringSchema.optional(),
-              _params: elementSchema.optional(),
-              requestHeader: backboneElementSchema
-                .extend({
-                  field: stringSchema,
-                  _field: elementSchema.optional(),
-                  value: stringSchema,
-                  _value: elementSchema.optional(),
-                })
-                .array()
-                .optional(),
-              requestId: stringSchema.optional(),
-              _requestId: elementSchema.optional(),
-              responseId: stringSchema.optional(),
-              _responseId: elementSchema.optional(),
-              sourceId: stringSchema.optional(),
-              _sourceId: elementSchema.optional(),
-              targetId: stringSchema.optional(),
-              _targetId: elementSchema.optional(),
-              url: stringSchema.optional(),
-              _url: elementSchema.optional(),
-            }),
-          })
-          .array(),
-      })
-      .optional(),
+    setup: testScriptSetupSchema.optional(),
+    test: testScriptTestSchema.array().optional(),
+    teardown: testScriptTeardownSchema.optional(),
   }),
 ) satisfies ZodType<TestScript>
 
+/**
+ * Zod schema for FHIR TestScript resource.
+ */
 export const testScriptSchema: ZodType<TestScript> = untypedTestScriptSchema
 
+/**
+ * Wrapper class for FHIR TestScript resources.
+ * Provides utility methods for working with test scripts that define automated test sequences for validating FHIR server implementations.
+ */
 export class FhirTestScript extends FhirDomainResource<TestScript> {
   // Static Functions
 
+  /**
+   * Parses a TestScript resource from unknown data.
+   *
+   * @param value - The data to parse and validate against the TestScript schema
+   * @returns A FhirTestScript instance containing the validated resource
+   */
   public static parse(value: unknown): FhirTestScript {
     return new FhirTestScript(testScriptSchema.parse(value))
   }
