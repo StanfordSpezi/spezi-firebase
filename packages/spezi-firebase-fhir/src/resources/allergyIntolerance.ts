@@ -55,7 +55,7 @@ export const untypedAllergyIntoleranceSchema = z.lazy(() =>
     identifier: identifierSchema.array().optional(),
     clinicalStatus: codeableConceptSchema.optional(),
     verificationStatus: codeableConceptSchema.optional(),
-    type: allergyIntoleranceTypeSchema,
+    type: allergyIntoleranceTypeSchema.optional(),
     _type: elementSchema.optional(),
     category: allergyIntoleranceCategorySchema.array().optional(),
     _category: elementSchema.array().optional(),
