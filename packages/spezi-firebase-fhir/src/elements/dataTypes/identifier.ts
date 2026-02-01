@@ -25,7 +25,7 @@ const identifierUseSchema = z.enum([
 /**
  * Zod schema for FHIR Identifier data type.
  */
-export const identifierSchema: ZodType<Identifier> = z.lazy(() =>
+export const untypedIdentifierSchema = z.lazy(() =>
   elementSchema.extend({
     use: identifierUseSchema.optional(),
     _use: elementSchema.optional(),
@@ -37,4 +37,9 @@ export const identifierSchema: ZodType<Identifier> = z.lazy(() =>
     period: periodSchema.optional(),
     assigner: referenceSchema.optional(),
   }),
-)
+) satisfies ZodType<Identifier>
+
+/**
+ * Zod schema for FHIR Identifier data type.
+ */
+export const identifierSchema: ZodType<Identifier> = untypedIdentifierSchema

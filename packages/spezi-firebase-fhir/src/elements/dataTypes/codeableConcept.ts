@@ -15,11 +15,17 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR CodeableConcept data type.
  */
-export const codeableConceptSchema: ZodType<CodeableConcept> = z.lazy(() =>
+export const untypedCodeableConceptSchema = z.lazy(() =>
   elementSchema.extend({
     coding: codingSchema.array().optional(),
     _coding: elementSchema.optional(),
     text: stringSchema.optional(),
     _text: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<CodeableConcept>
+
+/**
+ * Zod schema for FHIR CodeableConcept data type.
+ */
+export const codeableConceptSchema: ZodType<CodeableConcept> =
+  untypedCodeableConceptSchema

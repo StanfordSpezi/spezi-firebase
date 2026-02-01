@@ -17,6 +17,7 @@ export const questionnaireResponseStatusSchema = z.enum([
   'completed',
   'amended',
   'entered-in-error',
+  'stopped',
 ])
 
 /**

@@ -25,6 +25,29 @@ import {
 } from '../elements/index.js'
 import { daysOfWeekSchema } from '../valueSets/index.js'
 
+const availableTimeSchema = backboneElementSchema.extend({
+  daysOfWeek: daysOfWeekSchema.array().optional(),
+  _daysOfWeek: elementSchema.array().optional(),
+  allDay: booleanSchema.optional(),
+  _allDay: elementSchema.optional(),
+  availableStartTime: stringSchema.optional(),
+  _availableStartTime: elementSchema.optional(),
+  availableEndTime: stringSchema.optional(),
+  _availableEndTime: elementSchema.optional(),
+})
+
+const eligibilitySchema = backboneElementSchema.extend({
+  code: codeableConceptSchema.optional(),
+  comment: stringSchema.optional(),
+  _comment: elementSchema.optional(),
+})
+
+const notAvailableSchema = backboneElementSchema.extend({
+  description: stringSchema,
+  _description: elementSchema.optional(),
+  during: periodSchema.optional(),
+})
+
 /**
  * Zod schema for FHIR HealthcareService resource (untyped version).
  */
@@ -49,41 +72,15 @@ export const untypedHealthcareServiceSchema = z.lazy(() =>
     telecom: contactPointSchema.array().optional(),
     coverageArea: referenceSchema.array().optional(),
     serviceProvisionCode: codeableConceptSchema.array().optional(),
-    eligibility: backboneElementSchema
-      .extend({
-        code: codeableConceptSchema,
-        comment: stringSchema.optional(),
-        _comment: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
+    eligibility: eligibilitySchema.array().optional(),
     program: codeableConceptSchema.array().optional(),
     characteristic: codeableConceptSchema.array().optional(),
     communication: codeableConceptSchema.array().optional(),
     referralMethod: codeableConceptSchema.array().optional(),
     appointmentRequired: booleanSchema.optional(),
     _appointmentRequired: elementSchema.optional(),
-    availableTime: backboneElementSchema
-      .extend({
-        daysOfWeek: daysOfWeekSchema.array().optional(),
-        _daysOfWeek: elementSchema.array().optional(),
-        allDay: booleanSchema.optional(),
-        _allDay: elementSchema.optional(),
-        availableStartTime: stringSchema.optional(),
-        _availableStartTime: elementSchema.optional(),
-        availableEndTime: stringSchema.optional(),
-        _availableEndTime: elementSchema.optional(),
-      })
-      .array()
-      .optional(),
-    notAvailable: backboneElementSchema
-      .extend({
-        description: stringSchema,
-        _description: elementSchema.optional(),
-        during: periodSchema.optional(),
-      })
-      .array()
-      .optional(),
+    availableTime: availableTimeSchema.array().optional(),
+    notAvailable: notAvailableSchema.array().optional(),
     availabilityExceptions: stringSchema.optional(),
     _availabilityExceptions: elementSchema.optional(),
     endpoint: referenceSchema.array().optional(),

@@ -7,11 +7,18 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type Citation } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirCitation } from '../../src/index.js'
+import { FhirCitation, type untypedCitationSchema } from '../../src/index.js'
 
 describe('Citation Resource', () => {
   it('should validate FHIR citations from citations.json', () => {
+    type Schema = z.infer<typeof untypedCitationSchema>
+    expectTypeOf<Schema>().toExtend<Citation>()
+    expectTypeOf<Citation>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/citations.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

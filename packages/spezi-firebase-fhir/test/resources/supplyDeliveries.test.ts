@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type SupplyDelivery } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirSupplyDelivery } from '../../src/index.js'
+import {
+  FhirSupplyDelivery,
+  type untypedSupplyDeliverySchema,
+} from '../../src/index.js'
 
 describe('SupplyDelivery Resource', () => {
   it('should validate FHIR supply delivery from supplyDeliveries.json', () => {
+    type Schema = z.infer<typeof untypedSupplyDeliverySchema>
+    expectTypeOf<Schema>().toExtend<SupplyDelivery>()
+    expectTypeOf<SupplyDelivery>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/supplyDeliveries.json',
       'utf-8',

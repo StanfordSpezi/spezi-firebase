@@ -20,6 +20,7 @@ export const medicationStatementStatusSchema = z.enum([
   'stopped',
   'on-hold',
   'unknown',
+  'not-taken',
 ])
 
 /**

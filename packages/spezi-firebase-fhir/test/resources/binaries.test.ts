@@ -7,11 +7,18 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type Binary } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirBinary } from '../../src/index.js'
+import { FhirBinary, type untypedBinarySchema } from '../../src/index.js'
 
 describe('Binary Resource', () => {
   it('should validate FHIR binary from binaries.json', () => {
+    type Schema = z.infer<typeof untypedBinarySchema>
+    expectTypeOf<Schema>().toExtend<Binary>()
+    expectTypeOf<Binary>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/binaries.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

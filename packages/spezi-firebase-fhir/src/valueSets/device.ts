@@ -35,6 +35,7 @@ export const deviceStatusSchema = z.enum([
   'active',
   'inactive',
   'entered-in-error',
+  'unknown',
 ])
 
 /**

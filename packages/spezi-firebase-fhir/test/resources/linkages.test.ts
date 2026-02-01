@@ -7,11 +7,18 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type Linkage } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirLinkage } from '../../src/index.js'
+import { FhirLinkage, type untypedLinkageSchema } from '../../src/index.js'
 
 describe('Linkage Resource', () => {
   it('should validate FHIR Linkages from linkages.json', () => {
+    type Schema = z.infer<typeof untypedLinkageSchema>
+    expectTypeOf<Schema>().toExtend<Linkage>()
+    expectTypeOf<Linkage>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/linkages.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type SpecimenDefinition } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirSpecimenDefinition } from '../../src/index.js'
+import {
+  FhirSpecimenDefinition,
+  type untypedSpecimenDefinitionSchema,
+} from '../../src/index.js'
 
 describe('SpecimenDefinition Resource', () => {
   it('should validate FHIR SpecimenDefinitions from specimenDefinitions.json', () => {
+    type Schema = z.infer<typeof untypedSpecimenDefinitionSchema>
+    expectTypeOf<Schema>().toExtend<SpecimenDefinition>()
+    expectTypeOf<SpecimenDefinition>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/specimenDefinitions.json',
       'utf-8',

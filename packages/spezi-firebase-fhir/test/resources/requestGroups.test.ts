@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type RequestGroup } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirRequestGroup } from '../../src/index.js'
+import {
+  FhirRequestGroup,
+  type untypedRequestGroupSchema,
+} from '../../src/index.js'
 
 describe('RequestGroup Resource', () => {
   it('should validate FHIR RequestGroups from requestGroups.json', () => {
+    type Schema = z.infer<typeof untypedRequestGroupSchema>
+    expectTypeOf<Schema>().toExtend<RequestGroup>()
+    expectTypeOf<RequestGroup>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/requestGroups.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

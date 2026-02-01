@@ -15,10 +15,16 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR ContactDetail data type.
  */
-export const contactDetailSchema: ZodType<ContactDetail> = z.lazy(() =>
+export const untypedContactDetailSchema = z.lazy(() =>
   elementSchema.extend({
     name: stringSchema.optional(),
     _name: elementSchema.optional(),
     telecom: contactPointSchema.array().optional(),
   }),
-)
+) satisfies ZodType<ContactDetail>
+
+/**
+ * Zod schema for FHIR ContactDetail data type.
+ */
+export const contactDetailSchema: ZodType<ContactDetail> =
+  untypedContactDetailSchema

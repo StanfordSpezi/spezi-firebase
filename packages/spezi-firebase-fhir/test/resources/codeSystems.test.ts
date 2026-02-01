@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type CodeSystem } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirCodeSystem } from '../../src/index.js'
+import {
+  FhirCodeSystem,
+  type untypedCodeSystemSchema,
+} from '../../src/index.js'
 
 describe('CodeSystem Resource', () => {
   it('should validate FHIR CodeSystems from codeSystems.json', () => {
+    type Schema = z.infer<typeof untypedCodeSystemSchema>
+    expectTypeOf<Schema>().toExtend<CodeSystem>()
+    expectTypeOf<CodeSystem>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/codeSystems.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

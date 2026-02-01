@@ -25,7 +25,7 @@ const humanNameUseSchema = z.enum([
 /**
  * Zod schema for FHIR HumanName data type.
  */
-export const humanNameSchema: ZodType<HumanName> = z.lazy(() =>
+export const untypedHumanNameSchema = z.lazy(() =>
   elementSchema.extend({
     use: humanNameUseSchema.optional(),
     _use: elementSchema.optional(),
@@ -41,4 +41,9 @@ export const humanNameSchema: ZodType<HumanName> = z.lazy(() =>
     _suffix: elementSchema.array().optional(),
     period: periodSchema.optional(),
   }),
-)
+) satisfies ZodType<HumanName>
+
+/**
+ * Zod schema for FHIR HumanName data type.
+ */
+export const humanNameSchema: ZodType<HumanName> = untypedHumanNameSchema

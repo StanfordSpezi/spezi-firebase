@@ -60,7 +60,7 @@ import { usageContextSchema } from './metaDataTypes/usageContext.js'
 /**
  * Zod schema for FHIR Extension data type.
  */
-export const extensionSchema: ZodType<Extension> = z.lazy(() =>
+export const untypedExtensionSchema = z.lazy(() =>
   elementSchema.extend({
     url: urlSchema,
     _url: elementSchema.optional(),
@@ -131,4 +131,9 @@ export const extensionSchema: ZodType<Extension> = z.lazy(() =>
     valueUsageContext: usageContextSchema.optional(),
     valueDosage: dosageSchema.optional(),
   }),
-)
+) satisfies ZodType<Extension>
+
+/**
+ * Zod schema for FHIR Extension data type.
+ */
+export const extensionSchema: ZodType<Extension> = untypedExtensionSchema

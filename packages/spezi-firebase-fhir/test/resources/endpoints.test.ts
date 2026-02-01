@@ -7,11 +7,18 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type Endpoint } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirEndpoint } from '../../src/index.js'
+import { FhirEndpoint, type untypedEndpointSchema } from '../../src/index.js'
 
 describe('Endpoint Resource', () => {
   it('should validate FHIR endpoint from endpoints.json', () => {
+    type Schema = z.infer<typeof untypedEndpointSchema>
+    expectTypeOf<Schema>().toExtend<Endpoint>()
+    expectTypeOf<Endpoint>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/endpoints.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

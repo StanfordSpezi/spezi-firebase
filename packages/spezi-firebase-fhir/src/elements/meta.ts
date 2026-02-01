@@ -19,7 +19,7 @@ import { elementSchema } from './element.js'
 /**
  * Zod schema for FHIR Meta data type.
  */
-export const metaSchema: ZodType<Meta> = z.lazy(() =>
+export const untypedMetaSchema = z.lazy(() =>
   elementSchema.extend({
     versionId: idSchema.optional(),
     _versionId: elementSchema.optional(),
@@ -32,4 +32,9 @@ export const metaSchema: ZodType<Meta> = z.lazy(() =>
     security: codingSchema.array().optional(),
     tag: codingSchema.array().optional(),
   }),
-)
+) satisfies ZodType<Meta>
+
+/**
+ * Zod schema for FHIR Meta data type.
+ */
+export const metaSchema: ZodType<Meta> = untypedMetaSchema

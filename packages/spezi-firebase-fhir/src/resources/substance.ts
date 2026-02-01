@@ -50,7 +50,7 @@ export const untypedSubstanceSchema = z.lazy(() =>
   domainResourceSchema.extend({
     resourceType: z.literal('Substance').readonly(),
     identifier: identifierSchema.array().optional(),
-    status: substanceStatusSchema,
+    status: substanceStatusSchema.optional(),
     _status: elementSchema.optional(),
     category: codeableConceptSchema.array().optional(),
     code: codeableConceptSchema,

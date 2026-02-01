@@ -19,7 +19,7 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR Coding data type.
  */
-export const codingSchema: ZodType<Coding> = z.lazy(() =>
+export const untypedCodingSchema = z.lazy(() =>
   elementSchema.extend({
     system: uriSchema.optional(),
     _system: elementSchema.optional(),
@@ -32,4 +32,9 @@ export const codingSchema: ZodType<Coding> = z.lazy(() =>
     userSelected: booleanSchema.optional(),
     _userSelected: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<Coding>
+
+/**
+ * Zod schema for FHIR Coding data type.
+ */
+export const codingSchema: ZodType<Coding> = untypedCodingSchema

@@ -18,7 +18,7 @@ const addressUseSchema = z.enum(['home', 'work', 'temp', 'old', 'billing'])
 /**
  * Zod schema for FHIR Address data type.
  */
-export const addressSchema: ZodType<Address> = z.lazy(() =>
+export const untypedAddressSchema = z.lazy(() =>
   elementSchema.extend({
     use: addressUseSchema.optional(),
     _use: elementSchema.optional(),
@@ -40,4 +40,9 @@ export const addressSchema: ZodType<Address> = z.lazy(() =>
     _country: elementSchema.optional(),
     period: periodSchema.optional(),
   }),
-)
+) satisfies ZodType<Address>
+
+/**
+ * Zod schema for FHIR Address data type.
+ */
+export const addressSchema: ZodType<Address> = untypedAddressSchema

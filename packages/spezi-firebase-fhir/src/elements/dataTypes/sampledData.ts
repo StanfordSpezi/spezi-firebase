@@ -20,7 +20,7 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR SampledData data type.
  */
-export const sampledDataSchema: ZodType<SampledData> = z.lazy(() =>
+export const untypedSampledDataSchema = z.lazy(() =>
   elementSchema.extend({
     origin: quantitySchema,
     period: positiveDecimalSchema,
@@ -31,4 +31,9 @@ export const sampledDataSchema: ZodType<SampledData> = z.lazy(() =>
     data: stringSchema.optional(),
     _data: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<SampledData>
+
+/**
+ * Zod schema for FHIR SampledData data type.
+ */
+export const sampledDataSchema: ZodType<SampledData> = untypedSampledDataSchema

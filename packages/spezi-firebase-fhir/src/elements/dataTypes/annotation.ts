@@ -19,7 +19,7 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR Annotation data type.
  */
-export const annotationSchema: ZodType<Annotation> = z.lazy(() =>
+export const untypedAnnotationSchema = z.lazy(() =>
   elementSchema.extend({
     authorReference: referenceSchema.optional(),
     authorString: stringSchema.optional(),
@@ -29,4 +29,9 @@ export const annotationSchema: ZodType<Annotation> = z.lazy(() =>
     text: markdownSchema,
     _text: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<Annotation>
+
+/**
+ * Zod schema for FHIR Annotation data type.
+ */
+export const annotationSchema: ZodType<Annotation> = untypedAnnotationSchema

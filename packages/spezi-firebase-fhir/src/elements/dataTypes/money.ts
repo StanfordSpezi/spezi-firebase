@@ -14,10 +14,15 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR Money data type.
  */
-export const moneySchema: ZodType<Money> = z.lazy(() =>
+export const untypedMoneySchema = z.lazy(() =>
   elementSchema.extend({
     value: decimalSchema.optional(),
     currency: codeSchema.optional(),
     _currency: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<Money>
+
+/**
+ * Zod schema for FHIR Money data type.
+ */
+export const moneySchema: ZodType<Money> = untypedMoneySchema

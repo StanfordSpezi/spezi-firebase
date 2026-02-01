@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type ExampleScenario } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirExampleScenario } from '../../src/index.js'
+import {
+  FhirExampleScenario,
+  type untypedExampleScenarioSchema,
+} from '../../src/index.js'
 
 describe('ExampleScenario Resource', () => {
   it('should validate FHIR example scenario from exampleScenarios.json', () => {
+    type Schema = z.infer<typeof untypedExampleScenarioSchema>
+    expectTypeOf<Schema>().toExtend<ExampleScenario>()
+    expectTypeOf<ExampleScenario>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/exampleScenarios.json',
       'utf-8',

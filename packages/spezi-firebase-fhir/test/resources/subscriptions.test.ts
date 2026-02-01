@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type Subscription } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirSubscription } from '../../src/index.js'
+import {
+  FhirSubscription,
+  type untypedSubscriptionSchema,
+} from '../../src/index.js'
 
 describe('Subscription Resource', () => {
   it('should validate FHIR subscription from subscriptions.json', () => {
+    type Schema = z.infer<typeof untypedSubscriptionSchema>
+    expectTypeOf<Schema>().toExtend<Subscription>()
+    expectTypeOf<Subscription>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/subscriptions.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

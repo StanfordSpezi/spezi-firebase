@@ -15,7 +15,7 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR Reference data type.
  */
-export const referenceSchema: ZodType<Reference> = z.lazy(() =>
+export const untypedReferenceSchema = z.lazy(() =>
   elementSchema.extend({
     reference: stringSchema.optional(),
     _reference: elementSchema.optional(),
@@ -27,4 +27,9 @@ export const referenceSchema: ZodType<Reference> = z.lazy(() =>
     display: stringSchema.optional(),
     _display: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<Reference>
+
+/**
+ * Zod schema for FHIR Reference data type.
+ */
+export const referenceSchema: ZodType<Reference> = untypedReferenceSchema

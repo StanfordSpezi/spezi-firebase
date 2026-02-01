@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type PractitionerRole } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirPractitionerRole } from '../../src/index.js'
+import {
+  FhirPractitionerRole,
+  type untypedPractitionerRoleSchema,
+} from '../../src/index.js'
 
 describe('PractitionerRole Resource', () => {
   it('should validate FHIR practitionerRole from practitionerRoles.json', () => {
+    type Schema = z.infer<typeof untypedPractitionerRoleSchema>
+    expectTypeOf<Schema>().toExtend<PractitionerRole>()
+    expectTypeOf<PractitionerRole>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/practitionerRoles.json',
       'utf-8',

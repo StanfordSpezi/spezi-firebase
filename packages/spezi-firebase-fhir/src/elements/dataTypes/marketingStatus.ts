@@ -17,7 +17,7 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR MarketingStatus data type.
  */
-export const marketingStatusSchema: ZodType<MarketingStatus> = z.lazy(() =>
+export const untypedMarketingStatusSchema = z.lazy(() =>
   backboneElementSchema.extend({
     country: codeableConceptSchema.optional(),
     dateRange: periodSchema.optional(),
@@ -26,4 +26,10 @@ export const marketingStatusSchema: ZodType<MarketingStatus> = z.lazy(() =>
     _restoreDate: elementSchema.optional(),
     status: codeableConceptSchema,
   }),
-)
+) satisfies ZodType<MarketingStatus>
+
+/**
+ * Zod schema for FHIR MarketingStatus data type.
+ */
+export const marketingStatusSchema: ZodType<MarketingStatus> =
+  untypedMarketingStatusSchema

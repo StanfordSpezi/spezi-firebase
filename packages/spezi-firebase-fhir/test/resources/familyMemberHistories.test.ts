@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type FamilyMemberHistory } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirFamilyMemberHistory } from '../../src/index.js'
+import {
+  FhirFamilyMemberHistory,
+  type untypedFamilyMemberHistorySchema,
+} from '../../src/index.js'
 
 describe('FamilyMemberHistory Resource', () => {
   it('should validate FHIR FamilyMemberHistories from familyMemberHistories.json', () => {
+    type Schema = z.infer<typeof untypedFamilyMemberHistorySchema>
+    expectTypeOf<Schema>().toExtend<FamilyMemberHistory>()
+    expectTypeOf<FamilyMemberHistory>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/familyMemberHistories.json',
       'utf-8',

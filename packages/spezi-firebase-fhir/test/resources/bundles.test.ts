@@ -7,15 +7,23 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type Bundle } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
 import {
   bundleSchema,
   FhirBundle,
   fhirResourceSchema,
+  type untypedGenericBundleSchema,
 } from '../../src/index.js'
 
 describe('Bundle Resource', () => {
   it('should validate FHIR bundle from bundles.json', () => {
+    type Schema = z.infer<typeof untypedGenericBundleSchema>
+    expectTypeOf<Schema>().toExtend<Bundle>()
+    expectTypeOf<Bundle>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/bundles.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

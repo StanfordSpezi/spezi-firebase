@@ -13,12 +13,13 @@ import { z } from 'zod'
  * http://hl7.org/fhir/valueset-medicationrequest-status.html
  */
 export const medicationRequestStatusSchema = z.enum([
-  'draft',
   'active',
   'on-hold',
+  'cancelled',
   'completed',
   'entered-in-error',
   'stopped',
+  'draft',
   'unknown',
 ])
 
@@ -42,6 +43,7 @@ export const medicationRequestIntentSchema = z.enum([
   'reflex-order',
   'filler-order',
   'instance-order',
+  'option',
 ])
 
 /**

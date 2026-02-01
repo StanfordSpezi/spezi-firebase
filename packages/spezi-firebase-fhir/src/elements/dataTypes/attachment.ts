@@ -21,7 +21,7 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR Attachment data type.
  */
-export const attachmentSchema: ZodType<Attachment> = z.lazy(() =>
+export const untypedAttachmentSchema = z.lazy(() =>
   elementSchema.extend({
     contentType: codeSchema.optional(),
     _contentType: elementSchema.optional(),
@@ -39,4 +39,9 @@ export const attachmentSchema: ZodType<Attachment> = z.lazy(() =>
     creation: dateTimeSchema.optional(),
     _creation: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<Attachment>
+
+/**
+ * Zod schema for FHIR Attachment data type.
+ */
+export const attachmentSchema: ZodType<Attachment> = untypedAttachmentSchema

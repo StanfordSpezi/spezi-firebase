@@ -15,6 +15,7 @@ import {
   stringSchema,
 } from './dataTypes/primitiveTypes.js'
 import { quantitySchema } from './dataTypes/quantity.js'
+import { rangeSchema } from './dataTypes/range.js'
 import { ratioSchema } from './dataTypes/ratio.js'
 import { timingSchema } from './dataTypes/timing.js'
 import { elementSchema } from './element.js'
@@ -22,7 +23,7 @@ import { elementSchema } from './element.js'
 /**
  * Zod schema for FHIR Dosage data type.
  */
-export const dosageSchema: ZodType<Dosage> = z.lazy(() =>
+export const untypedDosageSchema = z.lazy(() =>
   elementSchema.extend({
     sequence: intSchema.optional(),
     text: stringSchema.optional(),
@@ -42,14 +43,14 @@ export const dosageSchema: ZodType<Dosage> = z.lazy(() =>
         type: codeableConceptSchema.optional(),
         doseQuantity: quantitySchema.optional(),
         rateRatio: ratioSchema.optional(),
-        rateRange: z
-          .object({
-            low: quantitySchema.optional(),
-            high: quantitySchema.optional(),
-          })
-          .optional(),
+        rateRange: rangeSchema.optional(),
       })
       .array()
       .optional(),
   }),
-)
+) satisfies ZodType<Dosage>
+
+/**
+ * Zod schema for FHIR Dosage data type.
+ */
+export const dosageSchema: ZodType<Dosage> = untypedDosageSchema

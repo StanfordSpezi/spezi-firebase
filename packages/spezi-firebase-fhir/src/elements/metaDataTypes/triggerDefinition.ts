@@ -34,7 +34,7 @@ const triggerDefinitionTypeSchema = z.enum([
 /**
  * Zod schema for FHIR TriggerDefinition data type.
  */
-export const triggerDefinitionSchema: ZodType<TriggerDefinition> = z.lazy(() =>
+export const untypedTriggerDefinitionSchema = z.lazy(() =>
   elementSchema.extend({
     type: triggerDefinitionTypeSchema,
     _type: elementSchema.optional(),
@@ -52,4 +52,10 @@ export const triggerDefinitionSchema: ZodType<TriggerDefinition> = z.lazy(() =>
     data: dataRequirementSchema.array().optional(),
     condition: expressionSchema.optional(),
   }),
-)
+) satisfies ZodType<TriggerDefinition>
+
+/**
+ * Zod schema for FHIR TriggerDefinition data type.
+ */
+export const triggerDefinitionSchema: ZodType<TriggerDefinition> =
+  untypedTriggerDefinitionSchema

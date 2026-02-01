@@ -21,7 +21,7 @@ const quantityComparatorSchema = z.enum(['<', '<=', '>=', '>'])
 /**
  * Zod schema for FHIR Quantity data type.
  */
-export const quantitySchema: ZodType<Quantity> = z.lazy(() =>
+export const untypedQuantitySchema = z.lazy(() =>
   elementSchema.extend({
     value: decimalSchema.optional(),
     comparator: quantityComparatorSchema.optional(),
@@ -33,4 +33,9 @@ export const quantitySchema: ZodType<Quantity> = z.lazy(() =>
     code: codeSchema.optional(),
     _code: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<Quantity>
+
+/**
+ * Zod schema for FHIR Quantity data type.
+ */
+export const quantitySchema: ZodType<Quantity> = untypedQuantitySchema

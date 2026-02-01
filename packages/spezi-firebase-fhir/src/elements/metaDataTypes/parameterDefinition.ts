@@ -20,24 +20,29 @@ const parameterDefinitionUseSchema = z.enum(['in', 'out'])
 /**
  * Zod schema for FHIR ParameterDefinition data type.
  */
-export const parameterDefinitionSchema: ZodType<ParameterDefinition> = z.lazy(
-  () =>
-    elementSchema.extend({
-      name: stringSchema.optional(),
-      _name: elementSchema.optional(),
-      use: parameterDefinitionUseSchema,
-      _use: elementSchema.optional(),
-      min: intSchema.optional(),
-      max: z
-        .string()
-        .regex(/^\d+|\*$/)
-        .optional(),
-      _max: elementSchema.optional(),
-      documentation: stringSchema.optional(),
-      _documentation: elementSchema.optional(),
-      type: codeSchema,
-      _type: elementSchema.optional(),
-      profile: stringSchema.optional(),
-      _profile: elementSchema.optional(),
-    }),
-)
+export const untypedParameterDefinitionSchema = z.lazy(() =>
+  elementSchema.extend({
+    name: stringSchema.optional(),
+    _name: elementSchema.optional(),
+    use: parameterDefinitionUseSchema,
+    _use: elementSchema.optional(),
+    min: intSchema.optional(),
+    max: z
+      .string()
+      .regex(/^\d+|\*$/)
+      .optional(),
+    _max: elementSchema.optional(),
+    documentation: stringSchema.optional(),
+    _documentation: elementSchema.optional(),
+    type: codeSchema,
+    _type: elementSchema.optional(),
+    profile: stringSchema.optional(),
+    _profile: elementSchema.optional(),
+  }),
+) satisfies ZodType<ParameterDefinition>
+
+/**
+ * Zod schema for FHIR ParameterDefinition data type.
+ */
+export const parameterDefinitionSchema: ZodType<ParameterDefinition> =
+  untypedParameterDefinitionSchema

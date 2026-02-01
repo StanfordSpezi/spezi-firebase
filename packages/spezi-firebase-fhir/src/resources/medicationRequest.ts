@@ -43,6 +43,7 @@ export const untypedMedicationRequestSchema = z.lazy(() =>
     _status: elementSchema.optional(),
     statusReason: codeableConceptSchema.optional(),
     intent: medicationRequestIntentSchema,
+    _intent: elementSchema.optional(),
     category: codeableConceptSchema.array().optional(),
     priority: requestPrioritySchema.optional(),
     _priority: elementSchema.optional(),
@@ -97,6 +98,9 @@ export const untypedMedicationRequestSchema = z.lazy(() =>
     priorPrescription: referenceSchema.optional(),
     detectedIssue: referenceSchema.array().optional(),
     eventHistory: referenceSchema.array().optional(),
+    reportedBoolean: booleanSchema.optional(),
+    _reportedBoolean: elementSchema.optional(),
+    reportedReference: referenceSchema.optional(),
   }),
 ) satisfies ZodType<MedicationRequest>
 

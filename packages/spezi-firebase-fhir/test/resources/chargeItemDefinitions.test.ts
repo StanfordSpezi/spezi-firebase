@@ -6,11 +6,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type ChargeItemDefinition } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirChargeItemDefinition } from '../../src/index.js'
+import {
+  FhirChargeItemDefinition,
+  type untypedChargeItemDefinitionSchema,
+} from '../../src/index.js'
 
 describe('ChargeItemDefinition Resource', () => {
   it('should validate FHIR ChargeItemDefinitions from chargeItemDefinitions.json', () => {
+    type Schema = z.infer<typeof untypedChargeItemDefinitionSchema>
+    expectTypeOf<Schema>().toExtend<ChargeItemDefinition>()
+    expectTypeOf<ChargeItemDefinition>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/chargeItemDefinitions.json',
       'utf-8',

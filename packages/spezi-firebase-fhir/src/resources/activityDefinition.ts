@@ -43,7 +43,6 @@ import {
   publicationStatusSchema,
   requestIntentSchema,
   requestPrioritySchema,
-  requestResourceTypeSchema,
 } from '../valueSets/index.js'
 
 const activityDefinitionParticipantSchema: ZodType<ActivityDefinitionParticipant> =
@@ -113,7 +112,7 @@ export const untypedActivityDefinitionSchema = z.lazy(() =>
     relatedArtifact: relatedArtifactSchema.array().optional(),
     library: canonicalSchema.array().optional(),
     _library: elementSchema.array().optional(),
-    kind: requestResourceTypeSchema.optional(),
+    kind: stringSchema.optional(),
     _kind: elementSchema.optional(),
     profile: canonicalSchema.optional(),
     _profile: elementSchema.optional(),

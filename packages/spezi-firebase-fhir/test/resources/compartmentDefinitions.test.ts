@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type CompartmentDefinition } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirCompartmentDefinition } from '../../src/index.js'
+import {
+  FhirCompartmentDefinition,
+  type untypedCompartmentDefinitionSchema,
+} from '../../src/index.js'
 
 describe('CompartmentDefinition Resource', () => {
   it('should validate FHIR compartment definition from compartmentDefinitions.json', () => {
+    type Schema = z.infer<typeof untypedCompartmentDefinitionSchema>
+    expectTypeOf<Schema>().toExtend<CompartmentDefinition>()
+    expectTypeOf<CompartmentDefinition>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/compartmentDefinitions.json',
       'utf-8',

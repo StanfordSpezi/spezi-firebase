@@ -14,11 +14,16 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR Period data type.
  */
-export const periodSchema: ZodType<Period> = z.lazy(() =>
+export const untypedPeriodSchema = z.lazy(() =>
   elementSchema.extend({
     start: dateTimeSchema.optional(),
     _start: elementSchema.optional(),
     end: dateTimeSchema.optional(),
     _end: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<Period>
+
+/**
+ * Zod schema for FHIR Period data type.
+ */
+export const periodSchema: ZodType<Period> = untypedPeriodSchema

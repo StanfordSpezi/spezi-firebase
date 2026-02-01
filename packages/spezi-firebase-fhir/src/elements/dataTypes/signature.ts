@@ -20,7 +20,7 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR Signature data type.
  */
-export const signatureSchema: ZodType<Signature> = z.lazy(() =>
+export const untypedSignatureSchema = z.lazy(() =>
   elementSchema.extend({
     type: codingSchema.array().min(1),
     _type: elementSchema.optional(),
@@ -35,4 +35,9 @@ export const signatureSchema: ZodType<Signature> = z.lazy(() =>
     data: base64BinarySchema.optional(),
     _data: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<Signature>
+
+/**
+ * Zod schema for FHIR Signature data type.
+ */
+export const signatureSchema: ZodType<Signature> = untypedSignatureSchema

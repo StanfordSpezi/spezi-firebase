@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type DeviceUseStatement } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirDeviceUseStatement } from '../../src/index.js'
+import {
+  FhirDeviceUseStatement,
+  type untypedDeviceUseStatementSchema,
+} from '../../src/index.js'
 
 describe('DeviceUseStatement Resource', () => {
   it('should validate FHIR DeviceUseStatements from deviceUseStatements.json', () => {
+    type Schema = z.infer<typeof untypedDeviceUseStatementSchema>
+    expectTypeOf<Schema>().toExtend<DeviceUseStatement>()
+    expectTypeOf<DeviceUseStatement>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/deviceUseStatements.json',
       'utf-8',

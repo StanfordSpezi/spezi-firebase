@@ -22,7 +22,7 @@ const contributorTypeSchema = z.enum([
 /**
  * Zod schema for FHIR Contributor data type.
  */
-export const contributorSchema: ZodType<Contributor> = z.lazy(() =>
+export const untypedContributorSchema = z.lazy(() =>
   elementSchema.extend({
     type: contributorTypeSchema,
     _type: elementSchema.optional(),
@@ -30,4 +30,9 @@ export const contributorSchema: ZodType<Contributor> = z.lazy(() =>
     _name: elementSchema.optional(),
     contact: contactDetailSchema.array().optional(),
   }),
-)
+) satisfies ZodType<Contributor>
+
+/**
+ * Zod schema for FHIR Contributor data type.
+ */
+export const contributorSchema: ZodType<Contributor> = untypedContributorSchema

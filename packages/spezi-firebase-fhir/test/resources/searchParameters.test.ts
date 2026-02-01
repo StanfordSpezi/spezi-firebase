@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type SearchParameter } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirSearchParameter } from '../../src/index.js'
+import {
+  FhirSearchParameter,
+  type untypedSearchParameterSchema,
+} from '../../src/index.js'
 
 describe('SearchParameter Resource', () => {
   it('should validate FHIR search parameter from searchParameters.json', () => {
+    type Schema = z.infer<typeof untypedSearchParameterSchema>
+    expectTypeOf<Schema>().toExtend<SearchParameter>()
+    expectTypeOf<SearchParameter>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/searchParameters.json',
       'utf-8',

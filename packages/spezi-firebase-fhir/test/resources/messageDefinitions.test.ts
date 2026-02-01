@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type MessageDefinition } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirMessageDefinition } from '../../src/index.js'
+import {
+  FhirMessageDefinition,
+  type untypedMessageDefinitionSchema,
+} from '../../src/index.js'
 
 describe('MessageDefinition Resource', () => {
   it('should validate FHIR message definition from messageDefinitions.json', () => {
+    type Schema = z.infer<typeof untypedMessageDefinitionSchema>
+    expectTypeOf<Schema>().toExtend<MessageDefinition>()
+    expectTypeOf<MessageDefinition>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/messageDefinitions.json',
       'utf-8',

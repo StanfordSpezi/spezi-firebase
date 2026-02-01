@@ -14,10 +14,15 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR RatioRange data type.
  */
-export const ratioRangeSchema: ZodType<RatioRange> = z.lazy(() =>
+export const untypedRatioRangeSchema = z.lazy(() =>
   elementSchema.extend({
     lowNumerator: quantitySchema.optional(),
     highNumerator: quantitySchema.optional(),
     denominator: quantitySchema.optional(),
   }),
-)
+) satisfies ZodType<RatioRange>
+
+/**
+ * Zod schema for FHIR RatioRange data type.
+ */
+export const ratioRangeSchema: ZodType<RatioRange> = untypedRatioRangeSchema

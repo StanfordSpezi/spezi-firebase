@@ -21,11 +21,16 @@ const narrativeStatusSchema = z.enum([
 /**
  * Zod schema for FHIR Narrative data type.
  */
-export const narrativeSchema: ZodType<Narrative> = z.lazy(() =>
+export const untypedNarrativeSchema = z.lazy(() =>
   elementSchema.extend({
     status: narrativeStatusSchema,
     _status: elementSchema.optional(),
     div: xhtmlSchema,
     _div: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<Narrative>
+
+/**
+ * Zod schema for FHIR Narrative data type.
+ */
+export const narrativeSchema: ZodType<Narrative> = untypedNarrativeSchema

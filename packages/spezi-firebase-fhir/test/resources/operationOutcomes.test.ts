@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type OperationOutcome } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirOperationOutcome } from '../../src/index.js'
+import {
+  FhirOperationOutcome,
+  type untypedOperationOutcomeSchema,
+} from '../../src/index.js'
 
 describe('OperationOutcome Resource', () => {
   it('should validate FHIR operationOutcome from operationOutcomes.json', () => {
+    type Schema = z.infer<typeof untypedOperationOutcomeSchema>
+    expectTypeOf<Schema>().toExtend<OperationOutcome>()
+    expectTypeOf<OperationOutcome>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/operationOutcomes.json',
       'utf-8',

@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type BiologicallyDerivedProduct } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirBiologicallyDerivedProduct } from '../../src/index.js'
+import {
+  FhirBiologicallyDerivedProduct,
+  type untypedBiologicallyDerivedProductSchema,
+} from '../../src/index.js'
 
 describe('BiologicallyDerivedProduct Resource', () => {
   it('should validate FHIR biologicallyDerivedProduct from biologicallyDerivedProducts.json', () => {
+    type Schema = z.infer<typeof untypedBiologicallyDerivedProductSchema>
+    expectTypeOf<Schema>().toExtend<BiologicallyDerivedProduct>()
+    expectTypeOf<BiologicallyDerivedProduct>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/biologicallyDerivedProducts.json',
       'utf-8',

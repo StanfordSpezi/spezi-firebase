@@ -26,7 +26,7 @@ const relatedArtifactTypeSchema = z.enum([
 /**
  * Zod schema for FHIR RelatedArtifact data type.
  */
-export const relatedArtifactSchema: ZodType<RelatedArtifact> = z.lazy(() =>
+export const untypedRelatedArtifactSchema = z.lazy(() =>
   elementSchema.extend({
     type: relatedArtifactTypeSchema,
     _type: elementSchema.optional(),
@@ -42,4 +42,10 @@ export const relatedArtifactSchema: ZodType<RelatedArtifact> = z.lazy(() =>
     resource: stringSchema.optional(),
     _resource: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<RelatedArtifact>
+
+/**
+ * Zod schema for FHIR RelatedArtifact data type.
+ */
+export const relatedArtifactSchema: ZodType<RelatedArtifact> =
+  untypedRelatedArtifactSchema

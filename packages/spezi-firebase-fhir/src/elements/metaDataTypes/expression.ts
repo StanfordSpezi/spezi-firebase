@@ -19,7 +19,7 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR Expression data type.
  */
-export const expressionSchema: ZodType<Expression> = z.lazy(() =>
+export const untypedExpressionSchema = z.lazy(() =>
   elementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
@@ -32,4 +32,9 @@ export const expressionSchema: ZodType<Expression> = z.lazy(() =>
     reference: uriSchema.optional(),
     _reference: elementSchema.optional(),
   }),
-)
+) satisfies ZodType<Expression>
+
+/**
+ * Zod schema for FHIR Expression data type.
+ */
+export const expressionSchema: ZodType<Expression> = untypedExpressionSchema

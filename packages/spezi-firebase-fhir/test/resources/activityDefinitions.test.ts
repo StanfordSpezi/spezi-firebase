@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type ActivityDefinition } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirActivityDefinition } from '../../src/index.js'
+import {
+  FhirActivityDefinition,
+  type untypedActivityDefinitionSchema,
+} from '../../src/index.js'
 
 describe('ActivityDefinition Resource', () => {
   it('should validate FHIR activity definitions from activityDefinitions.json', () => {
+    type Schema = z.infer<typeof untypedActivityDefinitionSchema>
+    expectTypeOf<Schema>().toExtend<ActivityDefinition>()
+    expectTypeOf<ActivityDefinition>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/activityDefinitions.json',
       'utf-8',

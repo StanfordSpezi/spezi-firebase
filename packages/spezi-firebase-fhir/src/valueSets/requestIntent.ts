@@ -15,6 +15,7 @@ import { z } from 'zod'
 export const requestIntentSchema = z.enum([
   'proposal',
   'plan',
+  'directive',
   'order',
   'original-order',
   'reflex-order',

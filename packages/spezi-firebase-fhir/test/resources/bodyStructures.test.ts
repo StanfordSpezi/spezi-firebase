@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type BodyStructure } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirBodyStructure } from '../../src/index.js'
+import {
+  FhirBodyStructure,
+  type untypedBodyStructureSchema,
+} from '../../src/index.js'
 
 describe('BodyStructure Resource', () => {
   it('should validate FHIR BodyStructures from bodyStructures.json', () => {
+    type Schema = z.infer<typeof untypedBodyStructureSchema>
+    expectTypeOf<Schema>().toExtend<BodyStructure>()
+    expectTypeOf<BodyStructure>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/bodyStructures.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

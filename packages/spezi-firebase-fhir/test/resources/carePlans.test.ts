@@ -7,11 +7,18 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type CarePlan } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirCarePlan } from '../../src/index.js'
+import { FhirCarePlan, type untypedCarePlanSchema } from '../../src/index.js'
 
 describe('CarePlan Resource', () => {
   it('should validate FHIR CarePlans from carePlans.json', () => {
+    type Schema = z.infer<typeof untypedCarePlanSchema>
+    expectTypeOf<Schema>().toExtend<CarePlan>()
+    expectTypeOf<CarePlan>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/carePlans.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

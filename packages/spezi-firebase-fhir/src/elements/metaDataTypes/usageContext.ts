@@ -18,7 +18,7 @@ import { elementSchema } from '../element.js'
 /**
  * Zod schema for FHIR UsageContext data type.
  */
-export const usageContextSchema: ZodType<UsageContext> = z.lazy(() =>
+export const untypedUsageContextSchema = z.lazy(() =>
   elementSchema.extend({
     code: codingSchema,
     _code: elementSchema.optional(),
@@ -27,4 +27,10 @@ export const usageContextSchema: ZodType<UsageContext> = z.lazy(() =>
     valueRange: rangeSchema.optional(),
     valueReference: referenceSchema.optional(),
   }),
-)
+) satisfies ZodType<UsageContext>
+
+/**
+ * Zod schema for FHIR UsageContext data type.
+ */
+export const usageContextSchema: ZodType<UsageContext> =
+  untypedUsageContextSchema

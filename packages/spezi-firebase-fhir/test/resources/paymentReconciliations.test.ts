@@ -6,11 +6,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type PaymentReconciliation } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirPaymentReconciliation } from '../../src/index.js'
+import {
+  FhirPaymentReconciliation,
+  type untypedPaymentReconciliationSchema,
+} from '../../src/index.js'
 
 describe('PaymentReconciliation Resource', () => {
   it('should validate FHIR PaymentReconciliations from paymentReconciliations.json', () => {
+    type Schema = z.infer<typeof untypedPaymentReconciliationSchema>
+    expectTypeOf<Schema>().toExtend<PaymentReconciliation>()
+    expectTypeOf<PaymentReconciliation>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/paymentReconciliations.json',
       'utf-8',

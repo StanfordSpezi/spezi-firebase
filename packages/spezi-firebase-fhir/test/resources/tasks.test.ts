@@ -7,11 +7,18 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type Task } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirTask } from '../../src/index.js'
+import { FhirTask, type untypedTaskSchema } from '../../src/index.js'
 
 describe('Task Resource', () => {
   it('should validate FHIR task from tasks.json', () => {
+    type Schema = z.infer<typeof untypedTaskSchema>
+    expectTypeOf<Schema>().toExtend<Task>()
+    expectTypeOf<Task>().toExtend<Schema>()
+
     const data = fs.readFileSync('test/resources/tasks.json', 'utf-8')
     const decodedJson = JSON.parse(data)
 

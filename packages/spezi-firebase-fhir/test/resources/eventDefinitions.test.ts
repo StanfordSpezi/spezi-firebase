@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type EventDefinition } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirEventDefinition } from '../../src/index.js'
+import {
+  FhirEventDefinition,
+  type untypedEventDefinitionSchema,
+} from '../../src/index.js'
 
 describe('EventDefinition Resource', () => {
   it('should validate FHIR event definitions from eventDefinitions.json', () => {
+    type Schema = z.infer<typeof untypedEventDefinitionSchema>
+    expectTypeOf<Schema>().toExtend<EventDefinition>()
+    expectTypeOf<EventDefinition>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/eventDefinitions.json',
       'utf-8',

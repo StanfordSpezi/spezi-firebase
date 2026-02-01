@@ -7,11 +7,21 @@
 //
 
 import fs from 'fs'
+import { expectTypeOf } from 'expect-type'
+import { type DocumentReference } from 'fhir/r4b.js'
+import { type z } from 'zod'
 import { jsonStringifyDeterministically } from './testHelpers.js'
-import { FhirDocumentReference } from '../../src/index.js'
+import {
+  FhirDocumentReference,
+  type untypedDocumentReferenceSchema,
+} from '../../src/index.js'
 
 describe('DocumentReference Resource', () => {
   it('should validate FHIR document reference from documentReferences.json', () => {
+    type Schema = z.infer<typeof untypedDocumentReferenceSchema>
+    expectTypeOf<Schema>().toExtend<DocumentReference>()
+    expectTypeOf<DocumentReference>().toExtend<Schema>()
+
     const data = fs.readFileSync(
       'test/resources/documentReferences.json',
       'utf-8',
