@@ -16,7 +16,7 @@ import {
   type untypedCompositionSchema,
 } from '../../src/index.js'
 
-describe('Condition Resource', () => {
+describe('Composition Resource', () => {
   it('should validate FHIR Compositions from compositions.json', () => {
     type Schema = z.infer<typeof untypedCompositionSchema>
     expectTypeOf<Schema>().toExtend<Composition>()

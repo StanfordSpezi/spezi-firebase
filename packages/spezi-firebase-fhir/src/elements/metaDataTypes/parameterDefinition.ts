@@ -29,7 +29,7 @@ export const untypedParameterDefinitionSchema = z.lazy(() =>
     min: intSchema.optional(),
     max: z
       .string()
-      .regex(/^\d+|\*$/)
+      .regex(/^(\d+|\*)$/)
       .optional(),
     _max: elementSchema.optional(),
     documentation: stringSchema.optional(),
