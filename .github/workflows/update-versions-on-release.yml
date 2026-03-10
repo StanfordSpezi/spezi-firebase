@@ -33,22 +33,22 @@ jobs:
       - name: Update root package.json
         uses: BellCubeDev/update-package-version-by-release-tag@v2
         with:
-          package-json-path: "./package.json"
+          package-json-path: './package.json'
 
       - name: Update spezi-firebase-cloud-messaging package.json
         uses: BellCubeDev/update-package-version-by-release-tag@v2
         with:
-          package-json-path: "./packages/spezi-firebase-cloud-messaging/package.json"
-      
+          package-json-path: './packages/spezi-firebase-cloud-messaging/package.json'
+
       - name: Update spezi-firebase-fhir package.json
         uses: BellCubeDev/update-package-version-by-release-tag@v2
         with:
-          package-json-path: "./packages/spezi-firebase-fhir/package.json"
-      
+          package-json-path: './packages/spezi-firebase-fhir/package.json'
+
       - name: Update spezi-firebase-utils package.json
         uses: BellCubeDev/update-package-version-by-release-tag@v2
         with:
-          package-json-path: "./packages/spezi-firebase-utils/package.json"
+          package-json-path: './packages/spezi-firebase-utils/package.json'
 
       - name: Commit updated package.json files
         env:
