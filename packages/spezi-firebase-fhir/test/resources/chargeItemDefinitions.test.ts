@@ -25,7 +25,7 @@ describe("ChargeItemDefinition Resource", () => {
       "test/resources/chargeItemDefinitions.json",
       "utf-8",
     );
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
       const parsedResource = FhirChargeItemDefinition.parse(jsonValue).value;

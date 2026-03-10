@@ -39,7 +39,7 @@ export const messageConverter = new SchemaConverter<Message, z.ZodType>({
       creationDate: dateConverter.schema,
       dueDate: optionalish(dateConverter.schema),
       completionDate: optionalish(dateConverter.schema),
-      type: z.nativeEnum(MessageType),
+      type: z.enum(MessageType),
       title: z.lazy(() => localizedTextConverter.schema as z.ZodType),
       description: optionalish(
         z.lazy(() => localizedTextConverter.schema as z.ZodType),

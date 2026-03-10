@@ -26,7 +26,7 @@ describe("ObservationDefinition Resource", () => {
       "test/resources/observationDefinitions.json",
       "utf-8",
     );
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
       const parsedResource = FhirObservationDefinition.parse(jsonValue).value;

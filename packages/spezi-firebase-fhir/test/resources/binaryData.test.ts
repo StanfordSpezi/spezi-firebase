@@ -137,7 +137,10 @@ describe("FhirBinary", () => {
 
       // Decode and parse the JSON
       const decoder = new TextDecoder();
-      const decodedJson = JSON.parse(decoder.decode(data));
+      const decodedJson = JSON.parse(decoder.decode(data)) as Record<
+        string,
+        unknown
+      >;
 
       expect(decodedJson).toEqual(jsonData);
     });

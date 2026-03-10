@@ -10,20 +10,20 @@
  * Creates a mock function that tracks its calls, see https://stackoverflow.com/questions/59010129/mocking-a-function-inside-a-function-and-getting-calls-count-in-jest
  * @returns A mock function with call tracking
  */
-export const createMockFunction = <R, _T = void>(): {
-  fn: jest.Mock<R, any[]>;
+export const createMockFunction = <R>(): {
+  fn: jest.Mock<R, unknown[]>;
   called: boolean;
   calledOnce: boolean;
   callCount: number;
-  calledWith: (...args: any[]) => boolean;
+  calledWith: (...args: unknown[]) => boolean;
   resetCalls: () => void;
-  getCall: (n: number) => { args: any[] } | undefined;
-  firstCall: { args: any[] } | undefined;
+  getCall: (n: number) => { args: unknown[] } | undefined;
+  firstCall: { args: unknown[] } | undefined;
 } => {
-  const mock = jest.fn() as jest.Mock<R>;
-  const calls: any[][] = [];
+  const mock = jest.fn() as jest.Mock<R, unknown[]>;
+  const calls: unknown[][] = [];
 
-  mock.mockImplementation((...args: any[]) => {
+  mock.mockImplementation((...args: unknown[]) => {
     calls.push([...args]);
     return undefined as unknown as R;
   });
@@ -39,7 +39,7 @@ export const createMockFunction = <R, _T = void>(): {
     get callCount() {
       return calls.length;
     },
-    calledWith: (...args: any[]) => {
+    calledWith: (...args: unknown[]) => {
       return calls.some((callArgs) =>
         args.every((arg, i) => arg === callArgs[i]),
       );
@@ -66,39 +66,39 @@ export const createMockFunction = <R, _T = void>(): {
 export const createStub = <T>(
   returnValue: T,
 ): jest.Mock<T> & {
-  resolves: (value?: any) => jest.Mock;
-  rejects: (error?: any) => jest.Mock;
+  resolves: (value?: unknown) => jest.Mock;
+  rejects: (error?: unknown) => jest.Mock;
   callCount: number;
   calledOnce: boolean;
   called: boolean;
   reset: () => void;
-  mockResolvedValue: (value?: any) => jest.Mock;
+  mockResolvedValue: (value?: unknown) => jest.Mock;
 } => {
   const stub = jest.fn().mockReturnValue(returnValue);
   let callCount = 0;
 
   const enhancedStub = stub as jest.Mock<T> & {
-    resolves: (value?: any) => jest.Mock;
-    rejects: (error?: any) => jest.Mock;
+    resolves: (value?: unknown) => jest.Mock;
+    rejects: (error?: unknown) => jest.Mock;
     callCount: number;
     calledOnce: boolean;
     called: boolean;
     reset: () => void;
-    mockResolvedValue: (value?: any) => jest.Mock;
+    mockResolvedValue: (value?: unknown) => jest.Mock;
   };
 
   // Add sinon-like API
-  enhancedStub.resolves = (value?: any) => {
+  enhancedStub.resolves = (value?: unknown) => {
     stub.mockResolvedValue(value === undefined ? returnValue : value);
     return enhancedStub;
   };
 
   // Override mockResolvedValue to support empty cals
   const originalMockResolvedValue = stub.mockResolvedValue.bind(stub);
-  stub.mockResolvedValue = (value?: any) =>
+  stub.mockResolvedValue = (value?: unknown) =>
     originalMockResolvedValue(value === undefined ? undefined : value);
 
-  enhancedStub.rejects = (error: any = new Error("Rejected")) => {
+  enhancedStub.rejects = (error: unknown = new Error("Rejected")) => {
     stub.mockRejectedValue(error);
     return enhancedStub;
   };
@@ -106,7 +106,7 @@ export const createStub = <T>(
   // Track calls
   const originalMockImplementation = stub.mockImplementation.bind(stub);
   stub.mockImplementation = (fn) => {
-    originalMockImplementation((...args: any[]) => {
+    originalMockImplementation((...args: unknown[]) => {
       callCount++;
       return fn ? fn(...args) : undefined;
     });

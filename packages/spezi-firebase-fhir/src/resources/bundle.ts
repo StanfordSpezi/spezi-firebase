@@ -215,7 +215,6 @@ export class FhirBundle<R extends DomainResource> extends FhirDomainResource<
   /**
    * Finds a resource by its ID.
    *
-   * @template T - The specific resource type to find
    * @param resourceType - The FHIR resource type name
    * @param id - The resource ID to find
    * @returns The resource with matching ID or undefined
@@ -225,8 +224,8 @@ export class FhirBundle<R extends DomainResource> extends FhirDomainResource<
    * const patient = bundle.findResourceById('patient-123')
    * ```
    */
-  public resourceById<T extends R>(
-    resourceType: T["resourceType"],
+  public resourceById(
+    resourceType: R["resourceType"],
     id: string,
   ): R | undefined {
     return this.findResources(resourceType, (r) => r.id === id).at(0);

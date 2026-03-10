@@ -13,7 +13,7 @@ import { type Lazy } from "./lazy.js";
  * Generic schema converter for type-safe data transformation.
  * Uses Zod for schema validation and provides encoding functionality.
  */
-export class SchemaConverter<Schema extends z.ZodTypeAny, Encoded> {
+export class SchemaConverter<Schema extends z.ZodType, Encoded> {
   /**
    * Zod schema for validation
    */

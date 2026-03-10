@@ -11,10 +11,13 @@ import {
   type RegisterDeviceInput,
 } from "../../src/functions/registerDevice.js";
 import { Device, DevicePlatform } from "../../src/models/device.js";
+import { type NotificationService } from "../../src/services/notificationService.js";
 import { createStub } from "../utils/mockUtils.js";
 
 describe("registerDevice Function", () => {
-  let mockNotificationService: any;
+  let mockNotificationService: {
+    registerDevice: jest.Mock;
+  } & Partial<NotificationService>;
   let registerDeviceHandler: (
     userId: string,
     data: RegisterDeviceInput,
@@ -26,7 +29,7 @@ describe("registerDevice Function", () => {
     };
 
     registerDeviceHandler = createRegisterDeviceHandler(
-      mockNotificationService,
+      mockNotificationService as unknown as NotificationService,
     );
   });
 
@@ -35,7 +38,7 @@ describe("registerDevice Function", () => {
   });
 
   test("should validate and register a valid device request", async () => {
-    const input: RegisterDeviceInput = {
+    const input = {
       notificationToken: "token123",
       platform: DevicePlatform.iOS,
       osVersion: "15.0",
@@ -46,12 +49,19 @@ describe("registerDevice Function", () => {
     };
 
     const userId = "user123";
-    await registerDeviceHandler(userId, input);
+    await registerDeviceHandler(
+      userId,
+      input as unknown as RegisterDeviceInput,
+    );
 
     expect(mockNotificationService.registerDevice).toHaveBeenCalledTimes(1);
 
     // Check the device created
-    const deviceArg = mockNotificationService.registerDevice.mock.calls[0][1];
+    const deviceArg = (
+      mockNotificationService.registerDevice.mock.calls as unknown as Array<
+        [string, Device]
+      >
+    )[0][1];
     expect(deviceArg).toBeInstanceOf(Device);
     expect(deviceArg.notificationToken).toBe(input.notificationToken);
     expect(deviceArg.platform).toBe(DevicePlatform.iOS);
@@ -59,18 +69,25 @@ describe("registerDevice Function", () => {
   });
 
   test("should register a device with only required fields", async () => {
-    const input: RegisterDeviceInput = {
+    const input = {
       notificationToken: "token123",
       platform: DevicePlatform.Android,
     };
 
     const userId = "user123";
-    await registerDeviceHandler(userId, input);
+    await registerDeviceHandler(
+      userId,
+      input as unknown as RegisterDeviceInput,
+    );
 
     expect(mockNotificationService.registerDevice).toHaveBeenCalledTimes(1);
 
     // Check the device created
-    const deviceArg = mockNotificationService.registerDevice.mock.calls[0][1];
+    const deviceArg = (
+      mockNotificationService.registerDevice.mock.calls as unknown as Array<
+        [string, Device]
+      >
+    )[0][1];
     expect(deviceArg).toBeInstanceOf(Device);
     expect(deviceArg.notificationToken).toBe(input.notificationToken);
     expect(deviceArg.platform).toBe(DevicePlatform.Android);
@@ -79,18 +96,25 @@ describe("registerDevice Function", () => {
   });
 
   test("should accept any string as platform", async () => {
-    const input: RegisterDeviceInput = {
+    const input = {
       notificationToken: "token123",
       platform: "CustomPlatform", // Can be any string now
     };
 
     const userId = "user123";
-    await registerDeviceHandler(userId, input);
+    await registerDeviceHandler(
+      userId,
+      input as unknown as RegisterDeviceInput,
+    );
 
     expect(mockNotificationService.registerDevice).toHaveBeenCalledTimes(1);
 
     // Check the device created
-    const deviceArg = mockNotificationService.registerDevice.mock.calls[0][1];
+    const deviceArg = (
+      mockNotificationService.registerDevice.mock.calls as unknown as Array<
+        [string, Device]
+      >
+    )[0][1];
     expect(deviceArg).toBeInstanceOf(Device);
     expect(deviceArg.platform).toBe("CustomPlatform");
   });
@@ -104,7 +128,10 @@ describe("registerDevice Function", () => {
     const userId = "user123";
 
     try {
-      await registerDeviceHandler(userId, input as any);
+      await registerDeviceHandler(
+        userId,
+        input as unknown as RegisterDeviceInput,
+      );
       // Should not reach here
       // If we get here, the test should fail
       expect(false).toBe(true);

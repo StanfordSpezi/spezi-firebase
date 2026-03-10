@@ -22,7 +22,7 @@ describe("InsurancePlan Resource", () => {
     expectTypeOf<InsurancePlan>().toExtend<Schema>();
 
     const data = fs.readFileSync("test/resources/insurancePlans.json", "utf-8");
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
       const parsedResource = FhirInsurancePlan.parse(jsonValue).value;

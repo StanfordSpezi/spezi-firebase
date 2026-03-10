@@ -7,7 +7,6 @@
 //
 
 import { z } from "zod";
-import { capabilityStatementKindSchema } from "./capabilityStatement.js";
 
 /**
  * The type of search supported.
@@ -20,6 +19,3 @@ export const codeSearchSupportSchema = z.enum(["explicit", "all"]);
  * http://hl7.org/fhir/valueset-code-search-support.html
  */
 export type CodeSearchSupport = z.infer<typeof codeSearchSupportSchema>;
-
-// Re-export from capabilityStatement.ts for backwards compatibility
-export { capabilityStatementKindSchema };

@@ -111,9 +111,7 @@ export class FhirImmunizationRecommendation extends FhirDomainResource<Immunizat
    */
   public get vaccineCodeDisplays(): string[] {
     return FhirDomainResource.codeableConceptDisplays(
-      this.value.recommendation.flatMap((rec) =>
-        rec.vaccineCode ? rec.vaccineCode : [],
-      ),
+      this.value.recommendation.flatMap((rec) => rec.vaccineCode ?? []),
     );
   }
 

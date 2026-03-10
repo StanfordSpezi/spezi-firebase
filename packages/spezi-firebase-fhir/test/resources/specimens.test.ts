@@ -20,7 +20,7 @@ describe("Specimen Resource", () => {
     expectTypeOf<Specimen>().toExtend<Schema>();
 
     const data = fs.readFileSync("test/resources/specimens.json", "utf-8");
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
       const parsedResource = FhirSpecimen.parse(jsonValue).value;

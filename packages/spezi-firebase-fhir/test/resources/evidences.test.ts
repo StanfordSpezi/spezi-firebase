@@ -20,7 +20,7 @@ describe("Evidence Resource", () => {
     expectTypeOf<Evidence>().toExtend<Schema>();
 
     const data = fs.readFileSync("test/resources/evidences.json", "utf-8");
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
       const parsedResource = FhirEvidence.parse(jsonValue).value;

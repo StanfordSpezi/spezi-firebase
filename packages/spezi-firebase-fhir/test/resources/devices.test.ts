@@ -20,7 +20,7 @@ describe("Device Resource", () => {
     expectTypeOf<Device>().toExtend<Schema>();
 
     const data = fs.readFileSync("test/resources/devices.json", "utf-8");
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
       const parsedResource = FhirDevice.parse(jsonValue).value;

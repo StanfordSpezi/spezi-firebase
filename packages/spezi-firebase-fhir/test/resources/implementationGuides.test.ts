@@ -26,7 +26,7 @@ describe("ImplementationGuide Resource", () => {
       "test/resources/implementationGuides.json",
       "utf-8",
     );
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
       const parsedResource = FhirImplementationGuide.parse(jsonValue).value;

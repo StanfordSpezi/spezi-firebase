@@ -6,19 +6,67 @@
 // SPDX-License-Identifier: MIT
 //
 
+import { type Firestore } from "firebase-admin/firestore";
 import { Device, DevicePlatform } from "../../src/models/device.js";
 import { FirestoreDeviceStorage } from "../../src/storage/firestoreDeviceStorage.js";
 // The createStub import was removed since it's not used
 // import { createStub } from '../utils/mockUtils.js'
 
+interface MockDocRef {
+  id: string;
+  path: string;
+  set: jest.Mock;
+  delete: jest.Mock;
+}
+
+interface MockDocSnapshot {
+  id: string;
+  ref: MockDocRef | { path: string };
+  data: () => Record<string, unknown>;
+  updateTime?: { toDate: () => Date };
+}
+
+interface MockQuerySnapshot {
+  docs: MockDocSnapshot[];
+}
+
+interface MockQuery {
+  where: jest.Mock;
+  get: jest.Mock;
+}
+
+interface MockCollection {
+  doc: jest.Mock;
+  path: string;
+  get: jest.Mock;
+  withConverter: jest.Mock;
+}
+
+interface MockCollectionGroup {
+  where: jest.Mock;
+  withConverter: jest.Mock;
+}
+
+interface MockTransaction {
+  get: jest.Mock;
+  set: jest.Mock;
+  delete: jest.Mock;
+}
+
+interface MockFirestore {
+  collection: jest.Mock;
+  collectionGroup: jest.Mock;
+  runTransaction: jest.Mock;
+}
+
 describe("FirestoreDeviceStorage", () => {
-  let mockFirestore: any;
-  let mockCollection: any;
-  let mockCollectionGroup: any;
-  let mockQuery: any;
-  let mockDocRef: any;
-  let mockQuerySnapshot: any;
-  let mockTransaction: any;
+  let mockFirestore: MockFirestore;
+  let mockCollection: MockCollection;
+  let mockCollectionGroup: MockCollectionGroup;
+  let mockQuery: MockQuery;
+  let mockDocRef: MockDocRef;
+  let mockQuerySnapshot: MockQuerySnapshot;
+  let mockTransaction: MockTransaction;
   let storage: FirestoreDeviceStorage;
 
   beforeEach(() => {
@@ -79,14 +127,16 @@ describe("FirestoreDeviceStorage", () => {
     mockFirestore = {
       collection: jest.fn().mockReturnValue(mockCollection),
       collectionGroup: jest.fn().mockReturnValue(mockCollectionGroup),
-      // eslint-disable-next-line @typescript-eslint/require-await
-      runTransaction: jest.fn().mockImplementation(async (callback: any) => {
-        return callback(mockTransaction);
-      }),
+      runTransaction: jest.fn().mockImplementation(
+        // eslint-disable-next-line @typescript-eslint/require-await
+        async (callback: (t: MockTransaction) => unknown) => {
+          return callback(mockTransaction);
+        },
+      ),
     };
 
     // Create storage instance
-    storage = new FirestoreDeviceStorage(mockFirestore);
+    storage = new FirestoreDeviceStorage(mockFirestore as unknown as Firestore);
   });
 
   afterEach(() => {
@@ -95,7 +145,7 @@ describe("FirestoreDeviceStorage", () => {
 
   describe("constructor", () => {
     test("should initialize with default options", () => {
-      new FirestoreDeviceStorage(mockFirestore);
+      new FirestoreDeviceStorage(mockFirestore as unknown as Firestore);
 
       // We can't test private properties directly, so test the behavior instead
       expect(mockFirestore.collection).not.toHaveBeenCalledWith(
@@ -109,7 +159,10 @@ describe("FirestoreDeviceStorage", () => {
         userDevicesPathTemplate: "custom_users/{userId}/custom_devices",
       };
 
-      const storage = new FirestoreDeviceStorage(mockFirestore, options);
+      const storage = new FirestoreDeviceStorage(
+        mockFirestore as unknown as Firestore,
+        options,
+      );
 
       // We'll test by calling a method that uses the templates
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -138,12 +191,11 @@ describe("FirestoreDeviceStorage", () => {
       // Create a custom mock implementation for runTransaction
       const setStub = jest.fn().mockReturnValue(undefined);
 
-      mockFirestore.runTransaction = jest
-        .fn()
+      mockFirestore.runTransaction = jest.fn().mockImplementation(
         // eslint-disable-next-line @typescript-eslint/require-await
-        .mockImplementation(async (transactionCallback: any) => {
+        async (transactionCallback: (t: MockTransaction) => unknown) => {
           // Create a transaction mock that matches what FirestoreDeviceStorage expects
-          const transaction = {
+          const transaction: MockTransaction = {
             get: jest.fn().mockResolvedValue({
               docs: [], // Empty array means no existing devices found
             }),
@@ -153,10 +205,13 @@ describe("FirestoreDeviceStorage", () => {
 
           // Call the callback
           return transactionCallback(transaction);
-        });
+        },
+      );
 
       // Reset the storage to use our new mocks
-      storage = new FirestoreDeviceStorage(mockFirestore);
+      storage = new FirestoreDeviceStorage(
+        mockFirestore as unknown as Firestore,
+      );
 
       await storage.storeDevice(userId, device);
 
@@ -243,21 +298,22 @@ describe("FirestoreDeviceStorage", () => {
       };
 
       // Create a custom mock implementation for this test
-      mockFirestore.runTransaction = jest
-        .fn()
+      mockFirestore.runTransaction = jest.fn().mockImplementation(
         // eslint-disable-next-line @typescript-eslint/require-await
-        .mockImplementation(async (transactionCallback: any) => {
+        async (transactionCallback: (t: MockTransaction) => unknown) => {
           // Override the transaction object with a proper implementation for this test
-          const transaction = {
+          const transaction: MockTransaction = {
             get: jest.fn().mockResolvedValue({
               docs: [deviceDoc],
             }),
+            set: jest.fn(),
             delete: jest.fn().mockReturnValue(undefined),
           };
 
           // Call the callback with mocked parameters
           return transactionCallback(transaction);
-        });
+        },
+      );
 
       await storage.removeDevice(userId, token, platform);
 
@@ -290,21 +346,22 @@ describe("FirestoreDeviceStorage", () => {
       const deleteStub = jest.fn();
 
       // Create a custom mock implementation for this test
-      mockFirestore.runTransaction = jest
-        .fn()
+      mockFirestore.runTransaction = jest.fn().mockImplementation(
         // eslint-disable-next-line @typescript-eslint/require-await
-        .mockImplementation(async (transactionCallback: any) => {
+        async (transactionCallback: (t: MockTransaction) => unknown) => {
           // Override the transaction object with a proper implementation for this test
-          const transaction = {
+          const transaction: MockTransaction = {
             get: jest.fn().mockResolvedValue({
               docs: [deviceDoc],
             }),
+            set: jest.fn(),
             delete: deleteStub,
           };
 
           // Call the callback with mocked parameters
           return transactionCallback(transaction);
-        });
+        },
+      );
 
       await storage.removeDevice(userId, token, platform);
 
@@ -399,21 +456,22 @@ describe("FirestoreDeviceStorage", () => {
       const deleteStub = jest.fn();
 
       // Create a custom mock implementation for this test
-      mockFirestore.runTransaction = jest
-        .fn()
+      mockFirestore.runTransaction = jest.fn().mockImplementation(
         // eslint-disable-next-line @typescript-eslint/require-await
-        .mockImplementation(async (transactionCallback: any) => {
+        async (transactionCallback: (t: MockTransaction) => unknown) => {
           // Override the transaction object with a proper implementation for this test
-          const transaction = {
+          const transaction: MockTransaction = {
             get: jest.fn().mockResolvedValue({
               docs: [deviceDoc],
             }),
+            set: jest.fn(),
             delete: deleteStub,
           };
 
           // Call the callback with mocked parameters
           return transactionCallback(transaction);
-        });
+        },
+      );
 
       await storage.removeInvalidToken(token);
 

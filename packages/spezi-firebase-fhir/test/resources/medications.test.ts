@@ -23,16 +23,18 @@ describe("Medication Resource", () => {
     expectTypeOf<Medication>().toExtend<Schema>();
 
     const data = fs.readFileSync("test/resources/medications.json", "utf-8");
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     // drugs.json contains nested structure: {categoryId: {drugId: medicationResource}}
-    Object.values(decodedJson).forEach((categoryData: any) => {
-      Object.values(categoryData).forEach((medicationData: unknown) => {
-        const fhirResource = FhirMedication.parse(medicationData).value;
-        expect(jsonStringifyDeterministically(medicationData)).toBe(
-          jsonStringifyDeterministically(fhirResource),
-        );
-      });
+    Object.values(decodedJson).forEach((categoryData: unknown) => {
+      Object.values(categoryData as Record<string, unknown>).forEach(
+        (medicationData: unknown) => {
+          const fhirResource = FhirMedication.parse(medicationData).value;
+          expect(jsonStringifyDeterministically(medicationData)).toBe(
+            jsonStringifyDeterministically(fhirResource),
+          );
+        },
+      );
     });
   });
 });

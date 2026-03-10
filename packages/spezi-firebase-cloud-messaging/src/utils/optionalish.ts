@@ -22,7 +22,7 @@ import { type z } from "zod";
  * @param schema The Zod schema to make optionalish
  * @returns A schema that transforms null to undefined
  */
-export const optionalish = <T extends z.ZodTypeAny>(schema: T) =>
+export const optionalish = <T extends z.ZodType>(schema: T) =>
   schema.nullable().transform<z.infer<T> | undefined>((val) => {
     return val === null ? undefined : (val as z.infer<T>);
   });
@@ -38,7 +38,7 @@ export const optionalish = <T extends z.ZodTypeAny>(schema: T) =>
  * @param defaultValue The default value to use when null is encountered
  * @returns A schema that uses the default value for null
  */
-export const optionalishDefault = <T extends z.ZodTypeAny>(
+export const optionalishDefault = <T extends z.ZodType>(
   schema: T,
   defaultValue: z.infer<T>,
 ) =>

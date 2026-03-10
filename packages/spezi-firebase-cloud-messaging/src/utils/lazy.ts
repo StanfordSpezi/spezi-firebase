@@ -30,9 +30,7 @@ export class Lazy<T> {
    * @returns The computed or cached value
    */
   get value(): T {
-    if (this._value === undefined) {
-      this._value = this.factory();
-    }
+    this._value ??= this.factory();
     return this._value;
   }
 }

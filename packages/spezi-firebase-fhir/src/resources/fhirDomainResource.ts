@@ -98,19 +98,18 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
   /**
    * Retrieves a contained resource by its ID.
    *
-   * @template T - The type of the contained resource
    * @param id - The ID of the contained resource to retrieve
    * @returns The contained resource if found, undefined otherwise
    *
    * @example
    * ```typescript
-   * const patient = resource.containedResource<Patient>('patient-1')
+   * const patient = resource.containedResource('patient-1')
    * ```
    */
-  public containedResource<T extends DomainResource>(
-    id: string,
-  ): T | undefined {
-    return this.value.contained?.find((resource) => resource.id === id) as T;
+  public containedResource(id: string): DomainResource | undefined {
+    return this.value.contained?.find((resource) => resource.id === id) as
+      | DomainResource
+      | undefined;
   }
 
   /**

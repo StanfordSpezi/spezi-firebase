@@ -23,7 +23,7 @@ describe("Observation Resource", () => {
     expectTypeOf<Observation>().toExtend<Schema>();
 
     const data = fs.readFileSync("test/resources/observations.json", "utf-8");
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
       const parsedResource = FhirObservation.parse(jsonValue).value;

@@ -42,5 +42,4 @@ export * from "./metaDataTypes/parameterDefinition.js";
 export * from "./metaDataTypes/relatedArtifact.js";
 export * from "./metaDataTypes/triggerDefinition.js";
 export * from "./metaDataTypes/usageContext.js";
-export * from "./dataTypes/primitiveTypes.js";
 export * from "./resource.js";

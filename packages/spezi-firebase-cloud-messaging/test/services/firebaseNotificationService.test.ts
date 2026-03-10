@@ -6,15 +6,30 @@
 // SPDX-License-Identifier: MIT
 //
 
+import { type Messaging } from "firebase-admin/messaging";
 import { Device, DevicePlatform } from "../../src/models/device.js";
 import { Message } from "../../src/models/message.js";
 import { FirebaseNotificationService } from "../../src/services/firebaseNotificationService.js";
-import { type Document } from "../../src/storage/deviceStorage.js";
+import {
+  type DeviceStorage,
+  type Document,
+} from "../../src/storage/deviceStorage.js";
 import { createStub } from "../utils/mockUtils.js";
 
+interface MockMessaging {
+  sendEach: jest.Mock;
+}
+
+interface MockDeviceStorage {
+  storeDevice: jest.Mock;
+  removeDevice: jest.Mock;
+  getUserDevices: jest.Mock;
+  removeInvalidToken: jest.Mock;
+}
+
 describe("FirebaseNotificationService", () => {
-  let mockMessaging: any;
-  let mockDeviceStorage: any;
+  let mockMessaging: MockMessaging;
+  let mockDeviceStorage: MockDeviceStorage;
   let service: FirebaseNotificationService;
   // This variable is defined here but only assigned in one test
 
@@ -37,7 +52,10 @@ describe("FirebaseNotificationService", () => {
     };
 
     // Create service instance
-    service = new FirebaseNotificationService(mockMessaging, mockDeviceStorage);
+    service = new FirebaseNotificationService(
+      mockMessaging as unknown as Messaging,
+      mockDeviceStorage as unknown as DeviceStorage,
+    );
   });
 
   afterEach(() => {
@@ -60,8 +78,12 @@ describe("FirebaseNotificationService", () => {
       await service.registerDevice(userId, device);
 
       expect(mockDeviceStorage.storeDevice).toHaveBeenCalledTimes(1);
-      expect(mockDeviceStorage.storeDevice.mock.calls[0][0]).toBe(userId);
-      expect(mockDeviceStorage.storeDevice.mock.calls[0][1]).toBe(device);
+      const storeArgs = mockDeviceStorage.storeDevice.mock.calls[0] as [
+        string,
+        Device,
+      ];
+      expect(storeArgs[0]).toBe(userId);
+      expect(storeArgs[1]).toBe(device);
     });
   });
 
@@ -74,9 +96,14 @@ describe("FirebaseNotificationService", () => {
       await service.unregisterDevice(userId, token, platform);
 
       expect(mockDeviceStorage.removeDevice).toHaveBeenCalledTimes(1);
-      expect(mockDeviceStorage.removeDevice.mock.calls[0][0]).toBe(userId);
-      expect(mockDeviceStorage.removeDevice.mock.calls[0][1]).toBe(token);
-      expect(mockDeviceStorage.removeDevice.mock.calls[0][2]).toBe(platform);
+      const removeArgs = mockDeviceStorage.removeDevice.mock.calls[0] as [
+        string,
+        string,
+        string,
+      ];
+      expect(removeArgs[0]).toBe(userId);
+      expect(removeArgs[1]).toBe(token);
+      expect(removeArgs[2]).toBe(platform);
     });
   });
 
@@ -129,22 +156,25 @@ describe("FirebaseNotificationService", () => {
 
       expect(mockMessaging.sendEach).toHaveBeenCalledTimes(1);
 
-      const tokenMessages = mockMessaging.sendEach.mock.calls[0][0];
+      const sendArgs = mockMessaging.sendEach.mock.calls[0] as [
+        Array<Record<string, unknown>>,
+      ];
+      const tokenMessages = sendArgs[0];
       expect(Array.isArray(tokenMessages)).toBe(true);
       expect(tokenMessages.length).toBe(2);
 
       // Check iOS token message
       const iosMessage = tokenMessages.find(
-        (m: any) => m.token === "ios-token",
-      );
+        (m) => m.token === "ios-token",
+      ) as Record<string, Record<string, string>>;
       expect(iosMessage.notification.title).toBe("Test Title");
       expect(iosMessage.notification.body).toBe("Test Body");
       expect(iosMessage.apns).toBeDefined();
 
       // Check Android token message
       const androidMessage = tokenMessages.find(
-        (m: any) => m.token === "android-token",
-      );
+        (m) => m.token === "android-token",
+      ) as Record<string, Record<string, string>>;
       expect(androidMessage.notification.title).toBe("Testtitel");
       expect(androidMessage.notification.body).toBe("Testtext");
       expect(androidMessage.android).toBeDefined();
@@ -167,9 +197,9 @@ describe("FirebaseNotificationService", () => {
       });
 
       expect(mockDeviceStorage.removeInvalidToken).toHaveBeenCalledTimes(1);
-      expect(mockDeviceStorage.removeInvalidToken.mock.calls[0][0]).toBe(
-        "android-token",
-      );
+      const removeTokenArgs = mockDeviceStorage.removeInvalidToken.mock
+        .calls[0] as [string];
+      expect(removeTokenArgs[0]).toBe("android-token");
     });
   });
 
@@ -218,7 +248,14 @@ describe("FirebaseNotificationService", () => {
 
       expect(sendNotificationSpy).toHaveBeenCalledTimes(1);
 
-      const args = sendNotificationSpy.mock.calls[0];
+      const args = sendNotificationSpy.mock.calls[0] as [
+        string,
+        {
+          title: Record<string, string>;
+          body: Record<string, string>;
+          data?: Record<string, string>;
+        },
+      ];
       expect(args[0]).toBe(userId);
 
       // Check notification content

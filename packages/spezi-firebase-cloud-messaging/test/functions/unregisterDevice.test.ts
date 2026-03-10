@@ -11,10 +11,13 @@ import {
   type UnregisterDeviceInput,
 } from "../../src/functions/unregisterDevice.js";
 import { DevicePlatform } from "../../src/models/device.js";
+import { type NotificationService } from "../../src/services/notificationService.js";
 import { createStub } from "../utils/mockUtils.js";
 
 describe("unregisterDevice Function", () => {
-  let mockNotificationService: any;
+  let mockNotificationService: {
+    unregisterDevice: jest.Mock;
+  } & Partial<NotificationService>;
   let unregisterDeviceHandler: (
     userId: string,
     data: UnregisterDeviceInput,
@@ -26,7 +29,7 @@ describe("unregisterDevice Function", () => {
     };
 
     unregisterDeviceHandler = createUnregisterDeviceHandler(
-      mockNotificationService,
+      mockNotificationService as unknown as NotificationService,
     );
   });
 
@@ -44,15 +47,12 @@ describe("unregisterDevice Function", () => {
     await unregisterDeviceHandler(userId, input);
 
     expect(mockNotificationService.unregisterDevice).toHaveBeenCalledTimes(1);
-    expect(mockNotificationService.unregisterDevice.mock.calls[0][0]).toBe(
-      userId,
-    );
-    expect(mockNotificationService.unregisterDevice.mock.calls[0][1]).toBe(
-      input.notificationToken,
-    );
-    expect(mockNotificationService.unregisterDevice.mock.calls[0][2]).toBe(
-      input.platform,
-    );
+
+    const calls = mockNotificationService.unregisterDevice.mock
+      .calls[0] as unknown[];
+    expect(calls[0]).toBe(userId);
+    expect(calls[1]).toBe(input.notificationToken);
+    expect(calls[2]).toBe(input.platform);
   });
 
   test("should throw an error for missing notificationToken", async () => {
@@ -62,7 +62,10 @@ describe("unregisterDevice Function", () => {
     };
 
     try {
-      await unregisterDeviceHandler(userId, input as any);
+      await unregisterDeviceHandler(
+        userId,
+        input as unknown as UnregisterDeviceInput,
+      );
       // Should not reach here
       // If we get here, the test should fail
       expect(false).toBe(true);
@@ -79,7 +82,10 @@ describe("unregisterDevice Function", () => {
     };
 
     try {
-      await unregisterDeviceHandler(userId, input as any);
+      await unregisterDeviceHandler(
+        userId,
+        input as unknown as UnregisterDeviceInput,
+      );
       // Should not reach here
       // If we get here, the test should fail
       expect(false).toBe(true);
@@ -99,8 +105,9 @@ describe("unregisterDevice Function", () => {
     await unregisterDeviceHandler(userId, input);
 
     expect(mockNotificationService.unregisterDevice).toHaveBeenCalledTimes(1);
-    expect(mockNotificationService.unregisterDevice.mock.calls[0][2]).toBe(
-      "CustomPlatform",
-    );
+
+    const calls = mockNotificationService.unregisterDevice.mock
+      .calls[0] as unknown[];
+    expect(calls[2]).toBe("CustomPlatform");
   });
 });

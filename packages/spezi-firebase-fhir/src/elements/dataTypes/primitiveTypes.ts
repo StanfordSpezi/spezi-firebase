@@ -69,7 +69,7 @@ export const oidSchema = z.string().regex(/urn:oid:[0-2](\.(0|[1-9][0-9]*))+/);
 /**
  * Zod schema for FHIR id primitive type.
  */
-export const idSchema = z.string().regex(/[A-Za-z0-9\-\.]{1,64}/);
+export const idSchema = z.string().regex(/[A-Za-z0-9\-.]{1,64}/);
 
 /**
  * Zod schema for FHIR instant primitive type.
@@ -130,4 +130,4 @@ export const canonicalSchema = z.url();
  */
 export const base64BinarySchema = z
   .string()
-  .regex(/(\s*([0-9a-zA-Z\+\=]){4}\s*)+/);
+  .regex(/(\s*([0-9a-zA-Z+=]){4}\s*)+/);

@@ -20,7 +20,7 @@ describe("Contract Resource", () => {
     expectTypeOf<Contract>().toExtend<Schema>();
 
     const data = fs.readFileSync("test/resources/contracts.json", "utf-8");
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
       const parsedResource = FhirContract.parse(jsonValue).value;

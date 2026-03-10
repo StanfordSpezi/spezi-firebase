@@ -30,7 +30,7 @@ export const sleep = (ms: number): Promise<void> =>
 export const createMockDocRef = (
   id: string,
   path: string,
-  data: Record<string, any> = {},
+  data: Record<string, unknown> = {},
 ) => ({
   id,
   path,

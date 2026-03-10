@@ -17,7 +17,7 @@ describe("SchemaConverter", () => {
 
   describe("constructor", () => {
     test("should create a SchemaConverter instance", () => {
-      const converter = new SchemaConverter<TestClass, any>({
+      const converter = new SchemaConverter<TestClass>({
         schema: z.string().transform((val) => new TestClass(val)),
         encode: (obj: TestClass) => obj.value,
       });
@@ -30,13 +30,13 @@ describe("SchemaConverter", () => {
 
   describe("schema and encode", () => {
     test("should handle simple schema transformations", () => {
-      const converter = new SchemaConverter<TestClass, any>({
+      const converter = new SchemaConverter<TestClass>({
         schema: z.string().transform((val) => new TestClass(val)),
         encode: (obj: TestClass) => obj.value,
       });
 
       // Test schema parsing
-      const result = converter.schema.parse("test value");
+      const result = converter.schema.parse("test value") as TestClass;
       expect(result).toBeInstanceOf(TestClass);
       expect(result.value).toBe("test value");
 
@@ -60,7 +60,7 @@ describe("SchemaConverter", () => {
         ) {}
       }
 
-      const converter = new SchemaConverter<ComplexClass, any>({
+      const converter = new SchemaConverter<ComplexClass>({
         schema: z
           .object({
             id: z.string(),

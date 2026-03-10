@@ -26,7 +26,7 @@ describe("SpecimenDefinition Resource", () => {
       "test/resources/specimenDefinitions.json",
       "utf-8",
     );
-    const decodedJson = JSON.parse(data);
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
       const parsedResource = FhirSpecimenDefinition.parse(jsonValue).value;

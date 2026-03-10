@@ -57,7 +57,7 @@ describe("Device Model", () => {
   describe("Device Converter", () => {
     test("should encode a Device instance properly", () => {
       const device = new Device(validDeviceData);
-      const encoded = deviceConverter.encode(device);
+      const encoded = deviceConverter.encode(device) as Record<string, unknown>;
 
       expect(encoded).not.toBeNull();
       expect(typeof encoded).toBe("object");
@@ -77,7 +77,7 @@ describe("Device Model", () => {
         platform: validDeviceData.platform,
       });
 
-      const encoded = deviceConverter.encode(device);
+      const encoded = deviceConverter.encode(device) as Record<string, unknown>;
 
       expect(encoded).not.toBeNull();
       expect(typeof encoded).toBe("object");

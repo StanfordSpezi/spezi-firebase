@@ -155,7 +155,7 @@ export class FirebaseNotificationService implements NotificationService {
       batchResponse.responses.map(async (individualResponse, index) => {
         if (!individualResponse.success) {
           console.error(
-            `Failed to send notification: ${String(individualResponse.error)}`,
+            `Failed to send notification: ${JSON.stringify(individualResponse.error)}`,
           );
         }
 
