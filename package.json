@@ -34,16 +34,17 @@
     "docs:ci": "typedoc --out ./out/docs --githubPages true"
   },
   "devDependencies": {
+    "@stanfordspezi/spezi-web-configurations": "^0.7.0",
     "@total-typescript/ts-reset": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
-    "eslint": "^8",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^9",
     "eslint-plugin-import": "^2",
     "eslint-plugin-jsdoc": "^61.2.0",
     "eslint-plugin-prettier": "^5",
     "expect-type": "^1.3.0",
-    "prettier": "^3",
+    "prettier": "^3.8.1",
     "typedoc": "^0.25",
     "typescript": "^5"
   },
