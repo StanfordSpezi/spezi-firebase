@@ -14,9 +14,9 @@ import {
   type MeasureGroupStratifier,
   type MeasureGroupStratifierComponent,
   type MeasureSupplementalData,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -36,8 +36,8 @@ import {
   stringSchema,
   uriSchema,
   usageContextSchema,
-} from '../elements/index.js'
-import { publicationStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { publicationStatusSchema } from "../valueSets/index.js";
 
 const measureGroupStratifierComponentSchema: ZodType<MeasureGroupStratifierComponent> =
   backboneElementSchema.extend({
@@ -45,7 +45,7 @@ const measureGroupStratifierComponentSchema: ZodType<MeasureGroupStratifierCompo
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
     criteria: expressionSchema,
-  })
+  });
 
 const measureGroupStratifierSchema: ZodType<MeasureGroupStratifier> =
   backboneElementSchema.extend({
@@ -54,7 +54,7 @@ const measureGroupStratifierSchema: ZodType<MeasureGroupStratifier> =
     _description: elementSchema.optional(),
     criteria: expressionSchema.optional(),
     component: measureGroupStratifierComponentSchema.array().optional(),
-  })
+  });
 
 const measureGroupPopulationSchema: ZodType<MeasureGroupPopulation> =
   backboneElementSchema.extend({
@@ -62,7 +62,7 @@ const measureGroupPopulationSchema: ZodType<MeasureGroupPopulation> =
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
     criteria: expressionSchema,
-  })
+  });
 
 const measureGroupSchema: ZodType<MeasureGroup> = backboneElementSchema.extend({
   code: codeableConceptSchema.optional(),
@@ -70,7 +70,7 @@ const measureGroupSchema: ZodType<MeasureGroup> = backboneElementSchema.extend({
   _description: elementSchema.optional(),
   population: measureGroupPopulationSchema.array().optional(),
   stratifier: measureGroupStratifierSchema.array().optional(),
-})
+});
 
 const measureSupplementalDataSchema: ZodType<MeasureSupplementalData> =
   backboneElementSchema.extend({
@@ -79,14 +79,14 @@ const measureSupplementalDataSchema: ZodType<MeasureSupplementalData> =
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
     criteria: expressionSchema,
-  })
+  });
 
 /**
  * Zod schema for FHIR Measure resource (untyped version).
  */
 export const untypedMeasureSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Measure').readonly(),
+    resourceType: z.literal("Measure").readonly(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -153,12 +153,12 @@ export const untypedMeasureSchema = z.lazy(() =>
     group: measureGroupSchema.array().optional(),
     supplementalData: measureSupplementalDataSchema.array().optional(),
   }),
-) satisfies ZodType<Measure>
+) satisfies ZodType<Measure>;
 
 /**
  * Zod schema for FHIR Measure resource.
  */
-export const measureSchema: ZodType<Measure> = untypedMeasureSchema
+export const measureSchema: ZodType<Measure> = untypedMeasureSchema;
 
 /**
  * Wrapper class for FHIR Measure resources.
@@ -174,7 +174,7 @@ export class FhirMeasure extends FhirDomainResource<Measure> {
    * @returns A FhirMeasure instance containing the validated resource
    */
   public static parse(value: unknown): FhirMeasure {
-    return new FhirMeasure(measureSchema.parse(value))
+    return new FhirMeasure(measureSchema.parse(value));
   }
 
   /**
@@ -187,7 +187,7 @@ export class FhirMeasure extends FhirDomainResource<Measure> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -200,7 +200,7 @@ export class FhirMeasure extends FhirDomainResource<Measure> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -210,7 +210,7 @@ export class FhirMeasure extends FhirDomainResource<Measure> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -220,6 +220,6 @@ export class FhirMeasure extends FhirDomainResource<Measure> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

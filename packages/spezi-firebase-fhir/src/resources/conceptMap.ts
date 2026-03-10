@@ -13,9 +13,9 @@ import {
   type ConceptMapGroupElementTargetDependsOn,
   type ConceptMapGroupUnmapped,
   type ConceptMap,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -28,12 +28,12 @@ import {
   stringSchema,
   urlSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   conceptMapEquivalenceSchema,
   conceptMapUnmappedModeSchema,
   publicationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const conceptMapGroupElementTargetDependsOnSchema: ZodType<ConceptMapGroupElementTargetDependsOn> =
   backboneElementSchema.extend({
@@ -45,7 +45,7 @@ const conceptMapGroupElementTargetDependsOnSchema: ZodType<ConceptMapGroupElemen
     _value: elementSchema.optional(),
     display: stringSchema.optional(),
     _display: elementSchema.optional(),
-  })
+  });
 
 const conceptMapGroupElementTargetSchema: ZodType<ConceptMapGroupElementTarget> =
   backboneElementSchema.extend({
@@ -59,7 +59,7 @@ const conceptMapGroupElementTargetSchema: ZodType<ConceptMapGroupElementTarget> 
     _comment: elementSchema.optional(),
     dependsOn: conceptMapGroupElementTargetDependsOnSchema.array().optional(),
     product: conceptMapGroupElementTargetDependsOnSchema.array().optional(),
-  })
+  });
 
 const conceptMapGroupElementSchema: ZodType<ConceptMapGroupElement> =
   backboneElementSchema.extend({
@@ -68,7 +68,7 @@ const conceptMapGroupElementSchema: ZodType<ConceptMapGroupElement> =
     display: stringSchema.optional(),
     _display: elementSchema.optional(),
     target: conceptMapGroupElementTargetSchema.array().optional(),
-  })
+  });
 
 const conceptMapGroupUnmappedSchema: ZodType<ConceptMapGroupUnmapped> =
   backboneElementSchema.extend({
@@ -80,7 +80,7 @@ const conceptMapGroupUnmappedSchema: ZodType<ConceptMapGroupUnmapped> =
     _display: elementSchema.optional(),
     url: urlSchema.optional(),
     _url: elementSchema.optional(),
-  })
+  });
 
 const conceptMapGroupSchema: ZodType<ConceptMapGroup> =
   backboneElementSchema.extend({
@@ -94,14 +94,14 @@ const conceptMapGroupSchema: ZodType<ConceptMapGroup> =
     _targetVersion: elementSchema.optional(),
     element: conceptMapGroupElementSchema.array(),
     unmapped: conceptMapGroupUnmappedSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ConceptMap resource (untyped version).
  */
 export const untypedConceptMapSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ConceptMap').readonly(),
+    resourceType: z.literal("ConceptMap").readonly(),
     url: urlSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.optional(),
@@ -138,12 +138,12 @@ export const untypedConceptMapSchema = z.lazy(() =>
     _targetCanonical: elementSchema.optional(),
     group: conceptMapGroupSchema.array().optional(),
   }),
-) satisfies ZodType<ConceptMap>
+) satisfies ZodType<ConceptMap>;
 
 /**
  * Zod schema for FHIR ConceptMap resource.
  */
-export const conceptMapSchema: ZodType<ConceptMap> = untypedConceptMapSchema
+export const conceptMapSchema: ZodType<ConceptMap> = untypedConceptMapSchema;
 
 /**
  * Wrapper class for FHIR ConceptMap resources.
@@ -159,6 +159,6 @@ export class FhirConceptMap extends FhirDomainResource<ConceptMap> {
    * @returns A FhirConceptMap instance containing the validated resource
    */
   public static parse(value: unknown): FhirConceptMap {
-    return new FhirConceptMap(conceptMapSchema.parse(value))
+    return new FhirConceptMap(conceptMapSchema.parse(value));
   }
 }

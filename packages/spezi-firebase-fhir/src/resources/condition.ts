@@ -11,9 +11,9 @@ import {
   type ConditionStage,
   type Condition,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -27,27 +27,27 @@ import {
   rangeSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 const conditionStageSchema: ZodType<ConditionStage> =
   backboneElementSchema.extend({
     summary: codeableConceptSchema.optional(),
     assessment: referenceSchema.array().optional(),
     type: codeableConceptSchema.optional(),
-  })
+  });
 
 const conditionEvidenceSchema: ZodType<ConditionEvidence> =
   backboneElementSchema.extend({
     code: codeableConceptSchema.array().optional(),
     detail: referenceSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Condition resource (untyped version).
  */
 export const untypedConditionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Condition').readonly(),
+    resourceType: z.literal("Condition").readonly(),
     identifier: identifierSchema.array().optional(),
     clinicalStatus: codeableConceptSchema.optional(),
     verificationStatus: codeableConceptSchema.optional(),
@@ -79,12 +79,12 @@ export const untypedConditionSchema = z.lazy(() =>
     evidence: conditionEvidenceSchema.array().optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<Condition>
+) satisfies ZodType<Condition>;
 
 /**
  * Zod schema for FHIR Condition resource.
  */
-export const conditionSchema: ZodType<Condition> = untypedConditionSchema
+export const conditionSchema: ZodType<Condition> = untypedConditionSchema;
 
 /**
  * Wrapper class for FHIR Condition resources.
@@ -100,7 +100,7 @@ export class FhirCondition extends FhirDomainResource<Condition> {
    * @returns A FhirCondition instance
    */
   public static parse(value: unknown): FhirCondition {
-    return new FhirCondition(conditionSchema.parse(value))
+    return new FhirCondition(conditionSchema.parse(value));
   }
 
   // Properties
@@ -119,7 +119,7 @@ export class FhirCondition extends FhirDomainResource<Condition> {
    * ```
    */
   public get onsetDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.onsetDateTime)
+    return FhirDomainResource.parseDateTime(this.value.onsetDateTime);
   }
 
   /**
@@ -136,7 +136,7 @@ export class FhirCondition extends FhirDomainResource<Condition> {
    * ```
    */
   public get abatementDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.abatementDateTime)
+    return FhirDomainResource.parseDateTime(this.value.abatementDateTime);
   }
 
   /**
@@ -145,7 +145,7 @@ export class FhirCondition extends FhirDomainResource<Condition> {
    * @returns The recorded date if available, undefined otherwise
    */
   public get recordedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.recordedDate)
+    return FhirDomainResource.parseDateTime(this.value.recordedDate);
   }
 
   /**
@@ -167,7 +167,7 @@ export class FhirCondition extends FhirDomainResource<Condition> {
       !this.value.abatementPeriod &&
       !this.value.abatementRange &&
       !this.value.abatementString
-    )
+    );
   }
 
   /**
@@ -184,9 +184,9 @@ export class FhirCondition extends FhirDomainResource<Condition> {
    */
   public get isConfirmed(): boolean {
     return FhirDomainResource.containsCoding(this.value.verificationStatus, {
-      system: 'http://terminology.hl7.org/CodeSystem/condition-ver-status',
-      code: 'confirmed',
-    })
+      system: "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+      code: "confirmed",
+    });
   }
 
   /**
@@ -205,12 +205,12 @@ export class FhirCondition extends FhirDomainResource<Condition> {
    * ```
    */
   public get duration(): number | undefined {
-    const onset = this.onsetDate
-    const abatement = this.abatementDate
+    const onset = this.onsetDate;
+    const abatement = this.abatementDate;
 
-    if (!onset || !abatement) return undefined
+    if (!onset || !abatement) return undefined;
 
-    return abatement.getTime() - onset.getTime()
+    return abatement.getTime() - onset.getTime();
   }
 
   /**
@@ -230,22 +230,22 @@ export class FhirCondition extends FhirDomainResource<Condition> {
   public isChronicCondition(chronicThresholdDays = 90): boolean {
     // If no abatement date, assume ongoing and potentially chronic
     if (!this.abatementDate) {
-      const onset = this.onsetDate
-      if (!onset) return false
+      const onset = this.onsetDate;
+      if (!onset) return false;
 
       // Check if onset was more than threshold days ago
-      const now = new Date()
+      const now = new Date();
       const daysSinceOnset =
-        (now.getTime() - onset.getTime()) / (1000 * 60 * 60 * 24)
-      return daysSinceOnset > chronicThresholdDays
+        (now.getTime() - onset.getTime()) / (1000 * 60 * 60 * 24);
+      return daysSinceOnset > chronicThresholdDays;
     }
 
     // If there is abatement, check duration
-    const duration = this.duration
-    if (!duration) return false
+    const duration = this.duration;
+    if (!duration) return false;
 
-    const durationDays = duration / (1000 * 60 * 60 * 24)
-    return durationDays > chronicThresholdDays
+    const durationDays = duration / (1000 * 60 * 60 * 24);
+    return durationDays > chronicThresholdDays;
   }
 
   /**
@@ -258,7 +258,7 @@ export class FhirCondition extends FhirDomainResource<Condition> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -271,7 +271,7 @@ export class FhirCondition extends FhirDomainResource<Condition> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -281,7 +281,7 @@ export class FhirCondition extends FhirDomainResource<Condition> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -291,6 +291,6 @@ export class FhirCondition extends FhirDomainResource<Condition> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

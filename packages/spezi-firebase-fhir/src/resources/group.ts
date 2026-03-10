@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type Group } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type Group } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -22,15 +22,15 @@ import {
   referenceSchema,
   stringSchema,
   unsignedIntSchema,
-} from '../elements/index.js'
-import { groupTypeSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { groupTypeSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR Group resource (untyped version).
  */
 export const untypedGroupSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Group').readonly(),
+    resourceType: z.literal("Group").readonly(),
     identifier: identifierSchema.array().optional(),
     active: booleanSchema.optional(),
     _active: elementSchema.optional(),
@@ -69,12 +69,12 @@ export const untypedGroupSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Group>
+) satisfies ZodType<Group>;
 
 /**
  * Zod schema for FHIR Group resource.
  */
-export const groupSchema: ZodType<Group> = untypedGroupSchema
+export const groupSchema: ZodType<Group> = untypedGroupSchema;
 
 /**
  * Wrapper class for FHIR Group resources.
@@ -88,7 +88,7 @@ export class FhirGroup extends FhirDomainResource<Group> {
    * @returns A FhirGroup instance containing the validated resource
    */
   public static parse(value: unknown): FhirGroup {
-    return new FhirGroup(groupSchema.parse(value))
+    return new FhirGroup(groupSchema.parse(value));
   }
 
   /**
@@ -101,7 +101,7 @@ export class FhirGroup extends FhirDomainResource<Group> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -114,7 +114,7 @@ export class FhirGroup extends FhirDomainResource<Group> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -124,7 +124,7 @@ export class FhirGroup extends FhirDomainResource<Group> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -134,6 +134,6 @@ export class FhirGroup extends FhirDomainResource<Group> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

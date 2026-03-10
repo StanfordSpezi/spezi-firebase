@@ -10,7 +10,7 @@
  * Utility for handling optional fields in schemas
  */
 
-import { type z } from 'zod'
+import { type z } from "zod";
 
 /**
  * Creates a schema that transforms null values to undefined
@@ -22,12 +22,10 @@ import { type z } from 'zod'
  * @param schema The Zod schema to make optionalish
  * @returns A schema that transforms null to undefined
  */
-export function optionalish<T extends z.ZodTypeAny>(schema: T) {
-  return schema.nullable().transform<z.infer<T> | undefined>((val) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return val === null ? undefined : (val as z.infer<T>)
-  })
-}
+export const optionalish = <T extends z.ZodTypeAny>(schema: T) =>
+  schema.nullable().transform<z.infer<T> | undefined>((val) => {
+    return val === null ? undefined : (val as z.infer<T>);
+  });
 
 /**
  * Creates a schema that provides a default value when null is encountered
@@ -40,15 +38,13 @@ export function optionalish<T extends z.ZodTypeAny>(schema: T) {
  * @param defaultValue The default value to use when null is encountered
  * @returns A schema that uses the default value for null
  */
-export function optionalishDefault<T extends z.ZodTypeAny>(
+export const optionalishDefault = <T extends z.ZodTypeAny>(
   schema: T,
   defaultValue: z.infer<T>,
-) {
-  return schema
+) =>
+  schema
     .nullable()
     .default(null)
     .transform<z.infer<T>>((val) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      return val === null ? defaultValue : (val as z.infer<T>)
-    })
-}
+      return val === null ? defaultValue : (val as z.infer<T>);
+    });

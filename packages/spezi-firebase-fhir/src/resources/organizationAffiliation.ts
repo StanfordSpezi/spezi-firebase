@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type OrganizationAffiliation } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type OrganizationAffiliation } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   booleanSchema,
   codeableConceptSchema,
@@ -18,14 +18,14 @@ import {
   identifierSchema,
   periodSchema,
   referenceSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 /**
  * Zod schema for FHIR OrganizationAffiliation resource (untyped version).
  */
 export const untypedOrganizationAffiliationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('OrganizationAffiliation').readonly(),
+    resourceType: z.literal("OrganizationAffiliation").readonly(),
     identifier: identifierSchema.array().optional(),
     active: booleanSchema.optional(),
     _active: elementSchema.optional(),
@@ -40,13 +40,13 @@ export const untypedOrganizationAffiliationSchema = z.lazy(() =>
     telecom: contactPointSchema.array().optional(),
     endpoint: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<OrganizationAffiliation>
+) satisfies ZodType<OrganizationAffiliation>;
 
 /**
  * Zod schema for FHIR OrganizationAffiliation resource.
  */
 export const organizationAffiliationSchema: ZodType<OrganizationAffiliation> =
-  untypedOrganizationAffiliationSchema
+  untypedOrganizationAffiliationSchema;
 
 /**
  * Wrapper class for FHIR OrganizationAffiliation resources.
@@ -64,7 +64,7 @@ export class FhirOrganizationAffiliation extends FhirDomainResource<Organization
   public static parse(value: unknown): FhirOrganizationAffiliation {
     return new FhirOrganizationAffiliation(
       organizationAffiliationSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -77,7 +77,7 @@ export class FhirOrganizationAffiliation extends FhirDomainResource<Organization
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -90,7 +90,7 @@ export class FhirOrganizationAffiliation extends FhirDomainResource<Organization
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -100,7 +100,7 @@ export class FhirOrganizationAffiliation extends FhirDomainResource<Organization
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -110,6 +110,6 @@ export class FhirOrganizationAffiliation extends FhirDomainResource<Organization
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

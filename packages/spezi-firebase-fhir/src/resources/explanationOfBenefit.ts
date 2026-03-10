@@ -26,10 +26,10 @@ import {
   type ExplanationOfBenefitTotal,
   type ExplanationOfBenefit,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   backboneElementSchema,
@@ -48,26 +48,26 @@ import {
   addressSchema,
   quantitySchema,
   unsignedIntSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   financialResourceStatusSchema,
   remittanceOutcomeSchema,
   claimUseSchema,
   noteTypeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const explanationOfBenefitRelatedSchema: ZodType<ExplanationOfBenefitRelated> =
   backboneElementSchema.extend({
     claim: referenceSchema.optional(),
     relationship: codeableConceptSchema.optional(),
     reference: identifierSchema.optional(),
-  })
+  });
 
 const explanationOfBenefitPayeeSchema: ZodType<ExplanationOfBenefitPayee> =
   backboneElementSchema.extend({
     type: codeableConceptSchema.optional(),
     party: referenceSchema.optional(),
-  })
+  });
 
 const explanationOfBenefitCareTeamSchema: ZodType<ExplanationOfBenefitCareTeam> =
   backboneElementSchema.extend({
@@ -77,7 +77,7 @@ const explanationOfBenefitCareTeamSchema: ZodType<ExplanationOfBenefitCareTeam> 
     _responsible: elementSchema.optional(),
     role: codeableConceptSchema.optional(),
     qualification: codeableConceptSchema.optional(),
-  })
+  });
 
 const explanationOfBenefitSupportingInfoSchema: ZodType<ExplanationOfBenefitSupportingInfo> =
   backboneElementSchema.extend({
@@ -95,7 +95,7 @@ const explanationOfBenefitSupportingInfoSchema: ZodType<ExplanationOfBenefitSupp
     valueAttachment: attachmentSchema.optional(),
     valueReference: referenceSchema.optional(),
     reason: codeableConceptSchema.optional(),
-  })
+  });
 
 const explanationOfBenefitDiagnosisSchema: ZodType<ExplanationOfBenefitDiagnosis> =
   backboneElementSchema.extend({
@@ -105,7 +105,7 @@ const explanationOfBenefitDiagnosisSchema: ZodType<ExplanationOfBenefitDiagnosis
     type: codeableConceptSchema.array().optional(),
     onAdmission: codeableConceptSchema.optional(),
     packageCode: codeableConceptSchema.optional(),
-  })
+  });
 
 const explanationOfBenefitProcedureSchema: ZodType<ExplanationOfBenefitProcedure> =
   backboneElementSchema.extend({
@@ -116,7 +116,7 @@ const explanationOfBenefitProcedureSchema: ZodType<ExplanationOfBenefitProcedure
     procedureCodeableConcept: codeableConceptSchema.optional(),
     procedureReference: referenceSchema.optional(),
     udi: referenceSchema.array().optional(),
-  })
+  });
 
 const explanationOfBenefitInsuranceSchema: ZodType<ExplanationOfBenefitInsurance> =
   backboneElementSchema.extend({
@@ -125,7 +125,7 @@ const explanationOfBenefitInsuranceSchema: ZodType<ExplanationOfBenefitInsurance
     coverage: referenceSchema,
     preAuthRef: stringSchema.array().optional(),
     _preAuthRef: elementSchema.array().optional(),
-  })
+  });
 
 const explanationOfBenefitAccidentSchema: ZodType<ExplanationOfBenefitAccident> =
   backboneElementSchema.extend({
@@ -134,7 +134,7 @@ const explanationOfBenefitAccidentSchema: ZodType<ExplanationOfBenefitAccident> 
     type: codeableConceptSchema.optional(),
     locationAddress: addressSchema.optional(),
     locationReference: referenceSchema.optional(),
-  })
+  });
 
 const explanationOfBenefitItemAdjudicationSchema: ZodType<ExplanationOfBenefitItemAdjudication> =
   backboneElementSchema.extend({
@@ -142,7 +142,7 @@ const explanationOfBenefitItemAdjudicationSchema: ZodType<ExplanationOfBenefitIt
     reason: codeableConceptSchema.optional(),
     amount: moneySchema.optional(),
     value: decimalSchema.optional(),
-  })
+  });
 
 const explanationOfBenefitItemDetailSchema: ZodType<ExplanationOfBenefitItemDetail> =
   backboneElementSchema.extend({
@@ -159,7 +159,7 @@ const explanationOfBenefitItemDetailSchema: ZodType<ExplanationOfBenefitItemDeta
     udi: referenceSchema.array().optional(),
     noteNumber: positiveIntSchema.array().optional(),
     adjudication: explanationOfBenefitItemAdjudicationSchema.array().optional(),
-  })
+  });
 
 const explanationOfBenefitItemSchema: ZodType<ExplanationOfBenefitItem> =
   backboneElementSchema.extend({
@@ -190,7 +190,7 @@ const explanationOfBenefitItemSchema: ZodType<ExplanationOfBenefitItem> =
     noteNumber: positiveIntSchema.array().optional(),
     adjudication: explanationOfBenefitItemAdjudicationSchema.array().optional(),
     detail: explanationOfBenefitItemDetailSchema.array().optional(),
-  })
+  });
 
 const explanationOfBenefitAddItemSchema: ZodType<ExplanationOfBenefitAddItem> =
   backboneElementSchema.extend({
@@ -215,13 +215,13 @@ const explanationOfBenefitAddItemSchema: ZodType<ExplanationOfBenefitAddItem> =
     subSite: codeableConceptSchema.array().optional(),
     noteNumber: positiveIntSchema.array().optional(),
     adjudication: explanationOfBenefitItemAdjudicationSchema.array(),
-  })
+  });
 
 const explanationOfBenefitTotalSchema: ZodType<ExplanationOfBenefitTotal> =
   backboneElementSchema.extend({
     category: codeableConceptSchema,
     amount: moneySchema,
-  })
+  });
 
 const explanationOfBenefitPaymentSchema: ZodType<ExplanationOfBenefitPayment> =
   backboneElementSchema.extend({
@@ -232,7 +232,7 @@ const explanationOfBenefitPaymentSchema: ZodType<ExplanationOfBenefitPayment> =
     _date: elementSchema.optional(),
     amount: moneySchema.optional(),
     identifier: identifierSchema.optional(),
-  })
+  });
 
 const explanationOfBenefitProcessNoteSchema: ZodType<ExplanationOfBenefitProcessNote> =
   backboneElementSchema.extend({
@@ -242,7 +242,7 @@ const explanationOfBenefitProcessNoteSchema: ZodType<ExplanationOfBenefitProcess
     text: stringSchema.optional(),
     _text: elementSchema.optional(),
     language: codeableConceptSchema.optional(),
-  })
+  });
 
 const explanationOfBenefitBenefitBalanceFinancialSchema: ZodType<ExplanationOfBenefitBenefitBalanceFinancial> =
   backboneElementSchema.extend({
@@ -253,7 +253,7 @@ const explanationOfBenefitBenefitBalanceFinancialSchema: ZodType<ExplanationOfBe
     allowedMoney: moneySchema.optional(),
     usedUnsignedInt: unsignedIntSchema.optional(),
     usedMoney: moneySchema.optional(),
-  })
+  });
 
 const explanationOfBenefitBenefitBalanceSchema: ZodType<ExplanationOfBenefitBenefitBalance> =
   backboneElementSchema.extend({
@@ -270,14 +270,14 @@ const explanationOfBenefitBenefitBalanceSchema: ZodType<ExplanationOfBenefitBene
     financial: explanationOfBenefitBenefitBalanceFinancialSchema
       .array()
       .optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ExplanationOfBenefit resource (untyped version).
  */
 export const untypedExplanationOfBenefitSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ExplanationOfBenefit').readonly(),
+    resourceType: z.literal("ExplanationOfBenefit").readonly(),
     identifier: identifierSchema.array().optional(),
     status: financialResourceStatusSchema,
     _status: elementSchema.optional(),
@@ -328,13 +328,13 @@ export const untypedExplanationOfBenefitSchema = z.lazy(() =>
     benefitPeriod: periodSchema.optional(),
     benefitBalance: explanationOfBenefitBenefitBalanceSchema.array().optional(),
   }),
-) satisfies ZodType<ExplanationOfBenefit>
+) satisfies ZodType<ExplanationOfBenefit>;
 
 /**
  * Zod schema for FHIR ExplanationOfBenefit resource.
  */
 export const explanationOfBenefitSchema: ZodType<ExplanationOfBenefit> =
-  untypedExplanationOfBenefitSchema
+  untypedExplanationOfBenefitSchema;
 
 /**
  * Wrapper class for FHIR ExplanationOfBenefit resources.
@@ -350,7 +350,9 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
    * @returns A FhirExplanationOfBenefit instance containing the validated resource
    */
   public static parse(value: unknown): FhirExplanationOfBenefit {
-    return new FhirExplanationOfBenefit(explanationOfBenefitSchema.parse(value))
+    return new FhirExplanationOfBenefit(
+      explanationOfBenefitSchema.parse(value),
+    );
   }
 
   /**
@@ -358,7 +360,7 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
    * @returns The created date
    */
   public get createdDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.created)
+    return FhirDomainResource.parseDateTime(this.value.created);
   }
 
   /**
@@ -366,7 +368,7 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
    * @returns The start date, or undefined if not set
    */
   public get billablePeriodStart(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.billablePeriod?.start)
+    return FhirDomainResource.parseDateTime(this.value.billablePeriod?.start);
   }
 
   /**
@@ -374,7 +376,7 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
    * @returns The end date, or undefined if not set
    */
   public get billablePeriodEnd(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.billablePeriod?.end)
+    return FhirDomainResource.parseDateTime(this.value.billablePeriod?.end);
   }
 
   /**
@@ -382,7 +384,7 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
    * @returns Type display text
    */
   public get typeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+    return FhirDomainResource.codeableConceptDisplay(this.value.type);
   }
 
   /**
@@ -390,7 +392,7 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
    * @returns Subtype display text
    */
   public get subTypeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.subType)
+    return FhirDomainResource.codeableConceptDisplay(this.value.subType);
   }
 
   /**
@@ -401,8 +403,8 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
   public getTotalByCategory(categoryCode: string): number | undefined {
     const total = this.value.total?.find((t) =>
       t.category.coding?.some((c) => c.code === categoryCode),
-    )
-    return total?.amount.value
+    );
+    return total?.amount.value;
   }
 
   /**
@@ -410,7 +412,7 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
    * @returns Array of diagnosis display texts
    */
   public get diagnosisDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.diagnosis)
+    return FhirDomainResource.codeableConceptDisplays(this.value.diagnosis);
   }
 
   /**
@@ -422,7 +424,7 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
       this.value.procedure?.flatMap((p) =>
         p.procedureCodeableConcept ? [p.procedureCodeableConcept] : [],
       ),
-    )
+    );
   }
 
   /**
@@ -435,7 +437,7 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -448,7 +450,7 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -458,7 +460,7 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -468,6 +470,6 @@ export class FhirExplanationOfBenefit extends FhirDomainResource<ExplanationOfBe
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

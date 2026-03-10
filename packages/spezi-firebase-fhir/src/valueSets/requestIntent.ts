@@ -6,26 +6,26 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Codes indicating the level of authority/intentionality associated with a request.
  * http://hl7.org/fhir/ValueSet/request-intent
  */
 export const requestIntentSchema = z.enum([
-  'proposal',
-  'plan',
-  'directive',
-  'order',
-  'original-order',
-  'reflex-order',
-  'filler-order',
-  'instance-order',
-  'option',
-])
+  "proposal",
+  "plan",
+  "directive",
+  "order",
+  "original-order",
+  "reflex-order",
+  "filler-order",
+  "instance-order",
+  "option",
+]);
 
 /**
  * Codes indicating the level of authority/intentionality associated with a request.
  * http://hl7.org/fhir/ValueSet/request-intent
  */
-export type RequestIntent = z.infer<typeof requestIntentSchema>
+export type RequestIntent = z.infer<typeof requestIntentSchema>;

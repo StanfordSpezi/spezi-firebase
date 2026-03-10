@@ -10,9 +10,9 @@ import {
   type AdverseEventSuspectEntity,
   type AdverseEventSuspectEntityCausality,
   type AdverseEvent,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -22,8 +22,8 @@ import {
   identifierSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { adverseEventActualitySchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { adverseEventActualitySchema } from "../valueSets/index.js";
 
 const adverseEventSuspectEntityCausalitySchema: ZodType<AdverseEventSuspectEntityCausality> =
   backboneElementSchema.extend({
@@ -32,20 +32,20 @@ const adverseEventSuspectEntityCausalitySchema: ZodType<AdverseEventSuspectEntit
     _productRelatedness: elementSchema.optional(),
     author: referenceSchema.optional(),
     method: codeableConceptSchema.optional(),
-  })
+  });
 
 const adverseEventSuspectEntitySchema: ZodType<AdverseEventSuspectEntity> =
   backboneElementSchema.extend({
     instance: referenceSchema,
     causality: adverseEventSuspectEntityCausalitySchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR AdverseEvent resource (untyped version).
  */
 export const untypedAdverseEventSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('AdverseEvent').readonly(),
+    resourceType: z.literal("AdverseEvent").readonly(),
     identifier: identifierSchema.optional(),
     actuality: adverseEventActualitySchema,
     _actuality: elementSchema.optional(),
@@ -71,13 +71,13 @@ export const untypedAdverseEventSchema = z.lazy(() =>
     referenceDocument: referenceSchema.array().optional(),
     study: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<AdverseEvent>
+) satisfies ZodType<AdverseEvent>;
 
 /**
  * Zod schema for FHIR AdverseEvent resource.
  */
 export const adverseEventSchema: ZodType<AdverseEvent> =
-  untypedAdverseEventSchema
+  untypedAdverseEventSchema;
 
 /**
  * Wrapper class for FHIR AdverseEvent resources.
@@ -93,7 +93,7 @@ export class FhirAdverseEvent extends FhirDomainResource<AdverseEvent> {
    * @returns A FhirAdverseEvent instance containing the validated resource
    */
   public static parse(value: unknown): FhirAdverseEvent {
-    return new FhirAdverseEvent(adverseEventSchema.parse(value))
+    return new FhirAdverseEvent(adverseEventSchema.parse(value));
   }
 
   /**
@@ -110,7 +110,7 @@ export class FhirAdverseEvent extends FhirDomainResource<AdverseEvent> {
    * ```
    */
   public get eventDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.date)
+    return FhirDomainResource.parseDateTime(this.value.date);
   }
 
   /**
@@ -125,7 +125,7 @@ export class FhirAdverseEvent extends FhirDomainResource<AdverseEvent> {
    * ```
    */
   public get recordedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.recordedDate)
+    return FhirDomainResource.parseDateTime(this.value.recordedDate);
   }
 
   /**
@@ -140,7 +140,7 @@ export class FhirAdverseEvent extends FhirDomainResource<AdverseEvent> {
    * ```
    */
   public get eventDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.event)
+    return FhirDomainResource.codeableConceptDisplay(this.value.event);
   }
 
   /**
@@ -157,7 +157,7 @@ export class FhirAdverseEvent extends FhirDomainResource<AdverseEvent> {
    * ```
    */
   public get seriousnessDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.seriousness)
+    return FhirDomainResource.codeableConceptDisplay(this.value.seriousness);
   }
 
   /**
@@ -172,7 +172,7 @@ export class FhirAdverseEvent extends FhirDomainResource<AdverseEvent> {
    * ```
    */
   public get severityDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.severity)
+    return FhirDomainResource.codeableConceptDisplay(this.value.severity);
   }
 
   /**
@@ -187,6 +187,6 @@ export class FhirAdverseEvent extends FhirDomainResource<AdverseEvent> {
    * ```
    */
   public get categoryDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+    return FhirDomainResource.codeableConceptDisplays(this.value.category);
   }
 }

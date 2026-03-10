@@ -11,9 +11,9 @@ import {
   type ProcedurePerformer,
   type Coding,
   type Procedure,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -29,28 +29,28 @@ import {
   referenceSchema,
   stringSchema,
   uriSchema,
-} from '../elements/index.js'
-import { procedureStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { procedureStatusSchema } from "../valueSets/index.js";
 
 const procedurePerformerSchema: ZodType<ProcedurePerformer> =
   backboneElementSchema.extend({
     function: codeableConceptSchema.optional(),
     actor: referenceSchema,
     onBehalfOf: referenceSchema.optional(),
-  })
+  });
 
 const procedureFocalDeviceSchema: ZodType<ProcedureFocalDevice> =
   backboneElementSchema.extend({
     action: codeableConceptSchema.optional(),
     manipulated: referenceSchema,
-  })
+  });
 
 /**
  * Zod schema for FHIR Procedure resource (untyped version).
  */
 export const untypedProcedureSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Procedure').readonly(),
+    resourceType: z.literal("Procedure").readonly(),
     identifier: identifierSchema.array().optional(),
     instantiatesCanonical: canonicalSchema.array().optional(),
     _instantiatesCanonical: elementSchema.array().optional(),
@@ -89,12 +89,12 @@ export const untypedProcedureSchema = z.lazy(() =>
     usedReference: referenceSchema.array().optional(),
     usedCode: codeableConceptSchema.array().optional(),
   }),
-) satisfies ZodType<Procedure>
+) satisfies ZodType<Procedure>;
 
 /**
  * Zod schema for FHIR Procedure resource.
  */
-export const procedureSchema: ZodType<Procedure> = untypedProcedureSchema
+export const procedureSchema: ZodType<Procedure> = untypedProcedureSchema;
 
 /**
  * Wrapper class for FHIR Procedure resources.
@@ -110,7 +110,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns A FhirProcedure instance
    */
   public static parse(value: unknown): FhirProcedure {
-    return new FhirProcedure(procedureSchema.parse(value))
+    return new FhirProcedure(procedureSchema.parse(value));
   }
 
   // Properties
@@ -121,7 +121,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns The performed date if available
    */
   public get performedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.performedDateTime)
+    return FhirDomainResource.parseDateTime(this.value.performedDateTime);
   }
 
   /**
@@ -130,7 +130,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns The start date if available
    */
   public get performedPeriodStart(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.performedPeriod?.start)
+    return FhirDomainResource.parseDateTime(this.value.performedPeriod?.start);
   }
 
   /**
@@ -139,7 +139,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns The end date if available
    */
   public get performedPeriodEnd(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.performedPeriod?.end)
+    return FhirDomainResource.parseDateTime(this.value.performedPeriod?.end);
   }
 
   /**
@@ -148,7 +148,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns The code display
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -157,7 +157,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns The outcome display
    */
   public get outcomeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.outcome)
+    return FhirDomainResource.codeableConceptDisplay(this.value.outcome);
   }
 
   /**
@@ -166,7 +166,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns Array of body site display texts
    */
   public get bodySiteDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.bodySite)
+    return FhirDomainResource.codeableConceptDisplays(this.value.bodySite);
   }
 
   /**
@@ -175,7 +175,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns Array of reason display texts
    */
   public get reasonDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.reasonCode)
+    return FhirDomainResource.codeableConceptDisplays(this.value.reasonCode);
   }
 
   /**
@@ -184,7 +184,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -195,16 +195,16 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns true if the procedure was performed within the range
    */
   public wasPerformedInRange(rangeStart: Date, rangeEnd: Date): boolean {
-    const performedDate = this.performedDate
+    const performedDate = this.performedDate;
     if (performedDate) {
-      return performedDate >= rangeStart && performedDate <= rangeEnd
+      return performedDate >= rangeStart && performedDate <= rangeEnd;
     }
 
     return FhirDomainResource.periodOverlaps(
       this.value.performedPeriod,
       rangeStart,
       rangeEnd,
-    )
+    );
   }
 
   /**
@@ -217,7 +217,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -230,7 +230,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -240,7 +240,7 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -250,6 +250,6 @@ export class FhirProcedure extends FhirDomainResource<Procedure> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

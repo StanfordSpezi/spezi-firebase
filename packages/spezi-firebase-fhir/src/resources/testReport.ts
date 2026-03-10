@@ -17,9 +17,9 @@ import {
   type TestReportTest,
   type TestReportTestAction,
   type TestReport,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   decimalSchema,
@@ -30,13 +30,13 @@ import {
   referenceSchema,
   stringSchema,
   urlSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   testReportActionResultSchema,
   testReportParticipantTypeSchema,
   testReportResultSchema,
   testReportStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const testReportSetupActionOperationSchema: ZodType<TestReportSetupActionOperation> =
   backboneElementSchema.extend({
@@ -46,7 +46,7 @@ const testReportSetupActionOperationSchema: ZodType<TestReportSetupActionOperati
     _message: elementSchema.optional(),
     result: testReportActionResultSchema,
     _result: elementSchema.optional(),
-  })
+  });
 
 const testReportSetupActionAssertSchema: ZodType<TestReportSetupActionAssert> =
   backboneElementSchema.extend({
@@ -56,7 +56,7 @@ const testReportSetupActionAssertSchema: ZodType<TestReportSetupActionAssert> =
     _message: elementSchema.optional(),
     result: testReportActionResultSchema,
     _result: elementSchema.optional(),
-  })
+  });
 
 const testReportParticipantSchema: ZodType<TestReportParticipant> =
   backboneElementSchema.extend({
@@ -66,34 +66,34 @@ const testReportParticipantSchema: ZodType<TestReportParticipant> =
     _type: elementSchema.optional(),
     uri: urlSchema,
     _uri: elementSchema.optional(),
-  })
+  });
 
 const testReportSetupActionSchema: ZodType<TestReportSetupAction> =
   backboneElementSchema.extend({
     assert: testReportSetupActionAssertSchema.optional(),
     operation: testReportSetupActionOperationSchema.optional(),
-  })
+  });
 
 const testReportSetupSchema: ZodType<TestReportSetup> =
   backboneElementSchema.extend({
     action: testReportSetupActionSchema.array(),
-  })
+  });
 
 const testReportTeardownActionSchema: ZodType<TestReportTeardownAction> =
   backboneElementSchema.extend({
     operation: testReportSetupActionOperationSchema,
-  })
+  });
 
 const testReportTeardownSchema: ZodType<TestReportTeardown> =
   backboneElementSchema.extend({
     action: testReportTeardownActionSchema.array(),
-  })
+  });
 
 const testReportTestActionSchema: ZodType<TestReportTestAction> =
   backboneElementSchema.extend({
     assert: testReportSetupActionAssertSchema.optional(),
     operation: testReportSetupActionOperationSchema.optional(),
-  })
+  });
 
 const testReportTestSchema: ZodType<TestReportTest> =
   backboneElementSchema.extend({
@@ -102,14 +102,14 @@ const testReportTestSchema: ZodType<TestReportTest> =
     _description: elementSchema.optional(),
     name: stringSchema.optional(),
     _name: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR TestReport resource (untyped version).
  */
 export const untypedTestReportSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('TestReport').readonly(),
+    resourceType: z.literal("TestReport").readonly(),
     identifier: identifierSchema.optional(),
     issued: instantSchema.optional(),
     _issued: elementSchema.optional(),
@@ -128,12 +128,12 @@ export const untypedTestReportSchema = z.lazy(() =>
     _tester: elementSchema.optional(),
     testScript: referenceSchema,
   }),
-) satisfies ZodType<TestReport>
+) satisfies ZodType<TestReport>;
 
 /**
  * Zod schema for FHIR TestReport resource.
  */
-export const testReportSchema: ZodType<TestReport> = untypedTestReportSchema
+export const testReportSchema: ZodType<TestReport> = untypedTestReportSchema;
 
 /**
  * Wrapper class for FHIR TestReport resources.
@@ -149,6 +149,6 @@ export class FhirTestReport extends FhirDomainResource<TestReport> {
    * @returns A FhirTestReport instance containing the validated resource
    */
   public static parse(value: unknown): FhirTestReport {
-    return new FhirTestReport(testReportSchema.parse(value))
+    return new FhirTestReport(testReportSchema.parse(value));
   }
 }

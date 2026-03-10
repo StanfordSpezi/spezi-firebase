@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type OperationOutcomeIssue, type OperationOutcome } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type OperationOutcomeIssue, type OperationOutcome } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
   domainResourceSchema,
   elementSchema,
   stringSchema,
-} from '../elements/index.js'
-import { issueSeveritySchema, issueTypeSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { issueSeveritySchema, issueTypeSchema } from "../valueSets/index.js";
 
 const operationOutcomeIssueSchema: ZodType<OperationOutcomeIssue> =
   backboneElementSchema.extend({
@@ -31,23 +31,23 @@ const operationOutcomeIssueSchema: ZodType<OperationOutcomeIssue> =
     _location: elementSchema.array().optional(),
     expression: stringSchema.array().optional(),
     _expression: elementSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR OperationOutcome resource (untyped version).
  */
 export const untypedOperationOutcomeSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('OperationOutcome').readonly(),
+    resourceType: z.literal("OperationOutcome").readonly(),
     issue: operationOutcomeIssueSchema.array(),
   }),
-) satisfies ZodType<OperationOutcome>
+) satisfies ZodType<OperationOutcome>;
 
 /**
  * Zod schema for FHIR OperationOutcome resource.
  */
 export const operationOutcomeSchema: ZodType<OperationOutcome> =
-  untypedOperationOutcomeSchema
+  untypedOperationOutcomeSchema;
 
 /**
  * Wrapper class for FHIR OperationOutcome resources.
@@ -63,6 +63,6 @@ export class FhirOperationOutcome extends FhirDomainResource<OperationOutcome> {
    * @returns A FhirOperationOutcome instance containing the validated resource
    */
   public static parse(value: unknown): FhirOperationOutcome {
-    return new FhirOperationOutcome(operationOutcomeSchema.parse(value))
+    return new FhirOperationOutcome(operationOutcomeSchema.parse(value));
   }
 }

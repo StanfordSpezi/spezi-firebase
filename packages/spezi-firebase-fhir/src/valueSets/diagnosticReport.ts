@@ -6,24 +6,24 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The status of a diagnostic report.
  * http://hl7.org/fhir/valueset-diagnostic-report-status.html
  */
 export const diagnosticReportStatusSchema = z.enum([
-  'registered',
-  'partial',
-  'preliminary',
-  'final',
-  'amended',
-  'corrected',
-  'appended',
-  'cancelled',
-  'entered-in-error',
-  'unknown',
-])
+  "registered",
+  "partial",
+  "preliminary",
+  "final",
+  "amended",
+  "corrected",
+  "appended",
+  "cancelled",
+  "entered-in-error",
+  "unknown",
+]);
 
 /**
  * The status of a diagnostic report.
@@ -31,4 +31,4 @@ export const diagnosticReportStatusSchema = z.enum([
  */
 export type DiagnosticReportStatus = z.infer<
   typeof diagnosticReportStatusSchema
->
+>;

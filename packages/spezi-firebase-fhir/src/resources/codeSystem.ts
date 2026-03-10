@@ -14,9 +14,9 @@ import {
   type CodeSystem,
   type CodeSystemConcept,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -33,14 +33,14 @@ import {
   uriSchema,
   urlSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   codeSystemContentSchema,
   codeSystemHierarchyMeaningSchema,
   codeSystemPropertyTypeSchema,
   filterOperatorSchema,
   publicationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const codeSystemConceptDesignationSchema: ZodType<CodeSystemConceptDesignation> =
   backboneElementSchema.extend({
@@ -49,7 +49,7 @@ const codeSystemConceptDesignationSchema: ZodType<CodeSystemConceptDesignation> 
     use: codingSchema.optional(),
     value: stringSchema,
     _value: elementSchema.optional(),
-  })
+  });
 
 const codeSystemConceptPropertySchema: ZodType<CodeSystemConceptProperty> =
   backboneElementSchema.extend({
@@ -66,7 +66,7 @@ const codeSystemConceptPropertySchema: ZodType<CodeSystemConceptProperty> =
     valueDateTime: dateTimeSchema.optional(),
     _valueDateTime: elementSchema.optional(),
     valueDecimal: decimalSchema.optional(),
-  })
+  });
 
 const codeSystemConceptSchema: ZodType<CodeSystemConcept> =
   backboneElementSchema.extend({
@@ -79,9 +79,9 @@ const codeSystemConceptSchema: ZodType<CodeSystemConcept> =
     designation: codeSystemConceptDesignationSchema.array().optional(),
     property: codeSystemConceptPropertySchema.array().optional(),
     get concept() {
-      return codeSystemConceptSchema.array().optional()
+      return codeSystemConceptSchema.array().optional();
     },
-  })
+  });
 
 const codeSystemFilterSchema: ZodType<CodeSystemFilter> =
   backboneElementSchema.extend({
@@ -93,7 +93,7 @@ const codeSystemFilterSchema: ZodType<CodeSystemFilter> =
     _operator: elementSchema.array().optional(),
     value: stringSchema,
     _value: elementSchema.optional(),
-  })
+  });
 
 const codeSystemPropertySchema: ZodType<CodeSystemProperty> =
   backboneElementSchema.extend({
@@ -105,14 +105,14 @@ const codeSystemPropertySchema: ZodType<CodeSystemProperty> =
     _type: elementSchema.optional(),
     uri: uriSchema.optional(),
     _uri: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR CodeSystem resource (untyped version).
  */
 export const untypedCodeSystemSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('CodeSystem').readonly(),
+    resourceType: z.literal("CodeSystem").readonly(),
     url: urlSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -158,12 +158,12 @@ export const untypedCodeSystemSchema = z.lazy(() =>
     property: codeSystemPropertySchema.array().optional(),
     concept: codeSystemConceptSchema.array().optional(),
   }),
-) satisfies ZodType<CodeSystem>
+) satisfies ZodType<CodeSystem>;
 
 /**
  * Zod schema for FHIR CodeSystem resource.
  */
-export const codeSystemSchema: ZodType<CodeSystem> = untypedCodeSystemSchema
+export const codeSystemSchema: ZodType<CodeSystem> = untypedCodeSystemSchema;
 
 /**
  * Wrapper class for FHIR CodeSystem resources.
@@ -179,7 +179,7 @@ export class FhirCodeSystem extends FhirDomainResource<CodeSystem> {
    * @returns A FhirCodeSystem instance containing the validated resource
    */
   public static parse(value: unknown): FhirCodeSystem {
-    return new FhirCodeSystem(codeSystemSchema.parse(value))
+    return new FhirCodeSystem(codeSystemSchema.parse(value));
   }
 
   /**
@@ -192,7 +192,7 @@ export class FhirCodeSystem extends FhirDomainResource<CodeSystem> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -205,7 +205,7 @@ export class FhirCodeSystem extends FhirDomainResource<CodeSystem> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -215,7 +215,7 @@ export class FhirCodeSystem extends FhirDomainResource<CodeSystem> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -225,6 +225,6 @@ export class FhirCodeSystem extends FhirDomainResource<CodeSystem> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

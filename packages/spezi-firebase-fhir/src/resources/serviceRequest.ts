@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type ServiceRequest } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type ServiceRequest } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   booleanSchema,
@@ -23,19 +23,19 @@ import {
   referenceSchema,
   stringSchema,
   timingSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   requestPrioritySchema,
   serviceRequestIntentSchema,
   serviceRequestStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR ServiceRequest resource (untyped version).
  */
 export const untypedServiceRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ServiceRequest').readonly(),
+    resourceType: z.literal("ServiceRequest").readonly(),
     asNeededBoolean: booleanSchema.optional(),
     _asNeededBoolean: elementSchema.optional(),
     asNeededCodeableConcept: codeableConceptSchema.optional(),
@@ -85,13 +85,13 @@ export const untypedServiceRequestSchema = z.lazy(() =>
     subject: referenceSchema,
     supportingInfo: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<ServiceRequest>
+) satisfies ZodType<ServiceRequest>;
 
 /**
  * Zod schema for FHIR ServiceRequest resource.
  */
 export const serviceRequestSchema: ZodType<ServiceRequest> =
-  untypedServiceRequestSchema
+  untypedServiceRequestSchema;
 
 /**
  * Wrapper class for FHIR ServiceRequest resources.
@@ -107,7 +107,7 @@ export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
    * @returns A FhirServiceRequest instance
    */
   public static parse(value: unknown): FhirServiceRequest {
-    return new FhirServiceRequest(serviceRequestSchema.parse(value))
+    return new FhirServiceRequest(serviceRequestSchema.parse(value));
   }
 
   // Properties
@@ -118,7 +118,7 @@ export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
    * @returns The authored date if available
    */
   public get authoredDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.authoredOn)
+    return FhirDomainResource.parseDateTime(this.value.authoredOn);
   }
 
   /**
@@ -127,7 +127,7 @@ export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
    * @returns The occurrence date if available
    */
   public get occurrenceDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime)
+    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime);
   }
 
   /**
@@ -136,7 +136,7 @@ export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
    * @returns The code display
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -145,7 +145,7 @@ export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
    * @returns Array of category display texts
    */
   public getCategoryDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+    return FhirDomainResource.codeableConceptDisplays(this.value.category);
   }
 
   /**
@@ -154,7 +154,7 @@ export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -167,7 +167,7 @@ export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -180,7 +180,7 @@ export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -190,7 +190,7 @@ export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -200,6 +200,6 @@ export class FhirServiceRequest extends FhirDomainResource<ServiceRequest> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

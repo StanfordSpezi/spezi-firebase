@@ -10,9 +10,9 @@ import {
   type AllergyIntoleranceReaction,
   type AllergyIntolerance,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -26,13 +26,13 @@ import {
   rangeSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   allergyIntoleranceCategorySchema,
   allergyIntoleranceCriticalitySchema,
   allergyIntoleranceReactionSeveritySchema,
   allergyIntoleranceTypeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const allergyIntoleranceReactionSchema: ZodType<AllergyIntoleranceReaction> =
   backboneElementSchema.extend({
@@ -44,14 +44,14 @@ const allergyIntoleranceReactionSchema: ZodType<AllergyIntoleranceReaction> =
     _severity: elementSchema.optional(),
     exposureRoute: codeableConceptSchema.optional(),
     note: annotationSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR AllergyIntolerance resource (untyped version).
  */
 export const untypedAllergyIntoleranceSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('AllergyIntolerance').readonly(),
+    resourceType: z.literal("AllergyIntolerance").readonly(),
     identifier: identifierSchema.array().optional(),
     clinicalStatus: codeableConceptSchema.optional(),
     verificationStatus: codeableConceptSchema.optional(),
@@ -79,13 +79,13 @@ export const untypedAllergyIntoleranceSchema = z.lazy(() =>
     note: annotationSchema.array().optional(),
     reaction: allergyIntoleranceReactionSchema.array().optional(),
   }),
-) satisfies ZodType<AllergyIntolerance>
+) satisfies ZodType<AllergyIntolerance>;
 
 /**
  * Zod schema for FHIR AllergyIntolerance resource.
  */
 export const allergyIntoleranceSchema: ZodType<AllergyIntolerance> =
-  untypedAllergyIntoleranceSchema
+  untypedAllergyIntoleranceSchema;
 
 /**
  * Wrapper class for FHIR AllergyIntolerance resources.
@@ -101,7 +101,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
    * @returns A FhirAllergyIntolerance instance
    */
   public static parse(value: unknown): FhirAllergyIntolerance {
-    return new FhirAllergyIntolerance(allergyIntoleranceSchema.parse(value))
+    return new FhirAllergyIntolerance(allergyIntoleranceSchema.parse(value));
   }
 
   // Properties
@@ -116,7 +116,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -129,7 +129,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -139,7 +139,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -149,7 +149,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 
   /**
@@ -158,7 +158,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
    * @returns The onset date if available
    */
   public get onsetDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.onsetDateTime)
+    return FhirDomainResource.parseDateTime(this.value.onsetDateTime);
   }
 
   /**
@@ -167,7 +167,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
    * @returns The recorded date if available
    */
   public get recordedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.recordedDate)
+    return FhirDomainResource.parseDateTime(this.value.recordedDate);
   }
 
   /**
@@ -176,7 +176,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
    * @returns The last occurrence date if available
    */
   public get lastOccurrenceDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.lastOccurrence)
+    return FhirDomainResource.parseDateTime(this.value.lastOccurrence);
   }
 
   /**
@@ -185,7 +185,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
    * @returns The code display text
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -194,7 +194,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
    * @returns The clinical status display
    */
   public get clinicalStatusDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.clinicalStatus)
+    return FhirDomainResource.codeableConceptDisplay(this.value.clinicalStatus);
   }
 
   /**
@@ -205,7 +205,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
   public get verificationStatusDisplay(): string | undefined {
     return FhirDomainResource.codeableConceptDisplay(
       this.value.verificationStatus,
-    )
+    );
   }
 
   /**
@@ -216,9 +216,9 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
   public get isActive(): boolean {
     return FhirDomainResource.containsCoding(this.value.clinicalStatus, {
       system:
-        'http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical',
-      code: 'active',
-    })
+        "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+      code: "active",
+    });
   }
 
   /**
@@ -229,9 +229,9 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
   public get isConfirmed(): boolean {
     return FhirDomainResource.containsCoding(this.value.verificationStatus, {
       system:
-        'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification',
-      code: 'confirmed',
-    })
+        "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+      code: "confirmed",
+    });
   }
 
   /**
@@ -242,7 +242,7 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
   public get manifestationDisplays(): string[] {
     return FhirDomainResource.codeableConceptDisplays(
       this.value.reaction?.flatMap((reaction) => reaction.manifestation),
-    )
+    );
   }
 
   /**
@@ -251,6 +251,6 @@ export class FhirAllergyIntolerance extends FhirDomainResource<AllergyIntoleranc
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 }

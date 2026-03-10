@@ -11,9 +11,9 @@ import {
   type Coding,
   type MedicationAdministration,
   type MedicationAdministrationDosage,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -28,14 +28,14 @@ import {
   referenceSchema,
   stringSchema,
   uriSchema,
-} from '../elements/index.js'
-import { medicationAdministrationStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { medicationAdministrationStatusSchema } from "../valueSets/index.js";
 
 const medicationAdministrationPerformerSchema: ZodType<MedicationAdministrationPerformer> =
   backboneElementSchema.extend({
     function: codeableConceptSchema.optional(),
     actor: referenceSchema,
-  })
+  });
 
 const medicationAdministrationDosageSchema: ZodType<MedicationAdministrationDosage> =
   backboneElementSchema.extend({
@@ -46,14 +46,14 @@ const medicationAdministrationDosageSchema: ZodType<MedicationAdministrationDosa
     dose: quantitySchema.optional(),
     rateRatio: ratioSchema.optional(),
     rateQuantity: quantitySchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR MedicationAdministration resource (untyped version).
  */
 export const untypedMedicationAdministrationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('MedicationAdministration').readonly(),
+    resourceType: z.literal("MedicationAdministration").readonly(),
     identifier: identifierSchema.array().optional(),
     instantiates: uriSchema.array().optional(),
     _instantiates: elementSchema.array().optional(),
@@ -79,13 +79,13 @@ export const untypedMedicationAdministrationSchema = z.lazy(() =>
     dosage: medicationAdministrationDosageSchema.optional(),
     eventHistory: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<MedicationAdministration>
+) satisfies ZodType<MedicationAdministration>;
 
 /**
  * Zod schema for FHIR MedicationAdministration resource.
  */
 export const medicationAdministrationSchema: ZodType<MedicationAdministration> =
-  untypedMedicationAdministrationSchema
+  untypedMedicationAdministrationSchema;
 
 /**
  * Wrapper class for FHIR MedicationAdministration resources.
@@ -103,7 +103,7 @@ export class FhirMedicationAdministration extends FhirDomainResource<MedicationA
   public static parse(value: unknown): FhirMedicationAdministration {
     return new FhirMedicationAdministration(
       medicationAdministrationSchema.parse(value),
-    )
+    );
   }
 
   // Properties
@@ -114,7 +114,7 @@ export class FhirMedicationAdministration extends FhirDomainResource<MedicationA
    * @returns The effective date if available
    */
   public get effectiveDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.effectiveDateTime)
+    return FhirDomainResource.parseDateTime(this.value.effectiveDateTime);
   }
 
   /**
@@ -123,7 +123,7 @@ export class FhirMedicationAdministration extends FhirDomainResource<MedicationA
    * @returns The effective period start date, or undefined if not set
    */
   public get effectivePeriodStartDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.start)
+    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.start);
   }
 
   /**
@@ -132,7 +132,7 @@ export class FhirMedicationAdministration extends FhirDomainResource<MedicationA
    * @returns The effective period end date, or undefined if not set
    */
   public get effectivePeriodEndDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.end)
+    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.end);
   }
 
   /**
@@ -141,7 +141,7 @@ export class FhirMedicationAdministration extends FhirDomainResource<MedicationA
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -150,7 +150,7 @@ export class FhirMedicationAdministration extends FhirDomainResource<MedicationA
    * @returns Array of reason display texts
    */
   public get reasonDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.reasonCode)
+    return FhirDomainResource.codeableConceptDisplays(this.value.reasonCode);
   }
 
   /**
@@ -163,7 +163,7 @@ export class FhirMedicationAdministration extends FhirDomainResource<MedicationA
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -176,7 +176,7 @@ export class FhirMedicationAdministration extends FhirDomainResource<MedicationA
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -186,7 +186,7 @@ export class FhirMedicationAdministration extends FhirDomainResource<MedicationA
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -196,6 +196,6 @@ export class FhirMedicationAdministration extends FhirDomainResource<MedicationA
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

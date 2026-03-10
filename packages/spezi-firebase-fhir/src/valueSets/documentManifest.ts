@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The status of the document manifest.
  * http://hl7.org/fhir/valueset-document-reference-status.html
  */
 export const documentManifestStatusSchema = z.enum([
-  'current',
-  'superseded',
-  'entered-in-error',
-])
+  "current",
+  "superseded",
+  "entered-in-error",
+]);
 
 /**
  * The status of the document manifest.
@@ -24,4 +24,4 @@ export const documentManifestStatusSchema = z.enum([
  */
 export type DocumentManifestStatus = z.infer<
   typeof documentManifestStatusSchema
->
+>;

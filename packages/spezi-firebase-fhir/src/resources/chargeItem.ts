@@ -10,10 +10,10 @@ import {
   type ChargeItemPerformer,
   type ChargeItem,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   backboneElementSchema,
@@ -30,21 +30,21 @@ import {
   dateTimeSchema,
   canonicalSchema,
   uriSchema,
-} from '../elements/index.js'
-import { chargeItemStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { chargeItemStatusSchema } from "../valueSets/index.js";
 
 const chargeItemPerformerSchema: ZodType<ChargeItemPerformer> =
   backboneElementSchema.extend({
     function: codeableConceptSchema.optional(),
     actor: referenceSchema,
-  })
+  });
 
 /**
  * Zod schema for FHIR ChargeItem resource (untyped version).
  */
 export const untypedChargeItemSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ChargeItem').readonly(),
+    resourceType: z.literal("ChargeItem").readonly(),
     identifier: identifierSchema.array().optional(),
     definitionUri: uriSchema.array().optional(),
     _definitionUri: elementSchema.array().optional(),
@@ -81,12 +81,12 @@ export const untypedChargeItemSchema = z.lazy(() =>
     note: annotationSchema.array().optional(),
     supportingInformation: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<ChargeItem>
+) satisfies ZodType<ChargeItem>;
 
 /**
  * Zod schema for FHIR ChargeItem resource.
  */
-export const chargeItemSchema: ZodType<ChargeItem> = untypedChargeItemSchema
+export const chargeItemSchema: ZodType<ChargeItem> = untypedChargeItemSchema;
 
 /**
  * Wrapper class for FHIR ChargeItem resources.
@@ -102,7 +102,7 @@ export class FhirChargeItem extends FhirDomainResource<ChargeItem> {
    * @returns A FhirChargeItem instance containing the validated resource
    */
   public static parse(value: unknown): FhirChargeItem {
-    return new FhirChargeItem(chargeItemSchema.parse(value))
+    return new FhirChargeItem(chargeItemSchema.parse(value));
   }
 
   /**
@@ -115,7 +115,7 @@ export class FhirChargeItem extends FhirDomainResource<ChargeItem> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -128,7 +128,7 @@ export class FhirChargeItem extends FhirDomainResource<ChargeItem> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -138,7 +138,7 @@ export class FhirChargeItem extends FhirDomainResource<ChargeItem> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -148,6 +148,6 @@ export class FhirChargeItem extends FhirDomainResource<ChargeItem> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

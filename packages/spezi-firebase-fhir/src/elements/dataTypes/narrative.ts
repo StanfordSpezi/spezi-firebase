@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Narrative } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { xhtmlSchema } from './primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type Narrative } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { xhtmlSchema } from "./primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 const narrativeStatusSchema = z.enum([
-  'generated',
-  'extensions',
-  'additional',
-  'empty',
-])
+  "generated",
+  "extensions",
+  "additional",
+  "empty",
+]);
 
 /**
  * Zod schema for FHIR Narrative data type.
@@ -28,9 +28,9 @@ export const untypedNarrativeSchema = z.lazy(() =>
     div: xhtmlSchema,
     _div: elementSchema.optional(),
   }),
-) satisfies ZodType<Narrative>
+) satisfies ZodType<Narrative>;
 
 /**
  * Zod schema for FHIR Narrative data type.
  */
-export const narrativeSchema: ZodType<Narrative> = untypedNarrativeSchema
+export const narrativeSchema: ZodType<Narrative> = untypedNarrativeSchema;

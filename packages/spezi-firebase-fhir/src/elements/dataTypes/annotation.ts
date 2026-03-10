@@ -6,15 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Annotation } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { type Annotation } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
 import {
   dateTimeSchema,
   markdownSchema,
   stringSchema,
-} from './primitiveTypes.js'
-import { referenceSchema } from './reference.js'
-import { elementSchema } from '../element.js'
+} from "./primitiveTypes.js";
+import { referenceSchema } from "./reference.js";
+import { elementSchema } from "../element.js";
 
 /**
  * Zod schema for FHIR Annotation data type.
@@ -29,9 +29,9 @@ export const untypedAnnotationSchema = z.lazy(() =>
     text: markdownSchema,
     _text: elementSchema.optional(),
   }),
-) satisfies ZodType<Annotation>
+) satisfies ZodType<Annotation>;
 
 /**
  * Zod schema for FHIR Annotation data type.
  */
-export const annotationSchema: ZodType<Annotation> = untypedAnnotationSchema
+export const annotationSchema: ZodType<Annotation> = untypedAnnotationSchema;

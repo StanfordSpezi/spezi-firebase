@@ -6,37 +6,37 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Indicates the potential degree of impact of the identified issue on the patient.
  * http://hl7.org/fhir/valueset-detectedissue-severity.html
  */
-export const detectedIssueSeveritySchema = z.enum(['high', 'moderate', 'low'])
+export const detectedIssueSeveritySchema = z.enum(["high", "moderate", "low"]);
 
 /**
  * Indicates the potential degree of impact of the identified issue on the patient.
  * http://hl7.org/fhir/valueset-detectedissue-severity.html
  */
-export type DetectedIssueSeverity = z.infer<typeof detectedIssueSeveritySchema>
+export type DetectedIssueSeverity = z.infer<typeof detectedIssueSeveritySchema>;
 
 /**
  * Codes providing the status of a detected issue.
  * http://hl7.org/fhir/valueset-observation-status.html
  */
 export const detectedIssueStatusSchema = z.enum([
-  'registered',
-  'preliminary',
-  'final',
-  'amended',
-  'corrected',
-  'cancelled',
-  'entered-in-error',
-  'unknown',
-])
+  "registered",
+  "preliminary",
+  "final",
+  "amended",
+  "corrected",
+  "cancelled",
+  "entered-in-error",
+  "unknown",
+]);
 
 /**
  * Codes providing the status of a detected issue.
  * http://hl7.org/fhir/valueset-observation-status.html
  */
-export type DetectedIssueStatus = z.infer<typeof detectedIssueStatusSchema>
+export type DetectedIssueStatus = z.infer<typeof detectedIssueStatusSchema>;

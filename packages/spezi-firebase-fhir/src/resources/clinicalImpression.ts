@@ -11,9 +11,9 @@ import {
   type ClinicalImpression,
   type ClinicalImpressionFinding,
   type ClinicalImpressionInvestigation,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -25,8 +25,8 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { clinicalImpressionStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { clinicalImpressionStatusSchema } from "../valueSets/index.js";
 
 const clinicalImpressionFindingSchema: ZodType<ClinicalImpressionFinding> =
   backboneElementSchema.extend({
@@ -34,20 +34,20 @@ const clinicalImpressionFindingSchema: ZodType<ClinicalImpressionFinding> =
     itemReference: referenceSchema.optional(),
     basis: stringSchema.optional(),
     _basis: elementSchema.optional(),
-  })
+  });
 
 const clinicalImpressionInvestigationSchema: ZodType<ClinicalImpressionInvestigation> =
   backboneElementSchema.extend({
     code: codeableConceptSchema,
     item: referenceSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ClinicalImpression resource (untyped version).
  */
 export const untypedClinicalImpressionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ClinicalImpression').readonly(),
+    resourceType: z.literal("ClinicalImpression").readonly(),
     identifier: identifierSchema.array().optional(),
     status: clinicalImpressionStatusSchema,
     _status: elementSchema.optional(),
@@ -76,13 +76,13 @@ export const untypedClinicalImpressionSchema = z.lazy(() =>
     supportingInfo: referenceSchema.array().optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<ClinicalImpression>
+) satisfies ZodType<ClinicalImpression>;
 
 /**
  * Zod schema for FHIR ClinicalImpression resource.
  */
 export const clinicalImpressionSchema: ZodType<ClinicalImpression> =
-  untypedClinicalImpressionSchema
+  untypedClinicalImpressionSchema;
 
 /**
  * Wrapper class for FHIR ClinicalImpression resources.
@@ -96,7 +96,7 @@ export class FhirClinicalImpression extends FhirDomainResource<ClinicalImpressio
    * @returns A FhirClinicalImpression instance containing the validated resource
    */
   public static parse(value: unknown): FhirClinicalImpression {
-    return new FhirClinicalImpression(clinicalImpressionSchema.parse(value))
+    return new FhirClinicalImpression(clinicalImpressionSchema.parse(value));
   }
 
   /**
@@ -105,7 +105,7 @@ export class FhirClinicalImpression extends FhirDomainResource<ClinicalImpressio
    * @returns The impression date, if available
    */
   public get date(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.date)
+    return FhirDomainResource.parseDateTime(this.value.date);
   }
 
   /**
@@ -114,7 +114,7 @@ export class FhirClinicalImpression extends FhirDomainResource<ClinicalImpressio
    * @returns The effective date, if available
    */
   public get effectiveDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.effectiveDateTime)
+    return FhirDomainResource.parseDateTime(this.value.effectiveDateTime);
   }
 
   /**
@@ -123,7 +123,7 @@ export class FhirClinicalImpression extends FhirDomainResource<ClinicalImpressio
    * @returns Array of note text strings
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -136,7 +136,7 @@ export class FhirClinicalImpression extends FhirDomainResource<ClinicalImpressio
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -149,7 +149,7 @@ export class FhirClinicalImpression extends FhirDomainResource<ClinicalImpressio
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -159,7 +159,7 @@ export class FhirClinicalImpression extends FhirDomainResource<ClinicalImpressio
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -169,6 +169,6 @@ export class FhirClinicalImpression extends FhirDomainResource<ClinicalImpressio
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

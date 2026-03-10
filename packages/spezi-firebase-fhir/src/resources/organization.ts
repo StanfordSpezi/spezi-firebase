@@ -10,9 +10,9 @@ import {
   type OrganizationContact,
   type Coding,
   type Organization,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   addressSchema,
   backboneElementSchema,
@@ -25,7 +25,7 @@ import {
   identifierSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 const organizationContactSchema: ZodType<OrganizationContact> =
   backboneElementSchema.extend({
@@ -33,14 +33,14 @@ const organizationContactSchema: ZodType<OrganizationContact> =
     name: humanNameSchema.optional(),
     telecom: contactPointSchema.array().optional(),
     address: addressSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Organization resource (untyped version).
  */
 export const untypedOrganizationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Organization').readonly(),
+    resourceType: z.literal("Organization").readonly(),
     identifier: identifierSchema.array().optional(),
     active: booleanSchema.optional(),
     _active: elementSchema.optional(),
@@ -55,13 +55,13 @@ export const untypedOrganizationSchema = z.lazy(() =>
     contact: organizationContactSchema.array().optional(),
     endpoint: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<Organization>
+) satisfies ZodType<Organization>;
 
 /**
  * Zod schema for FHIR Organization resource.
  */
 export const organizationSchema: ZodType<Organization> =
-  untypedOrganizationSchema
+  untypedOrganizationSchema;
 
 /**
  * Wrapper class for FHIR Organization resources.
@@ -77,7 +77,7 @@ export class FhirOrganization extends FhirDomainResource<Organization> {
    * @returns A FhirOrganization instance
    */
   public static parse(value: unknown): FhirOrganization {
-    return new FhirOrganization(organizationSchema.parse(value))
+    return new FhirOrganization(organizationSchema.parse(value));
   }
 
   // Properties
@@ -92,7 +92,7 @@ export class FhirOrganization extends FhirDomainResource<Organization> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -105,7 +105,7 @@ export class FhirOrganization extends FhirDomainResource<Organization> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -115,7 +115,7 @@ export class FhirOrganization extends FhirDomainResource<Organization> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -125,7 +125,7 @@ export class FhirOrganization extends FhirDomainResource<Organization> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
   /**
    * Gets human-readable display strings for all organization type CodeableConcepts.
@@ -133,7 +133,7 @@ export class FhirOrganization extends FhirDomainResource<Organization> {
    * @returns Array of type display texts
    */
   public get typeDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.type)
+    return FhirDomainResource.codeableConceptDisplays(this.value.type);
   }
 
   /**
@@ -142,7 +142,10 @@ export class FhirOrganization extends FhirDomainResource<Organization> {
    * @returns Array of phone numbers
    */
   public get phoneNumbers(): string[] {
-    return FhirDomainResource.contactPointsBySystem(this.value.telecom, 'phone')
+    return FhirDomainResource.contactPointsBySystem(
+      this.value.telecom,
+      "phone",
+    );
   }
 
   /**
@@ -151,6 +154,9 @@ export class FhirOrganization extends FhirDomainResource<Organization> {
    * @returns Array of email addresses
    */
   public get emailAddresses(): string[] {
-    return FhirDomainResource.contactPointsBySystem(this.value.telecom, 'email')
+    return FhirDomainResource.contactPointsBySystem(
+      this.value.telecom,
+      "email",
+    );
   }
 }

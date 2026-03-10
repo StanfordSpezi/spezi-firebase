@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type Immunization } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type Immunization } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -23,15 +23,15 @@ import {
   referenceSchema,
   stringSchema,
   uriSchema,
-} from '../elements/index.js'
-import { immunizationStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { immunizationStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR Immunization resource (untyped version).
  */
 export const untypedImmunizationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Immunization').readonly(),
+    resourceType: z.literal("Immunization").readonly(),
     identifier: identifierSchema.array().optional(),
     status: immunizationStatusSchema,
     _status: elementSchema.optional(),
@@ -111,13 +111,13 @@ export const untypedImmunizationSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Immunization>
+) satisfies ZodType<Immunization>;
 
 /**
  * Zod schema for FHIR Immunization resource.
  */
 export const immunizationSchema: ZodType<Immunization> =
-  untypedImmunizationSchema
+  untypedImmunizationSchema;
 
 /**
  * Wrapper class for FHIR Immunization resources.
@@ -133,7 +133,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns A FhirImmunization instance
    */
   public static parse(value: unknown): FhirImmunization {
-    return new FhirImmunization(immunizationSchema.parse(value))
+    return new FhirImmunization(immunizationSchema.parse(value));
   }
 
   // Properties
@@ -144,7 +144,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns The occurrence date if available
    */
   public get occurrenceDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime)
+    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime);
   }
 
   /**
@@ -153,7 +153,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns The recorded date if available
    */
   public get recordedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.recorded)
+    return FhirDomainResource.parseDateTime(this.value.recorded);
   }
 
   /**
@@ -162,7 +162,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns The expiration date if available
    */
   public get expirationDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.expirationDate)
+    return FhirDomainResource.parseDateTime(this.value.expirationDate);
   }
 
   /**
@@ -171,7 +171,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns The vaccine code display
    */
   public get vaccineDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.vaccineCode)
+    return FhirDomainResource.codeableConceptDisplay(this.value.vaccineCode);
   }
 
   /**
@@ -180,7 +180,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns The site display
    */
   public get siteDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.site)
+    return FhirDomainResource.codeableConceptDisplay(this.value.site);
   }
 
   /**
@@ -189,7 +189,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns The route display
    */
   public get routeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.route)
+    return FhirDomainResource.codeableConceptDisplay(this.value.route);
   }
 
   /**
@@ -199,9 +199,9 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns true if expired
    */
   public isExpired(asOfDate: Date = new Date()): boolean {
-    const expDate = this.expirationDate
-    if (!expDate) return false
-    return asOfDate > expDate
+    const expDate = this.expirationDate;
+    if (!expDate) return false;
+    return asOfDate > expDate;
   }
 
   /**
@@ -210,7 +210,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -223,7 +223,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
       this.value.reaction?.flatMap((reaction) =>
         reaction.detail ? [reaction.detail] : [],
       ),
-    )
+    );
   }
 
   /**
@@ -236,7 +236,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -249,7 +249,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -259,7 +259,7 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -269,6 +269,6 @@ export class FhirImmunization extends FhirDomainResource<Immunization> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

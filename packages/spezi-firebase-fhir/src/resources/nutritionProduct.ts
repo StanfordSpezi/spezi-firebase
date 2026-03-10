@@ -12,9 +12,9 @@ import {
   type NutritionProductInstance,
   type NutritionProductNutrient,
   type NutritionProductProductCharacteristic,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   attachmentSchema,
@@ -31,20 +31,20 @@ import {
   ratioSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { nutritionProductStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { nutritionProductStatusSchema } from "../valueSets/index.js";
 
 const nutritionProductNutrientSchema: ZodType<NutritionProductNutrient> =
   backboneElementSchema.extend({
     amount: ratioSchema.array().optional(),
     item: codeableReferenceSchema.optional(),
-  })
+  });
 
 const nutritionProductIngredientSchema: ZodType<NutritionProductIngredient> =
   backboneElementSchema.extend({
     amount: ratioSchema.array().optional(),
     item: codeableReferenceSchema,
-  })
+  });
 
 const nutritionProductProductCharacteristicSchema: ZodType<NutritionProductProductCharacteristic> =
   backboneElementSchema.extend({
@@ -58,7 +58,7 @@ const nutritionProductProductCharacteristicSchema: ZodType<NutritionProductProdu
     valueAttachment: attachmentSchema.optional(),
     valueBoolean: booleanSchema.optional(),
     _valueBoolean: elementSchema.optional(),
-  })
+  });
 
 const nutritionProductInstanceSchema: ZodType<NutritionProductInstance> =
   backboneElementSchema.extend({
@@ -70,14 +70,14 @@ const nutritionProductInstanceSchema: ZodType<NutritionProductInstance> =
     quantity: quantitySchema.optional(),
     useBy: dateTimeSchema.optional(),
     _useBy: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR NutritionProduct resource (untyped version).
  */
 export const untypedNutritionProductSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('NutritionProduct').readonly(),
+    resourceType: z.literal("NutritionProduct").readonly(),
     category: codeableConceptSchema.array().optional(),
     code: codeableConceptSchema.optional(),
     ingredient: nutritionProductIngredientSchema.array().optional(),
@@ -92,13 +92,13 @@ export const untypedNutritionProductSchema = z.lazy(() =>
     status: nutritionProductStatusSchema,
     _status: elementSchema.optional(),
   }),
-) satisfies ZodType<NutritionProduct>
+) satisfies ZodType<NutritionProduct>;
 
 /**
  * Zod schema for FHIR NutritionProduct resource.
  */
 export const nutritionProductSchema: ZodType<NutritionProduct> =
-  untypedNutritionProductSchema
+  untypedNutritionProductSchema;
 
 /**
  * Wrapper class for FHIR NutritionProduct resources.
@@ -114,6 +114,6 @@ export class FhirNutritionProduct extends FhirDomainResource<NutritionProduct> {
    * @returns A FhirNutritionProduct instance containing the validated resource
    */
   public static parse(value: unknown): FhirNutritionProduct {
-    return new FhirNutritionProduct(nutritionProductSchema.parse(value))
+    return new FhirNutritionProduct(nutritionProductSchema.parse(value));
   }
 }

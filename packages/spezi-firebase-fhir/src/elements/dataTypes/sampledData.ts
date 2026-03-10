@@ -6,16 +6,16 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type SampledData } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { type SampledData } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
 import {
   decimalSchema,
   positiveDecimalSchema,
   positiveIntSchema,
   stringSchema,
-} from './primitiveTypes.js'
-import { quantitySchema } from './quantity.js'
-import { elementSchema } from '../element.js'
+} from "./primitiveTypes.js";
+import { quantitySchema } from "./quantity.js";
+import { elementSchema } from "../element.js";
 
 /**
  * Zod schema for FHIR SampledData data type.
@@ -31,9 +31,9 @@ export const untypedSampledDataSchema = z.lazy(() =>
     data: stringSchema.optional(),
     _data: elementSchema.optional(),
   }),
-) satisfies ZodType<SampledData>
+) satisfies ZodType<SampledData>;
 
 /**
  * Zod schema for FHIR SampledData data type.
  */
-export const sampledDataSchema: ZodType<SampledData> = untypedSampledDataSchema
+export const sampledDataSchema: ZodType<SampledData> = untypedSampledDataSchema;

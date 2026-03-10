@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type GuidanceResponse } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type GuidanceResponse } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   canonicalSchema,
@@ -20,15 +20,15 @@ import {
   identifierSchema,
   referenceSchema,
   uriSchema,
-} from '../elements/index.js'
-import { guidanceResponseStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { guidanceResponseStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR GuidanceResponse resource (untyped version).
  */
 export const untypedGuidanceResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('GuidanceResponse').readonly(),
+    resourceType: z.literal("GuidanceResponse").readonly(),
     requestIdentifier: identifierSchema.optional(),
     identifier: identifierSchema.array().optional(),
     moduleUri: uriSchema.optional(),
@@ -51,13 +51,13 @@ export const untypedGuidanceResponseSchema = z.lazy(() =>
     result: referenceSchema.optional(),
     dataRequirement: dataRequirementSchema.array().optional(),
   }),
-) satisfies ZodType<GuidanceResponse>
+) satisfies ZodType<GuidanceResponse>;
 
 /**
  * Zod schema for FHIR GuidanceResponse resource.
  */
 export const guidanceResponseSchema: ZodType<GuidanceResponse> =
-  untypedGuidanceResponseSchema
+  untypedGuidanceResponseSchema;
 
 /**
  * Wrapper class for FHIR GuidanceResponse resources.
@@ -73,7 +73,7 @@ export class FhirGuidanceResponse extends FhirDomainResource<GuidanceResponse> {
    * @returns A FhirGuidanceResponse instance containing the validated resource
    */
   public static parse(value: unknown): FhirGuidanceResponse {
-    return new FhirGuidanceResponse(guidanceResponseSchema.parse(value))
+    return new FhirGuidanceResponse(guidanceResponseSchema.parse(value));
   }
 
   /**
@@ -86,7 +86,7 @@ export class FhirGuidanceResponse extends FhirDomainResource<GuidanceResponse> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -99,7 +99,7 @@ export class FhirGuidanceResponse extends FhirDomainResource<GuidanceResponse> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -109,7 +109,7 @@ export class FhirGuidanceResponse extends FhirDomainResource<GuidanceResponse> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -119,6 +119,6 @@ export class FhirGuidanceResponse extends FhirDomainResource<GuidanceResponse> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

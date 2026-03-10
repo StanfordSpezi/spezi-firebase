@@ -10,9 +10,9 @@ import {
   type DeviceMetricCalibration,
   type DeviceMetric,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -22,14 +22,14 @@ import {
   instantSchema,
   referenceSchema,
   timingSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   deviceMetricCalibrationStateSchema,
   deviceMetricCalibrationTypeSchema,
   deviceMetricCategorySchema,
   deviceMetricColorSchema,
   deviceMetricOperationalStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const deviceMetricCalibrationSchema: ZodType<DeviceMetricCalibration> =
   backboneElementSchema.extend({
@@ -39,14 +39,14 @@ const deviceMetricCalibrationSchema: ZodType<DeviceMetricCalibration> =
     _state: elementSchema.optional(),
     time: instantSchema.optional(),
     _time: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR DeviceMetric resource (untyped version).
  */
 export const untypedDeviceMetricSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('DeviceMetric').readonly(),
+    resourceType: z.literal("DeviceMetric").readonly(),
     identifier: identifierSchema.array().optional(),
     type: codeableConceptSchema,
     unit: codeableConceptSchema.optional(),
@@ -61,13 +61,13 @@ export const untypedDeviceMetricSchema = z.lazy(() =>
     measurementPeriod: timingSchema.optional(),
     calibration: deviceMetricCalibrationSchema.array().optional(),
   }),
-) satisfies ZodType<DeviceMetric>
+) satisfies ZodType<DeviceMetric>;
 
 /**
  * Zod schema for FHIR DeviceMetric resource.
  */
 export const deviceMetricSchema: ZodType<DeviceMetric> =
-  untypedDeviceMetricSchema
+  untypedDeviceMetricSchema;
 
 /**
  * Wrapper class for FHIR DeviceMetric resources.
@@ -83,7 +83,7 @@ export class FhirDeviceMetric extends FhirDomainResource<DeviceMetric> {
    * @returns A FhirDeviceMetric instance containing the validated resource
    */
   public static parse(value: unknown): FhirDeviceMetric {
-    return new FhirDeviceMetric(deviceMetricSchema.parse(value))
+    return new FhirDeviceMetric(deviceMetricSchema.parse(value));
   }
 
   /**
@@ -96,7 +96,7 @@ export class FhirDeviceMetric extends FhirDomainResource<DeviceMetric> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -109,7 +109,7 @@ export class FhirDeviceMetric extends FhirDomainResource<DeviceMetric> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -119,7 +119,7 @@ export class FhirDeviceMetric extends FhirDomainResource<DeviceMetric> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -129,6 +129,6 @@ export class FhirDeviceMetric extends FhirDomainResource<DeviceMetric> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

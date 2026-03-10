@@ -6,16 +6,16 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Zod schema for FHIR CompartmentDefinitionCode value set.
  * Which type of compartment a compartment definition describes.
  */
 export const compartmentDefinitionCodeSchema = z.enum([
-  'Patient',
-  'Encounter',
-  'RelatedPerson',
-  'Practitioner',
-  'Device',
-])
+  "Patient",
+  "Encounter",
+  "RelatedPerson",
+  "Practitioner",
+  "Device",
+]);

@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type AppointmentResponse } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type AppointmentResponse } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   codeableConceptSchema,
   dateTimeSchema,
@@ -17,15 +17,15 @@ import {
   identifierSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { appointmentResponseParticipantStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { appointmentResponseParticipantStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR AppointmentResponse resource (untyped version).
  */
 export const untypedAppointmentResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('AppointmentResponse').readonly(),
+    resourceType: z.literal("AppointmentResponse").readonly(),
     identifier: identifierSchema.array().optional(),
     appointment: referenceSchema,
     start: dateTimeSchema.optional(),
@@ -39,13 +39,13 @@ export const untypedAppointmentResponseSchema = z.lazy(() =>
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
   }),
-) satisfies ZodType<AppointmentResponse>
+) satisfies ZodType<AppointmentResponse>;
 
 /**
  * Zod schema for FHIR AppointmentResponse resource.
  */
 export const appointmentResponseSchema: ZodType<AppointmentResponse> =
-  untypedAppointmentResponseSchema
+  untypedAppointmentResponseSchema;
 
 /**
  * Wrapper class for FHIR AppointmentResponse resources.
@@ -61,7 +61,7 @@ export class FhirAppointmentResponse extends FhirDomainResource<AppointmentRespo
    * @returns A FhirAppointmentResponse instance containing the validated resource
    */
   public static parse(value: unknown): FhirAppointmentResponse {
-    return new FhirAppointmentResponse(appointmentResponseSchema.parse(value))
+    return new FhirAppointmentResponse(appointmentResponseSchema.parse(value));
   }
 
   // Properties
@@ -72,7 +72,7 @@ export class FhirAppointmentResponse extends FhirDomainResource<AppointmentRespo
    * @returns The start date if available
    */
   public get startDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.start)
+    return FhirDomainResource.parseDateTime(this.value.start);
   }
 
   /**
@@ -81,7 +81,7 @@ export class FhirAppointmentResponse extends FhirDomainResource<AppointmentRespo
    * @returns The end date if available
    */
   public get endDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.end)
+    return FhirDomainResource.parseDateTime(this.value.end);
   }
 
   /**
@@ -98,7 +98,7 @@ export class FhirAppointmentResponse extends FhirDomainResource<AppointmentRespo
   public get participantTypeDisplays(): string[] {
     return FhirDomainResource.codeableConceptDisplays(
       this.value.participantType,
-    )
+    );
   }
 
   /**
@@ -111,7 +111,7 @@ export class FhirAppointmentResponse extends FhirDomainResource<AppointmentRespo
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -124,7 +124,7 @@ export class FhirAppointmentResponse extends FhirDomainResource<AppointmentRespo
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -134,7 +134,7 @@ export class FhirAppointmentResponse extends FhirDomainResource<AppointmentRespo
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -144,6 +144,6 @@ export class FhirAppointmentResponse extends FhirDomainResource<AppointmentRespo
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

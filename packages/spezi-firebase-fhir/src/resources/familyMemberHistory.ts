@@ -10,9 +10,9 @@ import {
   type FamilyMemberHistoryCondition,
   type FamilyMemberHistory,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -29,8 +29,8 @@ import {
   referenceSchema,
   stringSchema,
   uriSchema,
-} from '../elements/index.js'
-import { familyMemberHistoryStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { familyMemberHistoryStatusSchema } from "../valueSets/index.js";
 
 const familyMemberHistoryConditionSchema: ZodType<FamilyMemberHistoryCondition> =
   backboneElementSchema.extend({
@@ -44,14 +44,14 @@ const familyMemberHistoryConditionSchema: ZodType<FamilyMemberHistoryCondition> 
     onsetString: stringSchema.optional(),
     _onsetString: elementSchema.optional(),
     note: annotationSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR FamilyMemberHistory resource (untyped version).
  */
 export const untypedFamilyMemberHistorySchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('FamilyMemberHistory').readonly(),
+    resourceType: z.literal("FamilyMemberHistory").readonly(),
     identifier: identifierSchema.array().optional(),
     instantiatesCanonical: uriSchema.array().optional(),
     _instantiatesCanonical: elementSchema.array().optional(),
@@ -91,13 +91,13 @@ export const untypedFamilyMemberHistorySchema = z.lazy(() =>
     note: annotationSchema.array().optional(),
     condition: familyMemberHistoryConditionSchema.array().optional(),
   }),
-) satisfies ZodType<FamilyMemberHistory>
+) satisfies ZodType<FamilyMemberHistory>;
 
 /**
  * Zod schema for FHIR FamilyMemberHistory resource.
  */
 export const familyMemberHistorySchema: ZodType<FamilyMemberHistory> =
-  untypedFamilyMemberHistorySchema
+  untypedFamilyMemberHistorySchema;
 
 /**
  * Wrapper class for FHIR FamilyMemberHistory resources.
@@ -111,7 +111,7 @@ export class FhirFamilyMemberHistory extends FhirDomainResource<FamilyMemberHist
    * @returns A FhirFamilyMemberHistory instance containing the validated resource
    */
   public static parse(value: unknown): FhirFamilyMemberHistory {
-    return new FhirFamilyMemberHistory(familyMemberHistorySchema.parse(value))
+    return new FhirFamilyMemberHistory(familyMemberHistorySchema.parse(value));
   }
 
   /**
@@ -120,7 +120,7 @@ export class FhirFamilyMemberHistory extends FhirDomainResource<FamilyMemberHist
    * @returns The recorded date if available, undefined otherwise
    */
   public get date(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.date)
+    return FhirDomainResource.parseDateTime(this.value.date);
   }
 
   /**
@@ -129,7 +129,7 @@ export class FhirFamilyMemberHistory extends FhirDomainResource<FamilyMemberHist
    * @returns The birth date if available, undefined otherwise
    */
   public get bornDate(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.bornDate)
+    return FhirDomainResource.parseDate(this.value.bornDate);
   }
 
   /**
@@ -138,7 +138,7 @@ export class FhirFamilyMemberHistory extends FhirDomainResource<FamilyMemberHist
    * @returns The relationship display text
    */
   public get relationshipDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.relationship)
+    return FhirDomainResource.codeableConceptDisplay(this.value.relationship);
   }
 
   /**
@@ -151,7 +151,7 @@ export class FhirFamilyMemberHistory extends FhirDomainResource<FamilyMemberHist
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -164,7 +164,7 @@ export class FhirFamilyMemberHistory extends FhirDomainResource<FamilyMemberHist
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -174,7 +174,7 @@ export class FhirFamilyMemberHistory extends FhirDomainResource<FamilyMemberHist
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -184,6 +184,6 @@ export class FhirFamilyMemberHistory extends FhirDomainResource<FamilyMemberHist
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -6,14 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Address } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { periodSchema } from './period.js'
-import { stringSchema } from './primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type Address } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { periodSchema } from "./period.js";
+import { stringSchema } from "./primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
-const addressTypeSchema = z.enum(['postal', 'physical', 'both'])
-const addressUseSchema = z.enum(['home', 'work', 'temp', 'old', 'billing'])
+const addressTypeSchema = z.enum(["postal", "physical", "both"]);
+const addressUseSchema = z.enum(["home", "work", "temp", "old", "billing"]);
 
 /**
  * Zod schema for FHIR Address data type.
@@ -40,9 +40,9 @@ export const untypedAddressSchema = z.lazy(() =>
     _country: elementSchema.optional(),
     period: periodSchema.optional(),
   }),
-) satisfies ZodType<Address>
+) satisfies ZodType<Address>;
 
 /**
  * Zod schema for FHIR Address data type.
  */
-export const addressSchema: ZodType<Address> = untypedAddressSchema
+export const addressSchema: ZodType<Address> = untypedAddressSchema;

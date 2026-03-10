@@ -12,9 +12,9 @@ import {
   type RequestGroupAction,
   type RequestGroupActionCondition,
   type RequestGroupActionRelatedAction,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -32,7 +32,7 @@ import {
   relatedArtifactSchema,
   stringSchema,
   timingSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   requestGroupActionCardinalityBehaviorSchema,
   requestGroupActionConditionKindSchema,
@@ -44,14 +44,14 @@ import {
   requestGroupIntentSchema,
   requestGroupStatusSchema,
   requestPrioritySchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const requestGroupActionConditionSchema: ZodType<RequestGroupActionCondition> =
   backboneElementSchema.extend({
     kind: requestGroupActionConditionKindSchema,
     _kind: elementSchema.optional(),
     expression: expressionSchema.optional(),
-  })
+  });
 
 const requestGroupActionRelatedActionSchema: ZodType<RequestGroupActionRelatedAction> =
   backboneElementSchema.extend({
@@ -61,7 +61,7 @@ const requestGroupActionRelatedActionSchema: ZodType<RequestGroupActionRelatedAc
     _relationship: elementSchema.optional(),
     offsetDuration: quantitySchema.optional(),
     offsetRange: rangeSchema.optional(),
-  })
+  });
 
 const requestGroupActionSchema: ZodType<RequestGroupAction> =
   backboneElementSchema.extend({
@@ -100,16 +100,16 @@ const requestGroupActionSchema: ZodType<RequestGroupAction> =
     _cardinalityBehavior: elementSchema.optional(),
     resource: referenceSchema.optional(),
     get action() {
-      return requestGroupActionSchema.array().optional()
+      return requestGroupActionSchema.array().optional();
     },
-  })
+  });
 
 /**
  * Zod schema for FHIR RequestGroup resource (untyped version).
  */
 export const untypedRequestGroupSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('RequestGroup').readonly(),
+    resourceType: z.literal("RequestGroup").readonly(),
     identifier: identifierSchema.array().optional(),
     instantiatesCanonical: canonicalSchema.array().optional(),
     _instantiatesCanonical: elementSchema.array().optional(),
@@ -135,13 +135,13 @@ export const untypedRequestGroupSchema = z.lazy(() =>
     note: annotationSchema.array().optional(),
     action: requestGroupActionSchema.array().optional(),
   }),
-) satisfies ZodType<RequestGroup>
+) satisfies ZodType<RequestGroup>;
 
 /**
  * Zod schema for FHIR RequestGroup resource.
  */
 export const requestGroupSchema: ZodType<RequestGroup> =
-  untypedRequestGroupSchema
+  untypedRequestGroupSchema;
 
 /**
  * Wrapper class for FHIR RequestGroup resources.
@@ -155,7 +155,7 @@ export class FhirRequestGroup extends FhirDomainResource<RequestGroup> {
    * @returns A FhirRequestGroup instance containing the validated resource
    */
   public static parse(value: unknown): FhirRequestGroup {
-    return new FhirRequestGroup(requestGroupSchema.parse(value))
+    return new FhirRequestGroup(requestGroupSchema.parse(value));
   }
 
   /**
@@ -164,7 +164,7 @@ export class FhirRequestGroup extends FhirDomainResource<RequestGroup> {
    * @returns The authored date, or undefined if not set
    */
   public get authoredDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.authoredOn)
+    return FhirDomainResource.parseDateTime(this.value.authoredOn);
   }
 
   /**
@@ -173,7 +173,7 @@ export class FhirRequestGroup extends FhirDomainResource<RequestGroup> {
    * @returns The code display text, or undefined if not set
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -182,7 +182,7 @@ export class FhirRequestGroup extends FhirDomainResource<RequestGroup> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -195,7 +195,7 @@ export class FhirRequestGroup extends FhirDomainResource<RequestGroup> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -208,7 +208,7 @@ export class FhirRequestGroup extends FhirDomainResource<RequestGroup> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -218,7 +218,7 @@ export class FhirRequestGroup extends FhirDomainResource<RequestGroup> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -228,6 +228,6 @@ export class FhirRequestGroup extends FhirDomainResource<RequestGroup> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

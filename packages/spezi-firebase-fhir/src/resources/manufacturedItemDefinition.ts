@@ -10,9 +10,9 @@ import {
   type Coding,
   type ManufacturedItemDefinition,
   type ManufacturedItemDefinitionProperty,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -24,8 +24,8 @@ import {
   identifierSchema,
   quantitySchema,
   referenceSchema,
-} from '../elements/index.js'
-import { manufacturedItemDefinitionStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { manufacturedItemDefinitionStatusSchema } from "../valueSets/index.js";
 
 const manufacturedItemDefinitionPropertySchema: ZodType<ManufacturedItemDefinitionProperty> =
   backboneElementSchema.extend({
@@ -37,14 +37,14 @@ const manufacturedItemDefinitionPropertySchema: ZodType<ManufacturedItemDefiniti
     valueBoolean: booleanSchema.optional(),
     _valueBoolean: elementSchema.optional(),
     valueAttachment: attachmentSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ManufacturedItemDefinition resource (untyped version).
  */
 export const untypedManufacturedItemDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ManufacturedItemDefinition').readonly(),
+    resourceType: z.literal("ManufacturedItemDefinition").readonly(),
     identifier: identifierSchema.array().optional(),
     ingredient: codeableConceptSchema.array().optional(),
     manufacturedDoseForm: codeableConceptSchema,
@@ -54,13 +54,13 @@ export const untypedManufacturedItemDefinitionSchema = z.lazy(() =>
     _status: elementSchema.optional(),
     unitOfPresentation: codeableConceptSchema.optional(),
   }),
-) satisfies ZodType<ManufacturedItemDefinition>
+) satisfies ZodType<ManufacturedItemDefinition>;
 
 /**
  * Zod schema for FHIR ManufacturedItemDefinition resource.
  */
 export const manufacturedItemDefinitionSchema: ZodType<ManufacturedItemDefinition> =
-  untypedManufacturedItemDefinitionSchema
+  untypedManufacturedItemDefinitionSchema;
 
 /**
  * Wrapper class for FHIR ManufacturedItemDefinition resources.
@@ -78,7 +78,7 @@ export class FhirManufacturedItemDefinition extends FhirDomainResource<Manufactu
   public static parse(value: unknown): FhirManufacturedItemDefinition {
     return new FhirManufacturedItemDefinition(
       manufacturedItemDefinitionSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -91,7 +91,7 @@ export class FhirManufacturedItemDefinition extends FhirDomainResource<Manufactu
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -104,7 +104,7 @@ export class FhirManufacturedItemDefinition extends FhirDomainResource<Manufactu
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -114,7 +114,7 @@ export class FhirManufacturedItemDefinition extends FhirDomainResource<Manufactu
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -124,6 +124,6 @@ export class FhirManufacturedItemDefinition extends FhirDomainResource<Manufactu
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

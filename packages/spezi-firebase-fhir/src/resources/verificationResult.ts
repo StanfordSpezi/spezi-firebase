@@ -11,9 +11,9 @@ import {
   type VerificationResultPrimarySource,
   type VerificationResultValidator,
   type VerificationResult,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -25,8 +25,8 @@ import {
   signatureSchema,
   stringSchema,
   timingSchema,
-} from '../elements/index.js'
-import { verificationResultStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { verificationResultStatusSchema } from "../valueSets/index.js";
 
 const verificationResultPrimarySourceSchema: ZodType<VerificationResultPrimarySource> =
   backboneElementSchema.extend({
@@ -38,7 +38,7 @@ const verificationResultPrimarySourceSchema: ZodType<VerificationResultPrimarySo
     _validationDate: elementSchema.optional(),
     canPushUpdates: codeableConceptSchema.optional(),
     pushTypeAvailable: codeableConceptSchema.array().optional(),
-  })
+  });
 
 const verificationResultAttestationSchema: ZodType<VerificationResultAttestation> =
   backboneElementSchema.extend({
@@ -53,7 +53,7 @@ const verificationResultAttestationSchema: ZodType<VerificationResultAttestation
     _proxyIdentityCertificate: elementSchema.optional(),
     proxySignature: signatureSchema.optional(),
     sourceSignature: signatureSchema.optional(),
-  })
+  });
 
 const verificationResultValidatorSchema: ZodType<VerificationResultValidator> =
   backboneElementSchema.extend({
@@ -61,14 +61,14 @@ const verificationResultValidatorSchema: ZodType<VerificationResultValidator> =
     identityCertificate: stringSchema.optional(),
     _identityCertificate: elementSchema.optional(),
     attestationSignature: signatureSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR VerificationResult resource (untyped version).
  */
 export const untypedVerificationResultSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('VerificationResult').readonly(),
+    resourceType: z.literal("VerificationResult").readonly(),
     target: referenceSchema.array().optional(),
     targetLocation: stringSchema.array().optional(),
     _targetLocation: elementSchema.array().optional(),
@@ -89,13 +89,13 @@ export const untypedVerificationResultSchema = z.lazy(() =>
     attestation: verificationResultAttestationSchema.optional(),
     validator: verificationResultValidatorSchema.array().optional(),
   }),
-) satisfies ZodType<VerificationResult>
+) satisfies ZodType<VerificationResult>;
 
 /**
  * Zod schema for FHIR VerificationResult resource.
  */
 export const verificationResultSchema: ZodType<VerificationResult> =
-  untypedVerificationResultSchema
+  untypedVerificationResultSchema;
 
 /**
  * Wrapper class for FHIR VerificationResult resources.
@@ -111,6 +111,6 @@ export class FhirVerificationResult extends FhirDomainResource<VerificationResul
    * @returns A FhirVerificationResult instance containing the validated resource
    */
   public static parse(value: unknown): FhirVerificationResult {
-    return new FhirVerificationResult(verificationResultSchema.parse(value))
+    return new FhirVerificationResult(verificationResultSchema.parse(value));
   }
 }

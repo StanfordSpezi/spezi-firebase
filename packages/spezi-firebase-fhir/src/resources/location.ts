@@ -11,9 +11,9 @@ import {
   type LocationPosition,
   type Coding,
   type Location,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   addressSchema,
   backboneElementSchema,
@@ -28,19 +28,19 @@ import {
   referenceSchema,
   stringSchema,
   timeSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   daysOfWeekSchema,
   locationModeSchema,
   locationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const locationPositionSchema: ZodType<LocationPosition> =
   backboneElementSchema.extend({
     longitude: decimalSchema,
     latitude: decimalSchema,
     altitude: decimalSchema.optional(),
-  })
+  });
 
 const locationHoursOfOperationSchema: ZodType<LocationHoursOfOperation> =
   backboneElementSchema.extend({
@@ -51,14 +51,14 @@ const locationHoursOfOperationSchema: ZodType<LocationHoursOfOperation> =
     _openingTime: elementSchema.optional(),
     closingTime: timeSchema.optional(),
     _closingTime: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Location resource (untyped version).
  */
 export const untypedLocationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Location').readonly(),
+    resourceType: z.literal("Location").readonly(),
     identifier: identifierSchema.array().optional(),
     status: locationStatusSchema.optional(),
     _status: elementSchema.optional(),
@@ -83,12 +83,12 @@ export const untypedLocationSchema = z.lazy(() =>
     _availabilityExceptions: elementSchema.optional(),
     endpoint: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<Location>
+) satisfies ZodType<Location>;
 
 /**
  * Zod schema for FHIR Location resource.
  */
-export const locationSchema: ZodType<Location> = untypedLocationSchema
+export const locationSchema: ZodType<Location> = untypedLocationSchema;
 
 /**
  * Wrapper class for FHIR Location resources.
@@ -104,7 +104,7 @@ export class FhirLocation extends FhirDomainResource<Location> {
    * @returns A FhirLocation instance
    */
   public static parse(value: unknown): FhirLocation {
-    return new FhirLocation(locationSchema.parse(value))
+    return new FhirLocation(locationSchema.parse(value));
   }
 
   // Properties
@@ -115,7 +115,7 @@ export class FhirLocation extends FhirDomainResource<Location> {
    * @returns Array of type display texts
    */
   public get typeDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.type)
+    return FhirDomainResource.codeableConceptDisplays(this.value.type);
   }
 
   /**
@@ -124,7 +124,10 @@ export class FhirLocation extends FhirDomainResource<Location> {
    * @returns Array of phone numbers
    */
   public get phoneNumbers(): string[] {
-    return FhirDomainResource.contactPointsBySystem(this.value.telecom, 'phone')
+    return FhirDomainResource.contactPointsBySystem(
+      this.value.telecom,
+      "phone",
+    );
   }
 
   /**
@@ -137,7 +140,7 @@ export class FhirLocation extends FhirDomainResource<Location> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -150,7 +153,7 @@ export class FhirLocation extends FhirDomainResource<Location> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -160,7 +163,7 @@ export class FhirLocation extends FhirDomainResource<Location> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -170,6 +173,6 @@ export class FhirLocation extends FhirDomainResource<Location> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

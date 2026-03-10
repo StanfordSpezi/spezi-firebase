@@ -11,9 +11,9 @@ import {
   type EpisodeOfCareStatusHistory,
   type EpisodeOfCare,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -22,28 +22,28 @@ import {
   periodSchema,
   positiveIntSchema,
   referenceSchema,
-} from '../elements/index.js'
-import { episodeOfCareStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { episodeOfCareStatusSchema } from "../valueSets/index.js";
 
 const episodeOfCareStatusHistorySchema: ZodType<EpisodeOfCareStatusHistory> =
   backboneElementSchema.extend({
     status: episodeOfCareStatusSchema,
     period: periodSchema,
-  })
+  });
 
 const episodeOfCareDiagnosisSchema: ZodType<EpisodeOfCareDiagnosis> =
   backboneElementSchema.extend({
     condition: referenceSchema,
     role: codeableConceptSchema.optional(),
     rank: positiveIntSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR EpisodeOfCare resource (untyped version).
  */
 export const untypedEpisodeOfCareSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('EpisodeOfCare').readonly(),
+    resourceType: z.literal("EpisodeOfCare").readonly(),
     identifier: identifierSchema.array().optional(),
     status: episodeOfCareStatusSchema,
     statusHistory: episodeOfCareStatusHistorySchema.array().optional(),
@@ -57,13 +57,13 @@ export const untypedEpisodeOfCareSchema = z.lazy(() =>
     team: referenceSchema.array().optional(),
     account: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<EpisodeOfCare>
+) satisfies ZodType<EpisodeOfCare>;
 
 /**
  * Zod schema for FHIR EpisodeOfCare resource.
  */
 export const episodeOfCareSchema: ZodType<EpisodeOfCare> =
-  untypedEpisodeOfCareSchema
+  untypedEpisodeOfCareSchema;
 
 /**
  * Wrapper class for FHIR EpisodeOfCare resources.
@@ -77,7 +77,7 @@ export class FhirEpisodeOfCare extends FhirDomainResource<EpisodeOfCare> {
    * @returns A FhirEpisodeOfCare instance containing the validated resource
    */
   public static parse(value: unknown): FhirEpisodeOfCare {
-    return new FhirEpisodeOfCare(episodeOfCareSchema.parse(value))
+    return new FhirEpisodeOfCare(episodeOfCareSchema.parse(value));
   }
 
   /**
@@ -86,7 +86,7 @@ export class FhirEpisodeOfCare extends FhirDomainResource<EpisodeOfCare> {
    * @returns The start date if available, undefined otherwise
    */
   public get periodStart(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.period?.start)
+    return FhirDomainResource.parseDate(this.value.period?.start);
   }
 
   /**
@@ -95,7 +95,7 @@ export class FhirEpisodeOfCare extends FhirDomainResource<EpisodeOfCare> {
    * @returns The end date if available, undefined otherwise
    */
   public get periodEnd(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.period?.end)
+    return FhirDomainResource.parseDate(this.value.period?.end);
   }
 
   /**
@@ -108,7 +108,7 @@ export class FhirEpisodeOfCare extends FhirDomainResource<EpisodeOfCare> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -121,7 +121,7 @@ export class FhirEpisodeOfCare extends FhirDomainResource<EpisodeOfCare> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -131,7 +131,7 @@ export class FhirEpisodeOfCare extends FhirDomainResource<EpisodeOfCare> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -141,6 +141,6 @@ export class FhirEpisodeOfCare extends FhirDomainResource<EpisodeOfCare> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

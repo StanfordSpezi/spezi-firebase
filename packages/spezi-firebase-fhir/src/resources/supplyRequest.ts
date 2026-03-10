@@ -10,9 +10,9 @@ import {
   type Coding,
   type SupplyRequest,
   type SupplyRequestParameter,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -26,11 +26,11 @@ import {
   rangeSchema,
   referenceSchema,
   timingSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   requestPrioritySchema,
   supplyRequestStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const supplyRequestParameterSchema: ZodType<SupplyRequestParameter> =
   backboneElementSchema.extend({
@@ -40,14 +40,14 @@ const supplyRequestParameterSchema: ZodType<SupplyRequestParameter> =
     valueRange: rangeSchema.optional(),
     valueBoolean: booleanSchema.optional(),
     _value: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR SupplyRequest resource (untyped version).
  */
 export const untypedSupplyRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('SupplyRequest').readonly(),
+    resourceType: z.literal("SupplyRequest").readonly(),
     identifier: identifierSchema.array().optional(),
     status: supplyRequestStatusSchema.optional(),
     _status: elementSchema.optional(),
@@ -71,13 +71,13 @@ export const untypedSupplyRequestSchema = z.lazy(() =>
     deliverFrom: referenceSchema.optional(),
     deliverTo: referenceSchema.optional(),
   }),
-) satisfies ZodType<SupplyRequest>
+) satisfies ZodType<SupplyRequest>;
 
 /**
  * Zod schema for FHIR SupplyRequest resource.
  */
 export const supplyRequestSchema: ZodType<SupplyRequest> =
-  untypedSupplyRequestSchema
+  untypedSupplyRequestSchema;
 
 /**
  * Wrapper class for FHIR SupplyRequest resources.
@@ -91,7 +91,7 @@ export class FhirSupplyRequest extends FhirDomainResource<SupplyRequest> {
    * @returns A FhirSupplyRequest instance containing the validated resource
    */
   public static parse(value: unknown): FhirSupplyRequest {
-    return new FhirSupplyRequest(supplyRequestSchema.parse(value))
+    return new FhirSupplyRequest(supplyRequestSchema.parse(value));
   }
 
   /**
@@ -100,7 +100,7 @@ export class FhirSupplyRequest extends FhirDomainResource<SupplyRequest> {
    * @returns The authored date, or undefined if not set
    */
   public get authoredDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.authoredOn)
+    return FhirDomainResource.parseDateTime(this.value.authoredOn);
   }
 
   /**
@@ -109,7 +109,7 @@ export class FhirSupplyRequest extends FhirDomainResource<SupplyRequest> {
    * @returns The occurrence date/time, or undefined if not set
    */
   public get occurrenceDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime)
+    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime);
   }
 
   /**
@@ -122,7 +122,7 @@ export class FhirSupplyRequest extends FhirDomainResource<SupplyRequest> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -135,7 +135,7 @@ export class FhirSupplyRequest extends FhirDomainResource<SupplyRequest> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -145,7 +145,7 @@ export class FhirSupplyRequest extends FhirDomainResource<SupplyRequest> {
    * @returns Array of identifier values from matching types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -155,6 +155,6 @@ export class FhirSupplyRequest extends FhirDomainResource<SupplyRequest> {
    * @returns The first matching identifier value, or undefined if none found
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Attachment } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { type Attachment } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
 import {
   base64BinarySchema,
   codeSchema,
@@ -15,8 +15,8 @@ import {
   stringSchema,
   unsignedIntSchema,
   urlSchema,
-} from './primitiveTypes.js'
-import { elementSchema } from '../element.js'
+} from "./primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 /**
  * Zod schema for FHIR Attachment data type.
@@ -39,9 +39,9 @@ export const untypedAttachmentSchema = z.lazy(() =>
     creation: dateTimeSchema.optional(),
     _creation: elementSchema.optional(),
   }),
-) satisfies ZodType<Attachment>
+) satisfies ZodType<Attachment>;
 
 /**
  * Zod schema for FHIR Attachment data type.
  */
-export const attachmentSchema: ZodType<Attachment> = untypedAttachmentSchema
+export const attachmentSchema: ZodType<Attachment> = untypedAttachmentSchema;

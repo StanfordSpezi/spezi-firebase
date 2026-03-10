@@ -12,9 +12,8 @@
  * @param days Number of days to add
  * @returns New date advanced by the specified days
  */
-export function advanceDateByDays(date: Date, days: number): Date {
-  return advanceDateBySeconds(date, days * 24 * 60 * 60)
-}
+export const advanceDateByDays = (date: Date, days: number): Date =>
+  advanceDateBySeconds(date, days * 24 * 60 * 60);
 
 /**
  * Advance a date by a specified number of hours.
@@ -22,9 +21,8 @@ export function advanceDateByDays(date: Date, days: number): Date {
  * @param hours Number of hours to add
  * @returns New date advanced by the specified hours
  */
-export function advanceDateByHours(date: Date, hours: number): Date {
-  return advanceDateBySeconds(date, hours * 60 * 60)
-}
+export const advanceDateByHours = (date: Date, hours: number): Date =>
+  advanceDateBySeconds(date, hours * 60 * 60);
 
 /**
  * Advance a date by a specified number of minutes.
@@ -32,9 +30,8 @@ export function advanceDateByHours(date: Date, hours: number): Date {
  * @param minutes Number of minutes to add
  * @returns New date advanced by the specified minutes
  */
-export function advanceDateByMinutes(date: Date, minutes: number): Date {
-  return advanceDateBySeconds(date, minutes * 60)
-}
+export const advanceDateByMinutes = (date: Date, minutes: number): Date =>
+  advanceDateBySeconds(date, minutes * 60);
 
 /**
  * Advance a date by a specified number of seconds.
@@ -42,6 +39,5 @@ export function advanceDateByMinutes(date: Date, minutes: number): Date {
  * @param seconds Number of seconds to add
  * @returns New date advanced by the specified seconds
  */
-export function advanceDateBySeconds(date: Date, seconds: number): Date {
-  return new Date(date.getTime() + seconds * 1000)
-}
+export const advanceDateBySeconds = (date: Date, seconds: number): Date =>
+  new Date(date.getTime() + seconds * 1000);

@@ -6,18 +6,18 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Contributor } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { contactDetailSchema } from './contactDetail.js'
-import { stringSchema } from '../dataTypes/primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type Contributor } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { contactDetailSchema } from "./contactDetail.js";
+import { stringSchema } from "../dataTypes/primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 const contributorTypeSchema = z.enum([
-  'author',
-  'editor',
-  'reviewer',
-  'endorser',
-])
+  "author",
+  "editor",
+  "reviewer",
+  "endorser",
+]);
 
 /**
  * Zod schema for FHIR Contributor data type.
@@ -30,9 +30,9 @@ export const untypedContributorSchema = z.lazy(() =>
     _name: elementSchema.optional(),
     contact: contactDetailSchema.array().optional(),
   }),
-) satisfies ZodType<Contributor>
+) satisfies ZodType<Contributor>;
 
 /**
  * Zod schema for FHIR Contributor data type.
  */
-export const contributorSchema: ZodType<Contributor> = untypedContributorSchema
+export const contributorSchema: ZodType<Contributor> = untypedContributorSchema;

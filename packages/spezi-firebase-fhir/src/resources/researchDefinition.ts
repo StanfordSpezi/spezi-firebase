@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type ResearchDefinition } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type ResearchDefinition } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   booleanSchema,
   canonicalSchema,
@@ -26,15 +26,15 @@ import {
   stringSchema,
   uriSchema,
   usageContextSchema,
-} from '../elements/index.js'
-import { publicationStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { publicationStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR ResearchDefinition resource (untyped version).
  */
 export const untypedResearchDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ResearchDefinition').readonly(),
+    resourceType: z.literal("ResearchDefinition").readonly(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -89,13 +89,13 @@ export const untypedResearchDefinitionSchema = z.lazy(() =>
     exposureAlternative: referenceSchema.optional(),
     outcome: referenceSchema.optional(),
   }),
-) satisfies ZodType<ResearchDefinition>
+) satisfies ZodType<ResearchDefinition>;
 
 /**
  * Zod schema for FHIR ResearchDefinition resource.
  */
 export const researchDefinitionSchema: ZodType<ResearchDefinition> =
-  untypedResearchDefinitionSchema
+  untypedResearchDefinitionSchema;
 
 /**
  * Wrapper class for FHIR ResearchDefinition resources.
@@ -111,7 +111,7 @@ export class FhirResearchDefinition extends FhirDomainResource<ResearchDefinitio
    * @returns A FhirResearchDefinition instance containing the validated resource
    */
   public static parse(value: unknown): FhirResearchDefinition {
-    return new FhirResearchDefinition(researchDefinitionSchema.parse(value))
+    return new FhirResearchDefinition(researchDefinitionSchema.parse(value));
   }
 
   /**
@@ -124,7 +124,7 @@ export class FhirResearchDefinition extends FhirDomainResource<ResearchDefinitio
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -137,7 +137,7 @@ export class FhirResearchDefinition extends FhirDomainResource<ResearchDefinitio
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -147,7 +147,7 @@ export class FhirResearchDefinition extends FhirDomainResource<ResearchDefinitio
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -157,6 +157,6 @@ export class FhirResearchDefinition extends FhirDomainResource<ResearchDefinitio
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -11,9 +11,8 @@
  * @param text The text to capitalize
  * @returns Text with each word capitalized
  */
-export function capitalize(text: string): string {
-  return text
-    .split(' ')
+export const capitalize = (text: string): string =>
+  text
+    .split(" ")
     .map((word) => word.slice(0, 1).toUpperCase() + word.slice(1))
-    .join(' ')
-}
+    .join(" ");

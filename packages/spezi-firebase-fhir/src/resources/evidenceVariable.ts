@@ -12,9 +12,9 @@ import {
   type EvidenceVariable,
   type EvidenceVariableCharacteristic,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -39,12 +39,12 @@ import {
   triggerDefinitionSchema,
   uriSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   evidenceVariableHandlingSchema,
   groupMeasureSchema,
   publicationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const evidenceVariableCharacteristicTimeFromStartSchema: ZodType<EvidenceVariableCharacteristicTimeFromStart> =
   backboneElementSchema.extend({
@@ -53,7 +53,7 @@ const evidenceVariableCharacteristicTimeFromStartSchema: ZodType<EvidenceVariabl
     quantity: quantitySchema.optional(),
     range: rangeSchema.optional(),
     note: annotationSchema.array().optional(),
-  })
+  });
 
 const evidenceVariableCharacteristicSchema: ZodType<EvidenceVariableCharacteristic> =
   backboneElementSchema.extend({
@@ -73,7 +73,7 @@ const evidenceVariableCharacteristicSchema: ZodType<EvidenceVariableCharacterist
     timeFromStart: evidenceVariableCharacteristicTimeFromStartSchema.optional(),
     groupMeasure: groupMeasureSchema.optional(),
     _groupMeasure: elementSchema.optional(),
-  })
+  });
 
 const evidenceVariableCategorySchema: ZodType<EvidenceVariableCategory> =
   backboneElementSchema.extend({
@@ -82,14 +82,14 @@ const evidenceVariableCategorySchema: ZodType<EvidenceVariableCategory> =
     valueCodeableConcept: codeableConceptSchema.optional(),
     valueQuantity: quantitySchema.optional(),
     valueRange: rangeSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR EvidenceVariable resource (untyped version).
  */
 export const untypedEvidenceVariableSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('EvidenceVariable').readonly(),
+    resourceType: z.literal("EvidenceVariable").readonly(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -133,13 +133,13 @@ export const untypedEvidenceVariableSchema = z.lazy(() =>
     _handling: elementSchema.optional(),
     category: evidenceVariableCategorySchema.array().optional(),
   }),
-) satisfies ZodType<EvidenceVariable>
+) satisfies ZodType<EvidenceVariable>;
 
 /**
  * Zod schema for FHIR EvidenceVariable resource.
  */
 export const evidenceVariableSchema: ZodType<EvidenceVariable> =
-  untypedEvidenceVariableSchema
+  untypedEvidenceVariableSchema;
 
 /**
  * Wrapper class for FHIR EvidenceVariable resources.
@@ -155,7 +155,7 @@ export class FhirEvidenceVariable extends FhirDomainResource<EvidenceVariable> {
    * @returns A FhirEvidenceVariable instance containing the validated resource
    */
   public static parse(value: unknown): FhirEvidenceVariable {
-    return new FhirEvidenceVariable(evidenceVariableSchema.parse(value))
+    return new FhirEvidenceVariable(evidenceVariableSchema.parse(value));
   }
 
   /**
@@ -168,7 +168,7 @@ export class FhirEvidenceVariable extends FhirDomainResource<EvidenceVariable> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -181,7 +181,7 @@ export class FhirEvidenceVariable extends FhirDomainResource<EvidenceVariable> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -191,7 +191,7 @@ export class FhirEvidenceVariable extends FhirDomainResource<EvidenceVariable> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -201,6 +201,6 @@ export class FhirEvidenceVariable extends FhirDomainResource<EvidenceVariable> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type Schedule } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type Schedule } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   codeableConceptSchema,
   domainResourceSchema,
@@ -17,14 +17,14 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 /**
  * Zod schema for FHIR Schedule resource (untyped version).
  */
 export const untypedScheduleSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Schedule').readonly(),
+    resourceType: z.literal("Schedule").readonly(),
     identifier: identifierSchema.array().optional(),
     active: z.boolean().optional(),
     _active: elementSchema.optional(),
@@ -36,12 +36,12 @@ export const untypedScheduleSchema = z.lazy(() =>
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
   }),
-) satisfies ZodType<Schedule>
+) satisfies ZodType<Schedule>;
 
 /**
  * Zod schema for FHIR Schedule resource.
  */
-export const scheduleSchema: ZodType<Schedule> = untypedScheduleSchema
+export const scheduleSchema: ZodType<Schedule> = untypedScheduleSchema;
 
 /**
  * Wrapper class for FHIR Schedule resources.
@@ -57,7 +57,7 @@ export class FhirSchedule extends FhirDomainResource<Schedule> {
    * @returns A FhirSchedule instance containing the validated resource
    */
   public static parse(value: unknown): FhirSchedule {
-    return new FhirSchedule(scheduleSchema.parse(value))
+    return new FhirSchedule(scheduleSchema.parse(value));
   }
 
   /**
@@ -72,7 +72,7 @@ export class FhirSchedule extends FhirDomainResource<Schedule> {
    * ```
    */
   public get planningHorizonStartDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.planningHorizon?.start)
+    return FhirDomainResource.parseDateTime(this.value.planningHorizon?.start);
   }
 
   /**
@@ -87,7 +87,7 @@ export class FhirSchedule extends FhirDomainResource<Schedule> {
    * ```
    */
   public get planningHorizonEndDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.planningHorizon?.end)
+    return FhirDomainResource.parseDateTime(this.value.planningHorizon?.end);
   }
 
   /**
@@ -104,7 +104,7 @@ export class FhirSchedule extends FhirDomainResource<Schedule> {
   public get serviceCategoryDisplays(): string[] {
     return FhirDomainResource.codeableConceptDisplays(
       this.value.serviceCategory,
-    )
+    );
   }
 
   /**
@@ -119,7 +119,7 @@ export class FhirSchedule extends FhirDomainResource<Schedule> {
    * ```
    */
   public get specialtyDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.specialty)
+    return FhirDomainResource.codeableConceptDisplays(this.value.specialty);
   }
 
   /**
@@ -132,7 +132,7 @@ export class FhirSchedule extends FhirDomainResource<Schedule> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -145,7 +145,7 @@ export class FhirSchedule extends FhirDomainResource<Schedule> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -155,7 +155,7 @@ export class FhirSchedule extends FhirDomainResource<Schedule> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -165,6 +165,6 @@ export class FhirSchedule extends FhirDomainResource<Schedule> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

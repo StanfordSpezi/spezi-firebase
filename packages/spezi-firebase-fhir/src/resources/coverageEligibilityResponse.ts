@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type CoverageEligibilityResponse } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import { type Coding, type CoverageEligibilityResponse } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   backboneElementSchema,
@@ -22,19 +22,19 @@ import {
   dateSchema,
   moneySchema,
   booleanSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   financialResourceStatusSchema,
   remittanceOutcomeSchema,
   eligibilityResponsePurposeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR CoverageEligibilityResponse resource (untyped version).
  */
 export const untypedCoverageEligibilityResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('CoverageEligibilityResponse').readonly(),
+    resourceType: z.literal("CoverageEligibilityResponse").readonly(),
     identifier: identifierSchema.array().optional(),
     status: financialResourceStatusSchema,
     _status: elementSchema.optional(),
@@ -109,13 +109,13 @@ export const untypedCoverageEligibilityResponseSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<CoverageEligibilityResponse>
+) satisfies ZodType<CoverageEligibilityResponse>;
 
 /**
  * Zod schema for FHIR CoverageEligibilityResponse resource.
  */
 export const coverageEligibilityResponseSchema: ZodType<CoverageEligibilityResponse> =
-  untypedCoverageEligibilityResponseSchema
+  untypedCoverageEligibilityResponseSchema;
 
 /**
  * Wrapper class for FHIR CoverageEligibilityResponse resources.
@@ -133,7 +133,7 @@ export class FhirCoverageEligibilityResponse extends FhirDomainResource<Coverage
   public static parse(value: unknown): FhirCoverageEligibilityResponse {
     return new FhirCoverageEligibilityResponse(
       coverageEligibilityResponseSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -146,7 +146,7 @@ export class FhirCoverageEligibilityResponse extends FhirDomainResource<Coverage
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -159,7 +159,7 @@ export class FhirCoverageEligibilityResponse extends FhirDomainResource<Coverage
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -169,7 +169,7 @@ export class FhirCoverageEligibilityResponse extends FhirDomainResource<Coverage
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -179,6 +179,6 @@ export class FhirCoverageEligibilityResponse extends FhirDomainResource<Coverage
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

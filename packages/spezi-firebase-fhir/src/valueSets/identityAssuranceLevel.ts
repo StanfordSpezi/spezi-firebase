@@ -6,18 +6,18 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The level of confidence that this link represents the same actual person.
  * http://hl7.org/fhir/valueset-identity-assuranceLevel.html
  */
 export const identityAssuranceLevelSchema = z.enum([
-  'level1',
-  'level2',
-  'level3',
-  'level4',
-])
+  "level1",
+  "level2",
+  "level3",
+  "level4",
+]);
 
 /**
  * The level of confidence that this link represents the same actual person.
@@ -25,4 +25,4 @@ export const identityAssuranceLevelSchema = z.enum([
  */
 export type IdentityAssuranceLevel = z.infer<
   typeof identityAssuranceLevelSchema
->
+>;

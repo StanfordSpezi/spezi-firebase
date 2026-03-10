@@ -10,9 +10,9 @@ import {
   type RelatedPersonCommunication,
   type Coding,
   type RelatedPerson,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   addressSchema,
   attachmentSchema,
@@ -27,22 +27,22 @@ import {
   identifierSchema,
   periodSchema,
   referenceSchema,
-} from '../elements/index.js'
-import { administrativeGenderSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { administrativeGenderSchema } from "../valueSets/index.js";
 
 const relatedPersonCommunicationSchema: ZodType<RelatedPersonCommunication> =
   backboneElementSchema.extend({
     language: codeableConceptSchema,
     preferred: booleanSchema.optional(),
     _preferred: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR RelatedPerson resource (untyped version).
  */
 export const untypedRelatedPersonSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('RelatedPerson').readonly(),
+    resourceType: z.literal("RelatedPerson").readonly(),
     identifier: identifierSchema.array().optional(),
     active: booleanSchema.optional(),
     _active: elementSchema.optional(),
@@ -59,13 +59,13 @@ export const untypedRelatedPersonSchema = z.lazy(() =>
     period: periodSchema.optional(),
     communication: relatedPersonCommunicationSchema.array().optional(),
   }),
-) satisfies ZodType<RelatedPerson>
+) satisfies ZodType<RelatedPerson>;
 
 /**
  * Zod schema for FHIR RelatedPerson resource.
  */
 export const relatedPersonSchema: ZodType<RelatedPerson> =
-  untypedRelatedPersonSchema
+  untypedRelatedPersonSchema;
 
 /**
  * Wrapper class for FHIR RelatedPerson resources.
@@ -79,7 +79,7 @@ export class FhirRelatedPerson extends FhirDomainResource<RelatedPerson> {
    * @returns A FhirRelatedPerson instance containing the validated resource
    */
   public static parse(value: unknown): FhirRelatedPerson {
-    return new FhirRelatedPerson(relatedPersonSchema.parse(value))
+    return new FhirRelatedPerson(relatedPersonSchema.parse(value));
   }
 
   /**
@@ -88,7 +88,7 @@ export class FhirRelatedPerson extends FhirDomainResource<RelatedPerson> {
    * @returns The birth date if available
    */
   public get birthDate(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.birthDate)
+    return FhirDomainResource.parseDate(this.value.birthDate);
   }
 
   /**
@@ -101,7 +101,7 @@ export class FhirRelatedPerson extends FhirDomainResource<RelatedPerson> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -114,7 +114,7 @@ export class FhirRelatedPerson extends FhirDomainResource<RelatedPerson> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -124,7 +124,7 @@ export class FhirRelatedPerson extends FhirDomainResource<RelatedPerson> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -134,6 +134,6 @@ export class FhirRelatedPerson extends FhirDomainResource<RelatedPerson> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

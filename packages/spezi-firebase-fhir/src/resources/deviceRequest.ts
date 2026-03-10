@@ -10,9 +10,9 @@ import {
   type DeviceRequestParameter,
   type DeviceRequest,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -28,12 +28,12 @@ import {
   referenceSchema,
   stringSchema,
   timingSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   deviceRequestIntentSchema,
   deviceRequestStatusSchema,
   requestPrioritySchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const deviceRequestParameterSchema: ZodType<DeviceRequestParameter> =
   backboneElementSchema.extend({
@@ -43,14 +43,14 @@ const deviceRequestParameterSchema: ZodType<DeviceRequestParameter> =
     valueRange: rangeSchema.optional(),
     valueBoolean: booleanSchema.optional(),
     _valueBoolean: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR DeviceRequest resource (untyped version).
  */
 export const untypedDeviceRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('DeviceRequest').readonly(),
+    resourceType: z.literal("DeviceRequest").readonly(),
     identifier: identifierSchema.array().optional(),
     instantiatesCanonical: stringSchema.array().optional(),
     _instantiatesCanonical: elementSchema.array().optional(),
@@ -86,13 +86,13 @@ export const untypedDeviceRequestSchema = z.lazy(() =>
     note: annotationSchema.array().optional(),
     relevantHistory: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<DeviceRequest>
+) satisfies ZodType<DeviceRequest>;
 
 /**
  * Zod schema for FHIR DeviceRequest resource.
  */
 export const deviceRequestSchema: ZodType<DeviceRequest> =
-  untypedDeviceRequestSchema
+  untypedDeviceRequestSchema;
 
 /**
  * Wrapper class for FHIR DeviceRequest resources.
@@ -108,7 +108,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
    * @returns A FhirDeviceRequest instance containing the validated resource
    */
   public static parse(value: unknown): FhirDeviceRequest {
-    return new FhirDeviceRequest(deviceRequestSchema.parse(value))
+    return new FhirDeviceRequest(deviceRequestSchema.parse(value));
   }
 
   /**
@@ -116,7 +116,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
    * @returns The authored date, or undefined if not set
    */
   public get authoredDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.authoredOn)
+    return FhirDomainResource.parseDateTime(this.value.authoredOn);
   }
 
   /**
@@ -124,7 +124,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
    * @returns The occurrence date, or undefined if not set or not a dateTime
    */
   public get occurrenceDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime)
+    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime);
   }
 
   /**
@@ -132,7 +132,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
    * @returns The start date, or undefined if not set
    */
   public get occurrencePeriodStart(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.occurrencePeriod?.start)
+    return FhirDomainResource.parseDateTime(this.value.occurrencePeriod?.start);
   }
 
   /**
@@ -140,7 +140,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
    * @returns The end date, or undefined if not set
    */
   public get occurrencePeriodEnd(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.occurrencePeriod?.end)
+    return FhirDomainResource.parseDateTime(this.value.occurrencePeriod?.end);
   }
 
   /**
@@ -150,7 +150,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
   public get deviceCodeDisplay(): string | undefined {
     return FhirDomainResource.codeableConceptDisplay(
       this.value.codeCodeableConcept,
-    )
+    );
   }
 
   /**
@@ -158,7 +158,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -166,7 +166,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
    * @returns Array of reason display texts
    */
   public get reasonDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.reasonCode)
+    return FhirDomainResource.codeableConceptDisplays(this.value.reasonCode);
   }
 
   /**
@@ -179,7 +179,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -192,7 +192,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -202,7 +202,7 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -212,6 +212,6 @@ export class FhirDeviceRequest extends FhirDomainResource<DeviceRequest> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

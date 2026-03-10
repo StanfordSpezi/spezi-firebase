@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type MedicationStatement } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type MedicationStatement } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   codeableConceptSchema,
@@ -19,15 +19,15 @@ import {
   identifierSchema,
   periodSchema,
   referenceSchema,
-} from '../elements/index.js'
-import { medicationStatementStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { medicationStatementStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR MedicationStatement resource (untyped version).
  */
 export const untypedMedicationStatementSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('MedicationStatement').readonly(),
+    resourceType: z.literal("MedicationStatement").readonly(),
     identifier: identifierSchema.array().optional(),
     basedOn: referenceSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
@@ -51,13 +51,13 @@ export const untypedMedicationStatementSchema = z.lazy(() =>
     note: annotationSchema.array().optional(),
     dosage: dosageSchema.array().optional(),
   }),
-) satisfies ZodType<MedicationStatement>
+) satisfies ZodType<MedicationStatement>;
 
 /**
  * Zod schema for FHIR MedicationStatement resource.
  */
 export const medicationStatementSchema: ZodType<MedicationStatement> =
-  untypedMedicationStatementSchema
+  untypedMedicationStatementSchema;
 
 /**
  * Wrapper class for FHIR MedicationStatement resources.
@@ -73,7 +73,7 @@ export class FhirMedicationStatement extends FhirDomainResource<MedicationStatem
    * @returns A FhirMedicationStatement instance
    */
   public static parse(value: unknown): FhirMedicationStatement {
-    return new FhirMedicationStatement(medicationStatementSchema.parse(value))
+    return new FhirMedicationStatement(medicationStatementSchema.parse(value));
   }
 
   // Properties
@@ -84,7 +84,7 @@ export class FhirMedicationStatement extends FhirDomainResource<MedicationStatem
    * @returns The effective date if available
    */
   public get effectiveDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.effectiveDateTime)
+    return FhirDomainResource.parseDateTime(this.value.effectiveDateTime);
   }
 
   /**
@@ -93,7 +93,7 @@ export class FhirMedicationStatement extends FhirDomainResource<MedicationStatem
    * @returns The date asserted if available
    */
   public get dateAsserted(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.dateAsserted)
+    return FhirDomainResource.parseDateTime(this.value.dateAsserted);
   }
 
   /**
@@ -102,7 +102,7 @@ export class FhirMedicationStatement extends FhirDomainResource<MedicationStatem
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -115,7 +115,7 @@ export class FhirMedicationStatement extends FhirDomainResource<MedicationStatem
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -128,7 +128,7 @@ export class FhirMedicationStatement extends FhirDomainResource<MedicationStatem
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -138,7 +138,7 @@ export class FhirMedicationStatement extends FhirDomainResource<MedicationStatem
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -148,6 +148,6 @@ export class FhirMedicationStatement extends FhirDomainResource<MedicationStatem
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

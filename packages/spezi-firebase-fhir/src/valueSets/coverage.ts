@@ -6,21 +6,21 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The status of the coverage.
  * http://hl7.org/fhir/valueset-fm-status.html
  */
 export const coverageStatusSchema = z.enum([
-  'active',
-  'cancelled',
-  'draft',
-  'entered-in-error',
-])
+  "active",
+  "cancelled",
+  "draft",
+  "entered-in-error",
+]);
 
 /**
  * The status of the coverage.
  * http://hl7.org/fhir/valueset-fm-status.html
  */
-export type CoverageStatus = z.infer<typeof coverageStatusSchema>
+export type CoverageStatus = z.infer<typeof coverageStatusSchema>;

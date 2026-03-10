@@ -6,11 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ContactDetail } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { contactPointSchema } from '../dataTypes/contactPoint.js'
-import { stringSchema } from '../dataTypes/primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type ContactDetail } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { contactPointSchema } from "../dataTypes/contactPoint.js";
+import { stringSchema } from "../dataTypes/primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 /**
  * Zod schema for FHIR ContactDetail data type.
@@ -21,10 +21,10 @@ export const untypedContactDetailSchema = z.lazy(() =>
     _name: elementSchema.optional(),
     telecom: contactPointSchema.array().optional(),
   }),
-) satisfies ZodType<ContactDetail>
+) satisfies ZodType<ContactDetail>;
 
 /**
  * Zod schema for FHIR ContactDetail data type.
  */
 export const contactDetailSchema: ZodType<ContactDetail> =
-  untypedContactDetailSchema
+  untypedContactDetailSchema;

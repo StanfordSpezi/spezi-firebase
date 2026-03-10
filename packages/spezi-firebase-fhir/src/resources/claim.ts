@@ -19,10 +19,10 @@ import {
   type ClaimSupportingInfo,
   type Claim,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   backboneElementSchema,
@@ -40,22 +40,22 @@ import {
   positiveIntSchema,
   dateSchema,
   attachmentSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   financialResourceStatusSchema,
   claimUseSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const claimRelatedSchema: ZodType<ClaimRelated> = backboneElementSchema.extend({
   claim: referenceSchema.optional(),
   relationship: codeableConceptSchema.optional(),
   reference: identifierSchema.optional(),
-})
+});
 
 const claimPayeeSchema: ZodType<ClaimPayee> = backboneElementSchema.extend({
   type: codeableConceptSchema,
   party: referenceSchema.optional(),
-})
+});
 
 const claimCareTeamSchema: ZodType<ClaimCareTeam> =
   backboneElementSchema.extend({
@@ -65,7 +65,7 @@ const claimCareTeamSchema: ZodType<ClaimCareTeam> =
     _responsible: elementSchema.optional(),
     role: codeableConceptSchema.optional(),
     qualification: codeableConceptSchema.optional(),
-  })
+  });
 
 const claimSupportingInfoSchema: ZodType<ClaimSupportingInfo> =
   backboneElementSchema.extend({
@@ -83,7 +83,7 @@ const claimSupportingInfoSchema: ZodType<ClaimSupportingInfo> =
     valueAttachment: attachmentSchema.optional(),
     valueReference: referenceSchema.optional(),
     reason: codeableConceptSchema.optional(),
-  })
+  });
 
 const claimDiagnosisSchema: ZodType<ClaimDiagnosis> =
   backboneElementSchema.extend({
@@ -93,7 +93,7 @@ const claimDiagnosisSchema: ZodType<ClaimDiagnosis> =
     type: codeableConceptSchema.array().optional(),
     onAdmission: codeableConceptSchema.optional(),
     packageCode: codeableConceptSchema.optional(),
-  })
+  });
 
 const claimProcedureSchema: ZodType<ClaimProcedure> =
   backboneElementSchema.extend({
@@ -104,7 +104,7 @@ const claimProcedureSchema: ZodType<ClaimProcedure> =
     procedureCodeableConcept: codeableConceptSchema.optional(),
     procedureReference: referenceSchema.optional(),
     udi: referenceSchema.array().optional(),
-  })
+  });
 
 const claimInsuranceSchema: ZodType<ClaimInsurance> =
   backboneElementSchema.extend({
@@ -118,7 +118,7 @@ const claimInsuranceSchema: ZodType<ClaimInsurance> =
     preAuthRef: stringSchema.array().optional(),
     _preAuthRef: elementSchema.array().optional(),
     claimResponse: referenceSchema.optional(),
-  })
+  });
 
 const claimAccidentSchema: ZodType<ClaimAccident> =
   backboneElementSchema.extend({
@@ -127,7 +127,7 @@ const claimAccidentSchema: ZodType<ClaimAccident> =
     type: codeableConceptSchema.optional(),
     locationAddress: addressSchema.optional(),
     locationReference: referenceSchema.optional(),
-  })
+  });
 
 const claimItemDetailSchema: ZodType<ClaimItemDetail> =
   backboneElementSchema.extend({
@@ -142,7 +142,7 @@ const claimItemDetailSchema: ZodType<ClaimItemDetail> =
     factor: decimalSchema.optional(),
     net: moneySchema.optional(),
     udi: referenceSchema.array().optional(),
-  })
+  });
 
 const claimItemSchema: ZodType<ClaimItem> = backboneElementSchema.extend({
   sequence: positiveIntSchema,
@@ -170,14 +170,14 @@ const claimItemSchema: ZodType<ClaimItem> = backboneElementSchema.extend({
   subSite: codeableConceptSchema.array().optional(),
   encounter: referenceSchema.array().optional(),
   detail: claimItemDetailSchema.array().optional(),
-})
+});
 
 /**
  * Zod schema for FHIR Claim resource (untyped version).
  */
 export const untypedClaimSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Claim').readonly(),
+    resourceType: z.literal("Claim").readonly(),
     identifier: identifierSchema.array().optional(),
     status: financialResourceStatusSchema,
     _status: elementSchema.optional(),
@@ -209,12 +209,12 @@ export const untypedClaimSchema = z.lazy(() =>
     item: claimItemSchema.array().optional(),
     total: moneySchema.optional(),
   }),
-) satisfies ZodType<Claim>
+) satisfies ZodType<Claim>;
 
 /**
  * Zod schema for FHIR Claim resource.
  */
-export const claimSchema: ZodType<Claim> = untypedClaimSchema
+export const claimSchema: ZodType<Claim> = untypedClaimSchema;
 
 /**
  * Wrapper class for FHIR Claim resources.
@@ -230,7 +230,7 @@ export class FhirClaim extends FhirDomainResource<Claim> {
    * @returns A FhirClaim instance containing the validated resource
    */
   public static parse(value: unknown): FhirClaim {
-    return new FhirClaim(claimSchema.parse(value))
+    return new FhirClaim(claimSchema.parse(value));
   }
 
   /**
@@ -245,7 +245,7 @@ export class FhirClaim extends FhirDomainResource<Claim> {
    * ```
    */
   public get createdDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.created)
+    return FhirDomainResource.parseDateTime(this.value.created);
   }
 
   /**
@@ -258,7 +258,7 @@ export class FhirClaim extends FhirDomainResource<Claim> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -271,7 +271,7 @@ export class FhirClaim extends FhirDomainResource<Claim> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -281,7 +281,7 @@ export class FhirClaim extends FhirDomainResource<Claim> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -291,7 +291,7 @@ export class FhirClaim extends FhirDomainResource<Claim> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 
   /**
@@ -306,6 +306,6 @@ export class FhirClaim extends FhirDomainResource<Claim> {
    * ```
    */
   public get typeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+    return FhirDomainResource.codeableConceptDisplay(this.value.type);
   }
 }

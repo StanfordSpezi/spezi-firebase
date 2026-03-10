@@ -11,9 +11,9 @@ import {
   type CarePlan,
   type CarePlanActivity,
   type CarePlanActivityDetail,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -30,13 +30,13 @@ import {
   stringSchema,
   timingSchema,
   uriSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   carePlanActivityKindSchema,
   carePlanActivityStatusSchema,
   carePlanIntentSchema,
   carePlanStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const carePlanActivityDetailSchema: ZodType<CarePlanActivityDetail> =
   backboneElementSchema.extend({
@@ -67,7 +67,7 @@ const carePlanActivityDetailSchema: ZodType<CarePlanActivityDetail> =
     quantity: quantitySchema.optional(),
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
-  })
+  });
 
 const carePlanActivitySchema: ZodType<CarePlanActivity> =
   backboneElementSchema.extend({
@@ -76,14 +76,14 @@ const carePlanActivitySchema: ZodType<CarePlanActivity> =
     progress: annotationSchema.array().optional(),
     reference: referenceSchema.optional(),
     detail: carePlanActivityDetailSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR CarePlan resource (untyped version).
  */
 export const untypedCarePlanSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('CarePlan').readonly(),
+    resourceType: z.literal("CarePlan").readonly(),
     identifier: identifierSchema.array().optional(),
     instantiatesCanonical: canonicalSchema.array().optional(),
     _instantiatesCanonical: elementSchema.array().optional(),
@@ -115,12 +115,12 @@ export const untypedCarePlanSchema = z.lazy(() =>
     activity: carePlanActivitySchema.array().optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<CarePlan>
+) satisfies ZodType<CarePlan>;
 
 /**
  * Zod schema for FHIR CarePlan resource.
  */
-export const carePlanSchema: ZodType<CarePlan> = untypedCarePlanSchema
+export const carePlanSchema: ZodType<CarePlan> = untypedCarePlanSchema;
 
 /**
  * Wrapper class for FHIR CarePlan resources.
@@ -136,7 +136,7 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
    * @returns A FhirCarePlan instance
    */
   public static parse(value: unknown): FhirCarePlan {
-    return new FhirCarePlan(carePlanSchema.parse(value))
+    return new FhirCarePlan(carePlanSchema.parse(value));
   }
 
   // Properties
@@ -147,7 +147,7 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
    * @returns The created date if available
    */
   public get createdDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.created)
+    return FhirDomainResource.parseDateTime(this.value.created);
   }
 
   /**
@@ -156,7 +156,7 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
    * @returns The start date if available
    */
   public get periodStart(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.period?.start)
+    return FhirDomainResource.parseDate(this.value.period?.start);
   }
 
   /**
@@ -165,7 +165,7 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
    * @returns The end date if available
    */
   public get periodEnd(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.period?.end)
+    return FhirDomainResource.parseDate(this.value.period?.end);
   }
 
   /**
@@ -175,7 +175,7 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
    * @returns true if the period is active
    */
   public periodIsActive(asOfDate: Date = new Date()): boolean {
-    return FhirDomainResource.periodIsActive(this.value.period, asOfDate)
+    return FhirDomainResource.periodIsActive(this.value.period, asOfDate);
   }
 
   /**
@@ -184,7 +184,7 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
    * @returns Array of category display texts
    */
   public get categoryDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+    return FhirDomainResource.codeableConceptDisplays(this.value.category);
   }
 
   /**
@@ -193,7 +193,7 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -206,7 +206,7 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -219,7 +219,7 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -229,7 +229,7 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -239,6 +239,6 @@ export class FhirCarePlan extends FhirDomainResource<CarePlan> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

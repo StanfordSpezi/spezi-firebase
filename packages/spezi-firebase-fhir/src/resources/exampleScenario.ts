@@ -17,9 +17,9 @@ import {
   type ExampleScenarioProcess,
   type ExampleScenarioProcessStep,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -33,11 +33,11 @@ import {
   stringSchema,
   urlSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   exampleScenarioActorTypeSchema,
   publicationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const exampleScenarioInstanceContainedInstanceSchema: ZodType<ExampleScenarioInstanceContainedInstance> =
   backboneElementSchema.extend({
@@ -45,18 +45,18 @@ const exampleScenarioInstanceContainedInstanceSchema: ZodType<ExampleScenarioIns
     _resourceId: elementSchema.optional(),
     versionId: stringSchema.optional(),
     _versionId: elementSchema.optional(),
-  })
+  });
 
 const exampleScenarioProcessStepAlternativeSchema: ZodType<ExampleScenarioProcessStepAlternative> =
   backboneElementSchema.extend({
     description: markdownSchema.optional(),
     _description: elementSchema.optional(),
     get step() {
-      return exampleScenarioProcessStepSchema.array().optional()
+      return exampleScenarioProcessStepSchema.array().optional();
     },
     title: stringSchema,
     _title: elementSchema.optional(),
-  })
+  });
 
 const exampleScenarioProcessStepOperationSchema: ZodType<ExampleScenarioProcessStepOperation> =
   backboneElementSchema.extend({
@@ -78,7 +78,7 @@ const exampleScenarioProcessStepOperationSchema: ZodType<ExampleScenarioProcessS
     response: exampleScenarioInstanceContainedInstanceSchema.optional(),
     type: stringSchema.optional(),
     _type: elementSchema.optional(),
-  })
+  });
 
 const exampleScenarioProcessStepSchema: ZodType<ExampleScenarioProcessStep> =
   backboneElementSchema.extend({
@@ -87,9 +87,9 @@ const exampleScenarioProcessStepSchema: ZodType<ExampleScenarioProcessStep> =
     pause: booleanSchema.optional(),
     _pause: elementSchema.optional(),
     get process() {
-      return exampleScenarioProcessSchema.array().optional()
+      return exampleScenarioProcessSchema.array().optional();
     },
-  })
+  });
 
 const exampleScenarioProcessSchema: ZodType<ExampleScenarioProcess> =
   backboneElementSchema.extend({
@@ -102,7 +102,7 @@ const exampleScenarioProcessSchema: ZodType<ExampleScenarioProcess> =
     step: exampleScenarioProcessStepSchema.array().optional(),
     title: stringSchema,
     _title: elementSchema.optional(),
-  })
+  });
 
 const exampleScenarioActorSchema: ZodType<ExampleScenarioActor> =
   backboneElementSchema.extend({
@@ -114,7 +114,7 @@ const exampleScenarioActorSchema: ZodType<ExampleScenarioActor> =
     _name: elementSchema.optional(),
     type: exampleScenarioActorTypeSchema,
     _type: elementSchema.optional(),
-  })
+  });
 
 const exampleScenarioInstanceVersionSchema: ZodType<ExampleScenarioInstanceVersion> =
   backboneElementSchema.extend({
@@ -122,7 +122,7 @@ const exampleScenarioInstanceVersionSchema: ZodType<ExampleScenarioInstanceVersi
     _description: elementSchema.optional(),
     versionId: stringSchema,
     _versionId: elementSchema.optional(),
-  })
+  });
 
 const exampleScenarioInstanceSchema: ZodType<ExampleScenarioInstance> =
   backboneElementSchema.extend({
@@ -138,14 +138,14 @@ const exampleScenarioInstanceSchema: ZodType<ExampleScenarioInstance> =
     resourceType: stringSchema,
     _resourceType: elementSchema.optional(),
     version: exampleScenarioInstanceVersionSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ExampleScenario resource (untyped version).
  */
 export const untypedExampleScenarioSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ExampleScenario').readonly(),
+    resourceType: z.literal("ExampleScenario").readonly(),
     actor: exampleScenarioActorSchema.array().optional(),
     contact: contactDetailSchema.array().optional(),
     copyright: markdownSchema.optional(),
@@ -174,13 +174,13 @@ export const untypedExampleScenarioSchema = z.lazy(() =>
     workflow: urlSchema.array().optional(),
     _workflow: elementSchema.array().optional(),
   }),
-) satisfies ZodType<ExampleScenario>
+) satisfies ZodType<ExampleScenario>;
 
 /**
  * Zod schema for FHIR ExampleScenario resource.
  */
 export const exampleScenarioSchema: ZodType<ExampleScenario> =
-  untypedExampleScenarioSchema
+  untypedExampleScenarioSchema;
 
 /**
  * Wrapper class for FHIR ExampleScenario resources.
@@ -196,7 +196,7 @@ export class FhirExampleScenario extends FhirDomainResource<ExampleScenario> {
    * @returns A FhirExampleScenario instance containing the validated resource
    */
   public static parse(value: unknown): FhirExampleScenario {
-    return new FhirExampleScenario(exampleScenarioSchema.parse(value))
+    return new FhirExampleScenario(exampleScenarioSchema.parse(value));
   }
 
   /**
@@ -209,7 +209,7 @@ export class FhirExampleScenario extends FhirDomainResource<ExampleScenario> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -222,7 +222,7 @@ export class FhirExampleScenario extends FhirDomainResource<ExampleScenario> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -232,7 +232,7 @@ export class FhirExampleScenario extends FhirDomainResource<ExampleScenario> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -242,6 +242,6 @@ export class FhirExampleScenario extends FhirDomainResource<ExampleScenario> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

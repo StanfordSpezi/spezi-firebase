@@ -12,9 +12,9 @@ import {
   type CompositionRelatesTo,
   type CompositionSection,
   type Composition,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -25,13 +25,13 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   compositionAttestationModeSchema,
   compositionRelatestoCodeSchema,
   compositionStatusSchema,
   listModeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const attesterSchema: ZodType<CompositionAttester> =
   backboneElementSchema.extend({
@@ -39,20 +39,20 @@ const attesterSchema: ZodType<CompositionAttester> =
     time: stringSchema.optional(),
     _time: elementSchema.optional(),
     party: referenceSchema.optional(),
-  })
+  });
 
 const relatesToSchema: ZodType<CompositionRelatesTo> =
   backboneElementSchema.extend({
     code: compositionRelatestoCodeSchema,
     targetIdentifier: identifierSchema.optional(),
     targetReference: referenceSchema.optional(),
-  })
+  });
 
 const eventSchema: ZodType<CompositionEvent> = backboneElementSchema.extend({
   code: codeableConceptSchema.array().optional(),
   period: periodSchema.optional(),
   detail: referenceSchema.array().optional(),
-})
+});
 
 const sectionSchema: ZodType<CompositionSection> = backboneElementSchema.extend(
   {
@@ -65,17 +65,17 @@ const sectionSchema: ZodType<CompositionSection> = backboneElementSchema.extend(
     entry: referenceSchema.array().optional(),
     emptyReason: codeableConceptSchema.optional(),
     get section() {
-      return sectionSchema.array().optional()
+      return sectionSchema.array().optional();
     },
   },
-)
+);
 
 /**
  * Zod schema for FHIR Composition resource (untyped version).
  */
 export const untypedCompositionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Composition').readonly(),
+    resourceType: z.literal("Composition").readonly(),
     identifier: identifierSchema.optional(),
     status: compositionStatusSchema,
     _status: elementSchema.optional(),
@@ -96,12 +96,12 @@ export const untypedCompositionSchema = z.lazy(() =>
     event: eventSchema.array().optional(),
     section: sectionSchema.array().optional(),
   }),
-) satisfies ZodType<Composition>
+) satisfies ZodType<Composition>;
 
 /**
  * Zod schema for FHIR Composition resource.
  */
-export const compositionSchema: ZodType<Composition> = untypedCompositionSchema
+export const compositionSchema: ZodType<Composition> = untypedCompositionSchema;
 
 /**
  * Wrapper class for FHIR Composition resources.
@@ -115,7 +115,7 @@ export class FhirComposition extends FhirDomainResource<Composition> {
    * @returns A FhirComposition instance containing the validated resource
    */
   public static parse(value: unknown): FhirComposition {
-    return new FhirComposition(compositionSchema.parse(value))
+    return new FhirComposition(compositionSchema.parse(value));
   }
 
   /**
@@ -124,7 +124,7 @@ export class FhirComposition extends FhirDomainResource<Composition> {
    * @returns The composition date, if available
    */
   public get date(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.date)
+    return FhirDomainResource.parseDateTime(this.value.date);
   }
 
   /**
@@ -133,6 +133,6 @@ export class FhirComposition extends FhirDomainResource<Composition> {
    * @returns The type display text, if available
    */
   public get typeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+    return FhirDomainResource.codeableConceptDisplay(this.value.type);
   }
 }

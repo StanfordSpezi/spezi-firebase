@@ -6,20 +6,20 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * A coded concept defining if the medication is in active use.
  * http://hl7.org/fhir/valueset-medication-status.html
  */
 export const medicationStatusSchema = z.enum([
-  'active',
-  'inactive',
-  'entered-in-error',
-])
+  "active",
+  "inactive",
+  "entered-in-error",
+]);
 
 /**
  * A coded concept defining if the medication is in active use.
  * http://hl7.org/fhir/valueset-medication-status.html
  */
-export type MedicationStatus = z.infer<typeof medicationStatusSchema>
+export type MedicationStatus = z.infer<typeof medicationStatusSchema>;

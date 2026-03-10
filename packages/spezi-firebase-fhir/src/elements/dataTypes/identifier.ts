@@ -6,21 +6,21 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Identifier } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { codeableConceptSchema } from './codeableConcept.js'
-import { periodSchema } from './period.js'
-import { stringSchema, uriSchema } from './primitiveTypes.js'
-import { referenceSchema } from './reference.js'
-import { elementSchema } from '../element.js'
+import { type Identifier } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { codeableConceptSchema } from "./codeableConcept.js";
+import { periodSchema } from "./period.js";
+import { stringSchema, uriSchema } from "./primitiveTypes.js";
+import { referenceSchema } from "./reference.js";
+import { elementSchema } from "../element.js";
 
 const identifierUseSchema = z.enum([
-  'usual',
-  'official',
-  'temp',
-  'secondary',
-  'old',
-])
+  "usual",
+  "official",
+  "temp",
+  "secondary",
+  "old",
+]);
 
 /**
  * Zod schema for FHIR Identifier data type.
@@ -37,9 +37,9 @@ export const untypedIdentifierSchema = z.lazy(() =>
     period: periodSchema.optional(),
     assigner: referenceSchema.optional(),
   }),
-) satisfies ZodType<Identifier>
+) satisfies ZodType<Identifier>;
 
 /**
  * Zod schema for FHIR Identifier data type.
  */
-export const identifierSchema: ZodType<Identifier> = untypedIdentifierSchema
+export const identifierSchema: ZodType<Identifier> = untypedIdentifierSchema;

@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type ImmunizationEvaluation } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type ImmunizationEvaluation } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   codeableConceptSchema,
   dateTimeSchema,
@@ -18,15 +18,15 @@ import {
   positiveIntSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { immunizationEvaluationStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { immunizationEvaluationStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR ImmunizationEvaluation resource (untyped version).
  */
 export const untypedImmunizationEvaluationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ImmunizationEvaluation').readonly(),
+    resourceType: z.literal("ImmunizationEvaluation").readonly(),
     identifier: identifierSchema.array().optional(),
     status: immunizationEvaluationStatusSchema,
     _status: elementSchema.optional(),
@@ -49,13 +49,13 @@ export const untypedImmunizationEvaluationSchema = z.lazy(() =>
     seriesDosesString: stringSchema.optional(),
     _seriesDosesString: elementSchema.optional(),
   }),
-) satisfies ZodType<ImmunizationEvaluation>
+) satisfies ZodType<ImmunizationEvaluation>;
 
 /**
  * Zod schema for FHIR ImmunizationEvaluation resource.
  */
 export const immunizationEvaluationSchema: ZodType<ImmunizationEvaluation> =
-  untypedImmunizationEvaluationSchema
+  untypedImmunizationEvaluationSchema;
 
 /**
  * Wrapper class for FHIR ImmunizationEvaluation resources.
@@ -73,7 +73,7 @@ export class FhirImmunizationEvaluation extends FhirDomainResource<ImmunizationE
   public static parse(value: unknown): FhirImmunizationEvaluation {
     return new FhirImmunizationEvaluation(
       immunizationEvaluationSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -86,7 +86,7 @@ export class FhirImmunizationEvaluation extends FhirDomainResource<ImmunizationE
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -99,7 +99,7 @@ export class FhirImmunizationEvaluation extends FhirDomainResource<ImmunizationE
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -109,7 +109,7 @@ export class FhirImmunizationEvaluation extends FhirDomainResource<ImmunizationE
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -119,6 +119,6 @@ export class FhirImmunizationEvaluation extends FhirDomainResource<ImmunizationE
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -10,9 +10,9 @@ import {
   type Coding,
   type ResearchElementDefinition,
   type ResearchElementDefinitionCharacteristic,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -35,13 +35,13 @@ import {
   timingSchema,
   uriSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   groupMeasureSchema,
   publicationStatusSchema,
   researchElementDefinitionTypeSchema,
   variableTypeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const researchElementDefinitionCharacteristicSchema: ZodType<ResearchElementDefinitionCharacteristic> =
   backboneElementSchema.extend({
@@ -74,14 +74,14 @@ const researchElementDefinitionCharacteristicSchema: ZodType<ResearchElementDefi
     participantEffectiveTimeFromStart: quantitySchema.optional(),
     participantEffectiveGroupMeasure: groupMeasureSchema.optional(),
     _participantEffectiveGroupMeasure: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ResearchElementDefinition resource (untyped version).
  */
 export const untypedResearchElementDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ResearchElementDefinition').readonly(),
+    resourceType: z.literal("ResearchElementDefinition").readonly(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -137,13 +137,13 @@ export const untypedResearchElementDefinitionSchema = z.lazy(() =>
     _variableType: elementSchema.optional(),
     characteristic: researchElementDefinitionCharacteristicSchema.array(),
   }),
-) satisfies ZodType<ResearchElementDefinition>
+) satisfies ZodType<ResearchElementDefinition>;
 
 /**
  * Zod schema for FHIR ResearchElementDefinition resource.
  */
 export const researchElementDefinitionSchema: ZodType<ResearchElementDefinition> =
-  untypedResearchElementDefinitionSchema
+  untypedResearchElementDefinitionSchema;
 
 /**
  * Wrapper class for FHIR ResearchElementDefinition resources.
@@ -161,7 +161,7 @@ export class FhirResearchElementDefinition extends FhirDomainResource<ResearchEl
   public static parse(value: unknown): FhirResearchElementDefinition {
     return new FhirResearchElementDefinition(
       researchElementDefinitionSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -174,7 +174,7 @@ export class FhirResearchElementDefinition extends FhirDomainResource<ResearchEl
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -187,7 +187,7 @@ export class FhirResearchElementDefinition extends FhirDomainResource<ResearchEl
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -197,7 +197,7 @@ export class FhirResearchElementDefinition extends FhirDomainResource<ResearchEl
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -207,6 +207,6 @@ export class FhirResearchElementDefinition extends FhirDomainResource<ResearchEl
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

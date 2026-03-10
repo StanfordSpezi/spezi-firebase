@@ -6,18 +6,18 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Participation status of the appointment.
  * http://hl7.org/fhir/valueset-participationstatus.html
  */
 export const appointmentResponseParticipantStatusSchema = z.enum([
-  'accepted',
-  'declined',
-  'tentative',
-  'needs-action',
-])
+  "accepted",
+  "declined",
+  "tentative",
+  "needs-action",
+]);
 
 /**
  * Participation status of the appointment.
@@ -25,4 +25,4 @@ export const appointmentResponseParticipantStatusSchema = z.enum([
  */
 export type AppointmentResponseParticipantStatus = z.infer<
   typeof appointmentResponseParticipantStatusSchema
->
+>;

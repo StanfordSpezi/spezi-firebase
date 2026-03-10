@@ -6,16 +6,16 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Signature } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { codingSchema } from './coding.js'
+import { type Signature } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { codingSchema } from "./coding.js";
 import {
   base64BinarySchema,
   codeSchema,
   instantSchema,
-} from './primitiveTypes.js'
-import { referenceSchema } from './reference.js'
-import { elementSchema } from '../element.js'
+} from "./primitiveTypes.js";
+import { referenceSchema } from "./reference.js";
+import { elementSchema } from "../element.js";
 
 /**
  * Zod schema for FHIR Signature data type.
@@ -35,9 +35,9 @@ export const untypedSignatureSchema = z.lazy(() =>
     data: base64BinarySchema.optional(),
     _data: elementSchema.optional(),
   }),
-) satisfies ZodType<Signature>
+) satisfies ZodType<Signature>;
 
 /**
  * Zod schema for FHIR Signature data type.
  */
-export const signatureSchema: ZodType<Signature> = untypedSignatureSchema
+export const signatureSchema: ZodType<Signature> = untypedSignatureSchema;

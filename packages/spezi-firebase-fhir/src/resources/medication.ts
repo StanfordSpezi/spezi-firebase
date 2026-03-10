@@ -11,9 +11,9 @@ import {
   type MedicationIngredient,
   type Coding,
   type Medication,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -26,8 +26,8 @@ import {
   ratioSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { medicationStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { medicationStatusSchema } from "../valueSets/index.js";
 
 const medicationIngredientSchema: ZodType<MedicationIngredient> =
   backboneElementSchema.extend({
@@ -36,21 +36,21 @@ const medicationIngredientSchema: ZodType<MedicationIngredient> =
     isActive: booleanSchema.optional(),
     _isActive: elementSchema.optional(),
     strength: ratioSchema.optional(),
-  })
+  });
 
 const medicationBatchSchema: ZodType<MedicationBatch> = elementSchema.extend({
   lotNumber: stringSchema.optional(),
   _lotNumber: elementSchema.optional(),
   expirationDate: dateTimeSchema.optional(),
   _expirationDate: elementSchema.optional(),
-})
+});
 
 /**
  * Zod schema for FHIR Medication resource (untyped version).
  */
 export const untypedMedicationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Medication').readonly(),
+    resourceType: z.literal("Medication").readonly(),
     identifier: identifierSchema.array().optional(),
     code: codeableConceptSchema.optional(),
     status: medicationStatusSchema.optional(),
@@ -61,12 +61,12 @@ export const untypedMedicationSchema = z.lazy(() =>
     ingredient: medicationIngredientSchema.array().optional(),
     batch: medicationBatchSchema.optional(),
   }),
-) satisfies ZodType<Medication>
+) satisfies ZodType<Medication>;
 
 /**
  * Zod schema for FHIR Medication resource.
  */
-export const medicationSchema: ZodType<Medication> = untypedMedicationSchema
+export const medicationSchema: ZodType<Medication> = untypedMedicationSchema;
 
 /**
  * Wrapper class for FHIR Medication resources.
@@ -82,7 +82,7 @@ export class FhirMedication extends FhirDomainResource<Medication> {
    * @returns A FhirMedication instance
    */
   public static parse(value: unknown): FhirMedication {
-    return new FhirMedication(medicationSchema.parse(value))
+    return new FhirMedication(medicationSchema.parse(value));
   }
 
   // Properties
@@ -93,7 +93,7 @@ export class FhirMedication extends FhirDomainResource<Medication> {
    * @returns The code display
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -102,7 +102,7 @@ export class FhirMedication extends FhirDomainResource<Medication> {
    * @returns The form display
    */
   public get formDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.form)
+    return FhirDomainResource.codeableConceptDisplay(this.value.form);
   }
 
   /**
@@ -115,7 +115,7 @@ export class FhirMedication extends FhirDomainResource<Medication> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -128,7 +128,7 @@ export class FhirMedication extends FhirDomainResource<Medication> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -138,7 +138,7 @@ export class FhirMedication extends FhirDomainResource<Medication> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -148,6 +148,6 @@ export class FhirMedication extends FhirDomainResource<Medication> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

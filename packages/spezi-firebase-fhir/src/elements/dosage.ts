@@ -6,19 +6,19 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Dosage } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { codeableConceptSchema } from './dataTypes/codeableConcept.js'
+import { type Dosage } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { codeableConceptSchema } from "./dataTypes/codeableConcept.js";
 import {
   booleanSchema,
   intSchema,
   stringSchema,
-} from './dataTypes/primitiveTypes.js'
-import { quantitySchema } from './dataTypes/quantity.js'
-import { rangeSchema } from './dataTypes/range.js'
-import { ratioSchema } from './dataTypes/ratio.js'
-import { timingSchema } from './dataTypes/timing.js'
-import { elementSchema } from './element.js'
+} from "./dataTypes/primitiveTypes.js";
+import { quantitySchema } from "./dataTypes/quantity.js";
+import { rangeSchema } from "./dataTypes/range.js";
+import { ratioSchema } from "./dataTypes/ratio.js";
+import { timingSchema } from "./dataTypes/timing.js";
+import { elementSchema } from "./element.js";
 
 /**
  * Zod schema for FHIR Dosage data type.
@@ -48,9 +48,9 @@ export const untypedDosageSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Dosage>
+) satisfies ZodType<Dosage>;
 
 /**
  * Zod schema for FHIR Dosage data type.
  */
-export const dosageSchema: ZodType<Dosage> = untypedDosageSchema
+export const dosageSchema: ZodType<Dosage> = untypedDosageSchema;

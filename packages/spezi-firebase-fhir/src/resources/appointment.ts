@@ -10,9 +10,9 @@ import {
   type AppointmentParticipant,
   type Appointment,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -26,12 +26,12 @@ import {
   referenceSchema,
   stringSchema,
   unsignedIntSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   appointmentStatusSchema,
   appointmentParticipantRequiredSchema,
   appointmentParticipantStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const appointmentParticipantSchema: ZodType<AppointmentParticipant> =
   backboneElementSchema.extend({
@@ -41,14 +41,14 @@ const appointmentParticipantSchema: ZodType<AppointmentParticipant> =
     required: appointmentParticipantRequiredSchema.optional(),
     status: appointmentParticipantStatusSchema,
     _status: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Appointment resource (untyped version).
  */
 export const untypedAppointmentSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Appointment').readonly(),
+    resourceType: z.literal("Appointment").readonly(),
     identifier: identifierSchema.array().optional(),
     status: appointmentStatusSchema,
     _status: elementSchema.optional(),
@@ -80,12 +80,12 @@ export const untypedAppointmentSchema = z.lazy(() =>
     participant: appointmentParticipantSchema.array().min(1),
     requestPeriod: periodSchema.array().optional(),
   }),
-) satisfies ZodType<Appointment>
+) satisfies ZodType<Appointment>;
 
 /**
  * Zod schema for FHIR Appointment resource.
  */
-export const appointmentSchema: ZodType<Appointment> = untypedAppointmentSchema
+export const appointmentSchema: ZodType<Appointment> = untypedAppointmentSchema;
 
 /**
  * Wrapper class for FHIR Appointment resources.
@@ -101,7 +101,7 @@ export class FhirAppointment extends FhirDomainResource<Appointment> {
    * @returns A FhirAppointment instance
    */
   public static parse(value: unknown): FhirAppointment {
-    return new FhirAppointment(appointmentSchema.parse(value))
+    return new FhirAppointment(appointmentSchema.parse(value));
   }
 
   // Properties
@@ -120,7 +120,7 @@ export class FhirAppointment extends FhirDomainResource<Appointment> {
    * ```
    */
   public get startDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.start)
+    return FhirDomainResource.parseDateTime(this.value.start);
   }
 
   /**
@@ -137,7 +137,7 @@ export class FhirAppointment extends FhirDomainResource<Appointment> {
    * ```
    */
   public get endDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.end)
+    return FhirDomainResource.parseDateTime(this.value.end);
   }
 
   /**
@@ -150,7 +150,7 @@ export class FhirAppointment extends FhirDomainResource<Appointment> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -163,7 +163,7 @@ export class FhirAppointment extends FhirDomainResource<Appointment> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -173,7 +173,7 @@ export class FhirAppointment extends FhirDomainResource<Appointment> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -183,7 +183,7 @@ export class FhirAppointment extends FhirDomainResource<Appointment> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 
   /**
@@ -201,12 +201,12 @@ export class FhirAppointment extends FhirDomainResource<Appointment> {
    * ```
    */
   public get duration(): number | undefined {
-    const start = this.startDate
-    const end = this.endDate
+    const start = this.startDate;
+    const end = this.endDate;
     if (start && end) {
-      return end.getTime() - start.getTime()
+      return end.getTime() - start.getTime();
     }
-    return undefined
+    return undefined;
   }
 
   /**
@@ -223,8 +223,8 @@ export class FhirAppointment extends FhirDomainResource<Appointment> {
    * ```
    */
   public isPast(asOf: Date = new Date()): boolean {
-    const end = this.endDate ?? this.startDate
-    return end !== undefined && end < asOf
+    const end = this.endDate ?? this.startDate;
+    return end !== undefined && end < asOf;
   }
 
   /**
@@ -241,7 +241,7 @@ export class FhirAppointment extends FhirDomainResource<Appointment> {
    * ```
    */
   public isUpcoming(asOf: Date = new Date()): boolean {
-    const start = this.startDate
-    return start !== undefined && start > asOf
+    const start = this.startDate;
+    return start !== undefined && start > asOf;
   }
 }

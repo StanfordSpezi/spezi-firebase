@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type BodyStructure } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type BodyStructure } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   attachmentSchema,
   booleanSchema,
@@ -18,14 +18,14 @@ import {
   identifierSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 /**
  * Zod schema for FHIR BodyStructure resource (untyped version).
  */
 export const untypedBodyStructureSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('BodyStructure').readonly(),
+    resourceType: z.literal("BodyStructure").readonly(),
     identifier: identifierSchema.array().optional(),
     active: booleanSchema.optional(),
     _active: elementSchema.optional(),
@@ -37,13 +37,13 @@ export const untypedBodyStructureSchema = z.lazy(() =>
     image: attachmentSchema.array().optional(),
     patient: referenceSchema,
   }),
-) satisfies ZodType<BodyStructure>
+) satisfies ZodType<BodyStructure>;
 
 /**
  * Zod schema for FHIR BodyStructure resource.
  */
 export const bodyStructureSchema: ZodType<BodyStructure> =
-  untypedBodyStructureSchema
+  untypedBodyStructureSchema;
 
 /**
  * Wrapper class for FHIR BodyStructure resources.
@@ -57,7 +57,7 @@ export class FhirBodyStructure extends FhirDomainResource<BodyStructure> {
    * @returns A FhirBodyStructure instance containing the validated resource
    */
   public static parse(value: unknown): FhirBodyStructure {
-    return new FhirBodyStructure(bodyStructureSchema.parse(value))
+    return new FhirBodyStructure(bodyStructureSchema.parse(value));
   }
 
   /**
@@ -66,7 +66,7 @@ export class FhirBodyStructure extends FhirDomainResource<BodyStructure> {
    * @returns The location display text, if available
    */
   public get locationDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.location)
+    return FhirDomainResource.codeableConceptDisplay(this.value.location);
   }
 
   /**
@@ -79,7 +79,7 @@ export class FhirBodyStructure extends FhirDomainResource<BodyStructure> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -92,7 +92,7 @@ export class FhirBodyStructure extends FhirDomainResource<BodyStructure> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -102,7 +102,7 @@ export class FhirBodyStructure extends FhirDomainResource<BodyStructure> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -112,6 +112,6 @@ export class FhirBodyStructure extends FhirDomainResource<BodyStructure> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

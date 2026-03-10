@@ -6,24 +6,24 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The status of an episode of care.
  * http://hl7.org/fhir/valueset-episode-of-care-status.html
  */
 export const episodeOfCareStatusSchema = z.enum([
-  'planned',
-  'waitlist',
-  'active',
-  'onhold',
-  'finished',
-  'cancelled',
-  'entered-in-error',
-])
+  "planned",
+  "waitlist",
+  "active",
+  "onhold",
+  "finished",
+  "cancelled",
+  "entered-in-error",
+]);
 
 /**
  * The status of an episode of care.
  * http://hl7.org/fhir/valueset-episode-of-care-status.html
  */
-export type EpisodeOfCareStatus = z.infer<typeof episodeOfCareStatusSchema>
+export type EpisodeOfCareStatus = z.infer<typeof episodeOfCareStatusSchema>;

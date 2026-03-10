@@ -6,30 +6,30 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type TriggerDefinition } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { dataRequirementSchema } from './dataRequirement.js'
-import { expressionSchema } from './expression.js'
-import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
+import { type TriggerDefinition } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { dataRequirementSchema } from "./dataRequirement.js";
+import { expressionSchema } from "./expression.js";
+import { codeableConceptSchema } from "../dataTypes/codeableConcept.js";
 import {
   dateSchema,
   dateTimeSchema,
   stringSchema,
-} from '../dataTypes/primitiveTypes.js'
-import { referenceSchema } from '../dataTypes/reference.js'
-import { timingSchema } from '../dataTypes/timing.js'
-import { elementSchema } from '../element.js'
+} from "../dataTypes/primitiveTypes.js";
+import { referenceSchema } from "../dataTypes/reference.js";
+import { timingSchema } from "../dataTypes/timing.js";
+import { elementSchema } from "../element.js";
 
 const triggerDefinitionTypeSchema = z.enum([
-  'named-event',
-  'periodic',
-  'data-changed',
-  'data-added',
-  'data-modified',
-  'data-removed',
-  'data-accessed',
-  'data-access-ended',
-])
+  "named-event",
+  "periodic",
+  "data-changed",
+  "data-added",
+  "data-modified",
+  "data-removed",
+  "data-accessed",
+  "data-access-ended",
+]);
 
 /**
  * Zod schema for FHIR TriggerDefinition data type.
@@ -52,10 +52,10 @@ export const untypedTriggerDefinitionSchema = z.lazy(() =>
     data: dataRequirementSchema.array().optional(),
     condition: expressionSchema.optional(),
   }),
-) satisfies ZodType<TriggerDefinition>
+) satisfies ZodType<TriggerDefinition>;
 
 /**
  * Zod schema for FHIR TriggerDefinition data type.
  */
 export const triggerDefinitionSchema: ZodType<TriggerDefinition> =
-  untypedTriggerDefinitionSchema
+  untypedTriggerDefinitionSchema;

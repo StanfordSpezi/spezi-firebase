@@ -14,9 +14,9 @@ import {
   type NutritionOrderOralDietNutrient,
   type NutritionOrderOralDietTexture,
   type NutritionOrderSupplement,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -32,23 +32,23 @@ import {
   stringSchema,
   timingSchema,
   uriSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   nutritionOrderIntentSchema,
   nutritionOrderStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const nutritionOrderOralDietNutrientSchema: ZodType<NutritionOrderOralDietNutrient> =
   backboneElementSchema.extend({
     amount: quantitySchema.optional(),
     modifier: codeableConceptSchema.optional(),
-  })
+  });
 
 const nutritionOrderOralDietTextureSchema: ZodType<NutritionOrderOralDietTexture> =
   backboneElementSchema.extend({
     foodType: codeableConceptSchema.optional(),
     modifier: codeableConceptSchema.optional(),
-  })
+  });
 
 const nutritionOrderOralDietSchema: ZodType<NutritionOrderOralDiet> =
   backboneElementSchema.extend({
@@ -59,7 +59,7 @@ const nutritionOrderOralDietSchema: ZodType<NutritionOrderOralDiet> =
     schedule: timingSchema.array().optional(),
     texture: nutritionOrderOralDietTextureSchema.array().optional(),
     type: codeableConceptSchema.array().optional(),
-  })
+  });
 
 const nutritionOrderSupplementSchema: ZodType<NutritionOrderSupplement> =
   backboneElementSchema.extend({
@@ -70,7 +70,7 @@ const nutritionOrderSupplementSchema: ZodType<NutritionOrderSupplement> =
     quantity: quantitySchema.optional(),
     schedule: timingSchema.array().optional(),
     type: codeableConceptSchema.optional(),
-  })
+  });
 
 const nutritionOrderEnteralFormulaAdministrationSchema: ZodType<NutritionOrderEnteralFormulaAdministration> =
   backboneElementSchema.extend({
@@ -78,7 +78,7 @@ const nutritionOrderEnteralFormulaAdministrationSchema: ZodType<NutritionOrderEn
     rateQuantity: quantitySchema.optional(),
     rateRatio: ratioSchema.optional(),
     schedule: timingSchema.optional(),
-  })
+  });
 
 const nutritionOrderEnteralFormulaSchema: ZodType<NutritionOrderEnteralFormula> =
   backboneElementSchema.extend({
@@ -96,14 +96,14 @@ const nutritionOrderEnteralFormulaSchema: ZodType<NutritionOrderEnteralFormula> 
     caloricDensity: quantitySchema.optional(),
     maxVolumeToDeliver: quantitySchema.optional(),
     routeofAdministration: codeableConceptSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR NutritionOrder resource (untyped version).
  */
 export const untypedNutritionOrderSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('NutritionOrder').readonly(),
+    resourceType: z.literal("NutritionOrder").readonly(),
     allergyIntolerance: referenceSchema.array().optional(),
     dateTime: dateTimeSchema,
     _dateTime: elementSchema.optional(),
@@ -128,13 +128,13 @@ export const untypedNutritionOrderSchema = z.lazy(() =>
     _status: elementSchema.optional(),
     supplement: nutritionOrderSupplementSchema.array().optional(),
   }),
-) satisfies ZodType<NutritionOrder>
+) satisfies ZodType<NutritionOrder>;
 
 /**
  * Zod schema for FHIR NutritionOrder resource.
  */
 export const nutritionOrderSchema: ZodType<NutritionOrder> =
-  untypedNutritionOrderSchema
+  untypedNutritionOrderSchema;
 
 /**
  * Wrapper class for FHIR NutritionOrder resources.
@@ -148,7 +148,7 @@ export class FhirNutritionOrder extends FhirDomainResource<NutritionOrder> {
    * @returns A FhirNutritionOrder instance containing the validated resource
    */
   public static parse(value: unknown): FhirNutritionOrder {
-    return new FhirNutritionOrder(nutritionOrderSchema.parse(value))
+    return new FhirNutritionOrder(nutritionOrderSchema.parse(value));
   }
 
   /**
@@ -157,6 +157,6 @@ export class FhirNutritionOrder extends FhirDomainResource<NutritionOrder> {
    * @returns The dateTime the order was made, or undefined if not set
    */
   public get dateTime(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.dateTime)
+    return FhirDomainResource.parseDateTime(this.value.dateTime);
   }
 }

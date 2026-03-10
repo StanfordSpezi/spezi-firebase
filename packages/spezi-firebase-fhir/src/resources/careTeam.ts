@@ -10,9 +10,9 @@ import {
   type Coding,
   type CareTeam,
   type CareTeamParticipant,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -24,8 +24,8 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { careTeamStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { careTeamStatusSchema } from "../valueSets/index.js";
 
 const careTeamParticipantSchema: ZodType<CareTeamParticipant> =
   backboneElementSchema.extend({
@@ -33,14 +33,14 @@ const careTeamParticipantSchema: ZodType<CareTeamParticipant> =
     member: referenceSchema.optional(),
     onBehalfOf: referenceSchema.optional(),
     period: periodSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR CareTeam resource (untyped version).
  */
 export const untypedCareTeamSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('CareTeam').readonly(),
+    resourceType: z.literal("CareTeam").readonly(),
     identifier: identifierSchema.array().optional(),
     status: careTeamStatusSchema.optional(),
     _status: elementSchema.optional(),
@@ -57,12 +57,12 @@ export const untypedCareTeamSchema = z.lazy(() =>
     telecom: contactPointSchema.array().optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<CareTeam>
+) satisfies ZodType<CareTeam>;
 
 /**
  * Zod schema for FHIR CareTeam resource.
  */
-export const careTeamSchema: ZodType<CareTeam> = untypedCareTeamSchema
+export const careTeamSchema: ZodType<CareTeam> = untypedCareTeamSchema;
 
 /**
  * Wrapper class for FHIR CareTeam resources.
@@ -76,7 +76,7 @@ export class FhirCareTeam extends FhirDomainResource<CareTeam> {
    * @returns A FhirCareTeam instance containing the validated resource
    */
   public static parse(value: unknown): FhirCareTeam {
-    return new FhirCareTeam(careTeamSchema.parse(value))
+    return new FhirCareTeam(careTeamSchema.parse(value));
   }
 
   /**
@@ -85,7 +85,7 @@ export class FhirCareTeam extends FhirDomainResource<CareTeam> {
    * @returns The period start date, if available
    */
   public get periodStart(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.period?.start)
+    return FhirDomainResource.parseDate(this.value.period?.start);
   }
 
   /**
@@ -94,7 +94,7 @@ export class FhirCareTeam extends FhirDomainResource<CareTeam> {
    * @returns The period end date, if available
    */
   public get periodEnd(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.period?.end)
+    return FhirDomainResource.parseDate(this.value.period?.end);
   }
 
   /**
@@ -103,7 +103,7 @@ export class FhirCareTeam extends FhirDomainResource<CareTeam> {
    * @returns Array of category display texts
    */
   public get categoryDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+    return FhirDomainResource.codeableConceptDisplays(this.value.category);
   }
 
   /**
@@ -116,7 +116,7 @@ export class FhirCareTeam extends FhirDomainResource<CareTeam> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -129,7 +129,7 @@ export class FhirCareTeam extends FhirDomainResource<CareTeam> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -139,7 +139,7 @@ export class FhirCareTeam extends FhirDomainResource<CareTeam> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -149,6 +149,6 @@ export class FhirCareTeam extends FhirDomainResource<CareTeam> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

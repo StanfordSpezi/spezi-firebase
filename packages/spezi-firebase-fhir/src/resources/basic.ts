@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type Basic } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type Basic } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   codeableConceptSchema,
   dateSchema,
@@ -16,14 +16,14 @@ import {
   elementSchema,
   identifierSchema,
   referenceSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 /**
  * Zod schema for FHIR Basic resource (untyped version).
  */
 export const untypedBasicSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Basic').readonly(),
+    resourceType: z.literal("Basic").readonly(),
     identifier: identifierSchema.array().optional(),
     code: codeableConceptSchema,
     subject: referenceSchema.optional(),
@@ -31,12 +31,12 @@ export const untypedBasicSchema = z.lazy(() =>
     _created: elementSchema.optional(),
     author: referenceSchema.optional(),
   }),
-) satisfies ZodType<Basic>
+) satisfies ZodType<Basic>;
 
 /**
  * Zod schema for FHIR Basic resource.
  */
-export const basicSchema: ZodType<Basic> = untypedBasicSchema
+export const basicSchema: ZodType<Basic> = untypedBasicSchema;
 
 /**
  * Wrapper class for FHIR Basic resources.
@@ -52,7 +52,7 @@ export class FhirBasic extends FhirDomainResource<Basic> {
    * @returns A FhirBasic instance containing the validated resource
    */
   public static parse(value: unknown): FhirBasic {
-    return new FhirBasic(basicSchema.parse(value))
+    return new FhirBasic(basicSchema.parse(value));
   }
 
   /**
@@ -65,7 +65,7 @@ export class FhirBasic extends FhirDomainResource<Basic> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -78,7 +78,7 @@ export class FhirBasic extends FhirDomainResource<Basic> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -88,7 +88,7 @@ export class FhirBasic extends FhirDomainResource<Basic> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -98,6 +98,6 @@ export class FhirBasic extends FhirDomainResource<Basic> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

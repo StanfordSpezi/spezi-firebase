@@ -18,7 +18,7 @@ import {
   type Period,
   type Annotation,
   type FhirResource,
-} from 'fhir/r4b.js'
+} from "fhir/r4b.js";
 
 /**
  * Base class for FHIR domain resource wrappers.
@@ -58,10 +58,10 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
     version?: string,
   ): string[] {
     return (concept?.coding ?? []).flatMap((coding) => {
-      if (coding.system !== system) return []
-      if (version && coding.version !== version) return []
-      return coding.code ? [coding.code] : []
-    })
+      if (coding.system !== system) return [];
+      if (version && coding.version !== version) return [];
+      return coding.code ? [coding.code] : [];
+    });
   }
 
   /**
@@ -84,14 +84,15 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
   ): boolean {
     return filter.some((filterCoding) =>
       (concept?.coding ?? []).some((coding) => {
-        if (filterCoding.code && coding.code !== filterCoding.code) return false
+        if (filterCoding.code && coding.code !== filterCoding.code)
+          return false;
         if (filterCoding.system && coding.system !== filterCoding.system)
-          return false
+          return false;
         if (filterCoding.version && coding.version !== filterCoding.version)
-          return false
-        return true
+          return false;
+        return true;
       }),
-    )
+    );
   }
 
   /**
@@ -109,7 +110,7 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
   public containedResource<T extends DomainResource>(
     id: string,
   ): T | undefined {
-    return this.value.contained?.find((resource) => resource.id === id) as T
+    return this.value.contained?.find((resource) => resource.id === id) as T;
   }
 
   /**
@@ -126,7 +127,7 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
   public extensionsByUrl(...url: string[]): Extension[] {
     return (this.value.extension ?? []).filter(
       (extension) => extension.url && url.includes(extension.url),
-    )
+    );
   }
 
   /**
@@ -143,21 +144,21 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
    */
   public isReferencedBy(reference: Reference): boolean {
     if (!reference.reference) {
-      return false
+      return false;
     }
 
-    const resourceId = this.value.id
+    const resourceId = this.value.id;
     if (!resourceId) {
-      return false
+      return false;
     }
 
-    const resourceType = this.value.resourceType
+    const resourceType = this.value.resourceType;
 
     return (
       reference.reference === `${resourceType}/${resourceId}` ||
       reference.reference.endsWith(`/${resourceType}/${resourceId}`) ||
       reference.reference === resourceId
-    )
+    );
   }
 
   /**
@@ -180,31 +181,31 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
     base64String: string | undefined,
   ): Uint8Array | undefined {
     if (base64String === undefined) {
-      return undefined
+      return undefined;
     }
 
     try {
       // Determine the environment and decode accordingly
-      if (typeof Buffer !== 'undefined') {
+      if (typeof Buffer !== "undefined") {
         // Node.js environment
-        return new Uint8Array(Buffer.from(base64String, 'base64'))
-      } else if (typeof atob === 'function') {
+        return new Uint8Array(Buffer.from(base64String, "base64"));
+      } else if (typeof atob === "function") {
         // Browser environment
-        const binaryString = atob(base64String)
-        const bytes = new Uint8Array(binaryString.length)
+        const binaryString = atob(base64String);
+        const bytes = new Uint8Array(binaryString.length);
         for (let i = 0; i < binaryString.length; i++) {
-          bytes[i] = binaryString.charCodeAt(i)
+          bytes[i] = binaryString.charCodeAt(i);
         }
-        return bytes
+        return bytes;
       } else {
         throw new Error(
-          'No base64 decoding method available in this environment',
-        )
+          "No base64 decoding method available in this environment",
+        );
       }
     } catch (error) {
       throw new Error(
         `Failed to decode base64 data: ${error instanceof Error ? error.message : String(error)}`,
-      )
+      );
     }
   }
 
@@ -230,7 +231,7 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
   ): string[] {
     return (identifiers ?? [])
       .filter((id) => id.system && system.includes(id.system))
-      .flatMap((id) => (id.value ? [id.value] : []))
+      .flatMap((id) => (id.value ? [id.value] : []));
   }
 
   /**
@@ -253,7 +254,7 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
     ...system: string[]
   ): string | undefined {
     return identifiers?.find((id) => id.system && system.includes(id.system))
-      ?.value
+      ?.value;
   }
 
   /**
@@ -277,7 +278,7 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
   ): string[] {
     return (identifiers ?? [])
       .filter((id) => this.containsCoding(id.type, ...types))
-      .flatMap((id) => (id.value ? [id.value] : []))
+      .flatMap((id) => (id.value ? [id.value] : []));
   }
 
   /**
@@ -300,7 +301,7 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
     ...types: Coding[]
   ): string | undefined {
     return identifiers?.find((id) => this.containsCoding(id.type, ...types))
-      ?.value
+      ?.value;
   }
 
   /**
@@ -322,27 +323,27 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
     includePrefix = false,
     includeSuffix = false,
   ): string[] {
-    if (!name) return []
+    if (!name) return [];
 
-    const parts: string[] = []
+    const parts: string[] = [];
 
     if (includePrefix && name.prefix) {
-      parts.push(...name.prefix)
+      parts.push(...name.prefix);
     }
 
     if (name.given) {
-      parts.push(...name.given)
+      parts.push(...name.given);
     }
 
     if (name.family) {
-      parts.push(name.family)
+      parts.push(name.family);
     }
 
     if (includeSuffix && name.suffix) {
-      parts.push(...name.suffix)
+      parts.push(...name.suffix);
     }
 
-    return parts
+    return parts;
   }
 
   /**
@@ -364,8 +365,8 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
     includePrefix = false,
     includeSuffix = false,
   ): string | undefined {
-    const parts = this.humanNameParts(name, includePrefix, includeSuffix)
-    return parts.length > 0 ? parts.join(' ') : undefined
+    const parts = this.humanNameParts(name, includePrefix, includeSuffix);
+    return parts.length > 0 ? parts.join(" ") : undefined;
   }
 
   /**
@@ -387,19 +388,19 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
    */
   public static contactPointBySystem(
     telecom: ContactPoint[] | undefined,
-    system: ContactPoint['system'],
-    use?: ContactPoint['use'],
+    system: ContactPoint["system"],
+    use?: ContactPoint["use"],
   ): string | undefined {
-    if (!telecom) return undefined
+    if (!telecom) return undefined;
 
-    const filtered = telecom.filter((cp) => cp.system === system)
+    const filtered = telecom.filter((cp) => cp.system === system);
 
     if (use) {
-      const withUse = filtered.find((cp) => cp.use === use)
-      if (withUse) return withUse.value
+      const withUse = filtered.find((cp) => cp.use === use);
+      if (withUse) return withUse.value;
     }
 
-    return filtered[0]?.value
+    return filtered[0]?.value;
   }
 
   /**
@@ -411,11 +412,11 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
    */
   public static contactPointsBySystem(
     telecom: ContactPoint[] | undefined,
-    system: ContactPoint['system'],
+    system: ContactPoint["system"],
   ): string[] {
     return (telecom ?? [])
       .filter((cp) => cp.system === system)
-      .flatMap((cp) => (cp.value ? [cp.value] : []))
+      .flatMap((cp) => (cp.value ? [cp.value] : []));
   }
 
   /**
@@ -436,15 +437,15 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
     period: Period | undefined,
     asOfDate: Date = new Date(),
   ): boolean {
-    if (!period) return true // No period means always active
+    if (!period) return true; // No period means always active
 
-    const start = period.start ? new Date(period.start) : undefined
-    const end = period.end ? new Date(period.end) : undefined
+    const start = period.start ? new Date(period.start) : undefined;
+    const end = period.end ? new Date(period.end) : undefined;
 
-    if (start && asOfDate < start) return false
-    if (end && asOfDate > end) return false
+    if (start && asOfDate < start) return false;
+    if (end && asOfDate > end) return false;
 
-    return true
+    return true;
   }
 
   /**
@@ -460,13 +461,13 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
     rangeStart: Date,
     rangeEnd: Date,
   ): boolean {
-    if (!period) return false
+    if (!period) return false;
 
-    const periodStart = period.start ? new Date(period.start) : new Date(0)
+    const periodStart = period.start ? new Date(period.start) : new Date(0);
     const periodEnd =
-      period.end ? new Date(period.end) : new Date(8640000000000000)
+      period.end ? new Date(period.end) : new Date(8640000000000000);
 
-    return periodStart <= rangeEnd && periodEnd >= rangeStart
+    return periodStart <= rangeEnd && periodEnd >= rangeStart;
   }
 
   /**
@@ -476,7 +477,7 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
    * @returns Date object or undefined
    */
   public static parseDate(dateString: string | undefined): Date | undefined {
-    return dateString ? new Date(dateString) : undefined
+    return dateString ? new Date(dateString) : undefined;
   }
 
   /**
@@ -488,7 +489,7 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
   public static parseDateTime(
     dateTimeString: string | undefined,
   ): Date | undefined {
-    return dateTimeString ? new Date(dateTimeString) : undefined
+    return dateTimeString ? new Date(dateTimeString) : undefined;
   }
 
   /**
@@ -498,10 +499,10 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
    * @returns FHIR date string
    */
   public static formatDate(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0')
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const year = String(date.getFullYear()).padStart(4, '0')
-    return `${year}-${month}-${day}`
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).padStart(4, "0");
+    return `${year}-${month}-${day}`;
   }
 
   /**
@@ -511,7 +512,7 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
    * @returns FHIR dateTime string
    */
   public static formatDateTime(date: Date): string {
-    return date.toISOString()
+    return date.toISOString();
   }
 
   /**
@@ -528,14 +529,14 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
   public static annotationTexts(
     annotations: Annotation[] | undefined,
   ): string[] {
-    if (!annotations) return []
-    const texts: string[] = []
+    if (!annotations) return [];
+    const texts: string[] = [];
     for (const annotation of annotations) {
       if (annotation.text) {
-        texts.push(annotation.text)
+        texts.push(annotation.text);
       }
     }
-    return texts
+    return texts;
   }
 
   /**
@@ -547,13 +548,13 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
   public static codeableConceptDisplay(
     concept: CodeableConcept | undefined,
   ): string | undefined {
-    if (concept?.text) return concept.text
+    if (concept?.text) return concept.text;
     for (const coding of concept?.coding ?? []) {
       if (coding.display) {
-        return coding.display
+        return coding.display;
       }
     }
-    return undefined
+    return undefined;
   }
 
   /**
@@ -573,7 +574,7 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
   ): string[] {
     return (concept ?? [])
       .map((concept) => this.codeableConceptDisplay(concept))
-      .flatMap((display) => (display ? [display] : []))
+      .flatMap((display) => (display ? [display] : []));
   }
 
   /**
@@ -592,9 +593,9 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
    */
   public static isReferenceToType(
     reference: Reference | undefined,
-    resourceType: FhirResource['resourceType'],
+    resourceType: FhirResource["resourceType"],
   ): boolean {
-    return reference?.reference?.startsWith(`${resourceType}/`) ?? false
+    return reference?.reference?.startsWith(`${resourceType}/`) ?? false;
   }
 
   /**
@@ -610,11 +611,11 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
    * ```
    */
   public containedResourcesByType<T extends DomainResource>(
-    resourceType: T['resourceType'],
+    resourceType: T["resourceType"],
   ): T[] {
     return (this.value.contained ?? []).filter(
       (resource) => resource.resourceType === resourceType,
-    ) as T[]
+    ) as T[];
   }
 
   /**
@@ -624,11 +625,11 @@ export abstract class FhirDomainResource<ResourceType extends DomainResource> {
    * @returns Reference object or undefined if no ID
    */
   public toReference(display?: string): Reference | undefined {
-    if (!this.value.id) return undefined
+    if (!this.value.id) return undefined;
 
     return {
       reference: `${this.value.resourceType}/${this.value.id}`,
       ...(display ? { display } : {}),
-    }
+    };
   }
 }

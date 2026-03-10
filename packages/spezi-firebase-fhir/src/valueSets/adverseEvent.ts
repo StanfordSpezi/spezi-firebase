@@ -6,16 +6,16 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Overall nature of the adverse event, e.g. real or potential.
  * http://hl7.org/fhir/valueset-adverse-event-actuality.html
  */
-export const adverseEventActualitySchema = z.enum(['actual', 'potential'])
+export const adverseEventActualitySchema = z.enum(["actual", "potential"]);
 
 /**
  * Overall nature of the adverse event, e.g. real or potential.
  * http://hl7.org/fhir/valueset-adverse-event-actuality.html
  */
-export type AdverseEventActuality = z.infer<typeof adverseEventActualitySchema>
+export type AdverseEventActuality = z.infer<typeof adverseEventActualitySchema>;

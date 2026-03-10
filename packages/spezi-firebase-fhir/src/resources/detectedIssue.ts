@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type DetectedIssue } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type DetectedIssue } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -19,18 +19,18 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   detectedIssueSeveritySchema,
   detectedIssueStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR DetectedIssue resource (untyped version).
  */
 export const untypedDetectedIssueSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('DetectedIssue').readonly(),
+    resourceType: z.literal("DetectedIssue").readonly(),
     identifier: identifierSchema.array().optional(),
     status: detectedIssueStatusSchema,
     _status: elementSchema.optional(),
@@ -64,13 +64,13 @@ export const untypedDetectedIssueSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<DetectedIssue>
+) satisfies ZodType<DetectedIssue>;
 
 /**
  * Zod schema for FHIR DetectedIssue resource.
  */
 export const detectedIssueSchema: ZodType<DetectedIssue> =
-  untypedDetectedIssueSchema
+  untypedDetectedIssueSchema;
 
 /**
  * Wrapper class for FHIR DetectedIssue resources.
@@ -84,7 +84,7 @@ export class FhirDetectedIssue extends FhirDomainResource<DetectedIssue> {
    * @returns A FhirDetectedIssue instance containing the validated resource
    */
   public static parse(value: unknown): FhirDetectedIssue {
-    return new FhirDetectedIssue(detectedIssueSchema.parse(value))
+    return new FhirDetectedIssue(detectedIssueSchema.parse(value));
   }
 
   /**
@@ -93,7 +93,7 @@ export class FhirDetectedIssue extends FhirDomainResource<DetectedIssue> {
    * @returns The identification date, if available
    */
   public get identifiedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.identifiedDateTime)
+    return FhirDomainResource.parseDateTime(this.value.identifiedDateTime);
   }
 
   /**
@@ -102,7 +102,7 @@ export class FhirDetectedIssue extends FhirDomainResource<DetectedIssue> {
    * @returns The code display text, if available
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -115,7 +115,7 @@ export class FhirDetectedIssue extends FhirDomainResource<DetectedIssue> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -128,7 +128,7 @@ export class FhirDetectedIssue extends FhirDomainResource<DetectedIssue> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -138,7 +138,7 @@ export class FhirDetectedIssue extends FhirDomainResource<DetectedIssue> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -148,6 +148,6 @@ export class FhirDetectedIssue extends FhirDomainResource<DetectedIssue> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

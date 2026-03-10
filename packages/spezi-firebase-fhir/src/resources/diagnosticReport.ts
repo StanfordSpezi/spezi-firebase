@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type DiagnosticReportMedia, type DiagnosticReport } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type DiagnosticReportMedia, type DiagnosticReport } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -19,22 +19,22 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { diagnosticReportStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { diagnosticReportStatusSchema } from "../valueSets/index.js";
 
 const diagnosticReportMediaSchema: ZodType<DiagnosticReportMedia> =
   backboneElementSchema.extend({
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
     link: referenceSchema,
-  })
+  });
 
 /**
  * Zod schema for FHIR DiagnosticReport resource (untyped version).
  */
 export const untypedDiagnosticReportSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('DiagnosticReport').readonly(),
+    resourceType: z.literal("DiagnosticReport").readonly(),
     basedOn: referenceSchema.array().optional(),
     category: codeableConceptSchema.array().optional(),
     code: codeableConceptSchema,
@@ -59,13 +59,13 @@ export const untypedDiagnosticReportSchema = z.lazy(() =>
     _status: elementSchema.optional(),
     subject: referenceSchema.optional(),
   }),
-) satisfies ZodType<DiagnosticReport>
+) satisfies ZodType<DiagnosticReport>;
 
 /**
  * Zod schema for FHIR DiagnosticReport resource.
  */
 export const diagnosticReportSchema: ZodType<DiagnosticReport> =
-  untypedDiagnosticReportSchema
+  untypedDiagnosticReportSchema;
 
 /**
  * Wrapper class for FHIR DiagnosticReport resources.
@@ -81,7 +81,7 @@ export class FhirDiagnosticReport extends FhirDomainResource<DiagnosticReport> {
    * @returns A FhirDiagnosticReport instance
    */
   public static parse(value: unknown): FhirDiagnosticReport {
-    return new FhirDiagnosticReport(diagnosticReportSchema.parse(value))
+    return new FhirDiagnosticReport(diagnosticReportSchema.parse(value));
   }
 
   // Properties
@@ -92,7 +92,7 @@ export class FhirDiagnosticReport extends FhirDomainResource<DiagnosticReport> {
    * @returns The effective date if available
    */
   public get effectiveDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.effectiveDateTime)
+    return FhirDomainResource.parseDateTime(this.value.effectiveDateTime);
   }
 
   /**
@@ -101,7 +101,7 @@ export class FhirDiagnosticReport extends FhirDomainResource<DiagnosticReport> {
    * @returns The issued date if available
    */
   public get issuedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.issued)
+    return FhirDomainResource.parseDateTime(this.value.issued);
   }
 
   /**
@@ -110,7 +110,7 @@ export class FhirDiagnosticReport extends FhirDomainResource<DiagnosticReport> {
    * @returns The code display
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -119,7 +119,9 @@ export class FhirDiagnosticReport extends FhirDomainResource<DiagnosticReport> {
    * @returns Array of conclusion code display texts
    */
   public get conclusionDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.conclusionCode)
+    return FhirDomainResource.codeableConceptDisplays(
+      this.value.conclusionCode,
+    );
   }
 
   /**
@@ -128,6 +130,6 @@ export class FhirDiagnosticReport extends FhirDomainResource<DiagnosticReport> {
    * @returns Array of category display texts
    */
   public get categoryDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+    return FhirDomainResource.codeableConceptDisplays(this.value.category);
   }
 }

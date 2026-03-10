@@ -6,18 +6,18 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Category of an identified substance associated with allergies or intolerances.
  * http://hl7.org/fhir/valueset-allergy-intolerance-category.html
  */
 export const allergyIntoleranceCategorySchema = z.enum([
-  'food',
-  'medication',
-  'environment',
-  'biologic',
-])
+  "food",
+  "medication",
+  "environment",
+  "biologic",
+]);
 
 /**
  * Category of an identified substance associated with allergies or intolerances.
@@ -25,17 +25,17 @@ export const allergyIntoleranceCategorySchema = z.enum([
  */
 export type AllergyIntoleranceCategory = z.infer<
   typeof allergyIntoleranceCategorySchema
->
+>;
 
 /**
  * Estimate of the potential clinical harm, or seriousness, of a reaction to an identified substance.
  * http://hl7.org/fhir/valueset-allergy-intolerance-criticality.html
  */
 export const allergyIntoleranceCriticalitySchema = z.enum([
-  'low',
-  'high',
-  'unable-to-assess',
-])
+  "low",
+  "high",
+  "unable-to-assess",
+]);
 
 /**
  * Estimate of the potential clinical harm, or seriousness, of a reaction to an identified substance.
@@ -43,17 +43,17 @@ export const allergyIntoleranceCriticalitySchema = z.enum([
  */
 export type AllergyIntoleranceCriticality = z.infer<
   typeof allergyIntoleranceCriticalitySchema
->
+>;
 
 /**
  * Clinical assessment of the severity of a reaction event as a whole.
  * http://hl7.org/fhir/valueset-reaction-event-severity.html
  */
 export const allergyIntoleranceReactionSeveritySchema = z.enum([
-  'mild',
-  'moderate',
-  'severe',
-])
+  "mild",
+  "moderate",
+  "severe",
+]);
 
 /**
  * Clinical assessment of the severity of a reaction event as a whole.
@@ -61,13 +61,13 @@ export const allergyIntoleranceReactionSeveritySchema = z.enum([
  */
 export type AllergyIntoleranceReactionSeverity = z.infer<
   typeof allergyIntoleranceReactionSeveritySchema
->
+>;
 
 /**
  * Identification of the underlying physiological mechanism for a Reaction Risk.
  * http://hl7.org/fhir/valueset-allergy-intolerance-type.html
  */
-export const allergyIntoleranceTypeSchema = z.enum(['allergy', 'intolerance'])
+export const allergyIntoleranceTypeSchema = z.enum(["allergy", "intolerance"]);
 
 /**
  * Identification of the underlying physiological mechanism for a Reaction Risk.
@@ -75,4 +75,4 @@ export const allergyIntoleranceTypeSchema = z.enum(['allergy', 'intolerance'])
  */
 export type AllergyIntoleranceType = z.infer<
   typeof allergyIntoleranceTypeSchema
->
+>;

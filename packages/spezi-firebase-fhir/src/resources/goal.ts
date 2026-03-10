@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type Goal, type GoalTarget } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type Goal, type GoalTarget } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -23,8 +23,8 @@ import {
   ratioSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { goalLifecycleStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { goalLifecycleStatusSchema } from "../valueSets/index.js";
 
 const goalTargetSchema: ZodType<GoalTarget> = backboneElementSchema.extend({
   measure: codeableConceptSchema.optional(),
@@ -41,14 +41,14 @@ const goalTargetSchema: ZodType<GoalTarget> = backboneElementSchema.extend({
   dueDate: dateSchema.optional(),
   _dueDate: elementSchema.optional(),
   dueDuration: quantitySchema.optional(),
-})
+});
 
 /**
  * Zod schema for FHIR Goal resource (untyped version).
  */
 export const untypedGoalSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Goal').readonly(),
+    resourceType: z.literal("Goal").readonly(),
     identifier: identifierSchema.array().optional(),
     lifecycleStatus: goalLifecycleStatusSchema,
     _lifecycleStatus: elementSchema.optional(),
@@ -71,12 +71,12 @@ export const untypedGoalSchema = z.lazy(() =>
     outcomeCode: codeableConceptSchema.array().optional(),
     outcomeReference: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<Goal>
+) satisfies ZodType<Goal>;
 
 /**
  * Zod schema for FHIR Goal resource.
  */
-export const goalSchema: ZodType<Goal> = untypedGoalSchema
+export const goalSchema: ZodType<Goal> = untypedGoalSchema;
 
 /**
  * Wrapper class for FHIR Goal resources.
@@ -92,7 +92,7 @@ export class FhirGoal extends FhirDomainResource<Goal> {
    * @returns A FhirGoal instance
    */
   public static parse(value: unknown): FhirGoal {
-    return new FhirGoal(goalSchema.parse(value))
+    return new FhirGoal(goalSchema.parse(value));
   }
 
   // Properties
@@ -103,7 +103,7 @@ export class FhirGoal extends FhirDomainResource<Goal> {
    * @returns The start date if available
    */
   public get startDate(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.startDate)
+    return FhirDomainResource.parseDate(this.value.startDate);
   }
 
   /**
@@ -112,7 +112,7 @@ export class FhirGoal extends FhirDomainResource<Goal> {
    * @returns The description display
    */
   public get descriptionDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.description)
+    return FhirDomainResource.codeableConceptDisplay(this.value.description);
   }
 
   /**
@@ -121,7 +121,7 @@ export class FhirGoal extends FhirDomainResource<Goal> {
    * @returns Array of category display texts
    */
   public get categoryDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+    return FhirDomainResource.codeableConceptDisplays(this.value.category);
   }
 
   /**
@@ -130,7 +130,7 @@ export class FhirGoal extends FhirDomainResource<Goal> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -143,7 +143,7 @@ export class FhirGoal extends FhirDomainResource<Goal> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -156,7 +156,7 @@ export class FhirGoal extends FhirDomainResource<Goal> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -166,7 +166,7 @@ export class FhirGoal extends FhirDomainResource<Goal> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -176,6 +176,6 @@ export class FhirGoal extends FhirDomainResource<Goal> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

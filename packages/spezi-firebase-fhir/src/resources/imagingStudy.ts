@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type ImagingStudy } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type ImagingStudy } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -22,15 +22,15 @@ import {
   referenceSchema,
   stringSchema,
   unsignedIntSchema,
-} from '../elements/index.js'
-import { imagingStudyStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { imagingStudyStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR ImagingStudy resource (untyped version).
  */
 export const untypedImagingStudySchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ImagingStudy').readonly(),
+    resourceType: z.literal("ImagingStudy").readonly(),
     identifier: identifierSchema.array().optional(),
     status: imagingStudyStatusSchema,
     _status: elementSchema.optional(),
@@ -90,13 +90,13 @@ export const untypedImagingStudySchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<ImagingStudy>
+) satisfies ZodType<ImagingStudy>;
 
 /**
  * Zod schema for FHIR ImagingStudy resource.
  */
 export const imagingStudySchema: ZodType<ImagingStudy> =
-  untypedImagingStudySchema
+  untypedImagingStudySchema;
 
 /**
  * Wrapper class for FHIR ImagingStudy resources.
@@ -112,7 +112,7 @@ export class FhirImagingStudy extends FhirDomainResource<ImagingStudy> {
    * @returns A FhirImagingStudy instance containing the validated resource
    */
   public static parse(value: unknown): FhirImagingStudy {
-    return new FhirImagingStudy(imagingStudySchema.parse(value))
+    return new FhirImagingStudy(imagingStudySchema.parse(value));
   }
 
   /**
@@ -127,7 +127,7 @@ export class FhirImagingStudy extends FhirDomainResource<ImagingStudy> {
    * ```
    */
   public get startedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.started)
+    return FhirDomainResource.parseDateTime(this.value.started);
   }
 
   /**
@@ -142,7 +142,7 @@ export class FhirImagingStudy extends FhirDomainResource<ImagingStudy> {
    * ```
    */
   public get modalityDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.modality)
+    return FhirDomainResource.codeableConceptDisplays(this.value.modality);
   }
 
   /**
@@ -157,7 +157,7 @@ export class FhirImagingStudy extends FhirDomainResource<ImagingStudy> {
    * ```
    */
   public get reasonDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.reasonCode)
+    return FhirDomainResource.codeableConceptDisplays(this.value.reasonCode);
   }
 
   /**
@@ -172,7 +172,7 @@ export class FhirImagingStudy extends FhirDomainResource<ImagingStudy> {
    * ```
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -185,7 +185,7 @@ export class FhirImagingStudy extends FhirDomainResource<ImagingStudy> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -198,7 +198,7 @@ export class FhirImagingStudy extends FhirDomainResource<ImagingStudy> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -208,7 +208,7 @@ export class FhirImagingStudy extends FhirDomainResource<ImagingStudy> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -218,6 +218,6 @@ export class FhirImagingStudy extends FhirDomainResource<ImagingStudy> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

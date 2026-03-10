@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Element } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { stringSchema } from './dataTypes/primitiveTypes.js'
-import { extensionSchema } from './extension.js'
+import { type Element } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { stringSchema } from "./dataTypes/primitiveTypes.js";
+import { extensionSchema } from "./extension.js";
 
 /**
  * Zod schema for FHIR Element data type (base type for all FHIR elements).
@@ -17,8 +17,8 @@ import { extensionSchema } from './extension.js'
 export const elementSchema = z.object({
   id: stringSchema.optional(),
   get _id() {
-    const schema = elementSchema as ZodType<Element>
-    return schema.optional()
+    const schema = elementSchema as ZodType<Element>;
+    return schema.optional();
   },
   extension: extensionSchema.array().optional(),
-}) satisfies ZodType<Element>
+}) satisfies ZodType<Element>;

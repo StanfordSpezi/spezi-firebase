@@ -6,18 +6,18 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Extension } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { addressSchema } from './dataTypes/address.js'
-import { annotationSchema } from './dataTypes/annotation.js'
-import { attachmentSchema } from './dataTypes/attachment.js'
-import { codeableConceptSchema } from './dataTypes/codeableConcept.js'
-import { codingSchema } from './dataTypes/coding.js'
-import { contactPointSchema } from './dataTypes/contactPoint.js'
-import { humanNameSchema } from './dataTypes/humanName.js'
-import { identifierSchema } from './dataTypes/identifier.js'
-import { moneySchema } from './dataTypes/money.js'
-import { periodSchema } from './dataTypes/period.js'
+import { type Extension } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { addressSchema } from "./dataTypes/address.js";
+import { annotationSchema } from "./dataTypes/annotation.js";
+import { attachmentSchema } from "./dataTypes/attachment.js";
+import { codeableConceptSchema } from "./dataTypes/codeableConcept.js";
+import { codingSchema } from "./dataTypes/coding.js";
+import { contactPointSchema } from "./dataTypes/contactPoint.js";
+import { humanNameSchema } from "./dataTypes/humanName.js";
+import { identifierSchema } from "./dataTypes/identifier.js";
+import { moneySchema } from "./dataTypes/money.js";
+import { periodSchema } from "./dataTypes/period.js";
 import {
   base64BinarySchema,
   booleanSchema,
@@ -37,25 +37,25 @@ import {
   unsignedIntSchema,
   urlSchema,
   uuidSchema,
-} from './dataTypes/primitiveTypes.js'
-import { quantitySchema } from './dataTypes/quantity.js'
-import { rangeSchema } from './dataTypes/range.js'
-import { ratioSchema } from './dataTypes/ratio.js'
-import { ratioRangeSchema } from './dataTypes/ratioRange.js'
-import { referenceSchema } from './dataTypes/reference.js'
-import { sampledDataSchema } from './dataTypes/sampledData.js'
-import { signatureSchema } from './dataTypes/signature.js'
-import { timingSchema } from './dataTypes/timing.js'
-import { dosageSchema } from './dosage.js'
-import { elementSchema } from './element.js'
-import { contactDetailSchema } from './metaDataTypes/contactDetail.js'
-import { contributorSchema } from './metaDataTypes/contributor.js'
-import { dataRequirementSchema } from './metaDataTypes/dataRequirement.js'
-import { expressionSchema } from './metaDataTypes/expression.js'
-import { parameterDefinitionSchema } from './metaDataTypes/parameterDefinition.js'
-import { relatedArtifactSchema } from './metaDataTypes/relatedArtifact.js'
-import { triggerDefinitionSchema } from './metaDataTypes/triggerDefinition.js'
-import { usageContextSchema } from './metaDataTypes/usageContext.js'
+} from "./dataTypes/primitiveTypes.js";
+import { quantitySchema } from "./dataTypes/quantity.js";
+import { rangeSchema } from "./dataTypes/range.js";
+import { ratioSchema } from "./dataTypes/ratio.js";
+import { ratioRangeSchema } from "./dataTypes/ratioRange.js";
+import { referenceSchema } from "./dataTypes/reference.js";
+import { sampledDataSchema } from "./dataTypes/sampledData.js";
+import { signatureSchema } from "./dataTypes/signature.js";
+import { timingSchema } from "./dataTypes/timing.js";
+import { dosageSchema } from "./dosage.js";
+import { elementSchema } from "./element.js";
+import { contactDetailSchema } from "./metaDataTypes/contactDetail.js";
+import { contributorSchema } from "./metaDataTypes/contributor.js";
+import { dataRequirementSchema } from "./metaDataTypes/dataRequirement.js";
+import { expressionSchema } from "./metaDataTypes/expression.js";
+import { parameterDefinitionSchema } from "./metaDataTypes/parameterDefinition.js";
+import { relatedArtifactSchema } from "./metaDataTypes/relatedArtifact.js";
+import { triggerDefinitionSchema } from "./metaDataTypes/triggerDefinition.js";
+import { usageContextSchema } from "./metaDataTypes/usageContext.js";
 
 /**
  * Zod schema for FHIR Extension data type.
@@ -131,9 +131,9 @@ export const untypedExtensionSchema = z.lazy(() =>
     valueUsageContext: usageContextSchema.optional(),
     valueDosage: dosageSchema.optional(),
   }),
-) satisfies ZodType<Extension>
+) satisfies ZodType<Extension>;
 
 /**
  * Zod schema for FHIR Extension data type.
  */
-export const extensionSchema: ZodType<Extension> = untypedExtensionSchema
+export const extensionSchema: ZodType<Extension> = untypedExtensionSchema;

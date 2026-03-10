@@ -15,9 +15,9 @@ import {
   type MeasureReportGroupStratifierStratumPopulation,
   type MeasureReportGroupStratifierStratumComponent,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -30,24 +30,24 @@ import {
   quantitySchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   measureReportStatusSchema,
   measureReportTypeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const measureReportGroupStratifierStratumComponentSchema: ZodType<MeasureReportGroupStratifierStratumComponent> =
   backboneElementSchema.extend({
     code: codeableConceptSchema,
     value: codeableConceptSchema,
-  })
+  });
 
 const measureReportGroupStratifierStratumPopulationSchema: ZodType<MeasureReportGroupStratifierStratumPopulation> =
   backboneElementSchema.extend({
     code: codeableConceptSchema.optional(),
     count: intSchema.optional(),
     subjectResults: referenceSchema.optional(),
-  })
+  });
 
 const measureReportGroupStratifierStratumSchema: ZodType<MeasureReportGroupStratifierStratum> =
   backboneElementSchema.extend({
@@ -59,20 +59,20 @@ const measureReportGroupStratifierStratumSchema: ZodType<MeasureReportGroupStrat
       .array()
       .optional(),
     measureScore: quantitySchema.optional(),
-  })
+  });
 
 const measureReportGroupStratifierSchema: ZodType<MeasureReportGroupStratifier> =
   backboneElementSchema.extend({
     code: codeableConceptSchema.array().optional(),
     stratum: measureReportGroupStratifierStratumSchema.array().optional(),
-  })
+  });
 
 const measureReportGroupPopulationSchema: ZodType<MeasureReportGroupPopulation> =
   backboneElementSchema.extend({
     code: codeableConceptSchema.optional(),
     count: intSchema.optional(),
     subjectResults: referenceSchema.optional(),
-  })
+  });
 
 const measureReportGroupSchema: ZodType<MeasureReportGroup> =
   backboneElementSchema.extend({
@@ -80,14 +80,14 @@ const measureReportGroupSchema: ZodType<MeasureReportGroup> =
     population: measureReportGroupPopulationSchema.array().optional(),
     measureScore: quantitySchema.optional(),
     stratifier: measureReportGroupStratifierSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR MeasureReport resource (untyped version).
  */
 export const untypedMeasureReportSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('MeasureReport').readonly(),
+    resourceType: z.literal("MeasureReport").readonly(),
     identifier: identifierSchema.array().optional(),
     status: measureReportStatusSchema,
     _status: elementSchema.optional(),
@@ -104,13 +104,13 @@ export const untypedMeasureReportSchema = z.lazy(() =>
     group: measureReportGroupSchema.array().optional(),
     evaluatedResource: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<MeasureReport>
+) satisfies ZodType<MeasureReport>;
 
 /**
  * Zod schema for FHIR MeasureReport resource.
  */
 export const measureReportSchema: ZodType<MeasureReport> =
-  untypedMeasureReportSchema
+  untypedMeasureReportSchema;
 
 /**
  * Wrapper class for FHIR MeasureReport resources.
@@ -124,7 +124,7 @@ export class FhirMeasureReport extends FhirDomainResource<MeasureReport> {
    * @returns A FhirMeasureReport instance containing the validated resource
    */
   public static parse(value: unknown): FhirMeasureReport {
-    return new FhirMeasureReport(measureReportSchema.parse(value))
+    return new FhirMeasureReport(measureReportSchema.parse(value));
   }
 
   /**
@@ -133,7 +133,7 @@ export class FhirMeasureReport extends FhirDomainResource<MeasureReport> {
    * @returns The date the report was generated, or undefined if not set
    */
   public get date(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.date)
+    return FhirDomainResource.parseDateTime(this.value.date);
   }
 
   /**
@@ -142,7 +142,7 @@ export class FhirMeasureReport extends FhirDomainResource<MeasureReport> {
    * @returns The period start date, or undefined if not set
    */
   public get periodStart(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.period.start)
+    return FhirDomainResource.parseDateTime(this.value.period.start);
   }
 
   /**
@@ -151,7 +151,7 @@ export class FhirMeasureReport extends FhirDomainResource<MeasureReport> {
    * @returns The period end date, or undefined if not set
    */
   public get periodEnd(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.period.end)
+    return FhirDomainResource.parseDateTime(this.value.period.end);
   }
 
   /**
@@ -164,7 +164,7 @@ export class FhirMeasureReport extends FhirDomainResource<MeasureReport> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -177,7 +177,7 @@ export class FhirMeasureReport extends FhirDomainResource<MeasureReport> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -187,7 +187,7 @@ export class FhirMeasureReport extends FhirDomainResource<MeasureReport> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -197,6 +197,6 @@ export class FhirMeasureReport extends FhirDomainResource<MeasureReport> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

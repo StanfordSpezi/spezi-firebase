@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type DeviceUseStatement } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type DeviceUseStatement } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   codeableConceptSchema,
@@ -19,15 +19,15 @@ import {
   periodSchema,
   referenceSchema,
   timingSchema,
-} from '../elements/index.js'
-import { deviceUseStatementStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { deviceUseStatementStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR DeviceUseStatement resource (untyped version).
  */
 export const untypedDeviceUseStatementSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('DeviceUseStatement').readonly(),
+    resourceType: z.literal("DeviceUseStatement").readonly(),
     identifier: identifierSchema.array().optional(),
     basedOn: referenceSchema.array().optional(),
     status: deviceUseStatementStatusSchema,
@@ -47,13 +47,13 @@ export const untypedDeviceUseStatementSchema = z.lazy(() =>
     bodySite: codeableConceptSchema.optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<DeviceUseStatement>
+) satisfies ZodType<DeviceUseStatement>;
 
 /**
  * Zod schema for FHIR DeviceUseStatement resource.
  */
 export const deviceUseStatementSchema: ZodType<DeviceUseStatement> =
-  untypedDeviceUseStatementSchema
+  untypedDeviceUseStatementSchema;
 
 /**
  * Wrapper class for FHIR DeviceUseStatement resources.
@@ -69,7 +69,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
    * @returns A FhirDeviceUseStatement instance containing the validated resource
    */
   public static parse(value: unknown): FhirDeviceUseStatement {
-    return new FhirDeviceUseStatement(deviceUseStatementSchema.parse(value))
+    return new FhirDeviceUseStatement(deviceUseStatementSchema.parse(value));
   }
 
   /**
@@ -77,7 +77,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
    * @returns The recorded date, or undefined if not set
    */
   public get recordedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.recordedOn)
+    return FhirDomainResource.parseDateTime(this.value.recordedOn);
   }
 
   /**
@@ -85,7 +85,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
    * @returns The timing date, or undefined if not set or not a dateTime
    */
   public get timingDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.timingDateTime)
+    return FhirDomainResource.parseDateTime(this.value.timingDateTime);
   }
 
   /**
@@ -93,7 +93,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
    * @returns The start date, or undefined if not set
    */
   public get timingPeriodStart(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.timingPeriod?.start)
+    return FhirDomainResource.parseDateTime(this.value.timingPeriod?.start);
   }
 
   /**
@@ -101,7 +101,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
    * @returns The end date, or undefined if not set
    */
   public get timingPeriodEnd(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.timingPeriod?.end)
+    return FhirDomainResource.parseDateTime(this.value.timingPeriod?.end);
   }
 
   /**
@@ -109,7 +109,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
    * @returns Body site display text
    */
   public get bodySiteDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.bodySite)
+    return FhirDomainResource.codeableConceptDisplay(this.value.bodySite);
   }
 
   /**
@@ -117,7 +117,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
    * @returns Array of reason display texts
    */
   public get reasonDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.reasonCode)
+    return FhirDomainResource.codeableConceptDisplays(this.value.reasonCode);
   }
 
   /**
@@ -125,7 +125,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -138,7 +138,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -151,7 +151,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -161,7 +161,7 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -171,6 +171,6 @@ export class FhirDeviceUseStatement extends FhirDomainResource<DeviceUseStatemen
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

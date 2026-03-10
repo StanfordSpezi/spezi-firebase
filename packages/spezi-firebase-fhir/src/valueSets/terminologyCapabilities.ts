@@ -6,20 +6,20 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
-import { capabilityStatementKindSchema } from './capabilityStatement.js'
+import { z } from "zod";
+import { capabilityStatementKindSchema } from "./capabilityStatement.js";
 
 /**
  * The type of search supported.
  * http://hl7.org/fhir/valueset-code-search-support.html
  */
-export const codeSearchSupportSchema = z.enum(['explicit', 'all'])
+export const codeSearchSupportSchema = z.enum(["explicit", "all"]);
 
 /**
  * The type of search supported.
  * http://hl7.org/fhir/valueset-code-search-support.html
  */
-export type CodeSearchSupport = z.infer<typeof codeSearchSupportSchema>
+export type CodeSearchSupport = z.infer<typeof codeSearchSupportSchema>;
 
 // Re-export from capabilityStatement.ts for backwards compatibility
-export { capabilityStatementKindSchema }
+export { capabilityStatementKindSchema };

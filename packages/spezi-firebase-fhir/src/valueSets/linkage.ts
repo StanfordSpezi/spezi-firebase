@@ -6,20 +6,20 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Distinguishes which item is "source of truth" (if any) and which items are no longer considered to be current representations.
  * http://hl7.org/fhir/valueset-linkage-type.html
  */
 export const linkageItemTypeSchema = z.enum([
-  'source',
-  'alternate',
-  'historical',
-])
+  "source",
+  "alternate",
+  "historical",
+]);
 
 /**
  * Distinguishes which item is "source of truth" (if any) and which items are no longer considered to be current representations.
  * http://hl7.org/fhir/valueset-linkage-type.html
  */
-export type LinkageItemType = z.infer<typeof linkageItemTypeSchema>
+export type LinkageItemType = z.infer<typeof linkageItemTypeSchema>;

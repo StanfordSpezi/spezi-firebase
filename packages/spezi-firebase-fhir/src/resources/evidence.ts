@@ -16,9 +16,9 @@ import {
   type EvidenceStatisticModelCharacteristic,
   type EvidenceStatisticModelCharacteristicVariable,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -39,11 +39,11 @@ import {
   uriSchema,
   usageContextSchema,
   unsignedIntSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   evidenceVariableHandlingSchema,
   publicationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const evidenceVariableDefinitionSchema: ZodType<EvidenceVariableDefinition> =
   backboneElementSchema.extend({
@@ -54,7 +54,7 @@ const evidenceVariableDefinitionSchema: ZodType<EvidenceVariableDefinition> =
     observed: referenceSchema.optional(),
     intended: referenceSchema.optional(),
     directnessMatch: codeableConceptSchema.optional(),
-  })
+  });
 
 const evidenceStatisticAttributeEstimateSchema: ZodType<EvidenceStatisticAttributeEstimate> =
   backboneElementSchema.extend({
@@ -67,9 +67,9 @@ const evidenceStatisticAttributeEstimateSchema: ZodType<EvidenceStatisticAttribu
     _level: elementSchema.optional(),
     range: rangeSchema.optional(),
     get attributeEstimate() {
-      return evidenceStatisticAttributeEstimateSchema.array().optional()
+      return evidenceStatisticAttributeEstimateSchema.array().optional();
     },
-  })
+  });
 
 const evidenceStatisticSampleSizeSchema: ZodType<EvidenceStatisticSampleSize> =
   backboneElementSchema.extend({
@@ -82,7 +82,7 @@ const evidenceStatisticSampleSizeSchema: ZodType<EvidenceStatisticSampleSize> =
     _numberOfParticipants: elementSchema.optional(),
     knownDataCount: unsignedIntSchema.optional(),
     _knownDataCount: elementSchema.optional(),
-  })
+  });
 
 const evidenceStatisticModelCharacteristicVariableSchema: ZodType<EvidenceStatisticModelCharacteristicVariable> =
   backboneElementSchema.extend({
@@ -92,7 +92,7 @@ const evidenceStatisticModelCharacteristicVariableSchema: ZodType<EvidenceStatis
     valueCategory: codeableConceptSchema.array().optional(),
     valueQuantity: quantitySchema.array().optional(),
     valueRange: rangeSchema.array().optional(),
-  })
+  });
 
 const evidenceStatisticModelCharacteristicSchema: ZodType<EvidenceStatisticModelCharacteristic> =
   backboneElementSchema.extend({
@@ -104,7 +104,7 @@ const evidenceStatisticModelCharacteristicSchema: ZodType<EvidenceStatisticModel
     attributeEstimate: evidenceStatisticAttributeEstimateSchema
       .array()
       .optional(),
-  })
+  });
 
 const evidenceStatisticSchema: ZodType<EvidenceStatistic> =
   backboneElementSchema.extend({
@@ -125,7 +125,7 @@ const evidenceStatisticSchema: ZodType<EvidenceStatistic> =
     modelCharacteristic: evidenceStatisticModelCharacteristicSchema
       .array()
       .optional(),
-  })
+  });
 
 const evidenceCertaintySchema: ZodType<EvidenceCertainty> =
   backboneElementSchema.extend({
@@ -137,16 +137,16 @@ const evidenceCertaintySchema: ZodType<EvidenceCertainty> =
     rater: stringSchema.optional(),
     _rater: elementSchema.optional(),
     get subcomponent() {
-      return evidenceCertaintySchema.array().optional()
+      return evidenceCertaintySchema.array().optional();
     },
-  })
+  });
 
 /**
  * Zod schema for FHIR Evidence resource (untyped version).
  */
 export const untypedEvidenceSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Evidence').readonly(),
+    resourceType: z.literal("Evidence").readonly(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -185,12 +185,12 @@ export const untypedEvidenceSchema = z.lazy(() =>
     statistic: evidenceStatisticSchema.array().optional(),
     certainty: evidenceCertaintySchema.array().optional(),
   }),
-) satisfies ZodType<Evidence>
+) satisfies ZodType<Evidence>;
 
 /**
  * Zod schema for FHIR Evidence resource.
  */
-export const evidenceSchema: ZodType<Evidence> = untypedEvidenceSchema
+export const evidenceSchema: ZodType<Evidence> = untypedEvidenceSchema;
 
 /**
  * Wrapper class for FHIR Evidence resources.
@@ -206,7 +206,7 @@ export class FhirEvidence extends FhirDomainResource<Evidence> {
    * @returns A FhirEvidence instance containing the validated resource
    */
   public static parse(value: unknown): FhirEvidence {
-    return new FhirEvidence(evidenceSchema.parse(value))
+    return new FhirEvidence(evidenceSchema.parse(value));
   }
 
   /**
@@ -219,7 +219,7 @@ export class FhirEvidence extends FhirDomainResource<Evidence> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -232,7 +232,7 @@ export class FhirEvidence extends FhirDomainResource<Evidence> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -242,7 +242,7 @@ export class FhirEvidence extends FhirDomainResource<Evidence> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -252,6 +252,6 @@ export class FhirEvidence extends FhirDomainResource<Evidence> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -17,9 +17,9 @@ import {
   type MolecularSequenceVariant,
   type MolecularSequence,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -31,14 +31,14 @@ import {
   quantitySchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   molecularSequenceTypeSchema,
   orientationTypeSchema,
   strandTypeSchema,
   qualityTypeSchema,
   repositoryTypeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const molecularSequenceReferenceSeqSchema: ZodType<MolecularSequenceReferenceSeq> =
   backboneElementSchema.extend({
@@ -55,7 +55,7 @@ const molecularSequenceReferenceSeqSchema: ZodType<MolecularSequenceReferenceSeq
     _strand: elementSchema.optional(),
     windowStart: intSchema.optional(),
     windowEnd: intSchema.optional(),
-  })
+  });
 
 const molecularSequenceVariantSchema: ZodType<MolecularSequenceVariant> =
   backboneElementSchema.extend({
@@ -68,7 +68,7 @@ const molecularSequenceVariantSchema: ZodType<MolecularSequenceVariant> =
     cigar: stringSchema.optional(),
     _cigar: elementSchema.optional(),
     variantPointer: referenceSchema.optional(),
-  })
+  });
 
 const molecularSequenceQualityRocSchema: ZodType<MolecularSequenceQualityRoc> =
   backboneElementSchema.extend({
@@ -79,7 +79,7 @@ const molecularSequenceQualityRocSchema: ZodType<MolecularSequenceQualityRoc> =
     precision: intSchema.array().optional(),
     sensitivity: intSchema.array().optional(),
     fMeasure: intSchema.array().optional(),
-  })
+  });
 
 const molecularSequenceQualitySchema: ZodType<MolecularSequenceQuality> =
   backboneElementSchema.extend({
@@ -99,7 +99,7 @@ const molecularSequenceQualitySchema: ZodType<MolecularSequenceQuality> =
     recall: intSchema.optional(),
     fScore: intSchema.optional(),
     roc: molecularSequenceQualityRocSchema.optional(),
-  })
+  });
 
 const molecularSequenceRepositorySchema: ZodType<MolecularSequenceRepository> =
   backboneElementSchema.extend({
@@ -115,19 +115,19 @@ const molecularSequenceRepositorySchema: ZodType<MolecularSequenceRepository> =
     _variantsetId: elementSchema.optional(),
     readsetId: stringSchema.optional(),
     _readsetId: elementSchema.optional(),
-  })
+  });
 
 const molecularSequenceStructureVariantInnerSchema: ZodType<MolecularSequenceStructureVariantInner> =
   backboneElementSchema.extend({
     start: intSchema.optional(),
     end: intSchema.optional(),
-  })
+  });
 
 const molecularSequenceStructureVariantOuterSchema: ZodType<MolecularSequenceStructureVariantOuter> =
   backboneElementSchema.extend({
     start: intSchema.optional(),
     end: intSchema.optional(),
-  })
+  });
 
 const molecularSequenceStructureVariantSchema: ZodType<MolecularSequenceStructureVariant> =
   backboneElementSchema.extend({
@@ -137,14 +137,14 @@ const molecularSequenceStructureVariantSchema: ZodType<MolecularSequenceStructur
     length: intSchema.optional(),
     outer: molecularSequenceStructureVariantOuterSchema.optional(),
     inner: molecularSequenceStructureVariantInnerSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR MolecularSequence resource (untyped version).
  */
 export const untypedMolecularSequenceSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('MolecularSequence').readonly(),
+    resourceType: z.literal("MolecularSequence").readonly(),
     identifier: identifierSchema.array().optional(),
     type: molecularSequenceTypeSchema.optional(),
     _type: elementSchema.optional(),
@@ -166,13 +166,13 @@ export const untypedMolecularSequenceSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<MolecularSequence>
+) satisfies ZodType<MolecularSequence>;
 
 /**
  * Zod schema for FHIR MolecularSequence resource.
  */
 export const molecularSequenceSchema: ZodType<MolecularSequence> =
-  untypedMolecularSequenceSchema
+  untypedMolecularSequenceSchema;
 
 /**
  * Wrapper class for FHIR MolecularSequence resources.
@@ -188,7 +188,7 @@ export class FhirMolecularSequence extends FhirDomainResource<MolecularSequence>
    * @returns A FhirMolecularSequence instance containing the validated resource
    */
   public static parse(value: unknown): FhirMolecularSequence {
-    return new FhirMolecularSequence(molecularSequenceSchema.parse(value))
+    return new FhirMolecularSequence(molecularSequenceSchema.parse(value));
   }
 
   /**
@@ -201,7 +201,7 @@ export class FhirMolecularSequence extends FhirDomainResource<MolecularSequence>
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -214,7 +214,7 @@ export class FhirMolecularSequence extends FhirDomainResource<MolecularSequence>
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -224,7 +224,7 @@ export class FhirMolecularSequence extends FhirDomainResource<MolecularSequence>
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -234,6 +234,6 @@ export class FhirMolecularSequence extends FhirDomainResource<MolecularSequence>
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

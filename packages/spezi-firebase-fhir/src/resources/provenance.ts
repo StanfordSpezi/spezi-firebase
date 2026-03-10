@@ -10,9 +10,9 @@ import {
   type ProvenanceAgent,
   type ProvenanceEntity,
   type Provenance,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -24,8 +24,8 @@ import {
   referenceSchema,
   signatureSchema,
   uriSchema,
-} from '../elements/index.js'
-import { provenanceEntityRoleSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { provenanceEntityRoleSchema } from "../valueSets/index.js";
 
 const provenanceAgentSchema: ZodType<ProvenanceAgent> =
   backboneElementSchema.extend({
@@ -33,7 +33,7 @@ const provenanceAgentSchema: ZodType<ProvenanceAgent> =
     role: codeableConceptSchema.array().optional(),
     who: referenceSchema,
     onBehalfOf: referenceSchema.optional(),
-  })
+  });
 
 const provenanceEntitySchema: ZodType<ProvenanceEntity> =
   backboneElementSchema.extend({
@@ -41,14 +41,14 @@ const provenanceEntitySchema: ZodType<ProvenanceEntity> =
     _role: elementSchema.optional(),
     what: referenceSchema,
     agent: provenanceAgentSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Provenance resource (untyped version).
  */
 export const untypedProvenanceSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Provenance').readonly(),
+    resourceType: z.literal("Provenance").readonly(),
     target: referenceSchema.array().min(1),
     occurredPeriod: periodSchema.optional(),
     occurredDateTime: dateTimeSchema.optional(),
@@ -64,12 +64,12 @@ export const untypedProvenanceSchema = z.lazy(() =>
     entity: provenanceEntitySchema.array().optional(),
     signature: signatureSchema.array().optional(),
   }),
-) satisfies ZodType<Provenance>
+) satisfies ZodType<Provenance>;
 
 /**
  * Zod schema for FHIR Provenance resource.
  */
-export const provenanceSchema: ZodType<Provenance> = untypedProvenanceSchema
+export const provenanceSchema: ZodType<Provenance> = untypedProvenanceSchema;
 
 /**
  * Wrapper class for FHIR Provenance resources.
@@ -83,7 +83,7 @@ export class FhirProvenance extends FhirDomainResource<Provenance> {
    * @returns A FhirProvenance instance containing the validated resource
    */
   public static parse(value: unknown): FhirProvenance {
-    return new FhirProvenance(provenanceSchema.parse(value))
+    return new FhirProvenance(provenanceSchema.parse(value));
   }
 
   /**
@@ -92,7 +92,7 @@ export class FhirProvenance extends FhirDomainResource<Provenance> {
    * @returns The recorded date/time, or undefined if not set
    */
   public get recordedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.recorded)
+    return FhirDomainResource.parseDateTime(this.value.recorded);
   }
 
   /**
@@ -101,6 +101,6 @@ export class FhirProvenance extends FhirDomainResource<Provenance> {
    * @returns The occurred date/time, or undefined if not set
    */
   public get occurredDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.occurredDateTime)
+    return FhirDomainResource.parseDateTime(this.value.occurredDateTime);
   }
 }

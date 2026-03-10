@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type EventDefinition } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type EventDefinition } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   booleanSchema,
   codeableConceptSchema,
@@ -26,15 +26,15 @@ import {
   triggerDefinitionSchema,
   uriSchema,
   usageContextSchema,
-} from '../elements/index.js'
-import { publicationStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { publicationStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR EventDefinition resource (untyped version).
  */
 export const untypedEventDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('EventDefinition').readonly(),
+    resourceType: z.literal("EventDefinition").readonly(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -80,13 +80,13 @@ export const untypedEventDefinitionSchema = z.lazy(() =>
     relatedArtifact: relatedArtifactSchema.array().optional(),
     trigger: triggerDefinitionSchema.array(),
   }),
-) satisfies ZodType<EventDefinition>
+) satisfies ZodType<EventDefinition>;
 
 /**
  * Zod schema for FHIR EventDefinition resource.
  */
 export const eventDefinitionSchema: ZodType<EventDefinition> =
-  untypedEventDefinitionSchema
+  untypedEventDefinitionSchema;
 
 /**
  * Wrapper class for FHIR EventDefinition resources.
@@ -102,7 +102,7 @@ export class FhirEventDefinition extends FhirDomainResource<EventDefinition> {
    * @returns A FhirEventDefinition instance containing the validated resource
    */
   public static parse(value: unknown): FhirEventDefinition {
-    return new FhirEventDefinition(eventDefinitionSchema.parse(value))
+    return new FhirEventDefinition(eventDefinitionSchema.parse(value));
   }
 
   /**
@@ -115,7 +115,7 @@ export class FhirEventDefinition extends FhirDomainResource<EventDefinition> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -128,7 +128,7 @@ export class FhirEventDefinition extends FhirDomainResource<EventDefinition> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -138,7 +138,7 @@ export class FhirEventDefinition extends FhirDomainResource<EventDefinition> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -148,6 +148,6 @@ export class FhirEventDefinition extends FhirDomainResource<EventDefinition> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

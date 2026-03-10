@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Period } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { dateTimeSchema } from './primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type Period } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { dateTimeSchema } from "./primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 /**
  * Zod schema for FHIR Period data type.
@@ -21,9 +21,9 @@ export const untypedPeriodSchema = z.lazy(() =>
     end: dateTimeSchema.optional(),
     _end: elementSchema.optional(),
   }),
-) satisfies ZodType<Period>
+) satisfies ZodType<Period>;
 
 /**
  * Zod schema for FHIR Period data type.
  */
-export const periodSchema: ZodType<Period> = untypedPeriodSchema
+export const periodSchema: ZodType<Period> = untypedPeriodSchema;

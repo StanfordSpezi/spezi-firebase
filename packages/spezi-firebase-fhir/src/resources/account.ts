@@ -11,10 +11,10 @@ import {
   type AccountGuarantor,
   type Account,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   backboneElementSchema,
@@ -25,14 +25,14 @@ import {
   stringSchema,
   booleanSchema,
   positiveIntSchema,
-} from '../elements/index.js'
-import { accountStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { accountStatusSchema } from "../valueSets/index.js";
 
 const accountCoverageSchema: ZodType<AccountCoverage> =
   backboneElementSchema.extend({
     coverage: referenceSchema,
     priority: positiveIntSchema.optional(),
-  })
+  });
 
 const accountGuarantorSchema: ZodType<AccountGuarantor> =
   backboneElementSchema.extend({
@@ -40,14 +40,14 @@ const accountGuarantorSchema: ZodType<AccountGuarantor> =
     onHold: booleanSchema.optional(),
     _onHold: elementSchema.optional(),
     period: periodSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Account resource (untyped version).
  */
 export const untypedAccountSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Account').readonly(),
+    resourceType: z.literal("Account").readonly(),
     identifier: identifierSchema.array().optional(),
     status: accountStatusSchema,
     _status: elementSchema.optional(),
@@ -63,12 +63,12 @@ export const untypedAccountSchema = z.lazy(() =>
     guarantor: accountGuarantorSchema.array().optional(),
     partOf: referenceSchema.optional(),
   }),
-) satisfies ZodType<Account>
+) satisfies ZodType<Account>;
 
 /**
  * Zod schema for FHIR Account resource.
  */
-export const accountSchema: ZodType<Account> = untypedAccountSchema
+export const accountSchema: ZodType<Account> = untypedAccountSchema;
 
 /**
  * Wrapper class for FHIR Account resources.
@@ -85,7 +85,7 @@ export class FhirAccount extends FhirDomainResource<Account> {
    * @returns A FhirAccount instance containing the validated resource
    */
   public static parse(value: unknown): FhirAccount {
-    return new FhirAccount(accountSchema.parse(value))
+    return new FhirAccount(accountSchema.parse(value));
   }
 
   /**
@@ -99,7 +99,7 @@ export class FhirAccount extends FhirDomainResource<Account> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -112,7 +112,7 @@ export class FhirAccount extends FhirDomainResource<Account> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -122,7 +122,7 @@ export class FhirAccount extends FhirDomainResource<Account> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -132,7 +132,7 @@ export class FhirAccount extends FhirDomainResource<Account> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 
   /**
@@ -142,6 +142,6 @@ export class FhirAccount extends FhirDomainResource<Account> {
    * @returns The account type display text, if available
    */
   public get typeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+    return FhirDomainResource.codeableConceptDisplay(this.value.type);
   }
 }

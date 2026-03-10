@@ -6,11 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type CodeableConcept } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { codingSchema } from './coding.js'
-import { stringSchema } from './primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type CodeableConcept } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { codingSchema } from "./coding.js";
+import { stringSchema } from "./primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 /**
  * Zod schema for FHIR CodeableConcept data type.
@@ -22,10 +22,10 @@ export const untypedCodeableConceptSchema = z.lazy(() =>
     text: stringSchema.optional(),
     _text: elementSchema.optional(),
   }),
-) satisfies ZodType<CodeableConcept>
+) satisfies ZodType<CodeableConcept>;
 
 /**
  * Zod schema for FHIR CodeableConcept data type.
  */
 export const codeableConceptSchema: ZodType<CodeableConcept> =
-  untypedCodeableConceptSchema
+  untypedCodeableConceptSchema;

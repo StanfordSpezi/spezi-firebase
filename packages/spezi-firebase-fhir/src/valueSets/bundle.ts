@@ -6,58 +6,58 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The type of a bundle.
  * http://hl7.org/fhir/valueset-bundle-type.html
  */
 export const bundleTypeSchema = z.enum([
-  'document',
-  'message',
-  'transaction',
-  'transaction-response',
-  'batch',
-  'batch-response',
-  'history',
-  'searchset',
-  'collection',
-])
+  "document",
+  "message",
+  "transaction",
+  "transaction-response",
+  "batch",
+  "batch-response",
+  "history",
+  "searchset",
+  "collection",
+]);
 
 /**
  * The type of a bundle.
  * http://hl7.org/fhir/valueset-bundle-type.html
  */
-export type BundleType = z.infer<typeof bundleTypeSchema>
+export type BundleType = z.infer<typeof bundleTypeSchema>;
 
 /**
  * The search mode of an entry in a bundle.
  * http://hl7.org/fhir/valueset-search-entry-mode.html
  */
 export const bundleEntrySearchModeSchema = z.enum([
-  'match',
-  'include',
-  'outcome',
-])
+  "match",
+  "include",
+  "outcome",
+]);
 
 /**
  * The search mode of an entry in a bundle.
  * http://hl7.org/fhir/valueset-search-entry-mode.html
  */
-export type BundleEntrySearchMode = z.infer<typeof bundleEntrySearchModeSchema>
+export type BundleEntrySearchMode = z.infer<typeof bundleEntrySearchModeSchema>;
 
 /**
  * HTTP verbs (in the HTTP command line).
  * http://hl7.org/fhir/valueset-http-verb.html
  */
 export const bundleEntryRequestMethodSchema = z.enum([
-  'GET',
-  'HEAD',
-  'POST',
-  'PUT',
-  'DELETE',
-  'PATCH',
-])
+  "GET",
+  "HEAD",
+  "POST",
+  "PUT",
+  "DELETE",
+  "PATCH",
+]);
 
 /**
  * HTTP verbs (in the HTTP command line).
@@ -65,4 +65,4 @@ export const bundleEntryRequestMethodSchema = z.enum([
  */
 export type BundleEntryRequestMethod = z.infer<
   typeof bundleEntryRequestMethodSchema
->
+>;

@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type HealthcareService } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type HealthcareService } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -22,8 +22,8 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { daysOfWeekSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { daysOfWeekSchema } from "../valueSets/index.js";
 
 const availableTimeSchema = backboneElementSchema.extend({
   daysOfWeek: daysOfWeekSchema.array().optional(),
@@ -34,26 +34,26 @@ const availableTimeSchema = backboneElementSchema.extend({
   _availableStartTime: elementSchema.optional(),
   availableEndTime: stringSchema.optional(),
   _availableEndTime: elementSchema.optional(),
-})
+});
 
 const eligibilitySchema = backboneElementSchema.extend({
   code: codeableConceptSchema.optional(),
   comment: stringSchema.optional(),
   _comment: elementSchema.optional(),
-})
+});
 
 const notAvailableSchema = backboneElementSchema.extend({
   description: stringSchema,
   _description: elementSchema.optional(),
   during: periodSchema.optional(),
-})
+});
 
 /**
  * Zod schema for FHIR HealthcareService resource (untyped version).
  */
 export const untypedHealthcareServiceSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('HealthcareService').readonly(),
+    resourceType: z.literal("HealthcareService").readonly(),
     identifier: identifierSchema.array().optional(),
     active: booleanSchema.optional(),
     _active: elementSchema.optional(),
@@ -85,13 +85,13 @@ export const untypedHealthcareServiceSchema = z.lazy(() =>
     _availabilityExceptions: elementSchema.optional(),
     endpoint: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<HealthcareService>
+) satisfies ZodType<HealthcareService>;
 
 /**
  * Zod schema for FHIR HealthcareService resource.
  */
 export const healthcareServiceSchema: ZodType<HealthcareService> =
-  untypedHealthcareServiceSchema
+  untypedHealthcareServiceSchema;
 
 /**
  * Wrapper class for FHIR HealthcareService resources.
@@ -107,7 +107,7 @@ export class FhirHealthcareService extends FhirDomainResource<HealthcareService>
    * @returns A FhirHealthcareService instance containing the validated resource
    */
   public static parse(value: unknown): FhirHealthcareService {
-    return new FhirHealthcareService(healthcareServiceSchema.parse(value))
+    return new FhirHealthcareService(healthcareServiceSchema.parse(value));
   }
 
   /**
@@ -122,7 +122,7 @@ export class FhirHealthcareService extends FhirDomainResource<HealthcareService>
    * ```
    */
   public get categoryDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.category)
+    return FhirDomainResource.codeableConceptDisplays(this.value.category);
   }
 
   /**
@@ -137,7 +137,7 @@ export class FhirHealthcareService extends FhirDomainResource<HealthcareService>
    * ```
    */
   public get serviceTypeDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.type)
+    return FhirDomainResource.codeableConceptDisplays(this.value.type);
   }
 
   /**
@@ -152,7 +152,7 @@ export class FhirHealthcareService extends FhirDomainResource<HealthcareService>
    * ```
    */
   public get specialtyDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.specialty)
+    return FhirDomainResource.codeableConceptDisplays(this.value.specialty);
   }
 
   /**
@@ -167,7 +167,10 @@ export class FhirHealthcareService extends FhirDomainResource<HealthcareService>
    * ```
    */
   public get phoneNumbers(): string[] {
-    return FhirDomainResource.contactPointsBySystem(this.value.telecom, 'phone')
+    return FhirDomainResource.contactPointsBySystem(
+      this.value.telecom,
+      "phone",
+    );
   }
 
   /**
@@ -180,7 +183,7 @@ export class FhirHealthcareService extends FhirDomainResource<HealthcareService>
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -193,7 +196,7 @@ export class FhirHealthcareService extends FhirDomainResource<HealthcareService>
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -203,7 +206,7 @@ export class FhirHealthcareService extends FhirDomainResource<HealthcareService>
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -213,6 +216,6 @@ export class FhirHealthcareService extends FhirDomainResource<HealthcareService>
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

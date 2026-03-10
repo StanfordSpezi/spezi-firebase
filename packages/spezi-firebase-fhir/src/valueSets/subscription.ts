@@ -6,18 +6,18 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The status of a subscription.
  * http://hl7.org/fhir/valueset-subscription-status.html
  */
 export const subscriptionResourceStatusSchema = z.enum([
-  'requested',
-  'active',
-  'error',
-  'off',
-])
+  "requested",
+  "active",
+  "error",
+  "off",
+]);
 
 /**
  * The status of a subscription.
@@ -25,19 +25,19 @@ export const subscriptionResourceStatusSchema = z.enum([
  */
 export type SubscriptionResourceStatus = z.infer<
   typeof subscriptionResourceStatusSchema
->
+>;
 
 /**
  * The type of method used to execute a subscription.
  * http://hl7.org/fhir/valueset-subscription-channel-type.html
  */
 export const subscriptionChannelTypeSchema = z.enum([
-  'rest-hook',
-  'websocket',
-  'email',
-  'sms',
-  'message',
-])
+  "rest-hook",
+  "websocket",
+  "email",
+  "sms",
+  "message",
+]);
 
 /**
  * The type of method used to execute a subscription.
@@ -45,4 +45,4 @@ export const subscriptionChannelTypeSchema = z.enum([
  */
 export type SubscriptionChannelType = z.infer<
   typeof subscriptionChannelTypeSchema
->
+>;

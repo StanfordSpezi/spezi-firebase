@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type SubscriptionChannel, type Subscription } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type SubscriptionChannel, type Subscription } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   contactPointSchema,
@@ -17,11 +17,11 @@ import {
   instantSchema,
   stringSchema,
   urlSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   subscriptionResourceStatusSchema,
   subscriptionChannelTypeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const subscriptionChannelSchema: ZodType<SubscriptionChannel> =
   backboneElementSchema.extend({
@@ -33,14 +33,14 @@ const subscriptionChannelSchema: ZodType<SubscriptionChannel> =
     _payload: elementSchema.optional(),
     header: stringSchema.array().optional(),
     _header: elementSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Subscription resource (untyped version).
  */
 export const untypedSubscriptionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Subscription').readonly(),
+    resourceType: z.literal("Subscription").readonly(),
     status: subscriptionResourceStatusSchema,
     _status: elementSchema.optional(),
     contact: contactPointSchema.array().optional(),
@@ -54,13 +54,13 @@ export const untypedSubscriptionSchema = z.lazy(() =>
     _error: elementSchema.optional(),
     channel: subscriptionChannelSchema,
   }),
-) satisfies ZodType<Subscription>
+) satisfies ZodType<Subscription>;
 
 /**
  * Zod schema for FHIR Subscription resource.
  */
 export const subscriptionSchema: ZodType<Subscription> =
-  untypedSubscriptionSchema
+  untypedSubscriptionSchema;
 
 /**
  * Wrapper class for FHIR Subscription resources.
@@ -76,6 +76,6 @@ export class FhirSubscription extends FhirDomainResource<Subscription> {
    * @returns A FhirSubscription instance containing the validated resource
    */
   public static parse(value: unknown): FhirSubscription {
-    return new FhirSubscription(subscriptionSchema.parse(value))
+    return new FhirSubscription(subscriptionSchema.parse(value));
   }
 }

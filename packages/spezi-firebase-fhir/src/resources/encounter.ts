@@ -15,9 +15,9 @@ import {
   type EncounterStatusHistory,
   type Encounter,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -29,24 +29,24 @@ import {
   periodSchema,
   quantitySchema,
   referenceSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   encounterStatusSchema,
   encounterLocationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const encounterClassHistorySchema: ZodType<EncounterClassHistory> =
   backboneElementSchema.extend({
     class: codingSchema,
     period: periodSchema,
-  })
+  });
 
 const encounterDiagnosisSchema: ZodType<EncounterDiagnosis> =
   backboneElementSchema.extend({
     condition: referenceSchema,
     use: codeableConceptSchema.optional(),
     rank: intSchema.optional(),
-  })
+  });
 
 const encounterHospitalizationSchema: ZodType<EncounterHospitalization> =
   backboneElementSchema.extend({
@@ -59,7 +59,7 @@ const encounterHospitalizationSchema: ZodType<EncounterHospitalization> =
     specialArrangement: codeableConceptSchema.array().optional(),
     destination: referenceSchema.optional(),
     dischargeDisposition: codeableConceptSchema.optional(),
-  })
+  });
 
 const encounterLocationSchema: ZodType<EncounterLocation> =
   backboneElementSchema.extend({
@@ -68,20 +68,20 @@ const encounterLocationSchema: ZodType<EncounterLocation> =
     _status: elementSchema.optional(),
     physicalType: codeableConceptSchema.optional(),
     period: periodSchema.optional(),
-  })
+  });
 
 const encounterParticipantSchema: ZodType<EncounterParticipant> =
   backboneElementSchema.extend({
     type: codeableConceptSchema.array().optional(),
     period: periodSchema.optional(),
     individual: referenceSchema.optional(),
-  })
+  });
 
 const encounterStatusHistorySchema: ZodType<EncounterStatusHistory> =
   backboneElementSchema.extend({
     status: encounterStatusSchema,
     period: periodSchema,
-  })
+  });
 
 /**
  * Zod schema for FHIR Encounter resource (untyped version).
@@ -89,7 +89,7 @@ const encounterStatusHistorySchema: ZodType<EncounterStatusHistory> =
 export const untypedEncounterSchema = z.lazy(
   () =>
     domainResourceSchema.extend({
-      resourceType: z.literal('Encounter').readonly(),
+      resourceType: z.literal("Encounter").readonly(),
       account: referenceSchema.array().optional(),
       appointment: referenceSchema.array().optional(),
       basedOn: referenceSchema.array().optional(),
@@ -113,12 +113,12 @@ export const untypedEncounterSchema = z.lazy(
       subject: referenceSchema.optional(),
       type: codeableConceptSchema.array().optional(),
     }) satisfies ZodType<Encounter>,
-)
+);
 
 /**
  * Zod schema for FHIR Encounter resource.
  */
-export const encounterSchema: ZodType<Encounter> = untypedEncounterSchema
+export const encounterSchema: ZodType<Encounter> = untypedEncounterSchema;
 
 /**
  * Wrapper class for FHIR Encounter resources.
@@ -134,7 +134,7 @@ export class FhirEncounter extends FhirDomainResource<Encounter> {
    * @returns A FhirEncounter instance
    */
   public static parse(value: unknown): FhirEncounter {
-    return new FhirEncounter(encounterSchema.parse(value))
+    return new FhirEncounter(encounterSchema.parse(value));
   }
 
   // Properties
@@ -153,7 +153,7 @@ export class FhirEncounter extends FhirDomainResource<Encounter> {
    * ```
    */
   public get startDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.period?.start)
+    return FhirDomainResource.parseDateTime(this.value.period?.start);
   }
 
   /**
@@ -162,7 +162,7 @@ export class FhirEncounter extends FhirDomainResource<Encounter> {
    * @returns The end date if available, undefined otherwise
    */
   public get endDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.period?.end)
+    return FhirDomainResource.parseDateTime(this.value.period?.end);
   }
 
   /**
@@ -178,7 +178,7 @@ export class FhirEncounter extends FhirDomainResource<Encounter> {
    * ```
    */
   public get isInProgress(): boolean {
-    return this.startDate !== undefined && this.endDate === undefined
+    return this.startDate !== undefined && this.endDate === undefined;
   }
 
   /**
@@ -196,10 +196,10 @@ export class FhirEncounter extends FhirDomainResource<Encounter> {
    * ```
    */
   public get duration(): number | undefined {
-    const start = this.startDate
-    const end = this.endDate
-    if (!start || !end) return undefined
-    return end.getTime() - start.getTime()
+    const start = this.startDate;
+    const end = this.endDate;
+    if (!start || !end) return undefined;
+    return end.getTime() - start.getTime();
   }
 
   /**
@@ -212,7 +212,7 @@ export class FhirEncounter extends FhirDomainResource<Encounter> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -225,7 +225,7 @@ export class FhirEncounter extends FhirDomainResource<Encounter> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -235,7 +235,7 @@ export class FhirEncounter extends FhirDomainResource<Encounter> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -245,6 +245,6 @@ export class FhirEncounter extends FhirDomainResource<Encounter> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

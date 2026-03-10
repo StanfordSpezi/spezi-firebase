@@ -10,8 +10,8 @@
  * Device model for managing notification registrations
  */
 
-import { z } from 'zod'
-import { SchemaConverter } from '../utils/schemaConverter.js'
+import { z } from "zod";
+import { SchemaConverter } from "../utils/schemaConverter.js";
 
 /**
  * Standard platform identifiers for common device platforms.
@@ -19,13 +19,13 @@ import { SchemaConverter } from '../utils/schemaConverter.js'
  * when creating a device.
  */
 export const DevicePlatform = {
-  Android: 'Android',
-  iOS: 'iOS',
-  Web: 'Web',
-  macOS: 'macOS',
-  Windows: 'Windows',
-  Linux: 'Linux',
-} as const
+  Android: "Android",
+  iOS: "iOS",
+  Web: "Web",
+  macOS: "macOS",
+  Windows: "Windows",
+  Linux: "Linux",
+} as const;
 
 /**
  * Schema converter for Device objects, providing validation and encoding
@@ -46,31 +46,31 @@ export const deviceConverter = new SchemaConverter<Device, any>({
   encode: (object: Device) => ({
     notificationToken: object.notificationToken,
     platform: object.platform,
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
     osVersion: object.osVersion ?? undefined,
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
     appVersion: object.appVersion ?? undefined,
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
     appBuild: object.appBuild ?? undefined,
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
     language: object.language ?? undefined,
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
     timeZone: object.timeZone ?? undefined,
   }),
-})
+});
 
 /**
  * Represents a device registered for push notifications
  */
 export class Device {
   // Properties
-  readonly notificationToken: string
-  readonly platform: string
-  readonly osVersion?: string
-  readonly appVersion?: string
-  readonly appBuild?: string
-  readonly language?: string
-  readonly timeZone?: string
+  readonly notificationToken: string;
+  readonly platform: string;
+  readonly osVersion?: string;
+  readonly appVersion?: string;
+  readonly appBuild?: string;
+  readonly language?: string;
+  readonly timeZone?: string;
 
   /**
    * Creates a new Device instance
@@ -85,20 +85,20 @@ export class Device {
    */
   // Constructor
   constructor(input: {
-    notificationToken: string
-    platform: string
-    osVersion?: string
-    appVersion?: string
-    appBuild?: string
-    language?: string
-    timeZone?: string
+    notificationToken: string;
+    platform: string;
+    osVersion?: string;
+    appVersion?: string;
+    appBuild?: string;
+    language?: string;
+    timeZone?: string;
   }) {
-    this.notificationToken = input.notificationToken
-    this.platform = input.platform
-    this.osVersion = input.osVersion
-    this.appVersion = input.appVersion
-    this.appBuild = input.appBuild
-    this.language = input.language
-    this.timeZone = input.timeZone
+    this.notificationToken = input.notificationToken;
+    this.platform = input.platform;
+    this.osVersion = input.osVersion;
+    this.appVersion = input.appVersion;
+    this.appBuild = input.appBuild;
+    this.language = input.language;
+    this.timeZone = input.timeZone;
   }
 }

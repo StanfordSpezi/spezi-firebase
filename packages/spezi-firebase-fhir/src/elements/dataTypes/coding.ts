@@ -6,15 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { type Coding } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
 import {
   booleanSchema,
   codeSchema,
   stringSchema,
   uriSchema,
-} from './primitiveTypes.js'
-import { elementSchema } from '../element.js'
+} from "./primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 /**
  * Zod schema for FHIR Coding data type.
@@ -32,9 +32,9 @@ export const untypedCodingSchema = z.lazy(() =>
     userSelected: booleanSchema.optional(),
     _userSelected: elementSchema.optional(),
   }),
-) satisfies ZodType<Coding>
+) satisfies ZodType<Coding>;
 
 /**
  * Zod schema for FHIR Coding data type.
  */
-export const codingSchema: ZodType<Coding> = untypedCodingSchema
+export const codingSchema: ZodType<Coding> = untypedCodingSchema;

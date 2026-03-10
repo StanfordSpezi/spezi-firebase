@@ -18,9 +18,9 @@ import {
   type TerminologyCapabilitiesTranslation,
   type TerminologyCapabilitiesValidateCode,
   type TerminologyCapabilities,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -32,12 +32,12 @@ import {
   stringSchema,
   urlSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   capabilityStatementKindSchema,
   codeSearchSupportSchema,
   publicationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const terminologyCapabilitiesSoftwareSchema: ZodType<TerminologyCapabilitiesSoftware> =
   backboneElementSchema.extend({
@@ -45,7 +45,7 @@ const terminologyCapabilitiesSoftwareSchema: ZodType<TerminologyCapabilitiesSoft
     _name: elementSchema.optional(),
     version: stringSchema.optional(),
     _version: elementSchema.optional(),
-  })
+  });
 
 const terminologyCapabilitiesImplementationSchema: ZodType<TerminologyCapabilitiesImplementation> =
   backboneElementSchema.extend({
@@ -53,7 +53,7 @@ const terminologyCapabilitiesImplementationSchema: ZodType<TerminologyCapabiliti
     _description: elementSchema.optional(),
     url: urlSchema.optional(),
     _url: elementSchema.optional(),
-  })
+  });
 
 const terminologyCapabilitiesCodeSystemVersionFilterSchema: ZodType<TerminologyCapabilitiesCodeSystemVersionFilter> =
   backboneElementSchema.extend({
@@ -61,7 +61,7 @@ const terminologyCapabilitiesCodeSystemVersionFilterSchema: ZodType<TerminologyC
     _code: elementSchema.optional(),
     op: stringSchema.array(),
     _op: elementSchema.array().optional(),
-  })
+  });
 
 const terminologyCapabilitiesCodeSystemVersionSchema: ZodType<TerminologyCapabilitiesCodeSystemVersion> =
   backboneElementSchema.extend({
@@ -78,7 +78,7 @@ const terminologyCapabilitiesCodeSystemVersionSchema: ZodType<TerminologyCapabil
       .optional(),
     property: stringSchema.array().optional(),
     _property: elementSchema.array().optional(),
-  })
+  });
 
 const terminologyCapabilitiesCodeSystemSchema: ZodType<TerminologyCapabilitiesCodeSystem> =
   backboneElementSchema.extend({
@@ -87,7 +87,7 @@ const terminologyCapabilitiesCodeSystemSchema: ZodType<TerminologyCapabilitiesCo
     version: terminologyCapabilitiesCodeSystemVersionSchema.array().optional(),
     subsumption: booleanSchema.optional(),
     _subsumption: elementSchema.optional(),
-  })
+  });
 
 const terminologyCapabilitiesExpansionParameterSchema: ZodType<TerminologyCapabilitiesExpansionParameter> =
   backboneElementSchema.extend({
@@ -95,7 +95,7 @@ const terminologyCapabilitiesExpansionParameterSchema: ZodType<TerminologyCapabi
     _name: elementSchema.optional(),
     documentation: stringSchema.optional(),
     _documentation: elementSchema.optional(),
-  })
+  });
 
 const terminologyCapabilitiesExpansionSchema: ZodType<TerminologyCapabilitiesExpansion> =
   backboneElementSchema.extend({
@@ -110,32 +110,32 @@ const terminologyCapabilitiesExpansionSchema: ZodType<TerminologyCapabilitiesExp
       .optional(),
     textFilter: stringSchema.optional(),
     _textFilter: elementSchema.optional(),
-  })
+  });
 
 const terminologyCapabilitiesValidateCodeSchema: ZodType<TerminologyCapabilitiesValidateCode> =
   backboneElementSchema.extend({
     translations: booleanSchema,
     _translations: elementSchema.optional(),
-  })
+  });
 
 const terminologyCapabilitiesTranslationSchema: ZodType<TerminologyCapabilitiesTranslation> =
   backboneElementSchema.extend({
     needsMap: booleanSchema,
     _needsMap: elementSchema.optional(),
-  })
+  });
 
 const terminologyCapabilitiesClosureSchema: ZodType<TerminologyCapabilitiesClosure> =
   backboneElementSchema.extend({
     translation: booleanSchema.optional(),
     _translation: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR TerminologyCapabilities resource (untyped version).
  */
 export const untypedTerminologyCapabilitiesSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('TerminologyCapabilities').readonly(),
+    resourceType: z.literal("TerminologyCapabilities").readonly(),
     url: urlSchema.optional(),
     _url: elementSchema.optional(),
     version: stringSchema.optional(),
@@ -175,13 +175,13 @@ export const untypedTerminologyCapabilitiesSchema = z.lazy(() =>
     translation: terminologyCapabilitiesTranslationSchema.optional(),
     closure: terminologyCapabilitiesClosureSchema.optional(),
   }),
-) satisfies ZodType<TerminologyCapabilities>
+) satisfies ZodType<TerminologyCapabilities>;
 
 /**
  * Zod schema for FHIR TerminologyCapabilities resource.
  */
 export const terminologyCapabilitiesSchema: ZodType<TerminologyCapabilities> =
-  untypedTerminologyCapabilitiesSchema
+  untypedTerminologyCapabilitiesSchema;
 
 /**
  * Wrapper class for FHIR TerminologyCapabilities resources.
@@ -199,6 +199,6 @@ export class FhirTerminologyCapabilities extends FhirDomainResource<TerminologyC
   public static parse(value: unknown): FhirTerminologyCapabilities {
     return new FhirTerminologyCapabilities(
       terminologyCapabilitiesSchema.parse(value),
-    )
+    );
   }
 }

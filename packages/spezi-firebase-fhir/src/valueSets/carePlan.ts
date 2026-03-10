@@ -6,60 +6,60 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Indicates whether the plan is currently being acted upon, represents future intentions or is now a historical record.
  * http://hl7.org/fhir/valueset-care-plan-status.html
  */
 export const carePlanStatusSchema = z.enum([
-  'draft',
-  'active',
-  'on-hold',
-  'revoked',
-  'completed',
-  'entered-in-error',
-  'unknown',
-])
+  "draft",
+  "active",
+  "on-hold",
+  "revoked",
+  "completed",
+  "entered-in-error",
+  "unknown",
+]);
 
 /**
  * Indicates whether the plan is currently being acted upon, represents future intentions or is now a historical record.
  * http://hl7.org/fhir/valueset-care-plan-status.html
  */
-export type CarePlanStatus = z.infer<typeof carePlanStatusSchema>
+export type CarePlanStatus = z.infer<typeof carePlanStatusSchema>;
 
 /**
  * Codes indicating the degree of authority/intentionality associated with a care plan.
  * http://hl7.org/fhir/valueset-care-plan-intent.html
  */
 export const carePlanIntentSchema = z.enum([
-  'proposal',
-  'plan',
-  'order',
-  'option',
-])
+  "proposal",
+  "plan",
+  "order",
+  "option",
+]);
 
 /**
  * Codes indicating the degree of authority/intentionality associated with a care plan.
  * http://hl7.org/fhir/valueset-care-plan-intent.html
  */
-export type CarePlanIntent = z.infer<typeof carePlanIntentSchema>
+export type CarePlanIntent = z.infer<typeof carePlanIntentSchema>;
 
 /**
  * Codes that reflect the current state of a care plan activity within its overall life cycle.
  * http://hl7.org/fhir/valueset-care-plan-activity-status.html
  */
 export const carePlanActivityStatusSchema = z.enum([
-  'not-started',
-  'scheduled',
-  'in-progress',
-  'on-hold',
-  'completed',
-  'cancelled',
-  'stopped',
-  'unknown',
-  'entered-in-error',
-])
+  "not-started",
+  "scheduled",
+  "in-progress",
+  "on-hold",
+  "completed",
+  "cancelled",
+  "stopped",
+  "unknown",
+  "entered-in-error",
+]);
 
 /**
  * Codes that reflect the current state of a care plan activity within its overall life cycle.
@@ -67,25 +67,25 @@ export const carePlanActivityStatusSchema = z.enum([
  */
 export type CarePlanActivityStatus = z.infer<
   typeof carePlanActivityStatusSchema
->
+>;
 
 /**
  * Resource types defined as part of FHIR that can be represented as in-line definitions of a care plan activity.
  * http://hl7.org/fhir/ValueSet/care-plan-activity-kind.html
  */
 export const carePlanActivityKindSchema = z.enum([
-  'Appointment',
-  'CommunicationRequest',
-  'DeviceRequest',
-  'MedicationRequest',
-  'NutritionOrder',
-  'Task',
-  'ServiceRequest',
-  'VisionPrescription',
-])
+  "Appointment",
+  "CommunicationRequest",
+  "DeviceRequest",
+  "MedicationRequest",
+  "NutritionOrder",
+  "Task",
+  "ServiceRequest",
+  "VisionPrescription",
+]);
 
 /**
  * Resource types defined as part of FHIR that can be represented as in-line definitions of a care plan activity.
  * http://hl7.org/fhir/ValueSet/care-plan-activity-kind.html
  */
-export type CarePlanActivityKind = z.infer<typeof carePlanActivityKindSchema>
+export type CarePlanActivityKind = z.infer<typeof carePlanActivityKindSchema>;

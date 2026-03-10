@@ -10,9 +10,9 @@ import {
   type Coding,
   type Communication,
   type CommunicationPayload,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   attachmentSchema,
@@ -24,11 +24,11 @@ import {
   identifierSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   communicationStatusSchema,
   requestPrioritySchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const communicationPayloadSchema: ZodType<CommunicationPayload> =
   backboneElementSchema.extend({
@@ -36,14 +36,14 @@ const communicationPayloadSchema: ZodType<CommunicationPayload> =
     _contentString: elementSchema.optional(),
     contentAttachment: attachmentSchema.optional(),
     contentReference: referenceSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Communication resource (untyped version).
  */
 export const untypedCommunicationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Communication').readonly(),
+    resourceType: z.literal("Communication").readonly(),
     identifier: identifierSchema.array().optional(),
     instantiatesCanonical: z.string().array().optional(),
     _instantiatesCanonical: elementSchema.array().optional(),
@@ -74,13 +74,13 @@ export const untypedCommunicationSchema = z.lazy(() =>
     payload: communicationPayloadSchema.array().optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<Communication>
+) satisfies ZodType<Communication>;
 
 /**
  * Zod schema for FHIR Communication resource.
  */
 export const communicationSchema: ZodType<Communication> =
-  untypedCommunicationSchema
+  untypedCommunicationSchema;
 
 /**
  * Wrapper class for FHIR Communication resources.
@@ -94,7 +94,7 @@ export class FhirCommunication extends FhirDomainResource<Communication> {
    * @returns A FhirCommunication instance containing the validated resource
    */
   public static parse(value: unknown): FhirCommunication {
-    return new FhirCommunication(communicationSchema.parse(value))
+    return new FhirCommunication(communicationSchema.parse(value));
   }
 
   /**
@@ -103,7 +103,7 @@ export class FhirCommunication extends FhirDomainResource<Communication> {
    * @returns The received date, if available
    */
   public get receivedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.received)
+    return FhirDomainResource.parseDateTime(this.value.received);
   }
 
   /**
@@ -112,7 +112,7 @@ export class FhirCommunication extends FhirDomainResource<Communication> {
    * @returns The sent date, if available
    */
   public get sentDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.sent)
+    return FhirDomainResource.parseDateTime(this.value.sent);
   }
 
   /**
@@ -121,7 +121,7 @@ export class FhirCommunication extends FhirDomainResource<Communication> {
    * @returns Array of note text strings
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -134,7 +134,7 @@ export class FhirCommunication extends FhirDomainResource<Communication> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -147,7 +147,7 @@ export class FhirCommunication extends FhirDomainResource<Communication> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -157,7 +157,7 @@ export class FhirCommunication extends FhirDomainResource<Communication> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -167,6 +167,6 @@ export class FhirCommunication extends FhirDomainResource<Communication> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

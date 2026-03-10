@@ -8,4 +8,4 @@
 
 // RiskAssessment uses the same status values as Observation
 // The status schema is imported from observation.ts
-export { observationStatusSchema as riskAssessmentStatusSchema } from './observation.js'
+export { observationStatusSchema as riskAssessmentStatusSchema } from "./observation.js";

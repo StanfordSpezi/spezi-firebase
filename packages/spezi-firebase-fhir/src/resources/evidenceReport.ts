@@ -12,9 +12,9 @@ import {
   type EvidenceReportSection,
   type EvidenceReportSubjectCharacteristic,
   type EvidenceReportRelatesTo,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -34,12 +34,12 @@ import {
   stringSchema,
   uriSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   evidenceReportRelatesToCodeSchema,
   publicationStatusSchema,
   sectionModeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const evidenceReportSubjectCharacteristicSchema: ZodType<EvidenceReportSubjectCharacteristic> =
   backboneElementSchema.extend({
@@ -53,7 +53,7 @@ const evidenceReportSubjectCharacteristicSchema: ZodType<EvidenceReportSubjectCh
     exclude: booleanSchema.optional(),
     _exclude: elementSchema.optional(),
     period: periodSchema.optional(),
-  })
+  });
 
 const evidenceReportSubjectSchema: ZodType<EvidenceReportSubject> =
   backboneElementSchema.extend({
@@ -61,7 +61,7 @@ const evidenceReportSubjectSchema: ZodType<EvidenceReportSubject> =
       .array()
       .optional(),
     note: annotationSchema.array().optional(),
-  })
+  });
 
 const evidenceReportSectionSchema: ZodType<EvidenceReportSection> =
   backboneElementSchema.extend({
@@ -79,9 +79,9 @@ const evidenceReportSectionSchema: ZodType<EvidenceReportSection> =
     entryQuantity: quantitySchema.array().optional(),
     emptyReason: codeableConceptSchema.optional(),
     get section() {
-      return evidenceReportSectionSchema.array().optional()
+      return evidenceReportSectionSchema.array().optional();
     },
-  })
+  });
 
 const evidenceReportRelatesToSchema: ZodType<EvidenceReportRelatesTo> =
   backboneElementSchema.extend({
@@ -89,14 +89,14 @@ const evidenceReportRelatesToSchema: ZodType<EvidenceReportRelatesTo> =
     _code: elementSchema.optional(),
     targetIdentifier: identifierSchema.optional(),
     targetReference: referenceSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR EvidenceReport resource (untyped version).
  */
 export const untypedEvidenceReportSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('EvidenceReport').readonly(),
+    resourceType: z.literal("EvidenceReport").readonly(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
     status: publicationStatusSchema,
@@ -121,13 +121,13 @@ export const untypedEvidenceReportSchema = z.lazy(() =>
     relatesTo: evidenceReportRelatesToSchema.array().optional(),
     section: evidenceReportSectionSchema.array().optional(),
   }),
-) satisfies ZodType<EvidenceReport>
+) satisfies ZodType<EvidenceReport>;
 
 /**
  * Zod schema for FHIR EvidenceReport resource.
  */
 export const evidenceReportSchema: ZodType<EvidenceReport> =
-  untypedEvidenceReportSchema
+  untypedEvidenceReportSchema;
 
 /**
  * Wrapper class for FHIR EvidenceReport resources.
@@ -143,6 +143,6 @@ export class FhirEvidenceReport extends FhirDomainResource<EvidenceReport> {
    * @returns A FhirEvidenceReport instance containing the validated resource
    */
   public static parse(value: unknown): FhirEvidenceReport {
-    return new FhirEvidenceReport(evidenceReportSchema.parse(value))
+    return new FhirEvidenceReport(evidenceReportSchema.parse(value));
   }
 }

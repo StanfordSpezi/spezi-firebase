@@ -10,7 +10,7 @@
  * Date converter utility for handling Firestore date format conversions
  */
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Utility for converting between Date objects and Firestore timestamp formats
@@ -35,8 +35,8 @@ export const dateConverter = {
    * @returns Firestore timestamp object
    */
   encode: (date: Date): { seconds: number; nanoseconds: number } => {
-    const seconds = Math.floor(date.getTime() / 1000)
-    const nanoseconds = (date.getTime() % 1000) * 1000000
-    return { seconds, nanoseconds }
+    const seconds = Math.floor(date.getTime() / 1000);
+    const nanoseconds = (date.getTime() % 1000) * 1000000;
+    return { seconds, nanoseconds };
   },
-}
+};

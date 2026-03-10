@@ -9,9 +9,9 @@
 import {
   type SubscriptionStatusNotificationEvent,
   type SubscriptionStatus,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -21,11 +21,11 @@ import {
   referenceSchema,
   stringSchema,
   urlSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   subscriptionStatusStatusSchema,
   subscriptionStatusTypeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const subscriptionStatusNotificationEventSchema: ZodType<SubscriptionStatusNotificationEvent> =
   backboneElementSchema.extend({
@@ -35,14 +35,14 @@ const subscriptionStatusNotificationEventSchema: ZodType<SubscriptionStatusNotif
     focus: referenceSchema.optional(),
     timestamp: instantSchema.optional(),
     _timestamp: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR SubscriptionStatus resource (untyped version).
  */
 export const untypedSubscriptionStatusSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('SubscriptionStatus').readonly(),
+    resourceType: z.literal("SubscriptionStatus").readonly(),
     error: codeableConceptSchema.array().optional(),
     eventsSinceSubscriptionStart: stringSchema.optional(),
     _eventsSinceSubscriptionStart: elementSchema.optional(),
@@ -57,13 +57,13 @@ export const untypedSubscriptionStatusSchema = z.lazy(() =>
     type: subscriptionStatusTypeSchema,
     _type: elementSchema.optional(),
   }),
-) satisfies ZodType<SubscriptionStatus>
+) satisfies ZodType<SubscriptionStatus>;
 
 /**
  * Zod schema for FHIR SubscriptionStatus resource.
  */
 export const subscriptionStatusSchema: ZodType<SubscriptionStatus> =
-  untypedSubscriptionStatusSchema
+  untypedSubscriptionStatusSchema;
 
 /**
  * Wrapper class for FHIR SubscriptionStatus resources.
@@ -79,6 +79,6 @@ export class FhirSubscriptionStatus extends FhirDomainResource<SubscriptionStatu
    * @returns A FhirSubscriptionStatus instance containing the validated resource
    */
   public static parse(value: unknown): FhirSubscriptionStatus {
-    return new FhirSubscriptionStatus(subscriptionStatusSchema.parse(value))
+    return new FhirSubscriptionStatus(subscriptionStatusSchema.parse(value));
   }
 }

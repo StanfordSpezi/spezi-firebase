@@ -12,9 +12,9 @@ import {
   type SpecimenDefinitionTypeTestedContainerAdditive,
   type SpecimenDefinitionTypeTestedHandling,
   type SpecimenDefinition,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -26,14 +26,14 @@ import {
   rangeSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { specimenDefinitionTypeTestedPreferenceSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { specimenDefinitionTypeTestedPreferenceSchema } from "../valueSets/index.js";
 
 const specimenDefinitionTypeTestedContainerAdditiveSchema: ZodType<SpecimenDefinitionTypeTestedContainerAdditive> =
   backboneElementSchema.extend({
     additiveCodeableConcept: codeableConceptSchema.optional(),
     additiveReference: referenceSchema.optional(),
-  })
+  });
 
 const specimenDefinitionTypeTestedContainerSchema: ZodType<SpecimenDefinitionTypeTestedContainer> =
   backboneElementSchema.extend({
@@ -51,7 +51,7 @@ const specimenDefinitionTypeTestedContainerSchema: ZodType<SpecimenDefinitionTyp
       .optional(),
     preparation: stringSchema.optional(),
     _preparation: elementSchema.optional(),
-  })
+  });
 
 const specimenDefinitionTypeTestedHandlingSchema: ZodType<SpecimenDefinitionTypeTestedHandling> =
   backboneElementSchema.extend({
@@ -60,7 +60,7 @@ const specimenDefinitionTypeTestedHandlingSchema: ZodType<SpecimenDefinitionType
     maxDuration: quantitySchema.optional(),
     instruction: stringSchema.optional(),
     _instruction: elementSchema.optional(),
-  })
+  });
 
 const specimenDefinitionTypeTestedSchema: ZodType<SpecimenDefinitionTypeTested> =
   backboneElementSchema.extend({
@@ -75,14 +75,14 @@ const specimenDefinitionTypeTestedSchema: ZodType<SpecimenDefinitionTypeTested> 
     retentionTime: quantitySchema.optional(),
     rejectionCriterion: codeableConceptSchema.array().optional(),
     handling: specimenDefinitionTypeTestedHandlingSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR SpecimenDefinition resource (untyped version).
  */
 export const untypedSpecimenDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('SpecimenDefinition').readonly(),
+    resourceType: z.literal("SpecimenDefinition").readonly(),
     identifier: identifierSchema.optional(),
     typeCollected: codeableConceptSchema.optional(),
     patientPreparation: codeableConceptSchema.array().optional(),
@@ -91,13 +91,13 @@ export const untypedSpecimenDefinitionSchema = z.lazy(() =>
     collection: codeableConceptSchema.array().optional(),
     typeTested: specimenDefinitionTypeTestedSchema.array().optional(),
   }),
-) satisfies ZodType<SpecimenDefinition>
+) satisfies ZodType<SpecimenDefinition>;
 
 /**
  * Zod schema for FHIR SpecimenDefinition resource.
  */
 export const specimenDefinitionSchema: ZodType<SpecimenDefinition> =
-  untypedSpecimenDefinitionSchema
+  untypedSpecimenDefinitionSchema;
 
 /**
  * Wrapper class for FHIR SpecimenDefinition resources.
@@ -113,6 +113,6 @@ export class FhirSpecimenDefinition extends FhirDomainResource<SpecimenDefinitio
    * @returns A FhirSpecimenDefinition instance containing the validated resource
    */
   public static parse(value: unknown): FhirSpecimenDefinition {
-    return new FhirSpecimenDefinition(specimenDefinitionSchema.parse(value))
+    return new FhirSpecimenDefinition(specimenDefinitionSchema.parse(value));
   }
 }

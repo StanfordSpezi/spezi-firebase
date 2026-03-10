@@ -6,40 +6,40 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Timing } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { codeableConceptSchema } from './codeableConcept.js'
-import { periodSchema } from './period.js'
+import { type Timing } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { codeableConceptSchema } from "./codeableConcept.js";
+import { periodSchema } from "./period.js";
 import {
   codeSchema,
   dateTimeSchema,
   decimalSchema,
   positiveIntSchema,
   timeSchema,
-} from './primitiveTypes.js'
-import { quantitySchema } from './quantity.js'
-import { rangeSchema } from './range.js'
-import { elementSchema } from '../element.js'
+} from "./primitiveTypes.js";
+import { quantitySchema } from "./quantity.js";
+import { rangeSchema } from "./range.js";
+import { elementSchema } from "../element.js";
 
 const timingRepeatDayOfWeekSchema = z.enum([
-  'mon',
-  'tue',
-  'wed',
-  'thu',
-  'fri',
-  'sat',
-  'sun',
-])
+  "mon",
+  "tue",
+  "wed",
+  "thu",
+  "fri",
+  "sat",
+  "sun",
+]);
 
 const timingRepeatTimeUnitSchema = z.enum([
-  's',
-  'min',
-  'h',
-  'd',
-  'wk',
-  'mo',
-  'a',
-])
+  "s",
+  "min",
+  "h",
+  "d",
+  "wk",
+  "mo",
+  "a",
+]);
 
 /**
  * Zod schema for FHIR Timing data type.
@@ -76,9 +76,9 @@ export const untypedTimingSchema = z.lazy(() =>
       .optional(),
     code: codeableConceptSchema.optional(),
   }),
-) satisfies ZodType<Timing>
+) satisfies ZodType<Timing>;
 
 /**
  * Zod schema for FHIR Timing data type.
  */
-export const timingSchema: ZodType<Timing> = untypedTimingSchema
+export const timingSchema: ZodType<Timing> = untypedTimingSchema;
