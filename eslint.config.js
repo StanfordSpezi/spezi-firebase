@@ -20,4 +20,10 @@ module.exports = [
       "**/examples/**",
     ],
   },
+  {
+    files: ["packages/spezi-firebase-fhir/**/*.ts"],
+    rules: {
+      "import/no-cycle": "off",
+    },
+  },
 ];
