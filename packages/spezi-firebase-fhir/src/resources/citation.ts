@@ -28,9 +28,9 @@ import {
   type CitationSummary,
   type Citation,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   addressSchema,
   annotationSchema,
@@ -53,8 +53,8 @@ import {
   stringSchema,
   uriSchema,
   usageContextSchema,
-} from '../elements/index.js'
-import { publicationStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { publicationStatusSchema } from "../valueSets/index.js";
 
 // Define Citation sub-schemas using getter properties for self-referencing
 const citationSummarySchema: ZodType<CitationSummary> =
@@ -62,13 +62,13 @@ const citationSummarySchema: ZodType<CitationSummary> =
     style: codeableConceptSchema.optional(),
     text: markdownSchema,
     _text: elementSchema.optional(),
-  })
+  });
 
 const citationClassificationSchema: ZodType<CitationClassification> =
   backboneElementSchema.extend({
     type: codeableConceptSchema.optional(),
     classifier: codeableConceptSchema.array().optional(),
-  })
+  });
 
 const citationStatusDateSchema: ZodType<CitationStatusDate> =
   backboneElementSchema.extend({
@@ -76,7 +76,7 @@ const citationStatusDateSchema: ZodType<CitationStatusDate> =
     actual: booleanSchema.optional(),
     _actual: elementSchema.optional(),
     period: periodSchema,
-  })
+  });
 
 const citationRelatesToSchema: ZodType<CitationRelatesTo> =
   backboneElementSchema.extend({
@@ -87,14 +87,14 @@ const citationRelatesToSchema: ZodType<CitationRelatesTo> =
     targetIdentifier: identifierSchema.optional(),
     targetReference: referenceSchema.optional(),
     targetAttachment: attachmentSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactVersionSchema: ZodType<CitationCitedArtifactVersion> =
   backboneElementSchema.extend({
     value: stringSchema,
     _value: elementSchema.optional(),
     baseCitation: referenceSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactTitleSchema: ZodType<CitationCitedArtifactTitle> =
   backboneElementSchema.extend({
@@ -102,7 +102,7 @@ const citationCitedArtifactTitleSchema: ZodType<CitationCitedArtifactTitle> =
     language: codeableConceptSchema.optional(),
     text: markdownSchema,
     _text: elementSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactAbstractSchema: ZodType<CitationCitedArtifactAbstract> =
   backboneElementSchema.extend({
@@ -112,7 +112,7 @@ const citationCitedArtifactAbstractSchema: ZodType<CitationCitedArtifactAbstract
     _text: elementSchema.optional(),
     copyright: markdownSchema.optional(),
     _copyright: elementSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactPartSchema: ZodType<CitationCitedArtifactPart> =
   backboneElementSchema.extend({
@@ -120,7 +120,7 @@ const citationCitedArtifactPartSchema: ZodType<CitationCitedArtifactPart> =
     value: stringSchema.optional(),
     _value: elementSchema.optional(),
     baseCitation: referenceSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactPublicationFormPublishedInSchema: ZodType<CitationCitedArtifactPublicationFormPublishedIn> =
   backboneElementSchema.extend({
@@ -131,7 +131,7 @@ const citationCitedArtifactPublicationFormPublishedInSchema: ZodType<CitationCit
     publisher: referenceSchema.optional(),
     publisherLocation: stringSchema.optional(),
     _publisherLocation: elementSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactPublicationFormPeriodicReleaseDateOfPublicationSchema: ZodType<CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication> =
   backboneElementSchema.extend({
@@ -147,7 +147,7 @@ const citationCitedArtifactPublicationFormPeriodicReleaseDateOfPublicationSchema
     _season: elementSchema.optional(),
     text: stringSchema.optional(),
     _text: elementSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactPublicationFormPeriodicReleaseSchema: ZodType<CitationCitedArtifactPublicationFormPeriodicRelease> =
   backboneElementSchema.extend({
@@ -158,7 +158,7 @@ const citationCitedArtifactPublicationFormPeriodicReleaseSchema: ZodType<Citatio
     _issue: elementSchema.optional(),
     dateOfPublication:
       citationCitedArtifactPublicationFormPeriodicReleaseDateOfPublicationSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactPublicationFormSchema: ZodType<CitationCitedArtifactPublicationForm> =
   backboneElementSchema.extend({
@@ -183,14 +183,14 @@ const citationCitedArtifactPublicationFormSchema: ZodType<CitationCitedArtifactP
     _pageCount: elementSchema.optional(),
     copyright: markdownSchema.optional(),
     _copyright: elementSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactWebLocationSchema: ZodType<CitationCitedArtifactWebLocation> =
   backboneElementSchema.extend({
     type: codeableConceptSchema.optional(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactContributorshipEntryAffiliationInfoSchema: ZodType<CitationCitedArtifactContributorshipEntryAffiliationInfo> =
   backboneElementSchema.extend({
@@ -199,14 +199,14 @@ const citationCitedArtifactContributorshipEntryAffiliationInfoSchema: ZodType<Ci
     role: stringSchema.optional(),
     _role: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
-  })
+  });
 
 const citationCitedArtifactContributorshipEntryContributionInstance: ZodType<CitationCitedArtifactContributorshipEntryContributionInstance> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     time: dateTimeSchema.optional(),
     _time: elementSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactContributorshipEntrySchema: ZodType<CitationCitedArtifactContributorshipEntry> =
   backboneElementSchema.extend({
@@ -232,7 +232,7 @@ const citationCitedArtifactContributorshipEntrySchema: ZodType<CitationCitedArti
     _correspondingContact: elementSchema.optional(),
     listOrder: positiveIntSchema.optional(),
     _listOrder: elementSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactContributorshipSummarySchema: ZodType<CitationCitedArtifactContributorshipSummary> =
   backboneElementSchema.extend({
@@ -241,7 +241,7 @@ const citationCitedArtifactContributorshipSummarySchema: ZodType<CitationCitedAr
     source: codeableConceptSchema.optional(),
     value: markdownSchema,
     _value: elementSchema.optional(),
-  })
+  });
 
 const citationCitedArtifactContributorshipSchema: ZodType<CitationCitedArtifactContributorship> =
   backboneElementSchema.extend({
@@ -251,7 +251,7 @@ const citationCitedArtifactContributorshipSchema: ZodType<CitationCitedArtifactC
     summary: citationCitedArtifactContributorshipSummarySchema
       .array()
       .optional(),
-  })
+  });
 
 const citationCitedArtifactSchema: ZodType<CitationCitedArtifact> =
   backboneElementSchema.extend({
@@ -273,14 +273,14 @@ const citationCitedArtifactSchema: ZodType<CitationCitedArtifact> =
     classification: citationClassificationSchema.array().optional(),
     contributorship: citationCitedArtifactContributorshipSchema.optional(),
     note: annotationSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Citation resource (untyped version).
  */
 export const untypedCitationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Citation').readonly(),
+    resourceType: z.literal("Citation").readonly(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -324,12 +324,12 @@ export const untypedCitationSchema = z.lazy(() =>
     relatesTo: citationRelatesToSchema.array().optional(),
     citedArtifact: citationCitedArtifactSchema.optional(),
   }),
-) satisfies ZodType<Citation>
+) satisfies ZodType<Citation>;
 
 /**
  * Zod schema for FHIR Citation resource.
  */
-export const citationSchema: ZodType<Citation> = untypedCitationSchema
+export const citationSchema: ZodType<Citation> = untypedCitationSchema;
 
 /**
  * Wrapper class for FHIR Citation resources.
@@ -345,7 +345,7 @@ export class FhirCitation extends FhirDomainResource<Citation> {
    * @returns A FhirCitation instance containing the validated resource
    */
   public static parse(value: unknown): FhirCitation {
-    return new FhirCitation(citationSchema.parse(value))
+    return new FhirCitation(citationSchema.parse(value));
   }
 
   /**
@@ -358,7 +358,7 @@ export class FhirCitation extends FhirDomainResource<Citation> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -371,7 +371,7 @@ export class FhirCitation extends FhirDomainResource<Citation> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -381,7 +381,7 @@ export class FhirCitation extends FhirDomainResource<Citation> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -391,6 +391,6 @@ export class FhirCitation extends FhirDomainResource<Citation> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

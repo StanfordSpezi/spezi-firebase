@@ -6,22 +6,22 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type RelatedArtifact } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { attachmentSchema } from '../dataTypes/attachment.js'
-import { stringSchema, urlSchema } from '../dataTypes/primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type RelatedArtifact } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { attachmentSchema } from "../dataTypes/attachment.js";
+import { stringSchema, urlSchema } from "../dataTypes/primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 const relatedArtifactTypeSchema = z.enum([
-  'documentation',
-  'justification',
-  'citation',
-  'predecessor',
-  'successor',
-  'derived-from',
-  'depends-on',
-  'composed-of',
-])
+  "documentation",
+  "justification",
+  "citation",
+  "predecessor",
+  "successor",
+  "derived-from",
+  "depends-on",
+  "composed-of",
+]);
 
 /**
  * Zod schema for FHIR RelatedArtifact data type.
@@ -42,10 +42,10 @@ export const untypedRelatedArtifactSchema = z.lazy(() =>
     resource: stringSchema.optional(),
     _resource: elementSchema.optional(),
   }),
-) satisfies ZodType<RelatedArtifact>
+) satisfies ZodType<RelatedArtifact>;
 
 /**
  * Zod schema for FHIR RelatedArtifact data type.
  */
 export const relatedArtifactSchema: ZodType<RelatedArtifact> =
-  untypedRelatedArtifactSchema
+  untypedRelatedArtifactSchema;

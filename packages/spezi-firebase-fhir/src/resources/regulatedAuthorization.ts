@@ -9,9 +9,9 @@
 import {
   type RegulatedAuthorization,
   type RegulatedAuthorizationCase,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -23,12 +23,12 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 const regulatedAuthorizationCaseSchema: ZodType<RegulatedAuthorizationCase> =
   backboneElementSchema.extend({
     get application() {
-      return regulatedAuthorizationCaseSchema.array().optional()
+      return regulatedAuthorizationCaseSchema.array().optional();
     },
     datePeriod: periodSchema.optional(),
     dateDateTime: dateTimeSchema.optional(),
@@ -36,14 +36,14 @@ const regulatedAuthorizationCaseSchema: ZodType<RegulatedAuthorizationCase> =
     identifier: identifierSchema.optional(),
     status: codeableConceptSchema.optional(),
     type: codeableConceptSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR RegulatedAuthorization resource (untyped version).
  */
 export const untypedRegulatedAuthorizationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('RegulatedAuthorization').readonly(),
+    resourceType: z.literal("RegulatedAuthorization").readonly(),
     basis: codeableConceptSchema.array().optional(),
     case: regulatedAuthorizationCaseSchema.optional(),
     description: stringSchema.optional(),
@@ -61,13 +61,13 @@ export const untypedRegulatedAuthorizationSchema = z.lazy(() =>
     type: codeableConceptSchema.optional(),
     validityPeriod: periodSchema.optional(),
   }),
-) satisfies ZodType<RegulatedAuthorization>
+) satisfies ZodType<RegulatedAuthorization>;
 
 /**
  * Zod schema for FHIR RegulatedAuthorization resource.
  */
 export const regulatedAuthorizationSchema: ZodType<RegulatedAuthorization> =
-  untypedRegulatedAuthorizationSchema
+  untypedRegulatedAuthorizationSchema;
 
 /**
  * Wrapper class for FHIR RegulatedAuthorization resources.
@@ -85,6 +85,6 @@ export class FhirRegulatedAuthorization extends FhirDomainResource<RegulatedAuth
   public static parse(value: unknown): FhirRegulatedAuthorization {
     return new FhirRegulatedAuthorization(
       regulatedAuthorizationSchema.parse(value),
-    )
+    );
   }
 }

@@ -55,7 +55,7 @@ import {
   urlSchema,
   usageContextSchema,
   uuidSchema,
-} from './index.js'
+} from "./index.js";
 
 /**
  * Zod schema for FHIR elements with value[x] fields supporting any FHIR data type.
@@ -126,4 +126,4 @@ export const anyValueSchema = backboneElementSchema.extend({
   valueUsageContext: usageContextSchema.optional(),
   valueDosage: dosageSchema.optional(),
   valueMeta: metaSchema.optional(),
-})
+});

@@ -6,12 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type DomainResource } from 'fhir/r4b.js'
-import { type ZodType } from 'zod'
-import { narrativeSchema } from './dataTypes/narrative.js'
-import { extensionSchema } from './extension.js'
-import { resourceSchema } from './resource.js'
-import { fhirResourceSchema } from '../resources/fhirResource.js'
+import { type DomainResource } from "fhir/r4b.js";
+import { type ZodType } from "zod";
+import { narrativeSchema } from "./dataTypes/narrative.js";
+import { extensionSchema } from "./extension.js";
+import { resourceSchema } from "./resource.js";
+import { fhirResourceSchema } from "../resources/fhirResource.js";
 
 /**
  * Zod schema for FHIR DomainResource data type.
@@ -19,8 +19,8 @@ import { fhirResourceSchema } from '../resources/fhirResource.js'
 export const domainResourceSchema = resourceSchema.extend({
   text: narrativeSchema.optional(),
   get contained() {
-    return fhirResourceSchema.array().optional()
+    return fhirResourceSchema.array().optional();
   },
   extension: extensionSchema.array().optional(),
   modifierExtension: extensionSchema.array().optional(),
-}) satisfies ZodType<DomainResource>
+}) satisfies ZodType<DomainResource>;

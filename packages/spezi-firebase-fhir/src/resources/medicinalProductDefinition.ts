@@ -16,9 +16,9 @@ import {
   type MedicinalProductDefinitionNameCountryLanguage,
   type MedicinalProductDefinitionNameNamePart,
   type MedicinalProductDefinitionOperation,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -31,7 +31,7 @@ import {
   intSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 const medicinalProductDefinitionCharacteristicSchema: ZodType<MedicinalProductDefinitionCharacteristic> =
   backboneElementSchema.extend({
@@ -46,33 +46,33 @@ const medicinalProductDefinitionCharacteristicSchema: ZodType<MedicinalProductDe
     valueBoolean: booleanSchema.optional(),
     _valueBoolean: elementSchema.optional(),
     valueAttachment: elementSchema.optional(),
-  })
+  });
 
 const medicinalProductDefinitionContactSchema: ZodType<MedicinalProductDefinitionContact> =
   backboneElementSchema.extend({
     type: codeableConceptSchema.optional(),
     contact: referenceSchema,
-  })
+  });
 
 const medicinalProductDefinitionCrossReferenceSchema: ZodType<MedicinalProductDefinitionCrossReference> =
   backboneElementSchema.extend({
     product: codeableReferenceSchema,
     type: codeableConceptSchema.optional(),
-  })
+  });
 
 const medicinalProductDefinitionNameNamePartSchema: ZodType<MedicinalProductDefinitionNameNamePart> =
   backboneElementSchema.extend({
     part: stringSchema,
     _part: elementSchema.optional(),
     type: codeableConceptSchema,
-  })
+  });
 
 const medicinalProductDefinitionNameCountryLanguageSchema: ZodType<MedicinalProductDefinitionNameCountryLanguage> =
   backboneElementSchema.extend({
     country: codeableConceptSchema,
     jurisdiction: codeableConceptSchema.optional(),
     language: codeableConceptSchema,
-  })
+  });
 
 const medicinalProductDefinitionNameSchema: ZodType<MedicinalProductDefinitionName> =
   backboneElementSchema.extend({
@@ -83,7 +83,7 @@ const medicinalProductDefinitionNameSchema: ZodType<MedicinalProductDefinitionNa
     countryLanguage: medicinalProductDefinitionNameCountryLanguageSchema
       .array()
       .optional(),
-  })
+  });
 
 const medicinalProductDefinitionOperationSchema: ZodType<MedicinalProductDefinitionOperation> =
   backboneElementSchema.extend({
@@ -91,14 +91,14 @@ const medicinalProductDefinitionOperationSchema: ZodType<MedicinalProductDefinit
     effectiveDate: elementSchema.optional(),
     organization: referenceSchema.array().optional(),
     confidentialityIndicator: codeableConceptSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR MedicinalProductDefinition resource (untyped version).
  */
 export const untypedMedicinalProductDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('MedicinalProductDefinition').readonly(),
+    resourceType: z.literal("MedicinalProductDefinition").readonly(),
     identifier: identifierSchema.array().optional(),
     type: codeableConceptSchema.optional(),
     domain: codeableConceptSchema.optional(),
@@ -135,13 +135,13 @@ export const untypedMedicinalProductDefinitionSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<MedicinalProductDefinition>
+) satisfies ZodType<MedicinalProductDefinition>;
 
 /**
  * Zod schema for FHIR MedicinalProductDefinition resource.
  */
 export const medicinalProductDefinitionSchema: ZodType<MedicinalProductDefinition> =
-  untypedMedicinalProductDefinitionSchema
+  untypedMedicinalProductDefinitionSchema;
 
 /**
  * Wrapper class for FHIR MedicinalProductDefinition resources.
@@ -159,7 +159,7 @@ export class FhirMedicinalProductDefinition extends FhirDomainResource<Medicinal
   public static parse(value: unknown): FhirMedicinalProductDefinition {
     return new FhirMedicinalProductDefinition(
       medicinalProductDefinitionSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -172,7 +172,7 @@ export class FhirMedicinalProductDefinition extends FhirDomainResource<Medicinal
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -185,7 +185,7 @@ export class FhirMedicinalProductDefinition extends FhirDomainResource<Medicinal
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -195,7 +195,7 @@ export class FhirMedicinalProductDefinition extends FhirDomainResource<Medicinal
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -205,6 +205,6 @@ export class FhirMedicinalProductDefinition extends FhirDomainResource<Medicinal
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -12,9 +12,9 @@ import {
   type SpecimenProcessing,
   type Coding,
   type Specimen,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -27,8 +27,8 @@ import {
   quantitySchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { specimenStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { specimenStatusSchema } from "../valueSets/index.js";
 
 const specimenCollectionSchema: ZodType<SpecimenCollection> =
   backboneElementSchema.extend({
@@ -42,7 +42,7 @@ const specimenCollectionSchema: ZodType<SpecimenCollection> =
     bodySite: codeableConceptSchema.optional(),
     fastingStatusCodeableConcept: codeableConceptSchema.optional(),
     fastingStatusDuration: quantitySchema.optional(),
-  })
+  });
 
 const specimenProcessingSchema: ZodType<SpecimenProcessing> =
   backboneElementSchema.extend({
@@ -53,7 +53,7 @@ const specimenProcessingSchema: ZodType<SpecimenProcessing> =
     timeDateTime: dateTimeSchema.optional(),
     _timeDateTime: elementSchema.optional(),
     timePeriod: periodSchema.optional(),
-  })
+  });
 
 const specimenContainerSchema: ZodType<SpecimenContainer> =
   backboneElementSchema.extend({
@@ -64,14 +64,14 @@ const specimenContainerSchema: ZodType<SpecimenContainer> =
     specimenQuantity: quantitySchema.optional(),
     additiveCodeableConcept: codeableConceptSchema.optional(),
     additiveReference: referenceSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Specimen resource (untyped version).
  */
 export const untypedSpecimenSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Specimen').readonly(),
+    resourceType: z.literal("Specimen").readonly(),
     identifier: identifierSchema.array().optional(),
     accessionIdentifier: identifierSchema.optional(),
     status: specimenStatusSchema.optional(),
@@ -88,12 +88,12 @@ export const untypedSpecimenSchema = z.lazy(() =>
     condition: codeableConceptSchema.array().optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<Specimen>
+) satisfies ZodType<Specimen>;
 
 /**
  * Zod schema for FHIR Specimen resource.
  */
-export const specimenSchema: ZodType<Specimen> = untypedSpecimenSchema
+export const specimenSchema: ZodType<Specimen> = untypedSpecimenSchema;
 
 /**
  * Wrapper class for FHIR Specimen resources.
@@ -109,7 +109,7 @@ export class FhirSpecimen extends FhirDomainResource<Specimen> {
    * @returns A FhirSpecimen instance
    */
   public static parse(value: unknown): FhirSpecimen {
-    return new FhirSpecimen(specimenSchema.parse(value))
+    return new FhirSpecimen(specimenSchema.parse(value));
   }
 
   // Properties
@@ -120,7 +120,7 @@ export class FhirSpecimen extends FhirDomainResource<Specimen> {
    * @returns The received time if available
    */
   public get receivedTime(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.receivedTime)
+    return FhirDomainResource.parseDateTime(this.value.receivedTime);
   }
 
   /**
@@ -131,7 +131,7 @@ export class FhirSpecimen extends FhirDomainResource<Specimen> {
   public get collectionTime(): Date | undefined {
     return FhirDomainResource.parseDateTime(
       this.value.collection?.collectedDateTime,
-    )
+    );
   }
 
   /**
@@ -140,7 +140,7 @@ export class FhirSpecimen extends FhirDomainResource<Specimen> {
    * @returns The type display
    */
   public get typeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+    return FhirDomainResource.codeableConceptDisplay(this.value.type);
   }
 
   /**
@@ -153,7 +153,7 @@ export class FhirSpecimen extends FhirDomainResource<Specimen> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -166,7 +166,7 @@ export class FhirSpecimen extends FhirDomainResource<Specimen> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -176,7 +176,7 @@ export class FhirSpecimen extends FhirDomainResource<Specimen> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -186,7 +186,7 @@ export class FhirSpecimen extends FhirDomainResource<Specimen> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 
   /**
@@ -195,6 +195,6 @@ export class FhirSpecimen extends FhirDomainResource<Specimen> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 }

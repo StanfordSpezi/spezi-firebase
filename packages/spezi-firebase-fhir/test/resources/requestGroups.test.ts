@@ -6,30 +6,30 @@
 // SPDX-License-Identifier: MIT
 //
 
-import fs from 'fs'
-import { expectTypeOf } from 'expect-type'
-import { type RequestGroup } from 'fhir/r4b.js'
-import { type z } from 'zod'
-import { jsonStringifyDeterministically } from './testHelpers.js'
+import fs from "fs";
+import { expectTypeOf } from "expect-type";
+import { type RequestGroup } from "fhir/r4b.js";
+import { type z } from "zod";
+import { jsonStringifyDeterministically } from "./testHelpers.js";
 import {
   FhirRequestGroup,
   type untypedRequestGroupSchema,
-} from '../../src/index.js'
+} from "../../src/index.js";
 
-describe('RequestGroup Resource', () => {
-  it('should validate FHIR RequestGroups from requestGroups.json', () => {
-    type Schema = z.infer<typeof untypedRequestGroupSchema>
-    expectTypeOf<Schema>().toExtend<RequestGroup>()
-    expectTypeOf<RequestGroup>().toExtend<Schema>()
+describe("RequestGroup Resource", () => {
+  it("should validate FHIR RequestGroups from requestGroups.json", () => {
+    type Schema = z.infer<typeof untypedRequestGroupSchema>;
+    expectTypeOf<Schema>().toExtend<RequestGroup>();
+    expectTypeOf<RequestGroup>().toExtend<Schema>();
 
-    const data = fs.readFileSync('test/resources/requestGroups.json', 'utf-8')
-    const decodedJson = JSON.parse(data)
+    const data = fs.readFileSync("test/resources/requestGroups.json", "utf-8");
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
-      const parsedResource = FhirRequestGroup.parse(jsonValue).value
+      const parsedResource = FhirRequestGroup.parse(jsonValue).value;
       expect(jsonStringifyDeterministically(jsonValue)).toBe(
         jsonStringifyDeterministically(parsedResource),
-      )
-    })
-  })
-})
+      );
+    });
+  });
+});

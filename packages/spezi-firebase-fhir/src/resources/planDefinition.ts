@@ -16,9 +16,9 @@ import {
   type PlanDefinitionGoal,
   type PlanDefinitionGoalTarget,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -43,7 +43,7 @@ import {
   triggerDefinitionSchema,
   uriSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   planDefinitionActionCardinalityBehaviorSchema,
   planDefinitionActionConditionKindSchema,
@@ -55,7 +55,7 @@ import {
   planDefinitionActionSelectionBehaviorSchema,
   publicationStatusSchema,
   requestPrioritySchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const planDefinitionGoalTargetSchema: ZodType<PlanDefinitionGoalTarget> =
   backboneElementSchema.extend({
@@ -70,7 +70,7 @@ const planDefinitionGoalTargetSchema: ZodType<PlanDefinitionGoalTarget> =
     detailInteger: z.number().optional(),
     detailRatio: elementSchema.optional(),
     due: quantitySchema.optional(),
-  })
+  });
 
 const planDefinitionGoalSchema: ZodType<PlanDefinitionGoal> =
   backboneElementSchema.extend({
@@ -81,14 +81,14 @@ const planDefinitionGoalSchema: ZodType<PlanDefinitionGoal> =
     addresses: codeableConceptSchema.array().optional(),
     documentation: relatedArtifactSchema.array().optional(),
     target: planDefinitionGoalTargetSchema.array().optional(),
-  })
+  });
 
 const planDefinitionActionConditionSchema: ZodType<PlanDefinitionActionCondition> =
   backboneElementSchema.extend({
     kind: planDefinitionActionConditionKindSchema,
     _kind: elementSchema.optional(),
     expression: expressionSchema.optional(),
-  })
+  });
 
 const planDefinitionActionRelatedActionSchema: ZodType<PlanDefinitionActionRelatedAction> =
   backboneElementSchema.extend({
@@ -98,21 +98,21 @@ const planDefinitionActionRelatedActionSchema: ZodType<PlanDefinitionActionRelat
     _relationship: elementSchema.optional(),
     offsetDuration: quantitySchema.optional(),
     offsetRange: rangeSchema.optional(),
-  })
+  });
 
 const planDefinitionActionParticipantSchema: ZodType<PlanDefinitionActionParticipant> =
   backboneElementSchema.extend({
     type: planDefinitionActionParticipantTypeSchema,
     _type: elementSchema.optional(),
     role: codeableConceptSchema.optional(),
-  })
+  });
 
 const planDefinitionActionDynamicValueSchema: ZodType<PlanDefinitionActionDynamicValue> =
   backboneElementSchema.extend({
     path: stringSchema.optional(),
     _path: elementSchema.optional(),
     expression: expressionSchema.optional(),
-  })
+  });
 
 const planDefinitionActionSchema: ZodType<PlanDefinitionAction> =
   backboneElementSchema.extend({
@@ -168,16 +168,16 @@ const planDefinitionActionSchema: ZodType<PlanDefinitionAction> =
     _transform: elementSchema.optional(),
     dynamicValue: planDefinitionActionDynamicValueSchema.array().optional(),
     get action() {
-      return planDefinitionActionSchema.array().optional()
+      return planDefinitionActionSchema.array().optional();
     },
-  })
+  });
 
 /**
  * Zod schema for FHIR PlanDefinition resource (untyped version).
  */
 export const untypedPlanDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('PlanDefinition').readonly(),
+    resourceType: z.literal("PlanDefinition").readonly(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -229,13 +229,13 @@ export const untypedPlanDefinitionSchema = z.lazy(() =>
     goal: planDefinitionGoalSchema.array().optional(),
     action: planDefinitionActionSchema.array().optional(),
   }),
-) satisfies ZodType<PlanDefinition>
+) satisfies ZodType<PlanDefinition>;
 
 /**
  * Zod schema for FHIR PlanDefinition resource.
  */
 export const planDefinitionSchema: ZodType<PlanDefinition> =
-  untypedPlanDefinitionSchema
+  untypedPlanDefinitionSchema;
 
 /**
  * Wrapper class for FHIR PlanDefinition resources.
@@ -251,7 +251,7 @@ export class FhirPlanDefinition extends FhirDomainResource<PlanDefinition> {
    * @returns A FhirPlanDefinition instance containing the validated resource
    */
   public static parse(value: unknown): FhirPlanDefinition {
-    return new FhirPlanDefinition(planDefinitionSchema.parse(value))
+    return new FhirPlanDefinition(planDefinitionSchema.parse(value));
   }
 
   /**
@@ -264,7 +264,7 @@ export class FhirPlanDefinition extends FhirDomainResource<PlanDefinition> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -277,7 +277,7 @@ export class FhirPlanDefinition extends FhirDomainResource<PlanDefinition> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -287,7 +287,7 @@ export class FhirPlanDefinition extends FhirDomainResource<PlanDefinition> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -297,6 +297,6 @@ export class FhirPlanDefinition extends FhirDomainResource<PlanDefinition> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

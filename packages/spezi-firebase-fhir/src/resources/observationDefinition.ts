@@ -11,9 +11,9 @@ import {
   type ObservationDefinitionQuantitativeDetails,
   type ObservationDefinition,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -26,12 +26,12 @@ import {
   rangeSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   administrativeGenderSchema,
   observationDefinitionPermittedDataTypeSchema,
   observationDefinitionRangeCategorySchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const observationDefinitionQuantitativeDetailsSchema: ZodType<ObservationDefinitionQuantitativeDetails> =
   backboneElementSchema.extend({
@@ -39,7 +39,7 @@ const observationDefinitionQuantitativeDetailsSchema: ZodType<ObservationDefinit
     decimalPrecision: intSchema.optional(),
     unit: codeableConceptSchema.optional(),
     customaryUnit: codeableConceptSchema.optional(),
-  })
+  });
 
 const observationDefinitionQualifiedIntervalSchema: ZodType<ObservationDefinitionQualifiedInterval> =
   backboneElementSchema.extend({
@@ -54,14 +54,14 @@ const observationDefinitionQualifiedIntervalSchema: ZodType<ObservationDefinitio
     gestationalAge: rangeSchema.optional(),
     condition: stringSchema.optional(),
     _condition: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ObservationDefinition resource (untyped version).
  */
 export const untypedObservationDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ObservationDefinition').readonly(),
+    resourceType: z.literal("ObservationDefinition").readonly(),
     category: codeableConceptSchema.array().optional(),
     code: codeableConceptSchema,
     identifier: identifierSchema.array().optional(),
@@ -84,13 +84,13 @@ export const untypedObservationDefinitionSchema = z.lazy(() =>
     abnormalCodedValueSet: referenceSchema.optional(),
     criticalCodedValueSet: referenceSchema.optional(),
   }),
-) satisfies ZodType<ObservationDefinition>
+) satisfies ZodType<ObservationDefinition>;
 
 /**
  * Zod schema for FHIR ObservationDefinition resource.
  */
 export const observationDefinitionSchema: ZodType<ObservationDefinition> =
-  untypedObservationDefinitionSchema
+  untypedObservationDefinitionSchema;
 
 /**
  * Wrapper class for FHIR ObservationDefinition resources.
@@ -108,7 +108,7 @@ export class FhirObservationDefinition extends FhirDomainResource<ObservationDef
   public static parse(value: unknown): FhirObservationDefinition {
     return new FhirObservationDefinition(
       observationDefinitionSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -121,7 +121,7 @@ export class FhirObservationDefinition extends FhirDomainResource<ObservationDef
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -134,7 +134,7 @@ export class FhirObservationDefinition extends FhirDomainResource<ObservationDef
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -144,7 +144,7 @@ export class FhirObservationDefinition extends FhirDomainResource<ObservationDef
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -154,6 +154,6 @@ export class FhirObservationDefinition extends FhirDomainResource<ObservationDef
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

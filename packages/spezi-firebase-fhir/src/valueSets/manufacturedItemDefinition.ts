@@ -6,18 +6,18 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Allows filtering of manufactured items that are appropriate for use versus not.
  * http://hl7.org/fhir/valueset-publication-status.html
  */
 export const manufacturedItemDefinitionStatusSchema = z.enum([
-  'draft',
-  'active',
-  'retired',
-  'unknown',
-])
+  "draft",
+  "active",
+  "retired",
+  "unknown",
+]);
 
 /**
  * Allows filtering of manufactured items that are appropriate for use versus not.
@@ -25,4 +25,4 @@ export const manufacturedItemDefinitionStatusSchema = z.enum([
  */
 export type ManufacturedItemDefinitionStatus = z.infer<
   typeof manufacturedItemDefinitionStatusSchema
->
+>;

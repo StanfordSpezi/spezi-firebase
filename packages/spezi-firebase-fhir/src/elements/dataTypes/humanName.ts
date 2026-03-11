@@ -6,21 +6,21 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type HumanName } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { periodSchema } from './period.js'
-import { stringSchema } from './primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type HumanName } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { periodSchema } from "./period.js";
+import { stringSchema } from "./primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 const humanNameUseSchema = z.enum([
-  'usual',
-  'official',
-  'temp',
-  'nickname',
-  'anonymous',
-  'old',
-  'maiden',
-])
+  "usual",
+  "official",
+  "temp",
+  "nickname",
+  "anonymous",
+  "old",
+  "maiden",
+]);
 
 /**
  * Zod schema for FHIR HumanName data type.
@@ -41,9 +41,9 @@ export const untypedHumanNameSchema = z.lazy(() =>
     _suffix: elementSchema.array().optional(),
     period: periodSchema.optional(),
   }),
-) satisfies ZodType<HumanName>
+) satisfies ZodType<HumanName>;
 
 /**
  * Zod schema for FHIR HumanName data type.
  */
-export const humanNameSchema: ZodType<HumanName> = untypedHumanNameSchema
+export const humanNameSchema: ZodType<HumanName> = untypedHumanNameSchema;

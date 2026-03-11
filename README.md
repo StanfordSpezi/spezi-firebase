@@ -1,6 +1,6 @@
 <!--
 
-This source file is part of the Stanford Biodesign Digital Health Spezi Firebae open-source project
+This source file is part of the Stanford Biodesign Digital Health Spezi Firebase open-source project
 
 SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see CONTRIBUTORS.md)
 
@@ -86,6 +86,23 @@ For more advanced development, you can use npm workspace commands:
 - **Start development mode**: `npm run dev`
 
 Learn more about npm workspaces in the [official documentation](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
+
+#### REUSE Compatibility
+
+All project files must adhere to version 3.3 of the REUSE Specification. A template for the file header is provided as [spezi.jinja2](.reuse/templates/spezi.jinja2), which can be auto-applied with:
+
+```bash
+reuse annotate \
+  --copyright="Stanford University and the project authors (see CONTRIBUTORS.md)" \
+  --license="MIT" \
+  --year="$(date +%Y)" \
+  --copyright-prefix=spdx \
+  --template=spezi \
+  --merge-copyrights \
+  --recursive \
+  --fallback-dot-license \
+  .
+```
 
 ## Quick Start
 

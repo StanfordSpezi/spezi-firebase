@@ -11,10 +11,10 @@ import {
   type PractitionerRoleNotAvailable,
   type Coding,
   type PractitionerRole,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   backboneElementSchema,
@@ -25,8 +25,8 @@ import {
   referenceSchema,
   contactPointSchema,
   stringSchema,
-} from '../elements/index.js'
-import { daysOfWeekSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { daysOfWeekSchema } from "../valueSets/index.js";
 
 const practitionerRoleAvailableTimeSchema: ZodType<PractitionerRoleAvailableTime> =
   backboneElementSchema.extend({
@@ -37,21 +37,21 @@ const practitionerRoleAvailableTimeSchema: ZodType<PractitionerRoleAvailableTime
     _availableStartTime: elementSchema.optional(),
     availableEndTime: stringSchema.optional(),
     _availableEndTime: elementSchema.optional(),
-  })
+  });
 
 const practitionerRoleNotAvailableSchema: ZodType<PractitionerRoleNotAvailable> =
   backboneElementSchema.extend({
     description: stringSchema,
     _description: elementSchema.optional(),
     during: periodSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR PractitionerRole resource (untyped version).
  */
 export const untypedPractitionerRoleSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('PractitionerRole').readonly(),
+    resourceType: z.literal("PractitionerRole").readonly(),
     identifier: identifierSchema.array().optional(),
     active: booleanSchema.optional(),
     _active: elementSchema.optional(),
@@ -69,13 +69,13 @@ export const untypedPractitionerRoleSchema = z.lazy(() =>
     _availabilityExceptions: elementSchema.optional(),
     endpoint: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<PractitionerRole>
+) satisfies ZodType<PractitionerRole>;
 
 /**
  * Zod schema for FHIR PractitionerRole resource.
  */
 export const practitionerRoleSchema: ZodType<PractitionerRole> =
-  untypedPractitionerRoleSchema
+  untypedPractitionerRoleSchema;
 
 /**
  * Wrapper class for FHIR PractitionerRole resources.
@@ -91,7 +91,7 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
    * @returns A FhirPractitionerRole instance containing the validated resource
    */
   public static parse(value: unknown): FhirPractitionerRole {
-    return new FhirPractitionerRole(practitionerRoleSchema.parse(value))
+    return new FhirPractitionerRole(practitionerRoleSchema.parse(value));
   }
 
   /**
@@ -99,7 +99,7 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
    * @returns The start date, or undefined if not set
    */
   public get periodStart(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.period?.start)
+    return FhirDomainResource.parseDateTime(this.value.period?.start);
   }
 
   /**
@@ -107,7 +107,7 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
    * @returns The end date, or undefined if not set
    */
   public get periodEnd(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.period?.end)
+    return FhirDomainResource.parseDateTime(this.value.period?.end);
   }
 
   /**
@@ -119,8 +119,8 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
     const periodActive = FhirDomainResource.periodIsActive(
       this.value.period,
       asOfDate,
-    )
-    return periodActive && (this.value.active ?? true)
+    );
+    return periodActive && (this.value.active ?? true);
   }
 
   /**
@@ -128,7 +128,7 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
    * @returns Array of role display texts
    */
   public get roleDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.code)
+    return FhirDomainResource.codeableConceptDisplays(this.value.code);
   }
 
   /**
@@ -136,7 +136,7 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
    * @returns Array of specialty display texts
    */
   public get specialtyDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.specialty)
+    return FhirDomainResource.codeableConceptDisplays(this.value.specialty);
   }
 
   /**
@@ -144,7 +144,10 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
    * @returns Array of phone numbers
    */
   public get phoneNumbers(): string[] {
-    return FhirDomainResource.contactPointsBySystem(this.value.telecom, 'phone')
+    return FhirDomainResource.contactPointsBySystem(
+      this.value.telecom,
+      "phone",
+    );
   }
 
   /**
@@ -152,7 +155,10 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
    * @returns Array of email addresses
    */
   public get emailAddresses(): string[] {
-    return FhirDomainResource.contactPointsBySystem(this.value.telecom, 'email')
+    return FhirDomainResource.contactPointsBySystem(
+      this.value.telecom,
+      "email",
+    );
   }
 
   /**
@@ -165,7 +171,7 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -178,7 +184,7 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -188,7 +194,7 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -198,6 +204,6 @@ export class FhirPractitionerRole extends FhirDomainResource<PractitionerRole> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -46,6 +46,9 @@
   "dependencies": {
     "zod": "^4.0.5"
   },
+  "peerDependencies": {
+    "firebase-functions": "^6.0.0"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.3",
     "@types/node": "^20",

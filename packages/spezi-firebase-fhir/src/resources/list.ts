@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ListEntry, type Coding, type List } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type ListEntry, type Coding, type List } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -20,8 +20,8 @@ import {
   identifierSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { listStatusSchema, listModeSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { listStatusSchema, listModeSchema } from "../valueSets/index.js";
 
 const listEntrySchema: ZodType<ListEntry> = backboneElementSchema.extend({
   flag: codeableConceptSchema.optional(),
@@ -30,14 +30,14 @@ const listEntrySchema: ZodType<ListEntry> = backboneElementSchema.extend({
   date: dateTimeSchema.optional(),
   _date: elementSchema.optional(),
   item: referenceSchema,
-})
+});
 
 /**
  * Zod schema for FHIR List resource (untyped version).
  */
 export const untypedListSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('List').readonly(),
+    resourceType: z.literal("List").readonly(),
     identifier: identifierSchema.array().optional(),
     status: listStatusSchema.readonly(),
     _status: elementSchema.optional(),
@@ -56,12 +56,12 @@ export const untypedListSchema = z.lazy(() =>
     entry: listEntrySchema.array().optional(),
     emptyReason: codeableConceptSchema.optional(),
   }),
-) satisfies ZodType<List>
+) satisfies ZodType<List>;
 
 /**
  * Zod schema for FHIR List resource.
  */
-export const listSchema: ZodType<List> = untypedListSchema
+export const listSchema: ZodType<List> = untypedListSchema;
 
 /**
  * Wrapper class for FHIR List resources.
@@ -74,7 +74,7 @@ export class FhirList extends FhirDomainResource<List> {
    * @returns A FhirList instance containing the validated resource
    */
   public static parse(value: unknown): FhirList {
-    return new FhirList(listSchema.parse(value))
+    return new FhirList(listSchema.parse(value));
   }
 
   /**
@@ -83,7 +83,7 @@ export class FhirList extends FhirDomainResource<List> {
    * @returns The preparation date if available
    */
   public get date(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.date)
+    return FhirDomainResource.parseDateTime(this.value.date);
   }
 
   /**
@@ -92,7 +92,7 @@ export class FhirList extends FhirDomainResource<List> {
    * @returns Array of note text strings
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -105,7 +105,7 @@ export class FhirList extends FhirDomainResource<List> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -118,7 +118,7 @@ export class FhirList extends FhirDomainResource<List> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -128,7 +128,7 @@ export class FhirList extends FhirDomainResource<List> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -138,6 +138,6 @@ export class FhirList extends FhirDomainResource<List> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

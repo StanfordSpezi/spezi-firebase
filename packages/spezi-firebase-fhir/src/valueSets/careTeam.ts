@@ -6,22 +6,22 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Indicates the status of the care team.
  * http://hl7.org/fhir/valueset-care-team-status.html
  */
 export const careTeamStatusSchema = z.enum([
-  'proposed',
-  'active',
-  'suspended',
-  'inactive',
-  'entered-in-error',
-])
+  "proposed",
+  "active",
+  "suspended",
+  "inactive",
+  "entered-in-error",
+]);
 
 /**
  * Indicates the status of the care team.
  * http://hl7.org/fhir/valueset-care-team-status.html
  */
-export type CareTeamStatus = z.infer<typeof careTeamStatusSchema>
+export type CareTeamStatus = z.infer<typeof careTeamStatusSchema>;

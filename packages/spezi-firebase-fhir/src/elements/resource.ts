@@ -6,15 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Resource } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { type Resource } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
 import {
   codeSchema,
   stringSchema,
   uriSchema,
-} from './dataTypes/primitiveTypes.js'
-import { elementSchema } from './element.js'
-import { metaSchema } from './meta.js'
+} from "./dataTypes/primitiveTypes.js";
+import { elementSchema } from "./element.js";
+import { metaSchema } from "./meta.js";
 
 /**
  * Zod schema for FHIR Resource data type (base type for all FHIR resources).
@@ -28,4 +28,4 @@ export const resourceSchema = z.object({
   _implicitRules: elementSchema.optional(),
   language: codeSchema.optional(),
   _language: elementSchema.optional(),
-}) satisfies ZodType<Resource>
+}) satisfies ZodType<Resource>;

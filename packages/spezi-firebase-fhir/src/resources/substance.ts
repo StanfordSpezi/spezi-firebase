@@ -11,9 +11,9 @@ import {
   type SubstanceInstance,
   type Substance,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -25,8 +25,8 @@ import {
   ratioSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { substanceStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { substanceStatusSchema } from "../valueSets/index.js";
 
 const substanceInstanceSchema: ZodType<SubstanceInstance> =
   backboneElementSchema.extend({
@@ -34,21 +34,21 @@ const substanceInstanceSchema: ZodType<SubstanceInstance> =
     expiry: dateTimeSchema.optional(),
     _expiry: elementSchema.optional(),
     quantity: quantitySchema.optional(),
-  })
+  });
 
 const substanceIngredientSchema: ZodType<SubstanceIngredient> =
   backboneElementSchema.extend({
     quantity: ratioSchema.optional(),
     substanceCodeableConcept: codeableConceptSchema.optional(),
     substanceReference: referenceSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Substance resource (untyped version).
  */
 export const untypedSubstanceSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Substance').readonly(),
+    resourceType: z.literal("Substance").readonly(),
     identifier: identifierSchema.array().optional(),
     status: substanceStatusSchema.optional(),
     _status: elementSchema.optional(),
@@ -59,12 +59,12 @@ export const untypedSubstanceSchema = z.lazy(() =>
     instance: substanceInstanceSchema.array().optional(),
     ingredient: substanceIngredientSchema.array().optional(),
   }),
-) satisfies ZodType<Substance>
+) satisfies ZodType<Substance>;
 
 /**
  * Zod schema for FHIR Substance resource.
  */
-export const substanceSchema: ZodType<Substance> = untypedSubstanceSchema
+export const substanceSchema: ZodType<Substance> = untypedSubstanceSchema;
 
 /**
  * Wrapper class for FHIR Substance resources.
@@ -78,7 +78,7 @@ export class FhirSubstance extends FhirDomainResource<Substance> {
    * @returns A FhirSubstance instance containing the validated resource
    */
   public static parse(value: unknown): FhirSubstance {
-    return new FhirSubstance(substanceSchema.parse(value))
+    return new FhirSubstance(substanceSchema.parse(value));
   }
 
   /**
@@ -87,7 +87,7 @@ export class FhirSubstance extends FhirDomainResource<Substance> {
    * @returns The code display text, if available
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -100,7 +100,7 @@ export class FhirSubstance extends FhirDomainResource<Substance> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -113,7 +113,7 @@ export class FhirSubstance extends FhirDomainResource<Substance> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -123,7 +123,7 @@ export class FhirSubstance extends FhirDomainResource<Substance> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -133,6 +133,6 @@ export class FhirSubstance extends FhirDomainResource<Substance> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

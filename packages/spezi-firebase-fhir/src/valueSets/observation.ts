@@ -6,25 +6,25 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Codes providing the status of an observation.
  * http://hl7.org/fhir/valueset-observation-status.html
  */
 export const observationStatusSchema = z.enum([
-  'registered',
-  'preliminary',
-  'final',
-  'amended',
-  'corrected',
-  'cancelled',
-  'entered-in-error',
-  'unknown',
-])
+  "registered",
+  "preliminary",
+  "final",
+  "amended",
+  "corrected",
+  "cancelled",
+  "entered-in-error",
+  "unknown",
+]);
 
 /**
  * Codes providing the status of an observation.
  * http://hl7.org/fhir/valueset-observation-status.html
  */
-export type ObservationStatus = z.infer<typeof observationStatusSchema>
+export type ObservationStatus = z.infer<typeof observationStatusSchema>;

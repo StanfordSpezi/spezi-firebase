@@ -24,9 +24,9 @@ import {
   type MedicationKnowledgeRegulatoryMaxDispense,
   type MedicationKnowledgeAdministrationGuidelinesDosage,
   type MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   base64BinarySchema,
@@ -40,21 +40,21 @@ import {
   ratioSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { medicationStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { medicationStatusSchema } from "../valueSets/index.js";
 
 const medicationKnowledgeRelatedMedicationKnowledgeSchema: ZodType<MedicationKnowledgeRelatedMedicationKnowledge> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     _type: elementSchema.optional(),
     reference: referenceSchema.array(),
-  })
+  });
 
 const medicationKnowledgeMonographSchema: ZodType<MedicationKnowledgeMonograph> =
   backboneElementSchema.extend({
     source: referenceSchema.optional(),
     type: codeableConceptSchema.optional(),
-  })
+  });
 
 const medicationKnowledgeIngredientSchema: ZodType<MedicationKnowledgeIngredient> =
   backboneElementSchema.extend({
@@ -63,7 +63,7 @@ const medicationKnowledgeIngredientSchema: ZodType<MedicationKnowledgeIngredient
     isActive: booleanSchema.optional(),
     _isActive: elementSchema.optional(),
     strength: ratioSchema.optional(),
-  })
+  });
 
 const medicationKnowledgeCostSchema: ZodType<MedicationKnowledgeCost> =
   backboneElementSchema.extend({
@@ -71,27 +71,27 @@ const medicationKnowledgeCostSchema: ZodType<MedicationKnowledgeCost> =
     source: stringSchema.optional(),
     _source: elementSchema.optional(),
     cost: quantitySchema,
-  })
+  });
 
 const medicationKnowledgeMonitoringProgramSchema: ZodType<MedicationKnowledgeMonitoringProgram> =
   backboneElementSchema.extend({
     type: codeableConceptSchema.optional(),
     name: stringSchema.optional(),
     _name: elementSchema.optional(),
-  })
+  });
 
 const medicationKnowledgeAdministrationGuidelinesDosageSchema: ZodType<MedicationKnowledgeAdministrationGuidelinesDosage> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     dosage: dosageSchema.array(),
-  })
+  });
 
 const medicationKnowledgeAdministrationGuidelinesPatientCharacteristicsSchema: ZodType<MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics> =
   backboneElementSchema.extend({
     characteristicCodeableConcept: codeableConceptSchema.optional(),
     characteristicQuantity: quantitySchema.optional(),
     value: stringSchema.array().optional(),
-  })
+  });
 
 const medicationKnowledgeAdministrationGuidelinesSchema: ZodType<MedicationKnowledgeAdministrationGuidelines> =
   backboneElementSchema.extend({
@@ -104,19 +104,19 @@ const medicationKnowledgeAdministrationGuidelinesSchema: ZodType<MedicationKnowl
       medicationKnowledgeAdministrationGuidelinesPatientCharacteristicsSchema
         .array()
         .optional(),
-  })
+  });
 
 const medicationKnowledgeMedicineClassificationSchema: ZodType<MedicationKnowledgeMedicineClassification> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     classification: codeableConceptSchema.array(),
-  })
+  });
 
 const medicationKnowledgePackagingSchema: ZodType<MedicationKnowledgePackaging> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     quantity: quantitySchema,
-  })
+  });
 
 const medicationKnowledgeDrugCharacteristicSchema: ZodType<MedicationKnowledgeDrugCharacteristic> =
   backboneElementSchema.extend({
@@ -127,26 +127,26 @@ const medicationKnowledgeDrugCharacteristicSchema: ZodType<MedicationKnowledgeDr
     valueQuantity: quantitySchema.optional(),
     valueBase64Binary: base64BinarySchema.optional(),
     _valueBase64Binary: elementSchema.optional(),
-  })
+  });
 
 const medicationKnowledgeRegulatorySubstitutionSchema: ZodType<MedicationKnowledgeRegulatorySubstitution> =
   backboneElementSchema.extend({
     allowed: booleanSchema,
     _allowed: elementSchema.optional(),
     type: codeableConceptSchema,
-  })
+  });
 
 const medicationKnowledgeRegulatoryScheduleSchema: ZodType<MedicationKnowledgeRegulatorySchedule> =
   backboneElementSchema.extend({
     schedule: codeableConceptSchema,
     quantity: quantitySchema.optional(),
-  })
+  });
 
 const medicationKnowledgeRegulatoryMaxDispenseSchema: ZodType<MedicationKnowledgeRegulatoryMaxDispense> =
   backboneElementSchema.extend({
     quantity: quantitySchema,
     period: quantitySchema.optional(),
-  })
+  });
 
 const medicationKnowledgeRegulatorySchema: ZodType<MedicationKnowledgeRegulatory> =
   backboneElementSchema.extend({
@@ -156,21 +156,21 @@ const medicationKnowledgeRegulatorySchema: ZodType<MedicationKnowledgeRegulatory
       .optional(),
     schedule: medicationKnowledgeRegulatoryScheduleSchema.array().optional(),
     maxDispense: medicationKnowledgeRegulatoryMaxDispenseSchema.optional(),
-  })
+  });
 
 const medicationKnowledgeKineticsSchema: ZodType<MedicationKnowledgeKinetics> =
   backboneElementSchema.extend({
     areaUnderCurve: quantitySchema.array().optional(),
     lethalDose50: quantitySchema.array().optional(),
     halfLifePeriod: quantitySchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR MedicationKnowledge resource (untyped version).
  */
 export const untypedMedicationKnowledgeSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('MedicationKnowledge').readonly(),
+    resourceType: z.literal("MedicationKnowledge").readonly(),
     code: codeableConceptSchema.optional(),
     status: medicationStatusSchema.optional(),
     _status: elementSchema.optional(),
@@ -205,13 +205,13 @@ export const untypedMedicationKnowledgeSchema = z.lazy(() =>
     regulatory: medicationKnowledgeRegulatorySchema.array().optional(),
     kinetics: medicationKnowledgeKineticsSchema.array().optional(),
   }),
-) satisfies ZodType<MedicationKnowledge>
+) satisfies ZodType<MedicationKnowledge>;
 
 /**
  * Zod schema for FHIR MedicationKnowledge resource.
  */
 export const medicationKnowledgeSchema: ZodType<MedicationKnowledge> =
-  untypedMedicationKnowledgeSchema
+  untypedMedicationKnowledgeSchema;
 
 /**
  * Wrapper class for FHIR MedicationKnowledge resources.
@@ -227,7 +227,7 @@ export class FhirMedicationKnowledge extends FhirDomainResource<MedicationKnowle
    * @returns A FhirMedicationKnowledge instance containing the validated resource
    */
   public static parse(value: unknown): FhirMedicationKnowledge {
-    return new FhirMedicationKnowledge(medicationKnowledgeSchema.parse(value))
+    return new FhirMedicationKnowledge(medicationKnowledgeSchema.parse(value));
   }
 
   /**
@@ -235,7 +235,7 @@ export class FhirMedicationKnowledge extends FhirDomainResource<MedicationKnowle
    * @returns Code display text
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -243,7 +243,7 @@ export class FhirMedicationKnowledge extends FhirDomainResource<MedicationKnowle
    * @returns Dose form display text
    */
   public get doseFormDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.doseForm)
+    return FhirDomainResource.codeableConceptDisplay(this.value.doseForm);
   }
 
   /**
@@ -253,7 +253,7 @@ export class FhirMedicationKnowledge extends FhirDomainResource<MedicationKnowle
   public get medicineClassificationDisplays(): string[] {
     return FhirDomainResource.codeableConceptDisplays(
       this.value.medicineClassification?.map((c) => c.type),
-    )
+    );
   }
 
   /**
@@ -263,7 +263,7 @@ export class FhirMedicationKnowledge extends FhirDomainResource<MedicationKnowle
   public get monitoringProgramNames(): string[] {
     return (this.value.monitoringProgram ?? []).flatMap((program) =>
       program.name ? [program.name] : [],
-    )
+    );
   }
 
   /**
@@ -273,6 +273,6 @@ export class FhirMedicationKnowledge extends FhirDomainResource<MedicationKnowle
   public get hasContraindications(): boolean {
     return (
       !!this.value.contraindication && this.value.contraindication.length > 0
-    )
+    );
   }
 }

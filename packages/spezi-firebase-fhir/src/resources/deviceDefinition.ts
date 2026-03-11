@@ -17,9 +17,9 @@ import {
   type ProductShelfLife,
   type DeviceDefinition,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   attachmentSchema,
@@ -33,8 +33,8 @@ import {
   quantitySchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { deviceDefinitionNameTypeSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { deviceDefinitionNameTypeSchema } from "../valueSets/index.js";
 
 const prodCharacteristicSchema: ZodType<ProdCharacteristic> =
   backboneElementSchema.extend({
@@ -52,7 +52,7 @@ const prodCharacteristicSchema: ZodType<ProdCharacteristic> =
     _imprint: elementSchema.array().optional(),
     image: attachmentSchema.array().optional(),
     scoring: codeableConceptSchema.optional(),
-  })
+  });
 
 const productShelfLifeSchema: ZodType<ProductShelfLife> =
   backboneElementSchema.extend({
@@ -60,7 +60,7 @@ const productShelfLifeSchema: ZodType<ProductShelfLife> =
     type: codeableConceptSchema,
     period: quantitySchema,
     specialPrecautionsForStorage: codeableConceptSchema.array().optional(),
-  })
+  });
 
 const deviceDefinitionUdiDeviceIdentifierSchema: ZodType<DeviceDefinitionUdiDeviceIdentifier> =
   backboneElementSchema.extend({
@@ -70,7 +70,7 @@ const deviceDefinitionUdiDeviceIdentifierSchema: ZodType<DeviceDefinitionUdiDevi
     _issuer: elementSchema.optional(),
     jurisdiction: stringSchema,
     _jurisdiction: elementSchema.optional(),
-  })
+  });
 
 const deviceDefinitionDeviceNameSchema: ZodType<DeviceDefinitionDeviceName> =
   backboneElementSchema.extend({
@@ -78,7 +78,7 @@ const deviceDefinitionDeviceNameSchema: ZodType<DeviceDefinitionDeviceName> =
     _name: elementSchema.optional(),
     type: deviceDefinitionNameTypeSchema,
     _type: elementSchema.optional(),
-  })
+  });
 
 const deviceDefinitionSpecializationSchema: ZodType<DeviceDefinitionSpecialization> =
   backboneElementSchema.extend({
@@ -86,20 +86,20 @@ const deviceDefinitionSpecializationSchema: ZodType<DeviceDefinitionSpecializati
     _systemType: elementSchema.optional(),
     version: stringSchema.optional(),
     _version: elementSchema.optional(),
-  })
+  });
 
 const deviceDefinitionCapabilitySchema: ZodType<DeviceDefinitionCapability> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     description: codeableConceptSchema.array().optional(),
-  })
+  });
 
 const deviceDefinitionPropertySchema: ZodType<DeviceDefinitionProperty> =
   backboneElementSchema.extend({
     type: codeableConceptSchema,
     valueCode: codeableConceptSchema.array().optional(),
     valueQuantity: quantitySchema.array().optional(),
-  })
+  });
 
 const deviceDefinitionMaterialSchema: ZodType<DeviceDefinitionMaterial> =
   backboneElementSchema.extend({
@@ -108,14 +108,14 @@ const deviceDefinitionMaterialSchema: ZodType<DeviceDefinitionMaterial> =
     _alternate: elementSchema.optional(),
     allergenicIndicator: booleanSchema.optional(),
     _allergenicIndicator: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR DeviceDefinition resource (untyped version).
  */
 export const untypedDeviceDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('DeviceDefinition').readonly(),
+    resourceType: z.literal("DeviceDefinition").readonly(),
     identifier: identifierSchema.array().optional(),
     udiDeviceIdentifier: deviceDefinitionUdiDeviceIdentifierSchema
       .array()
@@ -147,13 +147,13 @@ export const untypedDeviceDefinitionSchema = z.lazy(() =>
     parentDevice: referenceSchema.optional(),
     material: deviceDefinitionMaterialSchema.array().optional(),
   }),
-) satisfies ZodType<DeviceDefinition>
+) satisfies ZodType<DeviceDefinition>;
 
 /**
  * Zod schema for FHIR DeviceDefinition resource.
  */
 export const deviceDefinitionSchema: ZodType<DeviceDefinition> =
-  untypedDeviceDefinitionSchema
+  untypedDeviceDefinitionSchema;
 
 /**
  * Wrapper class for FHIR DeviceDefinition resources.
@@ -169,7 +169,7 @@ export class FhirDeviceDefinition extends FhirDomainResource<DeviceDefinition> {
    * @returns A FhirDeviceDefinition instance containing the validated resource
    */
   public static parse(value: unknown): FhirDeviceDefinition {
-    return new FhirDeviceDefinition(deviceDefinitionSchema.parse(value))
+    return new FhirDeviceDefinition(deviceDefinitionSchema.parse(value));
   }
 
   /**
@@ -182,7 +182,7 @@ export class FhirDeviceDefinition extends FhirDomainResource<DeviceDefinition> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -195,7 +195,7 @@ export class FhirDeviceDefinition extends FhirDomainResource<DeviceDefinition> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -205,7 +205,7 @@ export class FhirDeviceDefinition extends FhirDomainResource<DeviceDefinition> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -215,6 +215,6 @@ export class FhirDeviceDefinition extends FhirDomainResource<DeviceDefinition> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

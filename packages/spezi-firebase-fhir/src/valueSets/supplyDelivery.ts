@@ -6,21 +6,21 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Status of the supply delivery
  * http://hl7.org/fhir/valueset-supplydelivery-status.html
  */
 export const supplyDeliveryStatusSchema = z.enum([
-  'in-progress',
-  'completed',
-  'abandoned',
-  'entered-in-error',
-])
+  "in-progress",
+  "completed",
+  "abandoned",
+  "entered-in-error",
+]);
 
 /**
  * Status of the supply delivery
  * http://hl7.org/fhir/valueset-supplydelivery-status.html
  */
-export type SupplyDeliveryStatus = z.infer<typeof supplyDeliveryStatusSchema>
+export type SupplyDeliveryStatus = z.infer<typeof supplyDeliveryStatusSchema>;

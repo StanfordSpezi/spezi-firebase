@@ -6,28 +6,28 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type EnrollmentResponse } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import { type Coding, type EnrollmentResponse } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   elementSchema,
   referenceSchema,
   stringSchema,
   dateTimeSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   financialResourceStatusSchema,
   remittanceOutcomeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR EnrollmentResponse resource (untyped version).
  */
 export const untypedEnrollmentResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('EnrollmentResponse').readonly(),
+    resourceType: z.literal("EnrollmentResponse").readonly(),
     identifier: identifierSchema.array().optional(),
     status: financialResourceStatusSchema.optional(),
     _status: elementSchema.optional(),
@@ -41,13 +41,13 @@ export const untypedEnrollmentResponseSchema = z.lazy(() =>
     organization: referenceSchema.optional(),
     requestProvider: referenceSchema.optional(),
   }),
-) satisfies ZodType<EnrollmentResponse>
+) satisfies ZodType<EnrollmentResponse>;
 
 /**
  * Zod schema for FHIR EnrollmentResponse resource.
  */
 export const enrollmentResponseSchema: ZodType<EnrollmentResponse> =
-  untypedEnrollmentResponseSchema
+  untypedEnrollmentResponseSchema;
 
 /**
  * Wrapper class for FHIR EnrollmentResponse resources.
@@ -63,7 +63,7 @@ export class FhirEnrollmentResponse extends FhirDomainResource<EnrollmentRespons
    * @returns A FhirEnrollmentResponse instance containing the validated resource
    */
   public static parse(value: unknown): FhirEnrollmentResponse {
-    return new FhirEnrollmentResponse(enrollmentResponseSchema.parse(value))
+    return new FhirEnrollmentResponse(enrollmentResponseSchema.parse(value));
   }
 
   /**
@@ -76,7 +76,7 @@ export class FhirEnrollmentResponse extends FhirDomainResource<EnrollmentRespons
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -89,7 +89,7 @@ export class FhirEnrollmentResponse extends FhirDomainResource<EnrollmentRespons
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -99,7 +99,7 @@ export class FhirEnrollmentResponse extends FhirDomainResource<EnrollmentRespons
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -109,6 +109,6 @@ export class FhirEnrollmentResponse extends FhirDomainResource<EnrollmentRespons
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Money } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { codeSchema, decimalSchema } from './primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type Money } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { codeSchema, decimalSchema } from "./primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 /**
  * Zod schema for FHIR Money data type.
@@ -20,9 +20,9 @@ export const untypedMoneySchema = z.lazy(() =>
     currency: codeSchema.optional(),
     _currency: elementSchema.optional(),
   }),
-) satisfies ZodType<Money>
+) satisfies ZodType<Money>;
 
 /**
  * Zod schema for FHIR Money data type.
  */
-export const moneySchema: ZodType<Money> = untypedMoneySchema
+export const moneySchema: ZodType<Money> = untypedMoneySchema;

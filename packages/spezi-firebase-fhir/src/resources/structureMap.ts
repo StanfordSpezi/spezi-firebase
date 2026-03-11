@@ -16,9 +16,9 @@ import {
   type StructureMapStructure,
   type StructureMap,
   type StructureMapGroupRule,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   base64BinarySchema,
@@ -40,7 +40,7 @@ import {
   timeSchema,
   urlSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   publicationStatusSchema,
   structureMapGroupInputModeSchema,
@@ -50,7 +50,7 @@ import {
   structureMapTargetContextTypeSchema,
   structureMapTargetListModeSchema,
   structureMapTransformSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const structureMapGroupRuleSourceSchema: ZodType<StructureMapGroupRuleSource> =
   backboneElementSchema.extend({
@@ -107,7 +107,7 @@ const structureMapGroupRuleSourceSchema: ZodType<StructureMapGroupRuleSource> =
     _check: elementSchema.optional(),
     logMessage: stringSchema.optional(),
     _logMessage: elementSchema.optional(),
-  })
+  });
 
 const structureMapGroupRuleTargetParameterSchema: ZodType<StructureMapGroupRuleTargetParameter> =
   backboneElementSchema.extend({
@@ -119,7 +119,7 @@ const structureMapGroupRuleTargetParameterSchema: ZodType<StructureMapGroupRuleT
     _valueBoolean: elementSchema.optional(),
     valueInteger: intSchema.optional(),
     valueDecimal: decimalSchema.optional(),
-  })
+  });
 
 const structureMapGroupRuleTargetSchema: ZodType<StructureMapGroupRuleTarget> =
   backboneElementSchema.extend({
@@ -138,7 +138,7 @@ const structureMapGroupRuleTargetSchema: ZodType<StructureMapGroupRuleTarget> =
     transform: structureMapTransformSchema.optional(),
     _transform: elementSchema.optional(),
     parameter: structureMapGroupRuleTargetParameterSchema.array().optional(),
-  })
+  });
 
 const structureMapGroupRuleDependentSchema: ZodType<StructureMapGroupRuleDependent> =
   backboneElementSchema.extend({
@@ -146,7 +146,7 @@ const structureMapGroupRuleDependentSchema: ZodType<StructureMapGroupRuleDepende
     _name: elementSchema.optional(),
     variable: stringSchema.array(),
     _variable: elementSchema.array().optional(),
-  })
+  });
 
 const structureMapGroupRuleSchema: ZodType<StructureMapGroupRule> =
   backboneElementSchema.extend({
@@ -155,12 +155,12 @@ const structureMapGroupRuleSchema: ZodType<StructureMapGroupRule> =
     source: structureMapGroupRuleSourceSchema.array(),
     target: structureMapGroupRuleTargetSchema.array().optional(),
     get rule() {
-      return structureMapGroupRuleSchema.array().optional()
+      return structureMapGroupRuleSchema.array().optional();
     },
     dependent: structureMapGroupRuleDependentSchema.array().optional(),
     documentation: stringSchema.optional(),
     _documentation: elementSchema.optional(),
-  })
+  });
 
 const structureMapStructureSchema: ZodType<StructureMapStructure> =
   backboneElementSchema.extend({
@@ -172,7 +172,7 @@ const structureMapStructureSchema: ZodType<StructureMapStructure> =
     _alias: elementSchema.optional(),
     documentation: stringSchema.optional(),
     _documentation: elementSchema.optional(),
-  })
+  });
 
 const structureMapGroupInputSchema: ZodType<StructureMapGroupInput> =
   backboneElementSchema.extend({
@@ -184,7 +184,7 @@ const structureMapGroupInputSchema: ZodType<StructureMapGroupInput> =
     _mode: elementSchema.optional(),
     documentation: stringSchema.optional(),
     _documentation: elementSchema.optional(),
-  })
+  });
 
 const structureMapGroupSchema: ZodType<StructureMapGroup> =
   backboneElementSchema.extend({
@@ -198,14 +198,14 @@ const structureMapGroupSchema: ZodType<StructureMapGroup> =
     _documentation: elementSchema.optional(),
     input: structureMapGroupInputSchema.array(),
     rule: structureMapGroupRuleSchema.array(),
-  })
+  });
 
 /**
  * Zod schema for FHIR StructureMap resource (untyped version).
  */
 export const untypedStructureMapSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('StructureMap').readonly(),
+    resourceType: z.literal("StructureMap").readonly(),
     url: urlSchema,
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -237,13 +237,13 @@ export const untypedStructureMapSchema = z.lazy(() =>
     _import: elementSchema.array().optional(),
     group: structureMapGroupSchema.array(),
   }),
-) satisfies ZodType<StructureMap>
+) satisfies ZodType<StructureMap>;
 
 /**
  * Zod schema for FHIR StructureMap resource.
  */
 export const structureMapSchema: ZodType<StructureMap> =
-  untypedStructureMapSchema
+  untypedStructureMapSchema;
 
 /**
  * Wrapper class for FHIR StructureMap resources.
@@ -259,6 +259,6 @@ export class FhirStructureMap extends FhirDomainResource<StructureMap> {
    * @returns A FhirStructureMap instance containing the validated resource
    */
   public static parse(value: unknown): FhirStructureMap {
-    return new FhirStructureMap(structureMapSchema.parse(value))
+    return new FhirStructureMap(structureMapSchema.parse(value));
   }
 }

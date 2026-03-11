@@ -6,22 +6,22 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * A code specifying the state of the medication statement.
  * http://hl7.org/fhir/valueset-medication-statement-status.html
  */
 export const medicationStatementStatusSchema = z.enum([
-  'active',
-  'completed',
-  'entered-in-error',
-  'intended',
-  'stopped',
-  'on-hold',
-  'unknown',
-  'not-taken',
-])
+  "active",
+  "completed",
+  "entered-in-error",
+  "intended",
+  "stopped",
+  "on-hold",
+  "unknown",
+  "not-taken",
+]);
 
 /**
  * A code specifying the state of the medication statement.
@@ -29,4 +29,4 @@ export const medicationStatementStatusSchema = z.enum([
  */
 export type MedicationStatementStatus = z.infer<
   typeof medicationStatementStatusSchema
->
+>;

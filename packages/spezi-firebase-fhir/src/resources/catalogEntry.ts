@@ -10,9 +10,9 @@ import {
   type Coding,
   type CatalogEntry,
   type CatalogEntryRelatedEntry,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -23,25 +23,25 @@ import {
   identifierSchema,
   periodSchema,
   referenceSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   catalogEntryRelationtypeSchema,
   catalogEntryStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const catalogEntryRelatedEntrySchema: ZodType<CatalogEntryRelatedEntry> =
   backboneElementSchema.extend({
     relationtype: catalogEntryRelationtypeSchema,
     _relationtype: elementSchema.optional(),
     item: referenceSchema,
-  })
+  });
 
 /**
  * Zod schema for FHIR CatalogEntry resource (untyped version).
  */
 export const untypedCatalogEntrySchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('CatalogEntry').readonly(),
+    resourceType: z.literal("CatalogEntry").readonly(),
     identifier: identifierSchema.array().optional(),
     type: codeableConceptSchema.optional(),
     orderable: booleanSchema,
@@ -60,13 +60,13 @@ export const untypedCatalogEntrySchema = z.lazy(() =>
     additionalClassification: codeableConceptSchema.array().optional(),
     relatedEntry: catalogEntryRelatedEntrySchema.array().optional(),
   }),
-) satisfies ZodType<CatalogEntry>
+) satisfies ZodType<CatalogEntry>;
 
 /**
  * Zod schema for FHIR CatalogEntry resource.
  */
 export const catalogEntrySchema: ZodType<CatalogEntry> =
-  untypedCatalogEntrySchema
+  untypedCatalogEntrySchema;
 
 /**
  * Wrapper class for FHIR CatalogEntry resources.
@@ -82,7 +82,7 @@ export class FhirCatalogEntry extends FhirDomainResource<CatalogEntry> {
    * @returns A FhirCatalogEntry instance containing the validated resource
    */
   public static parse(value: unknown): FhirCatalogEntry {
-    return new FhirCatalogEntry(catalogEntrySchema.parse(value))
+    return new FhirCatalogEntry(catalogEntrySchema.parse(value));
   }
 
   /**
@@ -95,7 +95,7 @@ export class FhirCatalogEntry extends FhirDomainResource<CatalogEntry> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -108,7 +108,7 @@ export class FhirCatalogEntry extends FhirDomainResource<CatalogEntry> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -118,7 +118,7 @@ export class FhirCatalogEntry extends FhirDomainResource<CatalogEntry> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -128,6 +128,6 @@ export class FhirCatalogEntry extends FhirDomainResource<CatalogEntry> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -6,24 +6,24 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type EnrollmentRequest } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import { type Coding, type EnrollmentRequest } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   elementSchema,
   referenceSchema,
   dateTimeSchema,
-} from '../elements/index.js'
-import { financialResourceStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { financialResourceStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR EnrollmentRequest resource (untyped version).
  */
 export const untypedEnrollmentRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('EnrollmentRequest').readonly(),
+    resourceType: z.literal("EnrollmentRequest").readonly(),
     identifier: identifierSchema.array().optional(),
     status: financialResourceStatusSchema.optional(),
     _status: elementSchema.optional(),
@@ -34,13 +34,13 @@ export const untypedEnrollmentRequestSchema = z.lazy(() =>
     candidate: referenceSchema.optional(),
     coverage: referenceSchema.optional(),
   }),
-) satisfies ZodType<EnrollmentRequest>
+) satisfies ZodType<EnrollmentRequest>;
 
 /**
  * Zod schema for FHIR EnrollmentRequest resource.
  */
 export const enrollmentRequestSchema: ZodType<EnrollmentRequest> =
-  untypedEnrollmentRequestSchema
+  untypedEnrollmentRequestSchema;
 
 /**
  * Wrapper class for FHIR EnrollmentRequest resources.
@@ -56,7 +56,7 @@ export class FhirEnrollmentRequest extends FhirDomainResource<EnrollmentRequest>
    * @returns A FhirEnrollmentRequest instance containing the validated resource
    */
   public static parse(value: unknown): FhirEnrollmentRequest {
-    return new FhirEnrollmentRequest(enrollmentRequestSchema.parse(value))
+    return new FhirEnrollmentRequest(enrollmentRequestSchema.parse(value));
   }
 
   /**
@@ -69,7 +69,7 @@ export class FhirEnrollmentRequest extends FhirDomainResource<EnrollmentRequest>
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -82,7 +82,7 @@ export class FhirEnrollmentRequest extends FhirDomainResource<EnrollmentRequest>
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -92,7 +92,7 @@ export class FhirEnrollmentRequest extends FhirDomainResource<EnrollmentRequest>
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -102,6 +102,6 @@ export class FhirEnrollmentRequest extends FhirDomainResource<EnrollmentRequest>
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

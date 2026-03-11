@@ -6,18 +6,18 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * A code specifying the types of information being requested.
  * http://hl7.org/fhir/valueset-eligibilityrequest-purpose.html
  */
 export const eligibilityRequestPurposeSchema = z.enum([
-  'auth-requirements',
-  'benefits',
-  'discovery',
-  'validation',
-])
+  "auth-requirements",
+  "benefits",
+  "discovery",
+  "validation",
+]);
 
 /**
  * A code specifying the types of information being requested.
@@ -25,18 +25,18 @@ export const eligibilityRequestPurposeSchema = z.enum([
  */
 export type EligibilityRequestPurpose = z.infer<
   typeof eligibilityRequestPurposeSchema
->
+>;
 
 /**
  * A code specifying the types of information being requested.
  * http://hl7.org/fhir/valueset-eligibilityresponse-purpose.html
  */
 export const eligibilityResponsePurposeSchema = z.enum([
-  'auth-requirements',
-  'benefits',
-  'discovery',
-  'validation',
-])
+  "auth-requirements",
+  "benefits",
+  "discovery",
+  "validation",
+]);
 
 /**
  * A code specifying the types of information being requested.
@@ -44,4 +44,4 @@ export const eligibilityResponsePurposeSchema = z.enum([
  */
 export type EligibilityResponsePurpose = z.infer<
   typeof eligibilityResponsePurposeSchema
->
+>;

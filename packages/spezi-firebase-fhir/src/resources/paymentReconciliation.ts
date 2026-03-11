@@ -11,10 +11,10 @@ import {
   type PaymentReconciliationProcessNote,
   type Coding,
   type PaymentReconciliation,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   backboneElementSchema,
@@ -26,12 +26,12 @@ import {
   dateTimeSchema,
   periodSchema,
   dateSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   financialResourceStatusSchema,
   remittanceOutcomeSchema,
   noteTypeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const paymentReconciliationDetailSchema: ZodType<PaymentReconciliationDetail> =
   backboneElementSchema.extend({
@@ -46,7 +46,7 @@ const paymentReconciliationDetailSchema: ZodType<PaymentReconciliationDetail> =
     responsible: referenceSchema.optional(),
     payee: referenceSchema.optional(),
     amount: moneySchema.optional(),
-  })
+  });
 
 const paymentReconciliationProcessNoteSchema: ZodType<PaymentReconciliationProcessNote> =
   backboneElementSchema.extend({
@@ -54,14 +54,14 @@ const paymentReconciliationProcessNoteSchema: ZodType<PaymentReconciliationProce
     _type: elementSchema.optional(),
     text: stringSchema.optional(),
     _text: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR PaymentReconciliation resource (untyped version).
  */
 export const untypedPaymentReconciliationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('PaymentReconciliation').readonly(),
+    resourceType: z.literal("PaymentReconciliation").readonly(),
     identifier: identifierSchema.array().optional(),
     status: financialResourceStatusSchema,
     _status: elementSchema.optional(),
@@ -83,13 +83,13 @@ export const untypedPaymentReconciliationSchema = z.lazy(() =>
     formCode: codeableConceptSchema.optional(),
     processNote: paymentReconciliationProcessNoteSchema.array().optional(),
   }),
-) satisfies ZodType<PaymentReconciliation>
+) satisfies ZodType<PaymentReconciliation>;
 
 /**
  * Zod schema for FHIR PaymentReconciliation resource.
  */
 export const paymentReconciliationSchema: ZodType<PaymentReconciliation> =
-  untypedPaymentReconciliationSchema
+  untypedPaymentReconciliationSchema;
 
 /**
  * Wrapper class for FHIR PaymentReconciliation resources.
@@ -107,7 +107,7 @@ export class FhirPaymentReconciliation extends FhirDomainResource<PaymentReconci
   public static parse(value: unknown): FhirPaymentReconciliation {
     return new FhirPaymentReconciliation(
       paymentReconciliationSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -120,7 +120,7 @@ export class FhirPaymentReconciliation extends FhirDomainResource<PaymentReconci
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -133,7 +133,7 @@ export class FhirPaymentReconciliation extends FhirDomainResource<PaymentReconci
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -143,7 +143,7 @@ export class FhirPaymentReconciliation extends FhirDomainResource<PaymentReconci
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -153,6 +153,6 @@ export class FhirPaymentReconciliation extends FhirDomainResource<PaymentReconci
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -13,8 +13,8 @@
 export class Lazy<T> {
   // Properties
 
-  private _factory?: () => T
-  private _value?: T
+  private _factory?: () => T;
+  private _value?: T;
 
   // Constructor
 
@@ -23,7 +23,7 @@ export class Lazy<T> {
    * @param factory Function that produces the value when first accessed
    */
   constructor(factory: () => T) {
-    this._factory = factory
+    this._factory = factory;
   }
 
   // Accessors
@@ -34,23 +34,23 @@ export class Lazy<T> {
    */
   get value(): T {
     if (this._value === undefined && this._factory) {
-      this._value = this._factory()
-      this._factory = undefined
+      this._value = this._factory();
+      this._factory = undefined;
     }
     // At this point _value should be defined, but we'll handle the case if it's not
     if (this._value === undefined) {
       throw new Error(
-        'Lazy value is undefined and factory function is not available',
-      )
+        "Lazy value is undefined and factory function is not available",
+      );
     }
-    return this._value
+    return this._value;
   }
 
   /**
    * Sets the value directly, bypassing the factory
    */
   set value(value: T) {
-    this._value = value
-    this._factory = undefined
+    this._value = value;
+    this._factory = undefined;
   }
 }

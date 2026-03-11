@@ -6,33 +6,33 @@
 // SPDX-License-Identifier: MIT
 //
 
-import fs from 'fs'
-import { expectTypeOf } from 'expect-type'
-import { type SubstanceDefinition } from 'fhir/r4b.js'
-import { type z } from 'zod'
-import { jsonStringifyDeterministically } from './testHelpers.js'
+import fs from "fs";
+import { expectTypeOf } from "expect-type";
+import { type SubstanceDefinition } from "fhir/r4b.js";
+import { type z } from "zod";
+import { jsonStringifyDeterministically } from "./testHelpers.js";
 import {
   FhirSubstanceDefinition,
   type untypedSubstanceDefinitionSchema,
-} from '../../src/index.js'
+} from "../../src/index.js";
 
-describe('SubstanceDefinition Resource', () => {
-  it('should validate FHIR substance definition from substanceDefinitions.json', () => {
-    type Schema = z.infer<typeof untypedSubstanceDefinitionSchema>
-    expectTypeOf<Schema>().toExtend<SubstanceDefinition>()
-    expectTypeOf<SubstanceDefinition>().toExtend<Schema>()
+describe("SubstanceDefinition Resource", () => {
+  it("should validate FHIR substance definition from substanceDefinitions.json", () => {
+    type Schema = z.infer<typeof untypedSubstanceDefinitionSchema>;
+    expectTypeOf<Schema>().toExtend<SubstanceDefinition>();
+    expectTypeOf<SubstanceDefinition>().toExtend<Schema>();
 
     const data = fs.readFileSync(
-      'test/resources/substanceDefinitions.json',
-      'utf-8',
-    )
-    const decodedJson = JSON.parse(data)
+      "test/resources/substanceDefinitions.json",
+      "utf-8",
+    );
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
-      const parsedResource = FhirSubstanceDefinition.parse(jsonValue).value
+      const parsedResource = FhirSubstanceDefinition.parse(jsonValue).value;
       expect(jsonStringifyDeterministically(jsonValue)).toBe(
         jsonStringifyDeterministically(parsedResource),
-      )
-    })
-  })
-})
+      );
+    });
+  });
+});

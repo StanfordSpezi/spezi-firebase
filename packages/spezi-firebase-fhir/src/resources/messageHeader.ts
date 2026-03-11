@@ -11,9 +11,9 @@ import {
   type MessageHeaderResponse,
   type MessageHeaderSource,
   type MessageHeader,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   canonicalSchema,
@@ -26,8 +26,8 @@ import {
   stringSchema,
   uriSchema,
   urlSchema,
-} from '../elements/index.js'
-import { messageHeaderResponseCodeSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { messageHeaderResponseCodeSchema } from "../valueSets/index.js";
 
 const messageHeaderDestinationSchema: ZodType<MessageHeaderDestination> =
   backboneElementSchema.extend({
@@ -37,7 +37,7 @@ const messageHeaderDestinationSchema: ZodType<MessageHeaderDestination> =
     endpoint: uriSchema,
     _endpoint: elementSchema.optional(),
     receiver: referenceSchema.optional(),
-  })
+  });
 
 const messageHeaderSourceSchema: ZodType<MessageHeaderSource> =
   backboneElementSchema.extend({
@@ -49,7 +49,7 @@ const messageHeaderSourceSchema: ZodType<MessageHeaderSource> =
     _version: elementSchema.optional(),
     endpoint: urlSchema,
     _endpoint: elementSchema.optional(),
-  })
+  });
 
 const messageHeaderResponseSchema: ZodType<MessageHeaderResponse> =
   backboneElementSchema.extend({
@@ -57,14 +57,14 @@ const messageHeaderResponseSchema: ZodType<MessageHeaderResponse> =
     _identifier: elementSchema.optional(),
     code: messageHeaderResponseCodeSchema,
     details: referenceSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR MessageHeader resource (untyped version).
  */
 export const untypedMessageHeaderSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('MessageHeader').readonly(),
+    resourceType: z.literal("MessageHeader").readonly(),
     eventCoding: codingSchema.optional(),
     eventUri: uriSchema.optional(),
     _eventUri: elementSchema.optional(),
@@ -79,13 +79,13 @@ export const untypedMessageHeaderSchema = z.lazy(() =>
     focus: referenceSchema.array().optional(),
     definition: canonicalSchema.optional(),
   }),
-) satisfies ZodType<MessageHeader>
+) satisfies ZodType<MessageHeader>;
 
 /**
  * Zod schema for FHIR MessageHeader resource.
  */
 export const messageHeaderSchema: ZodType<MessageHeader> =
-  untypedMessageHeaderSchema
+  untypedMessageHeaderSchema;
 
 /**
  * Wrapper class for FHIR MessageHeader resources.
@@ -101,6 +101,6 @@ export class FhirMessageHeader extends FhirDomainResource<MessageHeader> {
    * @returns A FhirMessageHeader instance containing the validated resource
    */
   public static parse(value: unknown): FhirMessageHeader {
-    return new FhirMessageHeader(messageHeaderSchema.parse(value))
+    return new FhirMessageHeader(messageHeaderSchema.parse(value));
   }
 }

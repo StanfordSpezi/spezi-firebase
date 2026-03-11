@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type Media } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type Media } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   attachmentSchema,
@@ -23,15 +23,15 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { mediaStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { mediaStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR Media resource (untyped version).
  */
 export const untypedMediaSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Media').readonly(),
+    resourceType: z.literal("Media").readonly(),
     identifier: identifierSchema.array().optional(),
     basedOn: referenceSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
@@ -60,12 +60,12 @@ export const untypedMediaSchema = z.lazy(() =>
     content: attachmentSchema,
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<Media>
+) satisfies ZodType<Media>;
 
 /**
  * Zod schema for FHIR Media resource.
  */
-export const mediaSchema: ZodType<Media> = untypedMediaSchema
+export const mediaSchema: ZodType<Media> = untypedMediaSchema;
 
 /**
  * Wrapper class for FHIR Media resources.
@@ -79,7 +79,7 @@ export class FhirMedia extends FhirDomainResource<Media> {
    * @returns A FhirMedia instance containing the validated resource
    */
   public static parse(value: unknown): FhirMedia {
-    return new FhirMedia(mediaSchema.parse(value))
+    return new FhirMedia(mediaSchema.parse(value));
   }
 
   /**
@@ -88,7 +88,7 @@ export class FhirMedia extends FhirDomainResource<Media> {
    * @returns The creation date if available
    */
   public get createdDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.createdDateTime)
+    return FhirDomainResource.parseDateTime(this.value.createdDateTime);
   }
 
   /**
@@ -97,7 +97,7 @@ export class FhirMedia extends FhirDomainResource<Media> {
    * @returns The issued date if available
    */
   public get issuedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.issued)
+    return FhirDomainResource.parseDateTime(this.value.issued);
   }
 
   /**
@@ -106,7 +106,7 @@ export class FhirMedia extends FhirDomainResource<Media> {
    * @returns The type display text, if available
    */
   public get typeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+    return FhirDomainResource.codeableConceptDisplay(this.value.type);
   }
 
   /**
@@ -115,7 +115,7 @@ export class FhirMedia extends FhirDomainResource<Media> {
    * @returns The modality display text, or undefined if not set
    */
   public get modalityDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.modality)
+    return FhirDomainResource.codeableConceptDisplay(this.value.modality);
   }
 
   /**
@@ -128,7 +128,7 @@ export class FhirMedia extends FhirDomainResource<Media> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -141,7 +141,7 @@ export class FhirMedia extends FhirDomainResource<Media> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -151,7 +151,7 @@ export class FhirMedia extends FhirDomainResource<Media> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -161,6 +161,6 @@ export class FhirMedia extends FhirDomainResource<Media> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

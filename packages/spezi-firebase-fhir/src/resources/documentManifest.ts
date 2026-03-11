@@ -10,9 +10,9 @@ import {
   type Coding,
   type DocumentManifest,
   type DocumentManifestRelated,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -23,21 +23,21 @@ import {
   referenceSchema,
   stringSchema,
   uriSchema,
-} from '../elements/index.js'
-import { documentManifestStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { documentManifestStatusSchema } from "../valueSets/index.js";
 
 const documentManifestRelatedSchema: ZodType<DocumentManifestRelated> =
   backboneElementSchema.extend({
     identifier: identifierSchema.optional(),
     ref: referenceSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR DocumentManifest resource (untyped version).
  */
 export const untypedDocumentManifestSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('DocumentManifest').readonly(),
+    resourceType: z.literal("DocumentManifest").readonly(),
     masterIdentifier: identifierSchema.optional(),
     identifier: identifierSchema.array().optional(),
     status: documentManifestStatusSchema,
@@ -55,13 +55,13 @@ export const untypedDocumentManifestSchema = z.lazy(() =>
     content: referenceSchema.array(),
     related: documentManifestRelatedSchema.array().optional(),
   }),
-) satisfies ZodType<DocumentManifest>
+) satisfies ZodType<DocumentManifest>;
 
 /**
  * Zod schema for FHIR DocumentManifest resource.
  */
 export const documentManifestSchema: ZodType<DocumentManifest> =
-  untypedDocumentManifestSchema
+  untypedDocumentManifestSchema;
 
 /**
  * Wrapper class for FHIR DocumentManifest resources.
@@ -77,7 +77,7 @@ export class FhirDocumentManifest extends FhirDomainResource<DocumentManifest> {
    * @returns A FhirDocumentManifest instance containing the validated resource
    */
   public static parse(value: unknown): FhirDocumentManifest {
-    return new FhirDocumentManifest(documentManifestSchema.parse(value))
+    return new FhirDocumentManifest(documentManifestSchema.parse(value));
   }
 
   /**
@@ -90,7 +90,7 @@ export class FhirDocumentManifest extends FhirDomainResource<DocumentManifest> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -103,7 +103,7 @@ export class FhirDocumentManifest extends FhirDomainResource<DocumentManifest> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -113,7 +113,7 @@ export class FhirDocumentManifest extends FhirDomainResource<DocumentManifest> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -123,6 +123,6 @@ export class FhirDocumentManifest extends FhirDomainResource<DocumentManifest> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

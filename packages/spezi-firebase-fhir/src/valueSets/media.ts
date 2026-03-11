@@ -6,25 +6,25 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The status of the media resource.
  * http://hl7.org/fhir/valueset-event-status.html
  */
 export const mediaStatusSchema = z.enum([
-  'preparation',
-  'in-progress',
-  'not-done',
-  'on-hold',
-  'stopped',
-  'completed',
-  'entered-in-error',
-  'unknown',
-])
+  "preparation",
+  "in-progress",
+  "not-done",
+  "on-hold",
+  "stopped",
+  "completed",
+  "entered-in-error",
+  "unknown",
+]);
 
 /**
  * The status of the media resource.
  * http://hl7.org/fhir/valueset-event-status.html
  */
-export type MediaStatus = z.infer<typeof mediaStatusSchema>
+export type MediaStatus = z.infer<typeof mediaStatusSchema>;

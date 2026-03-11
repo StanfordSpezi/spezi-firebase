@@ -6,33 +6,33 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The workflow/clinical status of the catalog entry.
  * http://hl7.org/fhir/valueset-publication-status.html
  */
 export const catalogEntryStatusSchema = z.enum([
-  'draft',
-  'active',
-  'retired',
-  'unknown',
-])
+  "draft",
+  "active",
+  "retired",
+  "unknown",
+]);
 
 /**
  * The workflow/clinical status of the catalog entry.
  * http://hl7.org/fhir/valueset-publication-status.html
  */
-export type CatalogEntryStatus = z.infer<typeof catalogEntryStatusSchema>
+export type CatalogEntryStatus = z.infer<typeof catalogEntryStatusSchema>;
 
 /**
  * The type of relation between catalog entries.
  * http://hl7.org/fhir/valueset-relation-type.html
  */
 export const catalogEntryRelationtypeSchema = z.enum([
-  'triggers',
-  'is-replaced-by',
-])
+  "triggers",
+  "is-replaced-by",
+]);
 
 /**
  * The type of relation between catalog entries.
@@ -40,4 +40,4 @@ export const catalogEntryRelationtypeSchema = z.enum([
  */
 export type CatalogEntryRelationtype = z.infer<
   typeof catalogEntryRelationtypeSchema
->
+>;

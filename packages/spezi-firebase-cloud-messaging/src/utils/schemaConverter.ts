@@ -10,7 +10,7 @@
  * Schema converter utility for transforming between raw objects and typed classes
  */
 
-import { type z } from 'zod'
+import { type z } from "zod";
 
 /**
  * A utility class for converting between domain objects and schema-validated data
@@ -22,11 +22,11 @@ export class SchemaConverter<T, S extends z.ZodType = z.ZodType> {
   /**
    * Zod schema for validation
    */
-  readonly schema: S
+  readonly schema: S;
   /**
    * Encoding function to convert domain object to data
    */
-  readonly encode: (obj: T) => z.output<S>
+  readonly encode: (obj: T) => z.output<S>;
 
   /**
    * Creates a new SchemaConverter instance
@@ -35,7 +35,7 @@ export class SchemaConverter<T, S extends z.ZodType = z.ZodType> {
    * @param input.encode Function to encode validated output
    */
   constructor(input: { schema: S; encode: (obj: T) => z.output<S> }) {
-    this.schema = input.schema
-    this.encode = input.encode
+    this.schema = input.schema;
+    this.encode = input.encode;
   }
 }

@@ -6,23 +6,23 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type ContactPoint } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { periodSchema } from './period.js'
-import { positiveIntSchema, stringSchema } from './primitiveTypes.js'
-import { elementSchema } from '../element.js'
+import { type ContactPoint } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { periodSchema } from "./period.js";
+import { positiveIntSchema, stringSchema } from "./primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 const contactPointSystemSchema = z.enum([
-  'phone',
-  'fax',
-  'email',
-  'pager',
-  'url',
-  'sms',
-  'other',
-])
+  "phone",
+  "fax",
+  "email",
+  "pager",
+  "url",
+  "sms",
+  "other",
+]);
 
-const contactPointUseSchema = z.enum(['home', 'work', 'temp', 'old', 'mobile'])
+const contactPointUseSchema = z.enum(["home", "work", "temp", "old", "mobile"]);
 
 /**
  * Zod schema for FHIR ContactPoint data type.
@@ -38,10 +38,10 @@ export const untypedContactPointSchema = z.lazy(() =>
     rank: positiveIntSchema.optional(),
     period: periodSchema.optional(),
   }),
-) satisfies ZodType<ContactPoint>
+) satisfies ZodType<ContactPoint>;
 
 /**
  * Zod schema for FHIR ContactPoint data type.
  */
 export const contactPointSchema: ZodType<ContactPoint> =
-  untypedContactPointSchema
+  untypedContactPointSchema;

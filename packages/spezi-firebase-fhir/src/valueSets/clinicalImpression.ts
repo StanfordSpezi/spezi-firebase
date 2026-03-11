@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The workflow state of a clinical impression.
  * http://hl7.org/fhir/valueset-clinicalimpression-status.html
  */
 export const clinicalImpressionStatusSchema = z.enum([
-  'in-progress',
-  'completed',
-  'entered-in-error',
-])
+  "in-progress",
+  "completed",
+  "entered-in-error",
+]);
 
 /**
  * The workflow state of a clinical impression.
@@ -24,4 +24,4 @@ export const clinicalImpressionStatusSchema = z.enum([
  */
 export type ClinicalImpressionStatus = z.infer<
   typeof clinicalImpressionStatusSchema
->
+>;

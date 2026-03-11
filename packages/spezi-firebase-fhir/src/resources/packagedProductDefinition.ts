@@ -13,9 +13,9 @@ import {
   type PackagedProductDefinitionPackageContainedItem,
   type PackagedProductDefinitionPackageProperty,
   type PackagedProductDefinitionPackageShelfLifeStorage,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -32,13 +32,13 @@ import {
   quantitySchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 const packagedProductDefinitionLegalStatusOfSupplySchema: ZodType<PackagedProductDefinitionLegalStatusOfSupply> =
   backboneElementSchema.extend({
     code: codeableConceptSchema.optional(),
     jurisdiction: codeableConceptSchema.optional(),
-  })
+  });
 
 const packagedProductDefinitionPackageShelfLifeStorageSchema: ZodType<PackagedProductDefinitionPackageShelfLifeStorage> =
   backboneElementSchema.extend({
@@ -47,7 +47,7 @@ const packagedProductDefinitionPackageShelfLifeStorageSchema: ZodType<PackagedPr
     _periodString: elementSchema.optional(),
     specialPrecautionsForStorage: codeableConceptSchema.array().optional(),
     type: codeableConceptSchema.optional(),
-  })
+  });
 
 const packagedProductDefinitionPackagePropertySchema: ZodType<PackagedProductDefinitionPackageProperty> =
   backboneElementSchema.extend({
@@ -59,13 +59,13 @@ const packagedProductDefinitionPackagePropertySchema: ZodType<PackagedProductDef
     valueBoolean: booleanSchema.optional(),
     _valueBoolean: elementSchema.optional(),
     valueAttachment: attachmentSchema.optional(),
-  })
+  });
 
 const packagedProductDefinitionPackageContainedItemSchema: ZodType<PackagedProductDefinitionPackageContainedItem> =
   backboneElementSchema.extend({
     amount: quantitySchema.optional(),
     item: codeableReferenceSchema,
-  })
+  });
 
 const packagedProductDefinitionPackageSchema: ZodType<PackagedProductDefinitionPackage> =
   backboneElementSchema.extend({
@@ -77,7 +77,7 @@ const packagedProductDefinitionPackageSchema: ZodType<PackagedProductDefinitionP
     manufacturer: referenceSchema.array().optional(),
     material: codeableConceptSchema.array().optional(),
     get package() {
-      return packagedProductDefinitionPackageSchema.array().optional()
+      return packagedProductDefinitionPackageSchema.array().optional();
     },
     property: packagedProductDefinitionPackagePropertySchema.array().optional(),
     quantity: intSchema.optional(),
@@ -85,14 +85,14 @@ const packagedProductDefinitionPackageSchema: ZodType<PackagedProductDefinitionP
       .array()
       .optional(),
     type: codeableConceptSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR PackagedProductDefinition resource (untyped version).
  */
 export const untypedPackagedProductDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('PackagedProductDefinition').readonly(),
+    resourceType: z.literal("PackagedProductDefinition").readonly(),
     characteristic: codeableConceptSchema.array().optional(),
     containedItemQuantity: quantitySchema.array().optional(),
     copackagedIndicator: booleanSchema.optional(),
@@ -114,13 +114,13 @@ export const untypedPackagedProductDefinitionSchema = z.lazy(() =>
     _statusDate: elementSchema.optional(),
     type: codeableConceptSchema.optional(),
   }),
-) satisfies ZodType<PackagedProductDefinition>
+) satisfies ZodType<PackagedProductDefinition>;
 
 /**
  * Zod schema for FHIR PackagedProductDefinition resource.
  */
 export const packagedProductDefinitionSchema: ZodType<PackagedProductDefinition> =
-  untypedPackagedProductDefinitionSchema
+  untypedPackagedProductDefinitionSchema;
 
 /**
  * Wrapper class for FHIR PackagedProductDefinition resources.
@@ -138,6 +138,6 @@ export class FhirPackagedProductDefinition extends FhirDomainResource<PackagedPr
   public static parse(value: unknown): FhirPackagedProductDefinition {
     return new FhirPackagedProductDefinition(
       packagedProductDefinitionSchema.parse(value),
-    )
+    );
   }
 }

@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type ResearchSubject } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type ResearchSubject } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   domainResourceSchema,
   elementSchema,
@@ -16,15 +16,15 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { researchSubjectStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { researchSubjectStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR ResearchSubject resource (untyped version).
  */
 export const untypedResearchSubjectSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ResearchSubject').readonly(),
+    resourceType: z.literal("ResearchSubject").readonly(),
     identifier: identifierSchema.array().optional(),
     status: researchSubjectStatusSchema,
     _status: elementSchema.optional(),
@@ -37,13 +37,13 @@ export const untypedResearchSubjectSchema = z.lazy(() =>
     _actualArm: elementSchema.optional(),
     consent: referenceSchema.optional(),
   }),
-) satisfies ZodType<ResearchSubject>
+) satisfies ZodType<ResearchSubject>;
 
 /**
  * Zod schema for FHIR ResearchSubject resource.
  */
 export const researchSubjectSchema: ZodType<ResearchSubject> =
-  untypedResearchSubjectSchema
+  untypedResearchSubjectSchema;
 
 /**
  * Wrapper class for FHIR ResearchSubject resources.
@@ -59,7 +59,7 @@ export class FhirResearchSubject extends FhirDomainResource<ResearchSubject> {
    * @returns A FhirResearchSubject instance containing the validated resource
    */
   public static parse(value: unknown): FhirResearchSubject {
-    return new FhirResearchSubject(researchSubjectSchema.parse(value))
+    return new FhirResearchSubject(researchSubjectSchema.parse(value));
   }
 
   /**
@@ -72,7 +72,7 @@ export class FhirResearchSubject extends FhirDomainResource<ResearchSubject> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -85,7 +85,7 @@ export class FhirResearchSubject extends FhirDomainResource<ResearchSubject> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -95,7 +95,7 @@ export class FhirResearchSubject extends FhirDomainResource<ResearchSubject> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -105,6 +105,6 @@ export class FhirResearchSubject extends FhirDomainResource<ResearchSubject> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -1,9 +1,9 @@
 declare namespace jest {
   interface Matchers<R> {
-    toBeObject(): R
+    toBeObject(): R;
   }
 
-  interface Mock<T = any> {
-    mockResolvedValue<U = T>(value?: U): this
+  interface Mock<T = unknown> {
+    mockResolvedValue(value?: T): this;
   }
 }

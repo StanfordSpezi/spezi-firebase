@@ -10,9 +10,9 @@ import {
   type RiskAssessmentPrediction,
   type RiskAssessment,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -26,8 +26,8 @@ import {
   rangeSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { riskAssessmentStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { riskAssessmentStatusSchema } from "../valueSets/index.js";
 
 const riskAssessmentPredictionSchema: ZodType<RiskAssessmentPrediction> =
   backboneElementSchema.extend({
@@ -40,14 +40,14 @@ const riskAssessmentPredictionSchema: ZodType<RiskAssessmentPrediction> =
     whenRange: rangeSchema.optional(),
     rationale: stringSchema.optional(),
     _rationale: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR RiskAssessment resource (untyped version).
  */
 export const untypedRiskAssessmentSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('RiskAssessment').readonly(),
+    resourceType: z.literal("RiskAssessment").readonly(),
     identifier: identifierSchema.array().optional(),
     basedOn: referenceSchema.optional(),
     parent: referenceSchema.optional(),
@@ -70,13 +70,13 @@ export const untypedRiskAssessmentSchema = z.lazy(() =>
     _mitigation: elementSchema.optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<RiskAssessment>
+) satisfies ZodType<RiskAssessment>;
 
 /**
  * Zod schema for FHIR RiskAssessment resource.
  */
 export const riskAssessmentSchema: ZodType<RiskAssessment> =
-  untypedRiskAssessmentSchema
+  untypedRiskAssessmentSchema;
 
 /**
  * Wrapper class for FHIR RiskAssessment resources.
@@ -90,7 +90,7 @@ export class FhirRiskAssessment extends FhirDomainResource<RiskAssessment> {
    * @returns A FhirRiskAssessment instance containing the validated resource
    */
   public static parse(value: unknown): FhirRiskAssessment {
-    return new FhirRiskAssessment(riskAssessmentSchema.parse(value))
+    return new FhirRiskAssessment(riskAssessmentSchema.parse(value));
   }
 
   /**
@@ -99,7 +99,7 @@ export class FhirRiskAssessment extends FhirDomainResource<RiskAssessment> {
    * @returns The occurrence date, or undefined if not set
    */
   public get occurrenceDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime)
+    return FhirDomainResource.parseDateTime(this.value.occurrenceDateTime);
   }
 
   /**
@@ -108,7 +108,7 @@ export class FhirRiskAssessment extends FhirDomainResource<RiskAssessment> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -117,7 +117,7 @@ export class FhirRiskAssessment extends FhirDomainResource<RiskAssessment> {
    * @returns The code display text, or undefined if not set
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -130,7 +130,7 @@ export class FhirRiskAssessment extends FhirDomainResource<RiskAssessment> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -143,7 +143,7 @@ export class FhirRiskAssessment extends FhirDomainResource<RiskAssessment> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -153,7 +153,7 @@ export class FhirRiskAssessment extends FhirDomainResource<RiskAssessment> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -163,6 +163,6 @@ export class FhirRiskAssessment extends FhirDomainResource<RiskAssessment> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type Observation } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type Observation } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   booleanSchema,
   codeableConceptSchema,
@@ -27,15 +27,15 @@ import {
   stringSchema,
   timeSchema,
   timingSchema,
-} from '../elements/index.js'
-import { observationStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { observationStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR Observation resource (untyped version).
  */
 export const untypedObservationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Observation'),
+    resourceType: z.literal("Observation"),
     identifier: identifierSchema.array().optional(),
     basedOn: referenceSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
@@ -121,12 +121,12 @@ export const untypedObservationSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<Observation>
+) satisfies ZodType<Observation>;
 
 /**
  * Zod schema for FHIR Observation resource.
  */
-export const observationSchema: ZodType<Observation> = untypedObservationSchema
+export const observationSchema: ZodType<Observation> = untypedObservationSchema;
 
 /**
  * Wrapper class for FHIR Observation resources.
@@ -142,7 +142,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns A FhirObservation instance
    */
   public static parse(value: unknown): FhirObservation {
-    return new FhirObservation(observationSchema.parse(value))
+    return new FhirObservation(observationSchema.parse(value));
   }
 
   // Properties
@@ -165,7 +165,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
     return (
       FhirDomainResource.parseDateTime(this.value.effectiveDateTime) ??
       FhirDomainResource.parseDateTime(this.value.effectiveInstant)
-    )
+    );
   }
 
   /**
@@ -179,7 +179,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * ```
    */
   public get effectivePeriodStart(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.start)
+    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.start);
   }
 
   /**
@@ -193,7 +193,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * ```
    */
   public get effectivePeriodEnd(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.end)
+    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.end);
   }
 
   // Methods
@@ -214,16 +214,16 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * ```
    */
   public effectiveOverlaps(rangeStart: Date, rangeEnd: Date): boolean {
-    const effectiveDate = this.effectiveDate
+    const effectiveDate = this.effectiveDate;
     if (effectiveDate) {
-      return effectiveDate >= rangeStart && effectiveDate <= rangeEnd
+      return effectiveDate >= rangeStart && effectiveDate <= rangeEnd;
     }
 
     return FhirDomainResource.periodOverlaps(
       this.value.effectivePeriod,
       rangeStart,
       rangeEnd,
-    )
+    );
   }
 
   /**
@@ -232,7 +232,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns The issued date if available
    */
   public get issuedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.issued)
+    return FhirDomainResource.parseDateTime(this.value.issued);
   }
 
   /**
@@ -241,7 +241,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns The code display text
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -250,7 +250,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns The numeric value if available
    */
   public get numericValue(): number | undefined {
-    return this.value.valueQuantity?.value
+    return this.value.valueQuantity?.value;
   }
 
   /**
@@ -259,7 +259,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns The unit string if available
    */
   public get unit(): string | undefined {
-    return this.value.valueQuantity?.unit
+    return this.value.valueQuantity?.unit;
   }
 
   /**
@@ -268,7 +268,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns The string value if available
    */
   public get stringValue(): string | undefined {
-    return this.value.valueString
+    return this.value.valueString;
   }
 
   /**
@@ -277,7 +277,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns The boolean value if available
    */
   public get booleanValue(): boolean | undefined {
-    return this.value.valueBoolean
+    return this.value.valueBoolean;
   }
 
   /**
@@ -288,7 +288,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
   public get valueCodeableConceptDisplay(): string | undefined {
     return FhirDomainResource.codeableConceptDisplay(
       this.value.valueCodeableConcept,
-    )
+    );
   }
 
   /**
@@ -300,11 +300,11 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns true if the observation has the category
    */
   public hasCategory(code: string, system?: string, version?: string): boolean {
-    if (!this.value.category) return false
+    if (!this.value.category) return false;
 
     return this.value.category.some((cat) =>
       FhirDomainResource.containsCoding(cat, { system, code, version }),
-    )
+    );
   }
 
   /**
@@ -313,7 +313,9 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns Array of interpretation display texts
    */
   public get interpretationDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.interpretation)
+    return FhirDomainResource.codeableConceptDisplays(
+      this.value.interpretation,
+    );
   }
 
   /**
@@ -322,7 +324,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -335,7 +337,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -348,7 +350,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -358,7 +360,7 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -368,6 +370,6 @@ export class FhirObservation extends FhirDomainResource<Observation> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

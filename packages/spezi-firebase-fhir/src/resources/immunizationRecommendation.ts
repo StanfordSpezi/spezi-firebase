@@ -11,9 +11,9 @@ import {
   type ImmunizationRecommendationRecommendationDateCriterion,
   type ImmunizationRecommendation,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -24,14 +24,14 @@ import {
   positiveIntSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 const immunizationRecommendationRecommendationDateCriterionSchema: ZodType<ImmunizationRecommendationRecommendationDateCriterion> =
   backboneElementSchema.extend({
     code: codeableConceptSchema,
     value: dateTimeSchema,
     _value: elementSchema.optional(),
-  })
+  });
 
 const immunizationRecommendationRecommendationSchema: ZodType<ImmunizationRecommendationRecommendation> =
   backboneElementSchema.extend({
@@ -55,14 +55,14 @@ const immunizationRecommendationRecommendationSchema: ZodType<ImmunizationRecomm
     _seriesDosesString: elementSchema.optional(),
     supportingImmunization: referenceSchema.array().optional(),
     supportingPatientInformation: referenceSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ImmunizationRecommendation resource (untyped version).
  */
 export const untypedImmunizationRecommendationSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ImmunizationRecommendation').readonly(),
+    resourceType: z.literal("ImmunizationRecommendation").readonly(),
     identifier: identifierSchema.array().optional(),
     patient: referenceSchema,
     date: dateTimeSchema,
@@ -70,13 +70,13 @@ export const untypedImmunizationRecommendationSchema = z.lazy(() =>
     authority: referenceSchema.optional(),
     recommendation: immunizationRecommendationRecommendationSchema.array(),
   }),
-) satisfies ZodType<ImmunizationRecommendation>
+) satisfies ZodType<ImmunizationRecommendation>;
 
 /**
  * Zod schema for FHIR ImmunizationRecommendation resource.
  */
 export const immunizationRecommendationSchema: ZodType<ImmunizationRecommendation> =
-  untypedImmunizationRecommendationSchema
+  untypedImmunizationRecommendationSchema;
 
 /**
  * Wrapper class for FHIR ImmunizationRecommendation resources.
@@ -94,7 +94,7 @@ export class FhirImmunizationRecommendation extends FhirDomainResource<Immunizat
   public static parse(value: unknown): FhirImmunizationRecommendation {
     return new FhirImmunizationRecommendation(
       immunizationRecommendationSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -102,7 +102,7 @@ export class FhirImmunizationRecommendation extends FhirDomainResource<Immunizat
    * @returns The recommendation date
    */
   public get recommendationDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.date)
+    return FhirDomainResource.parseDateTime(this.value.date);
   }
 
   /**
@@ -111,10 +111,8 @@ export class FhirImmunizationRecommendation extends FhirDomainResource<Immunizat
    */
   public get vaccineCodeDisplays(): string[] {
     return FhirDomainResource.codeableConceptDisplays(
-      this.value.recommendation.flatMap((rec) =>
-        rec.vaccineCode ? rec.vaccineCode : [],
-      ),
-    )
+      this.value.recommendation.flatMap((rec) => rec.vaccineCode ?? []),
+    );
   }
 
   /**
@@ -126,7 +124,7 @@ export class FhirImmunizationRecommendation extends FhirDomainResource<Immunizat
       this.value.recommendation.flatMap((rec) =>
         rec.targetDisease ? [rec.targetDisease] : [],
       ),
-    )
+    );
   }
 
   /**
@@ -136,7 +134,7 @@ export class FhirImmunizationRecommendation extends FhirDomainResource<Immunizat
   public get forecastStatusDisplays(): string[] {
     return FhirDomainResource.codeableConceptDisplays(
       this.value.recommendation.map((rec) => rec.forecastStatus),
-    )
+    );
   }
 
   /**
@@ -149,7 +147,7 @@ export class FhirImmunizationRecommendation extends FhirDomainResource<Immunizat
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -162,7 +160,7 @@ export class FhirImmunizationRecommendation extends FhirDomainResource<Immunizat
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -172,7 +170,7 @@ export class FhirImmunizationRecommendation extends FhirDomainResource<Immunizat
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -182,6 +180,6 @@ export class FhirImmunizationRecommendation extends FhirDomainResource<Immunizat
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -13,9 +13,9 @@ import {
   type AdministrableProductDefinitionRouteOfAdministration,
   type AdministrableProductDefinitionRouteOfAdministrationTargetSpecies,
   type AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -29,8 +29,8 @@ import {
   ratioSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { administrableProductDefinitionStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { administrableProductDefinitionStatusSchema } from "../valueSets/index.js";
 
 const administrableProductDefinitionPropertySchema: ZodType<AdministrableProductDefinitionProperty> =
   backboneElementSchema.extend({
@@ -43,7 +43,7 @@ const administrableProductDefinitionPropertySchema: ZodType<AdministrableProduct
     valueBoolean: booleanSchema.optional(),
     _valueBoolean: elementSchema.optional(),
     valueAttachment: attachmentSchema.optional(),
-  })
+  });
 
 const administrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSchema: ZodType<AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod> =
   backboneElementSchema.extend({
@@ -51,7 +51,7 @@ const administrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawal
     _supportingInformation: elementSchema.optional(),
     tissue: codeableConceptSchema,
     value: quantitySchema,
-  })
+  });
 
 const administrableProductDefinitionRouteOfAdministrationTargetSpeciesSchema: ZodType<AdministrableProductDefinitionRouteOfAdministrationTargetSpecies> =
   backboneElementSchema.extend({
@@ -60,7 +60,7 @@ const administrableProductDefinitionRouteOfAdministrationTargetSpeciesSchema: Zo
       administrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSchema
         .array()
         .optional(),
-  })
+  });
 
 const administrableProductDefinitionRouteOfAdministrationSchema: ZodType<AdministrableProductDefinitionRouteOfAdministration> =
   backboneElementSchema.extend({
@@ -74,14 +74,14 @@ const administrableProductDefinitionRouteOfAdministrationSchema: ZodType<Adminis
       administrableProductDefinitionRouteOfAdministrationTargetSpeciesSchema
         .array()
         .optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR AdministrableProductDefinition resource (untyped version).
  */
 export const untypedAdministrableProductDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('AdministrableProductDefinition').readonly(),
+    resourceType: z.literal("AdministrableProductDefinition").readonly(),
     administrableDoseForm: codeableConceptSchema.optional(),
     device: referenceSchema.optional(),
     formOf: referenceSchema.array().optional(),
@@ -95,13 +95,13 @@ export const untypedAdministrableProductDefinitionSchema = z.lazy(() =>
     _status: elementSchema.optional(),
     unitOfPresentation: codeableConceptSchema.optional(),
   }),
-) satisfies ZodType<AdministrableProductDefinition>
+) satisfies ZodType<AdministrableProductDefinition>;
 
 /**
  * Zod schema for FHIR AdministrableProductDefinition resource.
  */
 export const administrableProductDefinitionSchema: ZodType<AdministrableProductDefinition> =
-  untypedAdministrableProductDefinitionSchema
+  untypedAdministrableProductDefinitionSchema;
 
 /**
  * Wrapper class for FHIR AdministrableProductDefinition resources.
@@ -119,7 +119,7 @@ export class FhirAdministrableProductDefinition extends FhirDomainResource<Admin
   public static parse(value: unknown): FhirAdministrableProductDefinition {
     return new FhirAdministrableProductDefinition(
       administrableProductDefinitionSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -132,7 +132,7 @@ export class FhirAdministrableProductDefinition extends FhirDomainResource<Admin
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -145,7 +145,7 @@ export class FhirAdministrableProductDefinition extends FhirDomainResource<Admin
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -155,7 +155,7 @@ export class FhirAdministrableProductDefinition extends FhirDomainResource<Admin
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -165,6 +165,6 @@ export class FhirAdministrableProductDefinition extends FhirDomainResource<Admin
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

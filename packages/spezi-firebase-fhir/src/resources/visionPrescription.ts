@@ -11,9 +11,9 @@ import {
   type VisionPrescription,
   type VisionPrescriptionLensSpecification,
   type VisionPrescriptionLensSpecificationPrism,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -27,12 +27,12 @@ import {
   quantitySchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   visionBaseSchema,
   visionEyesSchema,
   visionPrescriptionStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const visionPrescriptionLensSpecificationPrismSchema: ZodType<VisionPrescriptionLensSpecificationPrism> =
   backboneElementSchema.extend({
@@ -40,7 +40,7 @@ const visionPrescriptionLensSpecificationPrismSchema: ZodType<VisionPrescription
     _amount: elementSchema.optional(),
     base: visionBaseSchema,
     _base: elementSchema.optional(),
-  })
+  });
 
 const visionPrescriptionLensSpecificationSchema: ZodType<VisionPrescriptionLensSpecification> =
   backboneElementSchema.extend({
@@ -68,14 +68,14 @@ const visionPrescriptionLensSpecificationSchema: ZodType<VisionPrescriptionLensS
     brand: stringSchema.optional(),
     _brand: elementSchema.optional(),
     note: annotationSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR VisionPrescription resource (untyped version).
  */
 export const untypedVisionPrescriptionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('VisionPrescription').readonly(),
+    resourceType: z.literal("VisionPrescription").readonly(),
     identifier: identifierSchema.array().optional(),
     status: visionPrescriptionStatusSchema,
     _status: elementSchema.optional(),
@@ -88,13 +88,13 @@ export const untypedVisionPrescriptionSchema = z.lazy(() =>
     prescriber: referenceSchema,
     lensSpecification: visionPrescriptionLensSpecificationSchema.array().min(1),
   }),
-) satisfies ZodType<VisionPrescription>
+) satisfies ZodType<VisionPrescription>;
 
 /**
  * Zod schema for FHIR VisionPrescription resource.
  */
 export const visionPrescriptionSchema: ZodType<VisionPrescription> =
-  untypedVisionPrescriptionSchema
+  untypedVisionPrescriptionSchema;
 
 /**
  * Wrapper class for FHIR VisionPrescription resources.
@@ -110,7 +110,7 @@ export class FhirVisionPrescription extends FhirDomainResource<VisionPrescriptio
    * @returns A FhirVisionPrescription instance containing the validated resource
    */
   public static parse(value: unknown): FhirVisionPrescription {
-    return new FhirVisionPrescription(visionPrescriptionSchema.parse(value))
+    return new FhirVisionPrescription(visionPrescriptionSchema.parse(value));
   }
 
   /**
@@ -118,7 +118,7 @@ export class FhirVisionPrescription extends FhirDomainResource<VisionPrescriptio
    * @returns The created date
    */
   public get createdDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.created)
+    return FhirDomainResource.parseDateTime(this.value.created);
   }
 
   /**
@@ -126,7 +126,7 @@ export class FhirVisionPrescription extends FhirDomainResource<VisionPrescriptio
    * @returns The date written
    */
   public get dateWritten(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.dateWritten)
+    return FhirDomainResource.parseDateTime(this.value.dateWritten);
   }
 
   /**
@@ -136,7 +136,7 @@ export class FhirVisionPrescription extends FhirDomainResource<VisionPrescriptio
   public get productDisplays(): string[] {
     return FhirDomainResource.codeableConceptDisplays(
       this.value.lensSpecification.map((spec) => spec.product),
-    )
+    );
   }
 
   /**
@@ -149,7 +149,7 @@ export class FhirVisionPrescription extends FhirDomainResource<VisionPrescriptio
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -162,7 +162,7 @@ export class FhirVisionPrescription extends FhirDomainResource<VisionPrescriptio
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -172,7 +172,7 @@ export class FhirVisionPrescription extends FhirDomainResource<VisionPrescriptio
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -182,6 +182,6 @@ export class FhirVisionPrescription extends FhirDomainResource<VisionPrescriptio
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -6,17 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Quantity } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { type Quantity } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
 import {
   codeSchema,
   decimalSchema,
   stringSchema,
   uriSchema,
-} from './primitiveTypes.js'
-import { elementSchema } from '../element.js'
+} from "./primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
-const quantityComparatorSchema = z.enum(['<', '<=', '>=', '>'])
+const quantityComparatorSchema = z.enum(["<", "<=", ">=", ">"]);
 
 /**
  * Zod schema for FHIR Quantity data type.
@@ -33,9 +33,9 @@ export const untypedQuantitySchema = z.lazy(() =>
     code: codeSchema.optional(),
     _code: elementSchema.optional(),
   }),
-) satisfies ZodType<Quantity>
+) satisfies ZodType<Quantity>;
 
 /**
  * Zod schema for FHIR Quantity data type.
  */
-export const quantitySchema: ZodType<Quantity> = untypedQuantitySchema
+export const quantitySchema: ZodType<Quantity> = untypedQuantitySchema;

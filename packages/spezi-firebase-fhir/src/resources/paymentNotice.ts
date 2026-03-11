@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type PaymentNotice } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import { type Coding, type PaymentNotice } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   elementSchema,
@@ -18,15 +18,15 @@ import {
   moneySchema,
   dateTimeSchema,
   dateSchema,
-} from '../elements/index.js'
-import { financialResourceStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { financialResourceStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR PaymentNotice resource (untyped version).
  */
 export const untypedPaymentNoticeSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('PaymentNotice').readonly(),
+    resourceType: z.literal("PaymentNotice").readonly(),
     identifier: identifierSchema.array().optional(),
     status: financialResourceStatusSchema,
     _status: elementSchema.optional(),
@@ -43,13 +43,13 @@ export const untypedPaymentNoticeSchema = z.lazy(() =>
     amount: moneySchema,
     paymentStatus: codeableConceptSchema.optional(),
   }),
-) satisfies ZodType<PaymentNotice>
+) satisfies ZodType<PaymentNotice>;
 
 /**
  * Zod schema for FHIR PaymentNotice resource.
  */
 export const paymentNoticeSchema: ZodType<PaymentNotice> =
-  untypedPaymentNoticeSchema
+  untypedPaymentNoticeSchema;
 
 /**
  * Wrapper class for FHIR PaymentNotice resources.
@@ -65,7 +65,7 @@ export class FhirPaymentNotice extends FhirDomainResource<PaymentNotice> {
    * @returns A FhirPaymentNotice instance containing the validated resource
    */
   public static parse(value: unknown): FhirPaymentNotice {
-    return new FhirPaymentNotice(paymentNoticeSchema.parse(value))
+    return new FhirPaymentNotice(paymentNoticeSchema.parse(value));
   }
 
   /**
@@ -78,7 +78,7 @@ export class FhirPaymentNotice extends FhirDomainResource<PaymentNotice> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -91,7 +91,7 @@ export class FhirPaymentNotice extends FhirDomainResource<PaymentNotice> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -101,7 +101,7 @@ export class FhirPaymentNotice extends FhirDomainResource<PaymentNotice> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -111,6 +111,6 @@ export class FhirPaymentNotice extends FhirDomainResource<PaymentNotice> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

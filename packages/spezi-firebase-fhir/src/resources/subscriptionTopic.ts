@@ -14,9 +14,9 @@ import {
   type SubscriptionTopicResourceTriggerQueryCriteria,
   type SubscriptionTopic,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -32,13 +32,13 @@ import {
   stringSchema,
   urlSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   publicationStatusSchema,
   subscriptionTopicCanFilterByModifierSchema,
   subscriptionTopicResourceTriggerInteractionSchema,
   subscriptionTopicResourceTriggerQueryCriteriaResultSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const subscriptionTopicCanFilterBySchema: ZodType<SubscriptionTopicCanFilterBy> =
   backboneElementSchema.extend({
@@ -52,7 +52,7 @@ const subscriptionTopicCanFilterBySchema: ZodType<SubscriptionTopicCanFilterBy> 
     _modifier: elementSchema.array().optional(),
     resource: urlSchema.optional(),
     _resource: elementSchema.optional(),
-  })
+  });
 
 const subscriptionTopicEventTriggerSchema: ZodType<SubscriptionTopicEventTrigger> =
   backboneElementSchema.extend({
@@ -61,7 +61,7 @@ const subscriptionTopicEventTriggerSchema: ZodType<SubscriptionTopicEventTrigger
     event: codeableConceptSchema,
     resource: urlSchema,
     _resource: elementSchema.optional(),
-  })
+  });
 
 const subscriptionTopicNotificationShapeSchema: ZodType<SubscriptionTopicNotificationShape> =
   backboneElementSchema.extend({
@@ -71,7 +71,7 @@ const subscriptionTopicNotificationShapeSchema: ZodType<SubscriptionTopicNotific
     _resource: elementSchema.optional(),
     revInclude: stringSchema.array().optional(),
     _revInclude: elementSchema.array().optional(),
-  })
+  });
 
 const subscriptionTopicResourceTriggerQueryCriteriaSchema: ZodType<SubscriptionTopicResourceTriggerQueryCriteria> =
   backboneElementSchema.extend({
@@ -87,7 +87,7 @@ const subscriptionTopicResourceTriggerQueryCriteriaSchema: ZodType<SubscriptionT
     resultForDelete:
       subscriptionTopicResourceTriggerQueryCriteriaResultSchema.optional(),
     _resultForDelete: elementSchema.optional(),
-  })
+  });
 
 const subscriptionTopicResourceTriggerSchema: ZodType<SubscriptionTopicResourceTrigger> =
   backboneElementSchema.extend({
@@ -103,14 +103,14 @@ const subscriptionTopicResourceTriggerSchema: ZodType<SubscriptionTopicResourceT
       .array()
       .optional(),
     _supportedInteraction: elementSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR SubscriptionTopic resource (untyped version).
  */
 export const untypedSubscriptionTopicSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('SubscriptionTopic').readonly(),
+    resourceType: z.literal("SubscriptionTopic").readonly(),
     approvalDate: dateSchema.optional(),
     _approvalDate: elementSchema.optional(),
     canFilterBy: subscriptionTopicCanFilterBySchema.array().optional(),
@@ -149,13 +149,13 @@ export const untypedSubscriptionTopicSchema = z.lazy(() =>
     version: stringSchema.optional(),
     _version: elementSchema.optional(),
   }),
-) satisfies ZodType<SubscriptionTopic>
+) satisfies ZodType<SubscriptionTopic>;
 
 /**
  * Zod schema for FHIR SubscriptionTopic resource.
  */
 export const subscriptionTopicSchema: ZodType<SubscriptionTopic> =
-  untypedSubscriptionTopicSchema
+  untypedSubscriptionTopicSchema;
 
 /**
  * Wrapper class for FHIR SubscriptionTopic resources.
@@ -171,7 +171,7 @@ export class FhirSubscriptionTopic extends FhirDomainResource<SubscriptionTopic>
    * @returns A FhirSubscriptionTopic instance containing the validated resource
    */
   public static parse(value: unknown): FhirSubscriptionTopic {
-    return new FhirSubscriptionTopic(subscriptionTopicSchema.parse(value))
+    return new FhirSubscriptionTopic(subscriptionTopicSchema.parse(value));
   }
 
   /**
@@ -184,7 +184,7 @@ export class FhirSubscriptionTopic extends FhirDomainResource<SubscriptionTopic>
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -197,7 +197,7 @@ export class FhirSubscriptionTopic extends FhirDomainResource<SubscriptionTopic>
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -207,7 +207,7 @@ export class FhirSubscriptionTopic extends FhirDomainResource<SubscriptionTopic>
    * @returns Array of identifier values from matching types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -217,6 +217,6 @@ export class FhirSubscriptionTopic extends FhirDomainResource<SubscriptionTopic>
    * @returns The first matching identifier value, or undefined if none found
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

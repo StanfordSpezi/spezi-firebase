@@ -11,9 +11,9 @@ import {
   type MedicationDispenseSubstitution,
   type Coding,
   type MedicationDispense,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -26,14 +26,14 @@ import {
   identifierSchema,
   quantitySchema,
   referenceSchema,
-} from '../elements/index.js'
-import { medicationDispenseStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { medicationDispenseStatusSchema } from "../valueSets/index.js";
 
 const medicationDispensePerformerSchema: ZodType<MedicationDispensePerformer> =
   backboneElementSchema.extend({
     function: codeableConceptSchema.optional(),
     actor: referenceSchema,
-  })
+  });
 
 const medicationDispenseSubstitutionSchema: ZodType<MedicationDispenseSubstitution> =
   backboneElementSchema.extend({
@@ -42,14 +42,14 @@ const medicationDispenseSubstitutionSchema: ZodType<MedicationDispenseSubstituti
     type: codeableConceptSchema.optional(),
     reason: codeableConceptSchema.array().optional(),
     responsibleParty: referenceSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR MedicationDispense resource (untyped version).
  */
 export const untypedMedicationDispenseSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('MedicationDispense').readonly(),
+    resourceType: z.literal("MedicationDispense").readonly(),
     identifier: identifierSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
     status: medicationDispenseStatusSchema,
@@ -80,13 +80,13 @@ export const untypedMedicationDispenseSchema = z.lazy(() =>
     detectedIssue: referenceSchema.array().optional(),
     eventHistory: referenceSchema.array().optional(),
   }),
-) satisfies ZodType<MedicationDispense>
+) satisfies ZodType<MedicationDispense>;
 
 /**
  * Zod schema for FHIR MedicationDispense resource.
  */
 export const medicationDispenseSchema: ZodType<MedicationDispense> =
-  untypedMedicationDispenseSchema
+  untypedMedicationDispenseSchema;
 
 /**
  * Wrapper class for FHIR MedicationDispense resources.
@@ -102,7 +102,7 @@ export class FhirMedicationDispense extends FhirDomainResource<MedicationDispens
    * @returns A FhirMedicationDispense instance containing the validated resource
    */
   public static parse(value: unknown): FhirMedicationDispense {
-    return new FhirMedicationDispense(medicationDispenseSchema.parse(value))
+    return new FhirMedicationDispense(medicationDispenseSchema.parse(value));
   }
 
   /**
@@ -117,7 +117,7 @@ export class FhirMedicationDispense extends FhirDomainResource<MedicationDispens
    * ```
    */
   public get whenPreparedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.whenPrepared)
+    return FhirDomainResource.parseDateTime(this.value.whenPrepared);
   }
 
   /**
@@ -132,7 +132,7 @@ export class FhirMedicationDispense extends FhirDomainResource<MedicationDispens
    * ```
    */
   public get whenHandedOverDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.whenHandedOver)
+    return FhirDomainResource.parseDateTime(this.value.whenHandedOver);
   }
 
   /**
@@ -150,12 +150,12 @@ export class FhirMedicationDispense extends FhirDomainResource<MedicationDispens
     if (this.value.medicationCodeableConcept) {
       return FhirDomainResource.codeableConceptDisplay(
         this.value.medicationCodeableConcept,
-      )
+      );
     }
     if (this.value.medicationReference) {
-      return this.value.medicationReference.display
+      return this.value.medicationReference.display;
     }
-    return undefined
+    return undefined;
   }
 
   /**
@@ -170,7 +170,7 @@ export class FhirMedicationDispense extends FhirDomainResource<MedicationDispens
    * ```
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 
   /**
@@ -183,7 +183,7 @@ export class FhirMedicationDispense extends FhirDomainResource<MedicationDispens
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -196,7 +196,7 @@ export class FhirMedicationDispense extends FhirDomainResource<MedicationDispens
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -206,7 +206,7 @@ export class FhirMedicationDispense extends FhirDomainResource<MedicationDispens
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -216,6 +216,6 @@ export class FhirMedicationDispense extends FhirDomainResource<MedicationDispens
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

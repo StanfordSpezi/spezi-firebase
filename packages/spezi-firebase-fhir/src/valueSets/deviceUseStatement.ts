@@ -6,20 +6,20 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * A coded concept indicating the current status of the Device Usage.
  * http://hl7.org/fhir/valueset-device-statement-status.html
  */
 export const deviceUseStatementStatusSchema = z.enum([
-  'active',
-  'completed',
-  'entered-in-error',
-  'intended',
-  'stopped',
-  'on-hold',
-])
+  "active",
+  "completed",
+  "entered-in-error",
+  "intended",
+  "stopped",
+  "on-hold",
+]);
 
 /**
  * A coded concept indicating the current status of the Device Usage.
@@ -27,4 +27,4 @@ export const deviceUseStatementStatusSchema = z.enum([
  */
 export type DeviceUseStatementStatus = z.infer<
   typeof deviceUseStatementStatusSchema
->
+>;

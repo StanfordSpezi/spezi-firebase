@@ -19,9 +19,9 @@ import {
   type SubstanceDefinitionNameOfficial,
   type SubstanceDefinitionCode,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -33,7 +33,7 @@ import {
   quantitySchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 const substanceDefinitionCodeSchema: ZodType<SubstanceDefinitionCode> =
   backboneElementSchema.extend({
@@ -43,7 +43,7 @@ const substanceDefinitionCodeSchema: ZodType<SubstanceDefinitionCode> =
     _statusDate: elementSchema.optional(),
     note: annotationSchema.array().optional(),
     source: referenceSchema.array().optional(),
-  })
+  });
 
 const substanceDefinitionNameOfficialSchema: ZodType<SubstanceDefinitionNameOfficial> =
   backboneElementSchema.extend({
@@ -51,7 +51,7 @@ const substanceDefinitionNameOfficialSchema: ZodType<SubstanceDefinitionNameOffi
     status: codeableConceptSchema.optional(),
     date: stringSchema.optional(),
     _date: elementSchema.optional(),
-  })
+  });
 
 const substanceDefinitionNameSchema: ZodType<SubstanceDefinitionName> =
   backboneElementSchema.extend({
@@ -65,14 +65,14 @@ const substanceDefinitionNameSchema: ZodType<SubstanceDefinitionName> =
     domain: codeableConceptSchema.array().optional(),
     jurisdiction: codeableConceptSchema.array().optional(),
     get synonym() {
-      return substanceDefinitionNameSchema.array().optional()
+      return substanceDefinitionNameSchema.array().optional();
     },
     get translation() {
-      return substanceDefinitionNameSchema.array().optional()
+      return substanceDefinitionNameSchema.array().optional();
     },
     official: substanceDefinitionNameOfficialSchema.array().optional(),
     source: referenceSchema.array().optional(),
-  })
+  });
 
 const substanceDefinitionMoietySchema: ZodType<SubstanceDefinitionMoiety> =
   backboneElementSchema.extend({
@@ -88,7 +88,7 @@ const substanceDefinitionMoietySchema: ZodType<SubstanceDefinitionMoiety> =
     amountString: stringSchema.optional(),
     _amountString: elementSchema.optional(),
     measurementType: codeableConceptSchema.optional(),
-  })
+  });
 
 const substanceDefinitionPropertySchema: ZodType<SubstanceDefinitionProperty> =
   backboneElementSchema.extend({
@@ -100,7 +100,7 @@ const substanceDefinitionPropertySchema: ZodType<SubstanceDefinitionProperty> =
     valueBoolean: z.boolean().optional(),
     _valueBoolean: elementSchema.optional(),
     valueAttachment: elementSchema.optional(),
-  })
+  });
 
 const substanceDefinitionRelationshipSchema: ZodType<SubstanceDefinitionRelationship> =
   backboneElementSchema.extend({
@@ -116,7 +116,7 @@ const substanceDefinitionRelationshipSchema: ZodType<SubstanceDefinitionRelation
     ratioHighLimitAmount: elementSchema.optional(),
     comparator: codeableConceptSchema.optional(),
     source: referenceSchema.array().optional(),
-  })
+  });
 
 const substanceDefinitionSourceMaterialSchema: ZodType<SubstanceDefinitionSourceMaterial> =
   backboneElementSchema.extend({
@@ -125,14 +125,14 @@ const substanceDefinitionSourceMaterialSchema: ZodType<SubstanceDefinitionSource
     species: codeableConceptSchema.optional(),
     part: codeableConceptSchema.optional(),
     countryOfOrigin: codeableConceptSchema.array().optional(),
-  })
+  });
 
 const substanceDefinitionMolecularWeightSchema: ZodType<SubstanceDefinitionMolecularWeight> =
   backboneElementSchema.extend({
     method: codeableConceptSchema.optional(),
     type: codeableConceptSchema.optional(),
     amount: quantitySchema,
-  })
+  });
 
 const substanceDefinitionStructureRepresentationSchema: ZodType<SubstanceDefinitionStructureRepresentation> =
   backboneElementSchema.extend({
@@ -141,7 +141,7 @@ const substanceDefinitionStructureRepresentationSchema: ZodType<SubstanceDefinit
     _representation: elementSchema.optional(),
     format: codeableConceptSchema.optional(),
     document: referenceSchema.optional(),
-  })
+  });
 
 const substanceDefinitionStructureSchema: ZodType<SubstanceDefinitionStructure> =
   backboneElementSchema.extend({
@@ -157,14 +157,14 @@ const substanceDefinitionStructureSchema: ZodType<SubstanceDefinitionStructure> 
     representation: substanceDefinitionStructureRepresentationSchema
       .array()
       .optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR SubstanceDefinition resource (untyped version).
  */
 export const untypedSubstanceDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('SubstanceDefinition').readonly(),
+    resourceType: z.literal("SubstanceDefinition").readonly(),
     identifier: identifierSchema.array().optional(),
     version: stringSchema.optional(),
     _version: elementSchema.optional(),
@@ -193,13 +193,13 @@ export const untypedSubstanceDefinitionSchema = z.lazy(() =>
     protein: referenceSchema.optional(),
     sourceMaterial: substanceDefinitionSourceMaterialSchema.optional(),
   }),
-) satisfies ZodType<SubstanceDefinition>
+) satisfies ZodType<SubstanceDefinition>;
 
 /**
  * Zod schema for FHIR SubstanceDefinition resource.
  */
 export const substanceDefinitionSchema: ZodType<SubstanceDefinition> =
-  untypedSubstanceDefinitionSchema
+  untypedSubstanceDefinitionSchema;
 
 /**
  * Wrapper class for FHIR SubstanceDefinition resources.
@@ -215,7 +215,7 @@ export class FhirSubstanceDefinition extends FhirDomainResource<SubstanceDefinit
    * @returns A FhirSubstanceDefinition instance containing the validated resource
    */
   public static parse(value: unknown): FhirSubstanceDefinition {
-    return new FhirSubstanceDefinition(substanceDefinitionSchema.parse(value))
+    return new FhirSubstanceDefinition(substanceDefinitionSchema.parse(value));
   }
 
   /**
@@ -228,7 +228,7 @@ export class FhirSubstanceDefinition extends FhirDomainResource<SubstanceDefinit
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -241,7 +241,7 @@ export class FhirSubstanceDefinition extends FhirDomainResource<SubstanceDefinit
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -251,7 +251,7 @@ export class FhirSubstanceDefinition extends FhirDomainResource<SubstanceDefinit
    * @returns Array of identifier values from matching types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -261,6 +261,6 @@ export class FhirSubstanceDefinition extends FhirDomainResource<SubstanceDefinit
    * @returns The first matching identifier value, or undefined if none found
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

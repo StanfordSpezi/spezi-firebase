@@ -6,18 +6,18 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Status of administrable product definition.
  * http://hl7.org/fhir/valueset-publication-status.html
  */
 export const administrableProductDefinitionStatusSchema = z.enum([
-  'draft',
-  'active',
-  'retired',
-  'unknown',
-])
+  "draft",
+  "active",
+  "retired",
+  "unknown",
+]);
 
 /**
  * Status of administrable product definition.
@@ -25,4 +25,4 @@ export const administrableProductDefinitionStatusSchema = z.enum([
  */
 export type AdministrableProductDefinitionStatus = z.infer<
   typeof administrableProductDefinitionStatusSchema
->
+>;

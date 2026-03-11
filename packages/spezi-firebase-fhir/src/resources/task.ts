@@ -12,10 +12,10 @@ import {
   type TaskRestriction,
   type Task,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { anyValueSchema } from '../elements/anyValueSchema.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { anyValueSchema } from "../elements/anyValueSchema.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -29,34 +29,34 @@ import {
   positiveIntSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   requestPrioritySchema,
   taskIntentSchema,
   taskStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const taskRestrictionSchema: ZodType<TaskRestriction> =
   backboneElementSchema.extend({
     repetitions: positiveIntSchema.optional(),
     period: periodSchema.optional(),
     recipient: referenceSchema.array().optional(),
-  })
+  });
 
 const taskInputSchema: ZodType<TaskInput> = anyValueSchema.extend({
   type: codeableConceptSchema,
-})
+});
 
 const taskOutputSchema: ZodType<TaskOutput> = anyValueSchema.extend({
   type: codeableConceptSchema,
-})
+});
 
 /**
  * Zod schema for FHIR Task resource (untyped version).
  */
 export const untypedTaskSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Task').readonly(),
+    resourceType: z.literal("Task").readonly(),
     identifier: identifierSchema.array().optional(),
     instantiatesCanonical: canonicalSchema.optional(),
     _instantiatesCanonical: elementSchema.optional(),
@@ -95,12 +95,12 @@ export const untypedTaskSchema = z.lazy(() =>
     input: taskInputSchema.array().optional(),
     output: taskOutputSchema.array().optional(),
   }),
-) satisfies ZodType<Task>
+) satisfies ZodType<Task>;
 
 /**
  * Zod schema for FHIR Task resource.
  */
-export const taskSchema: ZodType<Task> = untypedTaskSchema
+export const taskSchema: ZodType<Task> = untypedTaskSchema;
 
 /**
  * Wrapper class for FHIR Task resources.
@@ -114,7 +114,7 @@ export class FhirTask extends FhirDomainResource<Task> {
    * @returns A FhirTask instance containing the validated resource
    */
   public static parse(value: unknown): FhirTask {
-    return new FhirTask(taskSchema.parse(value))
+    return new FhirTask(taskSchema.parse(value));
   }
 
   /**
@@ -123,7 +123,7 @@ export class FhirTask extends FhirDomainResource<Task> {
    * @returns The parsed authored date, or undefined if not set
    */
   public get authoredDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.authoredOn)
+    return FhirDomainResource.parseDateTime(this.value.authoredOn);
   }
 
   /**
@@ -132,7 +132,7 @@ export class FhirTask extends FhirDomainResource<Task> {
    * @returns The code display text, or undefined if not set
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -145,7 +145,7 @@ export class FhirTask extends FhirDomainResource<Task> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -158,7 +158,7 @@ export class FhirTask extends FhirDomainResource<Task> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -168,7 +168,7 @@ export class FhirTask extends FhirDomainResource<Task> {
    * @returns Array of identifier values from matching types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -178,6 +178,6 @@ export class FhirTask extends FhirDomainResource<Task> {
    * @returns The first matching identifier value, or undefined if none found
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

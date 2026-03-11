@@ -13,9 +13,9 @@ import {
   type BiologicallyDerivedProductManipulation,
   type BiologicallyDerivedProductProcessing,
   type BiologicallyDerivedProductStorage,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -28,12 +28,12 @@ import {
   periodSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   biologicallyDerivedProductCategorySchema,
   biologicallyDerivedProductStatusSchema,
   biologicallyDerivedProductStorageScaleSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const biologicallyDerivedProductCollectionSchema: ZodType<BiologicallyDerivedProductCollection> =
   backboneElementSchema.extend({
@@ -42,7 +42,7 @@ const biologicallyDerivedProductCollectionSchema: ZodType<BiologicallyDerivedPro
     collectedPeriod: periodSchema.optional(),
     collector: referenceSchema.optional(),
     source: referenceSchema.optional(),
-  })
+  });
 
 const biologicallyDerivedProductProcessingSchema: ZodType<BiologicallyDerivedProductProcessing> =
   backboneElementSchema.extend({
@@ -53,7 +53,7 @@ const biologicallyDerivedProductProcessingSchema: ZodType<BiologicallyDerivedPro
     timeDateTime: dateTimeSchema.optional(),
     _timeDateTime: elementSchema.optional(),
     timePeriod: periodSchema.optional(),
-  })
+  });
 
 const biologicallyDerivedProductManipulationSchema: ZodType<BiologicallyDerivedProductManipulation> =
   backboneElementSchema.extend({
@@ -62,7 +62,7 @@ const biologicallyDerivedProductManipulationSchema: ZodType<BiologicallyDerivedP
     timeDateTime: dateTimeSchema.optional(),
     _timeDateTime: elementSchema.optional(),
     timePeriod: periodSchema.optional(),
-  })
+  });
 
 const biologicallyDerivedProductStorageSchema: ZodType<BiologicallyDerivedProductStorage> =
   backboneElementSchema.extend({
@@ -72,14 +72,14 @@ const biologicallyDerivedProductStorageSchema: ZodType<BiologicallyDerivedProduc
     scale: biologicallyDerivedProductStorageScaleSchema.optional(),
     _scale: elementSchema.optional(),
     temperature: decimalSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR BiologicallyDerivedProduct resource (untyped version).
  */
 export const untypedBiologicallyDerivedProductSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('BiologicallyDerivedProduct').readonly(),
+    resourceType: z.literal("BiologicallyDerivedProduct").readonly(),
     collection: biologicallyDerivedProductCollectionSchema.optional(),
     identifier: identifierSchema.array().optional(),
     manipulation: biologicallyDerivedProductManipulationSchema.optional(),
@@ -94,13 +94,13 @@ export const untypedBiologicallyDerivedProductSchema = z.lazy(() =>
     _status: elementSchema.optional(),
     storage: biologicallyDerivedProductStorageSchema.array().optional(),
   }),
-) satisfies ZodType<BiologicallyDerivedProduct>
+) satisfies ZodType<BiologicallyDerivedProduct>;
 
 /**
  * Zod schema for FHIR BiologicallyDerivedProduct resource.
  */
 export const biologicallyDerivedProductSchema: ZodType<BiologicallyDerivedProduct> =
-  untypedBiologicallyDerivedProductSchema
+  untypedBiologicallyDerivedProductSchema;
 
 /**
  * Wrapper class for FHIR BiologicallyDerivedProduct resources.
@@ -118,7 +118,7 @@ export class FhirBiologicallyDerivedProduct extends FhirDomainResource<Biologica
   public static parse(value: unknown): FhirBiologicallyDerivedProduct {
     return new FhirBiologicallyDerivedProduct(
       biologicallyDerivedProductSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -131,7 +131,7 @@ export class FhirBiologicallyDerivedProduct extends FhirDomainResource<Biologica
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -144,7 +144,7 @@ export class FhirBiologicallyDerivedProduct extends FhirDomainResource<Biologica
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -154,7 +154,7 @@ export class FhirBiologicallyDerivedProduct extends FhirDomainResource<Biologica
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -164,6 +164,6 @@ export class FhirBiologicallyDerivedProduct extends FhirDomainResource<Biologica
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

@@ -24,9 +24,9 @@ import {
   type TestScriptTeardown,
   type TestScriptTeardownAction,
   type TestScriptTestAction,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -43,7 +43,7 @@ import {
   urlSchema,
   uriSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   publicationStatusSchema,
   assertDirectionSchema,
@@ -51,19 +51,19 @@ import {
   assertResponseCodeSchema,
   mimeTypeSchema,
   testScriptRequestMethodSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const testScriptOriginSchema: ZodType<TestScriptOrigin> =
   backboneElementSchema.extend({
     index: intSchema,
     profile: codingSchema,
-  })
+  });
 
 const testScriptDestinationSchema: ZodType<TestScriptDestination> =
   backboneElementSchema.extend({
     index: intSchema,
     profile: codingSchema,
-  })
+  });
 
 const testScriptMetadataLinkSchema: ZodType<TestScriptMetadataLink> =
   backboneElementSchema.extend({
@@ -71,7 +71,7 @@ const testScriptMetadataLinkSchema: ZodType<TestScriptMetadataLink> =
     _url: elementSchema.optional(),
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
-  })
+  });
 
 const testScriptMetadataCapabilitySchema: ZodType<TestScriptMetadataCapability> =
   backboneElementSchema.extend({
@@ -89,13 +89,13 @@ const testScriptMetadataCapabilitySchema: ZodType<TestScriptMetadataCapability> 
     _link: elementSchema.array().optional(),
     capabilities: urlSchema,
     _capabilities: elementSchema.optional(),
-  })
+  });
 
 const testScriptMetadataSchema: ZodType<TestScriptMetadata> =
   backboneElementSchema.extend({
     link: testScriptMetadataLinkSchema.array().optional(),
     capability: testScriptMetadataCapabilitySchema.array(),
-  })
+  });
 
 const testScriptFixtureSchema: ZodType<TestScriptFixture> =
   backboneElementSchema.extend({
@@ -104,7 +104,7 @@ const testScriptFixtureSchema: ZodType<TestScriptFixture> =
     autodelete: booleanSchema,
     _autodelete: elementSchema.optional(),
     resource: referenceSchema.optional(),
-  })
+  });
 
 const testScriptVariableSchema: ZodType<TestScriptVariable> =
   backboneElementSchema.extend({
@@ -124,7 +124,7 @@ const testScriptVariableSchema: ZodType<TestScriptVariable> =
     _path: elementSchema.optional(),
     sourceId: stringSchema.optional(),
     _sourceId: elementSchema.optional(),
-  })
+  });
 
 const testScriptSetupActionOperationRequestHeader: ZodType<TestScriptSetupActionOperationRequestHeader> =
   backboneElementSchema.extend({
@@ -132,7 +132,7 @@ const testScriptSetupActionOperationRequestHeader: ZodType<TestScriptSetupAction
     _field: elementSchema.optional(),
     value: stringSchema,
     _value: elementSchema.optional(),
-  })
+  });
 
 const testScriptSetupActionOperationSchema: ZodType<TestScriptSetupActionOperation> =
   backboneElementSchema.extend({
@@ -170,7 +170,7 @@ const testScriptSetupActionOperationSchema: ZodType<TestScriptSetupActionOperati
     _targetId: elementSchema.optional(),
     url: stringSchema.optional(),
     _url: elementSchema.optional(),
-  })
+  });
 
 const testScriptSetupActionAssertSchema: ZodType<TestScriptSetupActionAssert> =
   backboneElementSchema.extend({
@@ -220,24 +220,24 @@ const testScriptSetupActionAssertSchema: ZodType<TestScriptSetupActionAssert> =
     _value: elementSchema.optional(),
     warningOnly: booleanSchema,
     _warningOnly: elementSchema.optional(),
-  })
+  });
 
 const testScriptSetupActionSchema: ZodType<TestScriptSetupAction> =
   backboneElementSchema.extend({
     operation: testScriptSetupActionOperationSchema.optional(),
     assert: testScriptSetupActionAssertSchema.optional(),
-  })
+  });
 
 const testScriptSetupSchema: ZodType<TestScriptSetup> =
   backboneElementSchema.extend({
     action: testScriptSetupActionSchema.array(),
-  })
+  });
 
 const testScriptTestActionSchema: ZodType<TestScriptTestAction> =
   backboneElementSchema.extend({
     operation: testScriptSetupActionOperationSchema.optional(),
     assert: testScriptSetupActionAssertSchema.optional(),
-  })
+  });
 
 const testScriptTestSchema: ZodType<TestScriptTest> =
   backboneElementSchema.extend({
@@ -246,24 +246,24 @@ const testScriptTestSchema: ZodType<TestScriptTest> =
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
     action: testScriptTestActionSchema.array(),
-  })
+  });
 
 const testScriptTeardownActionSchema: ZodType<TestScriptTeardownAction> =
   backboneElementSchema.extend({
     operation: testScriptSetupActionOperationSchema,
-  })
+  });
 
 const testScriptTeardownSchema: ZodType<TestScriptTeardown> =
   backboneElementSchema.extend({
     action: testScriptTeardownActionSchema.array(),
-  })
+  });
 
 /**
  * Zod schema for FHIR TestScript resource (untyped version).
  */
 export const untypedTestScriptSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('TestScript').readonly(),
+    resourceType: z.literal("TestScript").readonly(),
     url: urlSchema,
     _url: elementSchema.optional(),
     identifier: identifierSchema.optional(),
@@ -300,12 +300,12 @@ export const untypedTestScriptSchema = z.lazy(() =>
     test: testScriptTestSchema.array().optional(),
     teardown: testScriptTeardownSchema.optional(),
   }),
-) satisfies ZodType<TestScript>
+) satisfies ZodType<TestScript>;
 
 /**
  * Zod schema for FHIR TestScript resource.
  */
-export const testScriptSchema: ZodType<TestScript> = untypedTestScriptSchema
+export const testScriptSchema: ZodType<TestScript> = untypedTestScriptSchema;
 
 /**
  * Wrapper class for FHIR TestScript resources.
@@ -321,6 +321,6 @@ export class FhirTestScript extends FhirDomainResource<TestScript> {
    * @returns A FhirTestScript instance containing the validated resource
    */
   public static parse(value: unknown): FhirTestScript {
-    return new FhirTestScript(testScriptSchema.parse(value))
+    return new FhirTestScript(testScriptSchema.parse(value));
   }
 }

@@ -6,34 +6,34 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Identifies the purpose of a naming system.
  * http://hl7.org/fhir/valueset-namingsystem-type.html
  */
 export const namingSystemKindSchema = z.enum([
-  'codesystem',
-  'identifier',
-  'root',
-])
+  "codesystem",
+  "identifier",
+  "root",
+]);
 
 /**
  * Identifies the purpose of a naming system.
  * http://hl7.org/fhir/valueset-namingsystem-type.html
  */
-export type NamingSystemKind = z.infer<typeof namingSystemKindSchema>
+export type NamingSystemKind = z.infer<typeof namingSystemKindSchema>;
 
 /**
  * Identifies the style of unique identifier used to identify a namespace.
  * http://hl7.org/fhir/valueset-namingsystem-identifier-type.html
  */
 export const namingSystemUniqueIdTypeSchema = z.enum([
-  'oid',
-  'uuid',
-  'uri',
-  'other',
-])
+  "oid",
+  "uuid",
+  "uri",
+  "other",
+]);
 
 /**
  * Identifies the style of unique identifier used to identify a namespace.
@@ -41,4 +41,4 @@ export const namingSystemUniqueIdTypeSchema = z.enum([
  */
 export type NamingSystemUniqueIdType = z.infer<
   typeof namingSystemUniqueIdTypeSchema
->
+>;

@@ -10,9 +10,9 @@ import {
   type QuestionnaireResponseItemAnswer,
   type QuestionnaireResponse,
   type QuestionnaireResponseItem,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   attachmentSchema,
   backboneElementSchema,
@@ -30,8 +30,8 @@ import {
   stringSchema,
   timeSchema,
   uriSchema,
-} from '../elements/index.js'
-import { questionnaireResponseStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { questionnaireResponseStatusSchema } from "../valueSets/index.js";
 
 const questionnaireResponseItemAnswerSchema: ZodType<QuestionnaireResponseItemAnswer> =
   backboneElementSchema.extend({
@@ -56,9 +56,9 @@ const questionnaireResponseItemAnswerSchema: ZodType<QuestionnaireResponseItemAn
     valueQuantity: quantitySchema.optional(),
     valueReference: referenceSchema.optional(),
     get item() {
-      return questionnaireResponseItemSchema.array().optional()
+      return questionnaireResponseItemSchema.array().optional();
     },
-  })
+  });
 
 const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
   backboneElementSchema.extend({
@@ -70,16 +70,16 @@ const questionnaireResponseItemSchema: ZodType<QuestionnaireResponseItem> =
     _text: elementSchema.optional(),
     answer: questionnaireResponseItemAnswerSchema.array().optional(),
     get item() {
-      return questionnaireResponseItemSchema.array().optional()
+      return questionnaireResponseItemSchema.array().optional();
     },
-  })
+  });
 
 /**
  * Zod schema for FHIR QuestionnaireResponse resource (untyped version).
  */
 export const untypedQuestionnaireResponseSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('QuestionnaireResponse').readonly(),
+    resourceType: z.literal("QuestionnaireResponse").readonly(),
     identifier: identifierSchema.optional(),
     basedOn: referenceSchema.array().optional(),
     partOf: referenceSchema.array().optional(),
@@ -95,13 +95,13 @@ export const untypedQuestionnaireResponseSchema = z.lazy(() =>
     source: referenceSchema.optional(),
     item: questionnaireResponseItemSchema.array().optional(),
   }),
-) satisfies ZodType<QuestionnaireResponse>
+) satisfies ZodType<QuestionnaireResponse>;
 
 /**
  * Zod schema for FHIR QuestionnaireResponse resource.
  */
 export const questionnaireResponseSchema: ZodType<QuestionnaireResponse> =
-  untypedQuestionnaireResponseSchema
+  untypedQuestionnaireResponseSchema;
 
 /**
  * Wrapper class for FHIR QuestionnaireResponse resources.
@@ -119,7 +119,7 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
   public static parse(value: unknown): FhirQuestionnaireResponse {
     return new FhirQuestionnaireResponse(
       questionnaireResponseSchema.parse(value),
-    )
+    );
   }
 
   // Properties
@@ -138,7 +138,7 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
    * ```
    */
   public get authoredDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.authored)
+    return FhirDomainResource.parseDateTime(this.value.authored);
   }
 
   // Methods
@@ -160,14 +160,14 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
   public uniqueResponseItem(
     linkIdPath: string[],
   ): QuestionnaireResponseItem | undefined {
-    const items = this.responseItems(linkIdPath)
+    const items = this.responseItems(linkIdPath);
     switch (items.length) {
       case 0:
-        return undefined
+        return undefined;
       case 1:
-        return items[0]
+        return items[0];
       default:
-        throw new Error(`Unexpected number of response items found.`)
+        throw new Error(`Unexpected number of response items found.`);
     }
   }
 
@@ -186,11 +186,11 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
    * ```
    */
   public responseItems(linkIdPath: string[]): QuestionnaireResponseItem[] {
-    const resultValue: QuestionnaireResponseItem[] = []
+    const resultValue: QuestionnaireResponseItem[] = [];
     for (const child of this.value.item ?? []) {
-      resultValue.push(...this.responseItemsRecursive(linkIdPath, child))
+      resultValue.push(...this.responseItemsRecursive(linkIdPath, child));
     }
-    return resultValue
+    return resultValue;
   }
 
   /**
@@ -206,26 +206,26 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
   ): QuestionnaireResponseItem[] {
     switch (linkIdPath.length) {
       case 0:
-        break
+        break;
       case 1:
         if (item.linkId === linkIdPath[0]) {
-          return [item]
+          return [item];
         }
-        break
+        break;
       default:
         if (item.linkId === linkIdPath[0]) {
-          const childLinkIds = linkIdPath.slice(1)
-          const resultValue: QuestionnaireResponseItem[] = []
+          const childLinkIds = linkIdPath.slice(1);
+          const resultValue: QuestionnaireResponseItem[] = [];
           for (const child of item.item ?? []) {
             resultValue.push(
               ...this.responseItemsRecursive(childLinkIds, child),
-            )
+            );
           }
-          return resultValue
+          return resultValue;
         }
-        break
+        break;
     }
-    return []
+    return [];
   }
 
   // Methods - Response items from leaf link id
@@ -250,14 +250,14 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
   public uniqueLeafResponseItem(
     linkId: string,
   ): QuestionnaireResponseItem | undefined {
-    const items = this.leafResponseItems(linkId)
+    const items = this.leafResponseItems(linkId);
     switch (items.length) {
       case 0:
-        return undefined
+        return undefined;
       case 1:
-        return items[0]
+        return items[0];
       default:
-        throw new Error('Unexpected number of leaf response items found.')
+        throw new Error("Unexpected number of leaf response items found.");
     }
   }
 
@@ -276,11 +276,11 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
    * ```
    */
   public leafResponseItems(linkId: string): QuestionnaireResponseItem[] {
-    const items: QuestionnaireResponseItem[] = []
+    const items: QuestionnaireResponseItem[] = [];
     for (const item of this.value.item ?? []) {
-      items.push(...this.leafResponseItemsRecursive(linkId, item))
+      items.push(...this.leafResponseItemsRecursive(linkId, item));
     }
-    return items
+    return items;
   }
 
   /**
@@ -294,14 +294,14 @@ export class FhirQuestionnaireResponse extends FhirDomainResource<QuestionnaireR
     linkId: string,
     item: QuestionnaireResponseItem,
   ): QuestionnaireResponseItem[] {
-    const children = item.item ?? []
+    const children = item.item ?? [];
     if (children.length === 0 && item.linkId === linkId) {
-      return [item]
+      return [item];
     }
-    const items: QuestionnaireResponseItem[] = []
+    const items: QuestionnaireResponseItem[] = [];
     for (const child of item.item ?? []) {
-      items.push(...this.leafResponseItemsRecursive(linkId, child))
+      items.push(...this.leafResponseItemsRecursive(linkId, child));
     }
-    return items
+    return items;
   }
 }

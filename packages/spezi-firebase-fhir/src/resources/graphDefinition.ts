@@ -11,9 +11,9 @@ import {
   type GraphDefinitionLinkTargetCompartment,
   type GraphDefinition,
   type GraphDefinitionLink,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -26,13 +26,13 @@ import {
   stringSchema,
   urlSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   compartmentDefinitionCodeSchema,
   graphDefinitionLinkTargetCompartmentRuleSchema,
   graphDefinitionLinkTargetCompartmentUseSchema,
   publicationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const graphDefinitionLinkTargetCompartmentSchema: ZodType<GraphDefinitionLinkTargetCompartment> =
   backboneElementSchema.extend({
@@ -46,13 +46,13 @@ const graphDefinitionLinkTargetCompartmentSchema: ZodType<GraphDefinitionLinkTar
     _rule: elementSchema.optional(),
     use: graphDefinitionLinkTargetCompartmentUseSchema,
     _use: elementSchema.optional(),
-  })
+  });
 
 const graphDefinitionLinkTargetSchema: ZodType<GraphDefinitionLinkTarget> =
   backboneElementSchema.extend({
     compartment: graphDefinitionLinkTargetCompartmentSchema.array().optional(),
     get link() {
-      return graphDefinitionLinkSchema.array().optional()
+      return graphDefinitionLinkSchema.array().optional();
     },
     params: stringSchema.optional(),
     _params: elementSchema.optional(),
@@ -60,7 +60,7 @@ const graphDefinitionLinkTargetSchema: ZodType<GraphDefinitionLinkTarget> =
     _profile: elementSchema.optional(),
     type: stringSchema,
     _type: elementSchema.optional(),
-  })
+  });
 
 const graphDefinitionLinkSchema: ZodType<GraphDefinitionLink> =
   backboneElementSchema.extend({
@@ -74,14 +74,14 @@ const graphDefinitionLinkSchema: ZodType<GraphDefinitionLink> =
     sliceName: stringSchema.optional(),
     _sliceName: elementSchema.optional(),
     target: graphDefinitionLinkTargetSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR GraphDefinition resource (untyped version).
  */
 export const untypedGraphDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('GraphDefinition').readonly(),
+    resourceType: z.literal("GraphDefinition").readonly(),
     contact: contactDetailSchema.array().optional(),
     date: dateTimeSchema.optional(),
     _date: elementSchema.optional(),
@@ -109,13 +109,13 @@ export const untypedGraphDefinitionSchema = z.lazy(() =>
     version: stringSchema.optional(),
     _version: elementSchema.optional(),
   }),
-) satisfies ZodType<GraphDefinition>
+) satisfies ZodType<GraphDefinition>;
 
 /**
  * Zod schema for FHIR GraphDefinition resource.
  */
 export const graphDefinitionSchema: ZodType<GraphDefinition> =
-  untypedGraphDefinitionSchema
+  untypedGraphDefinitionSchema;
 
 /**
  * Wrapper class for FHIR GraphDefinition resources.
@@ -131,6 +131,6 @@ export class FhirGraphDefinition extends FhirDomainResource<GraphDefinition> {
    * @returns A FhirGraphDefinition instance containing the validated resource
    */
   public static parse(value: unknown): FhirGraphDefinition {
-    return new FhirGraphDefinition(graphDefinitionSchema.parse(value))
+    return new FhirGraphDefinition(graphDefinitionSchema.parse(value));
   }
 }

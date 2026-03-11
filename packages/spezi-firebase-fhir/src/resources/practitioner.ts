@@ -10,10 +10,10 @@ import {
   type PractitionerQualification,
   type Coding,
   type Practitioner,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   attachmentSchema,
   humanNameSchema,
@@ -27,8 +27,8 @@ import {
   addressSchema,
   contactPointSchema,
   dateSchema,
-} from '../elements/index.js'
-import { administrativeGenderSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { administrativeGenderSchema } from "../valueSets/index.js";
 
 const practitionerQualificationSchema: ZodType<PractitionerQualification> =
   backboneElementSchema.extend({
@@ -36,14 +36,14 @@ const practitionerQualificationSchema: ZodType<PractitionerQualification> =
     code: codeableConceptSchema,
     period: periodSchema.optional(),
     issuer: referenceSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Practitioner resource (untyped version).
  */
 export const untypedPractitionerSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Practitioner').readonly(),
+    resourceType: z.literal("Practitioner").readonly(),
     identifier: identifierSchema.array().optional(),
     active: booleanSchema.optional(),
     _active: elementSchema.optional(),
@@ -58,13 +58,13 @@ export const untypedPractitionerSchema = z.lazy(() =>
     qualification: practitionerQualificationSchema.array().optional(),
     communication: codeableConceptSchema.array().optional(),
   }),
-) satisfies ZodType<Practitioner>
+) satisfies ZodType<Practitioner>;
 
 /**
  * Zod schema for FHIR Practitioner resource.
  */
 export const practitionerSchema: ZodType<Practitioner> =
-  untypedPractitionerSchema
+  untypedPractitionerSchema;
 
 /**
  * Wrapper class for FHIR Practitioner resources.
@@ -80,7 +80,7 @@ export class FhirPractitioner extends FhirDomainResource<Practitioner> {
    * @returns A FhirPractitioner instance
    */
   public static parse(value: unknown): FhirPractitioner {
-    return new FhirPractitioner(practitionerSchema.parse(value))
+    return new FhirPractitioner(practitionerSchema.parse(value));
   }
 
   // Properties
@@ -91,7 +91,7 @@ export class FhirPractitioner extends FhirDomainResource<Practitioner> {
    * @returns The birth date if available
    */
   public get birthDate(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.birthDate)
+    return FhirDomainResource.parseDate(this.value.birthDate);
   }
 
   /**
@@ -104,7 +104,7 @@ export class FhirPractitioner extends FhirDomainResource<Practitioner> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -117,7 +117,7 @@ export class FhirPractitioner extends FhirDomainResource<Practitioner> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -127,7 +127,7 @@ export class FhirPractitioner extends FhirDomainResource<Practitioner> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -137,7 +137,7 @@ export class FhirPractitioner extends FhirDomainResource<Practitioner> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 
   /**
@@ -146,7 +146,10 @@ export class FhirPractitioner extends FhirDomainResource<Practitioner> {
    * @returns Array of phone numbers
    */
   public get phoneNumbers(): string[] {
-    return FhirDomainResource.contactPointsBySystem(this.value.telecom, 'phone')
+    return FhirDomainResource.contactPointsBySystem(
+      this.value.telecom,
+      "phone",
+    );
   }
 
   /**
@@ -155,6 +158,9 @@ export class FhirPractitioner extends FhirDomainResource<Practitioner> {
    * @returns Array of email addresses
    */
   public get emailAddresses(): string[] {
-    return FhirDomainResource.contactPointsBySystem(this.value.telecom, 'email')
+    return FhirDomainResource.contactPointsBySystem(
+      this.value.telecom,
+      "email",
+    );
   }
 }

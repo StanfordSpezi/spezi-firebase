@@ -12,10 +12,10 @@ import {
   type InvoiceParticipant,
   type Coding,
   type Invoice,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   backboneElementSchema,
@@ -28,17 +28,17 @@ import {
   decimalSchema,
   dateTimeSchema,
   positiveIntSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   invoiceStatusSchema,
   priceComponentTypeSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const invoiceParticipantSchema: ZodType<InvoiceParticipant> =
   backboneElementSchema.extend({
     role: codeableConceptSchema.optional(),
     actor: referenceSchema,
-  })
+  });
 
 const invoiceLineItemPriceComponentSchema: ZodType<InvoiceLineItemPriceComponent> =
   backboneElementSchema.extend({
@@ -47,7 +47,7 @@ const invoiceLineItemPriceComponentSchema: ZodType<InvoiceLineItemPriceComponent
     code: codeableConceptSchema.optional(),
     factor: decimalSchema.optional(),
     amount: moneySchema.optional(),
-  })
+  });
 
 const invoiceLineItemSchema: ZodType<InvoiceLineItem> =
   backboneElementSchema.extend({
@@ -55,14 +55,14 @@ const invoiceLineItemSchema: ZodType<InvoiceLineItem> =
     chargeItemReference: referenceSchema.optional(),
     chargeItemCodeableConcept: codeableConceptSchema.optional(),
     priceComponent: invoiceLineItemPriceComponentSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Invoice resource (untyped version).
  */
 export const untypedInvoiceSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Invoice').readonly(),
+    resourceType: z.literal("Invoice").readonly(),
     identifier: identifierSchema.array().optional(),
     status: invoiceStatusSchema,
     _status: elementSchema.optional(),
@@ -84,12 +84,12 @@ export const untypedInvoiceSchema = z.lazy(() =>
     _paymentTerms: elementSchema.optional(),
     note: annotationSchema.array().optional(),
   }),
-) satisfies ZodType<Invoice>
+) satisfies ZodType<Invoice>;
 
 /**
  * Zod schema for FHIR Invoice resource.
  */
-export const invoiceSchema: ZodType<Invoice> = untypedInvoiceSchema
+export const invoiceSchema: ZodType<Invoice> = untypedInvoiceSchema;
 
 /**
  * Wrapper class for FHIR Invoice resources.
@@ -105,7 +105,7 @@ export class FhirInvoice extends FhirDomainResource<Invoice> {
    * @returns A FhirInvoice instance containing the validated resource
    */
   public static parse(value: unknown): FhirInvoice {
-    return new FhirInvoice(invoiceSchema.parse(value))
+    return new FhirInvoice(invoiceSchema.parse(value));
   }
 
   /**
@@ -114,7 +114,7 @@ export class FhirInvoice extends FhirDomainResource<Invoice> {
    * @returns The invoice date, or undefined if not set
    */
   public get date(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.date)
+    return FhirDomainResource.parseDateTime(this.value.date);
   }
 
   /**
@@ -127,7 +127,7 @@ export class FhirInvoice extends FhirDomainResource<Invoice> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -140,7 +140,7 @@ export class FhirInvoice extends FhirDomainResource<Invoice> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -150,7 +150,7 @@ export class FhirInvoice extends FhirDomainResource<Invoice> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -160,7 +160,7 @@ export class FhirInvoice extends FhirDomainResource<Invoice> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 
   /**
@@ -169,7 +169,7 @@ export class FhirInvoice extends FhirDomainResource<Invoice> {
    * @returns The invoice type display text, if available
    */
   public get typeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+    return FhirDomainResource.codeableConceptDisplay(this.value.type);
   }
 
   /**
@@ -178,6 +178,6 @@ export class FhirInvoice extends FhirDomainResource<Invoice> {
    * @returns Array of note texts
    */
   public get noteTexts(): string[] {
-    return FhirDomainResource.annotationTexts(this.value.note)
+    return FhirDomainResource.annotationTexts(this.value.note);
   }
 }

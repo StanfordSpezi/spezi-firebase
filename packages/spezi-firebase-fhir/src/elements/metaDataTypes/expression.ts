@@ -6,15 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Expression } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
+import { type Expression } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
 import {
   codeSchema,
   idSchema,
   stringSchema,
   uriSchema,
-} from '../dataTypes/primitiveTypes.js'
-import { elementSchema } from '../element.js'
+} from "../dataTypes/primitiveTypes.js";
+import { elementSchema } from "../element.js";
 
 /**
  * Zod schema for FHIR Expression data type.
@@ -32,9 +32,9 @@ export const untypedExpressionSchema = z.lazy(() =>
     reference: uriSchema.optional(),
     _reference: elementSchema.optional(),
   }),
-) satisfies ZodType<Expression>
+) satisfies ZodType<Expression>;
 
 /**
  * Zod schema for FHIR Expression data type.
  */
-export const expressionSchema: ZodType<Expression> = untypedExpressionSchema
+export const expressionSchema: ZodType<Expression> = untypedExpressionSchema;

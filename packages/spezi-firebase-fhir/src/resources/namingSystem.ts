@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type NamingSystemUniqueId, type NamingSystem } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type NamingSystemUniqueId, type NamingSystem } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -20,12 +20,12 @@ import {
   periodSchema,
   stringSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   namingSystemKindSchema,
   namingSystemUniqueIdTypeSchema,
   publicationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const namingSystemUniqueIdSchema: ZodType<NamingSystemUniqueId> =
   backboneElementSchema.extend({
@@ -38,14 +38,14 @@ const namingSystemUniqueIdSchema: ZodType<NamingSystemUniqueId> =
     comment: stringSchema.optional(),
     _comment: elementSchema.optional(),
     period: periodSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR NamingSystem resource (untyped version).
  */
 export const untypedNamingSystemSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('NamingSystem').readonly(),
+    resourceType: z.literal("NamingSystem").readonly(),
     name: stringSchema,
     _name: elementSchema.optional(),
     status: publicationStatusSchema,
@@ -68,13 +68,13 @@ export const untypedNamingSystemSchema = z.lazy(() =>
     _usage: elementSchema.optional(),
     uniqueId: namingSystemUniqueIdSchema.array(),
   }),
-) satisfies ZodType<NamingSystem>
+) satisfies ZodType<NamingSystem>;
 
 /**
  * Zod schema for FHIR NamingSystem resource.
  */
 export const namingSystemSchema: ZodType<NamingSystem> =
-  untypedNamingSystemSchema
+  untypedNamingSystemSchema;
 
 /**
  * Wrapper class for FHIR NamingSystem resources.
@@ -90,6 +90,6 @@ export class FhirNamingSystem extends FhirDomainResource<NamingSystem> {
    * @returns A FhirNamingSystem instance containing the validated resource
    */
   public static parse(value: unknown): FhirNamingSystem {
-    return new FhirNamingSystem(namingSystemSchema.parse(value))
+    return new FhirNamingSystem(namingSystemSchema.parse(value));
   }
 }

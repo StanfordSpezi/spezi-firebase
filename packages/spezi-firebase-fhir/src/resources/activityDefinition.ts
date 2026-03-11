@@ -11,9 +11,9 @@ import {
   type ActivityDefinitionParticipant,
   type ActivityDefinitionDynamicValue,
   type Coding,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -38,34 +38,34 @@ import {
   timingSchema,
   uriSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   actionParticipantTypeSchema,
   publicationStatusSchema,
   requestIntentSchema,
   requestPrioritySchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const activityDefinitionParticipantSchema: ZodType<ActivityDefinitionParticipant> =
   backboneElementSchema.extend({
     type: actionParticipantTypeSchema,
     _type: elementSchema.optional(),
     role: codeableConceptSchema.optional(),
-  })
+  });
 
 const activityDefinitionDynamicValueSchema: ZodType<ActivityDefinitionDynamicValue> =
   backboneElementSchema.extend({
     path: stringSchema,
     _path: elementSchema.optional(),
     expression: expressionSchema,
-  })
+  });
 
 /**
  * Zod schema for FHIR ActivityDefinition resource (untyped version).
  */
 export const untypedActivityDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ActivityDefinition').readonly(),
+    resourceType: z.literal("ActivityDefinition").readonly(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -145,13 +145,13 @@ export const untypedActivityDefinitionSchema = z.lazy(() =>
     _transform: elementSchema.optional(),
     dynamicValue: activityDefinitionDynamicValueSchema.array().optional(),
   }),
-) satisfies ZodType<ActivityDefinition>
+) satisfies ZodType<ActivityDefinition>;
 
 /**
  * Zod schema for FHIR ActivityDefinition resource.
  */
 export const activityDefinitionSchema: ZodType<ActivityDefinition> =
-  untypedActivityDefinitionSchema
+  untypedActivityDefinitionSchema;
 
 /**
  * Wrapper class for FHIR ActivityDefinition resources.
@@ -167,7 +167,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns A FhirActivityDefinition instance containing the validated resource
    */
   public static parse(value: unknown): FhirActivityDefinition {
-    return new FhirActivityDefinition(activityDefinitionSchema.parse(value))
+    return new FhirActivityDefinition(activityDefinitionSchema.parse(value));
   }
 
   /**
@@ -175,7 +175,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns The publication date, or undefined if not set
    */
   public get publicationDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.date)
+    return FhirDomainResource.parseDateTime(this.value.date);
   }
 
   /**
@@ -183,7 +183,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns The approval date, or undefined if not set
    */
   public get approvalDate(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.approvalDate)
+    return FhirDomainResource.parseDate(this.value.approvalDate);
   }
 
   /**
@@ -191,7 +191,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns The last review date, or undefined if not set
    */
   public get lastReviewDate(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.lastReviewDate)
+    return FhirDomainResource.parseDate(this.value.lastReviewDate);
   }
 
   /**
@@ -199,7 +199,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns The start date, or undefined if not set
    */
   public get effectivePeriodStart(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.start)
+    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.start);
   }
 
   /**
@@ -207,7 +207,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns The end date, or undefined if not set
    */
   public get effectivePeriodEnd(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.end)
+    return FhirDomainResource.parseDateTime(this.value.effectivePeriod?.end);
   }
 
   /**
@@ -219,7 +219,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
     return FhirDomainResource.periodIsActive(
       this.value.effectivePeriod,
       asOfDate,
-    )
+    );
   }
 
   /**
@@ -227,7 +227,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns Code display text
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -240,7 +240,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -253,7 +253,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -263,7 +263,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -273,7 +273,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 
   /**
@@ -281,7 +281,7 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns Array of topic display texts
    */
   public get topicDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.topic)
+    return FhirDomainResource.codeableConceptDisplays(this.value.topic);
   }
 
   /**
@@ -289,6 +289,6 @@ export class FhirActivityDefinition extends FhirDomainResource<ActivityDefinitio
    * @returns Array of jurisdiction display texts
    */
   public get jurisdictionDisplays(): string[] {
-    return FhirDomainResource.codeableConceptDisplays(this.value.jurisdiction)
+    return FhirDomainResource.codeableConceptDisplays(this.value.jurisdiction);
   }
 }

@@ -9,98 +9,105 @@
 import {
   createUnregisterDeviceHandler,
   type UnregisterDeviceInput,
-} from '../../src/functions/unregisterDevice.js'
-import { DevicePlatform } from '../../src/models/device.js'
-import { createStub } from '../utils/mockUtils.js'
+} from "../../src/functions/unregisterDevice.js";
+import { DevicePlatform } from "../../src/models/device.js";
+import { type NotificationService } from "../../src/services/notificationService.js";
+import { createStub } from "../utils/mockUtils.js";
 
-describe('unregisterDevice Function', () => {
-  let mockNotificationService: any
+describe("unregisterDevice Function", () => {
+  let mockNotificationService: {
+    unregisterDevice: jest.Mock;
+  } & Partial<NotificationService>;
   let unregisterDeviceHandler: (
     userId: string,
     data: UnregisterDeviceInput,
-  ) => Promise<undefined>
+  ) => Promise<undefined>;
 
   beforeEach(() => {
     mockNotificationService = {
       unregisterDevice: createStub(undefined).resolves(),
-    }
+    };
 
     unregisterDeviceHandler = createUnregisterDeviceHandler(
-      mockNotificationService,
-    )
-  })
+      mockNotificationService as unknown as NotificationService,
+    );
+  });
 
   afterEach(() => {
-    jest.restoreAllMocks()
-  })
+    jest.restoreAllMocks();
+  });
 
-  test('should validate and unregister a valid device request', async () => {
-    const userId = 'user123'
+  test("should validate and unregister a valid device request", async () => {
+    const userId = "user123";
     const input: UnregisterDeviceInput = {
-      notificationToken: 'token123',
+      notificationToken: "token123",
       platform: DevicePlatform.iOS,
-    }
+    };
 
-    await unregisterDeviceHandler(userId, input)
+    await unregisterDeviceHandler(userId, input);
 
-    expect(mockNotificationService.unregisterDevice).toHaveBeenCalledTimes(1)
-    expect(mockNotificationService.unregisterDevice.mock.calls[0][0]).toBe(
-      userId,
-    )
-    expect(mockNotificationService.unregisterDevice.mock.calls[0][1]).toBe(
-      input.notificationToken,
-    )
-    expect(mockNotificationService.unregisterDevice.mock.calls[0][2]).toBe(
-      input.platform,
-    )
-  })
+    expect(mockNotificationService.unregisterDevice).toHaveBeenCalledTimes(1);
 
-  test('should throw an error for missing notificationToken', async () => {
-    const userId = 'user123'
+    const calls = mockNotificationService.unregisterDevice.mock
+      .calls[0] as unknown[];
+    expect(calls[0]).toBe(userId);
+    expect(calls[1]).toBe(input.notificationToken);
+    expect(calls[2]).toBe(input.platform);
+  });
+
+  test("should throw an error for missing notificationToken", async () => {
+    const userId = "user123";
     const input = {
       platform: DevicePlatform.iOS,
-    }
+    };
 
     try {
-      await unregisterDeviceHandler(userId, input as any)
+      await unregisterDeviceHandler(
+        userId,
+        input as unknown as UnregisterDeviceInput,
+      );
       // Should not reach here
       // If we get here, the test should fail
-      expect(false).toBe(true)
+      expect(false).toBe(true);
     } catch (error) {
-      expect(error).toBeDefined()
-      expect(mockNotificationService.unregisterDevice).not.toHaveBeenCalled()
+      expect(error).toBeDefined();
+      expect(mockNotificationService.unregisterDevice).not.toHaveBeenCalled();
     }
-  })
+  });
 
-  test('should throw an error for missing platform', async () => {
-    const userId = 'user123'
+  test("should throw an error for missing platform", async () => {
+    const userId = "user123";
     const input = {
-      notificationToken: 'token123',
-    }
+      notificationToken: "token123",
+    };
 
     try {
-      await unregisterDeviceHandler(userId, input as any)
+      await unregisterDeviceHandler(
+        userId,
+        input as unknown as UnregisterDeviceInput,
+      );
       // Should not reach here
       // If we get here, the test should fail
-      expect(false).toBe(true)
+      expect(false).toBe(true);
     } catch (error) {
-      expect(error).toBeDefined()
-      expect(mockNotificationService.unregisterDevice).not.toHaveBeenCalled()
+      expect(error).toBeDefined();
+      expect(mockNotificationService.unregisterDevice).not.toHaveBeenCalled();
     }
-  })
+  });
 
-  test('should accept any string as platform', async () => {
-    const userId = 'user123'
+  test("should accept any string as platform", async () => {
+    const userId = "user123";
     const input: UnregisterDeviceInput = {
-      notificationToken: 'token123',
-      platform: 'CustomPlatform', // Can be any string now
-    }
+      notificationToken: "token123",
+      platform: "CustomPlatform", // Can be any string now
+    };
 
-    await unregisterDeviceHandler(userId, input)
+    await unregisterDeviceHandler(userId, input);
 
-    expect(mockNotificationService.unregisterDevice).toHaveBeenCalledTimes(1)
-    expect(mockNotificationService.unregisterDevice.mock.calls[0][2]).toBe(
-      'CustomPlatform',
-    )
-  })
-})
+    expect(mockNotificationService.unregisterDevice).toHaveBeenCalledTimes(1);
+
+    const calls = mockNotificationService.unregisterDevice.mock
+      .calls[0] as unknown[];
+    expect(calls[2]).toBe("CustomPlatform");
+  });
+});

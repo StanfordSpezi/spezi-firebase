@@ -6,21 +6,21 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * The lifecycle status of an artifact.
  * http://hl7.org/fhir/valueset-publication-status.html
  */
 export const publicationStatusSchema = z.enum([
-  'draft',
-  'active',
-  'retired',
-  'unknown',
-])
+  "draft",
+  "active",
+  "retired",
+  "unknown",
+]);
 
 /**
  * The lifecycle status of an artifact.
  * http://hl7.org/fhir/valueset-publication-status.html
  */
-export type PublicationStatus = z.infer<typeof publicationStatusSchema>
+export type PublicationStatus = z.infer<typeof publicationStatusSchema>;

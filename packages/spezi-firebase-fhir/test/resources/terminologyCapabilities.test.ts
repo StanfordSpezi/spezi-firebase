@@ -6,33 +6,33 @@
 // SPDX-License-Identifier: MIT
 //
 
-import fs from 'fs'
-import { expectTypeOf } from 'expect-type'
-import { type TerminologyCapabilities } from 'fhir/r4b.js'
-import { type z } from 'zod'
-import { jsonStringifyDeterministically } from './testHelpers.js'
+import fs from "fs";
+import { expectTypeOf } from "expect-type";
+import { type TerminologyCapabilities } from "fhir/r4b.js";
+import { type z } from "zod";
+import { jsonStringifyDeterministically } from "./testHelpers.js";
 import {
   FhirTerminologyCapabilities,
   type untypedTerminologyCapabilitiesSchema,
-} from '../../src/index.js'
+} from "../../src/index.js";
 
-describe('TerminologyCapabilities Resource', () => {
-  it('should validate FHIR TerminologyCapabilities from terminologyCapabilities.json', () => {
-    type Schema = z.infer<typeof untypedTerminologyCapabilitiesSchema>
-    expectTypeOf<Schema>().toExtend<TerminologyCapabilities>()
-    expectTypeOf<TerminologyCapabilities>().toExtend<Schema>()
+describe("TerminologyCapabilities Resource", () => {
+  it("should validate FHIR TerminologyCapabilities from terminologyCapabilities.json", () => {
+    type Schema = z.infer<typeof untypedTerminologyCapabilitiesSchema>;
+    expectTypeOf<Schema>().toExtend<TerminologyCapabilities>();
+    expectTypeOf<TerminologyCapabilities>().toExtend<Schema>();
 
     const data = fs.readFileSync(
-      'test/resources/terminologyCapabilities.json',
-      'utf-8',
-    )
-    const decodedJson = JSON.parse(data)
+      "test/resources/terminologyCapabilities.json",
+      "utf-8",
+    );
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
-      const parsedResource = FhirTerminologyCapabilities.parse(jsonValue).value
+      const parsedResource = FhirTerminologyCapabilities.parse(jsonValue).value;
       expect(jsonStringifyDeterministically(jsonValue)).toBe(
         jsonStringifyDeterministically(parsedResource),
-      )
-    })
-  })
-})
+      );
+    });
+  });
+});

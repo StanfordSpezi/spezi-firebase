@@ -24,9 +24,9 @@ import {
   type Coding,
   type Contract,
   type ContractTerm,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   attachmentSchema,
@@ -45,11 +45,11 @@ import {
   stringSchema,
   timingSchema,
   uriSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   contractPublicationStatusSchema,
   contractStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 // TODO: Separate schemas
 
@@ -59,13 +59,13 @@ const contractTermSecurityLabelSchema: ZodType<ContractTermSecurityLabel> =
     classification: codingSchema,
     category: codingSchema.array().optional(),
     control: codingSchema.array().optional(),
-  })
+  });
 
 const contractTermOfferPartySchema: ZodType<ContractTermOfferParty> =
   backboneElementSchema.extend({
     reference: referenceSchema.array().min(1),
     role: codeableConceptSchema,
-  })
+  });
 
 const contractTermOfferAnswerSchema: ZodType<ContractTermOfferAnswer> =
   backboneElementSchema.extend({
@@ -87,7 +87,7 @@ const contractTermOfferAnswerSchema: ZodType<ContractTermOfferAnswer> =
     valueCoding: codingSchema.optional(),
     valueQuantity: quantitySchema.optional(),
     valueReference: referenceSchema.optional(),
-  })
+  });
 
 const contractTermOfferSchema: ZodType<ContractTermOffer> =
   backboneElementSchema.extend({
@@ -103,7 +103,7 @@ const contractTermOfferSchema: ZodType<ContractTermOffer> =
     linkId: stringSchema.array().optional(),
     _linkId: elementSchema.array().optional(),
     securityLabelNumber: z.number().array().optional(),
-  })
+  });
 
 const contractTermAssetContextSchema: ZodType<ContractTermAssetContext> =
   backboneElementSchema.extend({
@@ -111,7 +111,7 @@ const contractTermAssetContextSchema: ZodType<ContractTermAssetContext> =
     code: codeableConceptSchema.array().optional(),
     text: stringSchema.optional(),
     _text: elementSchema.optional(),
-  })
+  });
 
 const contractTermAssetValuedItemSchema: ZodType<ContractTermAssetValuedItem> =
   backboneElementSchema.extend({
@@ -134,7 +134,7 @@ const contractTermAssetValuedItemSchema: ZodType<ContractTermAssetValuedItem> =
     linkId: stringSchema.array().optional(),
     _linkId: elementSchema.array().optional(),
     securityLabelNumber: z.number().array().optional(),
-  })
+  });
 
 const contractTermAssetSchema: ZodType<ContractTermAsset> =
   backboneElementSchema.extend({
@@ -156,13 +156,13 @@ const contractTermAssetSchema: ZodType<ContractTermAsset> =
     answer: backboneElementSchema.array().optional(),
     securityLabelNumber: z.number().array().optional(),
     valuedItem: contractTermAssetValuedItemSchema.array().optional(),
-  })
+  });
 
 const contractTermActionSubjectSchema: ZodType<ContractTermActionSubject> =
   backboneElementSchema.extend({
     reference: referenceSchema.array().min(1),
     role: codeableConceptSchema.optional(),
-  })
+  });
 
 const contractTermActionSchema: ZodType<ContractTermAction> =
   backboneElementSchema.extend({
@@ -197,7 +197,7 @@ const contractTermActionSchema: ZodType<ContractTermAction> =
     _reasonLinkId: elementSchema.array().optional(),
     note: annotationSchema.array().optional(),
     securityLabelNumber: z.number().array().optional(),
-  })
+  });
 
 const contractTermSchema: ZodType<ContractTerm> = backboneElementSchema.extend({
   identifier: identifierSchema.optional(),
@@ -215,9 +215,9 @@ const contractTermSchema: ZodType<ContractTerm> = backboneElementSchema.extend({
   asset: contractTermAssetSchema.array().optional(),
   action: contractTermActionSchema.array().optional(),
   get group() {
-    return contractTermSchema.array().optional()
+    return contractTermSchema.array().optional();
   },
-})
+});
 
 const contractContentDefinitionSchema: ZodType<ContractContentDefinition> =
   backboneElementSchema.extend({
@@ -230,38 +230,38 @@ const contractContentDefinitionSchema: ZodType<ContractContentDefinition> =
     _publicationStatus: elementSchema.optional(),
     copyright: z.string().optional(),
     _copyright: elementSchema.optional(),
-  })
+  });
 
 const contractSignerSchema: ZodType<ContractSigner> =
   backboneElementSchema.extend({
     type: codingSchema,
     party: referenceSchema,
     signature: signatureSchema.array().min(1),
-  })
+  });
 
 const contractFriendlySchema: ZodType<ContractFriendly> =
   backboneElementSchema.extend({
     contentAttachment: attachmentSchema.optional(),
     contentReference: referenceSchema.optional(),
-  })
+  });
 
 const contractLegalSchema: ZodType<ContractLegal> =
   backboneElementSchema.extend({
     contentAttachment: attachmentSchema.optional(),
     contentReference: referenceSchema.optional(),
-  })
+  });
 
 const contractRuleSchema: ZodType<ContractRule> = backboneElementSchema.extend({
   contentAttachment: attachmentSchema.optional(),
   contentReference: referenceSchema.optional(),
-})
+});
 
 /**
  * Zod schema for FHIR Contract resource (untyped version).
  */
 export const untypedContractSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Contract').readonly(),
+    resourceType: z.literal("Contract").readonly(),
     identifier: identifierSchema.array().optional(),
     url: uriSchema.optional(),
     _url: elementSchema.optional(),
@@ -307,12 +307,12 @@ export const untypedContractSchema = z.lazy(() =>
     legallyBindingAttachment: attachmentSchema.optional(),
     legallyBindingReference: referenceSchema.optional(),
   }),
-) satisfies ZodType<Contract>
+) satisfies ZodType<Contract>;
 
 /**
  * Zod schema for FHIR Contract resource.
  */
-export const contractSchema: ZodType<Contract> = untypedContractSchema
+export const contractSchema: ZodType<Contract> = untypedContractSchema;
 
 /**
  * Wrapper class for FHIR Contract resources.
@@ -328,7 +328,7 @@ export class FhirContract extends FhirDomainResource<Contract> {
    * @returns A FhirContract instance containing the validated resource
    */
   public static parse(value: unknown): FhirContract {
-    return new FhirContract(contractSchema.parse(value))
+    return new FhirContract(contractSchema.parse(value));
   }
 
   /**
@@ -336,7 +336,7 @@ export class FhirContract extends FhirDomainResource<Contract> {
    * @returns The issued date, or undefined if not set
    */
   public get issuedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.issued)
+    return FhirDomainResource.parseDateTime(this.value.issued);
   }
 
   /**
@@ -344,7 +344,7 @@ export class FhirContract extends FhirDomainResource<Contract> {
    * @returns The start date, or undefined if not set
    */
   public get appliesPeriodStart(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.applies?.start)
+    return FhirDomainResource.parseDateTime(this.value.applies?.start);
   }
 
   /**
@@ -352,7 +352,7 @@ export class FhirContract extends FhirDomainResource<Contract> {
    * @returns The end date, or undefined if not set
    */
   public get appliesPeriodEnd(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.applies?.end)
+    return FhirDomainResource.parseDateTime(this.value.applies?.end);
   }
 
   /**
@@ -361,7 +361,7 @@ export class FhirContract extends FhirDomainResource<Contract> {
    * @returns True if the contract is currently active
    */
   public isCurrentlyActive(asOfDate?: Date): boolean {
-    return FhirDomainResource.periodIsActive(this.value.applies, asOfDate)
+    return FhirDomainResource.periodIsActive(this.value.applies, asOfDate);
   }
 
   /**
@@ -369,7 +369,7 @@ export class FhirContract extends FhirDomainResource<Contract> {
    * @returns Type display text
    */
   public get typeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.type)
+    return FhirDomainResource.codeableConceptDisplay(this.value.type);
   }
 
   /**
@@ -382,7 +382,7 @@ export class FhirContract extends FhirDomainResource<Contract> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -395,7 +395,7 @@ export class FhirContract extends FhirDomainResource<Contract> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -405,7 +405,7 @@ export class FhirContract extends FhirDomainResource<Contract> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -415,6 +415,6 @@ export class FhirContract extends FhirDomainResource<Contract> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

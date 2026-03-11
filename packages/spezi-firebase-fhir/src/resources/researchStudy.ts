@@ -11,9 +11,9 @@ import {
   type ResearchStudy,
   type ResearchStudyArm,
   type ResearchStudyObjective,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -27,8 +27,8 @@ import {
   referenceSchema,
   relatedArtifactSchema,
   stringSchema,
-} from '../elements/index.js'
-import { researchStudyStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { researchStudyStatusSchema } from "../valueSets/index.js";
 
 const researchStudyArmSchema: ZodType<ResearchStudyArm> =
   backboneElementSchema.extend({
@@ -37,21 +37,21 @@ const researchStudyArmSchema: ZodType<ResearchStudyArm> =
     type: codeableConceptSchema.optional(),
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
-  })
+  });
 
 const researchStudyObjectiveSchema: ZodType<ResearchStudyObjective> =
   backboneElementSchema.extend({
     name: stringSchema.optional(),
     _name: elementSchema.optional(),
     type: codeableConceptSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ResearchStudy resource (untyped version).
  */
 export const untypedResearchStudySchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ResearchStudy').readonly(),
+    resourceType: z.literal("ResearchStudy").readonly(),
     identifier: identifierSchema.array().optional(),
     title: stringSchema.optional(),
     _title: elementSchema.optional(),
@@ -80,13 +80,13 @@ export const untypedResearchStudySchema = z.lazy(() =>
     arm: researchStudyArmSchema.array().optional(),
     objective: researchStudyObjectiveSchema.array().optional(),
   }),
-) satisfies ZodType<ResearchStudy>
+) satisfies ZodType<ResearchStudy>;
 
 /**
  * Zod schema for FHIR ResearchStudy resource.
  */
 export const researchStudySchema: ZodType<ResearchStudy> =
-  untypedResearchStudySchema
+  untypedResearchStudySchema;
 
 /**
  * Wrapper class for FHIR ResearchStudy resources.
@@ -102,7 +102,7 @@ export class FhirResearchStudy extends FhirDomainResource<ResearchStudy> {
    * @returns A FhirResearchStudy instance containing the validated resource
    */
   public static parse(value: unknown): FhirResearchStudy {
-    return new FhirResearchStudy(researchStudySchema.parse(value))
+    return new FhirResearchStudy(researchStudySchema.parse(value));
   }
 
   /**
@@ -115,7 +115,7 @@ export class FhirResearchStudy extends FhirDomainResource<ResearchStudy> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -128,7 +128,7 @@ export class FhirResearchStudy extends FhirDomainResource<ResearchStudy> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -138,7 +138,7 @@ export class FhirResearchStudy extends FhirDomainResource<ResearchStudy> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -148,6 +148,6 @@ export class FhirResearchStudy extends FhirDomainResource<ResearchStudy> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

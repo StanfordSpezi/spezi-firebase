@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { z } from 'zod'
-import { SchemaConverter } from './schemaConverter.js'
+import { z } from "zod";
+import { SchemaConverter } from "./schemaConverter.js";
 
 /**
  * Convert between ISO date strings and Date objects for Firestore.
@@ -15,22 +15,22 @@ import { SchemaConverter } from './schemaConverter.js'
 export const dateConverter = new SchemaConverter({
   schema: z.string().transform((string, context) => {
     try {
-      const date = new Date(string)
+      const date = new Date(string);
       if (isNaN(date.getTime())) {
         context.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'Invalid date',
-        })
-        return z.NEVER
+          code: "custom",
+          message: "Invalid date",
+        });
+        return z.NEVER;
       }
-      return date
+      return date;
     } catch (error) {
       context.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message: String(error),
-      })
-      return z.NEVER
+      });
+      return z.NEVER;
     }
   }),
   encode: (object) => object.toISOString(),
-})
+});

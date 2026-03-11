@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type Flag } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type Flag } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   codeableConceptSchema,
   domainResourceSchema,
@@ -16,15 +16,15 @@ import {
   identifierSchema,
   periodSchema,
   referenceSchema,
-} from '../elements/index.js'
-import { flagStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { flagStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR Flag resource (untyped version).
  */
 export const untypedFlagSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Flag').readonly(),
+    resourceType: z.literal("Flag").readonly(),
     identifier: identifierSchema.array().optional(),
     status: flagStatusSchema,
     _status: elementSchema.optional(),
@@ -35,12 +35,12 @@ export const untypedFlagSchema = z.lazy(() =>
     encounter: referenceSchema.optional(),
     author: referenceSchema.optional(),
   }),
-) satisfies ZodType<Flag>
+) satisfies ZodType<Flag>;
 
 /**
  * Zod schema for FHIR Flag resource.
  */
-export const flagSchema: ZodType<Flag> = untypedFlagSchema
+export const flagSchema: ZodType<Flag> = untypedFlagSchema;
 
 /**
  * Wrapper class for FHIR Flag resources.
@@ -53,7 +53,7 @@ export class FhirFlag extends FhirDomainResource<Flag> {
    * @returns A FhirFlag instance containing the validated resource
    */
   public static parse(value: unknown): FhirFlag {
-    return new FhirFlag(flagSchema.parse(value))
+    return new FhirFlag(flagSchema.parse(value));
   }
 
   /**
@@ -63,7 +63,7 @@ export class FhirFlag extends FhirDomainResource<Flag> {
    * @returns The code display text, if available
    */
   public get codeDisplay(): string | undefined {
-    return FhirDomainResource.codeableConceptDisplay(this.value.code)
+    return FhirDomainResource.codeableConceptDisplay(this.value.code);
   }
 
   /**
@@ -73,7 +73,7 @@ export class FhirFlag extends FhirDomainResource<Flag> {
    * @returns true if the period overlaps the given date
    */
   public periodIsActive(asOfDate?: Date): boolean {
-    return FhirDomainResource.periodIsActive(this.value.period, asOfDate)
+    return FhirDomainResource.periodIsActive(this.value.period, asOfDate);
   }
 
   /**
@@ -86,7 +86,7 @@ export class FhirFlag extends FhirDomainResource<Flag> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -99,7 +99,7 @@ export class FhirFlag extends FhirDomainResource<Flag> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -109,7 +109,7 @@ export class FhirFlag extends FhirDomainResource<Flag> {
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -119,6 +119,6 @@ export class FhirFlag extends FhirDomainResource<Flag> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

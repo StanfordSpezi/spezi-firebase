@@ -6,21 +6,21 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type DataRequirement } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { codeableConceptSchema } from '../dataTypes/codeableConcept.js'
-import { codingSchema } from '../dataTypes/coding.js'
-import { periodSchema } from '../dataTypes/period.js'
+import { type DataRequirement } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { codeableConceptSchema } from "../dataTypes/codeableConcept.js";
+import { codingSchema } from "../dataTypes/coding.js";
+import { periodSchema } from "../dataTypes/period.js";
 import {
   codeSchema,
   dateTimeSchema,
   positiveIntSchema,
   stringSchema,
-} from '../dataTypes/primitiveTypes.js'
-import { referenceSchema } from '../dataTypes/reference.js'
-import { elementSchema } from '../element.js'
+} from "../dataTypes/primitiveTypes.js";
+import { referenceSchema } from "../dataTypes/reference.js";
+import { elementSchema } from "../element.js";
 
-const dataRequirementSortDirectionSchema = z.enum(['ascending', 'descending'])
+const dataRequirementSortDirectionSchema = z.enum(["ascending", "descending"]);
 
 /**
  * Zod schema for FHIR DataRequirement data type.
@@ -64,10 +64,10 @@ export const untypedDataRequirementSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<DataRequirement>
+) satisfies ZodType<DataRequirement>;
 
 /**
  * Zod schema for FHIR DataRequirement data type.
  */
 export const dataRequirementSchema: ZodType<DataRequirement> =
-  untypedDataRequirementSchema
+  untypedDataRequirementSchema;

@@ -16,9 +16,9 @@ import {
   type ClinicalUseDefinitionUndesirableEffect,
   type ClinicalUseDefinitionWarning,
   type ClinicalUseDefinitionContraindicationOtherTherapy,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   codeableConceptSchema,
@@ -28,14 +28,14 @@ import {
   identifierSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
-import { clinicalUseDefinitionTypeSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { clinicalUseDefinitionTypeSchema } from "../valueSets/index.js";
 
 const clinicalUseDefinitionContraindicationOtherTherapySchema: ZodType<ClinicalUseDefinitionContraindicationOtherTherapy> =
   backboneElementSchema.extend({
     relationshipType: codeableConceptSchema,
     therapy: codeableReferenceSchema,
-  })
+  });
 
 const clinicalUseDefinitionContraindicationSchema: ZodType<ClinicalUseDefinitionContraindication> =
   backboneElementSchema.extend({
@@ -46,7 +46,7 @@ const clinicalUseDefinitionContraindicationSchema: ZodType<ClinicalUseDefinition
     otherTherapy: clinicalUseDefinitionContraindicationOtherTherapySchema
       .array()
       .optional(),
-  })
+  });
 
 const clinicalUseDefinitionIndicationSchema: ZodType<ClinicalUseDefinitionIndication> =
   backboneElementSchema.extend({
@@ -59,13 +59,13 @@ const clinicalUseDefinitionIndicationSchema: ZodType<ClinicalUseDefinitionIndica
     otherTherapy: clinicalUseDefinitionContraindicationOtherTherapySchema
       .array()
       .optional(),
-  })
+  });
 
 const clinicalUseDefinitionInteractionInteractantSchema: ZodType<ClinicalUseDefinitionInteractionInteractant> =
   backboneElementSchema.extend({
     itemReference: referenceSchema.optional(),
     itemCodeableConcept: codeableConceptSchema.optional(),
-  })
+  });
 
 const clinicalUseDefinitionInteractionSchema: ZodType<ClinicalUseDefinitionInteraction> =
   backboneElementSchema.extend({
@@ -76,28 +76,28 @@ const clinicalUseDefinitionInteractionSchema: ZodType<ClinicalUseDefinitionInter
     effect: codeableReferenceSchema.optional(),
     incidence: codeableConceptSchema.optional(),
     management: codeableConceptSchema.array().optional(),
-  })
+  });
 
 const clinicalUseDefinitionUndesirableEffectSchema: ZodType<ClinicalUseDefinitionUndesirableEffect> =
   backboneElementSchema.extend({
     symptomConditionEffect: codeableReferenceSchema.optional(),
     classification: codeableConceptSchema.optional(),
     frequencyOfOccurrence: codeableConceptSchema.optional(),
-  })
+  });
 
 const clinicalUseDefinitionWarningSchema: ZodType<ClinicalUseDefinitionWarning> =
   backboneElementSchema.extend({
     description: stringSchema.optional(),
     _description: elementSchema.optional(),
     code: codeableConceptSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ClinicalUseDefinition resource (untyped version).
  */
 export const untypedClinicalUseDefinitionSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ClinicalUseDefinition').readonly(),
+    resourceType: z.literal("ClinicalUseDefinition").readonly(),
     identifier: identifierSchema.array().optional(),
     type: clinicalUseDefinitionTypeSchema,
     _type: elementSchema.optional(),
@@ -111,13 +111,13 @@ export const untypedClinicalUseDefinitionSchema = z.lazy(() =>
     undesirableEffect: clinicalUseDefinitionUndesirableEffectSchema.optional(),
     warning: clinicalUseDefinitionWarningSchema.optional(),
   }),
-) satisfies ZodType<ClinicalUseDefinition>
+) satisfies ZodType<ClinicalUseDefinition>;
 
 /**
  * Zod schema for FHIR ClinicalUseDefinition resource.
  */
 export const clinicalUseDefinitionSchema: ZodType<ClinicalUseDefinition> =
-  untypedClinicalUseDefinitionSchema
+  untypedClinicalUseDefinitionSchema;
 
 /**
  * Wrapper class for FHIR ClinicalUseDefinition resources.
@@ -135,7 +135,7 @@ export class FhirClinicalUseDefinition extends FhirDomainResource<ClinicalUseDef
   public static parse(value: unknown): FhirClinicalUseDefinition {
     return new FhirClinicalUseDefinition(
       clinicalUseDefinitionSchema.parse(value),
-    )
+    );
   }
 
   /**
@@ -148,7 +148,7 @@ export class FhirClinicalUseDefinition extends FhirDomainResource<ClinicalUseDef
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -161,7 +161,7 @@ export class FhirClinicalUseDefinition extends FhirDomainResource<ClinicalUseDef
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -171,7 +171,7 @@ export class FhirClinicalUseDefinition extends FhirDomainResource<ClinicalUseDef
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -181,6 +181,6 @@ export class FhirClinicalUseDefinition extends FhirDomainResource<ClinicalUseDef
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

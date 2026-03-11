@@ -6,33 +6,33 @@
 // SPDX-License-Identifier: MIT
 //
 
-import fs from 'fs'
-import { expectTypeOf } from 'expect-type'
-import { type QuestionnaireResponse } from 'fhir/r4b.js'
-import { type z } from 'zod'
-import { jsonStringifyDeterministically } from './testHelpers.js'
+import fs from "fs";
+import { expectTypeOf } from "expect-type";
+import { type QuestionnaireResponse } from "fhir/r4b.js";
+import { type z } from "zod";
+import { jsonStringifyDeterministically } from "./testHelpers.js";
 import {
   FhirQuestionnaireResponse,
   type untypedQuestionnaireResponseSchema,
-} from '../../src/index.js'
+} from "../../src/index.js";
 
-describe('QuestionnaireResponse Resource', () => {
-  it('should validate FHIR questionnaireResponse from questionnaireResponses.json', () => {
-    type Schema = z.infer<typeof untypedQuestionnaireResponseSchema>
-    expectTypeOf<Schema>().toExtend<QuestionnaireResponse>()
-    expectTypeOf<QuestionnaireResponse>().toExtend<Schema>()
+describe("QuestionnaireResponse Resource", () => {
+  it("should validate FHIR questionnaireResponse from questionnaireResponses.json", () => {
+    type Schema = z.infer<typeof untypedQuestionnaireResponseSchema>;
+    expectTypeOf<Schema>().toExtend<QuestionnaireResponse>();
+    expectTypeOf<QuestionnaireResponse>().toExtend<Schema>();
 
     const data = fs.readFileSync(
-      'test/resources/questionnaireResponses.json',
-      'utf-8',
-    )
-    const decodedJson = JSON.parse(data)
+      "test/resources/questionnaireResponses.json",
+      "utf-8",
+    );
+    const decodedJson = JSON.parse(data) as Record<string, unknown>;
 
     Object.values(decodedJson).forEach((jsonValue: unknown) => {
-      const parsedResource = FhirQuestionnaireResponse.parse(jsonValue).value
+      const parsedResource = FhirQuestionnaireResponse.parse(jsonValue).value;
       expect(jsonStringifyDeterministically(jsonValue)).toBe(
         jsonStringifyDeterministically(parsedResource),
-      )
-    })
-  })
-})
+      );
+    });
+  });
+});

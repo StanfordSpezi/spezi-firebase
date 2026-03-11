@@ -13,9 +13,9 @@ import {
   type AuditEventEntityDetail,
   type AuditEventSource,
   type AuditEvent,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   base64BinarySchema,
@@ -30,7 +30,7 @@ import {
   referenceSchema,
   stringSchema,
   uriSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 
 const auditEventAgentNetworkSchema: ZodType<AuditEventAgentNetwork> =
   backboneElementSchema.extend({
@@ -38,7 +38,7 @@ const auditEventAgentNetworkSchema: ZodType<AuditEventAgentNetwork> =
     _address: elementSchema.optional(),
     type: codeSchema.optional(),
     _type: elementSchema.optional(),
-  })
+  });
 
 const auditEventAgentSchema: ZodType<AuditEventAgent> =
   backboneElementSchema.extend({
@@ -57,7 +57,7 @@ const auditEventAgentSchema: ZodType<AuditEventAgent> =
     media: codingSchema.optional(),
     network: auditEventAgentNetworkSchema.optional(),
     purposeOfUse: codeableConceptSchema.array().optional(),
-  })
+  });
 
 const auditEventSourceSchema: ZodType<AuditEventSource> =
   backboneElementSchema.extend({
@@ -65,7 +65,7 @@ const auditEventSourceSchema: ZodType<AuditEventSource> =
     _site: elementSchema.optional(),
     observer: referenceSchema,
     type: codingSchema.array().optional(),
-  })
+  });
 
 const auditEventEntityDetailSchema: ZodType<AuditEventEntityDetail> =
   backboneElementSchema.extend({
@@ -75,7 +75,7 @@ const auditEventEntityDetailSchema: ZodType<AuditEventEntityDetail> =
     _valueString: elementSchema.optional(),
     valueBase64Binary: base64BinarySchema.optional(),
     _valueBase64Binary: elementSchema.optional(),
-  })
+  });
 
 const auditEventEntitySchema: ZodType<AuditEventEntity> =
   backboneElementSchema.extend({
@@ -91,14 +91,14 @@ const auditEventEntitySchema: ZodType<AuditEventEntity> =
     query: base64BinarySchema.optional(),
     _query: elementSchema.optional(),
     detail: auditEventEntityDetailSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR AuditEvent resource (untyped version).
  */
 export const untypedAuditEventSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('AuditEvent').readonly(),
+    resourceType: z.literal("AuditEvent").readonly(),
     type: codingSchema,
     subtype: codingSchema.array().optional(),
     action: codeSchema.optional(),
@@ -115,12 +115,12 @@ export const untypedAuditEventSchema = z.lazy(() =>
     source: auditEventSourceSchema,
     entity: auditEventEntitySchema.array().optional(),
   }),
-) satisfies ZodType<AuditEvent>
+) satisfies ZodType<AuditEvent>;
 
 /**
  * Zod schema for FHIR AuditEvent resource.
  */
-export const auditEventSchema: ZodType<AuditEvent> = untypedAuditEventSchema
+export const auditEventSchema: ZodType<AuditEvent> = untypedAuditEventSchema;
 
 /**
  * Wrapper class for FHIR AuditEvent resources.
@@ -134,7 +134,7 @@ export class FhirAuditEvent extends FhirDomainResource<AuditEvent> {
    * @returns A FhirAuditEvent instance containing the validated resource
    */
   public static parse(value: unknown): FhirAuditEvent {
-    return new FhirAuditEvent(auditEventSchema.parse(value))
+    return new FhirAuditEvent(auditEventSchema.parse(value));
   }
 
   /**
@@ -149,6 +149,6 @@ export class FhirAuditEvent extends FhirDomainResource<AuditEvent> {
    * ```
    */
   public get recordedDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.recorded)
+    return FhirDomainResource.parseDateTime(this.value.recorded);
   }
 }

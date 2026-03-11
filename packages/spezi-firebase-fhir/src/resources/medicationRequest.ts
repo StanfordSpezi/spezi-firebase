@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type MedicationRequest } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type Coding, type MedicationRequest } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   annotationSchema,
   backboneElementSchema,
@@ -25,19 +25,19 @@ import {
   referenceSchema,
   unsignedIntSchema,
   uriSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   medicationRequestIntentSchema,
   medicationRequestStatusSchema,
   requestPrioritySchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR MedicationRequest resource (untyped version).
  */
 export const untypedMedicationRequestSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('MedicationRequest'),
+    resourceType: z.literal("MedicationRequest"),
     identifier: identifierSchema.array().optional(),
     status: medicationRequestStatusSchema,
     _status: elementSchema.optional(),
@@ -102,13 +102,13 @@ export const untypedMedicationRequestSchema = z.lazy(() =>
     _reportedBoolean: elementSchema.optional(),
     reportedReference: referenceSchema.optional(),
   }),
-) satisfies ZodType<MedicationRequest>
+) satisfies ZodType<MedicationRequest>;
 
 /**
  * Zod schema for FHIR MedicationRequest resource.
  */
 export const medicationRequestSchema: ZodType<MedicationRequest> =
-  untypedMedicationRequestSchema
+  untypedMedicationRequestSchema;
 
 /**
  * Wrapper class for FHIR MedicationRequest resources.
@@ -124,7 +124,7 @@ export class FhirMedicationRequest extends FhirDomainResource<MedicationRequest>
    * @returns A FhirMedicationRequest instance
    */
   public static parse(value: unknown): FhirMedicationRequest {
-    return new FhirMedicationRequest(medicationRequestSchema.parse(value))
+    return new FhirMedicationRequest(medicationRequestSchema.parse(value));
   }
 
   // Properties
@@ -140,7 +140,7 @@ export class FhirMedicationRequest extends FhirDomainResource<MedicationRequest>
    * ```
    */
   public get authoredDate(): Date | undefined {
-    return FhirDomainResource.parseDateTime(this.value.authoredOn)
+    return FhirDomainResource.parseDateTime(this.value.authoredOn);
   }
 
   /**
@@ -153,7 +153,7 @@ export class FhirMedicationRequest extends FhirDomainResource<MedicationRequest>
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -166,7 +166,7 @@ export class FhirMedicationRequest extends FhirDomainResource<MedicationRequest>
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -176,7 +176,7 @@ export class FhirMedicationRequest extends FhirDomainResource<MedicationRequest>
    * @returns Array of identifier values matching any provided Coding
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -186,6 +186,6 @@ export class FhirMedicationRequest extends FhirDomainResource<MedicationRequest>
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

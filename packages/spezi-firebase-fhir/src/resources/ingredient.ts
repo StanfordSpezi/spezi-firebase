@@ -12,9 +12,9 @@ import {
   type IngredientSubstance,
   type IngredientSubstanceStrength,
   type IngredientSubstanceStrengthReferenceStrength,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -27,11 +27,11 @@ import {
   ratioRangeSchema,
   referenceSchema,
   stringSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   ingredientStatusSchema,
   ingredientManufacturerRoleSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const ingredientSubstanceStrengthReferenceStrengthSchema: ZodType<IngredientSubstanceStrengthReferenceStrength> =
   backboneElementSchema.extend({
@@ -41,7 +41,7 @@ const ingredientSubstanceStrengthReferenceStrengthSchema: ZodType<IngredientSubs
     strengthRatio: ratioSchema.optional(),
     strengthRatioRange: ratioRangeSchema.optional(),
     substance: codeableReferenceSchema.optional(),
-  })
+  });
 
 const ingredientSubstanceStrengthSchema: ZodType<IngredientSubstanceStrength> =
   backboneElementSchema.extend({
@@ -59,27 +59,27 @@ const ingredientSubstanceStrengthSchema: ZodType<IngredientSubstanceStrength> =
     _textConcentration: elementSchema.optional(),
     textPresentation: stringSchema.optional(),
     _textPresentation: elementSchema.optional(),
-  })
+  });
 
 const ingredientSubstanceSchema: ZodType<IngredientSubstance> =
   backboneElementSchema.extend({
     code: codeableReferenceSchema,
     strength: ingredientSubstanceStrengthSchema.array().optional(),
-  })
+  });
 
 const ingredientManufacturerSchema: ZodType<IngredientManufacturer> =
   backboneElementSchema.extend({
     manufacturer: referenceSchema,
     role: ingredientManufacturerRoleSchema.optional(),
     _role: elementSchema.optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR Ingredient resource (untyped version).
  */
 export const untypedIngredientSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Ingredient').readonly(),
+    resourceType: z.literal("Ingredient").readonly(),
     allergenicIndicator: booleanSchema.optional(),
     _allergenicIndicator: elementSchema.optional(),
     for: referenceSchema.array().optional(),
@@ -91,12 +91,12 @@ export const untypedIngredientSchema = z.lazy(() =>
     _status: elementSchema.optional(),
     substance: ingredientSubstanceSchema,
   }),
-) satisfies ZodType<Ingredient>
+) satisfies ZodType<Ingredient>;
 
 /**
  * Zod schema for FHIR Ingredient resource.
  */
-export const ingredientSchema: ZodType<Ingredient> = untypedIngredientSchema
+export const ingredientSchema: ZodType<Ingredient> = untypedIngredientSchema;
 
 /**
  * Wrapper class for FHIR Ingredient resources.
@@ -112,6 +112,6 @@ export class FhirIngredient extends FhirDomainResource<Ingredient> {
    * @returns A FhirIngredient instance containing the validated resource
    */
   public static parse(value: unknown): FhirIngredient {
-    return new FhirIngredient(ingredientSchema.parse(value))
+    return new FhirIngredient(ingredientSchema.parse(value));
   }
 }

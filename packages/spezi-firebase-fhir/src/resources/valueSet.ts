@@ -17,9 +17,9 @@ import {
   type ValueSetComposeInclude,
   type ValueSetComposeIncludeConcept,
   type ValueSetComposeIncludeFilter,
-} from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+} from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   backboneElementSchema,
   booleanSchema,
@@ -35,11 +35,11 @@ import {
   stringSchema,
   urlSchema,
   usageContextSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   filterOperatorSchema,
   publicationStatusSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const valueSetComposeIncludeConceptDesignationSchema: ZodType<ValueSetComposeIncludeConceptDesignation> =
   backboneElementSchema.extend({
@@ -48,7 +48,7 @@ const valueSetComposeIncludeConceptDesignationSchema: ZodType<ValueSetComposeInc
     use: codingSchema.optional(),
     value: stringSchema,
     _value: elementSchema.optional(),
-  })
+  });
 
 const valueSetExpansionContainsSchema: ZodType<ValueSetExpansionContains> =
   backboneElementSchema.extend({
@@ -68,9 +68,9 @@ const valueSetExpansionContainsSchema: ZodType<ValueSetExpansionContains> =
       .array()
       .optional(),
     get contains() {
-      return valueSetExpansionContainsSchema.array().optional()
+      return valueSetExpansionContainsSchema.array().optional();
     },
-  })
+  });
 
 const valueSetComposeIncludeConceptSchema: ZodType<ValueSetComposeIncludeConcept> =
   backboneElementSchema.extend({
@@ -81,7 +81,7 @@ const valueSetComposeIncludeConceptSchema: ZodType<ValueSetComposeIncludeConcept
     designation: valueSetComposeIncludeConceptDesignationSchema
       .array()
       .optional(),
-  })
+  });
 
 const valueSetComposeIncludeFilterSchema: ZodType<ValueSetComposeIncludeFilter> =
   backboneElementSchema.extend({
@@ -91,7 +91,7 @@ const valueSetComposeIncludeFilterSchema: ZodType<ValueSetComposeIncludeFilter> 
     _op: elementSchema.optional(),
     value: stringSchema,
     _value: elementSchema.optional(),
-  })
+  });
 
 const valueSetComposeIncludeSchema: ZodType<ValueSetComposeInclude> =
   backboneElementSchema.extend({
@@ -103,7 +103,7 @@ const valueSetComposeIncludeSchema: ZodType<ValueSetComposeInclude> =
     filter: valueSetComposeIncludeFilterSchema.array().optional(),
     valueSet: urlSchema.array().optional(),
     _valueSet: elementSchema.array().optional(),
-  })
+  });
 
 const valueSetComposeSchema: ZodType<ValueSetCompose> =
   backboneElementSchema.extend({
@@ -113,7 +113,7 @@ const valueSetComposeSchema: ZodType<ValueSetCompose> =
     _inactive: elementSchema.optional(),
     include: valueSetComposeIncludeSchema.array(),
     exclude: valueSetComposeIncludeSchema.array().optional(),
-  })
+  });
 
 const valueSetExpansionParameterSchema: ZodType<ValueSetExpansionParameter> =
   backboneElementSchema.extend({
@@ -131,7 +131,7 @@ const valueSetExpansionParameterSchema: ZodType<ValueSetExpansionParameter> =
     _valueCode: elementSchema.optional(),
     valueDateTime: dateTimeSchema.optional(),
     _valueDateTime: elementSchema.optional(),
-  })
+  });
 
 const valueSetExpansionSchema: ZodType<ValueSetExpansion> =
   backboneElementSchema.extend({
@@ -143,14 +143,14 @@ const valueSetExpansionSchema: ZodType<ValueSetExpansion> =
     offset: intSchema.optional(),
     parameter: valueSetExpansionParameterSchema.array().optional(),
     contains: valueSetExpansionContainsSchema.array().optional(),
-  })
+  });
 
 /**
  * Zod schema for FHIR ValueSet resource (untyped version).
  */
 export const untypedValueSetSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('ValueSet').readonly(),
+    resourceType: z.literal("ValueSet").readonly(),
     url: urlSchema.optional(),
     _url: elementSchema.optional(),
     identifier: identifierSchema.array().optional(),
@@ -182,12 +182,12 @@ export const untypedValueSetSchema = z.lazy(() =>
     compose: valueSetComposeSchema.optional(),
     expansion: valueSetExpansionSchema.optional(),
   }),
-) satisfies ZodType<ValueSet>
+) satisfies ZodType<ValueSet>;
 
 /**
  * Zod schema for FHIR ValueSet resource.
  */
-export const valueSetSchema: ZodType<ValueSet> = untypedValueSetSchema
+export const valueSetSchema: ZodType<ValueSet> = untypedValueSetSchema;
 
 /**
  * Wrapper class for FHIR ValueSet resources.
@@ -203,7 +203,7 @@ export class FhirValueSet extends FhirDomainResource<ValueSet> {
    * @returns A FhirValueSet instance containing the validated resource
    */
   public static parse(value: unknown): FhirValueSet {
-    return new FhirValueSet(valueSetSchema.parse(value))
+    return new FhirValueSet(valueSetSchema.parse(value));
   }
 
   /**
@@ -216,7 +216,7 @@ export class FhirValueSet extends FhirDomainResource<ValueSet> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -229,7 +229,7 @@ export class FhirValueSet extends FhirDomainResource<ValueSet> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -239,7 +239,7 @@ export class FhirValueSet extends FhirDomainResource<ValueSet> {
    * @returns Array of identifier values from matching types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -249,6 +249,6 @@ export class FhirValueSet extends FhirDomainResource<ValueSet> {
    * @returns The first matching identifier value, or undefined if none found
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

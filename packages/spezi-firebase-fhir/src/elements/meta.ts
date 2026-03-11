@@ -6,15 +6,15 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Meta } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { codingSchema } from './dataTypes/coding.js'
+import { type Meta } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { codingSchema } from "./dataTypes/coding.js";
 import {
   idSchema,
   instantSchema,
   uriSchema,
-} from './dataTypes/primitiveTypes.js'
-import { elementSchema } from './element.js'
+} from "./dataTypes/primitiveTypes.js";
+import { elementSchema } from "./element.js";
 
 /**
  * Zod schema for FHIR Meta data type.
@@ -32,9 +32,9 @@ export const untypedMetaSchema = z.lazy(() =>
     security: codingSchema.array().optional(),
     tag: codingSchema.array().optional(),
   }),
-) satisfies ZodType<Meta>
+) satisfies ZodType<Meta>;
 
 /**
  * Zod schema for FHIR Meta data type.
  */
-export const metaSchema: ZodType<Meta> = untypedMetaSchema
+export const metaSchema: ZodType<Meta> = untypedMetaSchema;

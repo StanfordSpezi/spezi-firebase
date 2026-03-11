@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type Coding, type InsurancePlan } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
-import { domainResourceSchema } from '../elements/domainResource.js'
+import { type Coding, type InsurancePlan } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
+import { domainResourceSchema } from "../elements/domainResource.js";
 import {
   identifierSchema,
   backboneElementSchema,
@@ -24,15 +24,15 @@ import {
   quantitySchema,
   moneySchema,
   positiveIntSchema,
-} from '../elements/index.js'
-import { insurancePlanStatusSchema } from '../valueSets/index.js'
+} from "../elements/index.js";
+import { insurancePlanStatusSchema } from "../valueSets/index.js";
 
 /**
  * Zod schema for FHIR InsurancePlan resource (untyped version).
  */
 export const untypedInsurancePlanSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('InsurancePlan').readonly(),
+    resourceType: z.literal("InsurancePlan").readonly(),
     identifier: identifierSchema.array().optional(),
     status: insurancePlanStatusSchema.optional(),
     _status: elementSchema.optional(),
@@ -118,13 +118,13 @@ export const untypedInsurancePlanSchema = z.lazy(() =>
       .array()
       .optional(),
   }),
-) satisfies ZodType<InsurancePlan>
+) satisfies ZodType<InsurancePlan>;
 
 /**
  * Zod schema for FHIR InsurancePlan resource.
  */
 export const insurancePlanSchema: ZodType<InsurancePlan> =
-  untypedInsurancePlanSchema
+  untypedInsurancePlanSchema;
 
 /**
  * Wrapper class for FHIR InsurancePlan resources.
@@ -140,7 +140,7 @@ export class FhirInsurancePlan extends FhirDomainResource<InsurancePlan> {
    * @returns A FhirInsurancePlan instance containing the validated resource
    */
   public static parse(value: unknown): FhirInsurancePlan {
-    return new FhirInsurancePlan(insurancePlanSchema.parse(value))
+    return new FhirInsurancePlan(insurancePlanSchema.parse(value));
   }
 
   /**
@@ -153,7 +153,7 @@ export class FhirInsurancePlan extends FhirDomainResource<InsurancePlan> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -166,7 +166,7 @@ export class FhirInsurancePlan extends FhirDomainResource<InsurancePlan> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -176,7 +176,7 @@ export class FhirInsurancePlan extends FhirDomainResource<InsurancePlan> {
    * @returns Array of identifier values matching the specified types
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -186,6 +186,6 @@ export class FhirInsurancePlan extends FhirDomainResource<InsurancePlan> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }

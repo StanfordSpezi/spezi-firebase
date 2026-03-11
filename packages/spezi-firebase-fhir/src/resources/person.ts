@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import { type PersonLink, type Coding, type Person } from 'fhir/r4b.js'
-import { z, type ZodType } from 'zod'
-import { FhirDomainResource } from './fhirDomainResource.js'
+import { type PersonLink, type Coding, type Person } from "fhir/r4b.js";
+import { z, type ZodType } from "zod";
+import { FhirDomainResource } from "./fhirDomainResource.js";
 import {
   addressSchema,
   attachmentSchema,
@@ -21,24 +21,24 @@ import {
   humanNameSchema,
   identifierSchema,
   referenceSchema,
-} from '../elements/index.js'
+} from "../elements/index.js";
 import {
   administrativeGenderSchema,
   identityAssuranceLevelSchema,
-} from '../valueSets/index.js'
+} from "../valueSets/index.js";
 
 const personLinkSchema: ZodType<PersonLink> = backboneElementSchema.extend({
   target: referenceSchema,
   assurance: identityAssuranceLevelSchema.optional(),
   _assurance: elementSchema.optional(),
-})
+});
 
 /**
  * Zod schema for FHIR Person resource (untyped version).
  */
 export const untypedPersonSchema = z.lazy(() =>
   domainResourceSchema.extend({
-    resourceType: z.literal('Person').readonly(),
+    resourceType: z.literal("Person").readonly(),
     identifier: identifierSchema.array().optional(),
     name: humanNameSchema.array().optional(),
     telecom: contactPointSchema.array().optional(),
@@ -52,12 +52,12 @@ export const untypedPersonSchema = z.lazy(() =>
     active: booleanSchema.optional(),
     link: personLinkSchema.array().optional(),
   }),
-) satisfies ZodType<Person>
+) satisfies ZodType<Person>;
 
 /**
  * Zod schema for FHIR Person resource.
  */
-export const personSchema: ZodType<Person> = untypedPersonSchema
+export const personSchema: ZodType<Person> = untypedPersonSchema;
 
 /**
  * Wrapper class for FHIR Person resources.
@@ -71,7 +71,7 @@ export class FhirPerson extends FhirDomainResource<Person> {
    * @returns A FhirPerson instance containing the validated resource
    */
   public static parse(value: unknown): FhirPerson {
-    return new FhirPerson(personSchema.parse(value))
+    return new FhirPerson(personSchema.parse(value));
   }
 
   /**
@@ -80,7 +80,7 @@ export class FhirPerson extends FhirDomainResource<Person> {
    * @returns The birth date if available
    */
   public get birthDate(): Date | undefined {
-    return FhirDomainResource.parseDate(this.value.birthDate)
+    return FhirDomainResource.parseDate(this.value.birthDate);
   }
 
   /**
@@ -93,7 +93,7 @@ export class FhirPerson extends FhirDomainResource<Person> {
     return FhirDomainResource.identifiersBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -106,7 +106,7 @@ export class FhirPerson extends FhirDomainResource<Person> {
     return FhirDomainResource.identifierBySystem(
       this.value.identifier,
       ...system,
-    )
+    );
   }
 
   /**
@@ -116,7 +116,7 @@ export class FhirPerson extends FhirDomainResource<Person> {
    * @returns Array of identifier values matching any provided type
    */
   public identifiersByType(...type: Coding[]): string[] {
-    return FhirDomainResource.identifiersByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifiersByType(this.value.identifier, ...type);
   }
 
   /**
@@ -126,6 +126,6 @@ export class FhirPerson extends FhirDomainResource<Person> {
    * @returns The first matching identifier value, or undefined if none match
    */
   public identifierByType(...type: Coding[]): string | undefined {
-    return FhirDomainResource.identifierByType(this.value.identifier, ...type)
+    return FhirDomainResource.identifierByType(this.value.identifier, ...type);
   }
 }
