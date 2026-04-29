@@ -46,9 +46,5 @@
     "prettier": "^3",
     "typedoc": "^0.25",
     "typescript": "^5"
-  },
-  "peerDependencies": {
-    "@types/fhir": "^0.0.41",
-    "zod": "^4.0.5"
   }
 }
