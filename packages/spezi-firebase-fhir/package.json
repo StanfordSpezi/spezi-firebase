@@ -41,10 +41,10 @@
     "LICENSE"
   ],
   "dependencies": {
-    "zod": "^4.0.5",
-    "@types/fhir": "^0.0.41"
+    "zod": "^4.0.5"
   },
   "devDependencies": {
+    "@types/fhir": "^0.0.41",
     "@types/jest": "^29.5.3",
     "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^7",

@@ -34,6 +34,7 @@
     "docs:ci": "typedoc --out ./out/docs --githubPages true"
   },
   "devDependencies": {
+    "@types/fhir": "^0.0.41",
     "@total-typescript/ts-reset": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
@@ -46,9 +47,5 @@
     "prettier": "^3",
     "typedoc": "^0.25",
     "typescript": "^5"
-  },
-  "peerDependencies": {
-    "@types/fhir": "^0.0.41",
-    "zod": "^4.0.5"
   }
 }
